@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>신영이노베이션 — RE:Think Innovation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─── NEXTSENSE "SLEEP DEEP" COLOR TOKENS ─── */
+:root {
+  /* Midnight sky backgrounds */
+  --bg:        #141928;
+  --bg-2:      #1a2032;
+  --bg-3:      #20263c;
+  --bg-4:      #262e48;
+  --bg-5:      #2c3652;
+
+  /* Borders — soft starlight */
+  --border:    rgba(150,170,255,.28);
+  --border-2:  rgba(150,170,255,.16);
+  --border-glow: rgba(160,180,255,.5);
+
+  /* Foreground */
+  --fg:        #f4f6ff;
+  --fg-2:      #bdc9e4;
+  --fg-3:      #8494b8;
+  --fg-4:      #3d4e72;
+
+  /* Accent palette — deep-sleep purples & indigo */
+  --indigo:    #6080fa;
+  --indigo-l:  #90aaff;
+  --indigo-d:  #2e4acc;
+  --violet:    #8f72f7;
+  --violet-l:  #b89aff;
+  --teal:      #4dd8c2;
+  --teal-l:    #7aeedd;
+  --lavender:  #d0c4ff;
+  --silver:    #c8d0f0;
+  --glow-a:    rgba(96,128,250,.28);
+  --glow-b:    rgba(143,114,247,.24);
+  --glow-c:    rgba(62,207,184,.15);
+
+  --font: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+
+  --r-sm: 6px; --r-md: 12px; --r-lg: 16px; --r-xl: 24px;
+  --t: all .2s cubic-bezier(.4,0,.2,1);
+}
+
+*, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
+html { scroll-behavior:smooth; color-scheme:dark; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--fg);
+  font-size: 15px; line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+a { color:inherit; text-decoration:none; }
+button { font-family:inherit; cursor:pointer; }
+
+/* ─── STAR FIELD BACKGROUND ─── */
+body::before {
+  content:'';
+  position:fixed; inset:0; z-index:0; pointer-events:none;
+  background-image:
+    radial-gradient(1px 1px at 15% 25%, rgba(210,220,255,.55) 0%, transparent 100%),
+    radial-gradient(1px 1px at 60% 10%, rgba(210,220,255,.45) 0%, transparent 100%),
+    radial-gradient(1.5px 1.5px at 80% 60%, rgba(210,220,255,.38) 0%, transparent 100%),
+    radial-gradient(1px 1px at 35% 70%, rgba(210,220,255,.45) 0%, transparent 100%),
+    radial-gradient(1px 1px at 90% 30%, rgba(210,220,255,.35) 0%, transparent 100%),
+    radial-gradient(1px 1px at 45% 90%, rgba(210,220,255,.4) 0%, transparent 100%),
+    radial-gradient(2px 2px at 5% 50%, rgba(124,95,245,.5) 0%, transparent 100%),
+    radial-gradient(2px 2px at 75% 80%, rgba(79,110,247,.4) 0%, transparent 100%),
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(79,110,247,.06) 0%, transparent 70%);
+}
+
+/* ─── NAV ─── */
+.nav {
+  position:sticky; top:0; z-index:100;
+  background:rgba(15,19,32,.88);
+  backdrop-filter:saturate(180%) blur(20px);
+  border-bottom:1px solid var(--border);
+  height:64px; display:flex; align-items:center;
+}
+.nav-inner {
+  width:100%; max-width:1200px; margin:0 auto; padding:0 32px;
+  display:flex; align-items:center; justify-content:space-between;
+  position:relative; z-index:1;
+}
+.nav-logo {
+  font-size:16px; font-weight:600; letter-spacing:-.02em; color:var(--fg);
+  display:flex; align-items:center; gap:10px; cursor:pointer;
+}
+.nav-logo-gem {
+  width:24px; height:24px; border-radius:6px;
+  background: linear-gradient(135deg, var(--indigo), var(--violet));
+  box-shadow: 0 0 12px var(--glow-a);
+  display:flex; align-items:center; justify-content:center;
+  font-size:11px; color:#fff; font-weight:700;
+}
+.nav-links { display:flex; gap:2px; }
+.nav-link {
+  font-size:13px; font-weight:400; padding:6px 12px;
+  border-radius:var(--r-sm); color:var(--fg-3);
+  border:none; background:none; transition:var(--t);
+}
+.nav-link:hover { color:var(--fg-2); background:var(--bg-4); }
+.nav-link.active { color:var(--fg); background:var(--bg-4); }
+.nav-right { display:flex; align-items:center; gap:10px; }
+.lang-toggle { display:flex; border:1px solid var(--border); border-radius:var(--r-sm); overflow:hidden; }
+.lang-btn { font-size:11px; font-weight:500; padding:5px 10px; background:none; border:none; color:var(--fg-3); cursor:pointer; transition:var(--t); }
+.lang-btn.on { background:var(--bg-5); color:var(--fg); }
+.btn-nav-ghost { font-size:13px; padding:7px 16px; border:1px solid var(--border); border-radius:var(--r-md); background:transparent; color:var(--fg-3); transition:var(--t); }
+.btn-nav-ghost:hover { color:var(--fg); border-color:var(--border-glow); }
+.btn-nav-cta {
+  font-size:13px; font-weight:500; padding:7px 16px; border:none; border-radius:var(--r-md);
+  background:linear-gradient(135deg, var(--indigo), var(--violet));
+  color:#fff; transition:var(--t);
+  box-shadow: 0 0 16px var(--glow-a);
+}
+.btn-nav-cta:hover { box-shadow:0 0 28px var(--glow-b); transform:translateY(-1px); }
+
+/* ─── PAGE SYSTEM ─── */
+.page { display:none; }
+.page.active { display:block; animation:fadeUp .4s cubic-bezier(.4,0,.2,1); }
+@keyframes fadeUp { from{opacity:0;transform:translateY(14px)} to{opacity:1;transform:translateY(0)} }
+
+/* ─── LAYOUT ─── */
+.container { max-width:1200px; margin:0 auto; padding:0 32px; position:relative; z-index:1; }
+.section { padding:96px 0; }
+.section-sm { padding:56px 0; }
+.section-alt { background:var(--bg-2); }
+
+/* ─── TYPOGRAPHY ─── */
+.hero-h {
+  font-size:clamp(38px,5.5vw,68px);
+  font-weight:700; letter-spacing:-.04em; line-height:1.06;
+}
+.hero-h .word { display:inline-block; overflow:hidden; }
+.hero-h .char {
+  display:inline-block;
+  opacity:0; transform:translateY(110%);
+  animation:charUp .6s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes charUp { to{opacity:1;transform:translateY(0)} }
+
+.grad-text {
+  background:linear-gradient(135deg, var(--fg) 0%, var(--lavender) 50%, var(--indigo-l) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+}
+.section-h { font-size:clamp(26px,3vw,40px); font-weight:600; letter-spacing:-.03em; line-height:1.15; color:var(--fg); }
+.overline { font-size:11px; font-weight:500; letter-spacing:.12em; text-transform:uppercase; color:var(--indigo-l); margin-bottom:12px; display:block; font-size:12px; }
+.lead { font-size:17px; color:var(--fg-2); line-height:1.8; max-width:560px; }
+
+/* ─── GLOW DIVIDER ─── */
+.glow-line { width:100%; height:1px; background:linear-gradient(90deg,transparent,var(--indigo) 30%,var(--violet) 70%,transparent); opacity:.3; }
+
+/* ─── BADGES ─── */
+.badge { display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:500; padding:4px 10px; border-radius:20px; border:1px solid var(--border); color:var(--fg-3); background:var(--bg-3); }
+.bd { width:5px; height:5px; border-radius:50%; flex-shrink:0; }
+.badge-indigo .bd { background:var(--indigo-l); box-shadow:0 0 6px var(--indigo-l); }
+.badge-violet .bd { background:var(--violet-l); box-shadow:0 0 6px var(--violet-l); }
+.badge-teal .bd { background:var(--teal); box-shadow:0 0 6px var(--teal); }
+
+/* ─── BUTTONS ─── */
+.btn { display:inline-flex; align-items:center; gap:8px; font-size:14px; font-weight:500; padding:11px 22px; border-radius:var(--r-md); border:none; transition:var(--t); letter-spacing:-.01em; position:relative; overflow:hidden; }
+.btn::after { content:''; position:absolute; inset:0; opacity:0; background:radial-gradient(circle at center, rgba(255,255,255,.12), transparent 70%); transition:opacity .3s; }
+.btn:hover::after { opacity:1; }
+.btn-primary { background:linear-gradient(135deg,var(--indigo),var(--violet)); color:#fff; box-shadow:0 0 20px var(--glow-a); }
+.btn-primary:hover { box-shadow:0 0 36px var(--glow-b); transform:translateY(-1px); }
+.btn-outline { background:transparent; color:var(--fg-2); border:1px solid var(--border); }
+.btn-outline:hover { color:var(--fg); border-color:var(--border-glow); background:var(--bg-4); }
+.btn-icon { font-size:14px; opacity:.6; transition:var(--t); }
+.btn:hover .btn-icon { opacity:1; transform:translateX(2px); }
+
+/* ─── CARDS ─── */
+.card {
+  background:var(--bg-3); border:1px solid var(--border); border-radius:var(--r-lg); padding:24px;
+  transition:var(--t); position:relative; overflow:hidden;
+}
+.card::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at top left,rgba(79,110,247,.04),transparent 60%); pointer-events:none; }
+.card:hover { border-color:var(--border-glow); box-shadow:0 0 32px rgba(79,110,247,.08); transform:translateY(-2px); }
+.card-surface { background:var(--bg-2); border:1px solid var(--border-2); border-radius:var(--r-lg); padding:24px; }
+.card-glow { background:var(--bg-3); border:1px solid var(--border); border-radius:var(--r-lg); padding:24px; transition:var(--t); }
+.card-glow:hover { border-color:var(--border-glow); box-shadow:0 0 40px rgba(79,110,247,.1); transform:translateY(-2px); }
+
+/* ─── GRIDS ─── */
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+.g3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+.g4 { display:grid; grid-template-columns:1fr 1fr 1fr 1fr; gap:12px; }
+
+/* ─── DIVIDER ─── */
+.div { height:1px; background:var(--border); margin:24px 0; }
+
+/* ─── STEP ROWS ─── */
+.step-row { display:flex; gap:12px; align-items:flex-start; margin-bottom:12px; }
+.step-dot { min-width:28px; height:28px; padding:0 6px; border-radius:20px; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; flex-shrink:0; border:1px solid var(--border); }
+.sd-i { background:rgba(79,110,247,.12); color:var(--indigo-l); border-color:rgba(79,110,247,.25); }
+.sd-v { background:rgba(124,95,245,.12); color:var(--violet-l); border-color:rgba(124,95,245,.25); }
+.sd-t { background:rgba(62,207,184,.1); color:var(--teal); border-color:rgba(62,207,184,.2); }
+.step-text { font-size:14px; color:var(--fg-2); line-height:1.65; padding-top:4px; }
+.step-text strong { color:var(--fg); font-weight:500; }
+
+/* ─── HERO ─── */
+.hero { padding:120px 0 96px; position:relative; overflow:hidden; }
+.hero-nebula {
+  position:absolute; border-radius:50%; filter:blur(80px); pointer-events:none;
+}
+.hero-badge-row { display:flex; gap:8px; margin-bottom:28px; flex-wrap:wrap; }
+.hero-actions { display:flex; gap:12px; flex-wrap:wrap; margin-top:32px; }
+.hero-kpi { display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; margin-top:64px; }
+.hero-kpi-cell { background:var(--bg-2); padding:24px 28px; }
+.hero-kpi-num { font-size:20px; font-weight:600; letter-spacing:-.02em; color:var(--fg); margin-bottom:5px; }
+.hero-kpi-label { font-size:13px; color:var(--fg-3); line-height:1.5; }
+
+/* ─── PAGE TABS ─── */
+.page-tabs { background:rgba(15,19,32,.9); backdrop-filter:blur(20px); border-bottom:1px solid var(--border); position:sticky; top:64px; z-index:90; }
+.page-tabs-inner { max-width:1200px; margin:0 auto; padding:0 32px; display:flex; gap:0; overflow-x:auto; position:relative; z-index:1; }
+.page-tab { font-size:13px; font-weight:400; padding:14px 16px; color:var(--fg-3); border-bottom:1.5px solid transparent; white-space:nowrap; background:none; border-top:none; border-left:none; border-right:none; cursor:pointer; transition:var(--t); }
+.page-tab:hover { color:var(--fg-2); }
+.page-tab.active { color:var(--fg); border-bottom-color:var(--indigo-l); }
+
+/* ─── PILLAR CARDS ─── */
+.pillar { border-radius:var(--r-lg); padding:28px; border:1px solid var(--border); background:var(--bg-3); position:relative; overflow:hidden; transition:var(--t); }
+.pillar:hover { border-color:var(--border-glow); transform:translateY(-3px); }
+.pillar::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+.p-blue::after { background:linear-gradient(90deg,var(--indigo),var(--teal)); }
+.p-violet::after { background:linear-gradient(90deg,var(--violet),var(--indigo)); }
+.p-teal::after { background:linear-gradient(90deg,var(--teal),var(--violet)); }
+.pillar-n { font-size:30px; font-weight:700; letter-spacing:-.04em; margin-bottom:14px; font-family:var(--font-mono); }
+.pillar-t { font-size:15px; font-weight:600; color:var(--fg); margin-bottom:8px; }
+.pillar-b { font-size:14px; color:var(--fg-2); line-height:1.65; }
+
+/* ─── VS COMPARISON ─── */
+.vs-grid { display:grid; grid-template-columns:1fr 48px 1fr; align-items:stretch; }
+.vs-col { border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; }
+.vs-head { padding:12px 18px; font-size:13px; font-weight:500; }
+.vs-body { padding:16px 18px; }
+.vs-item { display:flex; gap:10px; align-items:flex-start; margin-bottom:10px; font-size:14px; color:var(--fg-2); line-height:1.5; }
+.vs-item:last-child { margin-bottom:0; }
+.vs-icon { width:18px; height:18px; border-radius:50%; flex-shrink:0; margin-top:1px; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; }
+.vs-mid { display:flex; align-items:center; justify-content:center; font-size:18px; color:var(--fg-4); }
+
+/* ─── DESIGN PRINCIPLES ─── */
+.dp-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+.dp { background:var(--bg-3); border:1px solid var(--border); border-radius:var(--r-md); padding:18px 18px 18px 22px; border-left-width:2px; transition:var(--t); }
+.dp:hover { border-color:var(--border-glow); transform:translateX(2px); }
+.dp-n { font-size:11px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; margin-bottom:6px; font-family:var(--font-mono); }
+.dp-t { font-size:13px; font-weight:600; color:var(--fg); margin-bottom:5px; }
+.dp-b { font-size:13px; color:var(--fg-2); line-height:1.6; }
+
+/* ─── FEAT STRIP ─── */
+.feat-strip { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; }
+.feat-cell { padding:20px; border-right:1px solid var(--border); background:var(--bg-3); transition:var(--t); }
+.feat-cell:last-child { border-right:none; }
+.feat-cell:hover { background:var(--bg-4); }
+.feat-n { font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--fg-4); margin-bottom:6px; font-family:var(--font-mono); }
+.feat-t { font-size:13px; font-weight:600; color:var(--fg); margin-bottom:5px; }
+.feat-b { font-size:13px; color:var(--fg-2); line-height:1.55; }
+
+/* ─── STAGE ROW ─── */
+.stage-row { display:grid; grid-template-columns:repeat(5,1fr); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; }
+.stage-cell { padding:16px 10px; text-align:center; border-right:1px solid var(--border); background:var(--bg-3); }
+.stage-cell:last-child { border-right:none; }
+.stage-n { font-size:20px; font-weight:700; margin-bottom:5px; font-family:var(--font-mono); }
+.stage-t { font-size:13px; font-weight:600; color:var(--fg-2); margin-bottom:3px; }
+.stage-b { font-size:12px; color:var(--fg-3); line-height:1.4; }
+
+/* ─── SIGNAL GRID ─── */
+.sig-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.sig-col { border:1px solid var(--border); border-radius:var(--r-md); overflow:hidden; background:var(--bg-3); }
+.sig-head { padding:10px 16px; font-size:12px; font-weight:600; border-bottom:1px solid var(--border); }
+.sig-item { display:flex; align-items:center; gap:10px; padding:9px 16px; border-bottom:1px solid var(--border-2); font-size:13px; color:var(--fg-2); }
+.sig-item:last-child { border-bottom:none; }
+.sig-dot { width:6px; height:6px; border-radius:50%; flex-shrink:0; }
+
+/* ─── OPA CARDS ─── */
+.opa-grid { display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; }
+.opa { border-radius:var(--r-md); padding:18px; border:1px solid var(--border); }
+.opa-lbl { font-size:10px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; margin-bottom:5px; font-family:var(--font-mono); }
+.opa-t { font-size:16px; font-weight:600; margin-bottom:6px; }
+.opa-b { font-size:13px; line-height:1.6; opacity:.75; }
+
+/* ─── COMPARE TABLE ─── */
+.cmp { border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; }
+.cmp-row { display:grid; grid-template-columns:1fr 1fr 1fr; }
+.cmp-row-2 { display:grid; grid-template-columns:1fr 2fr; }
+.cmp-cell { padding:12px 16px; font-size:14px; border-right:1px solid var(--border); border-top:1px solid var(--border); color:var(--fg-2); line-height:1.5; word-break:break-word; }
+.cmp-cell:last-child { border-right:none; }
+.cmp-head { padding:11px 16px; font-size:12px; font-weight:600; letter-spacing:.05em; border-right:1px solid var(--border); font-family:var(--font-mono); color:var(--fg-3); }
+.cmp-head:last-child { border-right:none; }
+
+/* ─── TIMELINE ─── */
+.tl-row { display:grid; grid-template-columns:repeat(4,1fr); border:1px solid var(--border); border-radius:var(--r-lg); overflow:hidden; }
+.tl-cell { padding:18px; border-right:1px solid var(--border); background:var(--bg-3); }
+.tl-cell:last-child { border-right:none; }
+.tl-phase { font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin-bottom:4px; font-family:var(--font-mono); color:var(--fg-3); }
+.tl-dur { font-size:13px; font-weight:600; color:var(--fg); margin-bottom:6px; }
+.tl-body { font-size:13px; color:var(--fg-2); line-height:1.55; }
+
+/* ─── IMPACT ─── */
+.impact-group { margin-bottom:28px; }
+.impact-label { font-size:12px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; margin-bottom:12px; display:flex; align-items:center; gap:10px; font-family:var(--font-mono); }
+.impact-label::after { content:''; flex:1; height:1px; background:var(--border); }
+.impact-cards { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.impact-card { border-radius:var(--r-md); padding:18px; border:1px solid var(--border); background:var(--bg-3); transition:var(--t); }
+.impact-card:hover { transform:translateY(-2px); }
+.impact-n { font-size:14px; font-weight:600; margin-bottom:5px; }
+.impact-b { font-size:13px; line-height:1.5; }
+
+/* ─── REF GRID ─── */
+.ref-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:10px; }
+.ref-card { border:1px solid var(--border); border-radius:var(--r-md); padding:18px; background:var(--bg-3); transition:var(--t); }
+.ref-card:hover { border-color:var(--border-glow); transform:translateY(-2px); }
+.ref-name { font-size:13px; font-weight:600; color:var(--fg); margin-bottom:6px; }
+.ref-desc { font-size:13px; color:var(--fg-3); line-height:1.5; }
+
+/* ─── TEAM CARDS ─── */
+.team-card { background:var(--bg-3); border:1px solid var(--border); border-radius:var(--r-lg); padding:28px; text-align:center; transition:var(--t); }
+.team-card:hover { border-color:var(--border-glow); transform:translateY(-3px); box-shadow:0 12px 40px rgba(79,110,247,.1); }
+.team-avatar { width:64px; height:64px; border-radius:50%; margin:0 auto 16px; display:flex; align-items:center; justify-content:center; font-size:20px; font-weight:600; border:1px solid var(--border); }
+.team-role { font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--fg-4); margin-bottom:4px; font-family:var(--font-mono); }
+.team-name { font-size:16px; font-weight:600; color:var(--fg); margin-bottom:10px; }
+.team-bio { font-size:13px; color:var(--fg-2); line-height:1.65; }
+
+/* ─── PARTNER ─── */
+.partner-card { background:var(--bg-3); border:1px solid var(--border); border-radius:var(--r-md); padding:20px; transition:var(--t); }
+.partner-card:hover { border-color:var(--border-glow); transform:translateY(-2px); }
+.partner-name { font-size:17px; font-weight:600; color:var(--fg); margin-bottom:8px; margin-top:10px; }
+.partner-body { font-size:13px; color:var(--fg-2); line-height:1.55; }
+
+/* ─── FORM ─── */
+.form-group { margin-bottom:16px; }
+.form-group label { font-size:12px; font-weight:500; color:var(--fg-2); display:block; margin-bottom:6px; }
+.form-group input, .form-group select, .form-group textarea {
+  width:100%; padding:10px 14px; font-family:var(--font); font-size:14px;
+  background:var(--bg-4); color:var(--fg);
+  border:1px solid var(--border); border-radius:var(--r-md);
+  outline:none; transition:var(--t); -webkit-appearance:none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color:rgba(79,110,247,.5); box-shadow:0 0 0 3px rgba(79,110,247,.08);
+}
+.form-group select option { background:var(--bg-4); }
+.form-group textarea { resize:vertical; min-height:90px; }
+
+/* ─── CTA BANNER ─── */
+.cta-banner { border:1px solid var(--border); border-radius:var(--r-xl); padding:48px 56px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:24px; position:relative; overflow:hidden; }
+.cta-banner::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse 60% 80% at 10% 50%, rgba(79,110,247,.07), transparent); pointer-events:none; }
+.cta-banner-dark { background:var(--bg-2); }
+.cta-banner h3 { font-size:24px; font-weight:600; color:var(--fg); letter-spacing:-.02em; margin-bottom:6px; }
+.cta-banner p { font-size:14px; color:var(--fg-2); }
+.cta-actions { display:flex; gap:12px; flex-wrap:wrap; }
+
+/* ─── TAGLINE ─── */
+.tagline-bar { border:1px solid var(--border); border-radius:var(--r-lg); padding:20px 28px; margin-bottom:32px; background:var(--bg-2); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; position:relative; overflow:hidden; }
+.tagline-bar::before { content:''; position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(180deg,var(--indigo),var(--violet)); }
+.tagline-q { font-size:15px; font-weight:500; color:var(--fg); letter-spacing:-.01em; font-style:italic; }
+.tagline-sub { font-size:12px; color:var(--fg-3); margin-top:5px; }
+
+/* ─── PROC FLOW ─── */
+.proc-flow { display:flex; align-items:stretch; }
+.proc-step { flex:1; padding:14px 10px; text-align:center; border:1px solid var(--border); border-right:none; background:var(--bg-3); transition:var(--t); }
+.proc-step:first-child { border-radius:var(--r-md) 0 0 var(--r-md); }
+.proc-step:last-child { border-right:1px solid var(--border); border-radius:0 var(--r-md) var(--r-md) 0; background:linear-gradient(135deg,var(--indigo),var(--violet)); border-color:transparent; }
+.proc-step:hover { background:var(--bg-4); }
+.proc-step:last-child:hover { filter:brightness(1.1); }
+.proc-n { font-size:10px; font-weight:500; color:var(--fg-4); margin-bottom:3px; font-family:var(--font-mono); }
+.proc-step:last-child .proc-n { color:rgba(255,255,255,.5); }
+.proc-t { font-size:13px; font-weight:500; color:var(--fg-2); }
+.proc-step:last-child .proc-t { color:#fff; }
+
+/* ─── SECTION INTRO ─── */
+.section-intro { max-width:520px; margin-bottom:48px; }
+.section-intro p { font-size:16px; color:var(--fg-2); line-height:1.75; margin-top:12px; }
+
+/* ─── FOOTER ─── */
+.footer { border-top:1px solid var(--border); padding:32px 0; background:var(--bg); }
+.footer-inner { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; position:relative; z-index:1; }
+.footer-logo { font-size:16px; font-weight:600; letter-spacing:-.02em; color:var(--fg-3); }
+.footer-links { display:flex; gap:20px; }
+.footer-link { font-size:12px; color:var(--fg-4); transition:var(--t); }
+.footer-link:hover { color:var(--fg-2); }
+
+/* ─── SCROLL REVEAL ─── */
+.reveal { opacity:0; transform:translateY(18px); transition:opacity .55s ease, transform .55s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+.reveal-left { opacity:0; transform:translateX(-18px); transition:opacity .55s ease, transform .55s ease; }
+.reveal-left.visible { opacity:1; transform:translateX(0); }
+
+/* ─── DYNAMIC TEXT EFFECTS ─── */
+
+/* 1. Typing cursor blink */
+.typing-cursor::after { content:'|'; animation:blink 1s step-end infinite; color:var(--indigo-l); margin-left:2px; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* 2. Shimmer on hover */
+.shimmer-hover { background-size:200% auto; transition:background-position .5s; }
+.shimmer-hover:hover { background-position:right center; }
+
+/* 3. Number counter (CSS only pulse) */
+.count-num { display:inline-block; animation:countPulse 2s ease-in-out infinite; }
+@keyframes countPulse { 0%,100%{opacity:1} 50%{opacity:.7} }
+
+/* 4. Floating label */
+@keyframes floatUp { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
+.float-anim { animation:floatUp 3s ease-in-out infinite; }
+
+/* 5. Underline grow on hover */
+.u-hover { display:inline; background-image:linear-gradient(var(--indigo-l),var(--indigo-l)); background-size:0 1.5px; background-position:0 100%; background-repeat:no-repeat; transition:background-size .3s ease; }
+.u-hover:hover { background-size:100% 1.5px; }
+
+/* 6. Glow pulse on badge */
+@keyframes glowPulse { 0%,100%{box-shadow:0 0 6px var(--glow-a)} 50%{box-shadow:0 0 18px var(--glow-b)} }
+.glow-pulse { animation:glowPulse 2.5s ease-in-out infinite; }
+
+/* 7. Ripple on button click */
+.ripple { position:absolute; border-radius:50%; background:rgba(255,255,255,.25); transform:scale(0); animation:rippleAnim .5s linear; pointer-events:none; }
+@keyframes rippleAnim { to{transform:scale(4);opacity:0} }
+
+/* 8. Slide-in words */
+.slide-word { display:inline-block; opacity:0; transform:translateY(100%); animation:slideWord .5s cubic-bezier(.22,1,.36,1) forwards; }
+@keyframes slideWord { to{opacity:1;transform:translateY(0)} }
+
+/* 9. Stagger child reveals */
+.stagger > *:nth-child(1){transition-delay:.05s}
+.stagger > *:nth-child(2){transition-delay:.1s}
+.stagger > *:nth-child(3){transition-delay:.15s}
+.stagger > *:nth-child(4){transition-delay:.2s}
+.stagger > *:nth-child(5){transition-delay:.25s}
+.stagger > *:nth-child(6){transition-delay:.3s}
+
+/* 10. Scan line on table rows */
+.scan-row:hover { background:linear-gradient(90deg,var(--bg-4),rgba(79,110,247,.05),var(--bg-4)); }
+
+/* UTILS */
+.flex{display:flex} .items-center{align-items:center} .justify-between{justify-content:space-between}
+.gap-8{gap:8px} .gap-12{gap:12px} .gap-16{gap:16px}
+.mb-8{margin-bottom:8px} .mb-12{margin-bottom:12px} .mb-16{margin-bottom:16px}
+.mb-20{margin-bottom:20px} .mb-24{margin-bottom:24px} .mb-32{margin-bottom:32px} .mb-48{margin-bottom:48px}
+.mt-16{margin-top:16px} .mt-24{margin-top:24px}
+.text-sm{font-size:13px} .text-xs{font-size:11px}
+.text-muted{color:var(--fg-2)} .text-dim{color:var(--fg-3)}
+.text-center{text-align:center} .font-medium{font-weight:500} .font-mono{font-family:var(--font-mono)}
+.w-full{width:100%}
+
+/* ════════════════════════════════════════════════
+   MOBILE RESPONSIVE — 768px / 480px
+════════════════════════════════════════════════ */
+.nav-hamburger {
+  display:none; flex-direction:column; justify-content:center;
+  gap:5px; width:38px; height:38px; background:none; border:none;
+  cursor:pointer; padding:5px; border-radius:var(--r-sm); flex-shrink:0;
+}
+.nav-hamburger span { display:block; height:2px; background:var(--fg-2); border-radius:2px; transition:var(--t); }
+.nav-hamburger.open span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity:0; transform:scaleX(0); }
+.nav-hamburger.open span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+.nav-mobile-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.6); z-index:150; backdrop-filter:blur(4px); }
+.nav-mobile-overlay.open { display:block; }
+.nav-mobile-menu {
+  display:none; position:fixed; top:64px; left:0; right:0;
+  background:rgba(6,14,48,.98); border-bottom:1px solid var(--border);
+  z-index:160; padding:12px 20px 24px; flex-direction:column; gap:2px;
+  backdrop-filter:blur(20px); animation:slideDown .2s ease;
+}
+.nav-mobile-menu.open { display:flex; }
+@keyframes slideDown { from{opacity:0;transform:translateY(-8px)} to{opacity:1;transform:translateY(0)} }
+.nav-mobile-menu .nav-link { font-size:15px; padding:12px 14px; text-transform:none; letter-spacing:0; border-radius:var(--r-md); font-weight:500; }
+.nav-mobile-menu .mob-divider { height:1px; background:var(--border); margin:8px 0; }
+.nav-mobile-menu .mob-actions { display:flex; flex-direction:column; gap:8px; padding-top:4px; }
+.nav-mobile-menu .btn-nav-cta,.nav-mobile-menu .btn-nav-ghost { width:100%; text-align:center; padding:12px; font-size:14px; }
+
+@media (max-width:768px) {
+  .page { display:none; } .page.active { display:block; }
+  .container { padding:0 18px; }
+  .section { padding:52px 0; } .section-sm { padding:36px 0; }
+  .section-intro { margin-bottom:24px; } .section-intro p { font-size:14px; }
+  .nav-hamburger { display:flex; } .nav-links { display:none; } .nav-right { display:none; }
+  .hero { padding:44px 0 40px; }
+  .hero-h { font-size:clamp(26px,8.5vw,40px); letter-spacing:-.02em; }
+  .lead { font-size:15px; line-height:1.7; }
+  .hero-actions { flex-direction:column; gap:10px; }
+  .hero-actions .btn { width:100%; justify-content:center; }
+  .hero-kpi { grid-template-columns:1fr; }
+  .hero-kpi-cell { padding:16px 20px; }
+  .section-h { font-size:clamp(20px,6vw,30px); }
+  .g2 { grid-template-columns:1fr; gap:1px; }
+  .g2 > * { padding:20px; }
+  .g3 { grid-template-columns:1fr; gap:12px; }
+  .g3-ruled { grid-template-columns:1fr; }
+  .g3-ruled > * { padding:20px; }
+  .g4 { grid-template-columns:1fr 1fr; gap:10px; }
+  .g4-ruled { grid-template-columns:1fr 1fr; }
+  .g4-ruled > * { padding:16px; }
+  .bento { grid-template-columns:1fr; } .bento-cell-wide { grid-column:span 1; }
+  .proc-flow { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+  .proc-step { min-width:88px; padding:14px 8px; }
+  .proc-t { font-size:11px; } .proc-n { font-size:11px; }
+  .feat-strip { grid-template-columns:1fr 1fr; } .feat-cell { padding:16px; }
+  .vs-grid { grid-template-columns:1fr; gap:12px; } .vs-mid { display:none; }
+  .dp-grid { grid-template-columns:1fr; }
+  .sig-grid { grid-template-columns:1fr; }
+  .stage-row { grid-template-columns:repeat(3,1fr); overflow-x:auto; }
+  .opa-grid { grid-template-columns:1fr; }
+  .cmp-row { grid-template-columns:1fr 1fr; } .cmp-row-2 { grid-template-columns:1fr; }
+  .tl-row { grid-template-columns:1fr 1fr; }
+  .impact-cards { grid-template-columns:1fr 1fr; }
+  .ref-grid { grid-template-columns:1fr 1fr; }
+  .team-card { padding:20px; } .team-avatar { width:56px; height:56px; font-size:12px; }
+  .card,.card-surface,.card-glow { padding:18px; } .pillar { padding:20px; }
+  .page-tabs-inner { gap:0; padding:0 12px; overflow-x:auto; }
+  .page-tab { font-size:11px; padding:12px 10px; letter-spacing:.04em; }
+  .cta-banner { padding:28px 22px; flex-direction:column; }
+  .cta-banner h3 { font-size:20px; }
+  .cta-actions { flex-direction:column; width:100%; }
+  .cta-actions .btn { width:100%; justify-content:center; }
+  .tagline-bar { flex-direction:column; gap:12px; padding:18px 20px; }
+  .announce-bar { font-size:12px; padding:8px 16px; gap:6px; flex-wrap:wrap; justify-content:center; }
+  .flex.items-center.justify-between { flex-direction:column; align-items:flex-start; gap:12px; }
+  div[style*="align-items:start"] { display:block !important; }
+  div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns:1fr 1fr !important; }
+  div[style*="grid-template-columns:1fr 2fr"]     { grid-template-columns:1fr !important; }
+  div[style*="grid-template-columns:2fr 1fr"]     { grid-template-columns:1fr !important; }
+  .footer-inner { flex-direction:column; align-items:flex-start; gap:16px; padding:0 18px; }
+  .footer-links { flex-wrap:wrap; gap:12px; }
+}
+
+@media (max-width:480px) {
+  .container { padding:0 14px; }
+  .hero-h { font-size:clamp(22px,9.5vw,30px); }
+  .section-h { font-size:clamp(18px,7vw,22px); }
+  .lead { font-size:14px; }
+  .g4 { grid-template-columns:1fr; } .g4-ruled { grid-template-columns:1fr; }
+  .feat-strip { grid-template-columns:1fr; }
+  .impact-cards { grid-template-columns:1fr; }
+  .ref-grid { grid-template-columns:1fr; }
+  .tl-row { grid-template-columns:1fr; }
+  .stage-row { grid-template-columns:1fr 1fr; }
+  div[style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns:1fr !important; }
+  .proc-step { min-width:70px; padding:12px 6px; }
+  .proc-n,.proc-t { font-size:10px; }
+  .announce-pill { display:none; }
+  .badge { font-size:10px; padding:3px 9px; }
+  .page-tab { font-size:10px; padding:10px 8px; }
+  .cta-banner { padding:20px 14px; } .cta-banner h3 { font-size:17px; }
+  .card,.card-surface { padding:14px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileMenu()" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-logo" onclick="showPage('home');closeMobileMenu()">
+      <div class="nav-logo-gem">SY</div>
+      신영이노베이션
+    </div>
+    <div class="nav-links">
+      <button class="nav-link active" id="nav-home"      onclick="showPage('home')">홈</button>
+      <button class="nav-link"        id="nav-service"   onclick="showPage('service')">Full IT 서비스</button>
+      <button class="nav-link"        id="nav-solutions" onclick="showPage('solutions')">솔루션</button>
+      <button class="nav-link"        id="nav-about"     onclick="showPage('about')">회사 소개</button>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn" onclick="window.location.href='index.html'">EN</button>
+        <button class="lang-btn on">KO</button>
+      </div>
+      <button class="btn-nav-ghost" onclick="showPage('about');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),200)">문의</button>
+      <button class="btn-nav-cta glow-pulse" onclick="showPage('about');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),200)">데모 신청</button>
+    </div>
+  </div>
+  <div class="nav-mobile-overlay" id="navOverlay" onclick="closeMobileMenu()"></div>
+  <div class="nav-mobile-menu" id="navMobileMenu">
+    <button class="nav-link" onclick="showPage('home');closeMobileMenu()">홈</button>
+    <button class="nav-link" onclick="showPage('service');closeMobileMenu()">Full IT 서비스</button>
+    <button class="nav-link" onclick="showPage('solutions');closeMobileMenu()">솔루션</button>
+    <button class="nav-link" onclick="showPage('about');closeMobileMenu()">회사 소개</button>
+    <div class="mob-divider"></div>
+    <div class="mob-actions">
+      <div class="lang-toggle" style="align-self:flex-start;">
+        <button class="lang-btn" onclick="window.location.href='index.html'">EN</button>
+        <button class="lang-btn on">KO</button>
+      </div>
+      <button class="btn-nav-ghost" onclick="showPage('about');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),200);closeMobileMenu()">문의</button>
+      <button class="btn-nav-cta" onclick="showPage('about');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),200);closeMobileMenu()">데모 신청</button>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════ HOME ══════════════════ -->
+<div class="page active" id="page-home">
+
+  <section class="hero">
+    <!-- nebula glows -->
+    <div class="hero-nebula" style="width:700px;height:500px;top:-150px;left:40%;background:radial-gradient(ellipse,rgba(96,128,250,.15),transparent 65%);"></div>
+    <div class="hero-nebula" style="width:400px;height:300px;bottom:0;left:5%;background:radial-gradient(ellipse,rgba(143,114,247,.13),transparent 70%);"></div>
+
+    <div class="container">
+      <div class="hero-badge-row reveal stagger">
+        <span class="badge badge-indigo"><span class="bd"></span>제로트러스트 보안</span>
+        <span class="badge badge-violet"><span class="bd"></span>글로벌 아웃소싱</span>
+        <span class="badge badge-teal"><span class="bd"></span>컨설팅부터 개발/운영까지</span>
+      </div>
+
+      <!-- Animated headline -->
+      <h1 class="hero-h mb-20" id="heroHeadline" >
+        <span class="grad-text typing-cursor" id="typedText"></span>
+      </h1>
+
+      <p class="lead reveal">
+        자체 보안 기술과 검증된 글로벌 파트너 네트워크로
+        국내 주요 고객에게 맞춤형 IT 서비스를 제공합니다.
+      </p>
+
+      <div class="hero-actions reveal">
+        <button class="btn btn-primary" onclick="showPage('solutions');addRipple(event)">솔루션 알아보기 <span class="btn-icon">↗</span></button>
+        <button class="btn btn-outline" onclick="showPage('about');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),200)">무료 상담 신청</button>
+      </div>
+
+      <div class="hero-kpi reveal stagger">
+        <div class="hero-kpi-cell">
+          <div class="hero-kpi-num float-anim">KB · 롯데 · 웰컴</div>
+          <div class="hero-kpi-label">국내 주요 금융사에 적용된 보안 솔루션</div>
+        </div>
+        <div class="hero-kpi-cell">
+          <div class="hero-kpi-num float-anim" style="animation-delay:.3s">베트남 현지 파트너</div>
+          <div class="hero-kpi-label">검증된 파트너 네트워크</div>
+        </div>
+        <div class="hero-kpi-cell">
+          <div class="hero-kpi-num float-anim" style="animation-delay:.6s">25년 보안 전문성</div>
+          <div class="hero-kpi-label">LG CNS · LG U+ · IBM GBS 출신 핵심 인력</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <!-- Why Us -->
+  <section class="section">
+    <div class="container">
+      <div class="section-intro reveal">
+        <span class="overline">신영이노베이션을 선택하는 이유</span>
+        <h2 class="section-h u-hover">차별화된 3가지 핵심 경쟁력</h2>
+        <p>고객이 신영이노베이션을 선택하고, 또 계속 함께하는 이유입니다.</p>
+      </div>
+      <div class="g3 reveal stagger">
+        <div class="pillar p-blue"><div class="pillar-n" style="color:var(--indigo-l);">01</div><div class="pillar-t">핵심 기술 내재화</div><div class="pillar-b">보안·인증·결제 분야의 원천 기술을 자체 보유 — 외부 의존 없이 안정적인 장기 지원이 가능합니다.</div></div>
+        <div class="pillar p-teal"><div class="pillar-n" style="color:var(--teal);">02</div><div class="pillar-t">폭넓은 해외 파트너</div><div class="pillar-b">베트남 현지에서 검증된 개발 파트너 — 기술 영역별 강점과 실적을 보유하고 있습니다.</div></div>
+        <div class="pillar p-violet"><div class="pillar-n" style="color:var(--violet-l);">03</div><div class="pillar-t">고객 맞춤 IT 딜리버리</div><div class="pillar-b">컨설팅부터 구축·운영까지 — 모든 프로젝트를 고객의 상황에 맞게 설계합니다.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Portfolio -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-intro reveal">
+        <span class="overline">서비스 포트폴리오</span>
+        <h2 class="section-h">신영이노베이션이 하는 일</h2>
+        <p>3가지 핵심 역량을 하나의 통합 서비스로 제공합니다.</p>
+      </div>
+      <div class="g3 reveal stagger">
+        <div class="card-glow" style="cursor:pointer;border-top:2px solid var(--indigo);" onclick="showPage('service')">
+          <div class="mb-16"><span class="badge badge-indigo"><span class="bd"></span>서비스</span></div>
+          <h3 style="font-size:17px;font-weight:600;color:var(--fg);margin-bottom:8px;letter-spacing:-.02em;">Full IT 서비스</h3>
+          <p class="text-sm text-muted mb-16">PI 컨설팅, 풀스택 개발, 글로벌 아웃소싱 — 전략 수립부터 시스템 구축까지 원스톱 제공.</p>
+          <div class="flex gap-8" style="flex-wrap:wrap;"><span class="badge">Web · iOS · Android</span><span class="badge">글로벌 ODC</span><span class="badge">PI 컨설팅</span></div>
+        </div>
+        <div class="card-glow" style="cursor:pointer;border-top:2px solid var(--violet);" onclick="showPage('solutions')">
+          <div class="mb-16"><span class="badge badge-violet"><span class="bd"></span>Security</span></div>
+          <h3 style="font-size:17px;font-weight:600;color:var(--fg);margin-bottom:8px;letter-spacing:-.02em;">TrustIn CA</h3>
+          <p class="text-sm text-muted mb-16">제로트러스트 기반 사설 인증. SE 키 보관 + TLS 1.3 + 생체/PIN 크로스체크.</p>
+          <div class="flex gap-8" style="flex-wrap:wrap;"><span class="badge">MFA</span><span class="badge">싱글 로그인</span><span class="badge">KB · 롯데 · 웰컴</span></div>
+        </div>
+        <div class="card-glow" style="cursor:pointer;border-top:2px solid var(--teal);" onclick="showPage('solutions')">
+          <div class="mb-16"><span class="badge badge-teal"><span class="bd"></span>Security</span></div>
+          <h3 style="font-size:17px;font-weight:600;color:var(--fg);margin-bottom:8px;letter-spacing:-.02em;">TrustIn Gateway</h3>
+          <p class="text-sm text-muted mb-16">VPN을 대체하는 제로트러스트 네트워크 접근 제어. 다중 신호 + 동적 위험도 평가.</p>
+          <div class="flex gap-8" style="flex-wrap:wrap;"><span class="badge">mTLS</span><span class="badge">OPA 정책 엔진</span><span class="badge">VPN 대체</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ZT Teaser -->
+  <section class="section">
+    <div class="container">
+      <div class="tagline-bar reveal">
+        <div><div class="tagline-q">"절대 신뢰하지 말고, 항상 검증하라 — 모든 접근, 매 순간"</div><div class="tagline-sub">경계 보안의 시대는 끝났습니다. 모든 접속은 출처와 무관하게 매번 신뢰를 증명해야 합니다.</div></div>
+        <button class="btn btn-outline text-sm" onclick="showPage('solutions')">보안 철학 더 보기 →</button>
+      </div>
+      <div class="g3 reveal stagger">
+        <div class="card" style="border-color:rgba(79,110,247,.2);"><div class="font-mono mb-12" style="font-size:28px;font-weight:700;color:var(--indigo-l);">01</div><div style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:8px;">항상 검증 (Always Verify)</div><div class="text-sm text-muted">기본적으로 어떠한 요청도 신뢰하지 않습니다. 모든 접근 시도마다 신원·기기·위치를 검증합니다.</div></div>
+        <div class="card" style="border-color:rgba(124,95,245,.2);"><div class="font-mono mb-12" style="font-size:28px;font-weight:700;color:var(--violet-l);">02</div><div style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:8px;">최소 권한 (Least Privilege)</div><div class="text-sm text-muted">업무에 필요한 최소한의 접근 권한만 부여합니다. 앱별 정책과 단기 인증서로 과도한 권한을 방지합니다.</div></div>
+        <div class="card" style="border-color:rgba(255,100,100,.2);"><div class="font-mono mb-12" style="font-size:28px;font-weight:700;color:#ff7a7a;">03</div><div style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:8px;">침해 가정 (Assume Breach)</div><div class="text-sm text-muted">네트워크가 이미 침해됐다고 가정하고 설계합니다. 모든 구간을 격리하고 모든 이벤트를 기록합니다.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- References -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-intro reveal"><span class="overline">고객 레퍼런스</span><h2 class="section-h">신뢰받는 파트너</h2></div>
+      <div class="ref-grid reveal stagger mb-16">
+        <div class="ref-card"><div class="ref-name">KB국민카드</div><span class="badge badge-violet mb-8"><span class="bd"></span>통합인증</span><div class="ref-desc">KB페이 앱 통합인증 시스템 구축 및 유지보수</div></div>
+        <div class="ref-card"><div class="ref-name">롯데카드</div><span class="badge badge-violet mb-8"><span class="bd"></span>보안 컨설팅</span><div class="ref-desc">앱 인증 업그레이드 PM · 외국인 전용 앱 인증</div></div>
+        <div class="ref-card"><div class="ref-name">여신금융협회</div><span class="badge badge-teal mb-8"><span class="bd"></span>직승인 보안</span><div class="ref-desc">직승인 보안 시스템 운영관리 및 업그레이드</div></div>
+        <div class="ref-card"><div class="ref-name">웰컴저축은행</div><span class="badge badge-indigo mb-8"><span class="bd"></span>모바일 인증</span><div class="ref-desc">모바일 인증 시스템 구축 및 유지보수</div></div>
+      </div>
+      <p class="text-xs text-dim reveal">추가: 이마트 · 현대백화점 · 롯데쇼핑 · AK플라자 · 신세계 · dot:: · ThePay · CJ/대유</p>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-sm">
+    <div class="container">
+      <div class="cta-banner cta-banner-dark reveal" style="border-color:rgba(79,110,247,.2);">
+        <div><h3>지금 바로 시작하세요</h3><p>비즈니스 과제를 알려주시면 가장 적합한 접근 방법을 제안해 드립니다.</p></div>
+        <div class="cta-actions">
+          <button class="btn btn-primary" onclick="showPage('about');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),200);addRipple(event)">무료 상담 신청</button>
+          <button class="btn btn-outline" onclick="showPage('service')">Full IT 서비스 알아보기</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════ FULL IT SERVICE ══════════════════ -->
+<div class="page" id="page-service">
+  <div class="page-tabs"><div class="page-tabs-inner">
+    <button class="page-tab active" onclick="scrollAnchor('svc-overview')">개요</button>
+    <button class="page-tab" onclick="scrollAnchor('svc-pi')">PI 컨설팅</button>
+    <button class="page-tab" onclick="scrollAnchor('svc-models')">딜리버리 모델</button>
+    <button class="page-tab" onclick="scrollAnchor('svc-case')">수행 사례</button>
+    <button class="page-tab" onclick="scrollAnchor('svc-cases')">성공 사례</button>
+  </div></div>
+
+  <section class="hero" id="svc-overview" style="padding-bottom:64px;">
+    <div style="position:absolute;top:-100px;left:30%;width:600px;height:400px;background:radial-gradient(ellipse,rgba(79,110,247,.08),transparent 70%);pointer-events:none;"></div>
+    <div class="container">
+      <span class="overline reveal">Full IT 서비스</span>
+      <h1 class="hero-h mb-20 reveal"><span class="grad-text">전략부터 시스템까지 —</span><br>원스톱으로 제공합니다.</h1>
+      <p class="lead reveal">코드 한 줄 작성하기 전에 먼저 프로세스부터 생각합니다.</p>
+      <div class="mt-24 reveal">
+        <div class="proc-flow">
+          <div class="proc-step"><div class="proc-n">01</div><div class="proc-t">요구사항</div></div>
+          <div class="proc-step"><div class="proc-n">02</div><div class="proc-t">기술 설계</div></div>
+          <div class="proc-step"><div class="proc-n">03</div><div class="proc-t">개발 &amp; QA</div></div>
+          <div class="proc-step"><div class="proc-n">04</div><div class="proc-t">배포</div></div>
+          <div class="proc-step"><div class="proc-n">05</div><div class="proc-t">유지보수</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <section class="section" id="svc-pi">
+    <div class="container">
+      <div class="section-intro reveal"><span class="overline">대표 서비스 — 모델 C</span><h2 class="section-h">PI 컨설팅 + 풀스택 개발</h2><p>프로세스 혁신이 항상 먼저입니다. 화면 하나 설계하기 전에 업무 방식을 근본적으로 재설계합니다.</p></div>
+      <div class="g2 reveal mb-24">
+        <div>
+          <p class="overline mb-16">PI 컨설팅 방법론 — 5단계</p>
+          <div class="step-row"><div class="step-dot sd-i">1</div><div class="step-text"><strong>현황 분석</strong> — 이해관계자 인터뷰, 문서 검토, 이슈 200건 이상 도출</div></div>
+          <div class="step-row"><div class="step-dot sd-i">2</div><div class="step-text"><strong>To-Be 방향 설정</strong> — 근본 원인 분석, 전사 개선 테마 정의</div></div>
+          <div class="step-row"><div class="step-dot sd-i">3</div><div class="step-text"><strong>개선 과제 정의</strong> — To-Be 프로세스 설계, 활동 매핑, IT 요구사항 명세</div></div>
+          <div class="step-row"><div class="step-dot sd-i">4</div><div class="step-text"><strong>시스템 구축 전략</strong> — 단계별 로드맵, 예산 확정, 딜리버리 모델 선택</div></div>
+          <div class="step-row"><div class="step-dot sd-i">5</div><div class="step-text"><strong>구축 → 운영 인계</strong> — 클라우드 인프라, 풀스택 개발, 사용자 교육, 운영 위탁</div></div>
+        </div>
+        <div>
+          <p class="overline mb-16">5가지 구축 원칙</p>
+          <div class="g2" style="gap:10px;">
+            <div class="card" style="padding:16px;"><p class="font-mono text-xs mb-8" style="color:var(--indigo-l);">01</p><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">PI 선수행</p><p style="font-size:13px;color:var(--fg-2);">모든 시스템 결정 이전에 프로세스 혁신이 먼저</p></div>
+            <div class="card" style="padding:16px;"><p class="font-mono text-xs mb-8" style="color:var(--indigo-l);">02</p><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">업무 효율 우선</p><p style="font-size:13px;color:var(--fg-2);">기술이 할 수 있는 것이 아닌, 사람이 일하는 방식 기반</p></div>
+            <div class="card" style="padding:16px;"><p class="font-mono text-xs mb-8" style="color:var(--indigo-l);">03</p><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">꼭 필요한 것만</p><p style="font-size:13px;color:var(--fg-2);">필수 화면만 — 중복 입력 제로</p></div>
+            <div class="card" style="padding:16px;"><p class="font-mono text-xs mb-8" style="color:var(--indigo-l);">04</p><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">단계별 구축</p><p style="font-size:13px;color:var(--fg-2);">핵심 먼저, 확장 다음, 고도화 마지막</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="g3 reveal">
+        <div class="card-surface"><p class="font-mono text-xs mb-8" style="color:var(--fg-3);">1단계</p><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">분석 &amp; 방향 수립</p><p style="font-size:13px;color:var(--fg-2);">현황 분석 보고서 · 이슈 목록 · To-Be 방향 자료</p></div>
+        <div class="card" style="border-color:rgba(79,110,247,.3);"><p class="font-mono text-xs mb-8" style="color:var(--indigo-l);">2단계</p><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">프로세스 &amp; IT 설계</p><p style="font-size:13px;color:var(--fg-2);">프로세스 설계 문서 · IT 요구사항 명세 · 블루프린트</p></div>
+        <div class="card-surface"><p class="font-mono text-xs mb-8" style="color:var(--fg-3);">3단계</p><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">구축 &amp; 운영 인계</p><p style="font-size:13px;color:var(--fg-2);">클라우드 인프라 · 풀스택 시스템 · 교육 · 운영 인계</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="svc-models">
+    <div class="container">
+      <div class="section-intro reveal"><span class="overline">딜리버리 모델 A &amp; B</span><h2 class="section-h">글로벌 개발, 한국 수준의 품질</h2></div>
+      <div class="g2 reveal">
+        <div class="card" style="border-left:2px solid var(--violet);">
+          <span class="badge badge-violet mb-16"><span class="bd"></span>Model A</span>
+          <h3 style="font-size:16px;font-weight:600;color:var(--fg);margin-bottom:8px;">한국 &amp; 글로벌 원팀</h3>
+          <p class="text-sm text-muted mb-16">한국 운영팀이 요구사항과 QA를 담당. 해외 개발팀이 구축과 품질관리 수행. 고객은 한국 개발사와 협업하는 것과 동일한 경험.</p>
+          <div class="step-row"><div class="step-dot sd-v">K</div><div class="step-text">한국팀: 고객 관리 · 요구사항 분석 · 산출물 QA</div></div>
+          <div class="step-row"><div class="step-dot" style="background:var(--bg-4);color:var(--fg-3);border-color:var(--border);">G</div><div class="step-text">글로벌팀: 개발 · PM · 품질 관리 · 기술 리더 한국 파견</div></div>
+        </div>
+        <div class="card" style="border-left:2px solid var(--teal);">
+          <span class="badge badge-teal mb-16"><span class="bd"></span>Model B</span>
+          <h3 style="font-size:16px;font-weight:600;color:var(--fg);margin-bottom:8px;">맞춤형 R&amp;D 센터</h3>
+          <p class="text-sm text-muted mb-16">전담 인력풀과 맞춤형 교육 과정 제공. 중소 규모 기업도 자체 해외 R&D 센터 구축 가능.</p>
+          <div class="step-row"><div class="step-dot sd-t">1</div><div class="step-text">개발자 면접 &amp; 온보딩 → 맞춤형 교육 과정 (OJT 포함)</div></div>
+          <div class="step-row"><div class="step-dot sd-t">2</div><div class="step-text">온디맨드 인력 확대 · 핵심 리더 + 플렉스 개발자 · 한국 파견 옵션</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="svc-case">
+    <div class="container">
+      <div class="flex items-center justify-between mb-32 reveal" style="flex-wrap:wrap;gap:12px;">
+        <div><span class="overline">PI 수행 사례</span><h2 class="section-h">에어레인 — 업무 프로세스 혁신 프로젝트</h2></div>
+        <span class="badge">제조업 · 2025–2026</span>
+      </div>
+      <!-- Animated counters -->
+      <div class="g4 reveal stagger mb-24">
+        <div class="card text-center"><div class="font-mono mb-8" style="font-size:32px;font-weight:700;color:var(--indigo-l);" data-count="213">0</div><div class="text-xs text-dim">이슈 도출 건수</div></div>
+        <div class="card text-center"><div class="font-mono mb-8" style="font-size:32px;font-weight:700;color:var(--indigo-l);" data-count="41">0</div><div class="text-xs text-dim">프로세스 재설계</div></div>
+        <div class="card text-center"><div class="font-mono mb-8" style="font-size:32px;font-weight:700;color:var(--indigo-l);" data-count="77">0</div><div class="text-xs text-dim">1단계 구축 화면</div></div>
+        <div class="card text-center"><div class="font-mono mb-8" style="font-size:32px;font-weight:700;color:var(--indigo-l);">4 mo</div><div class="text-xs text-dim">PI 수행 기간</div></div>
+      </div>
+      <div class="g3 reveal mb-24">
+        <div class="card-surface"><p class="font-mono text-xs mb-8" style="color:var(--fg-3);">과제</p><p class="text-sm text-muted">모든 업무를 수작업 엑셀로 관리. 통합 시스템 부재. 프로세스 재설계 없이는 ERP 요구사항 정의 불가.</p></div>
+        <div class="card"><p class="font-mono text-xs mb-8" style="color:var(--indigo-l);">수행 내용</p><p class="text-sm text-muted">4개월 PI: 8주 현황 분석 → 213건 이슈 → 3개 사업부문 41개 프로세스 재설계 → IT 요구사항 및 단계별 로드맵 확정.</p></div>
+        <div class="card-surface"><p class="font-mono text-xs mb-8" style="color:var(--fg-3);">결과</p><p class="text-sm text-muted">77개 화면 (생산, 품질, PMS, KMS, 통합 분석). 클라우드 인프라 설계 완료. 2027년까지 풀스택 개발 진행 중.</p></div>
+      </div>
+      <div class="tl-row reveal">
+        <div class="tl-cell"><div class="tl-phase">Phase 0 — PI 컨설팅</div><div class="tl-dur">2025년 11월 – 2026년 3월</div><div class="tl-body">현황 분석 · To-Be 설계 · IT 요구사항 &amp; 로드맵</div></div>
+        <div class="tl-cell" style="background:rgba(79,110,247,.06);border-color:rgba(79,110,247,.2);"><div class="tl-phase" style="color:var(--indigo-l);">Phase 1 — 핵심 구축 ← 진행 중</div><div class="tl-dur" style="color:var(--indigo-l);">2026년 4월 – 12월</div><div class="tl-body" style="color:rgba(123,150,255,.7);">77개 화면 · 클라우드 · 교육</div></div>
+        <div class="tl-cell"><div class="tl-phase">2단계</div><div class="tl-dur">2027년 상반기</div><div class="tl-body">이오노머 &amp; CCCU 신규 사업부</div></div>
+        <div class="tl-cell"><div class="tl-phase">3단계</div><div class="tl-dur">2027년 하반기</div><div class="tl-body">대시보드 · 분석 · 운영 인계</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="svc-cases">
+    <div class="container">
+      <div class="section-intro reveal"><span class="overline">기타 성공 사례</span><h2 class="section-h">다양한 개발 수행 사례</h2></div>
+      <div class="g3 reveal stagger">
+        <div class="card" style="border-top:2px solid rgba(255,120,120,.4);"><p class="font-mono text-xs mb-12" style="color:rgba(255,120,120,.6);">dot::</p><h3 style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:8px;">점자 변환 솔루션</h3><p class="text-sm text-muted mb-12">스페인 수출용 맹인용 문서 점자 변환 엔진 자체 개발. 버전 업그레이드로 지원이 중단된 기존 글로벌 솔루션 대체.</p><p class="text-xs text-dim">자체 알고리즘 · 이미지-점자 변환 · 정부 접근성 사업</p></div>
+        <div class="card" style="border-top:2px solid rgba(200,160,80,.4);"><p class="font-mono text-xs mb-12" style="color:rgba(200,160,80,.6);">THE PAY</p><h3 style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:8px;">NFC 결제 모듈 개발</h3><p class="text-sm text-muted mb-12">모바일 POS용 EMV 인증 NFC 결제 모듈 개발. 해외 개발사 기술 현장 검증 후 EMV 글로벌 인증 지원.</p><p class="text-xs text-dim">EMV 인증 · NFC · 글로벌 결제 규격</p></div>
+        <div class="card" style="border-top:2px solid rgba(120,140,220,.3);"><p class="font-mono text-xs mb-12" style="color:var(--fg-3);">CJ / Daeu</p><h3 style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:8px;">Salesforce 아웃소싱</h3><p class="text-sm text-muted mb-12">해외 소싱으로 한국 시장 대비 50% 비용의 Salesforce 팀 구성. 고객사 현지 R&D 센터 구축까지 지원.</p><p class="text-xs text-dim">Salesforce · 50% 비용 절감 · R&D 센터 구축</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm"><div class="container"><div class="cta-banner cta-banner-dark reveal" style="border-color:rgba(79,110,247,.2);">
+    <div><h3>프로젝트를 시작하고 싶으신가요?</h3><p>비즈니스 과제를 알려주시면 가장 적합한 딜리버리 모델을 제안해 드립니다.</p></div>
+    <button class="btn btn-primary" onclick="showPage('about');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),200);addRipple(event)">상담 신청</button>
+  </div></div></section>
+</div>
+
+<!-- ══════════════════ SOLUTIONS ══════════════════ -->
+<div class="page" id="page-solutions">
+  <div class="page-tabs"><div class="page-tabs-inner">
+    <button class="page-tab active" onclick="scrollAnchor('sol-zt')">제로트러스트</button>
+    <button class="page-tab" onclick="scrollAnchor('sol-ca')">TrustIn CA</button>
+    <button class="page-tab" onclick="scrollAnchor('sol-gw')">TrustIn Gateway</button>
+    <button class="page-tab" onclick="scrollAnchor('sol-impact')">도입 효과</button>
+  </div></div>
+
+  <section class="hero" id="sol-zt" style="padding-bottom:64px;">
+    <div style="position:absolute;top:-100px;right:10%;width:500px;height:400px;background:radial-gradient(ellipse,rgba(124,95,245,.1),transparent 70%);pointer-events:none;"></div>
+    <div class="container">
+      <span class="overline reveal" style="color:var(--violet-l);">솔루션</span>
+      <h1 class="hero-h mb-16 reveal"><span class="grad-text">제로트러스트 보안 —</span><br>원칙부터 설계합니다.</h1>
+      <p class="lead reveal">두 개의 상호 보완적 제품. 하나의 설계 철학:<br>절대 신뢰하지 말고, 항상 검증하라 — 모든 접근, 매 순간.</p>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <section class="section">
+    <div class="container">
+      <div class="tagline-bar reveal">
+        <div><div class="tagline-q">"절대 신뢰하지 말고, 항상 검증하라 — 모든 접근, 매 순간"</div><div class="tagline-sub">The perimeter is gone. Every connection must earn trust — every time, regardless of origin.</div></div>
+        <div class="text-xs text-dim">SYINNOVATION products<br>built on this single principle.</div>
+      </div>
+
+      <p class="overline mb-16 reveal">제로트러스트의 3가지 원칙</p>
+      <div class="g3 reveal stagger mb-48">
+        <div class="pillar p-blue"><div class="pillar-n" style="color:var(--indigo-l);">01</div><div class="pillar-t">항상 검증 (Always Verify)</div><div class="pillar-b">기본적으로 어떠한 요청도 신뢰하지 않습니다. 모든 접근 시도마다 신원·기기·위치를 검증합니다.</div></div>
+        <div class="pillar p-violet"><div class="pillar-n" style="color:var(--violet-l);">02</div><div class="pillar-t">최소 권한 (Least Privilege)</div><div class="pillar-b">업무에 필요한 최소한의 접근 권한만 부여합니다. 앱별 정책과 단기 인증서 자동 만료로 과도한 권한을 방지합니다.</div></div>
+        <div class="pillar" style="border-top:2px solid rgba(255,100,100,.5);border-color:rgba(255,100,100,.2);background:var(--bg-3);"><div class="pillar-n" style="color:#ff7a7a;">03</div><div class="pillar-t">침해 가정 (Assume Breach)</div><div class="pillar-b">네트워크가 이미 침해됐다고 가정하고 설계합니다. 모든 구간 격리, 모든 트래픽 암호화, 모든 이벤트 기록.</div></div>
+      </div>
+
+      <p class="overline mb-16 reveal">기존 경계 보안이 무너지는 이유</p>
+      <div class="vs-grid reveal mb-48">
+        <div class="vs-col"><div class="vs-head" style="background:rgba(255,68,68,.06);color:#ff7a7a;">기존 경계 보안 (VPN 중심)</div><div class="vs-body">
+          <div class="vs-item"><div class="vs-icon" style="background:rgba(255,68,68,.15);color:#ff7a7a;">✕</div>VPN 접속 = 내부 네트워크 전체 노출 — 침해 한 건이 전체를 무너뜨림</div>
+          <div class="vs-item"><div class="vs-icon" style="background:rgba(255,68,68,.15);color:#ff7a7a;">✕</div>전체 공격의 50% 이상이 VPN을 통해 진입, 평균 탐지 시간 200일 이상</div>
+          <div class="vs-item"><div class="vs-icon" style="background:rgba(255,68,68,.15);color:#ff7a7a;">✕</div>클라우드와 재택 근무로 네트워크 경계 자체가 무의미해짐</div>
+          <div class="vs-item"><div class="vs-icon" style="background:rgba(255,68,68,.15);color:#ff7a7a;">✕</div>암호화된 트래픽 내부의 횡적 이동 탐지 불가</div>
+        </div></div>
+        <div class="vs-mid">→</div>
+        <div class="vs-col"><div class="vs-head" style="background:rgba(62,207,184,.06);color:var(--teal);">제로트러스트 아키텍처</div><div class="vs-body">
+          <div class="vs-item"><div class="vs-icon" style="background:rgba(62,207,184,.15);color:var(--teal);">✓</div>모든 요청을 독립적으로 검증 — 내부 네트워크에서도 암묵적 신뢰 없음</div>
+          <div class="vs-item"><div class="vs-icon" style="background:rgba(62,207,184,.15);color:var(--teal);">✓</div>다중 신호 실시간 교차 검증</div>
+          <div class="vs-item"><div class="vs-icon" style="background:rgba(62,207,184,.15);color:var(--teal);">✓</div>신원·기기·위치를 로그인 이후에도 지속적으로 평가</div>
+          <div class="vs-item"><div class="vs-icon" style="background:rgba(62,207,184,.15);color:var(--teal);">✓</div>마이크로 세그멘테이션 + 앱별 접근 제어 — 횡적 이동 구조적 차단</div>
+        </div></div>
+      </div>
+
+      <p class="overline mb-16 reveal">당사 6가지 보안 설계 원칙</p>
+      <div class="dp-grid reveal stagger">
+        <div class="dp" style="border-left-color:var(--indigo);"><div class="dp-n" style="color:var(--indigo-l);">Principle 01</div><div class="dp-t">TLS 1.3 전용</div><div class="dp-b">TLS 1.2 이하 전면 차단. 전 구간 종단 암호화.</div></div>
+        <div class="dp" style="border-left-color:#ff5555;"><div class="dp-n" style="color:#ff7a7a;">Principle 02</div><div class="dp-t">기본 차단 (Default Deny)</div><div class="dp-b">모든 요청을 기본 차단. 유효한 인증서 없는 접속은 예외 없이 거부.</div></div>
+        <div class="dp" style="border-left-color:var(--violet);"><div class="dp-n" style="color:var(--violet-l);">Principle 03</div><div class="dp-t">최소 권한 접근</div><div class="dp-b">OPA 정책 엔진으로 앱별 접근 제어. 인증서 자동 만료 — 권한은 지속되지 않음.</div></div>
+        <div class="dp" style="border-left-color:var(--teal);"><div class="dp-n" style="color:var(--teal);">Principle 04</div><div class="dp-t">커널리스 터널</div><div class="dp-b">커널 수준 공격 표면 완전 제거.</div></div>
+        <div class="dp" style="border-left-color:#c9a227;"><div class="dp-n" style="color:#e8bf6a;">Principle 05</div><div class="dp-t">하드웨어 키 격리</div><div class="dp-b">개인 키는 SE(Secure Enclave) 보관, 루트 키는 HSM 보관. 키는 절대 반출되지 않음.</div></div>
+        <div class="dp" style="border-left-color:var(--fg-3);"><div class="dp-n" style="color:var(--fg-3);">Principle 06</div><div class="dp-t">지속적 신뢰 평가</div><div class="dp-b">모든 요청마다 실시간 신호로 신뢰를 재평가 — 세션 간 고정 신뢰 없음.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="sol-ca">
+    <div class="container">
+      <div class="flex items-center justify-between mb-32 reveal" style="flex-wrap:wrap;gap:12px;">
+        <div><span class="overline" style="color:var(--violet-l);">TrustIn CA</span><h2 class="section-h">사설 인증 솔루션</h2></div>
+        <span class="badge badge-violet"><span class="bd"></span>KB국민카드 · 롯데카드 · 웰컴저축은행 · 여신금융협회</span>
+      </div>
+      <div class="feat-strip reveal mb-20">
+        <div class="feat-cell" style="background:rgba(124,95,245,.06);"><div class="feat-n" style="color:var(--violet-l);">Feature 01</div><div class="feat-t">3종 인증서 바인딩</div><div class="feat-b" style="color:rgba(166,133,255,.7);">소유·지식·생체 — 3종이 하나의 인증 세션에 결합.</div></div>
+        <div class="feat-cell"><div class="feat-n">Feature 02</div><div class="feat-t">SE + HSM 키 격리</div><div class="feat-b">개인 키는 SE 보관. 루트 키는 HSM 보관. 키는 하드웨어를 절대 벗어나지 않음.</div></div>
+        <div class="feat-cell"><div class="feat-n">Feature 03</div><div class="feat-t">TLS 1.3 E2E 상호 인증</div><div class="feat-b">인증서 E2E 교차 검증. MITM, 키 탈취, PW 탈취 모두 차단.</div></div>
+        <div class="feat-cell"><div class="feat-n">Feature 04</div><div class="feat-t">Alchera AI 안면 인식</div><div class="feat-b">선택적 통합 인증. 한 번 등록으로 온·오프라인 전 채널 접근 가능.</div></div>
+      </div>
+      <div class="g2 reveal">
+        <div class="card">
+          <h3 style="font-size:14px;font-weight:600;color:var(--fg);margin-bottom:16px;">보안 사고 유형별 방어</h3>
+          <div class="cmp">
+            <div class="cmp-row-2" style="background:var(--bg-4);">
+              <div class="cmp-head">위협 유형</div>
+              <div class="cmp-head">방어 메커니즘</div>
+            </div>
+            <div class="cmp-row-2 scan-row">
+              <div class="cmp-cell" style="color:var(--fg-2);font-weight:500;">키 탈취</div>
+              <div class="cmp-cell">개인 키는 Secure Enclave(SE) 보관, 루트 키는 HSM 보관 — 키는 하드웨어 경계를 절대 벗어나지 않음</div>
+            </div>
+            <div class="cmp-row-2 scan-row">
+              <div class="cmp-cell" style="color:var(--fg-2);font-weight:500;">중간자 공격</div>
+              <div class="cmp-cell">인증서 E2E 상호 교차 점검 + TLS 1.3 — 양단에 유효한 인증서 없이는 어떤 트래픽도 허용하지 않음</div>
+            </div>
+            <div class="cmp-row-2 scan-row">
+              <div class="cmp-cell" style="color:var(--fg-2);font-weight:500;">PW 탈취</div>
+              <div class="cmp-cell">기기 등록 크로스체크 — 탈취된 비밀번호만으로는 등록 기기 없이 인증 불가</div>
+            </div>
+            <div class="cmp-row-2 scan-row">
+              <div class="cmp-cell" style="color:var(--fg-2);font-weight:500;">기기 분실</div>
+              <div class="cmp-cell">매 인증 시 기기 잠금 상태 검증 — 잠금 또는 초기화된 기기는 즉시 전체 세션 차단</div>
+            </div>
+            <div class="cmp-row-2 scan-row">
+              <div class="cmp-cell" style="color:var(--fg-2);font-weight:500;">PW 유출</div>
+              <div class="cmp-cell">연속 실패 시 자동 잠금 (Fail &amp; Lock) — 무차별 대입 공격 시 단계적 잠금 적용</div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="font-size:14px;font-weight:600;color:var(--fg);margin-bottom:16px;">도입 모델</h3>
+          <div class="step-row"><div class="step-dot sd-v">SI</div><div class="step-text"><strong>SI 구축형</strong> — 온프레미스 CA 서버 + HSM. 금융 엔터프라이즈 맞춤 개발.</div></div>
+          <div class="step-row"><div class="step-dot sd-v">SaaS</div><div class="step-text"><strong>클라우드 SaaS</strong> — 공유 CA 서버. 구독형 과금. 빠른 서비스 출시.</div></div>
+          <div class="step-row"><div class="step-dot sd-v">SDK</div><div class="step-text"><strong>SDK 패키지</strong> — 가이드 문서 기반 자체 연동. 벤더 의존도 최소화.</div></div>
+          <div class="div"></div>
+          <p class="text-xs text-dim">현재 운영 중: KB국민카드 · 롯데카드 · 웰컴저축은행 · 여신금융협회</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="sol-gw">
+    <div class="container">
+      <div class="flex items-center justify-between mb-32 reveal" style="flex-wrap:wrap;gap:12px;">
+        <div><span class="overline" style="color:var(--teal);">TrustIn Gateway</span><h2 class="section-h">제로트러스트 네트워크 접근 제어</h2></div>
+        <span class="badge badge-teal"><span class="bd"></span>VPN 대체 · 재택근무 보안</span>
+      </div>
+      <p class="overline mb-12 reveal">다중 레이어 접근 제어</p>
+      <div class="stage-row reveal mb-24">
+        <div class="stage-cell" style="background:rgba(62,207,184,.06);"><div class="stage-n" style="color:var(--teal);">1</div><div class="stage-t" style="color:var(--teal);">본인확인</div><div class="stage-b" style="color:rgba(62,207,184,.6);">Authentication</div></div>
+        <div class="stage-cell"><div class="stage-n" style="color:var(--fg-3);">2</div><div class="stage-t">로케이션 점검</div><div class="stage-b" style="color:var(--fg-4);">Location Check</div></div>
+        <div class="stage-cell" style="background:var(--bg-2);"><div class="stage-n" style="color:var(--fg-3);">3</div><div class="stage-t">인증서 검증</div><div class="stage-b" style="color:var(--fg-4);">Certificate</div></div>
+        <div class="stage-cell"><div class="stage-n" style="color:var(--fg-3);">4</div><div class="stage-t">게이트웨이 접속</div><div class="stage-b" style="color:var(--fg-4);">Gateway Connect</div></div>
+        <div class="stage-cell" style="background:rgba(62,207,184,.06);"><div class="stage-n" style="color:var(--teal);">5</div><div class="stage-t" style="color:var(--teal);">상시 평가</div><div class="stage-b" style="color:rgba(62,207,184,.6);">Continuous Eval</div></div>
+      </div>
+      <p class="overline mb-12 reveal">OPA 정책 엔진 — 3단계 결정 트리</p>
+      <div class="opa-grid reveal mb-24">
+        <div class="opa" style="background:rgba(62,207,184,.06);border-color:rgba(62,207,184,.2);"><div class="opa-lbl" style="color:var(--teal);">결정 A</div><div class="opa-t" style="color:var(--teal);">허용 (Allow)</div><div class="opa-b" style="color:rgba(62,207,184,.7);">위험도 낮음 · 인증서 유효 · 위치 일치 → 접근 허용</div></div>
+        <div class="opa" style="background:rgba(200,160,80,.06);border-color:rgba(200,160,80,.2);"><div class="opa-lbl" style="color:#e8bf6a;">결정 B</div><div class="opa-t" style="color:#e8bf6a;">추가 인증 (Step-up)</div><div class="opa-b" style="color:rgba(232,191,106,.7);">경계 위험도 → 추가 생체 인증 또는 TOTP 요청</div></div>
+        <div class="opa" style="background:rgba(255,68,68,.06);border-color:rgba(255,68,68,.2);"><div class="opa-lbl" style="color:#ff7a7a;">결정 C</div><div class="opa-t" style="color:#ff7a7a;">차단 (Deny)</div><div class="opa-b" style="color:rgba(255,122,122,.7);">높은 위험도 · VPN 위장 또는 SIM 스와핑 탐지 → 차단 및 알림</div></div>
+      </div>
+      <div class="g2 reveal">
+        <div class="card">
+          <h3 style="font-size:14px;font-weight:600;color:var(--fg);margin-bottom:16px;">기존 솔루션과의 비교</h3>
+          <div class="cmp">
+            <div class="cmp-row"><div class="cmp-head" style="background:var(--bg-4);color:var(--fg-3);">구분</div><div class="cmp-head" style="background:var(--bg-4);color:var(--fg-3);">기존 VPN</div><div class="cmp-head" style="background:rgba(62,207,184,.06);color:var(--teal);">TrustIn Gateway</div></div>
+            <div class="cmp-row scan-row"><div class="cmp-cell" style="color:var(--fg-3);">위치 검증</div><div class="cmp-cell" style="color:var(--fg-4);">IP만 / 없음</div><div class="cmp-cell" style="color:var(--teal);font-weight:600;">Multi Factors 교차 검증</div></div>
+            <div class="cmp-row scan-row"><div class="cmp-cell" style="color:var(--fg-3);">신뢰 평가</div><div class="cmp-cell" style="color:var(--fg-4);">로그인 시 1회</div><div class="cmp-cell" style="color:var(--teal);font-weight:600;">요청마다 지속 평가</div></div>
+            <div class="cmp-row scan-row"><div class="cmp-cell" style="color:var(--fg-3);">커널 의존성</div><div class="cmp-cell" style="color:var(--fg-4);">모듈 설치 필요</div><div class="cmp-cell" style="color:var(--teal);font-weight:600;">커널리스</div></div>
+            <div class="cmp-row scan-row"><div class="cmp-cell" style="color:var(--fg-3);">전용 하드웨어</div><div class="cmp-cell" style="color:var(--fg-4);">필요</div><div class="cmp-cell" style="color:var(--teal);font-weight:600;">불필요</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="font-size:14px;font-weight:600;color:var(--fg);margin-bottom:16px;">3단계 도입 경로</h3>
+          <div class="g3" style="gap:8px;">
+            <div class="card-surface" style="padding:14px;"><p class="font-mono text-xs mb-4" style="color:var(--fg-3);">2–4주</p><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">PoC</p><p class="text-xs text-dim">핵심 서버 · 에이전트 · 선별 사용자</p></div>
+            <div class="card" style="padding:14px;border-color:rgba(62,207,184,.25);background:rgba(62,207,184,.04);"><p class="font-mono text-xs mb-4" style="color:var(--teal);">4–8주</p><p style="font-size:13px;font-weight:600;color:var(--teal);margin-bottom:4px;">파일럿</p><p class="text-xs" style="color:rgba(62,207,184,.6);">부서 확대 · OPA 정책 고도화</p></div>
+            <div class="card-surface" style="padding:14px;"><p class="font-mono text-xs mb-4" style="color:var(--fg-3);">8–16주</p><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">전사 확대</p><p class="text-xs text-dim">전직원 · SIEM 연동 · 컴플라이언스</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="sol-impact">
+    <div class="container">
+      <div class="section-intro reveal"><span class="overline">도입 효과</span><h2 class="section-h">솔루션별 측정 가능한 성과</h2></div>
+      <div class="impact-group reveal">
+        <div class="impact-label" style="color:var(--violet-l);">TrustIn CA — 사설 인증</div>
+        <div class="impact-cards">
+          <div class="impact-card" style="border-color:rgba(124,95,245,.25);background:rgba(124,95,245,.05);"><div class="impact-n" style="color:var(--violet-l);">₩70M → ₩10M/mo</div><div class="impact-b" style="color:rgba(166,133,255,.7);">KB카드 인증 비용 86% 절감</div></div>
+          <div class="impact-card" style="border-color:rgba(124,95,245,.25);background:rgba(124,95,245,.05);"><div class="impact-n" style="color:var(--violet-l);">불필요 인증 제거</div><div class="impact-b" style="color:rgba(166,133,255,.7);">중복 로그인 및 재인증 단계 삭제</div></div>
+          <div class="impact-card" style="border-color:rgba(124,95,245,.25);background:rgba(124,95,245,.05);"><div class="impact-n" style="color:var(--violet-l);">E2E 보안 강화</div><div class="impact-b" style="color:rgba(166,133,255,.7);">SE + HSM 이중 키 격리</div></div>
+          <div class="impact-card" style="border-color:rgba(124,95,245,.25);background:rgba(124,95,245,.05);"><div class="impact-n" style="color:var(--violet-l);">기관 맞춤 설계</div><div class="impact-b" style="color:rgba(166,133,255,.7);">기관 심의·평가 기준 맞춤 설계</div></div>
+        </div>
+      </div>
+      <div class="impact-group reveal">
+        <div class="impact-label" style="color:var(--teal);">TrustIn Gateway — ZTNA</div>
+        <div class="impact-cards">
+          <div class="impact-card" style="border-color:rgba(62,207,184,.25);background:rgba(62,207,184,.05);"><div class="impact-n" style="color:var(--teal);">VPN 100% 대체</div><div class="impact-b" style="color:rgba(62,207,184,.7);">전용 하드웨어 불필요</div></div>
+          <div class="impact-card" style="border-color:rgba(62,207,184,.25);background:rgba(62,207,184,.05);"><div class="impact-n" style="color:var(--teal);">₩3K–20K/user/mo</div><div class="impact-b" style="color:rgba(62,207,184,.7);">인당 VPN 라이선스 비용 절감</div></div>
+          <div class="impact-card" style="border-color:rgba(62,207,184,.25);background:rgba(62,207,184,.05);"><div class="impact-n" style="color:var(--teal);">멀티 신호 교차 검증</div><div class="impact-b" style="color:rgba(62,207,184,.7);">해외 IP 위장 &amp; SIM 스와핑 실시간 탐지</div></div>
+          <div class="impact-card" style="border-color:rgba(62,207,184,.25);background:rgba(62,207,184,.05);"><div class="impact-n" style="color:var(--teal);">PCI-DSS 범위 외</div><div class="impact-b" style="color:rgba(62,207,184,.7);">컴플라이언스 감사 부담 최소화</div></div>
+        </div>
+      </div>
+      <div class="cta-banner cta-banner-dark reveal" style="border-color:rgba(124,95,245,.2);">
+        <div><h3>보안 현황 점검을 원하시나요?</h3><p>무료 PoC 범위 설계 세션 제공 — 현재 환경을 알려주시면 최적의 시작점을 제안해 드립니다.</p></div>
+        <button class="btn btn-primary" onclick="showPage('about');setTimeout(()=>document.getElementById('contact').scrollIntoView({behavior:'smooth'}),200);addRipple(event)">PoC 신청하기</button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════════════ ABOUT US ══════════════════ -->
+<div class="page" id="page-about">
+  <div class="page-tabs"><div class="page-tabs-inner">
+    <button class="page-tab active" onclick="scrollAnchor('about-co')">회사 개요</button>
+    <button class="page-tab" onclick="scrollAnchor('about-team')">경영진</button>
+    <button class="page-tab" onclick="scrollAnchor('about-partners')">파트너</button>
+    <button class="page-tab" onclick="scrollAnchor('about-contact')">문의</button>
+  </div></div>
+
+  <section class="hero" id="about-co" style="padding-bottom:64px;">
+    <div class="container">
+      <span class="overline reveal" style="color:var(--teal);">회사 소개</span>
+      <h1 class="hero-h mb-16 reveal"><span class="grad-text">ZeroTrust와 Global Talent로</span><br>더 나은 내일을 만들어 갑니다.</h1>
+      <p class="lead reveal">깊은 보안 전문성과 글로벌 파트너 네트워크로 고객이 신뢰할 수 있는 IT 서비스를 제공합니다.</p>
+    </div>
+  </section>
+
+  <div class="glow-line"></div>
+
+  <section class="section">
+    <div class="container">
+      <!-- Why clients choose us — full width -->
+      <div class="reveal mb-48">
+        <span class="overline">핵심 경쟁력</span>
+        <h2 class="section-h mb-24">고객이 선택하는 이유</h2>
+        <div class="g3">
+            <div class="card" style="display:flex;gap:16px;align-items:flex-start;padding:20px;"><div style="width:36px;height:36px;border-radius:var(--r-md);background:rgba(79,110,247,.12);border:1px solid rgba(79,110,247,.2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--indigo-l);flex-shrink:0;font-family:var(--font-mono);">1</div><div><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">핵심 기술 내재화</p><p style="font-size:14px;color:var(--fg-2);">보안·인증·결제 원천 기술 보유 — 외부 의존 없이 안정적인 장기 지원이 가능합니다.</p></div></div>
+            <div class="card" style="display:flex;gap:16px;align-items:flex-start;padding:20px;"><div style="width:36px;height:36px;border-radius:var(--r-md);background:rgba(62,207,184,.1);border:1px solid rgba(62,207,184,.2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--teal);flex-shrink:0;font-family:var(--font-mono);">2</div><div><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">글로벌 파트너 네트워크</p><p style="font-size:14px;color:var(--fg-2);">다년간의 공동 프로젝트 수행을 통해 검증된 베트남 현지 파트너십 보유.</p></div></div>
+            <div class="card" style="display:flex;gap:16px;align-items:flex-start;padding:20px;"><div style="width:36px;height:36px;border-radius:var(--r-md);background:rgba(124,95,245,.12);border:1px solid rgba(124,95,245,.2);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:var(--violet-l);flex-shrink:0;font-family:var(--font-mono);">3</div><div><p style="font-size:15px;font-weight:600;color:var(--fg);margin-bottom:6px;">고객 맞춤 IT 딜리버리</p><p style="font-size:14px;color:var(--fg-2);">모든 프로젝트를 고객의 상황에 맞게 설계 — 표준화된 패키지가 아닌 진짜 맞춤형 서비스.</p></div></div>
+        </div>
+      </div>
+      <!-- Company Overview — full width below -->
+      <div class="reveal">
+        <span class="overline">회사 개요</span>
+        <h2 class="section-h mb-20">신영이노베이션 한눈에 보기</h2>
+        <div class="card" style="padding:0;overflow:hidden;">
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;">
+              <div style="padding:20px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);"><p class="font-mono text-xs text-dim mb-6">설립일</p><p style="font-size:15px;font-weight:500;color:var(--fg);">2023년 10월 25일</p></div>
+              <div style="padding:20px 24px;border-bottom:1px solid var(--border);"><p class="font-mono text-xs text-dim mb-6">CEO</p><p style="font-size:15px;font-weight:500;color:var(--fg);">Hyungku (Humphrey) Kang</p></div>
+              <div style="padding:20px 24px;border-right:1px solid var(--border);border-bottom:1px solid var(--border);"><p class="font-mono text-xs text-dim mb-6">사업자등록번호</p><p style="font-size:15px;font-weight:500;color:var(--fg);">439-88-02733</p></div>
+              <div style="padding:20px 24px;border-bottom:1px solid var(--border);"><p class="font-mono text-xs text-dim mb-6">주요 사업</p><p style="font-size:15px;font-weight:500;color:var(--fg);">보안 · 개발 · 컨설팅</p></div>
+              <div style="padding:20px 24px;border-right:1px solid var(--border);"><p class="font-mono text-xs text-dim mb-6">본사</p><p style="font-size:15px;font-weight:500;color:var(--fg);">서울특별시 강남구</p></div>
+              <div style="padding:20px 24px;"><p class="font-mono text-xs text-dim mb-6">업종</p><p style="font-size:15px;font-weight:500;color:var(--fg);">정보통신업 / 서비스업</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="about-team">
+
+  <section class="section section-alt" id="about-team">
+    <div class="container">
+      <div class="section-intro reveal"><span class="overline">경영진</span><h2 class="section-h">핵심 인력</h2><p>보안·금융·글로벌 IT 분야 수십 년의 경험을 가진 핵심 팀입니다.</p></div>
+      <div class="g3 reveal stagger">
+        <div class="team-card"><div class="team-avatar" style="background:rgba(79,110,247,.12);border-color:rgba(79,110,247,.25);color:var(--indigo-l);font-size:13px;letter-spacing:-.02em;">CEO</div><div class="team-name">Hyungku (Humphrey) Kang</div><div class="team-bio">IBM GBS · 삼성카드 DB마케팅 · TMX Korea 스타트업 창업 · BANKBE 베트남 법인 설립. 비즈니스/IT 컨설팅 15년 이상의 글로벌 핀테크 경력.</div></div>
+        <div class="team-card"><div class="team-avatar" style="background:rgba(124,95,245,.12);border-color:rgba(124,95,245,.25);color:var(--violet-l);font-size:13px;letter-spacing:-.02em;">CTO</div><div class="team-name">James Gong</div><div class="team-bio">LG CNS 보안 Specialist · 전자여권 플랫폼 개발 · LG U+ LG Pay · 교통카드 개발. 모바일 보안 및 인증 25년 경력.</div></div>
+        <div class="team-card"><div class="team-avatar" style="background:rgba(62,207,184,.1);border-color:rgba(62,207,184,.25);color:var(--teal);font-size:13px;letter-spacing:-.02em;">COO</div><div class="team-name">Sungsoo Park</div><div class="team-bio">국내 IT 및 컨설팅 분야에서 업무 프로세스 관리 및 조직 개발 전반에 걸친 풍부한 운영 리더십 경험 보유.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about-partners">
+    <div class="container">
+      <div class="section-intro reveal"><span class="overline">파트너</span><h2 class="section-h">파트너</h2><p>DB설계, DATA 관리/이관 전문가 그룹 및 검증된 베트남 현지 파트너 — 기술 영역별 강점과 공동 수행 실적 보유.</p></div>
+      <div class="g2 reveal">
+        <div class="partner-card"><span class="badge badge-teal"><span class="bd"></span>베트남 하노이</span><div class="partner-name">AHT</div><div class="partner-body">300명 이상의 개발 인력 · AI · 블록체인 · 클라우드 · DevOps. 풀스택 및 AI 기반 프로젝트 전략적 파트너.</div></div>
+        <div class="partner-card"><span class="badge badge-indigo"><span class="bd"></span>서울, 대한민국</span><div class="partner-name">한국비앤에스시스템 (KBNS)</div><div class="partner-body">2014년 설립 · 정규직 33명 · DB 설계/모델링, DATA 관리·이관·이행 전문 · ISP/PMO 컨설팅 · 공공·금융·통신·제조 응용개발 · KB국민카드 차세대 데이터전환, 삼성카드 등 주요 금융사 레퍼런스. 기술 파트너.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="about-contact">
+    <div class="container" id="contact">
+      <div class="section-intro reveal"><span class="overline">문의</span><h2 class="section-h">문의하기</h2><p>비즈니스 과제를 알려주시면 영업일 기준 1일 이내에 회신드립니다.</p></div>
+      <div class="g2 reveal">
+        <div>
+          <div class="card mb-16">
+            <h3 style="font-size:14px;font-weight:600;color:var(--fg);margin-bottom:20px;">연락처</h3>
+            <div class="step-row"><div class="step-dot sd-i" style="font-size:12px;">@</div><div class="step-text">jamesgong@syinnovation.net</div></div>
+            <div class="step-row"><div class="step-dot sd-i">Tel</div><div class="step-text">02-582-8000</div></div>
+            <div class="step-row"><div class="step-dot sd-i">Mob</div><div class="step-text">010-8936-9038</div></div>
+            <div class="step-row"><div class="step-dot sd-i">Adr</div><div class="step-text">서울특별시 강남구 강남대로 354 혜천빌딩 11층 (역삼동)</div></div>
+            <div class="step-row"><div class="step-dot sd-i">Web</div><div class="step-text">www.syinnovation.net</div></div>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="font-size:14px;font-weight:600;color:var(--fg);margin-bottom:20px;">무료 상담 신청</h3>
+          <div class="form-group"><label>회사명 / 담당자명</label><input type="text" placeholder="예) 주식회사 OOO / 홍길동"></div>
+          <div class="form-group"><label>이메일 또는 연락처</label><input type="text" placeholder="email@company.com"></div>
+          <div class="form-group"><label>문의 유형</label>
+            <select>
+              <option value="">문의 유형을 선택해 주세요</option>
+              <option>TrustIn CA — 사설 인증</option>
+              <option>TrustIn Gateway — ZTNA 구축</option>
+              <option>글로벌 IT 아웃소싱</option>
+              <option>풀스택 개발 의뢰</option>
+              <option>PI 컨설팅</option>
+              <option>기타</option>
+            </select>
+          </div>
+          <div class="form-group"><label>문의 내용 (선택)</label><textarea placeholder="프로젝트나 비즈니스 과제에 대해 간략히 설명해 주세요..."></textarea></div>
+          <button class="btn btn-primary w-full" onclick="addRipple(event)">상담 신청하기 <span class="btn-icon">↗</span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div><div class="footer-logo">SYINNOVATION</div><div style="font-size:11px;color:var(--fg-4);margin-top:3px;">㈜ 신영이노베이션 · 사업자등록번호 439-88-02733 · 서울특별시 강남구</div></div>
+      <div class="footer-links">
+        <a class="footer-link" href="#">개인정보처리방침</a>
+        <a class="footer-link" href="#">이용약관</a>
+        <span class="footer-link">© 2026 신영이노베이션</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ─── PAGE NAVIGATION ─── */
+function showPage(name) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+  const p = document.getElementById('page-' + name);
+  const n = document.getElementById('nav-' + name);
+  if(p) p.classList.add('active');
+  if(n) n.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
+  document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+  const ft = p && p.querySelector('.page-tab');
+  if(ft) ft.classList.add('active');
+  setTimeout(initReveal, 60);
+  if(name === 'home') startTyping();
+  initCounters();
+}
+
+function scrollAnchor(id) {
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth'});
+  document.querySelectorAll('.page-tab').forEach(t => t.classList.remove('active'));
+  if(event && event.target) event.target.classList.add('active');
+}
+
+/* ─── SCROLL REVEAL ─── */
+function initReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  }, { threshold: 0.07 });
+  document.querySelectorAll('.reveal, .reveal-left').forEach(el => {
+    el.classList.remove('visible'); obs.observe(el);
+  });
+}
+
+/* ─── HERO TYPING ANIMATION ─── */
+const lines = [
+  '컨설팅부터 개발/운영까지.',
+  '글로벌 아웃소싱.',
+  '제로트러스트 보안.'
+];
+let lineIdx = 0, charIdx = 0, isDeleting = false;
+let typingTimer = null;
+
+function startTyping() {
+  clearTimeout(typingTimer);
+  lineIdx = 0; charIdx = 0; isDeleting = false;
+  typeStep();
+}
+
+function typeStep() {
+  const el = document.getElementById('typedText');
+  if(!el) return;
+  const current = lines[lineIdx];
+
+  if(!isDeleting) {
+    el.textContent = current.slice(0, charIdx + 1);
+    charIdx++;
+    if(charIdx === current.length) {
+      if(lineIdx === lines.length - 1) return; // stop at last line
+      typingTimer = setTimeout(() => { isDeleting = true; typeStep(); }, 1800);
+      return;
+    }
+  } else {
+    el.textContent = current.slice(0, charIdx - 1);
+    charIdx--;
+    if(charIdx === 0) {
+      isDeleting = false;
+      lineIdx = (lineIdx + 1) % lines.length;
+      typingTimer = setTimeout(typeStep, 300);
+      return;
+    }
+  }
+  typingTimer = setTimeout(typeStep, isDeleting ? 40 : 70);
+}
+
+/* ─── NUMBER COUNTER ANIMATION ─── */
+function initCounters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    if(el.dataset.counted) return;
+    el.dataset.counted = '1';
+    const target = parseInt(el.dataset.count);
+    let current = 0;
+    const step = Math.ceil(target / 40);
+    const timer = setInterval(() => {
+      current = Math.min(current + step, target);
+      el.textContent = current;
+      if(current >= target) clearInterval(timer);
+    }, 30);
+  });
+}
+
+/* ─── RIPPLE EFFECT ─── */
+function addRipple(e) {
+  const btn = e.currentTarget;
+  const r = document.createElement('span');
+  r.classList.add('ripple');
+  const rect = btn.getBoundingClientRect();
+  const size = Math.max(rect.width, rect.height);
+  r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px`;
+  btn.appendChild(r);
+  setTimeout(() => r.remove(), 600);
+}
+
+/* ─── INIT ─── */
+document.addEventListener('DOMContentLoaded', () => {
+  initReveal();
+  startTyping();
+  // counter observe
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) initCounters(); });
+  }, {threshold: .3});
+  document.querySelectorAll('[data-count]').forEach(el => obs.observe(el));
+});
+</script>
+
+<script>
+function toggleMobileMenu() {
+  var menu    = document.getElementById('navMobileMenu');
+  var overlay = document.getElementById('navOverlay');
+  var burger  = document.getElementById('navHamburger');
+  var isOpen  = menu.classList.toggle('open');
+  overlay.classList.toggle('open', isOpen);
+  burger.classList.toggle('open', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+function closeMobileMenu() {
+  var menu    = document.getElementById('navMobileMenu');
+  var overlay = document.getElementById('navOverlay');
+  var burger  = document.getElementById('navHamburger');
+  if (!menu) return;
+  menu.classList.remove('open');
+  overlay.classList.remove('open');
+  burger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+var _origShowPage = window.showPage;
+if (typeof _origShowPage === 'function') {
+  window.showPage = function(name) {
+    closeMobileMenu();
+    _origShowPage(name);
+  };
+}
+window.addEventListener('resize', function() {
+  if (window.innerWidth > 768) closeMobileMenu();
+});
+</script>
+
+</body>
+</html>
