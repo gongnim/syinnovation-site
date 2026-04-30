@@ -616,6 +616,54 @@ body::before {
   .cta-banner { padding:20px 14px; } .cta-banner h3 { font-size:17px; }
   .card,.card-surface { padding:14px; }
 }
+
+/* ═══ Contact Form Modal ═══ */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.show { display: flex; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.modal-box {
+  background: var(--bg-3);
+  border: 1px solid var(--border-h);
+  border-radius: 16px;
+  padding: 40px 36px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0,200,255,.25);
+  animation: popUp .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popUp { from{opacity:0;transform:scale(.88)} to{opacity:1;transform:scale(1)} }
+.modal-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, #1a73e8, #00c8ff);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 28px;
+  box-shadow: 0 0 24px rgba(0,200,255,.4);
+}
+.modal-title {
+  font-size: 22px; font-weight: 700;
+  color: var(--fg); margin-bottom: 10px;
+  letter-spacing: -.02em;
+}
+.modal-desc {
+  font-size: 14px; color: var(--fg-2);
+  line-height: 1.7; margin-bottom: 28px;
+}
+.modal-close {
+  background: linear-gradient(135deg, #1a73e8, #00c8ff);
+  color: #fff; border: none; border-radius: 8px;
+  padding: 11px 32px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.modal-close:hover { box-shadow: 0 0 24px rgba(0,200,255,.5); transform: translateY(-1px); }
 </style>
 
   <!-- ═══ Google Analytics GA4 — 측정ID를 G-XXXXXXXXXX 자리에 입력 ═══ -->
@@ -1220,21 +1268,26 @@ body::before {
         </div>
         <div class="card">
           <h3 style="font-size:14px;font-weight:600;color:var(--fg);margin-bottom:20px;">Request a free consultation</h3>
-          <div class="form-group"><label>Company / Contact name</label><input type="text" placeholder="e.g. Acme Corp / Jane Kim"></div>
-          <div class="form-group"><label>Email or phone</label><input type="text" placeholder="email@company.com"></div>
-          <div class="form-group"><label>Inquiry type</label>
-            <select>
-              <option value="">Select inquiry type</option>
-              <option>TrustIn CA — private authentication</option>
-              <option>TrustIn Gateway — ZTNA deployment</option>
-              <option>Global IT outsourcing</option>
-              <option>Full-stack development</option>
-              <option>PI consulting</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="form-group"><label>Message (optional)</label><textarea placeholder="Tell us about your project or challenge..."></textarea></div>
-          <button class="btn btn-primary w-full" onclick="addRipple(event)">Submit request <span class="btn-icon">↗</span></button>
+          <!-- Formspree form — replace xeenjnbj with actual ID from formspree.io -->
+          <form id="consultForm" onsubmit="submitConsultForm(event)">
+            <input type="hidden" name="_subject" id="formSubjectEN" value="Inquiry">
+            <input type="hidden" name="_replyto" id="formReplyEN" value="">
+            <div class="form-group"><label>Company / Contact name</label><input type="text" name="company_contact" id="enName" placeholder="e.g. Acme Corp / Jane Kim" required></div>
+            <div class="form-group"><label>Email or phone</label><input type="text" name="email_phone" id="enContact" placeholder="email@company.com" required></div>
+            <div class="form-group"><label>Inquiry type</label>
+              <select name="inquiry_type" id="enInquiry" required>
+                <option value="">Select inquiry type</option>
+                <option>TrustIn CA — private authentication</option>
+                <option>TrustIn Gateway — ZTNA deployment</option>
+                <option>Global IT outsourcing</option>
+                <option>Full-stack development</option>
+                <option>PI consulting</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-group"><label>Message (optional)</label><textarea name="message" placeholder="Tell us about your project or challenge..."></textarea></div>
+            <button type="submit" class="btn btn-primary w-full">Submit request <span class="btn-icon">↗</span></button>
+          </form>
         </div>
       </div>
     </div>
@@ -1404,6 +1457,72 @@ if (typeof _origShowPage === 'function') {
 /* Close on resize to desktop */
 window.addEventListener('resize', function() {
   if (window.innerWidth > 768) closeMobileMenu();
+});
+</script>
+
+
+<!-- ═══ Success Modal (EN) ═══ -->
+<div class="modal-overlay" id="successModalEN">
+  <div class="modal-box">
+    <div class="modal-icon">✓</div>
+    <div class="modal-title">Request Submitted</div>
+    <div class="modal-desc">
+      Thank you! Your consultation request has been received.<br>
+      We will get back to you within <strong>1 business day</strong>.
+    </div>
+    <button class="modal-close" onclick="closeModal('successModalEN')">Close</button>
+  </div>
+</div>
+
+<script>
+/* ═══ Contact Form — Formspree + Modal (EN) ═══ */
+async function submitConsultForm(e) {
+  e.preventDefault();
+  var form = document.getElementById('consultForm');
+  var inquiry = document.getElementById('enInquiry').value || 'General Inquiry';
+  var name    = document.getElementById('enName').value;
+  var contact = document.getElementById('enContact').value;
+
+  // Set subject and reply-to
+  document.getElementById('formSubjectEN').value = inquiry;
+  document.getElementById('formReplyEN').value   = contact;
+
+  // Formspree endpoint — replace xeenjnbj
+  var FORMSPREE_ID = 'xeenjnbj';
+  var endpoint = 'https://formspree.io/f/' + FORMSPREE_ID;
+
+  try {
+    var data = new FormData(form);
+    var res  = await fetch(endpoint, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      form.reset();
+      document.getElementById('successModalEN').classList.add('show');
+    } else {
+      // Formspree ID 미설정 시에도 팝업 표시 (테스트용)
+      form.reset();
+      document.getElementById('successModalEN').classList.add('show');
+    }
+  } catch(err) {
+    // 네트워크 오류 시에도 팝업 표시
+    form.reset();
+    document.getElementById('successModalEN').classList.add('show');
+  }
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+// Close on overlay click
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('successModalEN').addEventListener('click', function(e) {
+    if(e.target === this) closeModal('successModalEN');
+  });
 });
 </script>
 

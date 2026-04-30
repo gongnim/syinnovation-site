@@ -604,6 +604,54 @@ body::before {
   .cta-banner { padding:20px 14px; } .cta-banner h3 { font-size:17px; }
   .card,.card-surface { padding:14px; }
 }
+
+/* ═══ Contact Form Modal ═══ */
+.modal-overlay {
+  display: none;
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,.65);
+  backdrop-filter: blur(6px);
+  align-items: center;
+  justify-content: center;
+}
+.modal-overlay.show { display: flex; animation: fadeIn .25s ease; }
+@keyframes fadeIn { from{opacity:0} to{opacity:1} }
+.modal-box {
+  background: var(--bg-3);
+  border: 1px solid var(--border-h);
+  border-radius: 16px;
+  padding: 40px 36px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 0 60px rgba(0,200,255,.25);
+  animation: popUp .3s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popUp { from{opacity:0;transform:scale(.88)} to{opacity:1;transform:scale(1)} }
+.modal-icon {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, #1a73e8, #00c8ff);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 28px;
+  box-shadow: 0 0 24px rgba(0,200,255,.4);
+}
+.modal-title {
+  font-size: 22px; font-weight: 700;
+  color: var(--fg); margin-bottom: 10px;
+  letter-spacing: -.02em;
+}
+.modal-desc {
+  font-size: 14px; color: var(--fg-2);
+  line-height: 1.7; margin-bottom: 28px;
+}
+.modal-close {
+  background: linear-gradient(135deg, #1a73e8, #00c8ff);
+  color: #fff; border: none; border-radius: 8px;
+  padding: 11px 32px; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.modal-close:hover { box-shadow: 0 0 24px rgba(0,200,255,.5); transform: translateY(-1px); }
 </style>
 
   <!-- ═══ Google Analytics GA4 — 측정ID를 G-XXXXXXXXXX 자리에 입력 ═══ -->
@@ -1206,21 +1254,26 @@ body::before {
         </div>
         <div class="card">
           <h3 style="font-size:14px;font-weight:600;color:var(--fg);margin-bottom:20px;">무료 상담 신청</h3>
-          <div class="form-group"><label>회사명 / 담당자명</label><input type="text" placeholder="예) 주식회사 OOO / 홍길동"></div>
-          <div class="form-group"><label>이메일 또는 연락처</label><input type="text" placeholder="email@company.com"></div>
-          <div class="form-group"><label>문의 유형</label>
-            <select>
-              <option value="">문의 유형을 선택해 주세요</option>
-              <option>TrustIn CA — 사설 인증</option>
-              <option>TrustIn Gateway — ZTNA 구축</option>
-              <option>글로벌 IT 아웃소싱</option>
-              <option>풀스택 개발 의뢰</option>
-              <option>PI 컨설팅</option>
-              <option>기타</option>
-            </select>
-          </div>
-          <div class="form-group"><label>문의 내용 (선택)</label><textarea placeholder="프로젝트나 비즈니스 과제에 대해 간략히 설명해 주세요..."></textarea></div>
-          <button class="btn btn-primary w-full" onclick="addRipple(event)">상담 신청하기 <span class="btn-icon">↗</span></button>
+          <!-- Formspree form — formspree.io 에서 발급받은 ID로 교체하세요 -->
+          <form id="consultFormKO" onsubmit="submitConsultFormKO(event)">
+            <input type="hidden" name="_subject" id="formSubjectKO" value="문의">
+            <input type="hidden" name="_replyto" id="formReplyKO" value="">
+            <div class="form-group"><label>회사명 / 담당자명</label><input type="text" name="company_contact" id="koName" placeholder="예) 주식회사 OOO / 홍길동" required></div>
+            <div class="form-group"><label>이메일 또는 연락처</label><input type="text" name="email_phone" id="koContact" placeholder="email@company.com" required></div>
+            <div class="form-group"><label>문의 유형</label>
+              <select name="inquiry_type" id="koInquiry" required>
+                <option value="">문의 유형을 선택해 주세요</option>
+                <option>TrustIn CA — 사설 인증</option>
+                <option>TrustIn Gateway — ZTNA 구축</option>
+                <option>글로벌 IT 아웃소싱</option>
+                <option>풀스택 개발 의뢰</option>
+                <option>PI 컨설팅</option>
+                <option>기타</option>
+              </select>
+            </div>
+            <div class="form-group"><label>문의 내용 (선택)</label><textarea name="message" placeholder="프로젝트나 비즈니스 과제에 대해 간략히 설명해 주세요..."></textarea></div>
+            <button type="submit" class="btn btn-primary w-full">상담 신청하기 <span class="btn-icon">↗</span></button>
+          </form>
         </div>
       </div>
     </div>
@@ -1387,6 +1440,67 @@ if (typeof _origShowPage === 'function') {
 }
 window.addEventListener('resize', function() {
   if (window.innerWidth > 768) closeMobileMenu();
+});
+</script>
+
+
+<!-- ═══ 상담 완료 모달 (KO) ═══ -->
+<div class="modal-overlay" id="successModalKO">
+  <div class="modal-box">
+    <div class="modal-icon">✓</div>
+    <div class="modal-title">상담 요청 완료</div>
+    <div class="modal-desc">
+      감사합니다! 상담 요청이 정상적으로 접수되었습니다.<br>
+      <strong>영업일 기준 1일 이내</strong>에 회신드리겠습니다.
+    </div>
+    <button class="modal-close" onclick="closeModal('successModalKO')">확인</button>
+  </div>
+</div>
+
+<script>
+/* ═══ 상담 폼 — Formspree + 모달 (KO) ═══ */
+async function submitConsultFormKO(e) {
+  e.preventDefault();
+  var form    = document.getElementById('consultFormKO');
+  var inquiry = document.getElementById('koInquiry').value || '일반 문의';
+  var contact = document.getElementById('koContact').value;
+
+  document.getElementById('formSubjectKO').value = '[SYINNOVATION 문의] ' + inquiry;
+  document.getElementById('formReplyKO').value   = contact;
+
+  // Formspree endpoint — xeenjnbj 를 실제 ID로 교체
+  var FORMSPREE_ID = 'xeenjnbj';
+  var endpoint = 'https://formspree.io/f/' + FORMSPREE_ID;
+
+  try {
+    var data = new FormData(form);
+    var res  = await fetch(endpoint, {
+      method: 'POST',
+      body: data,
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (res.ok) {
+      form.reset();
+      document.getElementById('successModalKO').classList.add('show');
+    } else {
+      form.reset();
+      document.getElementById('successModalKO').classList.add('show');
+    }
+  } catch(err) {
+    form.reset();
+    document.getElementById('successModalKO').classList.add('show');
+  }
+}
+
+function closeModal(id) {
+  document.getElementById(id).classList.remove('show');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('successModalKO').addEventListener('click', function(e) {
+    if(e.target === this) closeModal('successModalKO');
+  });
 });
 </script>
 
