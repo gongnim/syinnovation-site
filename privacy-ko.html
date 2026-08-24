@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>개인정보처리방침 — 신영이노베이션</title>
+<meta name="description" content="주식회사 신영이노베이션 개인정보처리방침">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141928;--bg-2:#1a2032;--bg-3:#20263c;--bg-4:#262e48;--bg-5:#2c3652;
+  --border:rgba(150,170,255,.28);--border-2:rgba(150,170,255,.16);--border-glow:rgba(160,180,255,.5);
+  --fg:#f4f6ff;--fg-2:#bdc9e4;--fg-3:#8494b8;--fg-4:#3d4e72;
+  --indigo:#6080fa;--indigo-l:#90aaff;--indigo-d:#2e4acc;--violet:#8f72f7;--violet-l:#b89aff;
+  --teal:#4dd8c2;--teal-l:#7aeedd;--lavender:#d0c4ff;--silver:#c8d0f0;
+  --glow-a:rgba(96,128,250,.28);--glow-b:rgba(143,114,247,.24);--glow-c:rgba(62,207,184,.15);
+  --font:'Geist',-apple-system,BlinkMacSystemFont,sans-serif;
+  --r-sm:6px;--r-md:12px;--r-lg:16px;--r-xl:24px;--t:all .2s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--font);background:var(--bg);color:var(--fg);
+  line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1200px 600px at 80% -5%,var(--glow-b),transparent 60%),radial-gradient(1000px 500px at 0% 0%,var(--glow-a),transparent 55%);
+  background-attachment:fixed;min-height:100vh;
+}
+a{color:var(--indigo-l);text-decoration:none;transition:var(--t)}
+a:hover{color:var(--teal-l)}
+/* Header */
+.site-header{
+  position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);
+  background:rgba(15,19,32,.88);border-bottom:1px solid var(--border-2);
+}
+.header-inner{max-width:960px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-.02em;color:var(--fg)}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--teal));box-shadow:0 0 12px var(--indigo)}
+.nav-links{display:flex;gap:20px;font-size:14px;font-weight:500}
+.nav-links a{color:var(--fg-2)}
+.nav-links a:hover{color:var(--fg)}
+/* Hero */
+.legal-hero{max-width:960px;margin:0 auto;padding:64px 24px 28px}
+.legal-hero .eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo-l);margin-bottom:14px}
+.legal-hero h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.15;
+  background:linear-gradient(120deg,var(--fg) 30%,var(--lavender));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.legal-hero .meta{margin-top:16px;color:var(--fg-3);font-size:14px}
+.legal-hero .meta strong{color:var(--fg-2);font-weight:600}
+/* Content */
+.legal-body{max-width:960px;margin:0 auto;padding:24px 24px 40px}
+.intro{background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--r-lg);padding:24px 26px;color:var(--fg-2);margin-bottom:36px}
+.toc{background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-lg);padding:22px 26px;margin-bottom:44px}
+.toc h2{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--fg-3);margin-bottom:14px;font-weight:600}
+.toc ol{list-style:none;counter-reset:toc;columns:2;column-gap:32px}
+.toc li{counter-increment:toc;font-size:14.5px;padding:4px 0;break-inside:avoid}
+.toc li::before{content:counter(toc) ". ";color:var(--indigo-l);font-weight:600;font-variant-numeric:tabular-nums}
+@media(max-width:640px){.toc ol{columns:1}}
+section.article{margin-bottom:40px;scroll-margin-top:88px}
+section.article > h2{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--fg);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-2);display:flex;align-items:baseline;gap:12px}
+section.article > h2 .num{font-size:14px;font-weight:600;color:var(--indigo);font-variant-numeric:tabular-nums;flex:none}
+section.article h3{font-size:16px;font-weight:600;color:var(--fg);margin:22px 0 10px}
+section.article p{color:var(--fg-2);margin-bottom:12px}
+section.article ul,section.article ol{color:var(--fg-2);margin:0 0 14px;padding-left:22px}
+section.article li{margin-bottom:7px}
+section.article li::marker{color:var(--indigo-l)}
+strong{color:var(--fg);font-weight:600}
+.fill{color:var(--teal-l);background:rgba(77,216,194,.1);border:1px dashed rgba(77,216,194,.4);border-radius:var(--r-sm);padding:1px 7px;font-size:.92em;font-weight:500}
+/* Table */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border-2);border-radius:var(--r-md);margin:16px 0 20px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--border-2);vertical-align:top}
+th{background:var(--bg-4);color:var(--fg);font-weight:600;white-space:nowrap}
+td{color:var(--fg-2)}
+tr:last-child td{border-bottom:none}
+/* Callout */
+.callout{border-left:3px solid var(--indigo);background:var(--bg-2);border-radius:0 var(--r-md) var(--r-md) 0;padding:16px 20px;margin:16px 0;color:var(--fg-2);font-size:14.5px}
+/* Footer */
+.site-footer{border-top:1px solid var(--border-2);margin-top:48px;background:rgba(15,19,32,.6)}
+.footer-inner{max-width:960px;margin:0 auto;padding:32px 24px;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;font-size:13px;color:var(--fg-3)}
+.footer-inner a{color:var(--fg-3)}
+.footer-inner a:hover{color:var(--fg)}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{font-weight:500}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index-ko.html"><span class="dot"></span>SYINNOVATION</a>
+    <nav class="nav-links">
+      <a href="index-ko.html">홈</a>
+      <a href="privacy.html">English</a>
+    </nav>
+  </div>
+</header>
+
+<div class="legal-hero">
+  <div class="eyebrow">Privacy Policy</div>
+  <h1>개인정보처리방침</h1>
+  <p class="meta"><strong>주식회사 신영이노베이션</strong>(이하 “회사”)은 「개인정보 보호법」 등 관련 법령을 준수하며, 정보주체의 개인정보를 안전하게 보호합니다.</p>
+  <p class="meta">시행일자: <span class="fill">2026년 8월 24일</span> · 최종 개정일: <span class="fill">2026년 8월 24일</span></p>
+</div>
+
+<div class="legal-body">
+  <div class="intro">
+    주식회사 신영이노베이션은 정보주체의 자유와 권리 보호를 위해 「개인정보 보호법」 및 관계 법령이 정한 바를 준수하여, 적법하게 개인정보를 처리하고 안전하게 관리하고 있습니다. 회사는 본 개인정보처리방침을 통해 회사가 어떠한 개인정보를 어떤 목적으로 수집·이용하며, 개인정보 보호를 위해 어떠한 조치를 취하고 있는지 알려 드립니다.
+  </div>
+
+  <nav class="toc">
+    <h2>목차</h2>
+    <ol>
+      <li><a href="#a1">개인정보의 처리 목적</a></li>
+      <li><a href="#a2">수집하는 개인정보의 항목</a></li>
+      <li><a href="#a3">개인정보의 처리 및 보유 기간</a></li>
+      <li><a href="#a4">개인정보의 제3자 제공</a></li>
+      <li><a href="#a5">개인정보 처리업무의 위탁</a></li>
+      <li><a href="#a6">정보주체의 권리·의무 및 행사방법</a></li>
+      <li><a href="#a7">개인정보의 파기 절차 및 방법</a></li>
+      <li><a href="#a8">개인정보의 안전성 확보조치</a></li>
+      <li><a href="#a9">쿠키 등 자동 수집장치의 운영</a></li>
+      <li><a href="#a10">개인정보 보호책임자</a></li>
+      <li><a href="#a11">권익침해 구제방법</a></li>
+      <li><a href="#a12">개인정보처리방침의 변경</a></li>
+    </ol>
+  </nav>
+
+  <section class="article" id="a1">
+    <h2><span class="num">01</span>개인정보의 처리 목적</h2>
+    <p>회사는 다음의 목적을 위하여 개인정보를 처리하며, 처리한 개인정보는 아래 목적 이외의 용도로는 이용하지 않습니다. 이용 목적이 변경되는 경우에는 「개인정보 보호법」 제18조에 따라 별도의 동의를 받는 등 필요한 조치를 이행합니다.</p>
+    <ul>
+      <li><strong>상담 및 문의 응대:</strong> 홈페이지 문의(상담 신청) 접수, 본인 확인, 문의 내용에 대한 회신 및 안내</li>
+      <li><strong>서비스 제공 및 계약 이행:</strong> 보안 솔루션(TrustIn CA · TrustIn Gateway) 및 IT 서비스(PI 컨설팅, 풀스택 개발, 글로벌 아웃소싱)의 제안·계약 체결 및 이행, 대금 정산</li>
+      <li><strong>고객 관리:</strong> 거래 관계 유지, 사후 관리, 공지사항 전달 및 불만 처리</li>
+      <li><strong>마케팅 및 활용(선택·동의 시):</strong> 신규 서비스 안내, 이벤트·행사 정보 제공 등</li>
+    </ul>
+  </section>
+
+  <section class="article" id="a2">
+    <h2><span class="num">02</span>수집하는 개인정보의 항목</h2>
+    <p>회사는 홈페이지의 <strong>문의(상담 신청)</strong> 기능을 통해 다음의 개인정보를 수집합니다.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>구분</th><th>수집 항목</th><th>수집 방법</th></tr></thead>
+        <tbody>
+          <tr><td>홈페이지 문의</td><td>회사명, 담당자명, 이메일 또는 연락처(전화번호), 문의 유형, 문의 내용</td><td>홈페이지 문의 양식</td></tr>
+          <tr><td>계약·거래(해당 시)</td><td>담당자 성명·직위, 연락처, 이메일, (세금계산서 발행 등을 위한) 사업자 정보</td><td>이메일, 서면, 계약 과정에서 제공</td></tr>
+          <tr><td>자동 생성 정보</td><td>접속 IP, 쿠키, 서비스 이용 기록, 브라우저·기기 정보</td><td>서비스 이용 과정에서 자동 수집</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">회사는 사상·신념, 건강, 정치적 견해 등 「개인정보 보호법」 제23조에 따른 민감정보와 주민등록번호 등 고유식별정보를 원칙적으로 수집하지 않습니다.</div>
+  </section>
+
+  <section class="article" id="a3">
+    <h2><span class="num">03</span>개인정보의 처리 및 보유 기간</h2>
+    <p>회사는 법령에 따른 개인정보 보유·이용 기간 또는 정보주체로부터 동의받은 보유·이용 기간 내에서 개인정보를 처리·보유합니다.</p>
+    <ul>
+      <li><strong>홈페이지 문의·상담:</strong> 문의 접수 및 응대 완료 후 <span class="fill">3년</span> 보관 후 파기(단, 계약으로 이어지는 경우 아래 계약 항목에 따름)</li>
+      <li><strong>계약·거래 관련 기록:</strong> 관계 법령(「전자상거래 등에서의 소비자보호에 관한 법률」, 「국세기본법」 등)에 따라 보존
+        <ul>
+          <li>계약 또는 청약철회 등에 관한 기록: 5년</li>
+          <li>대금결제 및 재화 등의 공급에 관한 기록: 5년</li>
+          <li>세금계산서 등 국세 관련 서류: 5년</li>
+        </ul>
+      </li>
+    </ul>
+    <p>보유 기간이 경과하거나 처리 목적이 달성된 개인정보는 지체 없이 파기합니다.</p>
+  </section>
+
+  <section class="article" id="a4">
+    <h2><span class="num">04</span>개인정보의 제3자 제공</h2>
+    <p>회사는 정보주체의 개인정보를 제1조(처리 목적)에서 명시한 범위 내에서만 처리하며, 정보주체의 동의, 법률의 특별한 규정 등 「개인정보 보호법」 제17조 및 제18조에 해당하는 경우에만 개인정보를 제3자에게 제공합니다. 현재 회사는 정보주체의 개인정보를 제3자에게 제공하고 있지 않습니다.</p>
+    <div class="callout">향후 제3자 제공이 필요한 경우, 제공받는 자·제공 목적·제공 항목·보유 기간을 사전에 고지하고 동의를 받은 후 제공합니다.</div>
+  </section>
+
+  <section class="article" id="a5">
+    <h2><span class="num">05</span>개인정보 처리업무의 위탁</h2>
+    <p>회사는 원활한 서비스 제공을 위하여 아래와 같이 개인정보 처리업무를 외부에 위탁할 수 있으며, 위탁 시 「개인정보 보호법」 제26조에 따라 위탁계약 등을 통해 개인정보가 안전하게 관리되도록 필요한 사항을 규정하고 감독합니다.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>수탁업체</th><th>위탁업무 내용</th></tr></thead>
+        <tbody>
+          <tr><td><span class="fill">[웹사이트 호스팅 업체명]</span></td><td>홈페이지 서버 호스팅 및 운영</td></tr>
+          <tr><td><span class="fill">[문의 폼·메일 처리 서비스명]</span></td><td>홈페이지 문의 내용 전송 및 이메일 회신 처리</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>위탁업무의 내용이나 수탁자가 변경될 경우 본 개인정보처리방침을 통하여 지체 없이 공개하겠습니다.</p>
+  </section>
+
+  <section class="article" id="a6">
+    <h2><span class="num">06</span>정보주체의 권리·의무 및 행사방법</h2>
+    <p>정보주체는 회사에 대해 언제든지 다음 각 호의 개인정보 보호 관련 권리를 행사할 수 있습니다.</p>
+    <ul>
+      <li>개인정보 열람 요구</li>
+      <li>오류 등이 있을 경우 정정 요구</li>
+      <li>삭제 요구</li>
+      <li>처리 정지 요구</li>
+    </ul>
+    <p>위 권리 행사는 회사에 대해 서면, 전자우편 등을 통하여 하실 수 있으며 회사는 이에 대해 지체 없이 조치하겠습니다. 정보주체가 개인정보의 오류 등에 대한 정정 또는 삭제를 요구한 경우에는 정정·삭제를 완료할 때까지 해당 개인정보를 이용하거나 제공하지 않습니다. 권리 행사는 정보주체의 법정대리인이나 위임을 받은 자 등 대리인을 통하여도 하실 수 있습니다.</p>
+  </section>
+
+  <section class="article" id="a7">
+    <h2><span class="num">07</span>개인정보의 파기 절차 및 방법</h2>
+    <p>회사는 개인정보 보유 기간의 경과, 처리 목적 달성 등 개인정보가 불필요하게 되었을 때에는 지체 없이 해당 개인정보를 파기합니다.</p>
+    <h3>파기 절차</h3>
+    <p>이용자가 입력한 정보는 목적 달성 후 내부 방침 및 관련 법령에 따라 일정 기간 저장된 후 혹은 즉시 파기됩니다. 이 때 다른 법령에 따라 보존하여야 하는 경우 별도의 데이터베이스(DB) 또는 별도의 장소로 옮겨 보관합니다.</p>
+    <h3>파기 방법</h3>
+    <p>전자적 파일 형태의 정보는 복구가 불가능한 기술적 방법을 사용하여 삭제하며, 종이 문서에 기록·저장된 개인정보는 분쇄기로 분쇄하거나 소각하여 파기합니다.</p>
+  </section>
+
+  <section class="article" id="a8">
+    <h2><span class="num">08</span>개인정보의 안전성 확보조치</h2>
+    <p>회사는 「개인정보 보호법」 제29조에 따라 다음과 같이 안전성 확보에 필요한 기술적·관리적·물리적 조치를 하고 있습니다.</p>
+    <ul>
+      <li><strong>관리적 조치:</strong> 내부관리계획 수립·시행, 개인정보 취급 담당자의 최소화 및 정기 교육</li>
+      <li><strong>기술적 조치:</strong> 개인정보 처리 시스템에 대한 접근 권한 관리, 접근통제시스템 설치, 전송 구간 암호화(SSL/TLS), 보안 프로그램 설치 및 주기적 점검</li>
+      <li><strong>물리적 조치:</strong> 개인정보가 보관된 시스템 및 자료에 대한 접근 통제</li>
+    </ul>
+  </section>
+
+  <section class="article" id="a9">
+    <h2><span class="num">09</span>쿠키 등 자동 수집장치의 설치·운영 및 거부</h2>
+    <p>회사는 이용자에게 개별적인 맞춤 서비스를 제공하기 위해 이용정보를 저장하고 수시로 불러오는 ‘쿠키(cookie)’를 사용할 수 있습니다. 쿠키는 웹사이트 서버가 이용자의 브라우저에 보내는 소량의 정보이며 이용자의 기기에 저장됩니다.</p>
+    <p>이용자는 웹 브라우저 설정을 통해 쿠키 저장을 거부할 수 있습니다. 다만 쿠키 저장을 거부할 경우 일부 서비스 이용에 어려움이 발생할 수 있습니다.</p>
+    <div class="callout">쿠키 설정 거부 방법(예: Chrome): 설정 &gt; 개인정보 보호 및 보안 &gt; 쿠키 및 기타 사이트 데이터에서 설정할 수 있습니다.</div>
+  </section>
+
+  <section class="article" id="a10">
+    <h2><span class="num">10</span>개인정보 보호책임자</h2>
+    <p>회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보 처리와 관련한 정보주체의 불만 처리 및 피해 구제 등을 위하여 아래와 같이 개인정보 보호책임자를 지정하고 있습니다.</p>
+    <div class="tbl-wrap">
+      <table>
+        <tbody>
+          <tr><th>성명 / 직책</th><td><span class="fill">[성명 기입]</span> / <span class="fill">[직책 기입]</span></td></tr>
+          <tr><th>연락처</th><td>전화 070-4236-9504 · 이메일 jamesgong@syinnovation.net</td></tr>
+          <tr><th>주소</th><td>서울특별시 마포구 마포대로 78, 제2서울핀테크랩(경찰공제회 11층)</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>정보주체는 회사의 서비스를 이용하시면서 발생한 모든 개인정보 보호 관련 문의, 불만 처리, 피해 구제 등에 관한 사항을 개인정보 보호책임자에게 문의하실 수 있습니다. 회사는 정보주체의 문의에 대해 지체 없이 답변 및 처리해 드리겠습니다.</p>
+  </section>
+
+  <section class="article" id="a11">
+    <h2><span class="num">11</span>권익침해 구제방법</h2>
+    <p>정보주체는 개인정보 침해로 인한 피해를 구제받기 위하여 아래 기관에 분쟁 해결이나 상담 등을 신청할 수 있습니다.</p>
+    <ul>
+      <li>개인정보분쟁조정위원회: (국번 없이) 1833-6972 / <a href="https://www.kopico.go.kr" target="_blank" rel="noopener">www.kopico.go.kr</a></li>
+      <li>개인정보침해신고센터(한국인터넷진흥원): (국번 없이) 118 / <a href="https://privacy.kisa.or.kr" target="_blank" rel="noopener">privacy.kisa.or.kr</a></li>
+      <li>대검찰청 사이버수사과: (국번 없이) 1301 / <a href="https://www.spo.go.kr" target="_blank" rel="noopener">www.spo.go.kr</a></li>
+      <li>경찰청 사이버수사국: (국번 없이) 182 / <a href="https://ecrm.police.go.kr" target="_blank" rel="noopener">ecrm.police.go.kr</a></li>
+    </ul>
+  </section>
+
+  <section class="article" id="a12">
+    <h2><span class="num">12</span>개인정보처리방침의 변경</h2>
+    <p>이 개인정보처리방침은 시행일로부터 적용되며, 법령 및 방침에 따른 변경 내용의 추가, 삭제 및 정정이 있는 경우에는 변경 사항의 시행 7일 전부터 홈페이지 공지사항을 통하여 고지할 것입니다.</p>
+    <ul>
+      <li>공고일자: <span class="fill">2026년 8월 17일</span></li>
+      <li>시행일자: <span class="fill">2026년 8월 24일</span></li>
+    </ul>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>© 2026 SYINNOVATION Co., Ltd. · 사업자등록번호 439-88-02733</div>
+    <div class="footer-links">
+      <a href="privacy-ko.html">개인정보처리방침</a>
+      <a href="terms-ko.html">이용약관</a>
+      <a href="index-ko.html">홈</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

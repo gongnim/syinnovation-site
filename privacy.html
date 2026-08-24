@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — SYINNOVATION</title>
+<meta name="description" content="SYINNOVATION Co., Ltd. Privacy Policy">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#141928;--bg-2:#1a2032;--bg-3:#20263c;--bg-4:#262e48;--bg-5:#2c3652;
+  --border:rgba(150,170,255,.28);--border-2:rgba(150,170,255,.16);--border-glow:rgba(160,180,255,.5);
+  --fg:#f4f6ff;--fg-2:#bdc9e4;--fg-3:#8494b8;--fg-4:#3d4e72;
+  --indigo:#6080fa;--indigo-l:#90aaff;--indigo-d:#2e4acc;--violet:#8f72f7;--violet-l:#b89aff;
+  --teal:#4dd8c2;--teal-l:#7aeedd;--lavender:#d0c4ff;--silver:#c8d0f0;
+  --glow-a:rgba(96,128,250,.28);--glow-b:rgba(143,114,247,.24);--glow-c:rgba(62,207,184,.15);
+  --font:'Geist',-apple-system,BlinkMacSystemFont,sans-serif;
+  --r-sm:6px;--r-md:12px;--r-lg:16px;--r-xl:24px;--t:all .2s cubic-bezier(.4,0,.2,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--bg);color:var(--fg);line-height:1.75;font-size:16px;-webkit-font-smoothing:antialiased;
+  background-image:radial-gradient(1200px 600px at 80% -5%,var(--glow-b),transparent 60%),radial-gradient(1000px 500px at 0% 0%,var(--glow-a),transparent 55%);
+  background-attachment:fixed;min-height:100vh;}
+a{color:var(--indigo-l);text-decoration:none;transition:var(--t)}
+a:hover{color:var(--teal-l)}
+.site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(15,19,32,.88);border-bottom:1px solid var(--border-2)}
+.header-inner{max-width:960px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-.02em;color:var(--fg)}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--teal));box-shadow:0 0 12px var(--indigo)}
+.nav-links{display:flex;gap:20px;font-size:14px;font-weight:500}
+.nav-links a{color:var(--fg-2)}
+.nav-links a:hover{color:var(--fg)}
+.legal-hero{max-width:960px;margin:0 auto;padding:64px 24px 28px}
+.legal-hero .eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo-l);margin-bottom:14px}
+.legal-hero h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.15;background:linear-gradient(120deg,var(--fg) 30%,var(--lavender));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.legal-hero .meta{margin-top:16px;color:var(--fg-3);font-size:14px}
+.legal-hero .meta strong{color:var(--fg-2);font-weight:600}
+.legal-body{max-width:960px;margin:0 auto;padding:24px 24px 40px}
+.intro{background:var(--bg-2);border:1px solid var(--border-2);border-radius:var(--r-lg);padding:24px 26px;color:var(--fg-2);margin-bottom:36px}
+.toc{background:var(--bg-3);border:1px solid var(--border-2);border-radius:var(--r-lg);padding:22px 26px;margin-bottom:44px}
+.toc h2{font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:var(--fg-3);margin-bottom:14px;font-weight:600}
+.toc ol{list-style:none;counter-reset:toc;columns:2;column-gap:32px}
+.toc li{counter-increment:toc;font-size:14.5px;padding:4px 0;break-inside:avoid}
+.toc li::before{content:counter(toc) ". ";color:var(--indigo-l);font-weight:600;font-variant-numeric:tabular-nums}
+@media(max-width:640px){.toc ol{columns:1}}
+section.article{margin-bottom:40px;scroll-margin-top:88px}
+section.article > h2{font-size:21px;font-weight:700;letter-spacing:-.02em;color:var(--fg);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border-2);display:flex;align-items:baseline;gap:12px}
+section.article > h2 .num{font-size:14px;font-weight:600;color:var(--indigo);font-variant-numeric:tabular-nums;flex:none}
+section.article h3{font-size:16px;font-weight:600;color:var(--fg);margin:22px 0 10px}
+section.article p{color:var(--fg-2);margin-bottom:12px}
+section.article ul,section.article ol{color:var(--fg-2);margin:0 0 14px;padding-left:22px}
+section.article li{margin-bottom:7px}
+section.article li::marker{color:var(--indigo-l)}
+strong{color:var(--fg);font-weight:600}
+.fill{color:var(--teal-l);background:rgba(77,216,194,.1);border:1px dashed rgba(77,216,194,.4);border-radius:var(--r-sm);padding:1px 7px;font-size:.92em;font-weight:500}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border-2);border-radius:var(--r-md);margin:16px 0 20px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--border-2);vertical-align:top}
+th{background:var(--bg-4);color:var(--fg);font-weight:600;white-space:nowrap}
+td{color:var(--fg-2)}
+tr:last-child td{border-bottom:none}
+.callout{border-left:3px solid var(--indigo);background:var(--bg-2);border-radius:0 var(--r-md) var(--r-md) 0;padding:16px 20px;margin:16px 0;color:var(--fg-2);font-size:14.5px}
+.site-footer{border-top:1px solid var(--border-2);margin-top:48px;background:rgba(15,19,32,.6)}
+.footer-inner{max-width:960px;margin:0 auto;padding:32px 24px;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;font-size:13px;color:var(--fg-3)}
+.footer-inner a{color:var(--fg-3)}
+.footer-inner a:hover{color:var(--fg)}
+.footer-links{display:flex;gap:18px;flex-wrap:wrap}
+.footer-links a{font-weight:500}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="index.html"><span class="dot"></span>SYINNOVATION</a>
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="privacy-ko.html">한국어</a>
+    </nav>
+  </div>
+</header>
+
+<div class="legal-hero">
+  <div class="eyebrow">Privacy Policy</div>
+  <h1>Privacy Policy</h1>
+  <p class="meta"><strong>SYINNOVATION Co., Ltd.</strong> (the “Company”) complies with the Personal Information Protection Act (PIPA) of the Republic of Korea and related laws to protect the personal information of data subjects.</p>
+  <p class="meta">Effective date: <span class="fill">August 24, 2026</span> · Last updated: <span class="fill">August 24, 2026</span></p>
+</div>
+
+<div class="legal-body">
+  <div class="intro">
+    SYINNOVATION Co., Ltd. values your privacy and is committed to protecting the personal information of everyone who visits our website and uses our services. This Privacy Policy explains what personal information we collect, why we collect it, how we use and retain it, and the rights available to you. Because the Company is established in the Republic of Korea, this Policy is governed by the Personal Information Protection Act (PIPA) and related Korean legislation.
+  </div>
+
+  <nav class="toc">
+    <h2>Contents</h2>
+    <ol>
+      <li><a href="#a1">Purposes of Processing</a></li>
+      <li><a href="#a2">Personal Information We Collect</a></li>
+      <li><a href="#a3">Retention Period</a></li>
+      <li><a href="#a4">Provision to Third Parties</a></li>
+      <li><a href="#a5">Outsourcing of Processing</a></li>
+      <li><a href="#a6">Your Rights and How to Exercise Them</a></li>
+      <li><a href="#a7">Destruction of Personal Information</a></li>
+      <li><a href="#a8">Security Measures</a></li>
+      <li><a href="#a9">Cookies</a></li>
+      <li><a href="#a10">Privacy Officer</a></li>
+      <li><a href="#a11">Remedies for Rights Infringement</a></li>
+      <li><a href="#a12">Changes to This Policy</a></li>
+    </ol>
+  </nav>
+
+  <section class="article" id="a1">
+    <h2><span class="num">01</span>Purposes of Processing</h2>
+    <p>The Company processes personal information for the purposes set out below and does not use it beyond these purposes. Where the purpose of use changes, we take the necessary measures, such as obtaining separate consent under Article 18 of PIPA.</p>
+    <ul>
+      <li><strong>Inquiries and consultation:</strong> receiving website inquiries (consultation requests), verifying the sender, and responding to and following up on inquiries.</li>
+      <li><strong>Service delivery and performance of contracts:</strong> proposing, concluding, and performing agreements for our security solutions (TrustIn CA, TrustIn Gateway) and IT services (PI consulting, full-stack development, global outsourcing), and settling payments.</li>
+      <li><strong>Customer management:</strong> maintaining business relationships, after-care, delivering notices, and handling complaints.</li>
+      <li><strong>Marketing (only with your consent):</strong> providing information about new services, events, and activities.</li>
+    </ul>
+  </section>
+
+  <section class="article" id="a2">
+    <h2><span class="num">02</span>Personal Information We Collect</h2>
+    <p>The Company collects the following personal information through the <strong>inquiry (consultation request)</strong> feature on the website.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Category</th><th>Items collected</th><th>Method</th></tr></thead>
+        <tbody>
+          <tr><td>Website inquiry</td><td>Company name, contact person name, email or phone number, inquiry type, message content</td><td>Website inquiry form</td></tr>
+          <tr><td>Contract / transaction (where applicable)</td><td>Contact person name and title, phone, email, business registration details (for tax invoicing)</td><td>Provided via email, in writing, or during contracting</td></tr>
+          <tr><td>Automatically generated data</td><td>Access IP address, cookies, service usage records, browser/device information</td><td>Automatically collected during use of the service</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="callout">The Company does not, as a rule, collect sensitive information (as defined in Article 23 of PIPA) such as beliefs, health, or political opinions, nor unique identifiers such as resident registration numbers.</div>
+  </section>
+
+  <section class="article" id="a3">
+    <h2><span class="num">03</span>Retention Period</h2>
+    <p>The Company processes and retains personal information within the retention period required by law or the period consented to by the data subject.</p>
+    <ul>
+      <li><strong>Website inquiries / consultation:</strong> retained for <span class="fill">3 years</span> after the inquiry is completed, then destroyed (if the inquiry leads to a contract, the periods below apply).</li>
+      <li><strong>Records related to contracts and transactions:</strong> retained in accordance with applicable laws (e.g., the Act on Consumer Protection in Electronic Commerce, the Framework Act on National Taxes):
+        <ul>
+          <li>Records on contracts or withdrawal of offers: 5 years</li>
+          <li>Records on payment and the supply of goods/services: 5 years</li>
+          <li>Tax-related documents such as invoices: 5 years</li>
+        </ul>
+      </li>
+    </ul>
+    <p>Personal information is destroyed without delay once the retention period expires or the purpose of processing is achieved.</p>
+  </section>
+
+  <section class="article" id="a4">
+    <h2><span class="num">04</span>Provision to Third Parties</h2>
+    <p>The Company processes personal information only within the scope of the purposes stated in Section 1, and provides personal information to third parties only where permitted under Articles 17 and 18 of PIPA, such as with the data subject's consent or under specific legal provisions. The Company does not currently provide personal information to any third party.</p>
+    <div class="callout">Should provision to a third party become necessary in the future, we will notify you in advance of the recipient, the purpose, the items provided, and the retention period, and obtain your consent before doing so.</div>
+  </section>
+
+  <section class="article" id="a5">
+    <h2><span class="num">05</span>Outsourcing of Processing</h2>
+    <p>To provide services smoothly, the Company may outsource parts of its personal information processing as set out below. When outsourcing, the Company stipulates and supervises the matters necessary for the safe management of personal information through outsourcing agreements, in accordance with Article 26 of PIPA.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Outsourced processor</th><th>Scope of outsourced work</th></tr></thead>
+        <tbody>
+          <tr><td><span class="fill">[Website hosting provider]</span></td><td>Website server hosting and operation</td></tr>
+          <tr><td><span class="fill">[Inquiry form / email delivery service]</span></td><td>Transmission of website inquiries and email replies</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>If the scope of outsourced work or the processor changes, we will disclose it without delay through this Privacy Policy.</p>
+  </section>
+
+  <section class="article" id="a6">
+    <h2><span class="num">06</span>Your Rights and How to Exercise Them</h2>
+    <p>As a data subject, you may exercise the following rights with respect to the Company at any time:</p>
+    <ul>
+      <li>the right to request access to your personal information;</li>
+      <li>the right to request correction of any errors;</li>
+      <li>the right to request deletion;</li>
+      <li>the right to request suspension of processing.</li>
+    </ul>
+    <p>You may exercise these rights by contacting the Company in writing or by email, and we will act without delay. Where you request correction or deletion of an error, we will not use or provide the relevant personal information until the correction or deletion is completed. These rights may also be exercised through a legal representative or a duly authorized agent.</p>
+  </section>
+
+  <section class="article" id="a7">
+    <h2><span class="num">07</span>Destruction of Personal Information</h2>
+    <p>The Company destroys personal information without delay once it is no longer needed, such as when the retention period has elapsed or the purpose of processing has been achieved.</p>
+    <h3>Procedure</h3>
+    <p>Information entered by a user is stored for a certain period in accordance with internal policy and relevant laws after the purpose is achieved, or is destroyed immediately. Where retention is required under other laws, the information is transferred to a separate database or storage location.</p>
+    <h3>Method</h3>
+    <p>Personal information stored in electronic file form is deleted using technical methods that render it unrecoverable, and personal information printed on paper is shredded or incinerated.</p>
+  </section>
+
+  <section class="article" id="a8">
+    <h2><span class="num">08</span>Security Measures</h2>
+    <p>In accordance with Article 29 of PIPA, the Company takes the following technical, administrative, and physical measures necessary to ensure security:</p>
+    <ul>
+      <li><strong>Administrative:</strong> establishing and implementing an internal management plan, minimizing the number of staff handling personal information, and providing regular training.</li>
+      <li><strong>Technical:</strong> managing access rights to the personal information processing system, installing access-control systems, encrypting data in transit (SSL/TLS), and installing and regularly reviewing security software.</li>
+      <li><strong>Physical:</strong> controlling access to the systems and materials where personal information is stored.</li>
+    </ul>
+  </section>
+
+  <section class="article" id="a9">
+    <h2><span class="num">09</span>Cookies</h2>
+    <p>The Company may use “cookies” that store and retrieve usage information to provide individually tailored services. A cookie is a small piece of information that the website server sends to your browser and stores on your device.</p>
+    <p>You may refuse the storage of cookies through your web browser settings. However, if you refuse cookies, you may experience difficulties in using some services.</p>
+    <div class="callout">Example (Chrome): Settings &gt; Privacy and security &gt; Cookies and other site data.</div>
+  </section>
+
+  <section class="article" id="a10">
+    <h2><span class="num">10</span>Privacy Officer</h2>
+    <p>The Company has designated a Privacy Officer as set out below to take overall responsibility for personal information processing and to handle data subjects' complaints and remedies related to personal information processing.</p>
+    <div class="tbl-wrap">
+      <table>
+        <tbody>
+          <tr><th>Name / Title</th><td><span class="fill">[Name]</span> / <span class="fill">[Title]</span></td></tr>
+          <tr><th>Contact</th><td>Tel +82-70-4236-9504 · Email jamesgong@syinnovation.net</td></tr>
+          <tr><th>Address</th><td>Seoul FinTech Lab2, 78 Mapo-daero, Mapo-gu, Seoul, Republic of Korea</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>You may direct any questions, complaints, or requests for remedy relating to personal information that arise while using our services to the Privacy Officer. We will respond and act without delay.</p>
+  </section>
+
+  <section class="article" id="a11">
+    <h2><span class="num">11</span>Remedies for Rights Infringement</h2>
+    <p>To obtain remedies for infringement of your personal information rights, you may apply to the following bodies for dispute resolution or consultation:</p>
+    <ul>
+      <li>Personal Information Dispute Mediation Committee: +82-1833-6972 / <a href="https://www.kopico.go.kr" target="_blank" rel="noopener">www.kopico.go.kr</a></li>
+      <li>Personal Information Infringement Report Center (KISA): (dial 118 within Korea) / <a href="https://privacy.kisa.or.kr" target="_blank" rel="noopener">privacy.kisa.or.kr</a></li>
+      <li>Supreme Prosecutors' Office, Cyber Investigation Division: (dial 1301 within Korea) / <a href="https://www.spo.go.kr" target="_blank" rel="noopener">www.spo.go.kr</a></li>
+      <li>National Police Agency, Cyber Bureau: (dial 182 within Korea) / <a href="https://ecrm.police.go.kr" target="_blank" rel="noopener">ecrm.police.go.kr</a></li>
+    </ul>
+  </section>
+
+  <section class="article" id="a12">
+    <h2><span class="num">12</span>Changes to This Policy</h2>
+    <p>This Privacy Policy applies from its effective date. Where there are additions, deletions, or corrections due to changes in law or policy, we will announce them through a notice on the website at least 7 days before the changes take effect.</p>
+    <ul>
+      <li>Notice date: <span class="fill">August 17, 2026</span></li>
+      <li>Effective date: <span class="fill">August 24, 2026</span></li>
+    </ul>
+  </section>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>© 2026 SYINNOVATION Co., Ltd. · Business Reg. No. 439-88-02733</div>
+    <div class="footer-links">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="terms.html">Terms of Use</a>
+      <a href="index.html">Home</a>
+    </div>
+  </div>
+</footer>
+</body>
+</html>
