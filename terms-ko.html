@@ -26,13 +26,36 @@ body{font-family:var(--font);background:var(--bg);color:var(--fg);line-height:1.
   background-attachment:fixed;min-height:100vh;}
 a{color:var(--indigo-l);text-decoration:none;transition:var(--t)}
 a:hover{color:var(--teal-l)}
-.site-header{position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);background:rgba(15,19,32,.88);border-bottom:1px solid var(--border-2)}
-.header-inner{max-width:960px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-.02em;color:var(--fg)}
-.brand .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--teal));box-shadow:0 0 12px var(--indigo)}
-.nav-links{display:flex;gap:20px;font-size:14px;font-weight:500}
-.nav-links a{color:var(--fg-2)}
-.nav-links a:hover{color:var(--fg)}
+.container{max-width:1200px;margin:0 auto;padding:0 32px}
+.nav{position:sticky;top:0;z-index:100;background:rgba(15,19,32,.88);backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border);height:64px;display:flex;align-items:center}
+.nav-inner{width:100%;max-width:1200px;margin:0 auto;padding:0 32px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:1}
+.nav-logo{font-size:16px;font-weight:600;letter-spacing:-.02em;color:var(--fg);display:flex;align-items:center;gap:10px;cursor:pointer}
+.nav-links{display:flex;gap:2px}
+.nav-link{font-size:13px;font-weight:400;padding:6px 12px;border-radius:var(--r-sm);color:var(--fg-3);border:none;background:none;transition:var(--t);cursor:pointer;font-family:inherit}
+.nav-link:hover{color:var(--fg-2);background:var(--bg-4)}
+.nav-link.active{color:var(--fg);background:var(--bg-4)}
+.nav-right{display:flex;align-items:center;gap:10px}
+.lang-toggle{display:flex;border:1px solid var(--border);border-radius:var(--r-sm);overflow:hidden}
+.lang-btn{font-size:11px;font-weight:500;padding:5px 10px;background:none;border:none;color:var(--fg-3);cursor:pointer;transition:var(--t);font-family:inherit}
+.lang-btn.on{background:var(--bg-5);color:var(--fg)}
+.btn-nav-ghost{font-size:13px;padding:7px 16px;border:1px solid var(--border);border-radius:var(--r-md);background:transparent;color:var(--fg-3);transition:var(--t);cursor:pointer;font-family:inherit}
+.btn-nav-ghost:hover{color:var(--fg);border-color:var(--border-glow)}
+.btn-nav-cta{font-size:13px;font-weight:500;padding:7px 16px;border:none;border-radius:var(--r-md);background:linear-gradient(135deg,var(--indigo),var(--violet));color:#fff;transition:var(--t);box-shadow:0 0 16px var(--glow-a);cursor:pointer;font-family:inherit}
+.btn-nav-cta:hover{box-shadow:0 0 28px var(--glow-b);transform:translateY(-1px)}
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;width:38px;height:38px;background:none;border:none;cursor:pointer;padding:5px;border-radius:var(--r-sm);flex-shrink:0}
+.nav-hamburger span{display:block;height:2px;background:var(--fg-2);border-radius:2px;transition:var(--t)}
+.nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.nav-mobile-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:150;backdrop-filter:blur(4px)}
+.nav-mobile-overlay.open{display:block}
+.nav-mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;background:rgba(6,14,48,.98);border-bottom:1px solid var(--border);z-index:160;padding:12px 20px 24px;flex-direction:column;gap:2px;backdrop-filter:blur(20px);animation:slideDown .2s ease}
+.nav-mobile-menu.open{display:flex}
+@keyframes slideDown{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+.nav-mobile-menu .nav-link{font-size:15px;padding:12px 14px;letter-spacing:0;border-radius:var(--r-md);font-weight:500;text-align:left}
+.nav-mobile-menu .mob-divider{height:1px;background:var(--border);margin:8px 0}
+.nav-mobile-menu .mob-actions{display:flex;flex-direction:column;gap:8px;padding-top:4px}
+.nav-mobile-menu .btn-nav-cta,.nav-mobile-menu .btn-nav-ghost{width:100%;text-align:center;padding:12px;font-size:14px}
 .legal-hero{max-width:960px;margin:0 auto;padding:64px 24px 28px}
 .legal-hero .eyebrow{font-size:13px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--indigo-l);margin-bottom:14px}
 .legal-hero h1{font-size:clamp(30px,5vw,44px);font-weight:700;letter-spacing:-.03em;line-height:1.15;background:linear-gradient(120deg,var(--fg) 30%,var(--lavender));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
@@ -49,24 +72,61 @@ section.article li::marker{color:var(--indigo-l)}
 strong{color:var(--fg);font-weight:600}
 .fill{color:var(--teal-l);background:rgba(77,216,194,.1);border:1px dashed rgba(77,216,194,.4);border-radius:var(--r-sm);padding:1px 7px;font-size:.92em;font-weight:500}
 .callout{border-left:3px solid var(--indigo);background:var(--bg-2);border-radius:0 var(--r-md) var(--r-md) 0;padding:16px 20px;margin:16px 0;color:var(--fg-2);font-size:14.5px}
-.site-footer{border-top:1px solid var(--border-2);margin-top:48px;background:rgba(15,19,32,.6)}
-.footer-inner{max-width:960px;margin:0 auto;padding:32px 24px;display:flex;flex-wrap:wrap;gap:14px;justify-content:space-between;align-items:center;font-size:13px;color:var(--fg-3)}
-.footer-inner a{color:var(--fg-3)}
-.footer-inner a:hover{color:var(--fg)}
-.footer-links{display:flex;gap:18px;flex-wrap:wrap}
-.footer-links a{font-weight:500}
+.footer{border-top:1px solid var(--border);padding:32px 0;background:var(--bg);margin-top:48px}
+.footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.footer-links{display:flex;gap:20px}
+.footer-link{font-size:12px;color:var(--fg-4);transition:var(--t)}
+.footer-link:hover{color:var(--fg-2)}
+@media(max-width:768px){
+  .nav-hamburger{display:flex}.nav-links{display:none}.nav-right{display:none}
+  .container{padding:0 18px}.nav-inner{padding:0 18px}
+  .footer-inner{flex-direction:column;align-items:flex-start;gap:16px}
+  .footer-links{flex-wrap:wrap;gap:12px}
+}
 </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="index-ko.html"><span class="dot"></span>SYINNOVATION</a>
-    <nav class="nav-links">
-      <a href="index-ko.html">홈</a>
-      <a href="terms.html">English</a>
-    </nav>
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-hamburger" id="navHamburger" onclick="toggleMobileMenu()" aria-label="메뉴 열기">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-logo" onclick="location.href='index-ko.html'">
+      <img src="logo-icon.png" alt="SYINNOVATION" style="width:28px;height:27px;display:block;">
+      신영이노베이션
+    </div>
+    <div class="nav-links">
+      <button class="nav-link" onclick="location.href='index-ko.html#home'">홈</button>
+      <button class="nav-link" onclick="location.href='index-ko.html#service'">Full IT 서비스</button>
+      <button class="nav-link" onclick="location.href='index-ko.html#solutions'">솔루션</button>
+      <button class="nav-link" onclick="location.href='index-ko.html#about'">회사 소개</button>
+    </div>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn" onclick="location.href='terms.html'">EN</button>
+        <button class="lang-btn on">KO</button>
+      </div>
+      <button class="btn-nav-ghost" onclick="location.href='index-ko.html#about'">문의</button>
+      <button class="btn-nav-cta" onclick="location.href='index-ko.html#about'">데모 신청</button>
+    </div>
   </div>
-</header>
+  <div class="nav-mobile-overlay" id="navOverlay" onclick="closeMobileMenu()"></div>
+  <div class="nav-mobile-menu" id="navMobileMenu">
+    <button class="nav-link" onclick="location.href='index-ko.html#home'">홈</button>
+    <button class="nav-link" onclick="location.href='index-ko.html#service'">Full IT 서비스</button>
+    <button class="nav-link" onclick="location.href='index-ko.html#solutions'">솔루션</button>
+    <button class="nav-link" onclick="location.href='index-ko.html#about'">회사 소개</button>
+    <div class="mob-divider"></div>
+    <div class="mob-actions">
+      <div class="lang-toggle" style="align-self:flex-start;">
+        <button class="lang-btn" onclick="location.href='terms.html'">EN</button>
+        <button class="lang-btn on">KO</button>
+      </div>
+      <button class="btn-nav-ghost" onclick="location.href='index-ko.html#about'">문의</button>
+      <button class="btn-nav-cta" onclick="location.href='index-ko.html#about'">데모 신청</button>
+    </div>
+  </div>
+</nav>
 
 <div class="legal-hero">
   <div class="eyebrow">Terms of Use</div>
@@ -185,15 +245,21 @@ strong{color:var(--fg);font-weight:600}
   </section>
 </div>
 
-<footer class="site-footer">
-  <div class="footer-inner">
-    <div>© 2026 SYINNOVATION Co., Ltd. · 사업자등록번호 439-88-02733</div>
-    <div class="footer-links">
-      <a href="privacy-ko.html">개인정보처리방침</a>
-      <a href="terms-ko.html">이용약관</a>
-      <a href="index-ko.html">홈</a>
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div><img src="footer-logo.png" alt="SYINNOVATION" style="height:34px;display:block;margin-bottom:4px;"><div style="font-size:11px;color:var(--fg-4);margin-top:3px;">㈜ 신영이노베이션 · 사업자등록번호 439-88-02733 · 서울시 마포구 마포대로 78 제2서울핀테크랩(경찰공제회 11층)</div></div>
+      <div class="footer-links">
+        <a class="footer-link" href="privacy-ko.html">개인정보처리방침</a>
+        <a class="footer-link" href="terms-ko.html">이용약관</a>
+        <span class="footer-link">© 2026 신영이노베이션</span>
+      </div>
     </div>
   </div>
 </footer>
+<script>
+function toggleMobileMenu(){var m=document.getElementById('navMobileMenu'),o=document.getElementById('navOverlay'),b=document.getElementById('navHamburger'),open=m.classList.toggle('open');o.classList.toggle('open',open);b.classList.toggle('open',open);document.body.style.overflow=open?'hidden':'';}
+function closeMobileMenu(){var m=document.getElementById('navMobileMenu'),o=document.getElementById('navOverlay'),b=document.getElementById('navHamburger');if(!m)return;m.classList.remove('open');o.classList.remove('open');b.classList.remove('open');document.body.style.overflow='';}
+</script>
 </body>
 </html>

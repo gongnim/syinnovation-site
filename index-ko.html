@@ -1402,6 +1402,8 @@ function addRipple(e) {
 
 /* ─── INIT ─── */
 document.addEventListener('DOMContentLoaded', () => {
+  const _h = location.hash.replace('#','');
+  if(_h && document.getElementById('page-' + _h)) showPage(_h);
   initReveal();
   startTyping();
   // counter observe
