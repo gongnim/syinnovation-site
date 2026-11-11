@@ -101,7 +101,20 @@ const history: Record<string, { m: string; t: string }[]> = {
   '2024': [{ m: '', t: '카드사 · 저축은행 통합 인증 서비스 운영' }],
   '2023': [{ m: '10', t: '㈜신영이노베이션 설립' }],
 };
-const years = Object.keys(history);
+// number-like keys always come out ascending, so sort the newest year first explicitly
+const years = Object.keys(history).sort((a, b) => Number(b) - Number(a));
+const yearPic: Record<string, string> = {
+  '2026': '창립 3주년을 맞아 함께 모인 신영이노베이션 팀',
+  '2025': '공항에서 여권과 휴대폰, 카드를 든 여행객의 손, 참고 이미지',
+  '2024': '카페에서 휴대폰으로 인증하는 손과 카드, 참고 이미지',
+  '2023': '창업 첫날 사무실 창가의 책상과 노트북, 참고 이미지',
+};
+const ciFiles = [
+  { href: '/downloads/ci/syinnovation-logo-on-white.png', label: '흰 배경 로고', kind: 'PNG' },
+  { href: '/downloads/ci/syinnovation-logo-on-blue.png', label: '브랜드 컬러 배경 로고', kind: 'PNG' },
+  { href: '/downloads/ci/syinnovation-symbol.png', label: '심볼', kind: 'PNG' },
+  { href: '/downloads/ci/syinnovation-ci.zip', label: '전체 원본', kind: 'SVG · PNG ZIP' },
+];
 ---
 <Base title="회사소개" description="Never Trust, Always Verify. 신영이노베이션을 소개합니다." tone="light">
   <PageTitle title="회사소개">편리하면서도 안전한 보안을 다시 생각합니다.</PageTitle>
@@ -124,8 +137,8 @@ const years = Object.keys(history);
   <section class="section paper2">
     <div class="wrap">
       <div class="head-left reveal">
-        <h2 class="h2 sm">함께 만드는 사람들</h2>
-        <p class="lead">2023년에 시작한 스타트업입니다. 금융, 보안, 컨설팅 현장에서 오래 일해 온 사람들이 한 팀으로 Trust Gateway를 만듭니다.</p>
+        <h2 class="h2 sm">현장을 아는 팀</h2>
+        <p class="lead">인증 기술, 금융 시스템, 전략 컨설팅까지 각자의 현장에서 오래 일해 온 사람들이 모였습니다. 고객이 믿고 맡길 수 있는 보안을 함께 만들어 갑니다.</p>
       </div>
       <div class="crew reveal" style={`--n:${people.length}`} aria-roledescription="carousel" aria-label="팀원 소개">
         <div class="crew-track" tabindex="0" aria-label="팀원 소개, 좌우 화살표로 넘기기">
@@ -191,40 +204,48 @@ const years = Object.keys(history);
     </div>
   </section>
 
+  <!-- CI: the logo large and sharp on a grid card, our direction beside it, every version to download -->
   <section class="section">
-    <div class="wrap">
-      <div class="ci-head reveal">
-        <div>
-          <h2 class="h2 sm">CI</h2>
-          <p class="lead">별처럼 방향을 잃지 않고, 새로운 길을 가리키는 신영이노베이션의 로고입니다.</p>
-        </div>
-        <div class="btn-row">
-          <a class="btn ghost" href="/images/brand/syinnovation-logo-4000.png" download="syinnovation-logo.png">PNG 내려받기</a>
-          <a class="btn ghost" href="/images/brand/syinnovation-logo.svg" download="syinnovation-logo.svg">SVG 내려받기</a>
-        </div>
-      </div>
-      <!-- vector files, so the marks stay sharp at any size -->
-      <div class="ci-tiles reveal">
-        <div class="ci-tile light"><img src="/images/brand/syinnovation-logo.svg" alt="SYINNOVATION 로고" width="300" height="81" /></div>
-        <div class="ci-tile dark"><img src="/images/brand/syinnovation-logo-white.svg" alt="SYINNOVATION 로고, 어두운 배경용" width="303" height="87" /></div>
-        <div class="ci-tile mark"><img src="/images/brand/syinnovation-symbol.svg" alt="SYINNOVATION 심볼" width="83" height="81" /></div>
+    <div class="wrap ci">
+      <div class="ci-art reveal"><img src="/images/brand/syinnovation-logo.svg" alt="SYINNOVATION 로고" width="560" height="150" /></div>
+      <div class="ci-copy reveal">
+        <h2 class="h2 sm">CI</h2>
+        <p class="lead">신영이노베이션의 CI는 별처럼 방향을 잃지 않고 새로운 길을 가리키는 우리의 방향성을 담고 있습니다.</p>
+        <p class="lead">RE:Think innovation이라는 약속처럼, 끝까지 확인하는 신뢰와 쓰기 편한 보안을 하나의 모습에 담았습니다.</p>
+        <ul class="ci-dl">
+          {ciFiles.map((f, i) => (
+            <li><a class={i === ciFiles.length - 1 ? 'all' : ''} href={f.href} download>
+              <span><b>{f.label}</b><small>{f.kind}</small></span>
+              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+            </a></li>
+          ))}
+        </ul>
       </div>
     </div>
   </section>
 
+  <!-- history: one card per year in a row, newest on the left; scroll sideways or use the arrows -->
   <section class="section mist">
     <div class="wrap">
-      <div class="head-left reveal"><h2 class="h2 sm">연혁</h2></div>
-      <div class="hist reveal">
-        <div class="years" role="tablist" aria-label="연도">
-          {years.reverse().map((y, i) => (<button type="button" role="tab" id={`y-${y}`} aria-controls={`h-${y}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{y}</button>))}
+      <div class="tl-head reveal">
+        <h2 class="h2 sm">연혁</h2>
+        <div class="tl-nav">
+          <button type="button" class="nav tl-prev" aria-label="최근 연도로"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+          <button type="button" class="nav tl-next" aria-label="이전 연도로"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
         </div>
-        {years.map((y, i) => (
-          <ul class="hist-list" role="tabpanel" id={`h-${y}`} aria-labelledby={`y-${y}`} hidden={i !== 0}>
-            {history[y].map((h) => (<li><span class="m">{h.m ? `${y}.${h.m}` : y}</span><span>{h.t}</span></li>))}
-          </ul>
-        ))}
       </div>
+      <ol class="tl reveal" tabindex="0" aria-label="연혁, 최근 연도부터">
+        {years.map((y) => (
+          <li class="yr">
+            <div class="yr-pic"><img src={`/images/history/${y}.webp`} alt={yearPic[y]} width="1260" height="600" loading="lazy" /></div>
+            <p class="yr-n">{y}</p>
+            <span class="yr-axis" aria-hidden="true"><i></i></span>
+            <ul class="yr-list">
+              {history[y].map((h) => (<li>{h.m && <b>{Number(h.m)}월</b>}{h.t}</li>))}
+            </ul>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
@@ -334,24 +355,51 @@ const years = Object.keys(history);
   }
   .adv { margin-top: 28px; text-align: center; font-size: 14px; color: var(--ink-3); }
   .adv b { margin-right: 6px; font-weight: 700; color: var(--ink); }
-  .ci-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
-  .ci-head .lead { margin-top: 14px; }
-  .ci-tiles { margin-top: 36px; display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 20px; }
-  .ci-tile { min-height: clamp(220px, 22vw, 340px); border-radius: var(--r-xl); display: grid; place-items: center; padding: 40px; }
-  .ci-tile img { width: 100%; height: auto; }
-  .ci-tile.light { border: 1px solid var(--line); background: #fff; }
-  .ci-tile.light img { max-width: 420px; }
-  .ci-tile.dark { background: #2e6da3; }
-  .ci-tile.dark img { max-width: 420px; }
-  .ci-tile.mark { background: var(--mist); }
-  .ci-tile.mark img { max-width: 132px; }
-  .hist { background: #fff; border-radius: var(--r-xl); padding: 12px; display: grid; grid-template-columns: 180px 1fr; gap: 24px; }
-  .years { display: grid; gap: 4px; align-content: start; padding: 12px; }
-  .years button { border: 0; background: transparent; text-align: left; padding: 10px 16px; border-radius: var(--r-sm); font-size: 22px; font-weight: 800; color: var(--ink-3); cursor: pointer; }
-  .years button[aria-selected='true'] { color: var(--blue); background: var(--mist); }
-  .hist-list { list-style: none; margin: 0; padding: 24px 12px 24px 0; display: grid; gap: 4px; align-content: start; }
-  .hist-list li { display: grid; grid-template-columns: 100px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
-  .hist-list .m { font-weight: 700; color: var(--blue); }
+  /* CI: logo card with a fine grid on the left, direction and downloads on the right */
+  .ci { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 5vw, 80px); }
+  .ci-art {
+    display: grid; place-items: center; aspect-ratio: 16 / 10; border: 1px solid var(--line); border-radius: 24px;
+    background: #fff linear-gradient(#e9edf3 1px, transparent 1px) 0 0 / 40px 40px, linear-gradient(90deg, #e9edf3 1px, transparent 1px) 0 0 / 40px 40px;
+  }
+  .ci-art img { width: 72%; height: auto; }
+  .ci-copy .lead { margin-top: 18px; }
+  .ci-copy .lead + .lead { margin-top: 12px; }
+  .ci-dl { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ci-dl a {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 100%; padding: 14px 18px; border: 1px solid var(--line);
+    border-radius: 14px; background: #fff; color: var(--ink); transition: border-color .2s, background .2s, color .2s;
+  }
+  .ci-dl a span { display: grid; gap: 2px; }
+  .ci-dl b { font-size: 15px; font-weight: 700; }
+  .ci-dl small { font-size: 12px; color: var(--ink-3); }
+  .ci-dl a:hover { border-color: var(--blue); color: var(--blue); }
+  .ci-dl a.all { background: var(--blue); border-color: var(--blue); color: #fff; }
+  .ci-dl a.all small { color: rgb(255 255 255 / .75); }
+  .ci-dl a.all:hover { background: #2b5486; }
+  /* history: cards in a sideways row joined by one timeline under the years */
+  .tl-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
+  .tl-nav { display: flex; gap: 10px; }
+  .tl-nav .nav[disabled] { opacity: .35; cursor: default; background: #fff; border-color: var(--line); color: var(--ink); }
+  .tl {
+    --gap: clamp(28px, 3.4vw, 48px); list-style: none; margin: 36px 0 0; padding: 0 0 8px; display: grid; grid-auto-flow: column;
+    grid-auto-columns: clamp(280px, 38vw, 500px); gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+  }
+  .tl::-webkit-scrollbar { display: none; }
+  .tl:focus-visible { outline: 2px solid var(--blue); outline-offset: 6px; border-radius: 8px; }
+  .yr { scroll-snap-align: start; }
+  .yr-pic { aspect-ratio: 2.1; border-radius: 16px; overflow: hidden; background: #dde5ef; }
+  .yr-pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .yr-n { margin-top: 22px; font-size: clamp(24px, 1.9vw, 28px); font-weight: 800; letter-spacing: -0.01em; color: var(--blue); }
+  /* a dot on the line; the line runs on across the gap to the next year */
+  .yr-axis { position: relative; display: flex; align-items: center; height: 32px; margin: 14px 0 18px; }
+  .yr-axis::before { content: ''; position: relative; z-index: 1; width: 28px; height: 28px; border-radius: 50%; background: #fff; box-shadow: 0 1px 6px rgb(25 31 40 / .1); }
+  .yr-axis i { position: absolute; left: 10px; top: 50%; z-index: 2; width: 8px; height: 8px; translate: 0 -50%; border-radius: 50%; background: var(--blue); }
+  .yr-axis::after { content: ''; flex: 1; height: 1px; margin-right: calc(-1 * var(--gap)); background: #c6cfdb; }
+  .yr:last-child .yr-axis::after { margin-right: 0; }
+  .yr-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .yr-list li { position: relative; padding-left: 16px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+  .yr-list li::before { content: ''; position: absolute; left: 2px; top: .7em; width: 4px; height: 4px; border-radius: 50%; background: var(--ink-3); }
+  .yr-list b { margin-right: 8px; font-weight: 700; color: var(--blue); }
   /* 오시는 길: a full-width map, then address / phone / email in three columns */
   .map { position: relative; margin-top: 32px; height: clamp(320px, 38vw, 560px); border-radius: 16px; overflow: hidden; background: var(--mist); }
   .map-card { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 8px; padding: 24px; text-align: center; }
@@ -371,7 +419,9 @@ const years = Object.keys(history);
   .info dd { margin: 0; font-size: 18px; color: var(--ink-2); }
   .info a:hover { color: var(--blue); }
   @media (max-width: 767px) {
-    .story, .hist, .ci-tiles { grid-template-columns: 1fr; }
+    .story, .ci { grid-template-columns: 1fr; }
+    .ci-dl { grid-template-columns: 1fr; }
+    .tl { grid-auto-columns: 84%; }
     .slide { grid-template-columns: 1fr; gap: 24px; padding: 28px 12px 28px; align-items: start; }
     .ph { width: min(78%, 300px); }
     .txt { padding: 0 10px; }
@@ -388,7 +438,6 @@ const years = Object.keys(history);
     .info { grid-template-columns: 1fr; }
     .info div { padding: 20px 4px; gap: 20px; }
     .info div + div { border-left: 0; border-top: 1px solid var(--line); }
-    .years { display: flex; flex-wrap: wrap; }
   }
 </style>
 
@@ -458,16 +507,17 @@ const years = Object.keys(history);
     });
   }
 
-  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.years [role="tab"]'));
-  const pick = (tab: HTMLButtonElement) => tabs.forEach((t) => {
-    const on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
-    const p = document.getElementById(t.getAttribute('aria-controls')!); if (p) p.hidden = !on;
-  });
-  tabs.forEach((t, i) => {
-    t.addEventListener('click', () => pick(t));
-    t.addEventListener('keydown', (e) => {
-      const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
-      if (!d) return; e.preventDefault(); const n = tabs[(i + d + tabs.length) % tabs.length]; pick(n); n.focus();
-    });
-  });
+  // history timeline: the arrows move one year at a time and grey out at either end
+  const tl = document.querySelector<HTMLElement>('.tl');
+  if (tl) {
+    const prev = document.querySelector<HTMLButtonElement>('.tl-prev')!, next = document.querySelector<HTMLButtonElement>('.tl-next')!;
+    const step = () => (tl.firstElementChild as HTMLElement).offsetWidth + parseFloat(getComputedStyle(tl).columnGap);
+    const ends = () => { prev.disabled = tl.scrollLeft < 4; next.disabled = tl.scrollLeft + tl.clientWidth > tl.scrollWidth - 4; };
+    const behavior: ScrollBehavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    prev.addEventListener('click', () => tl.scrollBy({ left: -step(), behavior }));
+    next.addEventListener('click', () => tl.scrollBy({ left: step(), behavior }));
+    tl.addEventListener('scroll', ends, { passive: true });
+    addEventListener('resize', ends);
+    ends();
+  }
 </script>
