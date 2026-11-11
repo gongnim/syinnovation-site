@@ -44,3 +44,26 @@ test('headings, English periods and numbers stay as they are', () => {
   const html = '<h2>제목입니다. 다음</h2><p>v1.5 and Inc. stay</p><p>© 2026 SYINNOVATION. All rights reserved.</p>';
   assert.equal(breakSentences(html), html);
 });
+
+test('a comma clause stays on one line, so a wrap falls after the comma', () => {
+  assert.equal(
+    breakSentences('<p class="hi">전자여권부터 모바일 결제까지, 사람들이 매일 쓰는 보안을 만들어 왔습니다. 공격자에게는 빈틈이 없습니다.</p>'),
+    '<p class="hi"><span class="sb"><span class="cl">전자여권부터 모바일 결제까지,</span> <span class="cl">사람들이 매일 쓰는 보안을 만들어 왔습니다.</span></span><span class="sb">공격자에게는 빈틈이 없습니다.</span></p>',
+  );
+});
+
+test('a one-sentence paragraph with a comma gets clause spans; numbers like 1,000 do not', () => {
+  assert.equal(
+    breakSentences('<p>그 경험을 바탕으로, 1,000곳에 쓰는 엔진을 만들었습니다.</p>'),
+    '<p><span class="cl">그 경험을 바탕으로,</span> <span class="cl">1,000곳에 쓰는 엔진을 만들었습니다.</span></p>',
+  );
+});
+
+test('short list items stay with the clause after them', () => {
+  const html = '<p>Web, iOS, Android, 백엔드를 AI 개발 도구와 함께 빠르게 만듭니다.</p>';
+  assert.equal(breakSentences(html), html);
+  assert.equal(
+    breakSentences('<p>인증 기술, 금융 시스템, 전략 컨설팅까지 각자의 현장에서 일해 온 사람들이 모였습니다, 그리고 함께 만듭니다.</p>'),
+    '<p><span class="cl">인증 기술, 금융 시스템, 전략 컨설팅까지 각자의 현장에서 일해 온 사람들이 모였습니다,</span> <span class="cl">그리고 함께 만듭니다.</span></p>',
+  );
+});

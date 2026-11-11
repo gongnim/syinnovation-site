@@ -49,6 +49,7 @@ body {
 /* short copy reads in balanced lines (no lone word or half a phrase on the last line); longer text avoids orphans */
 p { text-wrap: balance; }
 p > .sb { display: block; } /* one sentence per block (added by src/middleware.ts) */
+p .cl { display: inline-block; } /* a comma clause stays on one line, so a sentence wraps after its comma */
 li, dd { text-wrap: pretty; }
 /* the hidden attribute must win over any display rule (e.g. tab panels styled as grid) */
 [hidden] { display: none !important; }
