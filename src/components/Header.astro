@@ -1,0 +1,134 @@
+---
+import { nav, cta } from '../data/site';
+interface Props { tone?: 'night' | 'light' }
+const { tone = 'night' } = Astro.props;
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isOn = (href: string) => path === href || path.startsWith(href + '/');
+const KEY = '/trust-gateway'; // the main product is shown in brand orange
+---
+<header class="hdr" data-tone={tone} data-scrolled="false" data-hidden="false">
+  <div class="hdr-row">
+    <div class="hdr-bar">
+      <a href="/" class="brand" aria-label="신영이노베이션 홈">
+        <img src="/images/brand/logo-sy.svg" alt="SYINNOVATION" width="300" height="81" />
+      </a>
+      <nav class="menu" aria-label="주요 메뉴">
+        {nav.map((n) => <a href={n.href} class:list={{ key: n.href === KEY }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
+      </nav>
+      <!-- Korean and English versions only; the English site is not built yet -->
+      <div class="lang" role="group" aria-label="언어">
+        <a href="/" lang="ko" aria-current="true">KO</a>
+        <span lang="en" aria-disabled="true" title="영문 페이지 준비 중">EN</span>
+      </div>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기">
+        <span></span><span></span>
+      </button>
+    </div>
+    <a class="hdr-cta" href={cta.href} aria-current={isOn(cta.href) ? 'page' : undefined}>{cta.label}</a>
+  </div>
+  <div class="mobile" id="mobile-menu" hidden>
+    {nav.map((n) => <a href={n.href} class:list={{ key: n.href === KEY }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
+    <div class="mobile-lang"><a href="/" lang="ko" aria-current="true">KO</a><span lang="en" aria-disabled="true">EN 준비 중</span></div>
+  </div>
+</header>
+
+<style>
+  /* measurements follow packetgo.com's header: 24px from the top, max 1236px wide, 60-72px tall pill.
+     The contact button sits outside the bar, on its right. */
+  .hdr {
+    --logo-w: clamp(132px, 1.6vw + 118px, 156px);
+    --bar-h: clamp(60px, 0.78vw + 57px, 72px);
+    position: fixed; top: 24px; left: 50%; z-index: 50; width: min(100% - 40px, 1236px);
+    transform: translate3d(-50%, 0, 0); transition: transform 520ms cubic-bezier(0.22, 0.65, 0.3, 1); will-change: transform;
+  }
+  .hdr[data-hidden='true'] { transform: translate3d(-50%, calc(-100% - 60px), 0); }
+  .hdr-row { display: flex; align-items: center; gap: 12px; }
+  .hdr-bar {
+    flex: 1; min-width: 0; height: var(--bar-h);
+    display: grid; grid-template-columns: var(--logo-w) minmax(0, 1fr) auto; align-items: center; column-gap: 24px;
+    padding: 0 clamp(16px, 0.52vw + 14px, 24px); border-radius: 999px; border: 1px solid transparent;
+    transition: background-color .5s var(--ease), border-color .5s var(--ease), color .5s var(--ease), box-shadow .5s var(--ease);
+  }
+  .hdr[data-tone='night'][data-scrolled='false'] .hdr-bar,
+  :global(html.hero-dark) .hdr[data-tone='night'] .hdr-bar {
+    background: rgba(22, 38, 60, 0.55); border-color: rgba(255,255,255,.08); color: var(--on-night);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); box-shadow: 0 4px 8px rgba(0,0,0,.08);
+  }
+  .hdr[data-tone='light'] .hdr-bar, .hdr[data-scrolled='true'] .hdr-bar { background: #fff; border-color: var(--line); color: var(--ink); box-shadow: 0 4px 8px rgba(0,0,0,.06); }
+
+  .brand { display: inline-flex; align-items: center; justify-self: start; width: var(--logo-w); }
+  .brand img { display: block; width: 100%; height: auto; transition: filter .5s var(--ease); }
+  /* the logo SVG is blue; on the dark bar it is shown white */
+  .hdr[data-tone='night'][data-scrolled='false'] .brand img, :global(html.hero-dark) .hdr[data-tone='night'] .brand img { filter: brightness(0) invert(1); }
+
+  .menu { display: flex; justify-content: center; align-items: center; gap: clamp(20px, 1.29vw + 15px, 40px); min-width: 0; }
+  .menu a { font-size: 16px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.41; white-space: nowrap; padding: 0 clamp(6px, 0.13vw + 4px, 10px); transition: opacity .2s, color .2s var(--ease); }
+  .menu a:hover, .menu a[aria-current='page'] { opacity: .72; }
+  .hdr[data-tone='light'] .menu a:hover, .hdr[data-scrolled='true'] .menu a:hover,
+  .hdr[data-tone='light'] .menu a[aria-current='page'], .hdr[data-scrolled='true'] .menu a[aria-current='page'] { opacity: 1; color: var(--blue); }
+  :global(html.hero-dark) .hdr .menu a:hover { color: inherit; opacity: .72; }
+  /* Trust Gateway, the main product, in brand orange (a deeper orange on white for legibility) */
+  .menu a.key, .mobile a.key { color: var(--orange); font-weight: 600; }
+  .hdr[data-tone='light'] .menu a.key, .hdr[data-scrolled='true'] .menu a.key, .mobile a.key { color: #e06c12; }
+  :global(html.hero-dark) .hdr .menu a.key { color: var(--orange); }
+
+  .lang { display: flex; align-items: center; gap: 2px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; }
+  .lang > * { padding: 6px 8px; border-radius: 999px; }
+  .lang a[aria-current='true'] { opacity: 1; }
+  .lang [aria-disabled='true'] { opacity: .42; cursor: default; }
+
+  /* same size as PacketGo's 접속하기 (136 x 46) */
+  .hdr-cta {
+    flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; height: 46px; min-width: 136px; padding: 0 24px; border-radius: 999px;
+    background: var(--orange); color: #fff; font-size: 15px; font-weight: 600; letter-spacing: -0.02em; white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(246,136,42,.28); transition: background-color .2s var(--ease);
+  }
+  .hdr-cta:hover, .hdr-cta[aria-current='page'] { background: #e5761c; }
+
+  .burger { display: none; justify-self: end; width: 44px; height: 44px; border: 0; background: transparent; color: inherit; cursor: pointer; position: relative; }
+  .burger span { position: absolute; left: 12px; right: 12px; height: 2px; background: currentColor; border-radius: 2px; transition: transform .3s var(--ease); }
+  .burger span:first-child { top: 18px; } .burger span:last-child { top: 24px; }
+  .burger[aria-expanded='true'] span:first-child { transform: translateY(3px) rotate(45deg); }
+  .burger[aria-expanded='true'] span:last-child { transform: translateY(-3px) rotate(-45deg); }
+  .mobile { margin-top: 12px; background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 24px; padding: 8px; box-shadow: 0 16px 40px rgba(25,31,40,.12); }
+  .mobile a { display: block; padding: 14px 16px; border-radius: 14px; font-weight: 600; }
+  .mobile a[aria-current='page'] { background: var(--mist); }
+  .mobile-lang { display: flex; gap: 8px; padding: 10px 16px 6px; border-top: 1px solid var(--line); margin-top: 6px; font-size: 14px; font-weight: 600; }
+  .mobile-lang a { padding: 0; }
+  .mobile-lang [aria-disabled='true'] { color: var(--ink-3); }
+  @media (max-width: 1023px) {
+    .hdr { --logo-w: 128px; }
+    .hdr-bar { grid-template-columns: var(--logo-w) 1fr auto; column-gap: 8px; }
+    .menu, .lang { display: none; }
+    .burger { display: block; grid-column: 3; }
+    .hdr-cta { height: 42px; min-width: 0; padding: 0 16px; font-size: 14px; }
+  }
+</style>
+
+<script>
+  const hdr = document.querySelector<HTMLElement>('.hdr');
+  const burger = document.querySelector<HTMLButtonElement>('.burger');
+  const panel = document.getElementById('mobile-menu');
+  if (hdr) {
+    // like PacketGo: hide while scrolling down, show again on any scroll up or near the top
+    let anchor = Math.max(0, scrollY), frame = 0;
+    const sync = () => {
+      frame = 0;
+      const y = Math.max(0, scrollY), d = y - anchor;
+      hdr.dataset.scrolled = y > 40 ? 'true' : 'false';
+      if (y <= 4 || burger?.getAttribute('aria-expanded') === 'true') { hdr.dataset.hidden = 'false'; anchor = y; }
+      else if (d >= 4) { hdr.dataset.hidden = 'true'; anchor = y; }
+      else if (d <= -4) { hdr.dataset.hidden = 'false'; anchor = y; }
+    };
+    sync();
+    addEventListener('scroll', () => { if (!frame) frame = requestAnimationFrame(sync); }, { passive: true });
+    hdr.addEventListener('focusin', () => { hdr.dataset.hidden = 'false'; });
+  }
+  burger?.addEventListener('click', () => {
+    const open = burger.getAttribute('aria-expanded') === 'true';
+    burger.setAttribute('aria-expanded', String(!open));
+    burger.setAttribute('aria-label', open ? '메뉴 열기' : '메뉴 닫기');
+    if (panel) panel.hidden = open;
+    if (hdr) hdr.dataset.hidden = 'false';
+  });
+</script>

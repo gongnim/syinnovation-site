@@ -1,0 +1,119 @@
+---
+// Tabs + search + list rows, in PacketGo's resources style. Shared by 자료실 and 소식.
+import Icon from './Icon.astro';
+
+export interface BoardItem {
+  cat: string;        // tab key
+  catLabel: string;
+  title: string;
+  note?: string;      // one short line under the title
+  meta?: string;      // right column: a date or a status
+  href?: string;
+  external?: boolean; // opens the original in a new tab
+  download?: boolean;
+}
+interface Props { tabs: { key: string; label: string }[]; items: BoardItem[]; empty: string }
+const { tabs, items, empty } = Astro.props;
+---
+<section class="board" data-board>
+  <div class="wrap">
+    <div class="bar">
+      <div class="tabs" role="group" aria-label="분류">
+        {tabs.map((t, i) => <button type="button" class="tab" data-key={t.key} aria-pressed={i === 0 ? 'true' : 'false'}>{t.label}</button>)}
+      </div>
+      <label class="search">
+        <Icon name="search" size={18} />
+        <span class="sr-only">검색</span>
+        <input type="search" placeholder="검색어를 입력하세요" autocomplete="off" />
+      </label>
+    </div>
+    <ul class="rows">
+      {items.map((it) => (
+        <li class="row" data-cat={it.cat} data-text={`${it.title} ${it.note ?? ''} ${it.catLabel}`.toLowerCase()}>
+          <span class="cat">{it.catLabel}</span>
+          <div class="main">
+            {it.href
+              ? <a class="title" href={it.href} target={it.external ? '_blank' : undefined} rel={it.external ? 'noopener' : undefined} download={it.download || undefined}>
+                  {it.title}
+                  {it.external && <Icon name="external" size={16} class="mark" label="새 창에서 원문 열기" />}
+                  {it.download && <Icon name="download" size={16} class="mark" label="내려받기" />}
+                </a>
+              : <span class="title">{it.title}</span>}
+            {it.note && <span class="note">{it.note}</span>}
+          </div>
+          <span class="meta">{it.meta}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="empty" hidden>{empty}</p>
+  </div>
+</section>
+
+<style>
+  .board { padding-bottom: var(--section-y); }
+  .bar { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; border-bottom: 1px solid var(--line); }
+  .tabs { display: flex; gap: clamp(20px, 2.4vw, 40px); overflow-x: auto; scrollbar-width: none; }
+  .tab {
+    position: relative; border: 0; background: none; padding: 0 2px 18px; font-size: 17px; font-weight: 500; color: var(--ink-3);
+    white-space: nowrap; cursor: pointer; transition: color .2s var(--ease);
+  }
+  .tab::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--ink); transform: scaleX(0); transition: transform .3s var(--ease); }
+  .tab:hover { color: var(--ink); }
+  .tab[aria-pressed='true'] { color: var(--ink); font-weight: 700; }
+  .tab[aria-pressed='true']::after { transform: scaleX(1); }
+  .search {
+    display: flex; align-items: center; gap: 10px; width: min(270px, 40%); height: 52px; margin-bottom: 12px; padding: 0 16px;
+    border: 1px solid var(--line); border-radius: 10px; color: var(--ink-3); background: #fff; transition: border-color .2s var(--ease);
+  }
+  .search:focus-within { border-color: var(--blue); }
+  .search input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; font: inherit; font-size: 15px; color: var(--ink); }
+  .rows { list-style: none; margin: 0; padding: 0; }
+  .row {
+    display: grid; grid-template-columns: 160px minmax(0, 1fr) auto; align-items: center; gap: 24px;
+    padding: 34px 16px; border-bottom: 1px solid var(--line); transition: background-color .25s var(--ease);
+  }
+  .row:hover { background: var(--paper-2); }
+  .cat { font-size: 15px; color: var(--ink-3); }
+  .main { display: grid; gap: 6px; min-width: 0; }
+  .title { display: inline-flex; align-items: center; gap: 8px; font-size: clamp(17px, 0.3vw + 15px, 19px); font-weight: 600; color: var(--ink); }
+  a.title:hover { color: var(--blue); }
+  .title :global(.mark) { flex: 0 0 auto; color: var(--ink-3); }
+  .note { font-size: 15px; color: var(--ink-3); }
+  .meta { font-size: 15px; color: var(--ink-3); white-space: nowrap; }
+  .empty { padding: 72px 0; text-align: center; color: var(--ink-3); }
+  .row[hidden] { display: none; }
+  @media (max-width: 767px) {
+    .bar { flex-direction: column; align-items: stretch; gap: 16px; border-bottom: 0; }
+    .tabs { border-bottom: 1px solid var(--line); }
+    .search { width: 100%; order: -1; margin-bottom: 0; }
+    .row { grid-template-columns: 1fr; gap: 6px; padding: 24px 4px; }
+    .meta { font-size: 14px; }
+  }
+</style>
+
+<script>
+  // filter rows by tab and search text
+  document.querySelectorAll<HTMLElement>('[data-board]').forEach((board) => {
+    const tabs = board.querySelectorAll<HTMLButtonElement>('.tab');
+    const input = board.querySelector<HTMLInputElement>('.search input')!;
+    const rows = board.querySelectorAll<HTMLElement>('.row');
+    const empty = board.querySelector<HTMLElement>('.empty')!;
+    let key = tabs[0]?.dataset.key ?? 'all';
+    const apply = () => {
+      const q = input.value.trim().toLowerCase();
+      let shown = 0;
+      rows.forEach((r) => {
+        const show = (key === 'all' || r.dataset.cat === key) && (!q || r.dataset.text!.includes(q));
+        r.hidden = !show;
+        if (show) shown++;
+      });
+      empty.hidden = shown > 0;
+    };
+    tabs.forEach((t) => t.addEventListener('click', () => {
+      key = t.dataset.key!;
+      tabs.forEach((x) => x.setAttribute('aria-pressed', String(x === t)));
+      apply();
+    }));
+    input.addEventListener('input', apply);
+  });
+</script>

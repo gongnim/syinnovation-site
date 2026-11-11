@@ -1,0 +1,39 @@
+---
+import { company, nav, cta } from '../data/site';
+---
+<footer class="ft">
+  <div class="wrap ft-grid">
+    <div>
+      <img src="/images/brand/logo-sy.svg" alt="SYINNOVATION" width="300" height="81" class="ft-logo" />
+      <p class="ft-motto">{company.motto}</p>
+    </div>
+    <nav aria-label="사이트 메뉴" class="ft-links">
+      {[...nav, cta].map((n) => <a href={n.href}>{n.label}</a>)}
+    </nav>
+    <address class="ft-info">
+      <span>{company.legal}</span>
+      <span>대표이사 {company.ceo}</span>
+      <span>{company.address}</span>
+      <a href={`mailto:${company.email}`}>{company.email}</a>
+    </address>
+  </div>
+  <div class="wrap ft-bottom">
+    <span>© 2026 SYINNOVATION. All rights reserved.</span>
+    <span class="ft-legal"><a href="/privacy">개인정보처리방침</a></span>
+  </div>
+</footer>
+
+<style>
+  .ft { background: var(--paper-2); border-top: 1px solid var(--line); padding: 56px 0 32px; font-size: 15px; color: var(--ink-2); }
+  .ft-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.4fr; gap: 40px; }
+  .ft-logo { height: 40px; width: auto; }
+  .ft-motto { margin-top: 14px; font-weight: 600; color: var(--ink); }
+  .ft-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; align-content: start; }
+  .ft-links a:hover { color: var(--blue); }
+  .ft-info { font-style: normal; display: grid; gap: 4px; align-content: start; }
+  .ft-info a { color: var(--blue); }
+  .ft-bottom { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--line); font-size: 14px; color: var(--ink-3); }
+  .ft-legal a:hover { color: var(--ink); }
+  @media (max-width: 767px) { .ft-grid { grid-template-columns: 1fr; gap: 28px; } }
+</style>
+

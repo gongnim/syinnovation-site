@@ -1,0 +1,25 @@
+---
+import Base from '../layouts/Base.astro';
+import PageTitle from '../components/PageTitle.astro';
+import Board, { type BoardItem } from '../components/Board.astro';
+
+// shortcut: brochures and demo videos are not approved for public release yet; give them an href when they are
+const items: BoardItem[] = [
+  { cat: 'doc', catLabel: '소개서', title: 'Trust Gateway 제품 소개서', note: '구조, 접속 흐름, 도입 절차를 정리했습니다', meta: 'PDF · 준비 중' },
+  { cat: 'doc', catLabel: '소개서', title: '회사 소개서', note: '신영이노베이션이 하는 일과 팀을 소개합니다', meta: 'PDF · 준비 중' },
+  { cat: 'video', catLabel: '시연 영상', title: 'VPN 대체 업무 접속 시연', note: 'PC와 휴대폰 확인으로 사내 업무 앱에 접속하는 흐름', meta: '공개 준비 중' },
+  { cat: 'video', catLabel: '시연 영상', title: '결제 이상거래 평가 시연', note: '결제 요청의 기기와 위치 신호를 대조하는 흐름', meta: '공개 준비 중' },
+  { cat: 'ci', catLabel: 'CI', title: '신영이노베이션 로고 (고해상도 PNG)', note: '가로 4000px, 투명 배경', meta: 'PNG', href: '/images/brand/syinnovation-logo-4000.png', download: true },
+  { cat: 'ci', catLabel: 'CI', title: '신영이노베이션 로고 (SVG)', note: '크기를 키워도 깨지지 않는 벡터 파일', meta: 'SVG', href: '/images/brand/syinnovation-logo.svg', download: true },
+];
+const tabs = [
+  { key: 'all', label: '전체' },
+  { key: 'doc', label: '소개서' },
+  { key: 'video', label: '시연 영상' },
+  { key: 'ci', label: 'CI' },
+];
+---
+<Base title="자료실" description="신영이노베이션 소개서, Trust Gateway 제품 소개서, 시연 영상, CI." tone="light">
+  <PageTitle title="자료실">소개 자료와 시연 영상, 로고 파일을 한곳에 모았습니다.<br />공개 준비가 끝나는 대로 바로 받아 보실 수 있습니다.</PageTitle>
+  <Board tabs={tabs} items={items} empty="찾는 자료가 없습니다. 다른 분류나 검색어로 찾아보세요." />
+</Base>

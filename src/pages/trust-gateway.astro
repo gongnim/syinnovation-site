@@ -1,0 +1,352 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ProductHero from '../components/ProductHero.astro';
+import FlowGateway from '../components/FlowGateway.astro';
+import { appName, parts } from '../data/site';
+
+const platforms = [
+  { k: '휴대폰', v: `iOS · Android (${appName} 앱 또는 고객사 앱용 SDK)` },
+  { k: 'PC', v: 'Windows · macOS (사용자 에이전트)' },
+  { k: '접속 대상', v: '웹 업무 시스템 · SSH · RDP · VNC' },
+];
+
+const governance = [
+  { t: '판단 근거를 문장으로', d: '허용하거나 막은 요청마다 어떤 신호가 서로 맞지 않았는지 기록하고, 관리 콘솔에서 판단 근거를 문장과 관계 표로 보여 줍니다.' },
+  { t: '고칠 수 없는 감사 기록', d: '판정 기록은 앞 기록과 해시로 이어져 중간을 바꾸면 드러납니다. 오래된 기록은 삭제와 덮어쓰기가 잠긴 저장소에 5년 동안 보관합니다.' },
+  { t: '관리 콘솔과 고객사 콘솔', d: '회사, 직원, 기기, 인증서, 정책을 한곳에서 관리합니다. 고객사 관리자는 자기 회사 설정을 직접 바꾸고, 바꿀 때마다 휴대폰 승인을 거칩니다.' },
+  { t: '사무실 IP 대역 등록', d: '회사 공인 IP 대역을 등록하면, 그 안에서 IP가 바뀌어도 재인증을 반복하지 않습니다.' },
+];
+
+const features = [
+  { t: '두 기기 교차 검증', d: 'PC와 휴대폰의 위치, 네트워크, 시간대를 나란히 대조합니다. 한쪽만 꾸며서는 통과할 수 없습니다.' },
+  { t: '요청마다 다시 평가', d: '로그인 뒤에도 요청마다 정책과 위험을 다시 봅니다. 결과는 허용, 추가 인증, 차단 셋 중 하나입니다.' },
+  { t: '앱 단위로만 열기', d: '사내망 전체가 아니라 허락된 앱과 경로만 엽니다. 나머지는 보이지도 않습니다.' },
+  { t: '재로그인 없는 업무 앱', d: '게이트웨이가 확인한 신원을 업무 앱에 전달합니다. 앱마다 다시 로그인할 필요가 없습니다.' },
+];
+
+const steps = [
+  { t: '휴대폰 등록', d: `회사 이메일로 받은 일회용 코드로 가입하면, ${appName} 앱이 휴대폰 보안 칩 안에서 키를 만들고 인증서를 받습니다.` },
+  { t: 'PC 등록', d: 'PC 화면의 QR을 휴대폰으로 찍고 Face ID로 승인하면, 회사 소유 PC 인증서가 발급됩니다. 키는 PC 보안 칩 안에 남습니다.' },
+  { t: '사용자 결합', d: '업무를 시작할 때 다시 QR과 생체 인증으로 지금 이 PC를 쓰는 사람을 묶습니다.' },
+  { t: '보안 브라우저로 접속', d: 'PC 인증서로 게이트웨이와 상호 인증(mTLS) 연결을 맺고, 허락된 업무 앱으로만 요청이 갑니다.' },
+  { t: '요청마다 검사', d: '인증서, 폐기 여부, 회사, 사용자 결합, 네트워크와 위치 변화, 정책을 차례로 확인합니다.' },
+  { t: '수상하면 휴대폰으로 재확인', d: '무엇이 바뀌었는지 휴대폰으로 알리고, Face ID로 승인하면 다음 요청부터 통과합니다.' },
+  { t: '위험하면 차단', d: '위험이 크면 요청을 막고, 필요하면 휴대폰 인증서를 폐기해 그 기기의 접속을 끊습니다.' },
+];
+
+const why = [
+  { t: 'PC는 기기를, 휴대폰은 사람을', d: '기기 인증서와 생체 확인을 서로 다른 기기에 나눠, 하나를 훔쳐도 접속할 수 없습니다.' },
+  { t: '꺼낼 수 없는 키', d: '개인키는 PC와 휴대폰의 하드웨어 보안 영역 안에서 만들어지고 밖으로 나오지 않습니다.' },
+  { t: '갱신마다 사람 승인', d: 'PC 인증서는 12시간짜리이고 자동 갱신이 없습니다. 다시 받을 때마다 휴대폰 승인이 필요합니다.' },
+  { t: '들어오는 포트 0', d: '고객 사내망은 포트를 열지 않습니다. 내부 에이전트가 밖으로만 연결합니다.' },
+  { t: '기본 차단 정책', d: '정책에 적은 것만 통과합니다. 관찰 모드로 결과를 본 뒤 실제 적용으로 넘어갈 수 있습니다.' },
+  { t: '위험한 기기 차단', d: '탈옥이나 루팅된 폰, 에뮬레이터, 디버거가 붙은 앱은 막습니다. 정품 앱인지는 Apple과 Google의 증명으로 확인합니다.' },
+];
+
+const compare = [
+  { k: '확인 시점', vpn: '처음 접속할 때 한 번', tg: '요청마다' },
+  { k: '열리는 범위', vpn: '사내망 전체', tg: '허락된 앱과 경로만' },
+  { k: '본인 확인', vpn: '아이디와 비밀번호', tg: '기기 인증서 + 휴대폰 생체 확인' },
+  { k: '위치 확인', vpn: '없음', tg: 'PC와 휴대폰 신호 교차 검증' },
+  { k: '외부 노출', vpn: 'VPN 장비가 인터넷에 열려 있음', tg: '사내망 들어오는 포트 0' },
+];
+
+const cases = [
+  { id: 'remote', t: '재택 · 출장', h: '집에서도, 출장지에서도 같은 확인', d: '업무 PC와 내 휴대폰이 함께 있어야 접속됩니다. 낯선 네트워크로 바뀌면 휴대폰으로 다시 확인합니다.', pts: ['VPN 없이 허락된 업무 앱만 연결', '새 네트워크에서는 휴대폰으로 추가 인증', '분실 PC는 관리 콘솔에서 바로 차단'] },
+  { id: 'partner', t: '협력사 · 외주', h: '필요한 사람에게 필요한 앱만', d: '협력사 인력에게 사내망 전체가 아닌 지정된 앱과 경로만 열어 줍니다.', pts: ['사람별, 경로별 허용 범위 지정', '인사 시스템 연동으로 퇴사·계약 종료 반영', '누가 무엇에 접속했는지 기록'] },
+  { id: 'server', t: '서버 · 설비 원격 접속', h: 'SSH, RDP, VNC도 같은 기준으로', d: '서버나 공장 설비로 가는 원격 접속 경로를 인터넷에 드러내지 않습니다. 확인된 사람의 확인된 PC만 들어갑니다.', pts: ['고객사 내부망에 들어오는 포트 0', 'SSH · RDP · VNC 지원', '웹 업무 시스템과 같은 확인 절차'] },
+  { id: 'finance', t: '금융', h: '금융 현장에서 만든 인증 기술', d: '카드사와 저축은행 인증 서비스를 운영해 온 기술로, 임직원과 외부 인력의 업무 접속을 확인합니다.', pts: ['요청마다 재평가', '판단 근거를 문장으로 기록', '감사 기록 5년 보관(삭제 잠금)'] },
+  { id: 'payment', t: '결제 이상거래', h: '결제 위험도를 평가해 권고합니다', d: '결제사가 거래를 보내면 기기와 위치, 신호 사이의 모순을 평가해 허용, 추가 확인, 거부를 권고합니다. 최종 결정은 결제사가 합니다.', pts: ['허용 · 추가 확인 · 거부 권고', '최종 차단은 결제사가 결정', '고객사 FDS 룰 진단(오탐 · 미탐 · 중복 룰)'] },
+];
+
+const rollout = [
+  { t: 'PoC', d: '평가용 환경과 서비스 하나를 연결해 정상 접속, 기본 차단, 정책 변경을 직접 확인합니다.' },
+  { t: '파일럿', d: '부서 단위로 넓힙니다. 관찰 모드로 결과를 비교한 뒤 제한적으로 적용합니다.' },
+  { t: '전사 적용', d: '서비스 목록을 확정하고 사용자를 옮깁니다. 감사, 보존, 장애 복구 절차를 함께 운영합니다.' },
+];
+---
+<Base title="Trust Gateway" description="PC는 기기를, 휴대폰은 사람을 증명합니다. 요청마다 다시 확인하는 제로트러스트 접근 제어 Trust Gateway.">
+  <ProductHero eyebrow="제로트러스트 접근 제어" tiles={['lock', 'phone', 'user', 'server', 'key', 'scan']}>
+    <Fragment slot="title">VPN 없이,<br />휴대폰 확인 한 번으로 여는 사내 업무</Fragment>
+    <Fragment slot="lead">PC와 휴대폰의 신호를 교차 검증하고,<br />로그인 이후에도 요청마다 다시 확인합니다.</Fragment>
+    <FlowGateway slot="flow" />
+  </ProductHero>
+
+  <section class="section mist" id="uses">
+    <div class="wrap">
+      <div class="head-center reveal">
+        <h2 class="h2">하나의 판단 엔진, 세 가지 쓰임</h2>
+        <p class="lead">금융사 앱의 인증, 직원의 업무 접속, 고객의 결제까지. 같은 확인 기술이 각 자리에 맞게 들어갑니다.</p>
+      </div>
+      <ul class="parts">
+        {parts.map((p) => (
+          <li class="reveal">
+            <p class="part-k">{p.k}<span>{p.who}</span></p>
+            <h3 class="h4">{p.h}</h3>
+            <p class="body">{p.d}</p>
+            <ul class="part-pts">{p.pts.map((x) => <li>{x}</li>)}</ul>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head-center reveal">
+        <h2 class="h2">주요 기능</h2>
+        <p class="lead">사람, 기기, 장소를 한 번에 확인하고, 허락된 것만 엽니다.</p>
+      </div>
+      <ul class="feat4">
+        {features.map((f) => (<li class="reveal"><h3 class="h4">{f.t}</h3><p class="body">{f.d}</p></li>))}
+      </ul>
+      <dl class="plat reveal">
+        {platforms.map((p) => (<div><dt>{p.k}</dt><dd>{p.v}</dd></div>))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="section mist">
+    <div class="wrap">
+      <div class="head-center reveal">
+        <h2 class="h2">세 구역은 서로를 믿지 않습니다</h2>
+        <p class="lead">사용자 기기, Trust Gateway, 고객 사내망은 따로 운영되고, 경계를 넘을 때마다 다시 확인합니다.</p>
+      </div>
+      <div class="arch reveal" role="img" aria-label="사용자 기기 구역에서 mTLS로 Trust Gateway에 연결하고, 고객 사내망의 내부 에이전트는 Trust Gateway로 바깥 방향 연결만 맺습니다">
+        <div class="az">
+          <p class="az-t">사용자 기기</p>
+          <div class="node">사용자 에이전트<span>Windows · macOS PC 앱, 보안 브라우저</span></div>
+          <div class="node">{appName}<span>iOS · Android, 휴대폰 생체 확인</span></div>
+        </div>
+        <div class="link"><span>mTLS</span></div>
+        <div class="az mid">
+          <p class="az-t">Trust Gateway</p>
+          <div class="node">ZT 게이트웨이<span>요청마다 검사 · 전달</span></div>
+          <div class="node">ZT 통제 센터 · 인증기관(CA)<span>위험 평가 · 인증서 발급과 폐기</span></div>
+          <div class="node">정책 엔진<span>기본 차단 · 판단 근거 기록</span></div>
+        </div>
+        <div class="link back"><span>밖으로만 연결</span></div>
+        <div class="az in">
+          <p class="az-t">고객 사내망</p>
+          <div class="node">내부 에이전트<span>들어오는 포트 0</span></div>
+          <div class="node">업무 서비스<span>웹 업무 시스템 · SSH · RDP</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow">
+      <div class="head-left reveal">
+        <h2 class="h2 sm">접속은 이렇게 이어집니다</h2>
+        <p class="lead">휴대폰 등록부터 차단까지 일곱 단계입니다.</p>
+      </div>
+      <ol class="steps">
+        {steps.map((s, i) => (<li class="reveal"><span class="n">{i + 1}</span><div><h3 class="h4">{s.t}</h3><p class="body">{s.d}</p></div></li>))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section night">
+    <div class="wrap">
+      <div class="head-center reveal">
+        <h2 class="h2">왜 다른가</h2>
+        <p class="lead">비밀번호 하나에 기대지 않고, 여러 증거를 동시에 요구합니다.</p>
+      </div>
+      <ul class="why">
+        {why.map((w) => (<li class="reveal"><h3 class="h4">{w.t}</h3><p class="body">{w.d}</p></li>))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap narrow">
+      <div class="head-left reveal">
+        <h2 class="h2 sm">기존 VPN과 무엇이 다른가요</h2>
+      </div>
+      <div class="cmp-wrap reveal">
+        <table class="cmp">
+          <thead><tr><th scope="col">항목</th><th scope="col">기존 VPN</th><th scope="col">Trust Gateway</th></tr></thead>
+          <tbody>{compare.map((c) => (<tr><th scope="row">{c.k}</th><td>{c.vpn}</td><td>{c.tg}</td></tr>))}</tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section mist" id="use-cases">
+    <div class="wrap">
+      <div class="head-center reveal">
+        <h2 class="h2">활용 사례</h2>
+        <p class="lead">접속하는 사람과 장소가 달라도, 확인하는 기준은 같습니다.</p>
+      </div>
+      <div class="tabs reveal">
+        <div class="tablist" role="tablist" aria-label="활용 사례">
+          {cases.map((c, i) => (<button role="tab" type="button" id={`tab-${c.id}`} aria-controls={`panel-${c.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{c.t}</button>))}
+        </div>
+        {cases.map((c, i) => (
+          <div class="panel" role="tabpanel" id={`panel-${c.id}`} aria-labelledby={`tab-${c.id}`} hidden={i !== 0}>
+            <div><h3 class="h3">{c.h}</h3><p class="body">{c.d}</p></div>
+            <ul>{c.pts.map((p) => <li>{p}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap std">
+      <div class="reveal">
+        <h2 class="h2 sm">공개된 제로트러스트 기준에 맞춰 설계했습니다</h2>
+        <p class="lead">미국 CISA의 제로트러스트 성숙도 모델(ZTMM v2.0)과 NIST SP 800-207을 기준으로 정책 결정, 정책 집행, 지속 검증 구조를 설계했습니다.</p>
+      </div>
+      <ul class="std-list reveal">
+        <li><b>CISA ZTMM v2.0</b><span>신원 · 기기 · 네트워크 · 애플리케이션 · 데이터 다섯 영역 기준</span></li>
+        <li><b>NIST SP 800-207</b><span>정책 엔진, 정책 관리, 정책 집행 지점 구조</span></li>
+        <li><b>특허 출원</b><span>이종 단말 위치 신호 교차 검증 기반 동적 접근 제어</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head-left reveal">
+        <h2 class="h2 sm">관리와 감사</h2>
+        <p class="lead">막는 것만큼, 왜 막았는지 설명할 수 있어야 합니다.</p>
+      </div>
+      <ul class="gov">
+        {governance.map((g) => (<li class="reveal"><h3 class="h4">{g.t}</h3><p class="body">{g.d}</p></li>))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section paper2">
+    <div class="wrap">
+      <div class="head-left reveal">
+        <h2 class="h2 sm">작게 시작해서 넓힙니다</h2>
+        <p class="lead">무료 PoC에서 시작해, 결과를 확인하며 단계적으로 적용합니다.</p>
+      </div>
+      <ol class="roll">
+        {rollout.map((r, i) => (<li class="reveal"><span class="n">{i + 1}</span><h3 class="h4">{r.t}</h3><p class="body">{r.d}</p></li>))}
+      </ol>
+    </div>
+  </section>
+
+  <CtaBand title="Trust Gateway, 무료 PoC로 먼저 써 보세요" lead="평가용 환경과 서비스 하나로 시작합니다." />
+</Base>
+
+<style>
+  .parts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .parts > li { background: #fff; border-radius: var(--r-xl); padding: 30px 28px 32px; display: grid; gap: 12px; align-content: start; }
+  .part-k { font-weight: 800; font-size: 20px; color: var(--blue); display: flex; align-items: baseline; gap: 10px; }
+  .part-k span { font-size: 14px; font-weight: 600; color: var(--ink-3); }
+  .part-pts { list-style: none; margin: 6px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 6px; }
+  .part-pts li { font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--mist); color: var(--blue-deep); }
+  .plat { margin: 48px 0 0; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); border-radius: var(--r-md); }
+  .plat div { padding: 18px 22px; display: grid; gap: 4px; }
+  .plat div + div { border-left: 1px solid var(--line); }
+  .plat dt { font-size: 13px; font-weight: 700; color: var(--ink-3); }
+  .plat dd { margin: 0; font-weight: 600; }
+  .gov { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .gov li { border: 1px solid var(--line); border-radius: var(--r-md); padding: 28px 30px 32px; display: grid; gap: 10px; align-content: start; }
+  .feat4 { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .feat4 li { border-top: 3px solid var(--blue); padding-top: 22px; display: grid; gap: 10px; align-content: start; }
+
+  .arch { display: grid; grid-template-columns: 1fr 90px 1.15fr 110px 1fr; align-items: stretch; gap: 0; }
+  .az { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 24px; display: grid; gap: 12px; align-content: start; }
+  .az.mid { border: 2px solid var(--blue); }
+  .az.in { background: var(--night); border-color: var(--night); color: var(--on-night); }
+  .az-t { font-weight: 800; font-size: 18px; margin-bottom: 4px; }
+  .node { border: 1px solid var(--line); border-radius: var(--r-md); padding: 12px 14px; font-weight: 700; font-size: 15px; display: grid; gap: 2px; background: var(--paper-2); }
+  .node span { font-weight: 500; font-size: 13px; color: var(--ink-3); }
+  .az.in .node { background: var(--night-2); border-color: var(--night-line); }
+  .az.in .node span { color: var(--on-night-2); }
+  .az.in .node:first-of-type span { color: var(--orange); font-weight: 700; }
+  .link { position: relative; display: grid; place-items: center; }
+  .link::before { content: ''; position: absolute; left: 6px; right: 6px; top: 50%; height: 2px; background: var(--blue); }
+  .link span { position: relative; background: var(--mist); font-size: 13px; font-weight: 700; color: var(--blue); padding: 2px 6px; margin-top: -34px; text-align: center; }
+  .link.back::after { content: ''; position: absolute; left: 4px; top: calc(50% - 5px); width: 8px; height: 12px; background: var(--blue); clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+
+  .steps { list-style: none; margin: 0; padding: 0; display: grid; }
+  .steps li { display: grid; grid-template-columns: 56px 1fr; gap: 20px; padding: 24px 0; border-top: 1px solid var(--line); }
+  .steps li:last-child { border-bottom: 1px solid var(--line); }
+  .n { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--blue); border: 2px solid var(--blue); }
+  .steps .body { margin-top: 4px; }
+
+  .why { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--night-line); border: 1px solid var(--night-line); border-radius: var(--r-xl); overflow: hidden; }
+  .why li { background: var(--night); padding: 34px 30px 38px; display: grid; gap: 10px; align-content: start; }
+  .why .h4 { color: #fff; }
+
+  .cmp-wrap { overflow-x: auto; }
+  .cmp { width: 100%; border-collapse: collapse; min-width: 560px; }
+  .cmp th, .cmp td { text-align: left; padding: 18px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .cmp thead th { font-size: 14px; color: var(--ink-3); font-weight: 600; }
+  .cmp thead th:last-child { color: var(--blue); }
+  .cmp tbody th { font-weight: 700; width: 22%; }
+  .cmp td { color: var(--ink-2); }
+  .cmp td:last-child { color: var(--ink); font-weight: 600; background: var(--orange-soft); }
+
+  .tabs { background: #fff; border-radius: var(--r-xl); padding: 12px; }
+  .tablist { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px; background: var(--paper-2); border-radius: 999px; width: fit-content; max-width: 100%; margin: 0 auto 8px; }
+  .tablist button { border: 0; background: transparent; padding: 10px 20px; border-radius: 999px; font-weight: 600; cursor: pointer; color: var(--ink-2); }
+  .tablist button[aria-selected='true'] { background: var(--ink); color: #fff; }
+  .panel { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; padding: 40px clamp(20px, 4vw, 48px) 44px; align-items: start; }
+  .panel[hidden] { display: none; }
+  .panel .body { margin-top: 14px; }
+  .panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .panel li { padding: 16px 18px; border-radius: var(--r-md); background: var(--mist); font-weight: 600; }
+
+  .std { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .std .lead { margin-top: 16px; }
+  .std-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+  .std-list li { border: 1px solid var(--line); border-radius: var(--r-md); padding: 20px 22px; display: grid; gap: 4px; }
+  .std-list b { font-size: 18px; }
+  .std-list span { color: var(--ink-2); font-size: 15px; }
+
+  .roll { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: r; }
+  .roll li { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 30px 28px 34px; display: grid; gap: 12px; align-content: start; position: relative; }
+  .roll li:not(:last-child)::after { content: ''; position: absolute; right: -16px; top: 48px; width: 12px; height: 2px; background: var(--blue); }
+
+  @media (max-width: 1023px) {
+    .parts { grid-template-columns: 1fr; }
+    .plat { grid-template-columns: 1fr; }
+    .plat div + div { border-left: 0; border-top: 1px solid var(--line); }
+    .gov { grid-template-columns: 1fr; }
+    .feat4 { grid-template-columns: 1fr 1fr; }
+    .arch { grid-template-columns: 1fr; gap: 0; }
+    .link { height: 64px; }
+    .link::before { left: 50%; right: auto; top: 8px; bottom: 8px; width: 2px; height: auto; }
+    .link span { margin: 0; }
+    .link.back::after { display: none; }
+    .why { grid-template-columns: 1fr 1fr; }
+    .panel, .std { grid-template-columns: 1fr; }
+    .roll { grid-template-columns: 1fr; }
+    .roll li::after { display: none; }
+  }
+  @media (max-width: 767px) {
+    .feat4, .why { grid-template-columns: 1fr; }
+    .tablist { border-radius: var(--r-md); }
+  }
+</style>
+
+<script>
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+  const select = (tab: HTMLButtonElement) => {
+    for (const t of tabs) {
+      const on = t === tab;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      const p = document.getElementById(t.getAttribute('aria-controls')!);
+      if (p) p.hidden = !on;
+    }
+  };
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => select(t));
+    t.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      const next = tabs[(i + d + tabs.length) % tabs.length];
+      select(next); next.focus();
+    });
+  });
+</script>

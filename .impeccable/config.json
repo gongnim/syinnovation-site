@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "inter",
+        "createdAt": "2026-11-11T07:15:14.545Z",
+        "reason": "User: asked to match PacketGo's hero headline font and size, so the home hero uses Inter Tight on purpose"
+      }
+    ]
+  }
+}

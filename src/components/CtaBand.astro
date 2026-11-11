@@ -1,0 +1,19 @@
+---
+interface Props { title: string; lead?: string; primary?: { href: string; label: string }; secondary?: { href: string; label: string } }
+const { title, lead, primary = { href: '/contact?type=poc', label: '무료 PoC 신청' }, secondary } = Astro.props;
+---
+<section class="cta-band">
+  <svg class="lines" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 330 C 300 330, 420 200, 600 200 S 900 70, 1200 70" fill="none" stroke="rgba(143,180,227,.35)" stroke-width="1" />
+    <path d="M0 360 C 320 360, 440 230, 600 230 S 880 100, 1200 100" fill="none" stroke="rgba(143,180,227,.18)" stroke-width="1" />
+    <circle cx="600" cy="200" r="4" fill="#f6882a" />
+  </svg>
+  <div class="wrap reveal">
+    <h2 class="h2">{title}</h2>
+    {lead && <p class="lead">{lead}</p>}
+    <div class="btn-row">
+      <a class="btn primary" href={primary.href}>{primary.label}</a>
+      {secondary && <a class="btn ghost" href={secondary.href}>{secondary.label}</a>}
+    </div>
+  </div>
+</section>

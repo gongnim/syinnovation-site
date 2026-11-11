@@ -1,0 +1,17 @@
+---
+// List-page header in PacketGo's resources style: a large centred title with a short centred lead.
+interface Props { title: string }
+const { title } = Astro.props;
+---
+<section class="pt">
+  <div class="wrap">
+    <h1 class="pt-title">{title}</h1>
+    <p class="pt-lead"><slot /></p>
+  </div>
+</section>
+
+<style>
+  .pt { padding: calc(96px + clamp(64px, 6vw, 104px)) 0 clamp(48px, 5vw, 72px); text-align: center; }
+  .pt-title { font-size: clamp(38px, 3.4vw + 10px, 64px); font-weight: 700; line-height: 1.2; letter-spacing: -0.03em; }
+  .pt-lead { margin: 22px auto 0; max-width: 640px; color: var(--ink-2); font-size: clamp(16px, 0.35vw + 13.5px, 19px); line-height: 1.65; }
+</style>

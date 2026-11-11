@@ -1,0 +1,249 @@
+---
+import Base from '../layouts/Base.astro';
+import PageTitle from '../components/PageTitle.astro';
+import { company } from '../data/site';
+
+// The team, grouped the way the org chart is (user-provided, 2026-11-11). Careers follow the user's own prototype
+// company page; client names and year counts are left out on purpose.
+// fx / ar: where the head sits across each cut-out portrait and the photo's height/width, so the round
+// crop can centre every face (measured from the photos with scratchpad face_center.py)
+const face: Record<string, { fx: string; ar: number }> = {
+  'kang-hyungkoo': { fx: '44%', ar: 1.289 }, 'park-heejun': { fx: '44%', ar: 1.259 },
+  'gong-donghyun': { fx: '60%', ar: 1.328 }, 'lim-jongse': { fx: '48%', ar: 1.139 },
+  'kang-mingwan': { fx: '46%', ar: 1.266 }, 'park-sungsoo': { fx: '45%', ar: 1.25 },
+  'kim-jaewon': { fx: '46%', ar: 1.236 },
+};
+const founder = { n: '강형구', r: '대표이사', p: 'kang-hyungkoo', f: '경영 총괄', c: [
+  'BANKBE 베트남 대표 · TMX코리아 창업자, 대표',
+  'GREY MOS · IBM GBS 비즈니스 · 정보기술 컨설팅',
+  '삼성카드 데이터베이스 마케팅',
+  '고려대학교 학사 · 석사',
+] };
+const groups = [
+  { t: '경영지원', people: [
+    { n: '박희준', r: '운영총괄', p: 'park-heejun', f: '운영 · 사업 관리', c: ['BANKBE 재무총괄 · 큐바이노베이션 창업', 'KT · 소프트포럼 · 이글루시큐리티 신사업', '컴퓨터보안공학 학사 · 석사'] },
+  ] },
+  { t: '연구개발', people: [
+    { n: '공동현', r: '기술총괄', p: 'gong-donghyun', f: '기술 · 연구개발', c: ['BANKBE · TMX코리아 연구소장', 'LG전자 · LG CNS 보안 분야', '전자여권 · 교통카드 · 모바일 결제 개발'] },
+    { n: '임종세', r: '개발 엔지니어', p: 'lim-jongse', f: '정보기술 엔지니어', c: ['풀스택 개발 엔지니어', '금융권 시스템 구축 · 개발'] },
+    { n: '강민관', r: '연구원', p: 'kang-mingwan', f: '보안 개발', c: ['기업부설연구소 연구원', '보안 개발자'] },
+  ] },
+  { t: '비즈니스', people: [
+    { n: '박성수', r: '전략총괄', p: 'park-sungsoo', f: '전략 · 컨설팅', c: ['IBM · PwC · KPMG · AT Kearney 컨설팅', '금융권 업무혁신 · 정보기술 기획', '상담센터 · 고객관리 시스템 개발 총괄'] },
+    { n: '김재원', r: '마케팅총괄', p: 'kim-jaewon', f: '마케팅 · 정보기술 기획', c: ['KB증권 베트남 마케팅 총괄', '온라인 마케팅 · 콘텐츠 전략', '정보기술 기획 · 고객 커뮤니케이션'] },
+  ] },
+];
+const advisor = { n: '박구준', d: '퍼듀대학교 컴퓨터공학 · 아마존 프라임 서비스 근무 · 인공지능 프로그래밍 자문' };
+
+const history: Record<string, { m: string; t: string }[]> = {
+  '2026': [
+    { m: '10', t: '초기창업패키지 선정 · 한경매거진 인터뷰' },
+    { m: '08', t: '벤처기업 확인' },
+    { m: '07', t: '제2서울핀테크랩 입주 · 기업부설연구소 설립' },
+    { m: '02', t: 'Trust Gateway 출시' },
+  ],
+  '2025': [
+    { m: '', t: '카드사 외국인 전용 앱 인증 공급' },
+    { m: '', t: '여신금융협회 직승인 시스템 개발' },
+  ],
+  '2024': [{ m: '', t: '카드사 · 저축은행 통합 인증 서비스 운영' }],
+  '2023': [{ m: '10', t: '㈜신영이노베이션 설립' }],
+};
+const years = Object.keys(history);
+---
+<Base title="회사소개" description="Never Trust, Always Verify. 신영이노베이션을 소개합니다." tone="light">
+  <PageTitle title="회사소개">편리하면서도 안전한 보안을 다시 생각합니다.</PageTitle>
+
+  <section class="section">
+    <div class="wrap story">
+      <div class="reveal">
+        <p class="tag">RE:Think innovation</p>
+        <h2 class="h2 sm">금융 인증 현장에서 시작한<br />제로트러스트</h2>
+      </div>
+      <div class="reveal">
+        <p class="lead">신영이노베이션은 카드사와 저축은행의 인증 서비스를 만들고 운영해 온 사람들이 2023년에 세운 회사입니다.</p>
+        <p class="lead">그 경험을 바탕으로, 로그인 이후에도 사람과 기기를 계속 확인하는 Trust Gateway를 만들었습니다. 회사마다 다른 요구에 맞춘 기술 개발도 함께 합니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- team as an org chart with round portraits: grey until you point at someone, then in colour -->
+  <section class="section paper2">
+    <div class="wrap">
+      <div class="head-left reveal">
+        <h2 class="h2 sm">함께 만드는 사람들</h2>
+        <p class="lead">2023년에 시작한 스타트업입니다. <br />금융, 보안, 컨설팅 현장에서 오래 일해 온 사람들이 한 팀으로 Trust Gateway를 만듭니다.</p>
+      </div>
+      <div class="org reveal">
+        <div class="org-top">
+          <article class="node ceo">
+            <div class="av" style={`--fx:${face[founder.p].fx};--ar:${face[founder.p].ar}`}><img src={`/images/team/${founder.p}.webp`} alt={`${founder.n} ${founder.r}`} loading="lazy" /></div>
+            <p class="role">{founder.r}</p>
+            <h3 class="n">{founder.n}</h3>
+            <p class="f">{founder.f}</p>
+            <ul class="career">{founder.c.map((x) => <li>{x}</li>)}</ul>
+          </article>
+        </div>
+        <div class="org-cols">
+          {groups.map((g) => (
+            <div class="col">
+              <h3 class="div-head">{g.t}</h3>
+              {g.people.map((m) => (
+                <article class="node">
+                  <div class="av" style={`--fx:${face[m.p].fx};--ar:${face[m.p].ar}`}><img src={`/images/team/${m.p}.webp`} alt={`${m.n} ${m.r}`} loading="lazy" /></div>
+                  <p class="role">{m.r}</p>
+                  <p class="n">{m.n}</p>
+                  <p class="f">{m.f}</p>
+                  <ul class="career">{m.c.map((x) => <li>{x}</li>)}</ul>
+                </article>
+              ))}
+            </div>
+          ))}
+        </div>
+        <div class="adv"><b>기술 자문 · {advisor.n}</b><p>{advisor.d}</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="ci-head reveal">
+        <div>
+          <h2 class="h2 sm">CI</h2>
+          <p class="lead">별처럼 방향을 잃지 않고, 새로운 길을 가리키는 신영이노베이션의 로고입니다.</p>
+        </div>
+        <div class="btn-row">
+          <a class="btn ghost" href="/images/brand/syinnovation-logo-4000.png" download="syinnovation-logo.png">PNG 내려받기</a>
+          <a class="btn ghost" href="/images/brand/syinnovation-logo.svg" download="syinnovation-logo.svg">SVG 내려받기</a>
+        </div>
+      </div>
+      <!-- vector files, so the marks stay sharp at any size -->
+      <div class="ci-tiles reveal">
+        <div class="ci-tile light"><img src="/images/brand/syinnovation-logo.svg" alt="SYINNOVATION 로고" width="300" height="81" /></div>
+        <div class="ci-tile dark"><img src="/images/brand/syinnovation-logo-white.svg" alt="SYINNOVATION 로고, 어두운 배경용" width="303" height="87" /></div>
+        <div class="ci-tile mark"><img src="/images/brand/syinnovation-symbol.svg" alt="SYINNOVATION 심볼" width="83" height="81" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section mist">
+    <div class="wrap">
+      <div class="head-left reveal"><h2 class="h2 sm">연혁</h2></div>
+      <div class="hist reveal">
+        <div class="years" role="tablist" aria-label="연도">
+          {years.reverse().map((y, i) => (<button type="button" role="tab" id={`y-${y}`} aria-controls={`h-${y}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{y}</button>))}
+        </div>
+        {years.map((y, i) => (
+          <ul class="hist-list" role="tabpanel" id={`h-${y}`} aria-labelledby={`y-${y}`} hidden={i !== 0}>
+            {history[y].map((h) => (<li><span class="m">{h.m ? `${y}.${h.m}` : y}</span><span>{h.t}</span></li>))}
+          </ul>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2 class="h2 sm reveal">오시는 길</h2>
+      <div class="map reveal">
+        <iframe title="신영이노베이션 위치 지도: 서울 마포구 마포대로 78" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+          src="https://www.google.com/maps?q=%EC%84%9C%EC%9A%B8%ED%8A%B9%EB%B3%84%EC%8B%9C%20%EB%A7%88%ED%8F%AC%EA%B5%AC%20%EB%A7%88%ED%8F%AC%EB%8C%80%EB%A1%9C%2078&hl=ko&z=16&output=embed"></iframe>
+      </div>
+      <dl class="info">
+        <div><dt>주소</dt><dd>{company.address}</dd></div>
+        <div><dt>연락처</dt><dd><a href={`tel:${company.phone.replaceAll('-', '')}`}>{company.phone}</a></dd></div>
+        <div><dt>이메일</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
+      </dl>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .story { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 80px); }
+  .story .h2 { margin-top: 10px; }
+  .story .lead + .lead { margin-top: 18px; }
+  /* team as an org chart: CEO on top, a bus line to three groups, people stacked under each group */
+  .org { --wire: #a9c0dc; margin-top: 36px; padding: clamp(24px, 3vw, 44px); border-radius: 28px; background: #fff; }
+  .org-top { display: flex; justify-content: center; position: relative; padding-bottom: 48px; }
+  .org-top::after { content: ''; position: absolute; left: 50%; bottom: 24px; width: 1px; height: 24px; background: var(--wire); }
+  .org-cols { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .org-cols::before { content: ''; position: absolute; top: -24px; left: calc((100% - 40px) / 6); right: calc((100% - 40px) / 6); height: 1px; background: var(--wire); }
+  .col { position: relative; display: grid; gap: 22px; align-content: start; }
+  .col::before { content: ''; position: absolute; top: -24px; left: 50%; width: 1px; height: 24px; background: var(--wire); }
+  .col > * { position: relative; }
+  .col > * + *::before { content: ''; position: absolute; top: -23px; left: 50%; width: 1px; height: 22px; background: var(--wire); }
+  .div-head { padding: 12px; border-radius: 12px; background: #e3edf8; text-align: center; font-size: 16px; font-weight: 700; color: var(--ink); }
+  .node { display: grid; justify-items: center; text-align: center; padding: 24px 18px 22px; border: 1px solid #d7e2ef; border-radius: 20px; background: #fff; }
+  .node.ceo { width: min(100%, 420px); border-color: transparent; background: var(--paper-2); }
+
+  /* round portrait: head and shoulders only (the photos are cut-outs), each face centred from its measured position */
+  .av { position: relative; width: 104px; aspect-ratio: 1; border-radius: 50%; overflow: hidden; background: #e7eaee; margin-bottom: 14px; }
+  .ceo .av { width: 132px; }
+  .av img {
+    position: absolute; width: 170%; max-width: none; height: auto; top: 0; left: calc(50% - var(--fx) * 1.7);
+    filter: grayscale(1) contrast(1.04); transition: filter .6s var(--ease), transform .6s var(--ease); transform-origin: 50% 20%;
+  }
+  .node:hover .av img { filter: none; transform: scale(1.04); }
+
+  .role { font-size: 13px; font-weight: 700; color: var(--blue); }
+  .n { margin-top: 2px; font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+  .ceo .n { font-size: 24px; }
+  .f { font-size: 13px; color: var(--ink-3); }
+  .career { list-style: none; margin: 14px 0 0; padding: 12px 0 0; border-top: 1px solid var(--line); display: grid; gap: 4px; width: 100%; }
+  .career li { font-size: 13px; line-height: 1.55; color: var(--ink-2); }
+  .adv { margin-top: 32px; padding-top: 22px; border-top: 1px solid var(--line); }
+  .adv b { font-size: 15px; font-weight: 700; }
+  .adv p { margin-top: 6px; font-size: 14px; color: var(--ink-3); }
+  .ci-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+  .ci-head .lead { margin-top: 14px; }
+  .ci-tiles { margin-top: 36px; display: grid; grid-template-columns: 2fr 2fr 1fr; gap: 20px; }
+  .ci-tile { min-height: clamp(220px, 22vw, 340px); border-radius: var(--r-xl); display: grid; place-items: center; padding: 40px; }
+  .ci-tile img { width: 100%; height: auto; }
+  .ci-tile.light { border: 1px solid var(--line); background: #fff; }
+  .ci-tile.light img { max-width: 420px; }
+  .ci-tile.dark { background: #2e6da3; }
+  .ci-tile.dark img { max-width: 420px; }
+  .ci-tile.mark { background: var(--mist); }
+  .ci-tile.mark img { max-width: 132px; }
+  .hist { background: #fff; border-radius: var(--r-xl); padding: 12px; display: grid; grid-template-columns: 180px 1fr; gap: 24px; }
+  .years { display: grid; gap: 4px; align-content: start; padding: 12px; }
+  .years button { border: 0; background: transparent; text-align: left; padding: 10px 16px; border-radius: var(--r-sm); font-size: 22px; font-weight: 800; color: var(--ink-3); cursor: pointer; }
+  .years button[aria-selected='true'] { color: var(--blue); background: var(--mist); }
+  .hist-list { list-style: none; margin: 0; padding: 24px 12px 24px 0; display: grid; gap: 4px; align-content: start; }
+  .hist-list li { display: grid; grid-template-columns: 100px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .hist-list .m { font-weight: 700; color: var(--blue); }
+  /* 오시는 길: a full-width map, then address / phone / email in three columns */
+  .map { margin-top: 32px; height: clamp(320px, 38vw, 560px); border-radius: 16px; overflow: hidden; background: var(--mist); }
+  .map iframe { display: block; width: 100%; height: 100%; border: 0; }
+  .info { margin: 48px 0 0; border-top: 1px solid var(--blue); display: grid; grid-template-columns: 1.5fr 1fr 1fr; }
+  .info div { display: flex; align-items: baseline; gap: 28px; padding: 44px 40px; }
+  .info div + div { border-left: 1px solid var(--line); }
+  .info dt { flex: 0 0 auto; font-size: 18px; font-weight: 700; color: var(--ink); }
+  .info dd { margin: 0; font-size: 18px; color: var(--ink-2); }
+  .info a:hover { color: var(--blue); }
+  @media (max-width: 767px) {
+    .story, .hist, .ci-tiles { grid-template-columns: 1fr; }
+    .org-cols { grid-template-columns: 1fr; gap: 36px; }
+    .org-cols::before { display: none; }
+    .col::before { top: -36px; height: 36px; }
+    .info { grid-template-columns: 1fr; }
+    .info div { padding: 20px 4px; gap: 20px; }
+    .info div + div { border-left: 0; border-top: 1px solid var(--line); }
+    .years { display: flex; flex-wrap: wrap; }
+  }
+</style>
+
+<script>
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.years [role="tab"]'));
+  const pick = (tab: HTMLButtonElement) => tabs.forEach((t) => {
+    const on = t === tab; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1;
+    const p = document.getElementById(t.getAttribute('aria-controls')!); if (p) p.hidden = !on;
+  });
+  tabs.forEach((t, i) => {
+    t.addEventListener('click', () => pick(t));
+    t.addEventListener('keydown', (e) => {
+      const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return; e.preventDefault(); const n = tabs[(i + d + tabs.length) % tabs.length]; pick(n); n.focus();
+    });
+  });
+</script>

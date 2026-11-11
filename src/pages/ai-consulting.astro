@@ -1,0 +1,88 @@
+---
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import ProductHero from '../components/ProductHero.astro';
+import FlowConsult from '../components/FlowConsult.astro';
+
+const services = [
+  { t: 'PI 컨설팅', d: '지금 일하는 방식을 함께 들여다보고, 줄일 일과 바꿀 일을 정리합니다. 개발 전에 무엇을 만들지부터 분명히 합니다.' },
+  { t: 'AI 기반 개발', d: 'Web, iOS, Android, 백엔드를 AI 개발 도구와 함께 빠르게 만듭니다. 코드 검토와 시험은 사람이 직접 챙깁니다.' },
+  { t: '운영과 유지보수', d: '오픈한 뒤에도 기능 개선, 업데이트, 장애 대응을 이어서 맡습니다.' },
+  { t: '맞춤 기술 개발', d: '인증, 결제, 보안처럼 회사마다 다른 요구에 맞춰 필요한 기능을 직접 개발합니다.' },
+];
+
+const process = [
+  { t: '진단', d: '업무와 시스템을 함께 살펴 문제와 목표를 정합니다.' },
+  { t: '설계', d: '바꿀 업무 흐름과 시스템 구조, 일정과 범위를 정합니다.' },
+  { t: '개발', d: 'AI 개발 도구로 빠르게 만들고, 짧은 주기로 보여 드리며 고칩니다.' },
+  { t: '운영', d: '오픈 후 사용 현황을 보며 개선과 유지보수를 이어 갑니다.' },
+];
+
+const work = [
+  { t: '제조사 업무 프로세스 혁신(PI)', d: '업무 흐름을 분석하고 새 시스템 개발로 이어지는 PI 컨설팅' },
+  { t: '카드사 인증 서비스', d: '금융권 모바일 인증 서비스 개발과 운영' },
+  { t: '결제 모듈 개발', d: 'NFC 결제 모듈 등 결제 기능 개발' },
+  { t: '점자 변환 솔루션', d: '접근성을 위한 점자 변환 기능 개발' },
+];
+---
+<Base title="AI컨설팅" description="업무 분석부터 AI 기반 개발과 운영까지, 신영이노베이션의 AI컨설팅.">
+  <ProductHero eyebrow="AI컨설팅" tiles={['spark', 'chart', 'code', 'plan', 'cycle', 'search']}>
+    <Fragment slot="title">일하는 방식부터 함께 보고,<br />AI로 빠르게 만듭니다</Fragment>
+    <Fragment slot="lead">업무 분석부터 AI 기반 개발, 운영과 유지보수까지.<br />금융 보안 현장에서 쌓은 기술로 회사에 맞는 시스템을 만듭니다.</Fragment>
+    <FlowConsult slot="flow" />
+  </ProductHero>
+
+  <section class="section">
+    <div class="wrap narrow">
+      <div class="head-center reveal">
+        <h2 class="h2">무엇을 하나요</h2>
+      </div>
+      {services.map((s, i) => (
+        <div class={`svc reveal ${i % 2 ? 'flip' : ''}`}>
+          <div class="svc-copy"><h3 class="h3">{s.t}</h3><p class="body">{s.d}</p></div>
+          <div class="svc-media" aria-hidden="true"><span>{s.t}</span></div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section mist">
+    <div class="wrap">
+      <div class="head-left reveal"><h2 class="h2 sm">이렇게 진행합니다</h2></div>
+      <ol class="proc">
+        {process.map((p, i) => (<li class="reveal"><span class="n">{i + 1}</span><h3 class="h4">{p.t}</h3><p class="body">{p.d}</p></li>))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head-left reveal"><h2 class="h2 sm">해 온 일</h2></div>
+      <ul class="work">
+        {work.map((w) => (<li class="reveal"><h3 class="h4">{w.t}</h3><p class="body">{w.d}</p></li>))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title="만들고 싶은 것이 있다면, 업무 이야기부터 들려주세요" primary={{ href: '/contact?type=ai', label: 'AI컨설팅 문의' }} />
+</Base>
+
+<style>
+  .svc { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 72px); align-items: center; padding: 36px 0; }
+  .svc.flip .svc-copy { order: 2; }
+  .svc .body { margin-top: 14px; }
+  .svc-media { border-radius: var(--r-lg); background: var(--mist); min-height: 240px; display: grid; place-items: center; position: relative; overflow: hidden; }
+  .svc-media::before { content: ''; position: absolute; inset: 24px; border: 1px dashed var(--line); border-radius: var(--r-md); }
+  .svc-media span { position: relative; font-weight: 800; font-size: 22px; color: var(--blue); }
+  .proc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+  .proc li { background: #fff; border-radius: var(--r-xl); padding: 28px 26px 32px; display: grid; gap: 10px; align-content: start; }
+  .n { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--blue); border: 2px solid var(--blue); }
+  .work { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .work li { border: 1px solid var(--line); border-radius: var(--r-md); padding: 28px; display: grid; gap: 6px; }
+  @media (max-width: 1023px) { .proc { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 767px) {
+    .svc, .svc.flip { grid-template-columns: 1fr; }
+    .svc.flip .svc-copy { order: 0; }
+    .proc, .work { grid-template-columns: 1fr; }
+  }
+</style>

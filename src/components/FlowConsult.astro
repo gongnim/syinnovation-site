@@ -1,0 +1,74 @@
+---
+// AI consulting flow, looped every 7 s: a light runs along the line and wakes each step in turn,
+// 진단 -> 설계 -> 개발 -> 운영, then the row rests and starts again.
+import Icon from './Icon.astro';
+const steps = [
+  { icon: 'search', t: '진단', d: '업무와 문제 정리' },
+  { icon: 'plan', t: '설계', d: '흐름 · 구조 · 범위' },
+  { icon: 'code', t: '개발', d: 'AI 도구로 빠르게' },
+  { icon: 'cycle', t: '운영', d: '개선과 유지보수' },
+];
+---
+<div class="fc">
+  <div class="card">
+    <span class="line" aria-hidden="true"><span class="fill"></span></span>
+    <ol class="steps" aria-label="AI컨설팅 진행 순서">
+      {steps.map((s, i) => (
+        <li class={`s s${i + 1}`}>
+          <span class="ico" aria-hidden="true"><Icon name={s.icon} size={22} /></span>
+          <b>{s.t}</b>
+          <small>{s.d}</small>
+        </li>
+      ))}
+    </ol>
+  </div>
+</div>
+
+<style>
+  .fc { --loop: 7s; max-width: 920px; margin: 0 auto; }
+  .card {
+    position: relative; padding: 26px 20px 24px; border-radius: 44px; color: var(--ink);
+    background: rgba(255,255,255,.95); box-shadow: 0 24px 60px rgba(12,30,70,.28), inset 0 0 0 1px rgba(255,255,255,.7);
+  }
+  /* the line joins the four icon centres (at 1/8, 3/8, 5/8, 7/8 of the width) */
+  .line { position: absolute; left: 12.5%; right: 12.5%; top: 52px; height: 2px; border-radius: 2px; background: rgba(54,99,153,.14); }
+  .fill {
+    position: absolute; left: 0; top: 0; bottom: 0; width: 0; border-radius: 2px;
+    background: linear-gradient(90deg, rgba(61,111,198,.35), #3d6fc6); animation: fc-fill var(--loop) cubic-bezier(.45, 0, .3, 1) infinite;
+  }
+  .fill::after {
+    content: ''; position: absolute; right: -5px; top: 50%; width: 10px; height: 10px; margin-top: -5px; border-radius: 50%;
+    background: var(--orange); box-shadow: 0 0 0 4px rgba(246,136,42,.18), 0 0 16px rgba(246,136,42,.8);
+  }
+  .steps { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); }
+  .s { display: grid; justify-items: center; gap: 4px; text-align: center; }
+  .ico {
+    width: 52px; height: 52px; margin-bottom: 10px; border-radius: 50%; display: grid; place-items: center;
+    color: var(--blue); background: #edf2fc; box-shadow: 0 0 0 5px #fff; animation: fc-on1 var(--loop) ease-in-out infinite;
+  }
+  .s b { font-size: 17px; font-weight: 700; letter-spacing: -0.02em; }
+  .s small { font-size: 13px; color: var(--ink-3); }
+  .s2 .ico { animation-name: fc-on2; }
+  .s3 .ico { animation-name: fc-on3; }
+  .s4 .ico { animation-name: fc-on4; }
+
+  /* fill runs 0-78%, holds, then clears; each icon wakes as the light reaches it */
+  @keyframes fc-fill { 0% { width: 0; opacity: 1; } 78% { width: 100%; opacity: 1; } 90% { width: 100%; opacity: 1; } 98%, 100% { width: 100%; opacity: 0; } }
+  @keyframes fc-on1 { 0%, 1% { background: #edf2fc; color: var(--blue); } 4%, 92% { background: #3d6fc6; color: #fff; } 100% { background: #edf2fc; color: var(--blue); } }
+  @keyframes fc-on2 { 0%, 25% { background: #edf2fc; color: var(--blue); } 29%, 92% { background: #3d6fc6; color: #fff; } 100% { background: #edf2fc; color: var(--blue); } }
+  @keyframes fc-on3 { 0%, 51% { background: #edf2fc; color: var(--blue); } 55%, 92% { background: #3d6fc6; color: #fff; } 100% { background: #edf2fc; color: var(--blue); } }
+  @keyframes fc-on4 { 0%, 76% { background: #edf2fc; color: var(--blue); } 80%, 92% { background: var(--orange); color: #fff; } 100% { background: #edf2fc; color: var(--blue); } }
+
+  @media (max-width: 767px) {
+    .card { padding: 20px 10px 18px; border-radius: 32px; }
+    .line { top: 42px; }
+    .ico { width: 44px; height: 44px; }
+    .s small { display: none; }
+    .s b { font-size: 15px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .fill, .ico { animation: none; }
+    .fill { width: 100%; }
+    .ico { background: #3d6fc6; color: #fff; }
+  }
+</style>

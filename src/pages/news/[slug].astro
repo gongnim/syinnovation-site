@@ -1,0 +1,38 @@
+---
+import Base from '../../layouts/Base.astro';
+import { sorted, kindLabel, fmt } from '../../data/news';
+
+export function getStaticPaths() {
+  const own = sorted.filter((n) => !n.url);
+  return own.map((n, i) => ({ params: { slug: n.slug }, props: { item: n, prev: own[i + 1], next: own[i - 1] } }));
+}
+const { item, prev, next } = Astro.props;
+---
+<Base title={item.title} description={item.body?.[0] ?? item.title} tone="light">
+  <article class="page-hero">
+    <div class="wrap narrow">
+      <a class="crumb" href="/news">소식</a>
+      <span class="kind">{kindLabel[item.kind]}</span>
+      <h1 class="h2">{item.title}</h1>
+      <p class="small date">{fmt(item.date)}</p>
+      {item.image && <img class="hero-img" src={item.image} alt="" />}
+      <div class="text">{item.body?.map((p) => <p>{p}</p>)}</div>
+      <nav class="pn" aria-label="다른 소식">
+        {prev ? <a href={`/news/${prev.slug}`}><span class="small">이전 소식</span>{prev.title}</a> : <span />}
+        <a class="list" href="/news">목록</a>
+        {next ? <a href={`/news/${next.slug}`} class="r"><span class="small">다음 소식</span>{next.title}</a> : <span />}
+      </nav>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .kind { display: block; font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
+  .date { margin-top: 12px; }
+  .hero-img { width: 100%; border-radius: var(--r-xl); margin-top: 36px; }
+  .text { margin-top: 36px; display: grid; gap: 18px; color: var(--ink-2); font-size: 18px; }
+  .pn { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; }
+  .pn a { display: grid; gap: 2px; font-weight: 600; }
+  .pn .r { text-align: right; }
+  .pn .list { border: 1px solid var(--line); border-radius: 999px; padding: 8px 20px; }
+</style>
