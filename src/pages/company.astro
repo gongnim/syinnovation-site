@@ -6,7 +6,8 @@ import { company } from '../data/site';
 // The team (user-provided, 2026-11-11). Careers follow the user's own prototype company page; client names and
 // year counts are left out on purpose. hi: greeting lines, still to be confirmed by each person.
 // Photos: each person's original portrait re-posed into an office setting with an image model (2026-11-11);
-// the originals are kept outside the repo. up: who this person reports to inside their team.
+// the originals are kept outside the repo. up: who this person reports to inside their team
+// (임종세, 강민관 -> 공동현; 김재원 -> 박성수).
 const people = [
   { n: '강형구', r: '대표이사', g: '', p: 'kang-hyungkoo',
     hi: '금융 현장에서 보안과 편리함이 늘 부딪히는 모습을 오래 지켜봤습니다. 둘 중 무엇도 포기하지 않는 보안, Trust Gateway로 증명하겠습니다.',
@@ -26,15 +27,49 @@ const people = [
   { n: '박성수', r: '전략총괄', g: '비즈니스', p: 'park-sungsoo',
     hi: '좋은 보안은 일을 멈추게 하지 않습니다. 금융권 업무 혁신 현장에서 쌓은 경험으로, 고객의 업무에 꼭 맞는 보안을 설계하겠습니다.',
     c: ['IBM · PwC · KPMG · AT Kearney 컨설팅', '금융권 업무혁신 · 정보기술 기획', '상담센터 · 고객관리 시스템 개발 총괄'] },
-  { n: '김재원', r: '마케팅총괄', g: '비즈니스', p: 'kim-jaewon',
+  { n: '김재원', r: '마케팅총괄', g: '비즈니스', p: 'kim-jaewon', up: '박성수',
     hi: '좋은 기술은 제대로 알려질 때 더 큰 힘을 냅니다. 어려운 보안을 누구나 이해할 수 있는 말로 전하고, Trust Gateway를 더 많은 곳에 알리겠습니다.',
     c: ['KB증권 베트남 마케팅 총괄', '온라인 마케팅 · 콘텐츠 전략', '정보기술 기획 · 고객 커뮤니케이션'] },
 ];
+// dot: team colour (slides, org chart status lights); tint: the team hub's soft background
 const teams = [
-  { t: '경영지원', d: '운영 · 사업 관리', tint: '#fcefe3', dot: '#d9772b' },
-  { t: '연구개발', d: 'Trust Gateway 연구 · 개발', tint: '#e6effa', dot: '#3a78bd' },
-  { t: '비즈니스', d: '전략 · 컨설팅 · 마케팅', tint: '#e5f3ec', dot: '#3f8c69' },
+  { t: '경영지원', d: '운영 · 사업 관리', dot: '#d9772b', tint: '#fdf3ea' },
+  { t: '연구개발', d: 'Trust Gateway 연구 · 개발', dot: '#3a78bd', tint: '#ecf3fb' },
+  { t: '비즈니스', d: '전략 · 컨설팅 · 마케팅', dot: '#3f8c69', tint: '#ebf5f0' },
 ];
+// The org chart as a network diagram: CEO -> team hubs -> people, joined by right-angle links. Points are box centres in a 1000x460 canvas on desktop and a 400x790 canvas on phones; each link
+// is [from, to, path] and runs centre to centre, so the boxes hide its ends.
+const net = {
+  desk: { w: 1000, h: 460,
+    at: { 강형구: [500, 62], 경영지원: [170, 192], 연구개발: [500, 192], 비즈니스: [830, 192],
+      박희준: [170, 300], 공동현: [500, 292], 임종세: [418, 402], 강민관: [582, 402], 박성수: [830, 292], 김재원: [830, 402] },
+    links: [
+      ['강형구', '경영지원', 'M500 62 V128 H170 V192'], ['강형구', '연구개발', 'M500 62 V192'], ['강형구', '비즈니스', 'M500 62 V128 H830 V192'],
+      ['경영지원', '박희준', 'M170 192 V300'], ['연구개발', '공동현', 'M500 192 V292'],
+      ['공동현', '임종세', 'M500 292 V348 H418 V402'], ['공동현', '강민관', 'M500 292 V348 H582 V402'],
+      ['비즈니스', '박성수', 'M830 192 V292'], ['박성수', '김재원', 'M830 292 V402'],
+    ] },
+  mob: { w: 400, h: 790,
+    at: { 강형구: [200, 44], 경영지원: [128, 150], 연구개발: [128, 332], 비즈니스: [128, 626],
+      박희준: [252, 216], 공동현: [252, 398], 임종세: [282, 472], 강민관: [282, 544], 박성수: [252, 692], 김재원: [282, 760] },
+    links: [
+      ['강형구', '경영지원', 'M200 44 V94 H22 V150 H128'], ['강형구', '연구개발', 'M200 44 V94 H22 V332 H128'], ['강형구', '비즈니스', 'M200 44 V94 H22 V626 H128'],
+      ['경영지원', '박희준', 'M128 150 V216 H252'], ['연구개발', '공동현', 'M128 332 V398 H252'],
+      ['공동현', '임종세', 'M210 398 H170 V472 H282'], ['공동현', '강민관', 'M210 398 H170 V544 H282'],
+      ['비즈니스', '박성수', 'M128 626 V692 H252'], ['박성수', '김재원', 'M210 692 H170 V760 H282'],
+    ] },
+} as const;
+type Net = keyof typeof net;
+type Spot = keyof typeof net.desk.at;
+const pct = (k: Net, n: string) => {
+  const [x, y] = net[k].at[n as Spot];
+  return [(x / net[k].w) * 100, (y / net[k].h) * 100].map((v) => `${v.toFixed(2)}%`);
+};
+const posStyle = (n: string) => {
+  const [x, y] = pct('desk', n), [mx, my] = pct('mob', n);
+  return `--x:${x};--y:${y};--mx:${mx};--my:${my}`;
+};
+const teamOf = (n: string) => teams.find((t) => t.t === n) ?? teams.find((t) => t.t === people.find((m) => m.n === n)?.g);
 // One continuous zigzag of diagonal pencil strokes over the portrait, from the top-left corner to the bottom-right.
 // Drawn in on hover it reveals the colour-pencil sketch like someone colouring it in. Each stroke is the line
 // x+y=c clipped to the picture (-8..108), so the colour spreads at an even pace.
@@ -133,27 +168,21 @@ const years = Object.keys(history);
       </div>
 
       <div class="org reveal">
-        <h3 class="org-h">조직</h3>
-        <div class="org-top"><button type="button" class="chip ceo" data-go="0"><span class="r">{people[0].r}</span>{people[0].n}</button></div>
-        <div class="org-cols">
+        <div class="net">
+          <h3 class="org-h">조직</h3>
+          {(['desk', 'mob'] as const).map((k) => (
+            <svg class={`links ${k}`} viewBox={`0 0 ${net[k].w} ${net[k].h}`} aria-hidden="true">
+              {net[k].links.map(([a, b, d], i) => (
+                <path class="link" data-a={a} data-b={b} d={d} pathLength="1" style={`--c:${teamOf(b)?.dot};--d:${(0.1 + i * 0.1).toFixed(2)}s`} />
+              ))}
+            </svg>
+          ))}
           {teams.map((t) => (
-            <div class="team" style={`--tint:${t.tint};--dot:${t.dot}`}>
-              <p class="team-n">{t.t}</p>
-              <p class="team-d">{t.d}</p>
-              <ul class="members">
-                {people.filter((m) => m.g === t.t && !m.up).map((lead) => (
-                  <li>
-                    <button type="button" class="chip" data-go={people.indexOf(lead)}><span class="r">{lead.r}</span>{lead.n}</button>
-                    {people.some((m) => m.up === lead.n) && (
-                      <ul class="subs">
-                        {people.filter((m) => m.up === lead.n).map((m) => (
-                          <li><button type="button" class="chip" data-go={people.indexOf(m)}><span class="r">{m.r}</span>{m.n}</button></li>
-                        ))}
-                      </ul>
-                    )}
-                  </li>
-                ))}
-              </ul>
+            <p class="hub" style={`${posStyle(t.t)};--c:${t.dot};--tint:${t.tint}`}><b>{t.t}</b><span>{t.d}</span></p>
+          ))}
+          {people.map((m, i) => (
+            <div class={i ? 'node' : 'node ceo'} data-go={i} data-id={m.n} style={`${posStyle(m.n)};--c:${i ? dotOf(m.g) : 'var(--orange)'}`}>
+              <span class="r">{m.r}</span><b>{m.n}</b>
             </div>
           ))}
         </div>
@@ -265,33 +294,44 @@ const years = Object.keys(history);
   .auto .i-play, .auto[aria-pressed='true'] .i-pause { display: none; }
   .auto[aria-pressed='true'] .i-play { display: block; }
 
-  /* org chart without faces: soft team cards on a rounded bracket; each name jumps to that person's slide */
-  .org { --wire: #c3d2e5; margin-top: clamp(64px, 8vw, 104px); }
-  .org-h { text-align: center; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
-  .org-top { position: relative; display: flex; justify-content: center; margin-top: 24px; padding-bottom: 22px; }
-  .org-top::after { content: ''; position: absolute; left: 50%; bottom: 0; width: 1.5px; height: 22px; background: var(--wire); }
-  .org-cols { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 22px; }
-  .org-cols::before { content: ''; position: absolute; top: -22px; left: calc((100% - 40px) / 6); right: calc((100% - 40px) / 6); height: 22px; border: 1.5px solid var(--wire); border-bottom: 0; border-radius: 18px 18px 0 0; }
-  .team { position: relative; padding: 24px; border-radius: 22px; background: var(--tint); }
-  .team:nth-child(2)::before { content: ''; position: absolute; top: -22px; left: 50%; width: 1.5px; height: 22px; background: var(--wire); }
-  .team-n { display: flex; align-items: center; gap: 8px; font-size: 17px; font-weight: 800; color: var(--ink); }
-  .team-n::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); }
-  .team-d { margin-top: 4px; font-size: 14px; color: var(--ink-2); }
-  .members { list-style: none; margin: 18px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  /* people who report to a lead hang under that lead's chip on a small tree line */
-  .subs { list-style: none; margin: 8px 0 0 24px; padding: 0 0 0 20px; display: grid; gap: 8px; justify-items: start; }
-  .subs li { position: relative; }
-  .subs li::before { content: ''; position: absolute; left: -20px; top: -8px; width: 14px; height: calc(50% + 8px); border: 1.5px solid var(--wire); border-top: 0; border-right: 0; border-bottom-left-radius: 10px; }
-  .subs li:not(:last-child)::after { content: ''; position: absolute; left: -20px; top: -8px; bottom: 0; border-left: 1.5px solid var(--wire); }
-  .chip {
-    display: inline-flex; align-items: baseline; gap: 8px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgb(25 31 40 / .08);
-    background: #fff; font: inherit; font-size: 16px; font-weight: 700; color: var(--ink); cursor: pointer; transition: background .2s, color .2s, border-color .2s;
+  /* org chart as a network diagram: right-angle links draw in once when it comes into view; a pointed-at box
+     lights its links, and the person on the slider is outlined in their team colour. */
+  .org { margin-top: clamp(64px, 8vw, 104px); }
+  .net {
+    position: relative; aspect-ratio: 1000 / 460; border: 1px solid var(--line); border-radius: 24px; overflow: hidden;
+    background: #fff radial-gradient(circle, #dfe5ee 1px, transparent 1.2px) 0 0 / 22px 22px;
   }
-  .chip .r { font-size: 13px; font-weight: 600; color: var(--ink-3); transition: color .2s; }
-  .chip:hover { border-color: var(--ink); }
-  .chip[aria-current='true'] { background: var(--ink); border-color: var(--ink); color: #fff; }
-  .chip[aria-current='true'] .r { color: rgb(255 255 255 / .7); }
-  .chip.ceo { padding: 14px 28px; font-size: 18px; }
+  .org-h { position: absolute; left: clamp(20px, 2.6vw, 32px); top: clamp(16px, 2.2vw, 26px); font-size: 20px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+  .links { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .links.mob { display: none; }
+  .link {
+    fill: none; stroke: #b9c5d6; stroke-width: 1.5; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1;
+    transition: stroke-dashoffset .9s var(--ease) var(--d), stroke .25s, stroke-width .25s;
+  }
+  .org.is-in .link { stroke-dashoffset: 0; }
+  .link.is-lit { stroke: var(--c); stroke-width: 2.2; }
+  .hub, .node { position: absolute; left: var(--x); top: var(--y); translate: -50% -50%; white-space: nowrap; }
+  .hub { display: grid; justify-items: center; gap: 2px; margin: 0; padding: 9px 18px; border-radius: 12px; background: var(--tint); border: 1px solid color-mix(in srgb, var(--c) 28%, transparent); }
+  .hub b { display: inline-flex; align-items: center; gap: 7px; font-size: 15px; font-weight: 800; color: var(--ink); }
+  .hub b::before { content: ''; width: 7px; height: 7px; border-radius: 2px; background: var(--c); }
+  .hub span { font-size: 12px; color: var(--ink-2); }
+  .node {
+    display: inline-flex; align-items: center; gap: 8px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 12px;
+    background: #fff; color: var(--ink); box-shadow: 0 1px 2px rgb(25 31 40 / .05);
+    transition: border-color .2s, box-shadow .2s;
+  }
+  /* a small status light in the team colour, like a device on a network map */
+  .node::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 18%, transparent); }
+  .node .r { font-size: 13px; color: var(--ink-3); }
+  .node b { font-size: 16px; font-weight: 700; }
+  .node.ceo { padding: 13px 22px; background: var(--ink); border-color: var(--ink); color: #fff; }
+  .node.ceo .r { color: rgb(255 255 255 / .6); }
+  .node.ceo b { font-size: 18px; }
+  .node:hover { border-color: var(--c); }
+  .node[aria-current='true'] { border-color: var(--c); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 20%, transparent); }
+  @media (prefers-reduced-motion: reduce) {
+    .link { stroke-dashoffset: 0; transition: stroke .25s; }
+  }
   .adv { margin-top: 28px; text-align: center; font-size: 14px; color: var(--ink-3); }
   .adv b { margin-right: 6px; font-weight: 700; color: var(--ink); }
   .ci-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
@@ -337,9 +377,14 @@ const years = Object.keys(history);
     .txt { padding: 0 10px; }
     .hi { margin-top: 16px; }
     .career { margin-top: 20px; padding-top: 16px; }
-    .org-cols { grid-template-columns: 1fr; gap: 12px; }
-    .org-cols::before, .team:nth-child(2)::before { display: none; }
-    .team { padding: 20px; }
+    .net { aspect-ratio: 400 / 790; border-radius: 20px; }
+    .links.desk { display: none; }
+    .links.mob { display: block; }
+    .hub, .node { left: var(--mx); top: var(--my); }
+    .hub { justify-items: start; padding: 8px 14px; }
+    .node { padding: 8px 12px; }
+    .node b { font-size: 15px; }
+    .node.ceo b { font-size: 16px; }
     .info { grid-template-columns: 1fr; }
     .info div { padding: 20px 4px; gap: 20px; }
     .info div + div { border-left: 0; border-top: 1px solid var(--line); }
@@ -348,12 +393,12 @@ const years = Object.keys(history);
 </style>
 
 <script>
-  // team slider: arrows, arrow keys and org chart names move it; the counter, bar and org chart follow the scroll
+  // team slider: arrows and arrow keys move it; the counter, bar and org chart highlight follow the scroll
   const track = document.querySelector<HTMLElement>('.crew-track');
   if (track) {
     const crew = track.closest<HTMLElement>('.crew')!;
     const n = track.children.length;
-    const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.org [data-go]'));
+    const chips = Array.from(document.querySelectorAll<HTMLElement>('.org [data-go]'));
     const smooth: ScrollBehavior = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
     let cur = -1;
     const show = (i: number) => {
@@ -395,9 +440,22 @@ const years = Object.keys(history);
     });
     // touch screens have no hover: a tap on the portrait switches between the photo and the sketch
     crew.querySelectorAll<HTMLElement>('.ph').forEach((ph) => ph.addEventListener('click', () => ph.classList.toggle('is-sketch')));
-    // jump straight to the person, then bring the slider into view
-    chips.forEach((c) => c.addEventListener('click', () => { go(Number(c.dataset.go), 'auto'); crew.scrollIntoView({ behavior: smooth, block: 'center' }); }));
     show(0);
+  }
+
+  // network org chart: draw the links in once it comes into view; a pointed-at box lights its links
+  const org = document.querySelector<HTMLElement>('.org');
+  if (org) {
+    new IntersectionObserver((entries, io) => {
+      if (entries.some((e) => e.isIntersecting)) { org.classList.add('is-in'); io.disconnect(); }
+    }, { threshold: 0.25 }).observe(org);
+    const light = (id: string, on: boolean) =>
+      org.querySelectorAll(`.link[data-a="${id}"], .link[data-b="${id}"]`).forEach((l) => l.classList.toggle('is-lit', on));
+    org.querySelectorAll<HTMLElement>('.node').forEach((n) => {
+      const id = n.dataset.id!;
+      n.addEventListener('pointerenter', () => light(id, true));
+      n.addEventListener('pointerleave', () => light(id, false));
+    });
   }
 
   const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('.years [role="tab"]'));
