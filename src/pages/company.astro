@@ -4,30 +4,30 @@ import PageTitle from '../components/PageTitle.astro';
 import { company } from '../data/site';
 
 // The team (user-provided, 2026-11-11). Careers follow the user's own prototype company page; client names and
-// year counts are left out on purpose. hi: greeting lines are drafts for each person to confirm or rewrite.
+// year counts are left out on purpose. hi: greeting lines, still to be confirmed by each person.
 // Photos: each person's original portrait re-posed into an office setting with an image model (2026-11-11);
 // the originals are kept outside the repo. up: who this person reports to inside their team.
 const people = [
   { n: '강형구', r: '대표이사', g: '', p: 'kang-hyungkoo',
-    hi: '금융 현장에서 일하며 보안이 왜 어려운지 오래 봐 왔습니다. 쓰기 편하면서도 안전한 보안을 만드는 것이 저희의 목표입니다.',
+    hi: '금융 현장에서 보안과 편리함이 늘 부딪히는 모습을 오래 지켜봤습니다. 둘 중 무엇도 포기하지 않는 보안, Trust Gateway로 증명하겠습니다.',
     c: ['BANKBE 베트남 대표 · TMX코리아 창업자, 대표', 'GREY MOS · IBM GBS 비즈니스 · 정보기술 컨설팅', '삼성카드 데이터베이스 마케팅', '고려대학교 학사 · 석사'] },
   { n: '박희준', r: '운영총괄', g: '경영지원', p: 'park-heejun',
-    hi: '회사의 살림과 사업 관리를 맡고 있습니다. 고객과 한 약속이 끝까지 지켜지도록 챙기겠습니다.',
+    hi: '창업과 보안 신사업을 거치며 회사가 단단해지는 과정을 직접 겪었습니다. 고객과 한 약속은 끝까지 지키는 회사, 제가 책임지고 만들겠습니다.',
     c: ['BANKBE 재무총괄 · 큐바이노베이션 창업', 'KT · 소프트포럼 · 이글루시큐리티 신사업', '컴퓨터보안공학 학사 · 석사'] },
   { n: '공동현', r: '기술총괄', g: '연구개발', p: 'gong-donghyun',
-    hi: '인증과 결제 보안을 오래 만들어 왔습니다. 눈에 띄지 않지만 빈틈없이 지키는 기술을 만듭니다.',
+    hi: '전자여권부터 모바일 결제까지, 사람들이 매일 쓰는 보안을 만들어 왔습니다. 사용자는 느끼지 못할 만큼 자연스럽고, 공격자에게는 빈틈이 없는 기술을 만들겠습니다.',
     c: ['BANKBE · TMX코리아 연구소장', 'LG전자 · LG CNS 보안 분야', '전자여권 · 교통카드 · 모바일 결제 개발'] },
   { n: '임종세', r: '개발 엔지니어', g: '연구개발', p: 'lim-jongse', up: '공동현',
-    hi: '화면부터 서버까지 직접 만듭니다. 금융 시스템을 만들며 익힌 꼼꼼함으로 Trust Gateway를 다듬고 있습니다.',
+    hi: '화면부터 서버까지 직접 만들고 끝까지 책임집니다. 금융 시스템에서 익힌 꼼꼼함으로 Trust Gateway를 매일 더 단단하게 만들고 있습니다.',
     c: ['풀스택 개발 엔지니어', '금융권 시스템 구축 · 개발'] },
   { n: '강민관', r: '연구원', g: '연구개발', p: 'kang-mingwan', up: '공동현',
-    hi: '기업부설연구소에서 보안 기능을 연구하고 개발합니다. 새로운 공격 방식을 먼저 공부하고 대비합니다.',
+    hi: '공격보다 한 걸음 먼저 움직이는 것이 연구소의 일입니다. 새로운 공격 기법을 먼저 파고들어, 막아 내는 기술로 만들겠습니다.',
     c: ['기업부설연구소 연구원', '보안 개발자'] },
   { n: '박성수', r: '전략총괄', g: '비즈니스', p: 'park-sungsoo',
-    hi: '고객의 업무 흐름을 먼저 이해합니다. 보안이 일을 막지 않고 자연스럽게 함께 가도록 설계합니다.',
+    hi: '좋은 보안은 일을 멈추게 하지 않습니다. 금융권 업무 혁신 현장에서 쌓은 경험으로, 고객의 업무에 꼭 맞는 보안을 설계하겠습니다.',
     c: ['IBM · PwC · KPMG · AT Kearney 컨설팅', '금융권 업무혁신 · 정보기술 기획', '상담센터 · 고객관리 시스템 개발 총괄'] },
   { n: '김재원', r: '마케팅총괄', g: '비즈니스', p: 'kim-jaewon',
-    hi: '어려운 보안 이야기를 쉽게 전하는 일을 합니다. 궁금한 점이 있으면 언제든 편하게 문의해 주세요.',
+    hi: '좋은 기술은 제대로 알려질 때 더 큰 힘을 냅니다. 어려운 보안을 누구나 이해할 수 있는 말로 전하고, Trust Gateway를 더 많은 곳에 알리겠습니다.',
     c: ['KB증권 베트남 마케팅 총괄', '온라인 마케팅 · 콘텐츠 전략', '정보기술 기획 · 고객 커뮤니케이션'] },
 ];
 const teams = [
@@ -123,6 +123,10 @@ const years = Object.keys(history);
         <div class="crew-ctl">
           <p class="count"><b>1</b> / {people.length}</p>
           <div class="bar" aria-hidden="true"><i></i></div>
+          <button type="button" class="nav auto" aria-pressed="false" aria-label="자동 넘김 멈추기">
+            <svg class="i-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6v12M15 6v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
+            <svg class="i-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8.5 5.5v13l10-6.5z" fill="currentColor" /></svg>
+          </button>
           <button type="button" class="nav prev" aria-label="이전 팀원"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
           <button type="button" class="nav next" aria-label="다음 팀원"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
         </div>
@@ -258,6 +262,8 @@ const years = Object.keys(history);
   .bar i { display: block; height: 100%; width: calc(100% / var(--n)); background: var(--blue); transform: translateX(calc(var(--i, 0) * 100%)); transition: transform .5s var(--ease); }
   .nav { flex: 0 0 auto; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line); background: #fff; color: var(--ink); display: grid; place-items: center; cursor: pointer; transition: background .2s, color .2s, border-color .2s; }
   .nav:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .auto .i-play, .auto[aria-pressed='true'] .i-pause { display: none; }
+  .auto[aria-pressed='true'] .i-play { display: block; }
 
   /* org chart without faces: soft team cards on a rounded bracket; each name jumps to that person's slide */
   .org { --wire: #c3d2e5; margin-top: clamp(64px, 8vw, 104px); }
@@ -357,7 +363,29 @@ const years = Object.keys(history);
       crew.querySelector('.count b')!.textContent = String(i + 1);
       chips.forEach((c) => c.setAttribute('aria-current', String(Number(c.dataset.go) === i)));
     };
-    const go = (i: number, behavior = smooth) => track.scrollTo({ left: ((i + n) % n) * track.clientWidth, behavior });
+    // autoplay: the next person every 5s. It holds while the slider is pointed at or keyboard-focused, off screen
+    // or in a background tab, after the pause button, and never runs with reduced motion. Any move restarts the 5s.
+    const autoBtn = crew.querySelector<HTMLButtonElement>('.auto')!;
+    let stopped = smooth === 'auto', hold = false, focus = false, seen = false, timer = 0;
+    const arm = () => {
+      clearTimeout(timer);
+      if (stopped || hold || focus || !seen || document.hidden) return;
+      timer = window.setTimeout(() => go(cur + 1, cur === n - 1 ? 'auto' : smooth), 5000);
+    };
+    const syncAuto = () => {
+      autoBtn.setAttribute('aria-pressed', String(stopped));
+      autoBtn.setAttribute('aria-label', stopped ? '자동 넘김 켜기' : '자동 넘김 멈추기');
+    };
+    const go = (i: number, behavior = smooth) => { track.scrollTo({ left: ((i + n) % n) * track.clientWidth, behavior }); arm(); };
+    autoBtn.addEventListener('click', () => { stopped = !stopped; syncAuto(); arm(); });
+    crew.addEventListener('mouseenter', () => { hold = true; arm(); });
+    crew.addEventListener('mouseleave', () => { hold = false; arm(); });
+    crew.addEventListener('focusin', (e) => { focus = (e.target as HTMLElement).matches(':focus-visible') && e.target !== autoBtn; arm(); });
+    crew.addEventListener('focusout', () => { focus = false; arm(); });
+    crew.addEventListener('pointerdown', arm);
+    document.addEventListener('visibilitychange', arm);
+    new IntersectionObserver(([e]) => { seen = e.isIntersecting; arm(); }, { threshold: 0.5 }).observe(crew);
+    syncAuto();
     track.addEventListener('scroll', () => show(Math.round(track.scrollLeft / track.clientWidth)), { passive: true });
     crew.querySelector('.prev')!.addEventListener('click', () => go(cur - 1));
     crew.querySelector('.next')!.addEventListener('click', () => go(cur + 1));
