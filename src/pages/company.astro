@@ -35,7 +35,20 @@ const teams = [
   { t: '연구개발', d: 'Trust Gateway 연구 · 개발', tint: '#e6effa', dot: '#3a78bd' },
   { t: '비즈니스', d: '전략 · 컨설팅 · 마케팅', tint: '#e5f3ec', dot: '#3f8c69' },
 ];
-const dotOf = (g: string) => teams.find((t) => t.t === g)?.dot ?? '#366399';
+// One continuous zigzag of diagonal pencil strokes over the portrait, from the top-left corner to the bottom-right.
+// Drawn in on hover it reveals the colour-pencil sketch like someone colouring it in. Each stroke is the line
+// x+y=c clipped to the picture (-8..108), so the colour spreads at an even pace.
+const scribble = (() => {
+  const pts: number[][] = [];
+  for (let i = 0, c = -4; c <= 204; c += 11, i++) {
+    const wob = ((i * 37) % 7 - 3) * 0.6;
+    const xa = Math.max(-8, c - 108), xb = Math.min(108, c + 8);
+    const a = [xa, c - xa + wob], b = [xb, c - xb - wob];
+    pts.push(...(i % 2 ? [b, a] : [a, b]));
+  }
+  return 'M' + pts.map((p) => p.map((v) => v.toFixed(1)).join(' ')).join(' L');
+})();
+const dotOf =(g: string) => teams.find((t) => t.t === g)?.dot ?? '#366399';
 const naverLink = `https://map.naver.com/p/search/${encodeURIComponent('서울 마포구 마포대로 78')}`;
 const advisor = { n: '박구준', d: '퍼듀대학교 컴퓨터공학 · 아마존 프라임 서비스 근무 · 인공지능 프로그래밍 자문' };
 
@@ -83,7 +96,21 @@ const years = Object.keys(history);
         <div class="crew-track" tabindex="0" aria-label="팀원 소개, 좌우 화살표로 넘기기">
           {people.map((m, i) => (
             <article class="slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} / ${people.length}, ${m.n}`} style={`--dot:${dotOf(m.g)}`}>
-              <div class="ph"><img src={`/images/team/${m.p}.webp`} alt={`${m.n} ${m.r}`} width="640" height="640" loading={i ? 'lazy' : 'eager'} /></div>
+              <div class="ph">
+                <img class="photo" src={`/images/team/${m.p}.webp`} alt={`${m.n} ${m.r}`} width="640" height="640" loading={i ? 'lazy' : 'eager'} />
+                <svg class="sketch" viewBox="0 0 100 100" aria-hidden="true">
+                  <defs>
+                    <filter id={`rough-${m.p}`} x="-10%" y="-10%" width="120%" height="120%">
+                      <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="2" seed={i + 3} />
+                      <feDisplacementMap in="SourceGraphic" scale="4" />
+                    </filter>
+                    <mask id={`sk-${m.p}`} maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+                      <path class="stroke" d={scribble} pathLength="1" filter={`url(#rough-${m.p})`} />
+                    </mask>
+                  </defs>
+                  <image href={`/images/team/sketch/${m.p}.webp`} width="100" height="100" mask={`url(#sk-${m.p})`} />
+                </svg>
+              </div>
               <div class="txt">
                 <p class="who">{m.g ? `${m.g} · ${m.r}` : m.r}</p>
                 <h3 class="nm">{m.n}</h3>
@@ -205,14 +232,19 @@ const years = Object.keys(history);
     flex: 0 0 100%; scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
     align-items: center; gap: clamp(28px, 5vw, 80px); padding: clamp(32px, 4.5vw, 64px) clamp(24px, 5vw, 80px);
   }
-  /* a big round portrait: face and upper chest */
-  .ph { width: min(100%, 420px); aspect-ratio: 1; margin-inline: auto; border-radius: 50%; overflow: hidden; background: var(--mist); }
-  .ph img {
-    display: block; width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(1) contrast(1.04); transition: filter .6s var(--ease), transform .8s var(--ease);
+  /* a big round portrait: a grey photo that turns into a colour-pencil sketch on hover (tap on touch screens) */
+  .ph { position: relative; width: min(100%, 420px); aspect-ratio: 1; margin-inline: auto; border-radius: 50%; overflow: hidden; background: var(--mist); }
+  .ph img, .ph .sketch { position: absolute; inset: 0; display: block; width: 100%; height: 100%; }
+  .ph img { object-fit: cover; filter: grayscale(1); }
+  /* colour-pencil strokes draw the sketch in on hover and rub it back out on leave */
+  .ph .stroke { fill: none; stroke: #fff; stroke-width: 13; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .6s ease-in; }
+  .slide:hover .ph .stroke, .ph.is-sketch .stroke { stroke-dashoffset: 0; transition: stroke-dashoffset 1.4s cubic-bezier(.45, .05, .35, 1); }
+  @media (prefers-reduced-motion: reduce) {
+    .ph .stroke, .slide:hover .ph .stroke, .ph.is-sketch .stroke { stroke-dashoffset: 0; transition: none; }
+    .ph .sketch { opacity: 0; transition: opacity .3s; }
+    .slide:hover .ph .sketch, .ph.is-sketch .sketch { opacity: 1; }
   }
-  .slide:hover .ph img { filter: none; transform: scale(1.025); }
-  @media (hover: none) { .ph img { filter: none; } }
+  @media (hover: none) { .ph { cursor: pointer; } }
   .who { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--ink-2); }
   .who::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); }
   .nm { margin-top: 10px; font-size: clamp(32px, 2.4vw, 44px); font-weight: 800; letter-spacing: -0.03em; color: var(--ink); }
@@ -333,6 +365,8 @@ const years = Object.keys(history);
       const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
       if (d) { e.preventDefault(); go(cur + d); }
     });
+    // touch screens have no hover: a tap on the portrait switches between the photo and the sketch
+    crew.querySelectorAll<HTMLElement>('.ph').forEach((ph) => ph.addEventListener('click', () => ph.classList.toggle('is-sketch')));
     // jump straight to the person, then bring the slider into view
     chips.forEach((c) => c.addEventListener('click', () => { go(Number(c.dataset.go), 'auto'); crew.scrollIntoView({ behavior: smooth, block: 'center' }); }));
     show(0);
