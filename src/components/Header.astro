@@ -10,7 +10,7 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
   <div class="hdr-row">
     <div class="hdr-bar">
       <a href="/" class="brand" aria-label="신영이노베이션 홈">
-        <img src="/images/brand/logo-sy.svg" alt="SYINNOVATION" width="300" height="81" />
+        <img src="/images/brand/syinnovation-logo-tagline.svg" alt="SYINNOVATION RE:Think innovation" width="300" height="84" />
       </a>
       <nav class="menu" aria-label="주요 메뉴">
         {nav.map((n) => <a href={n.href} class:list={{ key: n.href === KEY }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
@@ -36,7 +36,8 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
   /* measurements follow packetgo.com's header: 24px from the top, max 1236px wide, 60-72px tall pill.
      The contact button sits outside the bar, on its right. */
   .hdr {
-    --logo-w: clamp(132px, 1.6vw + 118px, 156px);
+    /* the logo carries the "RE:Think innovation" tagline, so it runs a little wider to keep the tagline legible */
+    --logo-w: clamp(150px, 1.6vw + 136px, 176px);
     --bar-h: clamp(60px, 0.78vw + 57px, 72px);
     position: fixed; top: 24px; left: 50%; z-index: 50; width: min(100% - 40px, 1236px);
     transform: translate3d(-50%, 0, 0); transition: transform 520ms cubic-bezier(0.22, 0.65, 0.3, 1); will-change: transform;
@@ -97,7 +98,7 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
   .mobile-lang a { padding: 0; }
   .mobile-lang [aria-disabled='true'] { color: var(--ink-3); }
   @media (max-width: 1023px) {
-    .hdr { --logo-w: 128px; }
+    .hdr { --logo-w: 140px; }
     .hdr-bar { grid-template-columns: var(--logo-w) 1fr auto; column-gap: 8px; }
     .menu, .lang { display: none; }
     .burger { display: block; grid-column: 3; }

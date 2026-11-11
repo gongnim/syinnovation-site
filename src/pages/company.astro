@@ -109,20 +109,19 @@ const yearPic: Record<string, string> = {
   '2024': '카페에서 휴대폰으로 인증하는 손과 카드, 참고 이미지',
   '2023': '창업 첫날 사무실 창가의 책상과 노트북, 참고 이미지',
 };
-const ciFiles = [
-  { href: '/downloads/ci/syinnovation-logo-on-white.png', label: '흰 배경 로고', kind: 'PNG' },
-  { href: '/downloads/ci/syinnovation-logo-on-blue.png', label: '브랜드 컬러 배경 로고', kind: 'PNG' },
-  { href: '/downloads/ci/syinnovation-symbol.png', label: '심볼', kind: 'PNG' },
-  { href: '/downloads/ci/syinnovation-ci.zip', label: '전체 원본', kind: 'SVG · PNG ZIP' },
+// CI versions: shown large from the vector file, downloaded as PNG
+const ciKinds = [
+  { id: 'white', label: '흰 배경 로고', svg: '/images/brand/syinnovation-logo-tagline.svg', png: '/downloads/ci/syinnovation-logo-on-white.png', alt: 'SYINNOVATION RE:Think innovation 로고, 흰 배경' },
+  { id: 'blue', label: '브랜드 컬러 배경 로고', svg: '/images/brand/syinnovation-logo-white.svg', png: '/downloads/ci/syinnovation-logo-on-blue.png', alt: 'SYINNOVATION RE:Think innovation 로고, 브랜드 컬러 배경' },
+  { id: 'symbol', label: '심볼', svg: '/images/brand/syinnovation-symbol.svg', png: '/downloads/ci/syinnovation-symbol.png', alt: 'SYINNOVATION 심볼' },
 ];
 ---
 <Base title="회사소개" description="Never Trust, Always Verify. 신영이노베이션을 소개합니다." tone="light">
-  <PageTitle title="회사소개">편리하면서도 안전한 보안을 다시 생각합니다.</PageTitle>
+  <PageTitle title="회사소개">RE:Think innovation</PageTitle>
 
   <section class="section">
     <div class="wrap story">
       <div class="reveal">
-        <p class="tag">RE:Think innovation</p>
         <h2 class="h2 sm">금융 인증 현장에서 시작한<br />제로트러스트</h2>
       </div>
       <div class="reveal">
@@ -204,22 +203,29 @@ const ciFiles = [
     </div>
   </section>
 
-  <!-- CI: the logo large and sharp on a grid card, our direction beside it, every version to download -->
+  <!-- CI: small previews sit on top of a big stage; a click shows that version large, and the one button downloads it -->
   <section class="section">
     <div class="wrap ci">
-      <div class="ci-art reveal"><img src="/images/brand/syinnovation-logo.svg" alt="SYINNOVATION 로고" width="560" height="150" /></div>
+      <div class="ci-view reveal">
+        <div class="ci-stage" data-k="white">
+          {ciKinds.map((k, i) => <img class={`ci-big ${k.id}`} src={k.svg} alt={k.alt} hidden={i !== 0} />)}
+        </div>
+        <div class="ci-thumbs" role="group" aria-label="CI 종류 선택">
+          {ciKinds.map((k, i) => (
+            <button type="button" class={`ci-thumb ${k.id}`} data-k={k.id} data-png={k.png} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={k.label}>
+              <img src={k.svg} alt="" />
+            </button>
+          ))}
+        </div>
+      </div>
       <div class="ci-copy reveal">
         <h2 class="h2 sm">CI</h2>
         <p class="lead">신영이노베이션의 CI는 별처럼 방향을 잃지 않고 새로운 길을 가리키는 우리의 방향성을 담고 있습니다.</p>
-        <p class="lead">RE:Think innovation이라는 약속처럼, 끝까지 확인하는 신뢰와 쓰기 편한 보안을 하나의 모습에 담았습니다.</p>
-        <ul class="ci-dl">
-          {ciFiles.map((f, i) => (
-            <li><a class={i === ciFiles.length - 1 ? 'all' : ''} href={f.href} download>
-              <span><b>{f.label}</b><small>{f.kind}</small></span>
-              <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
-            </a></li>
-          ))}
-        </ul>
+        <p class="lead">RE:Think innovation은 당연하게 여겨 온 것도 다시 생각해 더 나은 답을 찾겠다는 우리의 다짐입니다.</p>
+        <a class="btn ci-dl" href={ciKinds[0].png} download>
+          PNG 다운로드
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
+        </a>
       </div>
     </div>
   </section>
@@ -275,13 +281,15 @@ const ciFiles = [
 
 <style>
   .story { display: grid; grid-template-columns: 1fr 1.1fr; gap: clamp(32px, 6vw, 80px); }
-  .story .h2 { margin-top: 10px; }
   .story .lead + .lead { margin-top: 18px; }
   /* team slider: one person at a time on their own backdrop; the photo is grey until you point at it */
   .crew { margin-top: 36px; }
   .crew-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; border-radius: 28px; background: #fff; }
   .crew-track::-webkit-scrollbar { display: none; }
   .crew-track:focus-visible { outline: 2px solid var(--blue); outline-offset: 4px; }
+  /* a mouse can grab the slide and drag it sideways (fingers already swipe it natively) */
+  @media (hover: hover) and (pointer: fine) { .crew-track { cursor: grab; } }
+  .crew-track.is-dragging { cursor: grabbing; scroll-snap-type: none; user-select: none; }
   .slide {
     flex: 0 0 100%; scroll-snap-align: start; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
     align-items: center; gap: clamp(28px, 5vw, 80px); padding: clamp(32px, 4.5vw, 64px) clamp(24px, 5vw, 80px);
@@ -355,27 +363,31 @@ const ciFiles = [
   }
   .adv { margin-top: 28px; text-align: center; font-size: 14px; color: var(--ink-3); }
   .adv b { margin-right: 6px; font-weight: 700; color: var(--ink); }
-  /* CI: logo card with a fine grid on the left, direction and downloads on the right */
+  /* CI: a big stage with a fine grid (brand blue for the white logo) and small previews on top of it */
   .ci { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 5vw, 80px); }
-  .ci-art {
-    display: grid; place-items: center; aspect-ratio: 16 / 10; border: 1px solid var(--line); border-radius: 24px;
-    background: #fff linear-gradient(#e9edf3 1px, transparent 1px) 0 0 / 40px 40px, linear-gradient(90deg, #e9edf3 1px, transparent 1px) 0 0 / 40px 40px;
+  .ci-view { position: relative; }
+  .ci-stage {
+    --grid: #e9edf3; display: grid; place-items: center; aspect-ratio: 16 / 10; border: 1px solid var(--line); border-radius: 24px;
+    background: #fff linear-gradient(var(--grid) 1px, transparent 1px) 0 0 / 40px 40px, linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0 / 40px 40px;
+    transition: background-color .35s var(--ease);
   }
-  .ci-art img { width: 72%; height: auto; }
+  .ci-stage[data-k='blue'] { --grid: rgb(255 255 255 / .1); background-color: #2e6da3; border-color: #2e6da3; }
+  .ci-big { width: 70%; height: auto; }
+  .ci-big.symbol { width: 30%; }
+  .ci-thumbs { position: absolute; top: 16px; left: 16px; display: flex; gap: 8px; }
+  .ci-thumb {
+    display: flex; align-items: center; justify-content: center; width: 64px; height: 40px; padding: 6px; border: 1px solid var(--line); border-radius: 10px;
+    background: #fff; cursor: pointer; transition: border-color .2s, box-shadow .2s;
+  }
+  /* fixed caps in px (a % height does not resolve here), so the square symbol stays as small as the wide logos */
+  .ci-thumb img { display: block; width: auto; height: auto; max-width: 50px; max-height: 24px; }
+  .ci-thumb.blue { background: #2e6da3; border-color: #2e6da3; }
+  .ci-thumb:hover { border-color: var(--ink-3); }
+  .ci-thumb[aria-pressed='true'] { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--orange); }
   .ci-copy .lead { margin-top: 18px; }
   .ci-copy .lead + .lead { margin-top: 12px; }
-  .ci-dl { list-style: none; margin: 32px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .ci-dl a {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 100%; padding: 14px 18px; border: 1px solid var(--line);
-    border-radius: 14px; background: #fff; color: var(--ink); transition: border-color .2s, background .2s, color .2s;
-  }
-  .ci-dl a span { display: grid; gap: 2px; }
-  .ci-dl b { font-size: 15px; font-weight: 700; }
-  .ci-dl small { font-size: 12px; color: var(--ink-3); }
-  .ci-dl a:hover { border-color: var(--blue); color: var(--blue); }
-  .ci-dl a.all { background: var(--blue); border-color: var(--blue); color: #fff; }
-  .ci-dl a.all small { color: rgb(255 255 255 / .75); }
-  .ci-dl a.all:hover { background: #2b5486; }
+  .ci-dl { display: inline-flex; align-items: center; gap: 10px; margin-top: 32px; padding: 0 22px; height: 52px; border-radius: 999px; background: var(--blue); color: #fff; font-weight: 700; }
+  .ci-dl:hover { background: #2b5486; }
   /* history: cards in a sideways row joined by one timeline under the years */
   .tl-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; }
   .tl-nav { display: flex; gap: 10px; }
@@ -420,7 +432,9 @@ const ciFiles = [
   .info a:hover { color: var(--blue); }
   @media (max-width: 767px) {
     .story, .ci { grid-template-columns: 1fr; }
-    .ci-dl { grid-template-columns: 1fr; }
+    /* phones: the previews sit in a row above the big stage instead of on top of the logo */
+    .ci-view { display: flex; flex-direction: column-reverse; gap: 10px; }
+    .ci-thumbs { position: static; }
     .tl { grid-auto-columns: 84%; }
     .slide { grid-template-columns: 1fr; gap: 24px; padding: 28px 12px 28px; align-items: start; }
     .ph { width: min(78%, 300px); }
@@ -487,6 +501,37 @@ const ciFiles = [
       const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
       if (d) { e.preventDefault(); go(cur + d); }
     });
+    // mouse drag: grab the slide and pull it left or right; past 12% of the width it moves one person, otherwise
+    // it settles back. Touch screens swipe with the native sideways scroll.
+    let drag: { x: number; left: number; from: number; moved: boolean } | null = null;
+    let dragged = false;
+    track.addEventListener('pointerdown', (e) => {
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      drag = { x: e.clientX, left: track.scrollLeft, from: cur, moved: false };
+    });
+    addEventListener('pointermove', (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      if (!drag.moved && Math.abs(dx) < 6) return;
+      drag.moved = true;
+      track.classList.add('is-dragging');
+      track.scrollLeft = drag.left - dx;
+    });
+    addEventListener('pointerup', (e) => {
+      if (!drag) return;
+      const { x, from, moved } = drag;
+      drag = null;
+      dragged = moved;
+      setTimeout(() => { dragged = false; }, 0); // the click (if any) fires before this
+      if (!moved) return;
+      const dx = e.clientX - x;
+      track.classList.remove('is-dragging');
+      const to = Math.abs(dx) > track.clientWidth * 0.12 ? from + (dx < 0 ? 1 : -1) : from;
+      go(Math.max(0, Math.min(n - 1, to)));
+    });
+    track.addEventListener('dragstart', (e) => e.preventDefault());
+    // a drag must not also count as a click on the portrait
+    track.addEventListener('click', (e) => { if (dragged) { e.stopPropagation(); e.preventDefault(); } }, true);
     // touch screens have no hover: a tap on the portrait switches between the photo and the sketch
     crew.querySelectorAll<HTMLElement>('.ph').forEach((ph) => ph.addEventListener('click', () => ph.classList.toggle('is-sketch')));
     show(0);
@@ -505,6 +550,20 @@ const ciFiles = [
       n.addEventListener('pointerenter', () => light(id, true));
       n.addEventListener('pointerleave', () => light(id, false));
     });
+  }
+
+  // CI: a preview click shows that version large and points the one download button at its PNG
+  const stage = document.querySelector<HTMLElement>('.ci-stage');
+  if (stage) {
+    const dl = document.querySelector<HTMLAnchorElement>('.ci-dl')!;
+    const thumbs = Array.from(document.querySelectorAll<HTMLButtonElement>('.ci-thumb'));
+    thumbs.forEach((b) => b.addEventListener('click', () => {
+      const k = b.dataset.k!;
+      stage.dataset.k = k;
+      stage.querySelectorAll<HTMLImageElement>('.ci-big').forEach((img) => { img.hidden = !img.classList.contains(k); });
+      thumbs.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+      dl.href = b.dataset.png!;
+    }));
   }
 
   // history timeline: the arrows move one year at a time and grey out at either end
