@@ -18,6 +18,8 @@ const RING_R = 1.42;
 const NIGHT_RING = 0.76; // the orbits hug the core at night (1.08 core radii), then widen to full rings
 const MEET_PERIOD = 9;
 const FIRST_MEET = 3;
+const RUSH = 2.4; // seconds the two lights take to glide to a crossing the visitor clicked
+const STREAK_REST = 2.0; // the white crescent's resting place on the rim: upper left
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
 const ss = (a: number, b: number, x: number) => { const t = clamp01((x - a) / (b - a)); return t * t * (3 - 2 * t); };
 const lerp = THREE.MathUtils.lerp;
@@ -30,6 +32,7 @@ function makeOrbMaterial() {
       uTime: { value: 0 },
       uDay: { value: 0 },
       uImpacts: { value: Array.from({ length: MAX_IMPACTS }, () => new THREE.Vector4(0, 1, 0, -1)) },
+      uStreak: { value: STREAK_REST }, // where around the rim the white crescent sits (radians, 0 = right, pi/2 = top)
     },
     vertexShader: /* glsl */ `
       varying vec3 vN; varying vec3 vObjN; varying vec3 vView;
@@ -41,7 +44,7 @@ function makeOrbMaterial() {
         gl_Position = projectionMatrix * mv;
       }`,
     fragmentShader: /* glsl */ `
-      uniform float uTime; uniform float uDay;
+      uniform float uTime; uniform float uDay; uniform float uStreak;
       uniform vec4 uImpacts[${MAX_IMPACTS}]; // xyz = direction in orb space, w = start time, < 0 unused
       varying vec3 vN; varying vec3 vObjN; varying vec3 vView;
       float ripple(vec3 n){
@@ -63,9 +66,10 @@ function makeOrbMaterial() {
         float top = smoothstep(-0.2, 0.85, n.y);
         float rimLine = pow(edge, 14.0);
 
-        // crescent reflection: a tapered band at a fixed angle from the view axis, over an arc at the upper left
+        // crescent reflection: a tapered band at a fixed angle from the view axis, over an arc centred at uStreak
+        // (upper left at rest; it slides round the rim toward the pointer)
         float th = acos(clamp(n.z, -1.0, 1.0));
-        float ph = atan(n.y, n.x) - 2.0;
+        float ph = atan(n.y, n.x) - uStreak;
         ph -= 6.2831853 * floor((ph + 3.1415927) / 6.2831853);
         float a = ph / 0.46;
         float taper = max(1.0 - 0.3 * a - 0.3 * a * a, 0.25);
@@ -76,34 +80,34 @@ function makeOrbMaterial() {
         float streakGlow = exp(-b * b * 0.08) * exp(-a2 * 1.4) * amp;
 
         // night, authored in display (sRGB) values and converted to linear at the end.
-        // A dark core whose colour slowly travels around the core as it turns (blue, brand orange, indigo),
-        // a limb filled with coloured light (blue on the left, indigo on the right, pale on top),
+        // A dark core whose colour slowly travels around the core as it turns (blue, logo blue, deep blue; no warm tones),
+        // a limb filled with coloured light (bright blue on the left, logo blue on the right, pale on top; no violet),
         // a broad soft light from the upper left, a shadow toward the front right, and a crisp outline.
         float ndv = 1.0 - edge;
         float side = smoothstep(-0.72, 0.72, n.x), crest = smoothstep(0.08, 0.92, n.y);
         float lon = atan(vObjN.z, vObjN.x), lat = asin(clamp(vObjN.y, -1.0, 1.0));
         float cyc = lon + sin(lat * 1.5) * 0.3;
-        vec3 chroma = vec3(0.03, 0.05, 0.16);
+        vec3 chroma = vec3(0.03, 0.06, 0.14);
         chroma = mix(chroma, vec3(0.03, 0.15, 0.38), pow(0.5 + 0.5 * cos(cyc - 0.2), 2.4) * 0.85);
-        chroma = mix(chroma, vec3(0.34, 0.12, 0.05), pow(0.5 + 0.5 * cos(cyc - 2.8), 2.6) * 0.7);
-        chroma = mix(chroma, vec3(0.10, 0.10, 0.32), pow(0.5 + 0.5 * cos(cyc + 1.8), 2.2) * 0.4);
+        chroma = mix(chroma, vec3(0.13, 0.27, 0.50), pow(0.5 + 0.5 * cos(cyc - 2.8), 2.6) * 0.7);
+        chroma = mix(chroma, vec3(0.06, 0.14, 0.30), pow(0.5 + 0.5 * cos(cyc + 1.8), 2.2) * 0.4);
         vec3 core = vec3(0.016, 0.022, 0.075) + vec3(0.012, 0.02, 0.055) * smoothstep(-0.4, 0.95, n.y);
         core = mix(core, chroma, smoothstep(0.05, 0.4, ndv) * 0.8);
-        vec3 limb = mix(vec3(0.16, 0.36, 0.82), vec3(0.20, 0.13, 0.52), side);
-        limb = mix(limb, vec3(0.58, 0.68, 0.98), crest * 0.65);
+        vec3 limb = mix(vec3(0.18, 0.42, 0.80), vec3(0.16, 0.30, 0.54), side);
+        limb = mix(limb, vec3(0.62, 0.76, 0.96), crest * 0.65);
         vec3 body = mix(core, limb, pow(edge, 1.85) * 0.8);
-        body = mix(body, vec3(0.30, 0.45, 0.88), pow(edge, 1.75) * mix(1.0, 0.5, side) * mix(0.72, 1.0, crest) * 0.4);
-        body += vec3(0.14, 0.15, 0.32) * pow(clamp(dot(n, normalize(vec3(-0.73, 0.48, 0.49))), 0.0, 1.0), 2.0);
+        body = mix(body, vec3(0.30, 0.52, 0.84), pow(edge, 1.75) * mix(1.0, 0.5, side) * mix(0.72, 1.0, crest) * 0.4);
+        body += vec3(0.12, 0.18, 0.28) * pow(clamp(dot(n, normalize(vec3(-0.73, 0.48, 0.49))), 0.0, 1.0), 2.0);
         body += vec3(0.06, 0.08, 0.14) * pow(clamp(dot(n, normalize(vec3(-0.9, 0.08, 0.43))), 0.0, 1.0), 3.0);
         body *= 1.0 - 0.28 * pow(clamp(dot(n, normalize(vec3(0.38, -0.1, 0.92))), 0.0, 1.0), 1.65);
         float outline = 1.0 - smoothstep(0.01, 0.055 + crest * 0.055 + (1.0 - side) * 0.025, ndv);
-        vec3 outCol = mix(mix(vec3(0.34, 0.67, 1.0), vec3(0.48, 0.44, 1.0), side), vec3(0.80, 0.88, 1.0), crest * 0.68);
+        vec3 outCol = mix(mix(vec3(0.34, 0.67, 1.0), vec3(0.40, 0.62, 0.96), side), vec3(0.80, 0.90, 1.0), crest * 0.68);
         body += outline * outCol * (0.3 + crest * 0.45);
-        body += vec3(0.62, 0.62, 0.92) * (streak * 0.55 + streakGlow * 0.05);
+        body += vec3(0.62, 0.74, 0.92) * (streak * 0.55 + streakGlow * 0.05);
         vec3 night = pow(clamp(body, 0.0, 1.0), vec3(2.2));
 
         // day: vivid blue glass with a translucent edge and a warm peach underside
-        vec3 day = mix(vec3(0.03, 0.08, 0.6), vec3(0.11, 0.25, 0.97), smoothstep(-0.25, 0.9, n.y - n.x * 0.3));
+        vec3 day = mix(vec3(0.05, 0.16, 0.50), vec3(0.18, 0.42, 0.88), smoothstep(-0.25, 0.9, n.y - n.x * 0.3));
         day = mix(day, vec3(0.98, 0.56, 0.32), (1.0 - smoothstep(-0.95, -0.05, n.y)) * 0.85);
         day = mix(day, vec3(0.64, 0.75, 1.0), smoothstep(0.55, 1.0, edge) * 0.5);
         day += vec3(1.0) * (rimLine * 0.5 + streak * 0.75 + streakGlow * 0.08);
@@ -166,7 +170,9 @@ function makeOrbitMaterial(glow: THREE.Color, dir: number) {
       void main(){
         float d = vAng - uHead; d = atan(sin(d), cos(d));
         float tail = d * uDir < 0.0 ? exp(d * uDir * 1.7) : 0.0;
-        gl_FragColor = vec4(uGlow * (0.05 + exp(-d * d * 500.0) * 7.0 + tail * 1.1) * uOpacity, 1.0);
+        // the faint path line is the same pale blue for both devices (dim orange reads as brown on the night sky);
+        // only the travelling light and its tail carry the device colour
+        gl_FragColor = vec4((vec3(0.55, 0.72, 1.0) * 0.05 + uGlow * (exp(-d * d * 500.0) * 7.0 + tail * 1.1)) * uOpacity, 1.0);
       }`,
   });
 }
@@ -186,26 +192,36 @@ function makeBackground() {
       fragmentShader: /* glsl */ `
         uniform float uAspect; uniform float uDay; uniform float uTime; uniform vec2 uOrb; uniform vec2 uOrbPx; uniform float uOrbR; uniform float uPx;
         varying vec2 vUv;
-        vec2 path(float t){ float a = 6.2831853 * t; return vec2(0.5 - 0.62 * cos(a), 0.5 + 0.78 * sin(a)); }
         float blob(vec2 p, vec2 c, float r){ vec2 d = (p - c) * vec2(uAspect, 1.0) / r; return exp(-dot(d, d)); }
+        // a blob that wanders around home point c (amplitude a, frequencies f) and slowly brightens and fades
+        float drift(vec2 p, float t, vec2 c, vec2 a, vec2 f, float ph, float r){
+          vec2 at = c + a * vec2(sin(6.2831853 * t * f.x + ph), cos(6.2831853 * t * f.y + ph * 1.3));
+          return blob(p, at, r) * (0.55 + 0.45 * sin(6.2831853 * t * 0.9 + ph * 2.0));
+        }
         float shade(vec2 p, vec2 c, vec2 r){ float q = length((p - c) / r); return 0.98 * (1.0 - smoothstep(0.3, 0.8, q)); }
         float glow(vec2 p, vec2 c, vec2 r){ vec2 d = (p - c) / r; return exp(-dot(d, d)); }
         void main(){
           vec2 p = vUv;
-          float t = uTime / 40.0;
+          float t = uTime / 24.0;
           vec3 night = vec3(0.001, 0.0016, 0.0045);
-          night += vec3(0.022, 0.08, 0.40) * blob(p, path(t), 0.62);
-          night += vec3(0.008, 0.12, 0.32) * blob(p, path(t + 0.25), 0.55);
-          night += vec3(0.26, 0.065, 0.008) * blob(p, path(t + 0.5), 0.62);
-          night += vec3(0.20, 0.045, 0.04) * blob(p, path(t + 0.75), 0.55);
+          // small patches of brand blue, each on its own slow loop and breathing in and out, so the dark moves in
+          // places instead of two walls of colour (no orange here: dim orange reads as brown; it stays on the phone ring)
+          vec3 wash = vec3(0.0);
+          wash += vec3(0.03, 0.11, 0.36) * drift(p, t, vec2(0.08, 0.80), vec2(0.06, 0.12), vec2(1.0, 0.7), 0.0, 0.24);
+          wash += vec3(0.037, 0.125, 0.318) * drift(p, t, vec2(0.20, 0.42), vec2(0.10, 0.16), vec2(0.7, 1.1), 2.1, 0.22);  // logo blue #366399
+          wash += vec3(0.008, 0.12, 0.32) * drift(p, t, vec2(0.92, 0.72), vec2(0.06, 0.14), vec2(0.9, 0.6), 4.0, 0.24);
+          wash += vec3(0.018, 0.095, 0.254) * drift(p, t, vec2(0.84, 0.34), vec2(0.10, 0.16), vec2(1.2, 0.8), 1.0, 0.22); // #24578a
+          wash += vec3(0.03, 0.10, 0.36) * drift(p, t, vec2(0.28, 0.10), vec2(0.14, 0.06), vec2(0.5, 1.3), 5.2, 0.20);
+          wash += vec3(0.02, 0.09, 0.30) * drift(p, t, vec2(0.72, 0.06), vec2(0.14, 0.06), vec2(0.8, 0.9), 3.3, 0.20);
+          night += wash * 1.3;
           // keep the middle dark where the copy and the core sit
           night *= (1.0 - shade(p, vec2(0.52, 0.32), vec2(0.48, 0.95))) * (1.0 - shade(p, vec2(0.82, 1.0), vec2(0.58, 0.9)) * 0.8);
           // rim glow of the core: a tight cyan line glow and a wider blue one
           float o = (length(gl_FragCoord.xy - uOrbPx) - uOrbR) / uPx;
           if (o > 0.0) {
             night += vec3(0.30, 0.70, 1.0) * 0.55 * exp(-o / 3.5);
-            night += vec3(0.10, 0.14, 1.0) * 0.30 * exp(-o / 10.0);
-            night += vec3(0.02, 0.05, 0.22) * 0.6 * exp(-o / 80.0);
+            night += vec3(0.12, 0.32, 0.95) * 0.30 * exp(-o / 10.0);
+            night += vec3(0.02, 0.07, 0.20) * 0.6 * exp(-o / 80.0);
           }
           float r = length((p - uOrb) * vec2(uAspect, 1.0));
           vec3 day = mix(vec3(0.95, 0.96, 0.985), vec3(0.50, 0.56, 0.68), smoothstep(0.12, 1.1, r));
@@ -438,6 +454,13 @@ export function orbHero(root: HTMLElement) {
   const flash = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(), color: new THREE.Color(1.5, 1.45, 1.35), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0 }));
   flash.position.copy(meetPt);
   rings.add(flash);
+  // the whole pair turns so its crossing faces a chosen direction: at rest, up on the core's visible shoulder
+  // (at night most of the core is below the fold); after a click or tap, toward the point that was pressed
+  const crossDir = meetPt.clone().normalize();
+  // (phones show less of the core, so the crossing sits higher there)
+  const restAim = new THREE.Quaternion().setFromUnitVectors(crossDir, new THREE.Vector3(0, small ? 0.74 : 0.56, small ? 0.67 : 0.83).normalize());
+  const aim = restAim.clone(), aimTo = restAim.clone(), ringQ = new THREE.Quaternion(), wobble = new THREE.Quaternion();
+  const IDENT = new THREE.Quaternion(), Y = new THREE.Vector3(0, 1, 0);
 
   // render targets with MSAA so the core's silhouette and the rings stay smooth through post-processing
   const composer = new EffectComposer(renderer, new THREE.WebGLRenderTarget(1, 1, { type: THREE.HalfFloatType, samples: 4 }));
@@ -446,7 +469,7 @@ export function orbHero(root: HTMLElement) {
   composer.addPass(bloom);
   composer.addPass(new OutputPass());
 
-  let W = 1, H = 1, pxPerUnit = 1, orbScale = 1;
+  let W = 1, H = 1, pxPerUnit = 1, orbScale = 1, orbCy = 0;
   const visH = () => 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   function layout() {
     W = canvas.clientWidth; H = canvas.clientHeight;
@@ -476,6 +499,7 @@ export function orbHero(root: HTMLElement) {
     rPx = lerp(rPx, r1, s2); cy = lerp(cy, H * 0.46, s2);
     rPx = lerp(rPx, r2, s3); cy = lerp(cy, H * (mobile ? 0.33 : 0.38), s3);
     cy += (1 - intro) * H * 0.16; // the core rises in on load
+    orbCy = cy;
     orbScale = rPx / pxPerUnit;
     world.scale.setScalar(orbScale);
     world.position.set(0, (H / 2 - cy) / pxPerUnit, 0);
@@ -498,12 +522,44 @@ export function orbHero(root: HTMLElement) {
     impactIdx = (impactIdx + 1) % MAX_IMPACTS;
   }
 
-  let pointerX = 0, pointerY = 0;
-  root.addEventListener('pointermove', (e) => {
+  // the lights' lap count. A click adds an eased glide on top of the steady pace, timed so both lights reach the
+  // nearest crossing (a whole lap number) exactly RUSH seconds later: at most half a lap, forward or back.
+  let lapOff = 0, rushFrom = 0, rushTo = 0, rushAt = -1;
+  const offAt = (c: number) => (rushAt < 0 ? lapOff : lerp(rushFrom, rushTo, ss(0, 1, (c - rushAt) / RUSH)));
+  const lapsAt = (c: number) => (c - FIRST_MEET) / MEET_PERIOD + offAt(c);
+
+  let pointerX = 0, pointerY = 0, streakTo = STREAK_REST, streakAng = STREAK_REST;
+  // the white crescent slides round the rim to face the pointer (screen angle from the core's centre)
+  const follow = (e: PointerEvent) => {
     const r = canvas.getBoundingClientRect();
     pointerX = ((e.clientX - r.left) / r.width) * 2 - 1;
     pointerY = -(((e.clientY - r.top) / r.height) * 2 - 1);
-  }, { passive: true });
+    streakTo = Math.atan2(orbCy - (e.clientY - r.top), e.clientX - r.left - W / 2);
+    wake();
+  };
+  root.addEventListener('pointermove', follow, { passive: true });
+  root.addEventListener('pointerdown', follow, { passive: true });
+  root.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { streakTo = STREAK_REST; wake(); } });
+
+  // click or tap: turn the crossing to the pressed point on the core (or the nearest point of its outline when the
+  // press misses it, kept on the front so it stays in view) and let both lights race there to meet
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), centre = new THREE.Vector3(), at = new THREE.Vector3();
+  root.addEventListener('click', (e) => {
+    const r = canvas.getBoundingClientRect();
+    ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+    ray.setFromCamera(ndc, camera);
+    orb.getWorldPosition(centre);
+    const hit = ray.intersectObject(orb, false)[0];
+    if (hit) at.copy(hit.point); else ray.ray.closestPointToPoint(centre, at);
+    const d = tilt.worldToLocal(at).normalize();
+    d.z = Math.max(d.z, 0.25);
+    aimTo.setFromUnitVectors(crossDir, d.normalize());
+    if (reduce) { aim.copy(aimTo); meet(clock); wake(); return; }
+    const L = lapsAt(clock), off = offAt(clock);
+    const next = Math.round(L);
+    rushFrom = off; rushTo = off + (next - L - RUSH / MEET_PERIOD); rushAt = clock; lapOff = rushTo;
+    wake();
+  });
 
   let clock = 0, last = 0, raf = 0, visible = true, pS = progress(), lastLap = -1;
   function tick(nowMs: number) {
@@ -529,6 +585,11 @@ export function orbHero(root: HTMLElement) {
     bloom.strength = lerp(0.6, 0.3, day);
     bloom.threshold = lerp(0.78, 1.0, day);
 
+    let dA = streakTo - streakAng;
+    dA = Math.atan2(Math.sin(dA), Math.cos(dA));
+    streakAng = reduce ? streakTo : streakAng + dA * (1 - Math.exp(-dt * 4));
+    orbMat.uniforms.uStreak.value = streakAng;
+
     orb.rotation.y += dt * 0.05;
     rayGroup.rotation.z += dt * 0.015;
     if (!reduce) {
@@ -540,7 +601,11 @@ export function orbHero(root: HTMLElement) {
 
     // the two orbits: close to the core at night, widening into solid rings for the day
     rings.scale.setScalar(lerp(NIGHT_RING, 1, ss(0.48, 0.68, p)));
-    rings.rotation.y = reduce ? 0 : Math.sin(clock * 0.15) * 0.18;
+    // aim the crossing (eases toward a clicked point), hand back the original pose as the rings open up for the day,
+    // then the slow side-to-side sway
+    aim.slerp(aimTo, reduce ? 1 : 1 - Math.exp(-dt * 2.2));
+    wobble.setFromAxisAngle(Y, reduce ? 0 : Math.sin(clock * 0.15) * 0.18);
+    rings.quaternion.copy(ringQ.copy(aim).slerp(IDENT, ss(0.48, 0.68, p))).premultiply(wobble);
     const solid = ss(0.52, 0.68, p), orbit = 1 - ss(0.5, 0.62, p);
     solidA.uniforms.uOpacity.value = solidB.uniforms.uOpacity.value = solid;
     orbitA.uniforms.uOpacity.value = orbitB.uniforms.uOpacity.value = orbit;
@@ -548,12 +613,14 @@ export function orbHero(root: HTMLElement) {
     orbA.visible = orbB.visible = orbit > 0.01;
 
     // both lights travel one lap per MEET_PERIOD and meet at the front crossing on every lap
-    const laps = (clock - FIRST_MEET) / MEET_PERIOD;
+    const laps = lapsAt(clock);
     const travel = laps * Math.PI * 2;
     for (const m of [solidA, orbitA]) m.uniforms.uHead.value = angA + travel;
     for (const m of [solidB, orbitB]) m.uniforms.uHead.value = angB - travel;
     const lap = Math.floor(laps);
-    if (!reduce && lap > lastLap && laps >= 0) meet(clock);
+    // the glide ends in a meeting at the clicked point; while it runs, the regular meetings wait
+    if (rushAt >= 0 && clock - rushAt >= RUSH) { rushAt = -1; meet(clock); lastLap = Math.max(lastLap, Math.round(laps)); }
+    else if (!reduce && rushAt < 0 && lap > lastLap && laps >= 0) meet(clock);
     lastLap = Math.max(lastLap, lap);
     const fa = clock - flashAt;
     const fm = flash.material as THREE.SpriteMaterial;

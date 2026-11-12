@@ -24,7 +24,9 @@ const clauses = (s) => {
   let buf = '';
   pieces.forEach((piece, i) => {
     buf = buf ? buf + ' ' + piece : piece;
-    if (piece.length >= 9 || i === pieces.length - 1) { groups.push(buf); buf = ''; }
+    // a comma inside 「quotes」 is part of the quote, never a clause end
+    const inQuote = (buf.match(/[「“]/g) ?? []).length > (buf.match(/[」”]/g) ?? []).length;
+    if (i === pieces.length - 1 || (!inQuote && piece.length >= 9)) { groups.push(buf); buf = ''; }
   });
   return groups.length > 1 ? groups.map((g) => `<span class="cl">${g}</span>`).join(' ') : s;
 };

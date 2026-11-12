@@ -67,3 +67,10 @@ test('short list items stay with the clause after them', () => {
     '<p><span class="cl">인증 기술, 금융 시스템, 전략 컨설팅까지 각자의 현장에서 일해 온 사람들이 모였습니다,</span> <span class="cl">그리고 함께 만듭니다.</span></p>',
   );
 });
+
+test('a comma inside 「quotes」 does not end a clause', () => {
+  assert.equal(
+    breakSentences('<p>매번 확인합니다. 「Never Trust, Always Verify」라는 말로 요약됩니다.</p>'),
+    '<p><span class="sb">매번 확인합니다.</span><span class="sb">「Never Trust, Always Verify」라는 말로 요약됩니다.</span></p>',
+  );
+});

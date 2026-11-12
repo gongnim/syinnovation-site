@@ -17,7 +17,9 @@
     box-shadow: 0 0 80px 10px rgba(120,170,235,.35), inset 0 0 0 2px rgba(170,205,245,.8);
     transition: opacity 1s var(--ease);
   }
-  :global(.hero.is-ready) .orb-fallback { opacity: 0; }
+  /* the flat CSS orb is only for pages without JavaScript or WebGL: while the 3D scene loads the stage stays dark
+     and the copy rises in on its own, so the flat orb never flashes up before the real one */
+  :global(html.js) .orb-fallback { opacity: 0; }
   /* WebGL failed or its context was lost: hide the dead canvas, bring the CSS orb back */
   :global(.hero.is-fallback) .orb3d { opacity: 0; }
   :global(.hero.is-fallback) .orb-fallback { opacity: 1; }

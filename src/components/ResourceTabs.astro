@@ -1,0 +1,18 @@
+---
+// The two halves of 자료실: documents and videos, and the glossary. Sits under the page title of both.
+const tabs = [
+  { href: '/library', label: '자료' },
+  { href: '/library/glossary', label: '용어집' },
+];
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<nav class="rtabs" aria-label="자료실 메뉴">
+  {tabs.map((t) => <a href={t.href} aria-current={path === t.href ? 'page' : undefined}>{t.label}</a>)}
+</nav>
+
+<style>
+  .rtabs { display: inline-flex; gap: 4px; margin-top: 32px; padding: 4px; border-radius: 999px; background: var(--mist); }
+  .rtabs a { display: grid; place-items: center; min-width: 96px; height: 42px; padding: 0 22px; border-radius: 999px; font-size: 15px; font-weight: 700; color: var(--ink-2); }
+  .rtabs a:hover { color: var(--ink); }
+  .rtabs a[aria-current='page'] { background: #fff; color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+</style>

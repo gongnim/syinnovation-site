@@ -1,25 +1,133 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageTitle from '../components/PageTitle.astro';
-import Board, { type BoardItem } from '../components/Board.astro';
+import Icon from '../components/Icon.astro';
+import ResourceTabs from '../components/ResourceTabs.astro';
 
-// shortcut: brochures and demo videos are not approved for public release yet; give them an href when they are
-const items: BoardItem[] = [
-  { cat: 'doc', catLabel: '소개서', title: 'Trust Gateway 제품 소개서', note: '구조, 접속 흐름, 도입 절차를 정리했습니다', meta: 'PDF · 준비 중' },
-  { cat: 'doc', catLabel: '소개서', title: '회사 소개서', note: '신영이노베이션이 하는 일과 팀을 소개합니다', meta: 'PDF · 준비 중' },
-  { cat: 'video', catLabel: '시연 영상', title: 'VPN 대체 업무 접속 시연', note: 'PC와 휴대폰 확인으로 사내 업무 앱에 접속하는 흐름', meta: '공개 준비 중' },
-  { cat: 'video', catLabel: '시연 영상', title: '결제 이상거래 평가 시연', note: '결제 요청의 기기와 위치 신호를 대조하는 흐름', meta: '공개 준비 중' },
-  { cat: 'ci', catLabel: 'CI', title: '신영이노베이션 로고 (고해상도 PNG)', note: '가로 4000px, 투명 배경', meta: 'PNG', href: '/images/brand/syinnovation-logo-4000.png', download: true },
-  { cat: 'ci', catLabel: 'CI', title: '신영이노베이션 로고 (SVG)', note: '크기를 키워도 깨지지 않는 벡터 파일', meta: 'SVG', href: '/images/brand/syinnovation-logo.svg', download: true },
+// Two groups on one page: documents to download and videos to watch. An empty href / youtube id means "not out
+// yet": the card shows 준비 중 until the file or the YouTube video id is filled in here.
+// files: one download per language; both brochures come in Korean and English
+const docs = [
+  { title: '회사 소개서', note: '신영이노베이션이 하는 일과 팀, 걸어온 길을 담았습니다.', tone: 'blue',
+    files: [{ label: '한국어', href: '' }, { label: 'English', href: '' }] },
+  { title: '제로트러스트 소개서', note: '제로트러스트가 무엇이고 왜 필요한지, 금융 현장에 맞춰 쉽게 풀었습니다.', tone: 'navy',
+    files: [{ label: '한국어', href: '' }, { label: 'English', href: '' }] },
 ];
-const tabs = [
-  { key: 'all', label: '전체' },
-  { key: 'doc', label: '소개서' },
-  { key: 'video', label: '시연 영상' },
-  { key: 'ci', label: 'CI' },
+// videos shown at first (two rows); past that a "영상 더보기" button reveals PAGE more per click
+const PAGE = 4;
+// youtube: the id from the video's link (youtube.com/watch?v=<id>), once the edited video is uploaded
+const videos = [
+  { title: '결제 이상거래 탐지 시연', note: '결제 요청의 기기와 위치 신호를 대조해 평소와 다른 거래를 찾아내는 흐름입니다.', youtube: '' },
+  { title: 'VPN 대체 업무 접속 시연', note: 'PC와 휴대폰 확인만으로 사내 업무 시스템에 안전하게 접속하는 흐름입니다.', youtube: '' },
 ];
 ---
-<Base title="자료실" description="신영이노베이션 소개서, Trust Gateway 제품 소개서, 시연 영상, CI." tone="light">
-  <PageTitle title="자료실">소개 자료와 시연 영상, 로고 파일을 한곳에 모았습니다.<br />공개 준비가 끝나는 대로 바로 받아 보실 수 있습니다.</PageTitle>
-  <Board tabs={tabs} items={items} empty="찾는 자료가 없습니다. 다른 분류나 검색어로 찾아보세요." />
+<Base title="자료실" description="신영이노베이션 회사 소개서, 제로트러스트 소개서, Trust Gateway 시연 영상." tone="light">
+  <PageTitle title="자료실">신영이노베이션과 제로트러스트를 알아볼 수 있는 자료를 모았습니다.<ResourceTabs slot="after" /></PageTitle>
+
+  <section class="section lib">
+    <div class="wrap">
+      <h2 class="grp reveal">문서</h2>
+      <ul class="docs reveal">
+        {docs.map((d) => (
+          <li class={`doc ${d.tone}`}>
+            <div class="cover" aria-hidden="true">
+              <img src="/images/brand/syinnovation-logo-white.svg" alt="" width="303" height="87" />
+              <span>{d.title}</span>
+            </div>
+            <div class="doc-body">
+              <h3>{d.title}</h3>
+              <p>{d.note}</p>
+              <div class="dls">
+                {d.files.map((f) => f.href
+                  ? <a class="dl" href={f.href} download><Icon name="download" size={18} /> {f.label}</a>
+                  : <span class="soon">{f.label} 준비 중</span>)}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+
+      <h2 class="grp reveal">영상</h2>
+      <ul class="vids reveal">
+        {videos.map((v, i) => (
+          <li class="vid" hidden={i >= PAGE}>
+            {v.youtube
+              ? <a class="frame" href={`https://www.youtube.com/watch?v=${v.youtube}`} data-yt={v.youtube} aria-label={`${v.title} 재생`}>
+                  <img src={`https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg`} alt="" loading="lazy" width="480" height="360" />
+                  <span class="play"><Icon name="play" size={26} /></span>
+                </a>
+              : <div class="frame empty"><span class="play"><Icon name="play" size={26} /></span><span class="soon on-dark">공개 준비 중</span></div>}
+            <h3>{v.title}</h3>
+            <p>{v.note}</p>
+          </li>
+        ))}
+      </ul>
+      {videos.length > PAGE && <button type="button" class="more" data-page={PAGE}>영상 더보기</button>}
+    </div>
+  </section>
 </Base>
+
+<style>
+  .lib { padding-top: 0; }
+  .grp { margin: 0 0 22px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+  .docs + .grp { margin-top: clamp(56px, 7vw, 88px); }
+  .docs, .vids { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); }
+
+  /* a document card: a brochure-like cover, then title, one line and the download */
+  .doc { display: grid; grid-template-columns: minmax(140px, 0.8fr) 1fr; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #fff; }
+  .cover { display: grid; align-content: space-between; gap: 18px; padding: 22px; min-height: 200px; color: #fff; }
+  .cover img { width: 110px; height: auto; }
+  .cover span { font-size: 20px; font-weight: 800; line-height: 1.3; letter-spacing: -0.02em; }
+  .doc.blue .cover { background: linear-gradient(160deg, #3a7dbb, #2e6da3 55%, #24578a); }
+  .doc.navy .cover { background: linear-gradient(160deg, #23406a, #182c4c); }
+  .doc-body { display: grid; align-content: start; gap: 8px; padding: 22px; }
+  .doc-body h3, .vid h3 { font-size: 18px; font-weight: 700; color: var(--ink); }
+  .doc-body p, .vid p { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+  .dls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+  .dl { display: inline-flex; align-items: center; gap: 8px; padding: 0 18px; height: 44px; border-radius: 999px; background: var(--blue); color: #fff; font-size: 14px; font-weight: 700; }
+  .dl:hover { background: #2b5486; }
+  .soon { justify-self: start; padding: 6px 12px; border-radius: 999px; background: var(--mist); font-size: 13px; font-weight: 600; color: var(--ink-3); }
+
+  /* a video card: 16:9 frame that plays the YouTube video in place */
+  .vid { display: grid; gap: 8px; align-content: start; }
+  .frame { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 9; margin-bottom: 8px; border-radius: 18px; overflow: hidden; background: #111a2b; }
+  .frame img, .frame :global(iframe) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
+  .frame.empty { background: radial-gradient(80% 90% at 30% 20%, #23406a, #111a2b); }
+  .play { position: relative; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: rgb(255 255 255 / .92); color: var(--ink); transition: scale .25s var(--ease); }
+  .frame.empty .play { background: rgb(255 255 255 / .14); color: rgb(255 255 255 / .7); }
+  a.frame:hover .play { scale: 1.08; }
+  .soon.on-dark { position: absolute; left: 16px; bottom: 16px; margin: 0; background: rgb(255 255 255 / .14); color: rgb(255 255 255 / .8); }
+
+  .more { display: block; margin: 32px auto 0; padding: 0 26px; height: 48px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink); cursor: pointer; }
+  .more:hover { border-color: var(--ink); }
+
+  @media (max-width: 767px) {
+    .docs, .vids { grid-template-columns: 1fr; }
+    .doc { grid-template-columns: 1fr; }
+    .cover { min-height: 150px; }
+  }
+</style>
+
+<script>
+  // 영상 더보기: reveal the next PAGE hidden videos; the button goes away once all are shown
+  const more = document.querySelector<HTMLButtonElement>('.more');
+  more?.addEventListener('click', () => {
+    const rest = Array.from(document.querySelectorAll<HTMLElement>('.vids .vid[hidden]'));
+    const page = Number(more.dataset.page);
+    rest.slice(0, page).forEach((li) => { li.hidden = false; });
+    if (rest.length <= page) more.remove();
+  });
+
+  // play in place: load the YouTube player (privacy-enhanced domain) over the thumbnail only when asked
+  document.querySelectorAll<HTMLAnchorElement>('a.frame[data-yt]').forEach((a) => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (a.querySelector('iframe')) return;
+    const f = document.createElement('iframe');
+    f.src = `https://www.youtube-nocookie.com/embed/${a.dataset.yt}?autoplay=1&rel=0`;
+    f.title = a.getAttribute('aria-label') ?? '영상';
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allowFullscreen = true;
+    a.removeAttribute('href');
+    a.append(f);
+  }));
+</script>
