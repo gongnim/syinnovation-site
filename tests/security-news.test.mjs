@@ -90,13 +90,14 @@ test('news videos: only incident videos from broadcaster channels, never ones al
   const vcfg = { ...cfg, videoChannels: ['YTN', 'News'], maxVideosPerRun: 2 };
   const listedRow = { date: '2026-11-10', region: '국내', type: '해킹', org: '금융보안원', title: '금융보안원 침입', source: 'x', url: 'https://x/3' };
   const picked = pickVideos([listedRow], [
-    { id: 'a1', title: '쇼핑몰 회원정보 대량 유출 확인', channel: 'YTN', date: '2026-11-11', region: '국내' },
+    { id: 'a1', title: '쇼핑몰 회원정보 대량 유출 확인 | YTN', channel: 'YTN', date: '2026-11-11', region: '국내' },
     { id: 'a2', title: '해킹 대처법 브이로그', channel: '개인 채널', date: '2026-11-11', region: '국내' }, // not a broadcaster
     { id: 'a3', title: '금융보안원 해킹 후속 보도', channel: 'KBS News', date: '2026-11-11', region: '국내' }, // already listed
     { id: 'a4', title: '신제품 출시 소식', channel: 'YTN', date: '2026-11-11', region: '국내' }, // not an incident
   ], vcfg);
   assert.deepEqual(picked.map((v) => v.youtube), ['a1']);
   assert.equal(picked[0].url, 'https://www.youtube.com/watch?v=a1');
+  assert.equal(picked[0].title, '쇼핑몰 회원정보 대량 유출 확인'); // the channel is not repeated in the title
 });
 
 test('free photo search: the field named in the headline first, else the kind of incident', () => {

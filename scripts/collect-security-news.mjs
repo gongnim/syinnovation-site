@@ -75,7 +75,7 @@ async function pexelsPhoto(row, used) {
   const name = picName(row, 'jpg');
   fs.mkdirSync(PICS, { recursive: true });
   fs.writeFileSync(new URL(name, PICS), Buffer.from(await img.arrayBuffer()));
-  return { image: `/images/security/auto/${name}`, credit: { name: photo.photographer, url: photo.url, id: photo.id } };
+  return { image: `/images/security/auto/${name}`, credit: { name: photo.photographer.replace(/\s+/g, ' ').trim(), url: photo.url, id: photo.id } };
 }
 
 // a picture made for one article with the image API (only when the config asks for it: it is paid)

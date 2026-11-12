@@ -155,6 +155,10 @@ export const photoQuery = (title, type) => PHOTO_FIELDS.find(([re]) => re.test(t
  * name), not excluded, not already listed; newest first, at most cfg.maxVideosPerRun.
  * videos: { id, title, channel, date, region }
  */
+// a video title often ends with " | Channel" or " - Channel"; the card shows the channel already
+const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const bare = (title, channel) => title.replace(new RegExp(`\\s*[|-]\\s*${escapeRe(channel)}\\s*$`, 'i'), '');
+
 export function pickVideos(stored, videos, cfg) {
   const isListed = listed(stored);
   const channels = (cfg.videoChannels ?? []).map((c) => c.toLowerCase());
@@ -165,5 +169,5 @@ export function pickVideos(stored, videos, cfg) {
     .filter((v) => !isListed(v) && !seen.has(v.id) && seen.add(v.id))
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, cfg.maxVideosPerRun ?? 2)
-    .map((v) => ({ date: v.date, region: regionOf(v.title, v.region), type: v.type, title: v.title, source: v.channel, url: v.url, youtube: v.id, auto: true }));
+    .map((v) => ({ date: v.date, region: regionOf(v.title, v.region), type: v.type, title: bare(v.title, v.channel), source: v.channel, url: v.url, youtube: v.id, auto: true }));
 }
