@@ -11,6 +11,14 @@ test('product names never split, in any element', () => {
   );
 });
 
+test('a middle dot between words never ends a line, in text only', () => {
+  const WJ = String.fromCharCode(0x2060);
+  assert.equal(
+    keepNamesTogether('<body><p>PC·태블릿과 휴대폰</p><a title="PC·태블릿">인증·인가</a><p>A · B</p></body>'),
+    `<body><p>PC${WJ}·${WJ}태블릿과 휴대폰</p><a title="PC·태블릿">인증${WJ}·${WJ}인가</a><p>A · B</p></body>`,
+  );
+});
+
 test('names in attributes, scripts and styles are left alone', () => {
   const html = '<body><img alt="Trust Gateway"><script>const a = "Trust Gateway";</script><style>/* Trust Gateway */</style></body>';
   assert.equal(keepNamesTogether(html), html);

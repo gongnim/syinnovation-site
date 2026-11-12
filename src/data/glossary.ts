@@ -32,7 +32,7 @@ export const glossary: Term[] = [
     b: '모든 시스템을 열어 두지 않고 맡은 업무에 필요한 시스템과 기능만 허용합니다. 계정이 탈취되더라도 피해 범위를 좁힐 수 있습니다.', rel: ['authorization', 'micro-segmentation'] },
   { id: 'continuous-verification', aka: ['연결성 검증', '지속적 검증'], cat: 'zt', t: '지속 검증', en: 'Continuous Verification', s: '로그인 한 번으로 끝내지 않고 접속하는 동안 계속 확인하는 것',
     b: '접속 중에도 기기 상태, 위치, 행동이 달라지면 다시 판단합니다. 로그인 이후에 일어나는 탈취나 오용을 잡아내는 데 필요합니다.',
-    tg: 'Trust Gateway는 로그인 이후에도 요청마다 사람과 기기를 다시 확인합니다.', rel: ['session-hijacking', 'risk-score'] },
+    tg: 'Trust Gateway는 로그인 이후에도 요청마다 접속을 다시 확인합니다.', rel: ['session-hijacking', 'risk-score'] },
   { id: 'micro-segmentation', aka: ['마이크로세그멘테이션'], cat: 'zt', t: '마이크로 세그멘테이션', en: 'Micro-segmentation', s: '네트워크와 시스템을 잘게 나눠 서로 함부로 오가지 못하게 하는 방법',
     b: '한 구역이 뚫려도 다른 구역으로 번지지 않게 막습니다. 측면 이동을 줄이는 대표적인 방법입니다.', rel: ['lateral-movement', 'least-privilege'] },
   { id: 'ztna', cat: 'zt', t: '제로트러스트 네트워크 접근', en: 'ZTNA', s: '네트워크 전체가 아니라 허락된 애플리케이션만 열어 주는 접속 방식',

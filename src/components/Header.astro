@@ -10,10 +10,19 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
   <div class="hdr-row">
     <div class="hdr-bar">
       <a href="/" class="brand" aria-label="신영이노베이션 홈">
-        <img src="/images/brand/syinnovation-logo-tagline.svg" alt="SYINNOVATION RE:Think innovation" width="300" height="84" />
+        <img src="/images/brand/syinnovation-logo-web.svg" alt="SYINNOVATION RE:Think innovation" width="300" height="57" />
       </a>
       <nav class="menu" aria-label="주요 메뉴">
-        {nav.map((n) => <a href={n.href} class:list={{ key: n.href === KEY }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
+        {nav.map((n) => n.children
+          ? <div class="sub" data-open="false">
+              <button type="button" class="sub-top" aria-expanded="false" aria-controls={`sub-${n.href.slice(1)}`} data-on={isOn(n.href) ? 'true' : undefined}>
+                {n.label}<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
+              </button>
+              <div class="sub-panel" id={`sub-${n.href.slice(1)}`}>
+                {n.children.map((c) => <a href={c.href} aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>)}
+              </div>
+            </div>
+          : <a href={n.href} class:list={{ key: n.href === KEY }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
       </nav>
       <!-- Korean and English versions only; the English site is not built yet -->
       <div class="lang" role="group" aria-label="언어">
@@ -27,7 +36,12 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
     <a class="hdr-cta" href={cta.href} aria-current={isOn(cta.href) ? 'page' : undefined}>{cta.label}</a>
   </div>
   <div class="mobile" id="mobile-menu" hidden>
-    {nav.map((n) => <a href={n.href} class:list={{ key: n.href === KEY }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
+    {nav.map((n) => n.children
+      ? <div class="mobile-group">
+          <span class="mobile-head">{n.label}</span>
+          {n.children.map((c) => <a href={c.href} class="mobile-sub" aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>)}
+        </div>
+      : <a href={n.href} class:list={{ key: n.href === KEY }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
     <div class="mobile-lang"><a href="/" lang="ko" aria-current="true">KO</a><span lang="en" aria-disabled="true">EN 준비 중</span></div>
   </div>
 </header>
@@ -36,8 +50,8 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
   /* measurements follow packetgo.com's header: 24px from the top, max 1236px wide, 60-72px tall pill.
      The contact button sits outside the bar, on its right. */
   .hdr {
-    /* the logo carries the "RE:Think innovation" tagline, so it runs a little wider to keep the tagline legible */
-    --logo-w: clamp(150px, 1.6vw + 136px, 176px);
+    /* the web logo (smaller symbol, larger text than the CI lockup) with its "RE:Think innovation" tagline */
+    --logo-w: clamp(168px, 1.6vw + 152px, 192px);
     --bar-h: clamp(60px, 0.78vw + 57px, 72px);
     position: fixed; top: 24px; left: 50%; z-index: 50; width: min(100% - 40px, 1236px);
     transform: translate3d(-50%, 0, 0); transition: transform 520ms cubic-bezier(0.22, 0.65, 0.3, 1); will-change: transform;
@@ -68,6 +82,32 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
   .hdr[data-tone='light'] .menu a:hover, .hdr[data-scrolled='true'] .menu a:hover,
   .hdr[data-tone='light'] .menu a[aria-current='page'], .hdr[data-scrolled='true'] .menu a[aria-current='page'] { opacity: 1; color: var(--blue); }
   :global(html.hero-dark) .hdr .menu a:hover { color: inherit; opacity: .72; }
+
+  /* 자료실: a menu button with a small white panel of its pages (opens on hover, on click or tap, and on focus) */
+  .sub { position: relative; }
+  .sub-top {
+    display: inline-flex; align-items: center; gap: 4px; padding: 0 clamp(6px, 0.13vw + 4px, 10px); border: 0; background: none;
+    font: inherit; font-size: 16px; font-weight: 500; letter-spacing: -0.02em; line-height: 1.41; color: inherit; white-space: nowrap; cursor: pointer;
+    transition: opacity .2s, color .2s var(--ease);
+  }
+  .sub-top svg { transition: rotate .25s var(--ease); }
+  .sub[data-open='true'] .sub-top svg { rotate: 180deg; }
+  .sub-top:hover, .sub-top[data-on='true'] { opacity: .72; }
+  .hdr[data-tone='light'] .sub-top:hover, .hdr[data-scrolled='true'] .sub-top:hover,
+  .hdr[data-tone='light'] .sub-top[data-on='true'], .hdr[data-scrolled='true'] .sub-top[data-on='true'] { opacity: 1; color: var(--blue); }
+  :global(html.hero-dark) .hdr .sub-top:hover { color: inherit; opacity: .72; }
+  .sub-panel {
+    position: absolute; top: calc(100% + 22px); left: 50%; min-width: 148px; padding: 8px; display: grid; gap: 2px;
+    background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 16px 40px rgba(25,31,40,.12);
+    opacity: 0; visibility: hidden; transform: translate(-50%, -6px); transition: opacity .2s var(--ease), transform .2s var(--ease), visibility .2s;
+  }
+  /* an invisible bridge over the gap, so moving the mouse down to the panel keeps it open */
+  .sub-panel::before { content: ''; position: absolute; left: 0; right: 0; top: -24px; height: 24px; }
+  .sub[data-open='true'] .sub-panel, .sub:focus-within .sub-panel { opacity: 1; visibility: visible; transform: translate(-50%, 0); }
+  @media (hover: hover) { .sub:hover .sub-panel { opacity: 1; visibility: visible; transform: translate(-50%, 0); } }
+  .sub-panel a { display: block; padding: 10px 14px; border-radius: 10px; font-size: 15px; font-weight: 500; white-space: nowrap; color: var(--ink); opacity: 1; }
+  .hdr .sub-panel a:hover { background: var(--mist); color: var(--ink); opacity: 1; }
+  .hdr .sub-panel a[aria-current='page'] { color: var(--blue); font-weight: 600; opacity: 1; }
   /* Trust Gateway, the main product, in brand orange (a deeper orange on white for legibility) */
   .menu a.key, .mobile a.key { color: var(--orange); font-weight: 600; }
   .hdr[data-tone='light'] .menu a.key, .hdr[data-scrolled='true'] .menu a.key, .mobile a.key { color: #e06c12; }
@@ -94,11 +134,14 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
   .mobile { margin-top: 12px; background: #fff; color: var(--ink); border: 1px solid var(--line); border-radius: 24px; padding: 8px; box-shadow: 0 16px 40px rgba(25,31,40,.12); }
   .mobile a { display: block; padding: 14px 16px; border-radius: 14px; font-weight: 600; }
   .mobile a[aria-current='page'] { background: var(--mist); }
+  .mobile-head { display: block; padding: 14px 16px 6px; font-weight: 600; }
+  .mobile a.mobile-sub { padding: 10px 16px 10px 32px; font-weight: 500; color: var(--ink-2); }
+  .mobile a.mobile-sub[aria-current='page'] { color: var(--ink); }
   .mobile-lang { display: flex; gap: 8px; padding: 10px 16px 6px; border-top: 1px solid var(--line); margin-top: 6px; font-size: 14px; font-weight: 600; }
   .mobile-lang a { padding: 0; }
   .mobile-lang [aria-disabled='true'] { color: var(--ink-3); }
   @media (max-width: 1023px) {
-    .hdr { --logo-w: 140px; }
+    .hdr { --logo-w: 152px; }
     .hdr-bar { grid-template-columns: var(--logo-w) 1fr auto; column-gap: 8px; }
     .menu, .lang { display: none; }
     .burger { display: block; grid-column: 3; }
@@ -125,6 +168,14 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
     addEventListener('scroll', () => { if (!frame) frame = requestAnimationFrame(sync); }, { passive: true });
     hdr.addEventListener('focusin', () => { hdr.dataset.hidden = 'false'; });
   }
+  // 자료실 sub-menu: the button opens and closes it; a click elsewhere or Esc closes it
+  document.querySelectorAll<HTMLElement>('.sub').forEach((sub) => {
+    const top = sub.querySelector<HTMLButtonElement>('.sub-top')!;
+    const set = (open: boolean) => { sub.dataset.open = String(open); top.setAttribute('aria-expanded', String(open)); };
+    top.addEventListener('click', () => set(sub.dataset.open !== 'true'));
+    document.addEventListener('click', (e) => { if (!sub.contains(e.target as Node)) set(false); });
+    sub.addEventListener('keydown', (e) => { if (e.key === 'Escape') { set(false); top.focus(); } });
+  });
   burger?.addEventListener('click', () => {
     const open = burger.getAttribute('aria-expanded') === 'true';
     burger.setAttribute('aria-expanded', String(!open));

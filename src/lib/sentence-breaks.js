@@ -4,13 +4,18 @@
 //    tags get <br class="sb" /> instead. Class "sb" lets mobile CSS that hides hand-placed <br> keep these.
 //    Inside a plain-text paragraph, each comma clause is also kept on one line (<span class="cl">, inline-block),
 //    so a sentence that has to wrap breaks after its comma, not in the middle of a phrase.
-// 2. Names never split across lines: the spaces inside them become non-breaking spaces.
+// 2. Names never split across lines: the spaces inside them become non-breaking spaces, and a line never ends at
+//    a middle dot ("PC·태블릿" stays together).
 // Only text between tags is touched, never attribute values, scripts or styles.
 const SENTENCE_END = /([가-힣][.?!])[ \t]+(?=\S)/g;
 // a comma after a word, followed by a space: "결제까지, 사람들이" (but not "1,000")
 const CLAUSE = /(?<=[가-힣A-Za-z0-9)],)[ \t]+(?=\S)/;
 const NAMES = ['Trust Gateway', 'Trust Auth', 'Never Trust', 'Always Verify', 'Face ID'];
 const NAME_RE = new RegExp(NAMES.map((n) => n.replace(' ', '[ \\t]+')).join('|'), 'g');
+// a middle dot between two words ("PC·태블릿", "인증·인가"); word joiners (U+2060) on both sides forbid a break there
+const MIDDOT = /(?<=[가-힣A-Za-z0-9])·(?=[가-힣A-Za-z0-9])/g;
+const WJ = String.fromCharCode(0x2060);
+const JOINED_DOT = `${WJ}·${WJ}`;
 
 /** @param {string} text  @param {(t: string) => string} fn */
 const eachText = (text, fn) => text.replace(/(^|>)([^<]+)/g, (_m, open, t) => open + fn(t));
@@ -52,7 +57,7 @@ export function keepNamesTogether(html) {
   const head = html.slice(0, start);
   // leave <script> and <style> blocks alone; transform the text between tags everywhere else in <body>
   const body = html.slice(start).split(/(<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>)/i)
-    .map((part, i) => (i % 2 ? part : eachText(part, (t) => t.replace(NAME_RE, (m) => m.replace(/[ \t]+/g, ' ')))))
+    .map((part, i) => (i % 2 ? part : eachText(part, (t) => t.replace(NAME_RE, (m) => m.replace(/[ \t]+/g, ' ')).replace(MIDDOT, JOINED_DOT))))
     .join('');
   return head + body;
 }

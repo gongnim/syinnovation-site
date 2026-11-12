@@ -3,6 +3,7 @@ export const company = {
   nameEn: 'SYINNOVATION',
   legal: '㈜신영이노베이션',
   ceo: '강형구',
+  bizNo: '439-88-02733', // 사업자등록번호, as on the previous homepage footer
   address: '서울 마포구 마포대로 78, 제2서울핀테크랩 (경찰공제회 11층)',
   email: 'mkt@syinnovation.net',
   phone: '070-4236-9504', // from the user's screenshot of the company contact block (2026-11-11)
@@ -20,11 +21,18 @@ export const parts = [
   { k: '대고객용', who: '결제사에게', h: '결제 위험도를 평가해 권고', short: '결제 거래의 위험도를 평가해 결제사에 권고하고, 고객사 FDS 룰의 오탐과 미탐을 진단합니다.', d: '결제사가 보낸 거래의 기기와 위치, 신호 사이의 모순을 평가해 허용, 추가 확인, 거부를 권고합니다. 고객사 FDS 룰의 오탐과 미탐도 진단합니다.', pts: ['최종 결정은 결제사', 'FDS 룰 진단', '같은 판단 엔진 공유'] },
 ];
 
-export const nav = [
+// 자료실 has three pages; the header shows them as its sub-menu and each page shows them as tabs
+export const libraryNav = [
+  { href: '/library', label: '문서' },
+  { href: '/library/videos', label: '영상' },
+  { href: '/library/glossary', label: '용어집' },
+];
+
+export const nav: { href: string; label: string; children?: { href: string; label: string }[] }[] = [
   { href: '/trust-gateway', label: 'Trust Gateway' },
   { href: '/ai-consulting', label: 'AI컨설팅' },
   { href: '/news', label: '소식' },
-  { href: '/library', label: '자료실' },
+  { href: '/library', label: '자료실', children: libraryNav },
   { href: '/company', label: '회사소개' },
 ];
 

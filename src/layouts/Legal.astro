@@ -1,0 +1,66 @@
+---
+import Base from './Base.astro';
+// Legal pages (개인정보처리방침, 이용약관). The text is the company's published policy, kept word for word;
+// this layout only sets the reading column: title and dates, then numbered articles, lists, tables and notes.
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+---
+<Base title={title} description={description} tone="light">
+  <article class="legal">
+    <div class="wrap legal-wrap">
+      <header class="legal-head">
+        <h1>{title}</h1>
+        <slot name="meta" />
+      </header>
+      <div class="legal-body"><slot /></div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .legal { padding: calc(var(--header-h) + clamp(88px, 8vw, 120px)) 0 var(--section-y); }
+  .legal-wrap { max-width: calc(800px + var(--gutter) * 2); }
+  .legal-head { padding-bottom: 28px; border-bottom: 1px solid var(--ink); }
+  .legal-head h1 { font-size: clamp(32px, 2.4vw + 18px, 48px); font-weight: 700; line-height: 1.2; letter-spacing: -0.03em; color: var(--ink); }
+  .legal-head :global(p) { margin-top: 14px; font-size: 16px; line-height: 1.7; color: var(--ink-2); }
+  .legal-head :global(.dates) { margin-top: 8px; font-size: 14px; color: var(--ink-3); }
+
+  .legal-body { font-size: 16px; line-height: 1.8; color: var(--ink-2); }
+  .legal-body :global(.intro) { margin-top: 32px; color: var(--ink); }
+  .legal-body :global(strong) { font-weight: 600; color: var(--ink); }
+  .legal-body :global(a) { color: var(--blue); text-decoration: underline; text-underline-offset: 3px; }
+  .legal-body :global(p + p) { margin-top: 10px; }
+
+  /* table of contents: the articles in two columns */
+  .legal-body :global(.toc) { margin-top: 32px; padding: 22px 26px; border-radius: 16px; background: var(--paper-2); }
+  .legal-body :global(.toc h2) { font-size: 15px; font-weight: 700; color: var(--ink); }
+  .legal-body :global(.toc ol) { margin: 10px 0 0; padding-left: 22px; columns: 2; column-gap: 36px; font-size: 15px; }
+  .legal-body :global(.toc li) { margin: 3px 0; break-inside: avoid; }
+  .legal-body :global(.toc a) { color: var(--ink-2); text-decoration: none; }
+  .legal-body :global(.toc a:hover) { color: var(--blue); }
+
+  /* articles */
+  .legal-body :global(section) { margin-top: 48px; scroll-margin-top: 100px; }
+  .legal-body :global(section h2) { display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px; font-size: 20px; font-weight: 700; line-height: 1.4; letter-spacing: -0.02em; color: var(--ink); }
+  .legal-body :global(.num) { font-size: 15px; font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; }
+  .legal-body :global(h3) { margin: 22px 0 6px; font-size: 16px; font-weight: 700; color: var(--ink); }
+  .legal-body :global(section ul), .legal-body :global(section ol) { margin: 10px 0; padding-left: 22px; }
+  .legal-body :global(section ul) { list-style: disc; }
+  .legal-body :global(section ol) { list-style: decimal; }
+  .legal-body :global(section li) { margin: 6px 0; }
+  .legal-body :global(section li ul) { margin: 6px 0 0; list-style: circle; }
+  .legal-body :global(.note) { margin: 16px 0; padding: 14px 18px; border-radius: 12px; background: var(--mist); font-size: 15px; line-height: 1.7; color: var(--ink); }
+
+  /* tables scroll sideways on a phone rather than squeezing */
+  .legal-body :global(.tbl) { margin: 16px 0; overflow-x: auto; }
+  .legal-body :global(table) { width: 100%; min-width: 520px; border-collapse: collapse; border-top: 1px solid var(--line); font-size: 15px; line-height: 1.6; }
+  .legal-body :global(th), .legal-body :global(td) { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+  .legal-body :global(th) { background: var(--paper-2); font-weight: 600; color: var(--ink); }
+  .legal-body :global(tbody th) { width: 28%; }
+
+  @media (max-width: 767px) {
+    .legal-body { font-size: 15px; }
+    .legal-body :global(.toc ol) { columns: 1; }
+    .legal-body :global(section h2) { font-size: 18px; }
+  }
+</style>

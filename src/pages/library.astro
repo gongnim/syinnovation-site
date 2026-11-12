@@ -4,65 +4,102 @@ import PageTitle from '../components/PageTitle.astro';
 import Icon from '../components/Icon.astro';
 import ResourceTabs from '../components/ResourceTabs.astro';
 
-// Two groups on one page: documents to download and videos to watch. An empty href / youtube id means "not out
-// yet": the card shows 준비 중 until the file or the YouTube video id is filled in here.
+// 자료실 > 문서: our brochures to download, then the official zero trust documents. An empty href means
+// "not out yet": the button shows 준비 중 until the file is filled in here.
 // files: one download per language; both brochures come in Korean and English
 const docs = [
   { title: '회사 소개서', note: '신영이노베이션이 하는 일과 팀, 걸어온 길을 담았습니다.', tone: 'blue',
     files: [{ label: '한국어', href: '' }, { label: 'English', href: '' }] },
-  { title: '제로트러스트 소개서', note: '제로트러스트가 무엇이고 왜 필요한지, 금융 현장에 맞춰 쉽게 풀었습니다.', tone: 'navy',
+  { title: 'Trust Gateway 소개서', note: 'PC·태블릿과 휴대폰을 함께 확인하는 제로트러스트 보안 플랫폼 Trust Gateway를 소개합니다.', tone: 'navy',
     files: [{ label: '한국어', href: '' }, { label: 'English', href: '' }] },
 ];
-// videos shown at first (two rows); past that a "영상 더보기" button reveals PAGE more per click
-const PAGE = 4;
-// youtube: the id from the video's link (youtube.com/watch?v=<id>), once the edited video is uploaded
-const videos = [
-  { title: '결제 이상거래 탐지 시연', note: '결제 요청의 기기와 위치 신호를 대조해 평소와 다른 거래를 찾아내는 흐름입니다.', youtube: '' },
-  { title: 'VPN 대체 업무 접속 시연', note: 'PC와 휴대폰 확인만으로 사내 업무 시스템에 안전하게 접속하는 흐름입니다.', youtube: '' },
-];
+
+// Official zero trust documents, linked to each publisher's own page or file in its original language: the publisher
+// keeps the latest version there, and reuse terms differ by publisher, so no copies or translations are hosted here.
+// Checked 2026-11-12. (국정원 N2SF 가이드라인: its official download page could not be confirmed, so it is left out.)
+// date: when the publisher released it (year.month); the list shows the newest first.
+const refs = [
+  { org: '과학기술정보통신부·KISA', date: '2024.12', lang: '한국어', title: '제로트러스트 가이드라인 2.0',
+    note: '국내 기업과 기관이 제로트러스트를 도입하는 절차와 단계별 성숙도 모델을 담았습니다.',
+    href: 'https://www.kisa.or.kr/2060204/form?postSeq=18&page=1' },
+  { org: 'KISA', date: '2025.12', lang: '한국어', title: '제로트러스트 성숙도 모델 해설서',
+    note: '제로트러스트 성숙도 모델을 자세히 풀어 쓴 해설서입니다.',
+    href: 'https://www.kisa.or.kr/2060204/form?postSeq=21&page=1' },
+  { org: '금융보안원', date: '2026.04', lang: '한국어', title: '금융분야 제로트러스트 보안 안내서',
+    note: '금융회사가 먼저 도입할 구간별 구축 예시와 보안 진단 항목을 담았습니다.',
+    href: 'https://www.fsec.or.kr/bbs/222' },
+  { org: 'CISA', date: '2023.04', lang: 'English', title: 'Zero Trust Maturity Model 2.0',
+    note: '신원, 기기, 네트워크, 애플리케이션, 데이터 다섯 영역의 수준을 네 단계로 나눠 설명합니다.',
+    href: 'https://www.cisa.gov/sites/default/files/2023-04/zero_trust_maturity_model_v2_508.pdf' },
+  { org: 'NIST', date: '2020.08', lang: 'English', title: 'SP 800-207 Zero Trust Architecture',
+    note: '제로트러스트 아키텍처의 개념과 핵심 구성 요소를 정의한 기준 문서입니다.',
+    href: 'https://csrc.nist.gov/pubs/sp/800/207/final' },
+  { org: 'NIST', date: '2025.06', lang: 'English', title: 'SP 1800-35 Implementing a Zero Trust Architecture',
+    note: 'SP 800-207의 원칙을 실제 제품 구성으로 구현한 예시를 담은 실무 안내서입니다.',
+    href: 'https://csrc.nist.gov/pubs/sp/1800/35/final' },
+  { org: 'CISA', date: '2025.07', lang: 'English', title: 'Microsegmentation in Zero Trust, Part One',
+    note: '마이크로 세그멘테이션 도입을 위한 계획 수립과 단계별 접근을 다룹니다.',
+    href: 'https://www.cisa.gov/news-events/alerts/2025/07/29/cisa-releases-part-one-zero-trust-microsegmentation-guidance' },
+].sort((a, b) => b.date.localeCompare(a.date));
 ---
-<Base title="자료실" description="신영이노베이션 회사 소개서, 제로트러스트 소개서, Trust Gateway 시연 영상." tone="light">
-  <PageTitle title="자료실">신영이노베이션과 제로트러스트를 알아볼 수 있는 자료를 모았습니다.<ResourceTabs slot="after" /></PageTitle>
+<Base title="자료실 문서" description="신영이노베이션 회사 소개서, Trust Gateway 소개서와 제로트러스트 공식 문서." tone="light">
+  <PageTitle title="문서">회사와 Trust Gateway 소개서, 제로트러스트 공식 문서를 모았습니다.<ResourceTabs slot="after" /></PageTitle>
 
   <section class="section lib">
     <div class="wrap">
-      <h2 class="grp reveal">문서</h2>
+      <h2 class="grp reveal">소개서</h2>
+      <!-- two large brochure cards: the brand colour fills each card, with one quiet graphic behind the text -->
       <ul class="docs reveal">
         {docs.map((d) => (
           <li class={`doc ${d.tone}`}>
-            <div class="cover" aria-hidden="true">
-              <img src="/images/brand/syinnovation-logo-white.svg" alt="" width="303" height="87" />
-              <span>{d.title}</span>
-            </div>
-            <div class="doc-body">
+            {d.tone === 'blue'
+              ? <img class="art symbol" src="/images/brand/symbol-sy-white.svg" alt="" width="1017" height="994" aria-hidden="true" />
+              : <svg class="art orbits" viewBox="0 0 400 320" aria-hidden="true">
+                  <defs>
+                    <radialGradient id="tg-core" cx="38%" cy="30%" r="75%">
+                      <stop offset="0" stop-color="#7fa6d8" stop-opacity=".55" />
+                      <stop offset=".55" stop-color="#2e6da3" stop-opacity=".35" />
+                      <stop offset="1" stop-color="#16294a" stop-opacity="0" />
+                    </radialGradient>
+                  </defs>
+                  <circle cx="220" cy="190" r="96" fill="url(#tg-core)" />
+                  <circle cx="220" cy="190" r="96" fill="none" stroke="#a9c7ef" stroke-opacity=".35" />
+                  <ellipse cx="220" cy="190" rx="168" ry="56" transform="rotate(-18 220 190)" fill="none" stroke="#6ea8ff" stroke-opacity=".7" stroke-width="2" />
+                  <ellipse cx="220" cy="190" rx="168" ry="56" transform="rotate(18 220 190)" fill="none" stroke="#f6882a" stroke-opacity=".75" stroke-width="2" />
+                  <circle cx="220" cy="134" r="5" fill="#fff" />
+                  <circle cx="220" cy="134" r="16" fill="#fff" fill-opacity=".14" />
+                </svg>}
+            <div class="doc-top">
+              <img class="doc-logo" src="/images/brand/syinnovation-logo-web-white.svg" alt="" width="300" height="57" />
               <h3>{d.title}</h3>
               <p>{d.note}</p>
-              <div class="dls">
-                {d.files.map((f) => f.href
-                  ? <a class="dl" href={f.href} download><Icon name="download" size={18} /> {f.label}</a>
-                  : <span class="soon">{f.label} 준비 중</span>)}
-              </div>
+            </div>
+            <div class="dls">
+              {d.files.map((f) => f.href
+                ? <a class="dl" href={f.href} download>{f.label} <Icon name="download" size={18} /></a>
+                : <span class="soon">{f.label} 준비 중</span>)}
             </div>
           </li>
         ))}
       </ul>
 
-      <h2 class="grp reveal">영상</h2>
-      <ul class="vids reveal">
-        {videos.map((v, i) => (
-          <li class="vid" hidden={i >= PAGE}>
-            {v.youtube
-              ? <a class="frame" href={`https://www.youtube.com/watch?v=${v.youtube}`} data-yt={v.youtube} aria-label={`${v.title} 재생`}>
-                  <img src={`https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg`} alt="" loading="lazy" width="480" height="360" />
-                  <span class="play"><Icon name="play" size={26} /></span>
-                </a>
-              : <div class="frame empty"><span class="play"><Icon name="play" size={26} /></span><span class="soon on-dark">공개 준비 중</span></div>}
-            <h3>{v.title}</h3>
-            <p>{v.note}</p>
+      <h2 class="grp refs-h reveal">제로트러스트 공식 문서</h2>
+      <p class="grp-lead reveal">제로트러스트의 기준이 되는 국내외 공식 문서입니다. 발행 기관의 원문 페이지로 연결됩니다.</p>
+      <ul class="refs reveal">
+        {refs.map((r) => (
+          <li>
+            <a class="ref" href={r.href} target="_blank" rel="noopener">
+              <span class="ref-org">{r.org}<span>{r.date}</span></span>
+              <span class="ref-main">
+                <span class="ref-title">{r.title}</span>
+                <span class="ref-note">{r.note}</span>
+              </span>
+              <span class="ref-lang">{r.lang}</span>
+              <span class="ref-go">원문 보기 <Icon name="external" size={16} /></span>
+            </a>
           </li>
         ))}
       </ul>
-      {videos.length > PAGE && <button type="button" class="more" data-page={PAGE}>영상 더보기</button>}
     </div>
   </section>
 </Base>
@@ -70,64 +107,53 @@ const videos = [
 <style>
   .lib { padding-top: 0; }
   .grp { margin: 0 0 22px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
-  .docs + .grp { margin-top: clamp(56px, 7vw, 88px); }
-  .docs, .vids { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); }
+  .docs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(16px, 2.4vw, 28px); }
 
-  /* a document card: a brochure-like cover, then title, one line and the download */
-  .doc { display: grid; grid-template-columns: minmax(140px, 0.8fr) 1fr; border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: #fff; }
-  .cover { display: grid; align-content: space-between; gap: 18px; padding: 22px; min-height: 200px; color: #fff; }
-  .cover img { width: 110px; height: auto; }
-  .cover span { font-size: 20px; font-weight: 800; line-height: 1.3; letter-spacing: -0.02em; }
-  .doc.blue .cover { background: linear-gradient(160deg, #3a7dbb, #2e6da3 55%, #24578a); }
-  .doc.navy .cover { background: linear-gradient(160deg, #23406a, #182c4c); }
-  .doc-body { display: grid; align-content: start; gap: 8px; padding: 22px; }
-  .doc-body h3, .vid h3 { font-size: 18px; font-weight: 700; color: var(--ink); }
-  .doc-body p, .vid p { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
-  .dls { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-  .dl { display: inline-flex; align-items: center; gap: 8px; padding: 0 18px; height: 44px; border-radius: 999px; background: var(--blue); color: #fff; font-size: 14px; font-weight: 700; }
-  .dl:hover { background: #2b5486; }
-  .soon { justify-self: start; padding: 6px 12px; border-radius: 999px; background: var(--mist); font-size: 13px; font-weight: 600; color: var(--ink-3); }
+  /* a brochure card: the whole card in the brand colour, logo and title on top, the downloads at the bottom */
+  .doc {
+    position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-rows: 1fr auto; gap: 32px;
+    min-height: clamp(380px, 22vw + 120px, 460px); padding: clamp(28px, 2.4vw, 40px); border-radius: 24px; color: #fff;
+  }
+  .doc.blue { background: linear-gradient(150deg, #3a7dbb, #2e6da3 50%, #1f4f80); }
+  .doc.navy { background: linear-gradient(150deg, #24426c, #16294a 60%, #0f1e36); }
+  .art { position: absolute; z-index: -1; pointer-events: none; }
+  .art.symbol { right: -10%; bottom: -16%; width: 64%; height: auto; opacity: .12; }
+  .art.orbits { right: -14%; bottom: -12%; width: 82%; height: auto; }
+  .doc-top { display: grid; align-content: start; gap: 14px; }
+  .doc-logo { width: 140px; height: auto; margin-bottom: 18px; opacity: .92; }
+  .doc-top h3 { font-size: clamp(26px, 1.2vw + 17px, 36px); font-weight: 800; line-height: 1.2; letter-spacing: -0.03em; }
+  .doc-top p { max-width: 24em; font-size: 16px; line-height: 1.65; color: rgb(255 255 255 / .8); }
+  .dls { display: flex; flex-wrap: wrap; gap: 10px; }
+  .dl { display: inline-flex; align-items: center; gap: 8px; height: 46px; padding: 0 20px; border-radius: 999px; background: #fff; color: var(--ink); font-size: 15px; font-weight: 700; }
+  .dl:hover { background: var(--mist); }
+  .soon { display: inline-flex; align-items: center; height: 42px; padding: 0 16px; border: 1px solid rgb(255 255 255 / .2); border-radius: 999px; background: rgb(255 255 255 / .1); font-size: 14px; font-weight: 600; color: rgb(255 255 255 / .82); }
 
-  /* a video card: 16:9 frame that plays the YouTube video in place */
-  .vid { display: grid; gap: 8px; align-content: start; }
-  .frame { position: relative; display: grid; place-items: center; aspect-ratio: 16 / 9; margin-bottom: 8px; border-radius: 18px; overflow: hidden; background: #111a2b; }
-  .frame img, .frame :global(iframe) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; border: 0; }
-  .frame.empty { background: radial-gradient(80% 90% at 30% 20%, #23406a, #111a2b); }
-  .play { position: relative; display: grid; place-items: center; width: 64px; height: 64px; border-radius: 50%; background: rgb(255 255 255 / .92); color: var(--ink); transition: scale .25s var(--ease); }
-  .frame.empty .play { background: rgb(255 255 255 / .14); color: rgb(255 255 255 / .7); }
-  a.frame:hover .play { scale: 1.08; }
-  .soon.on-dark { position: absolute; left: 16px; bottom: 16px; margin: 0; background: rgb(255 255 255 / .14); color: rgb(255 255 255 / .8); }
+  /* official references: one compact row each, the whole row opens the publisher's page in a new tab */
+  .refs-h { margin: clamp(56px, 7vw, 88px) 0 8px; }
+  .grp-lead { margin: 0 0 18px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+  .refs { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .refs li { border-bottom: 1px solid var(--line); }
+  .ref { display: grid; grid-template-columns: 190px minmax(0, 1fr) 72px 104px; gap: 20px; align-items: center; padding: 18px 4px; color: inherit; }
+  .ref-org { display: grid; gap: 2px; font-size: 14px; font-weight: 700; color: var(--ink); }
+  .ref-org span { font-size: 13px; font-weight: 500; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .ref-main { display: grid; gap: 4px; }
+  .ref-title { font-size: 16px; font-weight: 700; color: var(--ink); }
+  .ref-note { font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+  .ref-lang { justify-self: start; padding: 4px 10px; border-radius: 999px; background: var(--mist); font-size: 12px; font-weight: 600; color: var(--ink-2); }
+  .ref-go { display: inline-flex; align-items: center; justify-content: flex-end; gap: 6px; font-size: 14px; font-weight: 700; color: var(--blue); }
+  .ref:hover .ref-title { color: var(--blue); }
 
-  .more { display: block; margin: 32px auto 0; padding: 0 26px; height: 48px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink); cursor: pointer; }
-  .more:hover { border-color: var(--ink); }
-
+  @media (max-width: 1023px) {
+    .ref { grid-template-columns: 150px minmax(0, 1fr) 96px; }
+    .ref-lang { display: none; }
+  }
   @media (max-width: 767px) {
-    .docs, .vids { grid-template-columns: 1fr; }
-    .doc { grid-template-columns: 1fr; }
-    .cover { min-height: 150px; }
+    .docs { grid-template-columns: 1fr; }
+    .doc { min-height: 340px; }
+    .art.symbol { width: 72%; }
+    .art.orbits { width: 92%; right: -40%; opacity: .6; }
+    .ref { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 16px 2px; }
+    .ref-org { display: flex; gap: 8px; align-items: baseline; }
+    .ref-go { justify-content: flex-start; }
   }
 </style>
-
-<script>
-  // 영상 더보기: reveal the next PAGE hidden videos; the button goes away once all are shown
-  const more = document.querySelector<HTMLButtonElement>('.more');
-  more?.addEventListener('click', () => {
-    const rest = Array.from(document.querySelectorAll<HTMLElement>('.vids .vid[hidden]'));
-    const page = Number(more.dataset.page);
-    rest.slice(0, page).forEach((li) => { li.hidden = false; });
-    if (rest.length <= page) more.remove();
-  });
-
-  // play in place: load the YouTube player (privacy-enhanced domain) over the thumbnail only when asked
-  document.querySelectorAll<HTMLAnchorElement>('a.frame[data-yt]').forEach((a) => a.addEventListener('click', (e) => {
-    e.preventDefault();
-    if (a.querySelector('iframe')) return;
-    const f = document.createElement('iframe');
-    f.src = `https://www.youtube-nocookie.com/embed/${a.dataset.yt}?autoplay=1&rel=0`;
-    f.title = a.getAttribute('aria-label') ?? '영상';
-    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
-    f.allowFullscreen = true;
-    a.removeAttribute('href');
-    a.append(f);
-  }));
-</script>
