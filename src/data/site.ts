@@ -28,6 +28,12 @@ export const libraryNav = [
   { href: '/library/glossary', label: '용어집' },
 ];
 
+// 소식 has two pages, shown as tabs under its title
+export const newsNav = [
+  { href: '/news', label: '사내소식' },
+  { href: '/news/press', label: '언론보도' },
+];
+
 export const nav: { href: string; label: string; children?: { href: string; label: string }[] }[] = [
   { href: '/trust-gateway', label: 'Trust Gateway' },
   { href: '/ai-consulting', label: 'AI컨설팅' },

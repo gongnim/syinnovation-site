@@ -1,0 +1,86 @@
+{
+  "_about": "Settings for scripts/collect-security-news.mjs. Edit the word lists here; the collector reads them on every run.",
+  "queries": [
+    {
+      "region": "국내",
+      "lang": "ko",
+      "q": "해킹 OR 개인정보 유출 OR 정보 유출 OR 랜섬웨어 OR 디도스 OR 사이버 공격"
+    },
+    {
+      "region": "해외",
+      "lang": "en",
+      "q": "\"data breach\" OR ransomware OR cyberattack OR hacked OR \"data leak\""
+    }
+  ],
+  "minOutlets": {
+    "국내": 2,
+    "해외": 3
+  },
+  "maxNewPerRun": 6,
+  "keepDays": 120,
+  "exclude": [
+    "KB국민카드",
+    "국민카드",
+    "롯데카드",
+    "웰컴저축은행",
+    "웰컴저축",
+    "에어레인"
+  ],
+  "excludeSources": [
+    "ClassAction.org",
+    "JD Supra",
+    "Law360",
+    "Lexology",
+    "PR Newswire",
+    "Business Wire",
+    "GlobeNewswire",
+    "Yahoo Finance"
+  ],
+  "noise": [
+    "대회",
+    "해킹방어",
+    "해킹 방어",
+    "모의해킹",
+    "화이트해커",
+    "교육",
+    "채용",
+    "특징주",
+    "주가",
+    "칼럼",
+    "기고",
+    "사설",
+    "인터뷰",
+    "세미나",
+    "웨비나",
+    "포럼",
+    "컨퍼런스",
+    "출시",
+    "MOU",
+    "협약",
+    "수상",
+    "훈련",
+    "캠페인",
+    "가이드",
+    "CTF",
+    "bug bounty",
+    "webinar",
+    "conference",
+    "stock",
+    "shares",
+    "podcast",
+    "how to",
+    "tips",
+    "review",
+    "best ",
+    "fears",
+    "could be",
+    "may have",
+    "opinion",
+    "analysis:",
+    "lawsuit",
+    "소송 제기",
+    "가능성",
+    "?",
+    "？"
+  ]
+}

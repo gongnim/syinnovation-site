@@ -1,17 +1,20 @@
 ---
-// Layout follows pribit.com/news: centred title, one featured story as a wide card, then a four-column grid of
-// image cards with the source and title laid over the picture. Items without a picture get a brand-blue panel.
+// 소식 > 사내소식. Layout follows pribit.com/news: centred title, one featured story as a wide card, then a four-column
+// grid of image cards with the source and title laid over the picture. Items without a picture get a brand-blue panel.
 import Base from '../../layouts/Base.astro';
 import PageTitle from '../../components/PageTitle.astro';
 import Icon from '../../components/Icon.astro';
+import ResourceTabs from '../../components/ResourceTabs.astro';
+import NewsCard from '../../components/NewsCard.astro';
 import { sorted, kindLabel, fmt } from '../../data/news';
+import { newsNav } from '../../data/site';
 
-const [featured, ...rest] = sorted;
+const [featured, ...rest] = sorted.filter((n) => n.kind === 'own');
 const href = (n: (typeof sorted)[number]) => n.url ?? `/news/${n.slug}`;
 const ext = (n: (typeof sorted)[number]) => (n.url ? { target: '_blank', rel: 'noopener' } : {});
 ---
-<Base title="소식" description="신영이노베이션 소식, 언론 보도, 보안 이슈와 SNS 소식을 한곳에서." tone="light">
-  <PageTitle title="소식">신영이노베이션의 소식과 언론 보도,<br />함께 볼 만한 보안 이슈를 놓치지 마세요.</PageTitle>
+<Base title="사내소식" description="신영이노베이션의 사내소식." tone="light">
+  <PageTitle title="소식">신영이노베이션의 소식과 언론 보도,<br />함께 볼 만한 보안 이슈를 놓치지 마세요.<ResourceTabs slot="after" items={newsNav} label="소식 메뉴" /></PageTitle>
 
   <section class="news">
     <div class="wrap">
@@ -28,20 +31,7 @@ const ext = (n: (typeof sorted)[number]) => (n.url ? { target: '_blank', rel: 'n
         </a>
       )}
 
-      <ul class="grid">
-        {rest.map((n) => (
-          <li>
-            <a class="card" href={href(n)} {...ext(n)}>
-              <div class={`media ${n.image ? '' : 'plain'}`}>{n.image ? <img src={n.image} alt="" loading="lazy" style={n.imagePos && `object-position: ${n.imagePos}`} /> : <img class="mark" src="/images/brand/symbol-sy-white.svg" alt="" />}</div>
-              <div class="over">
-                <span class="src">{n.source}</span>
-                <h3 class="card-title">{n.title}</h3>
-                <span class="date">{fmt(n.date)}{n.url && <Icon name="external" size={14} label="새 창에서 원문 열기" />}</span>
-              </div>
-            </a>
-          </li>
-        ))}
-      </ul>
+      {rest.length > 0 && <ul class="grid">{rest.map((n) => <li><NewsCard item={n} /></li>)}</ul>}
     </div>
   </section>
 </Base>
@@ -61,19 +51,10 @@ const ext = (n: (typeof sorted)[number]) => (n.url ? { target: '_blank', rel: 'n
   .src { font-size: 14px; font-weight: 600; color: var(--blue); }
   .feat-title { font-size: clamp(22px, 1.4vw + 10px, 32px); font-weight: 700; line-height: 1.4; letter-spacing: -0.02em; }
   .date { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: var(--ink-3); }
-  .feat:hover img, .card:hover img { transform: scale(1.04); }
+  .feat:hover img { transform: scale(1.04); }
   .feat:hover .feat-title { color: var(--blue); }
 
   .grid { list-style: none; margin: clamp(32px, 3vw, 48px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .card { position: relative; display: block; aspect-ratio: 1 / 1; border-radius: 25px; overflow: hidden; color: #fff; }
-  .card .media { position: absolute; inset: 0; }
-  .over {
-    position: absolute; inset: auto 0 0 0; display: grid; gap: 8px; padding: 70px 26px 24px;
-    background: linear-gradient(to top, rgba(10,20,40,.82), rgba(10,20,40,.4) 60%, rgba(10,20,40,0));
-  }
-  .over .src { color: rgba(255,255,255,.8); font-weight: 500; }
-  .card-title { font-size: 17px; font-weight: 700; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
-  .over .date { color: rgba(255,255,255,.7); font-size: 13px; }
   @media (max-width: 1023px) { .grid { grid-template-columns: repeat(2, 1fr); } .feat { grid-template-columns: 1fr; } .feat .media { aspect-ratio: 16 / 9; } }
   @media (max-width: 559px) { .grid { grid-template-columns: 1fr; } .feat { border-radius: 24px; } }
 </style>

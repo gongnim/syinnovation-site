@@ -1,4 +1,6 @@
+// 소식. 사내소식 = kind 'own'; 언론보도 = kind 'press' (articles about us) plus the security incident list below.
 // shortcut: hand-written seed; later rows come from the Google Sheet and RSS collector (docs/site-research §4-3)
+import incidents from './security-news.json';
 export type NewsKind = 'own' | 'press' | 'sns' | 'security' | 'video';
 
 export interface NewsItem {
@@ -9,6 +11,7 @@ export interface NewsItem {
   date: string; // YYYY-MM-DD, or YYYY-MM when the day is not confirmed
   url?: string; // external items open the original
   image?: string;
+  cardImage?: string; // a version framed for the square news cards, when the plain image does not fit them
   imagePos?: string; // CSS object-position for the card crop, e.g. 'center top'
   body?: string[];
 }
@@ -32,6 +35,8 @@ export const news: NewsItem[] = [
     // the article's own preview image; cropped to the top so the old product name on the lower screen stays out
     image: '/images/news/hankyung-2026-10-09.webp',
     imagePos: 'center top',
+    // faces in the upper half over a navy band, so the card's title does not cover them (and the old name stays out)
+    cardImage: '/images/news/hankyung-2026-10-09-card.webp',
   },
   {
     slug: 'jobjoy-371-cover',
@@ -61,6 +66,8 @@ export const news: NewsItem[] = [
     source: '신영이노베이션',
     title: '2026년 초기창업패키지 선정',
     date: '2026-10',
+    // illustrative picture (generated: a startup desk with a sealed document; no faces, text or logos)
+    image: '/images/news/startup-package-2026.webp',
     body: ['신영이노베이션이 2026년 초기창업패키지 지원 기업으로 선정되었습니다.'],
   },
   {
@@ -74,4 +81,21 @@ export const news: NewsItem[] = [
 ];
 
 export const sorted = [...news].sort((a, b) => b.date.localeCompare(a.date));
+
+// Security incidents for 언론보도: major hacks and leaks, each with our own one-line wording, the outlet and a link
+// to the original (no article text or photos). Hand-picked rows and rows from the automatic collector
+// (scripts/collect-security-news.mjs) share src/data/security-news.json; hidden: true takes a row off the site.
+export interface Incident {
+  date: string; // YYYY-MM-DD, or YYYY-MM when the day is not clear
+  region: '국내' | '해외';
+  org?: string; // the organisation hit (not shown; the collector uses it to skip stories already listed)
+  type: string; // 랜섬웨어, 개인정보 유출, 해킹, 디도스, 공급망 공격, 계정 탈취, 기타
+  title: string;
+  summary?: string;
+  source: string;
+  url: string;
+  auto?: boolean; // added by the collector
+  hidden?: boolean;
+}
+export const security = (incidents as Incident[]).filter((n) => !n.hidden).sort((a, b) => b.date.localeCompare(a.date));
 export const fmt = (d: string) => d.replaceAll('-', '.');

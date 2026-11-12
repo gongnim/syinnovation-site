@@ -1,0 +1,41 @@
+# Every six hours, collect major security incident news for 소식 > 언론보도 and commit it to
+# src/data/security-news.json (see scripts/collect-security-news.mjs). Run it by hand from the Actions tab too.
+# Optional repository secrets NAVER_CLIENT_ID / NAVER_CLIENT_SECRET add the Naver news search API as a source.
+# To take a story off the site, set "hidden": true on its row in the data file; it is then never added again.
+name: Security news
+
+on:
+  schedule:
+    - cron: '17 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: security-news
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Test the collector
+        run: node --test tests/security-news.test.mjs
+      - name: Collect
+        run: node scripts/collect-security-news.mjs
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+      - name: Commit new stories
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/data/security-news.json
+          if git diff --cached --quiet; then echo "no new stories"; exit 0; fi
+          git commit -m "Update security news"
+          git push

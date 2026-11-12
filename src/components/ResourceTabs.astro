@@ -1,10 +1,13 @@
 ---
-// The three pages of 자료실 (문서, 영상, 용어집) as tabs under each page's title; the same list is the header sub-menu.
+// Tabs under a page title for a section split into pages: 자료실 (문서, 영상, 용어집) by default, or 소식
+// (사내소식, 언론보도). The 자료실 list is also the header's sub-menu.
 import { libraryNav } from '../data/site';
+interface Props { items?: { href: string; label: string }[]; label?: string }
+const { items = libraryNav, label = '자료실 메뉴' } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<nav class="rtabs" aria-label="자료실 메뉴">
-  {libraryNav.map((t) => <a href={t.href} aria-current={path === t.href ? 'page' : undefined}>{t.label}</a>)}
+<nav class="rtabs" aria-label={label}>
+  {items.map((t) => <a href={t.href} aria-current={path === t.href ? 'page' : undefined}>{t.label}</a>)}
 </nav>
 
 <style>

@@ -1,0 +1,132 @@
+---
+// 소식 > 언론보도: articles about us as cards, then major security incidents (hacks, leaks, ransomware) as a list.
+// Incident rows carry our own one-line wording, the outlet, the date and a link to the original; no article text or
+// photos are copied. Rows come from src/data/security-news.json (hand-picked and from the automatic collector).
+import Base from '../../layouts/Base.astro';
+import PageTitle from '../../components/PageTitle.astro';
+import Icon from '../../components/Icon.astro';
+import ResourceTabs from '../../components/ResourceTabs.astro';
+import NewsCard from '../../components/NewsCard.astro';
+import { sorted, security, fmt } from '../../data/news';
+import { newsNav } from '../../data/site';
+
+const press = sorted.filter((n) => n.kind === 'press');
+const PAGE = 10;
+const regions = ['국내', '해외'].filter((r) => security.some((n) => n.region === r));
+---
+<Base title="언론보도" description="신영이노베이션 관련 보도와 국내외 주요 보안 사고 소식." tone="light">
+  <PageTitle title="소식">신영이노베이션의 소식과 언론 보도,<br />함께 볼 만한 보안 이슈를 놓치지 마세요.<ResourceTabs slot="after" items={newsNav} label="소식 메뉴" /></PageTitle>
+
+  <section class="news">
+    <div class="wrap">
+      {press.length > 0 && (
+        <>
+          <h2 class="grp">신영이노베이션 보도</h2>
+          <ul class="grid">{press.map((n) => <li><NewsCard item={n} /></li>)}</ul>
+        </>
+      )}
+
+      <div class="sec-head">
+        <h2 class="grp">보안 사고</h2>
+        <p class="grp-lead">국내외에서 보도된 주요 해킹·정보 유출 사고입니다. 제목을 누르면 원문 기사로 이동합니다.</p>
+        {regions.length > 1 && (
+          <div class="chips" role="group" aria-label="지역">
+            <button type="button" class="chip" data-region="" aria-pressed="true">전체</button>
+            {regions.map((r) => <button type="button" class="chip" data-region={r} aria-pressed="false">{r}</button>)}
+          </div>
+        )}
+      </div>
+
+      {security.length > 0
+        ? <ul class="incidents">
+            {security.map((n, i) => (
+              <li data-region={n.region} hidden={i >= PAGE}>
+                <a class="inc" href={n.url} target="_blank" rel="noopener">
+                  <span class="inc-date">{fmt(n.date)}</span>
+                  <span class="inc-tags"><span class:list={['tag', n.region === '해외' ? 'abroad' : 'home']}>{n.region}</span><span class="tag">{n.type}</span></span>
+                  <span class="inc-main">
+                    <span class="inc-title">{n.title}</span>
+                    {n.summary && <span class="inc-sum">{n.summary}</span>}
+                  </span>
+                  <span class="inc-src">{n.source} <Icon name="external" size={14} label="새 창에서 원문 열기" /></span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        : <p class="empty">아직 정리된 사고 소식이 없습니다.</p>}
+      {security.length > PAGE && <button type="button" class="more" data-page={PAGE}>더보기</button>}
+    </div>
+  </section>
+</Base>
+
+<style>
+  .news { padding-bottom: var(--section-y); }
+  .grp { margin: 0 0 22px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
+  .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+
+  .sec-head { margin-top: clamp(56px, 7vw, 88px); }
+  .sec-head .grp { margin-bottom: 8px; }
+  .grp-lead { margin: 0 0 18px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+  .chips { display: flex; gap: 8px; margin-bottom: 18px; }
+  .chip { flex: none; white-space: nowrap; height: 36px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2); cursor: pointer; }
+  .chip:hover { border-color: var(--ink-3); }
+  .chip[aria-pressed='true'] { border-color: var(--ink); background: var(--ink); color: #fff; }
+
+  /* one incident per row: date, where and what kind, our one-line wording, and the outlet */
+  .incidents { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
+  .incidents li { border-bottom: 1px solid var(--line); }
+  .inc { display: grid; grid-template-columns: 96px 150px minmax(0, 1fr) auto; gap: 20px; align-items: center; padding: 18px 4px; color: inherit; }
+  .inc-date { font-size: 14px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .inc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { padding: 3px 9px; border-radius: 999px; background: var(--mist); font-size: 12px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+  .tag.home { background: #e8eff8; color: var(--blue); }
+  .tag.abroad { background: var(--orange-soft); color: var(--orange-ink); }
+  .inc-main { display: grid; gap: 4px; }
+  .inc-title { font-size: 16px; font-weight: 700; line-height: 1.45; color: var(--ink); }
+  .inc-sum { font-size: 14px; line-height: 1.55; color: var(--ink-2); }
+  .inc-src { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
+  .inc:hover .inc-title { color: var(--blue); }
+  .empty { padding: 32px 0; color: var(--ink-3); }
+  .more { display: block; margin: 28px auto 0; padding: 0 26px; height: 46px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink); cursor: pointer; }
+  .more:hover { border-color: var(--ink); }
+
+  @media (max-width: 1023px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+    .inc { grid-template-columns: 96px minmax(0, 1fr) auto; }
+    .inc-tags { grid-column: 2; grid-row: 1; }
+    .inc-main { grid-column: 1 / -1; }
+    .inc-src { grid-column: 3; grid-row: 1; }
+  }
+  @media (max-width: 559px) {
+    .grid { grid-template-columns: 1fr; }
+    .inc { grid-template-columns: auto minmax(0, 1fr); gap: 8px 12px; padding: 16px 2px; }
+    .inc-date { grid-column: 1; grid-row: 1; }
+    .inc-tags { grid-column: 2; grid-row: 1; justify-content: flex-end; }
+    .inc-main { grid-column: 1 / -1; grid-row: 2; }
+    .inc-src { grid-column: 1 / -1; grid-row: 3; }
+  }
+</style>
+
+<script>
+  // 국내 / 해외 filter and 더보기: PAGE rows at first, PAGE more per click
+  const list = document.querySelector<HTMLElement>('.incidents');
+  const more = document.querySelector<HTMLButtonElement>('.more');
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.chip'));
+  const PAGE = Number(more?.dataset.page ?? 10);
+  let region = '', limit = PAGE;
+  const render = () => {
+    if (!list) return;
+    const rows = Array.from(list.children) as HTMLElement[];
+    const shown = rows.filter((li) => !region || li.dataset.region === region);
+    rows.forEach((li) => { li.hidden = true; });
+    shown.forEach((li, i) => { li.hidden = i >= limit; });
+    if (more) more.hidden = shown.length <= limit;
+  };
+  more?.addEventListener('click', () => { limit += PAGE; render(); });
+  chips.forEach((c) => c.addEventListener('click', () => {
+    region = c.dataset.region ?? '';
+    limit = PAGE;
+    chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+    render();
+  }));
+</script>

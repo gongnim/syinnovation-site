@@ -1,0 +1,37 @@
+---
+// A square 소식 card: the picture fills it, with the source, title and date laid over a dark band at the bottom.
+// External items open the original in a new tab; items without a picture get the brand-blue panel with the symbol.
+import Icon from './Icon.astro';
+import { fmt, type NewsItem } from '../data/news';
+interface Props { item: NewsItem }
+const { item: n } = Astro.props;
+const src = n.cardImage ?? n.image;
+const pos = !n.cardImage && n.imagePos ? `object-position: ${n.imagePos}` : undefined;
+---
+<a class="card" href={n.url ?? `/news/${n.slug}`} {...(n.url ? { target: '_blank', rel: 'noopener' } : {})}>
+  <div class:list={['media', { plain: !src }]}>
+    {src ? <img src={src} alt="" loading="lazy" style={pos} /> : <img class="mark" src="/images/brand/symbol-sy-white.svg" alt="" />}
+  </div>
+  <div class="over">
+    <span class="src">{n.source}</span>
+    <h3 class="card-title">{n.title}</h3>
+    <span class="date">{fmt(n.date)}{n.url && <Icon name="external" size={14} label="새 창에서 원문 열기" />}</span>
+  </div>
+</a>
+
+<style>
+  .card { position: relative; display: block; aspect-ratio: 1 / 1; border-radius: 25px; overflow: hidden; color: #fff; }
+  .media { position: absolute; inset: 0; overflow: hidden; background: #dfe7f4; }
+  .media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+  /* no photo: a brand cover, the symbol large and cropped by the edge */
+  .media.plain { background: radial-gradient(120% 90% at 85% 10%, #5b86d6 0%, #2f5ca8 45%, #1d3a6e 100%); }
+  .media.plain .mark { position: absolute; width: 96%; height: auto; right: -22%; top: -12%; object-fit: contain; opacity: .18; }
+  .card:hover img { transform: scale(1.04); }
+  .over {
+    position: absolute; inset: auto 0 0 0; display: grid; gap: 8px; padding: 70px 26px 24px;
+    background: linear-gradient(to top, rgba(10,20,40,.82), rgba(10,20,40,.4) 60%, rgba(10,20,40,0));
+  }
+  .src { font-size: 14px; font-weight: 500; color: rgba(255,255,255,.8); }
+  .card-title { font-size: 17px; font-weight: 700; line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .date { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; color: rgba(255,255,255,.7); }
+</style>
