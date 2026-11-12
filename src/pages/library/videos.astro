@@ -1,59 +1,71 @@
 ---
 import Base from '../../layouts/Base.astro';
 import PageTitle from '../../components/PageTitle.astro';
-import Icon from '../../components/Icon.astro';
 import ResourceTabs from '../../components/ResourceTabs.astro';
+import VideoTile from '../../components/VideoTile.astro';
 
-// 자료실 > 영상. The first video is featured (large); the rest are small cards, PAGE at first and PAGE more per
-// 영상 더보기. Every video plays on this site in one large player (YouTube, privacy-enhanced domain).
-// youtube: the id from the video's link (youtube.com/watch?v=<id>), empty until the edited video is uploaded
-// (the card then shows 공개 준비 중); length: running time as YouTube shows it ('12:30').
-const PAGE = 6;
-const videos = [
-  { title: '신영이노베이션 소개', note: '신영이노베이션이 하는 일과 Trust Gateway를 소개합니다.', youtube: '', length: '' },
-  { title: '결제 이상거래 탐지 시연', note: '결제 요청의 기기와 위치 신호를 대조해 평소와 다른 거래를 찾아내는 흐름입니다.', youtube: '', length: '' },
-  { title: 'VPN 대체 업무 접속 시연', note: 'PC와 휴대폰 확인만으로 사내 업무 시스템에 안전하게 접속하는 흐름입니다.', youtube: '', length: '' },
+// 자료실 > 영상. Adding a video is one line in `videos`:
+//   title, youtube (the id from youtube.com/watch?v=<id>; empty = 공개 준비 중), and optionally
+//   length ('12:30', as YouTube shows it), date ('2026.11', newest first), cat (one of CATS), note (featured only),
+//   featured: true (the large one; it stays put however many videos are added; without one, the first is used).
+// Layout: the featured video large on the left, the SIDE newest beside it, the rest below in a 3-column grid that
+// shows PAGE at first and PAGE more per 영상 더보기. From FILTER_FROM videos, category chips appear for the
+// categories holding at least CAT_MIN videos; once there are CHANNEL_FROM, a link to the YouTube channel follows.
+const CATS = ['회사 소개', '제품 시연', '발표·세미나', '인터뷰'];
+const CHANNEL = ''; // the YouTube channel address, once there is one
+const PAGE = 6, SIDE = 3, FILTER_FROM = 20, CAT_MIN = 3, CHANNEL_FROM = 11;
+
+interface Video { title: string; youtube: string; length?: string; date?: string; cat?: string; note?: string; featured?: boolean }
+const videos: Video[] = [
+  { title: '신영이노베이션 소개', note: '신영이노베이션이 하는 일과 Trust Gateway를 소개합니다.', youtube: '', cat: '회사 소개', featured: true },
+  { title: '결제 이상거래 탐지 시연', youtube: '', cat: '제품 시연' },
+  { title: 'VPN 대체 업무 접속 시연', youtube: '', cat: '제품 시연' },
 ];
-const [featured, ...rest] = videos;
-const thumb = (id: string, size: string) => `https://i.ytimg.com/vi/${id}/${size}.jpg`;
+
+const featured = videos.find((v) => v.featured) ?? videos[0];
+// newest first; videos without a date keep their order after the dated ones
+const rest = videos.filter((v) => v !== featured).sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
+const side = rest.slice(0, SIDE);
+const grid = rest.slice(SIDE);
+const cats = CATS.filter((c) => videos.filter((v) => v.cat === c).length >= CAT_MIN);
+const filters = videos.length >= FILTER_FROM && cats.length >= 2;
 ---
 <Base title="자료실 영상" description="신영이노베이션과 Trust Gateway를 소개하는 영상." tone="light">
   <PageTitle title="영상">신영이노베이션과 Trust Gateway를 영상으로 소개합니다.<ResourceTabs slot="after" /></PageTitle>
 
   <section class="section lib">
     <div class="wrap">
-      <div class="feat reveal">
-        {featured.youtube
-          ? <button type="button" class="vframe" data-yt={featured.youtube} data-title={featured.title} aria-label={`${featured.title} 재생`}>
-              <img src={thumb(featured.youtube, 'maxresdefault')} alt="" width="1280" height="720"
-                onerror="this.onerror=null;this.src=this.src.replace('maxresdefault','hqdefault')" />
-              <span class="play big"><Icon name="play" size={30} /></span>
-              {featured.length && <span class="len">{featured.length}</span>}
-            </button>
-          : <div class="vframe empty"><span class="play big"><Icon name="play" size={30} /></span><span class="soon">공개 준비 중</span></div>}
-        <div class="feat-copy">
-          <h2>{featured.title}</h2>
-          <p>{featured.note}</p>
+      {filters && (
+        <div class="chips" role="group" aria-label="영상 분류">
+          <button type="button" class="chip" data-cat="" aria-pressed="true">전체</button>
+          {cats.map((c) => <button type="button" class="chip" data-cat={c} aria-pressed="false">{c}</button>)}
         </div>
+      )}
+
+      <div class="top reveal" data-side={side.length}>
+        <VideoTile size="big" title={featured.title} youtube={featured.youtube} length={featured.length} note={featured.note} />
+        {side.length > 0 && (
+          <ul class="side" style={`--n: ${side.length}`}>
+            {side.map((v) => <li><VideoTile size="side" title={v.title} youtube={v.youtube} length={v.length} /></li>)}
+          </ul>
+        )}
       </div>
 
-      {rest.length > 0 && (
-        <ul class="vgrid reveal">
-          {rest.map((v, i) => (
-            <li class="vcard" hidden={i >= PAGE}>
-              {v.youtube
-                ? <button type="button" class="vframe" data-yt={v.youtube} data-title={v.title} aria-label={`${v.title} 재생`}>
-                    <img src={thumb(v.youtube, 'hqdefault')} alt="" loading="lazy" width="480" height="360" />
-                    <span class="play"><Icon name="play" size={20} /></span>
-                    {v.length && <span class="len">{v.length}</span>}
-                  </button>
-                : <div class="vframe empty"><span class="play"><Icon name="play" size={20} /></span><span class="soon">공개 준비 중</span></div>}
-              <h3>{v.title}</h3>
-            </li>
-          ))}
+      {grid.length > 0 && (
+        <ul class="vgrid reveal" data-list="latest">
+          {grid.map((v, i) => <li data-cat={v.cat} hidden={i >= PAGE}><VideoTile title={v.title} youtube={v.youtube} length={v.length} /></li>)}
         </ul>
       )}
-      {rest.length > PAGE && <button type="button" class="more" data-page={PAGE}>영상 더보기</button>}
+      {/* a chosen category lists all its videos here (newest first), in place of the layout above */}
+      {filters && (
+        <ul class="vgrid" data-list="all" hidden>
+          {[featured, ...rest].map((v) => <li data-cat={v.cat}><VideoTile title={v.title} youtube={v.youtube} length={v.length} /></li>)}
+        </ul>
+      )}
+      {(grid.length > PAGE || filters) && <button type="button" class="more" data-page={PAGE} hidden={grid.length <= PAGE}>영상 더보기</button>}
+      {CHANNEL && videos.length >= CHANNEL_FROM && (
+        <a class="channel" href={CHANNEL} target="_blank" rel="noopener">유튜브 채널에서 전체 보기</a>
+      )}
     </div>
   </section>
 
@@ -68,26 +80,24 @@ const thumb = (id: string, size: string) => `https://i.ytimg.com/vi/${id}/${size
 
 <style>
   .lib { padding-top: 0; }
-  .feat { display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: center; }
-  .feat-copy { display: grid; gap: 10px; }
-  .feat-copy h2 { font-size: clamp(20px, 1vw + 12px, 26px); font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
-  .feat-copy p { font-size: 16px; line-height: 1.7; color: var(--ink-2); }
-  .vframe { position: relative; display: grid; place-items: center; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; border-radius: 18px; overflow: hidden; background: #111a2b; font: inherit; color: inherit; cursor: pointer; }
-  .vframe img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-  .vframe.empty { background: radial-gradient(80% 90% at 30% 20%, #23406a, #111a2b); cursor: default; }
-  .play { position: relative; display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; background: rgb(255 255 255 / .92); color: var(--ink); transition: scale .25s var(--ease); }
-  .play.big { width: 72px; height: 72px; }
-  .vframe.empty .play { background: rgb(255 255 255 / .14); color: rgb(255 255 255 / .7); }
-  button.vframe:hover .play { scale: 1.08; }
-  .len { position: absolute; right: 10px; bottom: 10px; padding: 3px 8px; border-radius: 6px; background: rgb(0 0 0 / .72); color: #fff; font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
-  .soon { position: absolute; left: 12px; bottom: 12px; padding: 6px 12px; border-radius: 999px; background: rgb(255 255 255 / .14); font-size: 13px; font-weight: 600; color: rgb(255 255 255 / .8); }
-  .vgrid { list-style: none; margin: clamp(32px, 4vw, 48px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px 20px; }
-  .vcard { display: grid; gap: 12px; align-content: start; }
-  .vcard .vframe { border-radius: 14px; }
-  .vcard h3 { font-size: 16px; font-weight: 700; line-height: 1.45; color: var(--ink); }
+
+  /* first row: the featured video and, beside it, up to three newest stacked to the same height */
+  .top { display: grid; grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr); gap: 16px; }
+  .top[data-side='0'] { grid-template-columns: minmax(0, 1fr); }
+  .side { list-style: none; margin: 0; padding: 0; display: grid; grid-template-rows: repeat(var(--n), minmax(0, 1fr)); gap: 16px; }
+  .side li { min-height: 0; }
+
+  .vgrid { list-style: none; margin: 16px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+
+  .chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 28px; }
+  .chip { flex: none; white-space: nowrap; height: 38px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2); cursor: pointer; }
+  .chip:hover { border-color: var(--ink-3); }
+  .chip[aria-pressed='true'] { border-color: var(--ink); background: var(--ink); color: #fff; }
 
   .more { display: block; margin: 32px auto 0; padding: 0 26px; height: 48px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink); cursor: pointer; }
   .more:hover { border-color: var(--ink); }
+  .channel { display: table; margin: 20px auto 0; font-size: 15px; font-weight: 700; color: var(--blue); }
+  .channel:hover { text-decoration: underline; text-underline-offset: 3px; }
 
   /* the player: a 16:9 frame as large as the screen allows, over a dark backdrop, with the close button above it */
   .player { width: min(1120px, 92vw); max-width: none; max-height: none; padding: 56px 0 0; border: 0; background: transparent; overflow: visible; }
@@ -99,16 +109,18 @@ const thumb = (id: string, size: string) => `https://i.ytimg.com/vi/${id}/${size
   :global(html:has(.player[open])) { overflow: hidden; }
 
   @media (max-width: 1023px) {
+    .top { grid-template-columns: minmax(0, 1fr); }
+    .side { grid-template-rows: none; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .side :global(.tile.side) { height: auto; aspect-ratio: 16 / 9; }
     .vgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 767px) {
-    .feat { grid-template-columns: 1fr; }
-    /* small videos become a list: thumbnail on the left, title on the right */
-    .vgrid { grid-template-columns: 1fr; gap: 16px; }
-    .vcard { grid-template-columns: 42% minmax(0, 1fr); align-items: center; gap: 14px; }
-    .vcard .vframe { border-radius: 10px; }
-    .vcard .play { width: 36px; height: 36px; }
-    .vcard .soon { display: none; }
+    /* below the featured video everything reads as one list */
+    .side { grid-template-columns: minmax(0, 1fr); gap: 14px; margin-top: 8px; }
+    .side :global(.tile.side) { aspect-ratio: auto; }
+    .vgrid { grid-template-columns: minmax(0, 1fr); gap: 14px; margin-top: 14px; }
+    .chips { flex-wrap: nowrap; justify-content: flex-start; overflow-x: auto; margin: 0 calc(var(--gutter) * -1) 20px; padding: 0 var(--gutter) 4px; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
     .player { width: 100vw; }
     .player-box { border-radius: 0; }
     .player-close { right: 12px; }
@@ -116,20 +128,40 @@ const thumb = (id: string, size: string) => `https://i.ytimg.com/vi/${id}/${size
 </style>
 
 <script>
-  // 영상 더보기: reveal the next PAGE hidden videos; the button goes away once all are shown
+  // which list is showing (the newest after the first row, or one category's videos), how many of it, and 더보기
+  const top = document.querySelector<HTMLElement>('.top');
+  const latest = document.querySelector<HTMLElement>('[data-list="latest"]');
+  const all = document.querySelector<HTMLElement>('[data-list="all"]');
   const more = document.querySelector<HTMLButtonElement>('.more');
-  more?.addEventListener('click', () => {
-    const rest = Array.from(document.querySelectorAll<HTMLElement>('.vgrid .vcard[hidden]'));
-    const page = Number(more.dataset.page);
-    rest.slice(0, page).forEach((li) => { li.hidden = false; });
-    if (rest.length <= page) more.remove();
-  });
+  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.chip'));
+  const PAGE = Number(more?.dataset.page ?? 6);
+  let cat = '', limit = PAGE;
+  const render = () => {
+    const filtering = cat !== '';
+    if (top) top.hidden = filtering;
+    if (latest) latest.hidden = filtering;
+    if (all) all.hidden = !filtering;
+    const list = filtering ? all : latest;
+    if (!list) { if (more) more.hidden = true; return; }
+    const items = Array.from(list.children) as HTMLElement[];
+    const shown = items.filter((li) => !filtering || li.dataset.cat === cat);
+    items.forEach((li) => { li.hidden = true; });
+    shown.forEach((li, i) => { li.hidden = i >= limit; });
+    if (more) more.hidden = shown.length <= limit;
+  };
+  more?.addEventListener('click', () => { limit += PAGE; render(); });
+  chips.forEach((c) => c.addEventListener('click', () => {
+    cat = c.dataset.cat ?? '';
+    limit = PAGE;
+    chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
+    render();
+  }));
 
   // play on this site: open the large player and load YouTube (privacy-enhanced domain) only when asked;
   // closing it (button, backdrop or Esc) removes the player so the sound stops
   const player = document.querySelector<HTMLDialogElement>('.player')!;
   const frame = player.querySelector<HTMLElement>('.player-frame')!;
-  document.querySelectorAll<HTMLButtonElement>('button.vframe[data-yt]').forEach((b) => b.addEventListener('click', () => {
+  document.querySelectorAll<HTMLButtonElement>('button.tile[data-yt]').forEach((b) => b.addEventListener('click', () => {
     const f = document.createElement('iframe');
     f.src = `https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0`;
     f.title = b.dataset.title ?? '영상';

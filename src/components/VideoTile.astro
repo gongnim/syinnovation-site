@@ -1,0 +1,67 @@
+---
+// One video on the 영상 page. size: big (the featured one), side (the column beside it) or card (the grid below).
+// With a YouTube id it is a button that opens the page's player; without one it shows 공개 준비 중.
+// The title sits on a dark band over the thumbnail; on a phone, side and card tiles turn into list rows
+// (thumbnail left, title right).
+import Icon from './Icon.astro';
+interface Props { title: string; youtube: string; length?: string; note?: string; size?: 'big' | 'side' | 'card' }
+const { title, youtube, length, note, size = 'card' } = Astro.props;
+const thumb = `https://i.ytimg.com/vi/${youtube}/${size === 'big' ? 'maxresdefault' : 'hqdefault'}.jpg`;
+const Tag = youtube ? 'button' : 'div';
+---
+<Tag
+  class:list={['tile', size, { empty: !youtube }]}
+  {...(youtube ? { type: 'button', 'data-yt': youtube, 'data-title': title, 'aria-label': `${title} 재생` } : {})}
+>
+  <span class="thumb">
+    {youtube && (size === 'big'
+      ? <img src={thumb} alt="" width="1280" height="720" onerror="this.onerror=null;this.src=this.src.replace('maxresdefault','hqdefault')" />
+      : <img src={thumb} alt="" width="480" height="360" loading="lazy" />)}
+    <span class="shade"></span>
+    <span class="play"><Icon name="play" size={size === 'big' ? 30 : 18} /></span>
+  </span>
+  <span class="cap">
+    <span class="t">{title}</span>
+    {size === 'big' && note && <span class="note">{note}</span>}
+    {youtube ? length && <span class="len">{length}</span> : <span class="soon">공개 준비 중</span>}
+  </span>
+</Tag>
+
+<style>
+  .tile { position: relative; display: block; width: 100%; padding: 0; border: 0; border-radius: 16px; overflow: hidden; background: #111a2b; color: #fff; font: inherit; text-align: left; }
+  button.tile { cursor: pointer; }
+  .tile.big { aspect-ratio: 16 / 9; border-radius: 20px; }
+  .tile.side { height: 100%; min-height: 120px; }
+  .tile.card { aspect-ratio: 16 / 9; }
+  .thumb { position: absolute; inset: 0; display: grid; place-items: center; }
+  .tile.empty .thumb { background: radial-gradient(80% 90% at 30% 20%, #23406a, #111a2b); }
+  .thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: scale .5s var(--ease); }
+  button.tile:hover .thumb img { scale: 1.03; }
+  /* a dark band rising from the bottom so the white title reads on any thumbnail */
+  .shade { position: absolute; inset: 0; background: linear-gradient(to top, rgb(8 14 26 / .88), rgb(8 14 26 / .35) 42%, transparent 70%); }
+  .play { position: relative; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: rgb(255 255 255 / .92); color: var(--ink); transition: scale .25s var(--ease); }
+  .tile.big .play { width: 72px; height: 72px; }
+  .tile.side .play { width: 38px; height: 38px; }
+  .tile.empty .play { background: rgb(255 255 255 / .14); color: rgb(255 255 255 / .7); }
+  button.tile:hover .play { scale: 1.08; }
+  .cap { position: absolute; left: 16px; right: 16px; bottom: 14px; display: flex; flex-wrap: wrap; align-items: flex-end; column-gap: 12px; row-gap: 6px; }
+  .t { flex: 1 1 auto; min-width: 0; font-size: 15px; font-weight: 700; line-height: 1.4; letter-spacing: -0.01em; }
+  .tile.big .cap { left: 28px; right: 28px; bottom: 24px; }
+  .tile.big .t { font-size: clamp(20px, 1vw + 12px, 26px); font-weight: 800; letter-spacing: -0.02em; }
+  .note { order: 3; flex-basis: 100%; font-size: 15px; line-height: 1.6; color: rgb(255 255 255 / .8); }
+  .len { flex: none; padding: 3px 8px; border-radius: 6px; background: rgb(0 0 0 / .6); font-size: 12px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .soon { flex: none; padding: 4px 10px; border-radius: 999px; background: rgb(255 255 255 / .14); font-size: 12px; font-weight: 600; color: rgb(255 255 255 / .82); }
+
+  @media (max-width: 767px) {
+    .tile.big .cap { left: 18px; right: 18px; bottom: 16px; }
+    .tile.big .note { display: none; }
+    /* side and card tiles become list rows: thumbnail on the left, dark title on the right */
+    .tile.side, .tile.card { display: grid; grid-template-columns: 42% minmax(0, 1fr); align-items: center; gap: 14px; height: auto; min-height: 0; aspect-ratio: auto; border-radius: 0; overflow: visible; background: none; color: var(--ink); }
+    .tile.side .thumb, .tile.card .thumb { position: relative; inset: auto; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #111a2b; }
+    .tile.side .shade, .tile.card .shade { display: none; }
+    .tile.side .play, .tile.card .play { width: 34px; height: 34px; }
+    .tile.side .cap, .tile.card .cap { position: static; flex-direction: column; align-items: flex-start; }
+    .tile.side .len, .tile.card .len { padding: 0; background: none; color: var(--ink-3); }
+    .tile.side .soon, .tile.card .soon { padding: 0; background: none; color: var(--ink-3); }
+  }
+</style>
