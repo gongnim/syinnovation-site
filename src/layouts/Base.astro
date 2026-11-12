@@ -17,6 +17,7 @@ const fullTitle = title === '신영이노베이션' ? '신영이노베이션 | �
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta name="theme-color" content="#0e1a2b" />
+    <slot name="head" />
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>

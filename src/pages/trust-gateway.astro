@@ -1,8 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
-import ProductHero from '../components/ProductHero.astro';
-import FlowGateway from '../components/FlowGateway.astro';
+import GatewayHero from '../components/GatewayHero.astro';
 import { appName, parts } from '../data/site';
 
 const platforms = [
@@ -67,11 +66,12 @@ const rollout = [
 ];
 ---
 <Base title="Trust Gateway" description="PC는 기기를, 휴대폰은 사람을 증명합니다. 요청마다 다시 확인하는 제로트러스트 접근 제어 Trust Gateway.">
-  <ProductHero eyebrow="제로트러스트 접근 제어" tiles={['lock', 'phone', 'user', 'server', 'key', 'scan']}>
-    <Fragment slot="title">VPN 없이,<br />휴대폰 확인 한 번으로 여는 사내 업무</Fragment>
-    <Fragment slot="lead">PC와 휴대폰의 신호를 교차 검증하고,<br />로그인 이후에도 요청마다 다시 확인합니다.</Fragment>
-    <FlowGateway slot="flow" />
-  </ProductHero>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" />
+  </Fragment>
+  <GatewayHero />
 
   <section class="section mist" id="uses">
     <div class="wrap">
