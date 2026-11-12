@@ -1,8 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
-import ProductHero from '../components/ProductHero.astro';
-import FlowConsult from '../components/FlowConsult.astro';
+import ConsultHero from '../components/ConsultHero.astro';
 
 const services = [
   { t: 'PI 컨설팅', d: '지금 일하는 방식을 함께 들여다보고, 줄일 일과 바꿀 일을 정리합니다. 개발 전에 무엇을 만들지부터 분명히 합니다.' },
@@ -26,11 +25,12 @@ const work = [
 ];
 ---
 <Base title="AI컨설팅" description="업무 분석부터 AI 기반 개발과 운영까지, 신영이노베이션의 AI컨설팅.">
-  <ProductHero eyebrow="AI컨설팅" tiles={['spark', 'chart', 'code', 'plan', 'cycle', 'search']}>
-    <Fragment slot="title">일하는 방식부터 함께 보고,<br />AI로 빠르게 만듭니다</Fragment>
-    <Fragment slot="lead">업무 분석부터 AI 기반 개발, 운영과 유지보수까지.<br />금융 보안 현장에서 쌓은 기술로 회사에 맞는 시스템을 만듭니다.</Fragment>
-    <FlowConsult slot="flow" />
-  </ProductHero>
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" />
+  </Fragment>
+  <ConsultHero />
 
   <section class="section">
     <div class="wrap narrow">
@@ -46,9 +46,9 @@ const work = [
     </div>
   </section>
 
-  <section class="section mist">
+  <section class="section mist" id="process">
     <div class="wrap">
-      <div class="head-left reveal"><h2 class="h2 sm">이렇게 진행합니다</h2></div>
+      <div class="head-left reveal"><h2 class="h2 sm">이렇게 진행합니다</h2><p class="lead">개발 전에 현황 분석 보고서, 업무 설계서, IT 요구사항 명세를 남깁니다. 꼭 필요한 화면만, 핵심부터 단계별로 만듭니다.</p></div>
       <ol class="proc">
         {process.map((p, i) => (<li class="reveal"><span class="n">{i + 1}</span><h3 class="h4">{p.t}</h3><p class="body">{p.d}</p></li>))}
       </ol>

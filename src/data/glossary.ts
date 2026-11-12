@@ -30,6 +30,8 @@ export const glossary: Term[] = [
     b: '기존 보안은 방화벽 안쪽을 안전하다고 보고 내부 접속을 쉽게 허용했습니다. 제로트러스트는 이 암묵적 신뢰를 없애는 데서 출발합니다.', rel: ['zero-trust', 'lateral-movement'] },
   { id: 'least-privilege', aka: ['최소권한 원칙'], cat: 'zt', t: '최소 권한', en: 'Least Privilege', s: '일에 꼭 필요한 만큼만 권한을 주는 원칙',
     b: '모든 시스템을 열어 두지 않고 맡은 업무에 필요한 시스템과 기능만 허용합니다. 계정이 탈취되더라도 피해 범위를 좁힐 수 있습니다.', rel: ['authorization', 'micro-segmentation'] },
+  { id: 'assume-breach', cat: 'zt', t: '침해 가정', en: 'Assume Breach', s: '이미 뚫렸을 수 있다고 보고 설계하는 원칙',
+    b: '공격자가 이미 안에 들어와 있을 수 있다고 가정합니다. 구간마다 따로 확인하고 모든 접속을 기록해, 한 곳이 뚫려도 피해가 번지지 않게 합니다.', rel: ['zero-trust', 'micro-segmentation', 'lateral-movement'] },
   { id: 'continuous-verification', aka: ['연결성 검증', '지속적 검증'], cat: 'zt', t: '지속 검증', en: 'Continuous Verification', s: '로그인 한 번으로 끝내지 않고 접속하는 동안 계속 확인하는 것',
     b: '접속 중에도 기기 상태, 위치, 행동이 달라지면 다시 판단합니다. 로그인 이후에 일어나는 탈취나 오용을 잡아내는 데 필요합니다.',
     tg: 'Trust Gateway는 로그인 이후에도 요청마다 접속을 다시 확인합니다.', rel: ['session-hijacking', 'risk-score'] },

@@ -1,0 +1,189 @@
+---
+// Dark product-page hero: the copy on top, then a "film": a hand-drawn blueprint stage (the default slot, an
+// <svg viewBox="0 0 1200 540">) that draws itself once and then loops chapters of a real flow, with a player bar.
+// Timing is declared on the drawing: data-t / data-warn ("from-to" seconds, comma separated) switch the classes
+// "on" / "warn", and packets (<g class="pk" data-path="id" data-w="from-to" [data-rev]>) travel along paths.
+// Reduced motion: nothing draws or moves; the poster frame shows, and chapter buttons switch still frames.
+// Narrow screens: a camera pans over the stage (cam: [time, stage x]) so 16-unit labels stay at 11px or more.
+// The pen hand for notes (Nanum Pen Script) is loaded through Base's head slot by the page.
+import Icon from './Icon.astro';
+import '../styles/sketch.css';
+
+export interface Chapter { t: string; from: number; to: number; still: number; d: string }
+interface Props { eyebrow: string; chapters: Chapter[]; loop: number; cam: [number, number][]; poster: number }
+const { eyebrow, chapters, loop, cam, poster } = Astro.props;
+---
+<section class="sh">
+  <div class="wrap sh-top">
+    <div>
+      <p class="sh-eyebrow">{eyebrow}</p>
+      <h1 class="sh-title"><slot name="title" /></h1>
+    </div>
+    <div class="sh-side">
+      <p class="sh-lead"><slot name="lead" /></p>
+      <div class="btn-row"><slot name="actions" /></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="film" data-loop={loop} data-poster={poster} data-cam={JSON.stringify(cam)}>
+      <div class="stage"><slot /></div>
+      <div class="player">
+        <ol class="chs" style={`--n:${chapters.length}`}>
+          {chapters.map((c, i) => (
+            <li><button class="ch" type="button" data-from={c.from} data-to={c.to} data-still={c.still} aria-current={i === 0 ? 'step' : undefined}>
+              <span class="bar" aria-hidden="true"><i></i></span><span class="ch-t">{c.t}</span>
+            </button></li>
+          ))}
+        </ol>
+        <div class="now">
+          {chapters.map((c, i) => <p class="now-d" hidden={i !== 0}><b class="now-k">{c.t}</b>{c.d}</p>)}
+          <button class="pause" type="button" aria-pressed="false">
+            <span class="i-pause"><Icon name="pause" size={18} /></span><span class="i-play"><Icon name="play" size={18} /></span>
+            <span class="pause-t">일시정지</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .sh { background: var(--night); color: var(--on-night); padding: calc(96px + clamp(40px, 4vw, 72px)) 0 clamp(64px, 7vw, 104px); }
+  .sh-top { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 32px 64px; align-items: end; }
+  .sh-eyebrow { font-size: clamp(16px, .3vw + 14px, 18px); font-weight: 600; color: #9fb8de; }
+  .sh-title { margin-top: 14px; font-size: clamp(32px, 3.2vw + 10px, 58px); line-height: 1.2; letter-spacing: -0.03em; font-weight: 700; }
+  .sh-lead { font-size: clamp(16px, .4vw + 13px, 19px); line-height: 1.7; color: var(--on-night-2); }
+  .sh-side .btn-row { margin-top: 28px; }
+
+  /* the film: a blueprint sheet with a player bar */
+  .film {
+    margin-top: clamp(40px, 4.5vw, 64px); border: 1px solid var(--night-line); border-radius: 20px; overflow: hidden;
+    background-color: #0b1626;
+    background-image: linear-gradient(rgba(159, 184, 222, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(159, 184, 222, .06) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+  .stage { padding: 16px 20px 4px; overflow-x: auto; }
+  .stage :global(svg) { width: 100%; height: auto; overflow: visible; }
+  :global(html:not(.js)) .stage :global(svg) { min-width: 830px; }
+
+  .player { border-top: 1px solid var(--night-line); padding: 16px 20px 18px; background: rgba(11, 22, 38, .86); }
+  .chs { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 8px; }
+  .ch { all: unset; box-sizing: border-box; display: grid; gap: 8px; width: 100%; padding: 6px 0; cursor: pointer; }
+  .ch:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: 4px; }
+  .bar { display: block; height: 3px; border-radius: 2px; background: rgba(159, 184, 222, .22); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 100%; background: #e6eefc; transform-origin: left; transform: scaleX(var(--p, 0)); }
+  .ch-t { font-size: 14px; font-weight: 600; color: #8fa3c2; transition: color .3s; }
+  .ch[aria-current] .ch-t, .ch:hover .ch-t { color: #e6eefc; }
+  .now { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-top: 10px; }
+  .now-d { font-size: 15px; line-height: 1.6; color: var(--on-night-2); }
+  .now-k { display: none; }
+  .pause {
+    flex: none; display: inline-flex; align-items: center; gap: 6px; height: 36px; padding: 0 14px 0 10px; border-radius: 999px; cursor: pointer;
+    background: transparent; color: #e6eefc; border: 1px solid rgba(255, 255, 255, .24); font-size: 14px; font-weight: 600;
+  }
+  .pause:hover { border-color: #fff; }
+  .pause:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .i-pause, .i-play { display: inline-grid; }
+  .i-play, .film.paused .i-pause { display: none; }
+  .film.paused .i-play { display: inline-grid; }
+  .film.still .pause { display: none; }
+
+  @media (max-width: 1023px) {
+    .sh-top { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 767px) {
+    .stage { padding: 12px 8px 0; }
+    .player { padding: 12px 16px 16px; }
+    .ch { padding: 10px 0; }
+    .ch-t { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .now { flex-direction: column; align-items: flex-start; gap: 12px; margin-top: 4px; }
+    .now-k { display: block; color: #e6eefc; font-size: 15px; }
+  }
+</style>
+
+<script>
+  const VW = 1200, VH = 540, DRAW = 2.9;
+  const wins = (s?: string) => (s ? s.split(',').map((w) => w.split('-').map(Number)) : []);
+  const within = (ws: number[][], t: number) => ws.some(([a, b]) => t >= a && t < b);
+  const ease = (k: number) => (k < 0.5 ? 2 * k * k : 1 - (-2 * k + 2) ** 2 / 2);
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  for (const film of document.querySelectorAll<HTMLElement>('.film')) {
+    const stage = film.querySelector<HTMLElement>('.stage')!;
+    const svg = stage.querySelector('svg')!;
+    const LOOP = +film.dataset.loop!;
+    const CAM: [number, number][] = JSON.parse(film.dataset.cam!);
+    const states = [...svg.querySelectorAll<SVGElement>('[data-t],[data-warn]')].map((el) => ({ el, on: wins(el.dataset.t), warn: wins(el.dataset.warn) }));
+    const packets = [...svg.querySelectorAll<SVGGElement>('[data-path]')].map((el) => {
+      const path = svg.querySelector<SVGPathElement>(`#${el.dataset.path}`)!;
+      const [a, b] = wins(el.dataset.w)[0];
+      return { el, path, len: path.getTotalLength(), a, b, rev: el.hasAttribute('data-rev') };
+    });
+    const chapters = [...film.querySelectorAll<HTMLButtonElement>('.ch')].map((el) => ({ el, from: +el.dataset.from!, to: +el.dataset.to!, still: +el.dataset.still! }));
+    const descs = [...film.querySelectorAll<HTMLElement>('.now-d')];
+    const pauseBtn = film.querySelector<HTMLButtonElement>('.pause')!;
+    const pauseT = film.querySelector<HTMLElement>('.pause-t')!;
+
+    let t = still ? +film.dataset.poster! : -DRAW, playing = !still, onScreen = true, drawn = still, last = 0, raf = 0, viewW = VW, cx = 600;
+    if (still) film.classList.add('still');
+
+    const camAt = () => CAM.reduce((x, [a, v]) => (t >= a ? v : x), CAM[0][1]);
+    // under 830px the stage shows a window of it, wide enough that 16-unit labels stay at 11px or more
+    const fit = () => { const w = stage.clientWidth || VW; viewW = w < 830 ? Math.min(VW, Math.max(420, w / 0.72)) : VW; };
+
+    const render = (dt: number) => {
+      for (const s of states) { s.el.classList.toggle('on', within(s.on, t)); s.el.classList.toggle('warn', within(s.warn, t)); }
+      for (const p of packets) {
+        const k = (t - p.a) / (p.b - p.a);
+        const show = k >= 0 && k <= 1;
+        p.el.style.opacity = show ? '1' : '0';
+        if (show) {
+          const pt = p.path.getPointAtLength((p.rev ? 1 - ease(k) : ease(k)) * p.len);
+          p.el.setAttribute('transform', `translate(${pt.x.toFixed(1)} ${pt.y.toFixed(1)})`);
+        }
+      }
+      let cur = 0;
+      chapters.forEach((c, i) => {
+        c.el.style.setProperty('--p', String(Math.min(1, Math.max(0, (t - c.from) / (c.to - c.from)))));
+        if (t >= c.from && t < c.to) cur = i;
+      });
+      chapters.forEach((c, i) => (i === cur ? c.el.setAttribute('aria-current', 'step') : c.el.removeAttribute('aria-current')));
+      descs.forEach((d, i) => (d.hidden = i !== cur));
+      if (viewW < VW) {
+        const target = camAt();
+        cx = dt < 0 ? target : cx + (target - cx) * (1 - Math.exp(-dt * 2.5));
+        const x = Math.max(0, Math.min(VW - viewW, cx - viewW / 2));
+        svg.setAttribute('viewBox', `${x.toFixed(1)} 0 ${viewW.toFixed(1)} ${VH}`);
+      } else svg.setAttribute('viewBox', `0 0 ${VW} ${VH}`);
+    };
+
+    const frame = (now: number) => {
+      const dt = last ? Math.min(0.1, (now - last) / 1000) : 0;
+      last = now;
+      if (playing) { t += dt; if (t >= LOOP) t -= LOOP; }
+      if (!drawn && t >= 0) { drawn = true; film.classList.add('drawn'); }
+      render(dt);
+      raf = playing && onScreen ? requestAnimationFrame(frame) : 0;
+    };
+    const kick = () => { if (!raf && playing && onScreen) { last = 0; raf = requestAnimationFrame(frame); } };
+
+    chapters.forEach((c) => c.el.addEventListener('click', () => {
+      t = playing ? c.from : c.still;
+      if (!drawn) { drawn = true; film.classList.add('drawn'); }
+      render(-1);
+    }));
+    pauseBtn.addEventListener('click', () => {
+      playing = !playing;
+      film.classList.toggle('paused', !playing);
+      pauseBtn.setAttribute('aria-pressed', String(!playing));
+      pauseT.textContent = playing ? '일시정지' : '재생';
+      kick();
+    });
+    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; kick(); }).observe(film);
+    new ResizeObserver(() => { fit(); render(-1); }).observe(stage);
+    fit();
+    render(-1);
+    kick();
+  }
+</script>

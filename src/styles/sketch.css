@@ -1,0 +1,55 @@
+/* Drawing styles shared by the hand-drawn hero stages (src/components/SketchHero.astro).
+   Kept at low specificity (:where) so each hero's own scoped rules win. */
+:where(.film) { --sk: #9fb8de; --hi: #e6eefc; --mint: #63d6b4; --or: #f6882a; --violet: #a594f9; --coral: #ff6f61; }
+
+:where(.film .guides) path { fill: none; stroke: var(--sk); stroke-width: 1; opacity: .14; }
+:where(.film .sketch) path { fill: none; stroke: var(--sk); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+:where(.film) .thin { stroke-width: 1.3; opacity: .55; }
+:where(.film) .zone { stroke-width: 1.4; stroke-dasharray: 2 8; opacity: .45; }
+:where(.film) .zone.core { fill: rgba(54, 99, 153, .16); opacity: .8; }
+:where(.film) .wire { stroke-width: 1.6; opacity: .7; }
+:where(.film) .ghost { stroke: none; }
+
+/* states switched by the script: .on / .warn from data-t / data-warn */
+:where(.film) .st { transition: stroke .35s, fill .35s, opacity .35s, stroke-dashoffset 1.2s var(--ease); }
+:where(.film) .cue { opacity: 0; transition: opacity .35s; }
+:where(.film) .cue.on { opacity: 1; }
+/* a line that draws itself while its window is on, and undraws when it ends */
+:where(.film) .pen { stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0; transition: stroke-dashoffset .9s var(--ease), opacity .25s, fill .35s; }
+:where(.film) .pen.on { stroke-dashoffset: 0; opacity: 1; }
+/* highlighter swash under a note */
+:where(.film) .swash { stroke-width: 16; stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0; transition: stroke-dashoffset .7s var(--ease), opacity .3s; }
+:where(.film) .swash.on { stroke-dashoffset: 0; opacity: .28; }
+:where(.film) .swash.mint { stroke: var(--mint); }
+:where(.film) .swash.orange { stroke: var(--or); }
+:where(.film) .swash.violet { stroke: var(--violet); }
+:where(.film) .tk { fill: none; stroke: var(--mint); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+
+/* words: Pretendard for names, a pen hand for notes */
+:where(.film .words) text { fill: var(--hi); }
+:where(.film) .w-zone { font-size: 16px; font-weight: 600; fill: #8094b4; }
+:where(.film) .w-t { font-size: 19px; font-weight: 600; }
+:where(.film) .w-s { font-size: 16px; fill: #8fa3c2; }
+:where(.film) .w-e { font-size: 18px; font-weight: 600; }
+:where(.film) .hw { font-family: 'Nanum Pen Script', 'Pretendard Variable', cursive; font-size: 27px; }
+:where(.film) text.mint { fill: var(--mint); }
+:where(.film) text.orange { fill: var(--or); }
+:where(.film) text.coral { fill: var(--coral); }
+:where(.film) text.violet { fill: #c9bffc; }
+
+/* packets: <g class="pk" data-path data-w><circle r="11" /><circle r="5" /></g> */
+:where(.film) .pk { opacity: 0; color: #cfe3ff; }
+:where(.film) .pk.mint { color: var(--mint); }
+:where(.film) .pk.orange { color: var(--or); }
+:where(.film) .pk.coral { color: var(--coral); }
+:where(.film) .pk.violet { color: var(--violet); }
+:where(.film) .pk circle { fill: currentColor; }
+:where(.film) .pk circle:first-child { opacity: .22; }
+
+/* drawing in, once, on load (.ink paths need pathLength="1"; --d is the delay) */
+.js .film:not(.still):not(.drawn) .ink { stroke-dasharray: 1 1; animation: sk-draw .9s var(--ease) var(--d, 0s) both; }
+.js .film:not(.still):not(.drawn) .lbl { animation: sk-fade .6s var(--ease) calc(var(--d, 0s) + .35s) both; }
+.js .film:not(.still):not(.drawn) .zone { animation: sk-fade .8s var(--ease) both; }
+.film.paused .ink, .film.paused .lbl, .film.paused .zone { animation-play-state: paused; }
+@keyframes sk-draw { 0% { stroke-dashoffset: 1; opacity: 0; } 1% { opacity: 1; } 100% { stroke-dashoffset: 0; opacity: 1; } }
+@keyframes sk-fade { from { opacity: 0; } to { opacity: 1; } }
