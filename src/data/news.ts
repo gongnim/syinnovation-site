@@ -92,9 +92,11 @@ export interface Incident {
   slug?: string; // hand-picked rows have our own page at /news/press/<slug>
   image?: string; // the card picture: made for us, or for a video its YouTube thumbnail (never a news photo)
   youtube?: string; // a news video: the YouTube id, played on our site
+  credit?: { name: string; url: string; id?: number }; // the photographer of a free Pexels photo
   date: string; // YYYY-MM-DD, or YYYY-MM when the day is not clear
   region: '국내' | '해외';
   org?: string; // the organisation hit (not shown; the collector uses it to skip stories already listed)
+  aka?: string[]; // other names in headlines (English names, follow-up wording); the collector skips them for 60 days
   type: string; // 랜섬웨어, 개인정보 유출, 해킹, 디도스, 공급망 공격, 계정 탈취, 기타
   title: string;
   summary?: string;

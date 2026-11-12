@@ -75,9 +75,12 @@ const days = (a, b) => Math.abs(new Date(a) - new Date(b)) / 864e5;
 const same = (a, b) => a === b || (Math.min(a.length, b.length) >= 3 && (a.startsWith(b) || b.startsWith(a)));
 const shared = (a, b) => [...a].filter((w) => [...b].some((v) => same(w, v))).length;
 
-// a Korean headline naming another country is about an incident abroad
-const FOREIGN = /미국|일본|중국|프랑스|영국|독일|러시아|이란|우크라이나|대만|유럽|EU|호주|캐나다|인도|베트남|싱가포르|이스라엘|홍콩|브라질/;
-export const regionOf = (title, region) => (region === '국내' && FOREIGN.test(title) ? '해외' : region);
+// a Korean headline naming another country, or a big city or landmark abroad, is about an incident abroad
+// (no 파리: it is also in Korean brand names)
+const FOREIGN = /미국|일본|중국|프랑스|영국|독일|러시아|이란|우크라이나|대만|유럽|EU|호주|캐나다|인도|베트남|싱가포르|이스라엘|홍콩|브라질|도쿄|오사카|야스쿠니|뉴욕|워싱턴|런던|베이징|상하이/;
+// and an English headline about South Korea is about an incident at home
+const KOREA = /South Korea|Korean|Seoul/;
+export const regionOf = (title, region) => (region === '국내' && FOREIGN.test(title) ? '해외' : region === '해외' && KOREA.test(title) ? '국내' : region);
 
 /**
  * Group headlines about the same incident (two shared distinctive words, within three days). A story's size is the
@@ -101,16 +104,20 @@ export function stories(items) {
  */
 /**
  * A test for "is this already on the list?": the same link, a headline sharing two distinctive words with a stored
- * row from within three days, or a headline naming the organisation of a stored row from within a week
- * ("대한항공·아시아나항공", "Helpfeel (Gyazo)" name two each).
+ * row from within three days, a headline naming the organisation of a stored row from within a week
+ * ("대한항공·아시아나항공", "Helpfeel (Gyazo)" name two each), or a headline using one of a stored row's other
+ * names ("aka": English names, follow-up wording) within 60 days, so foreign reports and follow-ups of a story we
+ * already cover are not added again.
  */
 export function listed(stored) {
   const known = new Set(stored.map((r) => r.url));
   const storedTokens = stored.map((r) => ({ date: r.date, tk: tokens(r.title) }));
   const storedOrgs = stored.flatMap((r) => (r.org ?? '').split(/[·,()]/).map((o) => o.trim().toLowerCase()).filter((o) => o.length >= 2).map((o) => ({ date: r.date, o })));
+  const storedAka = stored.flatMap((r) => (r.aka ?? []).map((a) => ({ date: r.date, a: a.toLowerCase() })));
   return ({ url, title, date }) => known.has(url)
     || storedTokens.some((r) => days(r.date, date) <= 3 && shared(tokens(title), r.tk) >= 2)
-    || storedOrgs.some((r) => days(r.date, date) <= 7 && title.toLowerCase().includes(r.o));
+    || storedOrgs.some((r) => days(r.date, date) <= 7 && title.toLowerCase().includes(r.o))
+    || storedAka.some((r) => days(r.date, date) <= 60 && title.toLowerCase().includes(r.a));
 }
 
 export function merge(stored, found, cfg, today = isoDate(new Date())) {
@@ -125,6 +132,23 @@ export function merge(stored, found, cfg, today = isoDate(new Date())) {
   const kept = stored.filter((r) => !r.auto || days(r.date, today) <= (cfg.keepDays ?? 120));
   return { rows: [...fresh.slice(0, cfg.maxNewPerRun ?? 6), ...kept], added: Math.min(fresh.length, cfg.maxNewPerRun ?? 6) };
 }
+
+// what to search a free photo library for: the field named in the headline first, else the kind of incident
+const PHOTO_FIELDS = [
+  [/은행|bank/i, 'bank office'], [/카드|card/i, 'credit card payment'], [/증권|stock|투자|broker/i, 'stock trading screens'],
+  [/보험|insurance/i, 'insurance office'], [/항공|airline|airport/i, 'airport terminal'], [/병원|hospital|의료|health/i, 'hospital corridor'],
+  [/대학|university|학교|school|college/i, 'university library'], [/게임|gaming|game/i, 'gaming setup'],
+  [/쇼핑|몰|커머스|이커머스|retail|retailer|shop|마트|supermarket/i, 'online shopping'], [/통신|텔레콤|telecom|carrier/i, 'telecom tower'],
+  [/클라우드|cloud|데이터센터|data ?cent/i, 'data center servers'], [/정부|공공|부처|지자체|government|ministry|agency/i, 'government building'],
+  [/택배|물류|배송|logistics|delivery|shipping/i, 'logistics warehouse'], [/호텔|여행|travel|hotel/i, 'hotel lobby'],
+  [/자동차|car maker|automaker|automotive/i, 'car factory'], [/전력|에너지|발전|power|energy|utility/i, 'power plant control room'],
+  [/교회|church/i, 'church interior'], [/교육|이러닝|e-?learning/i, 'online learning laptop'],
+];
+const PHOTO_TYPES = {
+  랜섬웨어: 'server room red light', '개인정보 유출': 'data privacy laptop', 해킹: 'code on screen dark',
+  '공급망 공격': 'business network connections', 디도스: 'network cables server', '계정 탈취': 'password login screen', 기타: 'cyber security',
+};
+export const photoQuery = (title, type) => PHOTO_FIELDS.find(([re]) => re.test(title))?.[1] ?? PHOTO_TYPES[type] ?? PHOTO_TYPES['기타'];
 
 /**
  * News videos to add: about an incident, from a broadcaster's channel (cfg.videoChannels, matched in the channel

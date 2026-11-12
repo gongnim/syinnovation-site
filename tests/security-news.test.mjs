@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseRss, classify, isUnwanted, stories, merge, regionOf, pickVideos } from '../scripts/security-news-lib.mjs';
+import { parseRss, classify, isUnwanted, stories, merge, regionOf, pickVideos, photoQuery } from '../scripts/security-news-lib.mjs';
 
 const cfg = { exclude: ['롯데카드'], noise: ['대회', 'webinar'], minOutlets: 2, maxNewPerRun: 6, keepDays: 120 };
 
@@ -45,6 +45,7 @@ test('the same story is recognised through particles and word endings; Korean he
   assert.equal(s[0].outlets, 2);
   assert.equal(regionOf("프랑스, 냉장고 해킹 배후로 '이란' 지목", '국내'), '해외');
   assert.equal(regionOf('금융보안원 해킹 확인', '국내'), '국내');
+  assert.equal(regionOf('야스쿠니신사 사이트 해킹…1만4천500건 정보 유출', '국내'), '해외');
 });
 
 test('merge adds only stories reported by enough outlets, never twice, and keeps hand-picked rows', () => {
@@ -72,6 +73,19 @@ test('a headline naming an organisation already listed in the past week is not a
   assert.equal(merge([listed], found, cfg, '2026-11-12').added, 0);
 });
 
+test('foreign reports and follow-ups of a listed story are known by its other names (aka) for 60 days', () => {
+  const france = { date: '2026-10-12', region: '해외', type: '해킹', org: 'Intermarché·Carrefour', aka: ['냉장고 해킹', 'refrigerat'], title: '프랑스 대형마트 수백 곳, 냉장설비 해킹으로 식품 폐기', source: 'x', url: 'https://x/4' };
+  const found = [
+    item("프랑스, 냉장고 해킹 배후로 '이란' 지목", 'BBC', '2026-11-10'),
+    item("프랑스, 냉장고 해킹 배후로 '이란' 지목", '연합뉴스', '2026-11-10'),
+    item('France Blames Iran for Cyberattack on Refrigeration Systems', 'The New York Times', '2026-11-10'),
+    item('France Blames Iran for Cyberattack on Refrigeration Systems', 'Reuters', '2026-11-10'),
+    item('France Blames Iran for Cyberattack on Refrigeration Systems', 'AP', '2026-11-10'),
+  ];
+  assert.equal(merge([france], found, cfg, '2026-11-12').added, 0);
+  assert.equal(merge([{ ...france, date: '2026-08-01' }], found, cfg, '2026-11-12').added > 0, true); // past 60 days: news again
+});
+
 test('news videos: only incident videos from broadcaster channels, never ones already listed', () => {
   const vcfg = { ...cfg, videoChannels: ['YTN', 'News'], maxVideosPerRun: 2 };
   const listedRow = { date: '2026-11-10', region: '국내', type: '해킹', org: '금융보안원', title: '금융보안원 침입', source: 'x', url: 'https://x/3' };
@@ -83,4 +97,15 @@ test('news videos: only incident videos from broadcaster channels, never ones al
   ], vcfg);
   assert.deepEqual(picked.map((v) => v.youtube), ['a1']);
   assert.equal(picked[0].url, 'https://www.youtube.com/watch?v=a1');
+});
+
+test('free photo search: the field named in the headline first, else the kind of incident', () => {
+  assert.equal(photoQuery('OO은행 고객 정보 유출', '개인정보 유출'), 'bank office');
+  assert.equal(photoQuery('Airline confirms breach of booking system', '개인정보 유출'), 'airport terminal');
+  assert.equal(photoQuery('XX사 랜섬웨어 감염', '랜섬웨어'), 'server room red light');
+});
+
+test('an English headline about South Korea counts as an incident at home', () => {
+  assert.equal(regionOf("South Korea's financial security regulator found personal information stolen", '해외'), '국내');
+  assert.equal(regionOf('Capcom confirms data breach', '해외'), '해외');
 });

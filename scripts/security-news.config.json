@@ -1,5 +1,6 @@
 {
-  "_about": "Settings for scripts/collect-security-news.mjs (runs once a day). Edit the word lists here; the collector reads them on every run.",
+  "_about": "Settings for scripts/collect-security-news.mjs (runs once a day, free sources only). pictures: \"pexels\" (free photos, default) or \"openai\" (paid image generation). Edit the word lists here; the collector reads them on every run.",
+  "pictures": "pexels",
   "queries": [
     {
       "region": "국내",

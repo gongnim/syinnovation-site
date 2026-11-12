@@ -11,6 +11,8 @@ import { security, fmt } from '../../data/news';
 import { newsNav } from '../../data/site';
 
 const PAGE = 12;
+// free Pexels photos are credited: the photographer on each card, and a link to Pexels under the list
+const pexels = security.some((n) => n.credit);
 const regions = ['국내', '해외'].filter((r) => security.some((n) => n.region === r));
 // a collected article whose picture is missing borrows one made for the same kind of incident
 const byType = new Map<string, string>();
@@ -38,7 +40,7 @@ const picture = (n: (typeof security)[number]) =>
             {security.map((n, i) => {
               const inner = (
                 <>
-                  <span class="media"><img src={picture(n)} alt="" loading="lazy" width="768" height="512" />{n.youtube && <span class="play"><Icon name="play" size={20} /></span>}</span>
+                  <span class="media"><img src={picture(n)} alt="" loading="lazy" width="768" height="512" title={n.credit ? `사진: ${n.credit.name} / Pexels` : undefined} />{n.youtube && <span class="play"><Icon name="play" size={20} /></span>}</span>
                   <span class="over">
                     <span class="tags"><span class="tag">{n.region}</span><span class="tag">{n.youtube ? '영상' : n.type}</span></span>
                     <span class="title">{n.title}</span>
@@ -59,6 +61,7 @@ const picture = (n: (typeof security)[number]) =>
           </ul>
         : <p class="empty">아직 정리된 보안 소식이 없습니다.</p>}
       {security.length > PAGE && <button type="button" class="more" data-page={PAGE}>더보기</button>}
+      {pexels && <p class="credit">일부 사진 제공: <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a> (사진 위에 마우스를 올리면 사진가 이름이 보입니다)</p>}
     </div>
   </section>
 
@@ -97,6 +100,8 @@ const picture = (n: (typeof security)[number]) =>
   .meta { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: rgb(255 255 255 / .75); }
   .dot { width: 3px; height: 3px; border-radius: 50%; background: rgb(255 255 255 / .5); }
   .empty { padding: 32px 0; color: var(--ink-3); }
+  .credit { margin-top: 24px; text-align: center; font-size: 13px; color: var(--ink-3); }
+  .credit a { color: var(--ink-2); text-decoration: underline; text-underline-offset: 3px; }
   .more { display: block; margin: 32px auto 0; padding: 0 26px; height: 46px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink); cursor: pointer; }
   .more:hover { border-color: var(--ink); }
 

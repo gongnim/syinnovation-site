@@ -3,13 +3,15 @@
 //   node scripts/collect-security-news.mjs          add new stories (and make their pictures)
 //   node scripts/collect-security-news.mjs --dry    only print what would be added
 // Sources: Google News search feeds (no key), the Naver news search API (NAVER_CLIENT_ID / NAVER_CLIENT_SECRET) and
-// YouTube news videos (YOUTUBE_API_KEY). Every card needs a picture: videos use their own thumbnail, and for each new
-// article a picture is made with the image API (OPENAI_API_KEY) and saved under public/images/security/auto/; the
-// site falls back to a picture of the same kind of incident if that fails. News photos are never copied.
+// YouTube news videos (YOUTUBE_API_KEY). Every card needs a picture: videos use their own thumbnail, and each new
+// article gets a free photo from Pexels (PEXELS_API_KEY; free for commercial use, credited on the page) chosen by the
+// field named in its headline or else the kind of incident, saved under public/images/security/auto/. Setting
+// "pictures": "openai" in the config makes the picture with the image API instead (OPENAI_API_KEY, paid). Without
+// either, the site falls back to a picture of the same kind of incident. News photos are never copied.
 // Word lists live in scripts/security-news.config.json; a row with "hidden": true is kept off the site.
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { parseRss, isoDate, merge, pickVideos } from './security-news-lib.mjs';
+import { parseRss, isoDate, merge, pickVideos, photoQuery } from './security-news-lib.mjs';
 
 const DATA = new URL('../src/data/security-news.json', import.meta.url);
 const PICS = new URL('../public/images/security/auto/', import.meta.url);
@@ -54,7 +56,29 @@ async function youtubeNews({ q, lang, region }) {
   return items.map((i) => ({ id: i.id.videoId, title: strip(i.snippet.title), channel: strip(i.snippet.channelTitle), date: isoDate(i.snippet.publishedAt), region }));
 }
 
-// a picture made for one article: a scene that fits the story, in the site's documentary style
+const picName = (row, ext) => `${row.date}-${crypto.createHash('sha1').update(row.url).digest('hex').slice(0, 8)}.${ext}`;
+
+// a free Pexels photo for one article: landscape, not used on another card yet; returns { image, credit }
+async function pexelsPhoto(row, used) {
+  if (!env.PEXELS_API_KEY) return {};
+  const query = photoQuery(row.title, row.type);
+  const res = await fetch(`https://api.pexels.com/v1/search?${new URLSearchParams({ query, orientation: 'landscape', per_page: '30' })}`, {
+    headers: { Authorization: env.PEXELS_API_KEY },
+  });
+  if (!res.ok) { console.warn(`Pexels "${query}": HTTP ${res.status}`); return {}; }
+  const { photos = [] } = await res.json();
+  const photo = photos.find((p) => !used.has(p.id));
+  if (!photo) return {};
+  used.add(photo.id);
+  const img = await fetch(photo.src.large);
+  if (!img.ok) return {};
+  const name = picName(row, 'jpg');
+  fs.mkdirSync(PICS, { recursive: true });
+  fs.writeFileSync(new URL(name, PICS), Buffer.from(await img.arrayBuffer()));
+  return { image: `/images/security/auto/${name}`, credit: { name: photo.photographer, url: photo.url, id: photo.id } };
+}
+
+// a picture made for one article with the image API (only when the config asks for it: it is paid)
 async function makePicture(row) {
   if (!env.OPENAI_API_KEY) return undefined;
   const prompt = `A realistic editorial documentary photograph illustrating this cybersecurity news story: "${row.title}" (${row.type}). `
@@ -67,7 +91,7 @@ async function makePicture(row) {
   });
   const j = await res.json();
   if (j.error || !j.data?.[0]?.b64_json) { console.warn(`picture failed for "${row.title}": ${j.error?.message ?? 'no image'}`); return undefined; }
-  const name = `${row.date}-${crypto.createHash('sha1').update(row.url).digest('hex').slice(0, 8)}.webp`;
+  const name = picName(row, 'webp');
   fs.mkdirSync(PICS, { recursive: true });
   fs.writeFileSync(new URL(name, PICS), Buffer.from(j.data[0].b64_json, 'base64'));
   return `/images/security/auto/${name}`;
@@ -89,6 +113,10 @@ console.log(`fetched ${found.length} headlines and ${videos.length} videos; ${ad
 for (const r of fresh) console.log(`  + ${r.date} [${r.region} · ${r.youtube ? '영상' : r.type}] ${r.title} (${r.source})`);
 if (dry) process.exit(0);
 
-for (const r of rows.slice(0, added)) r.image = await makePicture(r);
+const used = new Set(rows.map((r) => r.credit?.id).filter(Boolean)); // Pexels photos already on a card
+for (const r of rows.slice(0, added)) {
+  if (cfg.pictures === 'openai') r.image = await makePicture(r);
+  else Object.assign(r, await pexelsPhoto(r, used));
+}
 const all = [...newVideos, ...rows];
 if (fresh.length || all.length !== stored.length) fs.writeFileSync(DATA, JSON.stringify(all, null, 2) + '\n');

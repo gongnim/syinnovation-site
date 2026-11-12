@@ -1,8 +1,9 @@
 # Once a day (08:00 Korea time), collect security incident news and news videos for 소식 > 언론보도 and commit them
-# to src/data/security-news.json, with a picture made for each new article in public/images/security/auto/
-# (see scripts/collect-security-news.mjs). Run it by hand from the Actions tab too.
-# Repository secrets: OPENAI_API_KEY (pictures for articles), YOUTUBE_API_KEY (news videos),
-# NAVER_CLIENT_ID / NAVER_CLIENT_SECRET (Naver news search). Each is optional; without it that part is skipped.
+# to src/data/security-news.json, with a free Pexels photo for each new article in public/images/security/auto/
+# (see scripts/collect-security-news.mjs). Everything it uses is free. Run it by hand from the Actions tab too.
+# Repository secrets (all free, all optional; without one that part is skipped): PEXELS_API_KEY (photos),
+# YOUTUBE_API_KEY (news videos), NAVER_CLIENT_ID / NAVER_CLIENT_SECRET (Naver news search).
+# OPENAI_API_KEY is used only if the config is switched to "pictures": "openai" (paid).
 # To take a story off the site, set "hidden": true on its row in the data file; it is then never added again.
 name: Security news
 
@@ -31,6 +32,7 @@ jobs:
       - name: Collect
         run: node scripts/collect-security-news.mjs
         env:
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
