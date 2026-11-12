@@ -18,7 +18,7 @@ const RING_R = 1.42;
 const NIGHT_RING = 0.76; // the orbits hug the core at night (1.08 core radii), then widen to full rings
 const MEET_PERIOD = 9;
 const FIRST_MEET = 3;
-const RUSH = 2.4; // seconds the two lights take to glide to a crossing the visitor clicked
+const TURN = 1.3; // seconds after a click before the meeting light plays at the turned crossing
 const STREAK_REST = 2.0; // the white crescent's resting place on the rim: upper left
 const clamp01 = (x: number) => Math.min(1, Math.max(0, x));
 const ss = (a: number, b: number, x: number) => { const t = clamp01((x - a) / (b - a)); return t * t * (3 - 2 * t); };
@@ -67,7 +67,7 @@ function makeOrbMaterial() {
         float rimLine = pow(edge, 14.0);
 
         // crescent reflection: a tapered band at a fixed angle from the view axis, over an arc centred at uStreak
-        // (upper left at rest; it slides round the rim toward the pointer)
+        // (upper left at rest; a click or tap on the core leans it a little toward the pressed point)
         float th = acos(clamp(n.z, -1.0, 1.0));
         float ph = atan(n.y, n.x) - uStreak;
         ph -= 6.2831853 * floor((ph + 3.1415927) / 6.2831853);
@@ -469,7 +469,7 @@ export function orbHero(root: HTMLElement) {
   composer.addPass(bloom);
   composer.addPass(new OutputPass());
 
-  let W = 1, H = 1, pxPerUnit = 1, orbScale = 1, orbCy = 0;
+  let W = 1, H = 1, pxPerUnit = 1, orbScale = 1, orbCy = 0, orbR = 0;
   const visH = () => 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   function layout() {
     W = canvas.clientWidth; H = canvas.clientHeight;
@@ -499,7 +499,7 @@ export function orbHero(root: HTMLElement) {
     rPx = lerp(rPx, r1, s2); cy = lerp(cy, H * 0.46, s2);
     rPx = lerp(rPx, r2, s3); cy = lerp(cy, H * (mobile ? 0.33 : 0.38), s3);
     cy += (1 - intro) * H * 0.16; // the core rises in on load
-    orbCy = cy;
+    orbCy = cy; orbR = rPx;
     orbScale = rPx / pxPerUnit;
     world.scale.setScalar(orbScale);
     world.position.set(0, (H / 2 - cy) / pxPerUnit, 0);
@@ -522,42 +522,42 @@ export function orbHero(root: HTMLElement) {
     impactIdx = (impactIdx + 1) % MAX_IMPACTS;
   }
 
-  // the lights' lap count. A click adds an eased glide on top of the steady pace, timed so both lights reach the
-  // nearest crossing (a whole lap number) exactly RUSH seconds later: at most half a lap, forward or back.
-  let lapOff = 0, rushFrom = 0, rushTo = 0, rushAt = -1;
-  const offAt = (c: number) => (rushAt < 0 ? lapOff : lerp(rushFrom, rushTo, ss(0, 1, (c - rushAt) / RUSH)));
-  const lapsAt = (c: number) => (c - FIRST_MEET) / MEET_PERIOD + offAt(c);
-
+  // hovering only acts on the core while the pointer is over it: the core leans toward it and the cursor shows it
+  // can be pressed. Anywhere else both ease back. The white crescent does not follow the hover; only a press moves it.
   let pointerX = 0, pointerY = 0, streakTo = STREAK_REST, streakAng = STREAK_REST;
-  // the white crescent slides round the rim to face the pointer (screen angle from the core's centre)
+  const onCore = (x: number, y: number) => Math.hypot(x - W / 2, y - orbCy) <= orbR;
   const follow = (e: PointerEvent) => {
     const r = canvas.getBoundingClientRect();
-    pointerX = ((e.clientX - r.left) / r.width) * 2 - 1;
-    pointerY = -(((e.clientY - r.top) / r.height) * 2 - 1);
-    streakTo = Math.atan2(orbCy - (e.clientY - r.top), e.clientX - r.left - W / 2);
+    const x = e.clientX - r.left, y = e.clientY - r.top;
+    const inside = onCore(x, y);
+    root.style.cursor = inside ? 'pointer' : '';
+    pointerX = inside ? (x / r.width) * 2 - 1 : 0;
+    pointerY = inside ? -((y / r.height) * 2 - 1) : 0;
     wake();
   };
   root.addEventListener('pointermove', follow, { passive: true });
   root.addEventListener('pointerdown', follow, { passive: true });
-  root.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') { streakTo = STREAK_REST; wake(); } });
+  root.addEventListener('pointerleave', () => { pointerX = pointerY = 0; root.style.cursor = ''; wake(); });
 
-  // click or tap: turn the crossing to the pressed point on the core (or the nearest point of its outline when the
-  // press misses it, kept on the front so it stays in view) and let both lights race there to meet
-  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), centre = new THREE.Vector3(), at = new THREE.Vector3();
+  // click or tap on the core: the rings turn slowly until their crossing sits on the pressed point, the meeting light
+  // plays there once it arrives, and the white crescent leans toward it (half the way, at most about 25 degrees).
+  // The two lights keep their steady pace throughout and meet at the new crossing on their next lap.
+  // A press off the core does nothing.
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2(), at = new THREE.Vector3();
+  let meetDue = -1;
   root.addEventListener('click', (e) => {
     const r = canvas.getBoundingClientRect();
     ndc.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
     ray.setFromCamera(ndc, camera);
-    orb.getWorldPosition(centre);
     const hit = ray.intersectObject(orb, false)[0];
-    if (hit) at.copy(hit.point); else ray.ray.closestPointToPoint(centre, at);
+    if (!hit) return;
+    const toward = Math.atan2(orbCy - (e.clientY - r.top), e.clientX - r.left - W / 2) - STREAK_REST;
+    streakTo = STREAK_REST + Math.max(-0.45, Math.min(0.45, Math.atan2(Math.sin(toward), Math.cos(toward)) * 0.5));
+    at.copy(hit.point);
     const d = tilt.worldToLocal(at).normalize();
     d.z = Math.max(d.z, 0.25);
     aimTo.setFromUnitVectors(crossDir, d.normalize());
-    if (reduce) { aim.copy(aimTo); meet(clock); wake(); return; }
-    const L = lapsAt(clock), off = offAt(clock);
-    const next = Math.round(L);
-    rushFrom = off; rushTo = off + (next - L - RUSH / MEET_PERIOD); rushAt = clock; lapOff = rushTo;
+    meetDue = reduce ? clock : clock + TURN;
     wake();
   });
 
@@ -587,7 +587,7 @@ export function orbHero(root: HTMLElement) {
 
     let dA = streakTo - streakAng;
     dA = Math.atan2(Math.sin(dA), Math.cos(dA));
-    streakAng = reduce ? streakTo : streakAng + dA * (1 - Math.exp(-dt * 4));
+    streakAng = reduce ? streakTo : streakAng + dA * (1 - Math.exp(-dt * 1.8));
     orbMat.uniforms.uStreak.value = streakAng;
 
     orb.rotation.y += dt * 0.05;
@@ -603,7 +603,7 @@ export function orbHero(root: HTMLElement) {
     rings.scale.setScalar(lerp(NIGHT_RING, 1, ss(0.48, 0.68, p)));
     // aim the crossing (eases toward a clicked point), hand back the original pose as the rings open up for the day,
     // then the slow side-to-side sway
-    aim.slerp(aimTo, reduce ? 1 : 1 - Math.exp(-dt * 2.2));
+    aim.slerp(aimTo, reduce ? 1 : 1 - Math.exp(-dt * 2.4));
     wobble.setFromAxisAngle(Y, reduce ? 0 : Math.sin(clock * 0.15) * 0.18);
     rings.quaternion.copy(ringQ.copy(aim).slerp(IDENT, ss(0.48, 0.68, p))).premultiply(wobble);
     const solid = ss(0.52, 0.68, p), orbit = 1 - ss(0.5, 0.62, p);
@@ -613,14 +613,13 @@ export function orbHero(root: HTMLElement) {
     orbA.visible = orbB.visible = orbit > 0.01;
 
     // both lights travel one lap per MEET_PERIOD and meet at the front crossing on every lap
-    const laps = lapsAt(clock);
+    const laps = (clock - FIRST_MEET) / MEET_PERIOD;
     const travel = laps * Math.PI * 2;
     for (const m of [solidA, orbitA]) m.uniforms.uHead.value = angA + travel;
     for (const m of [solidB, orbitB]) m.uniforms.uHead.value = angB - travel;
     const lap = Math.floor(laps);
-    // the glide ends in a meeting at the clicked point; while it runs, the regular meetings wait
-    if (rushAt >= 0 && clock - rushAt >= RUSH) { rushAt = -1; meet(clock); lastLap = Math.max(lastLap, Math.round(laps)); }
-    else if (!reduce && rushAt < 0 && lap > lastLap && laps >= 0) meet(clock);
+    if (!reduce && lap > lastLap && laps >= 0) meet(clock);
+    if (meetDue >= 0 && clock >= meetDue) { meetDue = -1; meet(clock); } // the clicked point, once the crossing is there
     lastLap = Math.max(lastLap, lap);
     const fa = clock - flashAt;
     const fm = flash.material as THREE.SpriteMaterial;
