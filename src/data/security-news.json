@@ -1,5 +1,30 @@
 [
   {
+    "date": "2026-11-12",
+    "region": "해외",
+    "type": "해킹",
+    "title": "Victorian Education Authority website hacked during Year 12 final exams | 9 News Australia",
+    "source": "9 News Australia",
+    "url": "https://www.youtube.com/watch?v=AhpzB_gEdb0",
+    "youtube": "AhpzB_gEdb0",
+    "auto": true
+  },
+  {
+    "date": "2026-11-12",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "'침략미화' 야스쿠니신사 사이트 해킹…1만4천500건 정보 유출",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFAtdG9FSk5NUk43NElrMkVYNFc4aWNGMDJ4dnZCcmMzZFZSZVJnVmZaRHdrUGtsYmVLalJPTjRaenpGbnhGZHlkWjdIU0ljanliVFpLU3dEOXFCRDDSAWBBVV95cUxOdVA4SU9ZRHNDbHdBMU9IOFJzVFNKYklMRnU2aEhrZXNqcVg0bXJoNTFtZzl0ajRKT1RiR1hSOTJWRk0tTXlhRjZzaGZULTBBRFdXX2NKRHh4SVc3Q3BGYjY?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-12-b52f6d5c.jpg",
+    "credit": {
+      "name": "Dan  Nelson",
+      "url": "https://www.pexels.com/photo/a-laptop-over-a-round-table-4973899/",
+      "id": 4973899
+    }
+  },
+  {
     "slug": "fsec-2026-11",
     "date": "2026-11-10",
     "region": "국내",
