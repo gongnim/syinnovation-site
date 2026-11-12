@@ -62,16 +62,28 @@ const sigs = [
 ];
 const devices = [{ n: '업무 PC', who: '직원 A' }, { n: '휴대폰', who: '직원 A' }, { n: '업무 PC', who: '직원 B' }];
 
-const pipe = ['요청 수신', '이상 탐지', '규칙 평가', '교차 검증', '정책', '권고'];
-const payItems = ['정상 결제', '큰 금액', '짧은 시간 반복 시도'];
-type Pay = { at: number; out: number; final?: boolean; pick: number; tone: 'ok' | 'warn' | 'stop'; label: string; risk: number; factors: [string, number][]; advice: string };
-const payOk: Pay[] = [
-  { at: 0, out: 99, final: true, pick: 0, tone: 'ok', label: '승인 권고', risk: 0.08, factors: [['거래 속도', 0.39], ['실패율', 0.36], ['가맹점 위험 등급', 0.13]], advice: '추가 조치 없이 승인해도 됩니다' },
+// payment fraud advice (tech doc v0.3, 10.4): who calls it, what it looks at, three cases, and the FDS rule check.
+// Amounts, counts and rule names are examples.
+const paySignals = [
+  { i: 'chart', t: '결제 금액' }, { i: 'cycle', t: '짧은 시간 결제 횟수' }, { i: 'lock', t: '결제 실패 횟수' }, { i: 'phone', t: '처음 보는 기기' },
+  { i: 'pin', t: '처음 거래하는 가맹점' }, { i: 'shield', t: '가맹점 위험 등급' }, { i: 'plan', t: '결제 시간대' }, { i: 'search', t: '위치와 신원의 모순' },
 ];
-const paySus: Pay[] = [
-  { at: 0, out: 5.4, pick: 1, tone: 'warn', label: '추가 확인 권고', risk: 0.18, factors: [['거래 금액', 0.69], ['거래 속도', 0.16], ['실패율', 0.13]], advice: '추가 인증을 거친 뒤 진행하세요' },
-  { at: 5.4, out: 99, final: true, pick: 2, tone: 'stop', label: '보류 권고', risk: 0.62, factors: [['실패율', 0.28], ['신규 기기', 0.24], ['거래 속도', 0.19]], advice: '자동 승인을 멈추고 본인 확인 뒤 진행하세요' },
+type Row = [string, string, boolean];
+const cases: Record<string, { rows: Row[]; tone: 'ok' | 'warn' | 'stop'; label: string; level: number; why: string[]; act: string }> = {
+  payok: { rows: [['기기', '평소 쓰는 휴대폰', true], ['금액', '3만 원, 평소 수준', true], ['가맹점', '자주 가는 카페', true], ['시도', '한 번에 결제', true]],
+    tone: 'ok', label: '승인 권고', level: 0, why: ['모든 신호가 평소와 같습니다'], act: '결제는 그대로 진행됩니다' },
+  paybig: { rows: [['기기', '평소 쓰는 휴대폰', true], ['금액', '250만 원, 평소보다 훨씬 큼', false], ['가맹점', '처음 거래하는 전자제품 매장', false], ['시도', '한 번에 결제', true]],
+    tone: 'warn', label: '추가 확인 권고', level: 1, why: ['금액이 평소보다 크게 벗어남', '처음 거래하는 가맹점'], act: '휴대폰으로 본인 확인을 거친 뒤 진행합니다' },
+  payrep: { rows: [['기기', '처음 보는 기기', false], ['금액', '5만 원씩', true], ['가맹점', '처음 거래하는 온라인몰', false], ['시도', '1분 사이 실패 6번 뒤 다시 시도', false]],
+    tone: 'stop', label: '보류 권고', level: 2, why: ['짧은 시간에 실패와 재시도가 몰림', '처음 보는 기기와 가맹점'], act: '거래를 멈추고 ARS나 앱 알림으로 본인 확인을 합니다' },
+};
+const fdsRules = [
+  { r: '해외 결제는 바로 차단', v: 'warn', l: '정상 결제도 많이 막음' },
+  { r: '고액 결제는 확인', v: 'ok', l: '잘 작동함' },
+  { r: '새 기기 결제는 확인', v: 'dim', l: '다른 규칙과 겹침' },
+  { r: '심야 결제는 확인', v: 'warn', l: '최근 효과가 줄어듦' },
 ];
+const fdsTips = ['해외 결제 규칙은 기준을 조정', '겹치는 규칙은 하나로 정리', '소액 반복 결제 규칙 추가'];
 
 const tracks = [
   { id: 'access', t: '직원 업무 접속', shots: [
@@ -84,8 +96,12 @@ const tracks = [
     { k: 'audit', t: '감사 기록', dur: 7.5, q: '누가 언제 무엇을 했는지 남을까요?', d: '허용, 추가 인증, 거부마다 누가 어디에 접속했고 왜 그렇게 판단했는지 남습니다. 기록은 앞 기록과 이어져 있어 중간을 바꾸면 드러납니다.' },
   ] },
   { id: 'payment', t: '결제 이상거래', shots: [
-    { k: 'payok', t: '정상 결제', dur: 6, q: '평범한 결제는 어떻게 처리될까요?', d: '여러 엔진을 거쳐 위험이 낮다고 판단되면 승인을 권고합니다.' },
-    { k: 'paysus', t: '수상한 결제', dur: 11, q: '수상한 결제는 어떻게 알려 줄까요?', d: '큰 금액에는 추가 확인을, 짧은 시간에 반복되는 시도에는 보류와 본인 확인을 권고합니다. 어떤 요인이 판단에 작용했는지 함께 보여 주고, 최종 결정은 결제사가 합니다.' },
+    { k: 'payflow', t: '누가 쓰나요', dur: 8.5, q: '결제 이상거래 판정은 누가, 언제 쓰나요?', d: '고객이 결제하면 결제대행사나 가맹점이 거래 정보와 기기 신호를 Trust Gateway에 보냅니다. Trust Gateway는 위험을 평가해 권고와 이유를 돌려주고, 최종 결정은 결제대행사나 가맹점이 합니다.' },
+    { k: 'paysig', t: '무엇을 보나요', dur: 7.5, q: '무엇을 보고 수상하다고 판단하나요?', d: '금액, 기기, 가맹점, 실패와 재시도처럼 여러 신호를 함께 봅니다. 이 고객의 평소 결제에서 얼마나 벗어났는지를 통계와 기계학습으로 계산합니다.' },
+    { k: 'payok', t: '평범한 결제', dur: 6.5, q: '평소와 같은 결제라면요?', d: '모든 신호가 평소와 같으면 승인을 권고하고, 결제는 그대로 진행됩니다.' },
+    { k: 'paybig', t: '평소보다 큰 금액', dur: 6.5, q: '평소보다 훨씬 큰 결제라면요?', d: '금액과 가맹점이 평소와 다르면 추가 확인을 권고합니다. 본인 확인만 거치면 정상 결제는 그대로 진행됩니다.' },
+    { k: 'payrep', t: '반복 시도', dur: 7, q: '카드 도용이 의심된다면요?', d: '처음 보는 기기에서 짧은 시간에 실패와 재시도가 몰리면 보류를 권고합니다. 결제대행사는 거래를 멈추고 본인 확인을 진행할 수 있습니다.' },
+    { k: 'fds', t: '기존 FDS 점검', dur: 8, q: '이미 쓰고 있는 이상거래 규칙은요?', d: '고객사가 운영하는 FDS 규칙의 효과, 놓치고 있는 유형, 시간에 따른 변화를 분석해 고칠 점을 추천합니다.' },
   ] },
 ];
 const at = (n: number) => `--at:${n}`;
@@ -220,28 +236,63 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
               </div>
             )}
 
-            {(s.k === 'payok' || s.k === 'paysus') && (
-              <div class="win-frame pay">
-                <div class="bar-top"><i></i><i></i><i></i><span>결제 이상거래 판정 (권고)</span></div>
-                <div class="pay-body">
-                  {(s.k === 'payok' ? payOk : paySus).map((p) => (
-                    <div class={`layer ${p.final ? 'in final' : 'win'}`} style={p.final ? at(p.at) : win(p.at, p.out)}>
-                      <ul class="pay-list">{payItems.map((it, k) => <li class={k === p.pick ? 'on' : ''}>{it}</li>)}</ul>
-                      <div class="pay-main">
-                        <p class="pending win" style={win(p.at, p.at + 2.3)}>판정 중</p>
-                        <div class="res in" style={at(p.at + 2.3)}>
-                          <span class={`badge ${p.tone}`}>{p.label}</span>
-                          <p class="k">위험 점수 <b class={p.tone}>{p.risk.toFixed(2)}</b></p>
-                          <span class={`meter ${p.tone}`}><i class="grow" style={`--v:${p.risk};${at(p.at + 2.4)}`}></i></span>
-                          <p class="k">판단에 작용한 요인</p>
-                          <ul class="factors">{p.factors.map(([n, v], j) => <li><span>{n}</span><span class="fbar"><i class="grow" style={`--v:${v};${at(p.at + 2.5 + j * 0.12)}`}></i></span><em>{v.toFixed(2)}</em></li>)}</ul>
-                          <p class="advice">{p.advice}</p>
-                          <p class="who">최종 결정은 결제사가 합니다</p>
-                        </div>
-                      </div>
-                      <ol class="pipe">{pipe.map((st, j) => <li class="lit" style={at(p.at + 0.4 + j * 0.32)}>{st}</li>)}</ol>
-                    </div>
-                  ))}
+            {s.k === 'payflow' && (
+              <div class="flow">
+                <div class="node in" style={at(0.2)}><span class="ico"><Icon name="phone" size={24} /></span><b>결제하는 고객</b><small>카드 · 간편결제</small></div>
+                <div class="link">
+                  <em class="in" style={at(0.6)}>결제 요청</em>
+                  <span class="lane fwd"><i class="dot" style={at(0.6)}></i></span>
+                  <span class="lane back"><i class="dot" style={at(6.2)}></i></span>
+                  <em class="in" style={at(6.6)}>승인 또는 본인 확인</em>
+                </div>
+                <div class="node in" style={at(0.4)}><span class="ico"><Icon name="server" size={24} /></span><b>결제대행사 · 가맹점</b><small>결제를 처리하는 곳</small><span class="decide in" style={at(5.2)}>최종 결정</span></div>
+                <div class="link">
+                  <em class="in" style={at(1.8)}>거래 정보 + 기기 신호</em>
+                  <span class="lane fwd"><i class="dot" style={at(1.8)}></i></span>
+                  <span class="lane back"><i class="dot" style={at(4)}></i></span>
+                  <em class="in" style={at(4.4)}>권고 + 이유</em>
+                </div>
+                <div class="node tg in" style={at(0.6)}><span class="ico"><Icon name="shield" size={24} /></span><b>Trust Gateway</b><small>위험 평가</small><span class="eval win" style={win(2.6, 4)}>평가 중</span><span class="recs in" style={at(4)}><i class="ok">승인</i><i class="warn">추가 확인</i><i class="stop">보류</i></span></div>
+              </div>
+            )}
+
+            {s.k === 'paysig' && (
+              <div class="sig-board">
+                <p class="sb-h in" style={at(0.2)}>이 고객의 평소 결제와 비교해 봅니다</p>
+                <ul class="sig-grid">{paySignals.map((g, j) => <li class="in" style={at(0.6 + j * 0.25)}><Icon name={g.i} size={18} /><span>{g.t}</span></li>)}</ul>
+                <p class="sb-m in" style={at(3.4)}>신호를 하나씩 따로 보지 않고 함께 봅니다. 평소에서 얼마나 벗어났는지 통계와 기계학습으로 계산합니다.</p>
+                <p class="sb-r in" style={at(5)}><span class="badge ok">승인</span><span class="badge warn">추가 확인</span><span class="badge stop">보류</span><span>중 하나를 이유와 함께 권고합니다</span></p>
+              </div>
+            )}
+
+            {Object.entries(cases).filter(([k]) => k === s.k).map(([, c]) => (
+              <div class="case-stage">
+                <div class="card in" style={at(0.2)}>
+                  <p class="card-h">결제 상황</p>
+                  <ul class="sit">{c.rows.map(([k, v, same], j) => <li class="in" style={at(0.5 + j * 0.35)}><span class="rk">{k}</span><span class="rv">{v}</span><em class={`tag ${same ? 'ok' : c.tone}`}>{same ? '평소와 같음' : '평소와 다름'}</em></li>)}</ul>
+                </div>
+                <span class="arrow in" style={at(2.2)} aria-hidden="true"></span>
+                <div class="card in" style={at(2.4)}>
+                  <p class="card-h">Trust Gateway 권고</p>
+                  <span class={`badge big ${c.tone}`}>{c.label}</span>
+                  <p class="k">위험도</p>
+                  <div class="level">{['낮음', '보통', '높음'].map((l, j) => <span class={j === c.level ? `on ${c.tone}` : ''}>{l}</span>)}</div>
+                  <p class="k">이유</p>
+                  <ul class="why-list">{c.why.map((w, j) => <li class="in" style={at(3.2 + j * 0.3)}>{w}</li>)}</ul>
+                  <p class="act in" style={at(4.4)}><b>결제대행사</b>{c.act}</p>
+                </div>
+              </div>
+            ))}
+
+            {s.k === 'fds' && (
+              <div class="win-frame log fds">
+                <div class="bar-top"><i></i><i></i><i></i><span>FDS 규칙 점검</span></div>
+                <div class="log-body">
+                  <div class="log-row rule head"><span>고객사 규칙</span><span>점검 결과</span></div>
+                  {fdsRules.map((x, j) => <div class="log-row rule in" style={at(0.4 + j * 0.6)}><span>{x.r}</span><span><em class={`tag ${x.v}`}>{x.l}</em></span></div>)}
+                  <div class="log-row rule miss in" style={at(3.2)}><span>규칙이 없는 유형</span><span><em class="tag stop">소액 결제를 여러 번 나누는 수법</em></span></div>
+                  <p class="sub-h in" style={at(4.4)}>고칠 점 추천</p>
+                  <ul class="tips">{fdsTips.map((t, j) => <li class="in" style={at(4.8 + j * 0.4)}><Icon name="check" size={14} />{t}</li>)}</ul>
                 </div>
               </div>
             )}
@@ -408,35 +459,71 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
   .sub-h { margin-top: .9em; color: #7f93b3; font-size: .9em; }
   .log-row.req { grid-template-columns: 6em minmax(0, 1fr) 4.5em minmax(0, 12em); }
 
-  /* payment console */
-  .pay { width: 94%; height: 92%; }
-  .pay-body { position: relative; }
-  .pay-body .layer { display: grid; grid-template-columns: 22% minmax(0, 1fr) 22%; gap: 1.4em; place-content: stretch; text-align: left; padding: 1.4em 1.6em; }
-  .pay-list { list-style: none; margin: 0; padding: 0; display: grid; align-content: start; gap: .6em; }
-  .pay-list li { padding: .7em .9em; border-radius: .7em; background: #151d2b; border: 1px solid #22304a; color: var(--mu); }
-  .pay-list li.on { border-color: #7fb2ff; color: var(--hi); }
-  .pay-main { position: relative; }
-  .pending { position: absolute; inset: 0; display: grid; place-items: center; color: var(--mu); }
-  .res { display: grid; gap: .55em; align-content: start; }
-  .badge { justify-self: start; font-weight: 700; padding: .35em .9em; border-radius: .6em; }
-  .badge.ok, .k b.ok { color: var(--mint); } .badge.ok { background: rgba(99, 214, 180, .14); }
-  .badge.warn, .k b.warn { color: var(--or); } .badge.warn { background: rgba(246, 136, 42, .16); }
-  .badge.stop, .k b.stop { color: var(--coral); } .badge.stop { background: rgba(255, 111, 97, .16); }
-  .k { color: var(--mu); font-size: .92em; }
-  .k b { font-size: 1.25em; margin-left: .3em; }
-  .meter, .fbar { display: block; height: .5em; border-radius: .3em; background: #1c2738; overflow: hidden; }
-  .meter i, .fbar i { display: block; height: 100%; transform-origin: left; transform: scaleX(var(--v)); }
-  .meter.ok i { background: var(--mint); } .meter.warn i { background: var(--or); } .meter.stop i { background: var(--coral); }
-  .fbar i { background: #7fb2ff; }
-  .factors { list-style: none; margin: 0; padding: 0; display: grid; gap: .4em; }
-  .factors li { display: grid; grid-template-columns: 8em minmax(0, 1fr) 3em; gap: .8em; align-items: center; }
-  .factors em { font-style: normal; color: var(--mu); text-align: right; font-family: ui-monospace, Consolas, monospace; }
-  .advice { margin-top: .3em; font-weight: 600; }
-  .who { color: var(--mu); font-size: .88em; }
-  .pipe { list-style: none; margin: 0; padding: 0; display: grid; align-content: start; gap: .5em; counter-reset: s; }
-  .pipe li { counter-increment: s; display: flex; align-items: center; gap: .6em; color: var(--hi); }
-  .pipe li::before { content: counter(s); display: grid; place-items: center; width: 1.7em; height: 1.7em; border-radius: 50%; background: #2b4a7a; font-size: .85em; flex: none; }
-  .pipe li:last-child::before { background: var(--mint); color: #08241c; }
+  /* payment: who uses it */
+  .flow { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .9fr) minmax(0, 1fr) minmax(0, .9fr) minmax(0, 1fr); align-items: center; gap: .6em; }
+  .node { position: relative; display: grid; justify-items: center; gap: .3em; padding: 1.4em .8em; border-radius: 1em; background: var(--panel); border: 1px solid var(--line); text-align: center; }
+  .node.tg { border-color: #4a6fa5; background: #101a2a; }
+  .node .ico { display: grid; place-items: center; width: 2.6em; height: 2.6em; border-radius: 50%; background: #18243a; color: #9fc2ff; }
+  .node small { color: var(--mu); font-size: .88em; }
+  .decide, .eval { margin-top: .4em; padding: .2em .8em; border-radius: 999px; font-size: .88em; font-weight: 700; }
+  .decide { background: rgba(127, 178, 255, .16); color: #9fc2ff; }
+  .eval { color: var(--mu); }
+  .recs { display: flex; flex-wrap: wrap; justify-content: center; gap: .3em; margin-top: .4em; }
+  .recs i { font-style: normal; font-size: .88em; font-weight: 700; padding: .15em .6em; border-radius: 999px; }
+  .recs .ok { background: rgba(99, 214, 180, .14); color: var(--mint); } .recs .warn { background: rgba(246, 136, 42, .16); color: var(--or); } .recs .stop { background: rgba(255, 111, 97, .16); color: var(--coral); }
+  .link { display: grid; gap: .45em; text-align: center; }
+  .link em { font-style: normal; color: var(--mu); font-size: .88em; }
+  .lane { position: relative; height: 2px; background: #2a3a55; }
+  .lane.fwd::after, .lane.back::after { content: ''; position: absolute; top: -4px; border: 5px solid transparent; }
+  .lane.fwd::after { right: -2px; border-left-color: #2a3a55; border-right: 0; }
+  .lane.back::after { left: -2px; border-right-color: #2a3a55; border-left: 0; }
+  .dot { position: absolute; top: -4px; width: 10px; height: 10px; border-radius: 50%; background: var(--mint); opacity: 0; }
+  .lane.back .dot { background: #9fc2ff; }
+  .shot.run .lane.fwd .dot { animation: d-fwd .9s ease-in-out calc(var(--at) * 1s) both; }
+  .shot.run .lane.back .dot { animation: d-back .9s ease-in-out calc(var(--at) * 1s) both; }
+  @keyframes d-fwd { 0% { left: 0; opacity: 1; } 85% { opacity: 1; } 100% { left: calc(100% - 10px); opacity: 0; } }
+  @keyframes d-back { 0% { left: calc(100% - 10px); opacity: 1; } 85% { opacity: 1; } 100% { left: 0; opacity: 0; } }
+
+  /* payment: what it looks at */
+  .sig-board { width: 90%; display: grid; gap: 1em; justify-items: center; text-align: center; }
+  .sb-h { font-size: 1.25em; font-weight: 700; }
+  .sig-grid { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6em; }
+  .sig-grid li { display: flex; align-items: center; gap: .5em; padding: .7em .8em; border-radius: .8em; background: var(--panel); border: 1px solid var(--line); color: #c9d6ea; text-align: left; }
+  .sig-grid li :global(svg) { flex: none; color: #9fc2ff; }
+  .sb-m { color: var(--mu); max-width: 40em; }
+  .sb-r { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5em; color: var(--mu); }
+
+  /* payment: three cases */
+  .case-stage { width: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 2.4em minmax(0, 1fr); align-items: center; gap: .8em; }
+  .card { padding: 1.2em 1.4em; border-radius: 1em; background: var(--panel); border: 1px solid var(--line); display: grid; gap: .5em; align-content: start; }
+  .card-h { color: #7f93b3; font-size: .9em; font-weight: 600; }
+  .sit { list-style: none; margin: 0; padding: 0; display: grid; gap: .55em; }
+  .sit li { display: grid; grid-template-columns: 3.4em minmax(0, 1fr) auto; gap: .6em; align-items: center; }
+  .rk { color: var(--mu); }
+  .arrow { justify-self: center; width: 1.2em; height: 1.2em; border-top: 3px solid #4a6fa5; border-right: 3px solid #4a6fa5; transform: rotate(45deg); }
+  .badge { justify-self: start; font-weight: 700; padding: .3em .8em; border-radius: .6em; font-size: .92em; }
+  .badge.big { font-size: 1.1em; }
+  .badge.ok { background: rgba(99, 214, 180, .14); color: var(--mint); }
+  .badge.warn { background: rgba(246, 136, 42, .16); color: var(--or); }
+  .badge.stop { background: rgba(255, 111, 97, .16); color: var(--coral); }
+  .k { color: var(--mu); font-size: .9em; }
+  .level { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .3em; }
+  .level span { text-align: center; padding: .3em 0; border-radius: .5em; background: #172131; color: #5d6f8c; font-size: .9em; font-weight: 600; }
+  .level .on.ok { background: rgba(99, 214, 180, .2); color: var(--mint); }
+  .level .on.warn { background: rgba(246, 136, 42, .22); color: var(--or); }
+  .level .on.stop { background: rgba(255, 111, 97, .22); color: var(--coral); }
+  .why-list { list-style: disc; margin: 0; padding-left: 1.2em; display: grid; gap: .2em; color: #c9d6ea; }
+  .act { margin-top: .3em; padding: .6em .8em; border-radius: .7em; background: #151d2b; display: grid; gap: .1em; }
+  .act b { color: #9fc2ff; font-size: .88em; }
+
+  /* payment: FDS rule check */
+  .fds { width: 90%; }
+  .log-row.rule { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .log-row.miss { border-bottom: 0; }
+  .tag.dim { background: rgba(127, 178, 255, .14); color: #9fc2ff; }
+  .tips { list-style: none; margin: .2em 0 0; padding: 0; display: grid; gap: .35em; }
+  .tips li { display: flex; align-items: center; gap: .5em; color: #c9d6ea; }
+  .tips li :global(svg) { color: var(--mint); flex: none; }
 
   /* narrow screens: fewer columns, same story */
   @container (max-width: 640px) {
@@ -461,10 +548,22 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
     .log-row.dev { grid-template-columns: 4.6em 4.4em minmax(0, 1fr) auto; }
     .log-row.req { grid-template-columns: minmax(0, 1fr) auto; }
     .log-row.req .why { grid-column: 1 / -1; color: var(--mu); }
-    .pay { width: 100%; }
-    .pay-body .layer { grid-template-columns: 1fr; padding: 1em; }
-    .pay-list, .pipe { display: none; }
-    .factors li { grid-template-columns: 6.5em minmax(0, 1fr) 2.6em; }
+    .flow { grid-template-columns: 1fr; gap: .3em; }
+    .node { grid-template-columns: auto 1fr; justify-items: start; text-align: left; padding: .6em .8em; column-gap: .7em; row-gap: 0; }
+    .node .ico { grid-row: span 2; width: 2.2em; height: 2.2em; }
+    .node .decide, .node .eval, .node .recs { grid-column: 2; justify-self: start; margin-top: .2em; }
+    .link { grid-template-columns: 1fr 1fr; gap: .2em .6em; }
+    .link .lane { display: none; }
+    .link em:first-child::before { content: '↓ '; }
+    .link em:last-child::before { content: '↑ '; }
+    .sig-board { width: 100%; gap: .7em; }
+    .sig-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .4em; }
+    .sig-grid li { padding: .45em .6em; }
+    .case-stage { grid-template-columns: 1fr; gap: .4em; }
+    .arrow { transform: rotate(135deg); width: .8em; height: .8em; }
+    .card { padding: .8em 1em; gap: .35em; }
+    .sit li { grid-template-columns: 3em minmax(0, 1fr) auto; }
+    .fds { width: 100%; }
   }
 
   .player { border-top: 1px solid rgba(255, 255, 255, .12); padding: 16px 20px 18px; }
