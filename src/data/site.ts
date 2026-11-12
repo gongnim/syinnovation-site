@@ -28,7 +28,7 @@ export const libraryNav = [
   { href: '/library/glossary', label: '용어집' },
 ];
 
-// 소식 has two pages, shown as tabs under its title
+// 소식 has two pages: the header shows them as its sub-menu and each page shows them as tabs
 export const newsNav = [
   { href: '/news', label: '사내소식' },
   { href: '/news/press', label: '언론보도' },
@@ -37,7 +37,7 @@ export const newsNav = [
 export const nav: { href: string; label: string; children?: { href: string; label: string }[] }[] = [
   { href: '/trust-gateway', label: 'Trust Gateway' },
   { href: '/ai-consulting', label: 'AI컨설팅' },
-  { href: '/news', label: '소식' },
+  { href: '/news', label: '소식', children: newsNav },
   { href: '/library', label: '자료실', children: libraryNav },
   { href: '/company', label: '회사소개' },
 ];

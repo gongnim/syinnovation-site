@@ -1,5 +1,5 @@
 ---
-// 소식 > 사내소식. Layout follows pribit.com/news: centred title, one featured story as a wide card, then a four-column
+// 소식 > 사내소식: our own news and articles about us. Layout follows pribit.com/news: centred title, one featured story as a wide card, then a four-column
 // grid of image cards with the source and title laid over the picture. Items without a picture get a brand-blue panel.
 import Base from '../../layouts/Base.astro';
 import PageTitle from '../../components/PageTitle.astro';
@@ -9,7 +9,8 @@ import NewsCard from '../../components/NewsCard.astro';
 import { sorted, kindLabel, fmt } from '../../data/news';
 import { newsNav } from '../../data/site';
 
-const [featured, ...rest] = sorted.filter((n) => n.kind === 'own');
+// company news and articles about us, newest first (security incidents live on 언론보도)
+const [featured, ...rest] = sorted;
 const href = (n: (typeof sorted)[number]) => n.url ?? `/news/${n.slug}`;
 const ext = (n: (typeof sorted)[number]) => (n.url ? { target: '_blank', rel: 'noopener' } : {});
 ---

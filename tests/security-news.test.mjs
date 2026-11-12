@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseRss, classify, isUnwanted, stories, merge, regionOf } from '../scripts/security-news-lib.mjs';
+import { parseRss, classify, isUnwanted, stories, merge, regionOf, pickVideos } from '../scripts/security-news-lib.mjs';
 
 const cfg = { exclude: ['롯데카드'], noise: ['대회', 'webinar'], minOutlets: 2, maxNewPerRun: 6, keepDays: 120 };
 
@@ -70,4 +70,17 @@ test('a headline naming an organisation already listed in the past week is not a
     item('금융보안원도 해킹에 뚫려…금융사 보안 정보 유출', '경향신문', '2026-11-11'),
   ];
   assert.equal(merge([listed], found, cfg, '2026-11-12').added, 0);
+});
+
+test('news videos: only incident videos from broadcaster channels, never ones already listed', () => {
+  const vcfg = { ...cfg, videoChannels: ['YTN', 'News'], maxVideosPerRun: 2 };
+  const listedRow = { date: '2026-11-10', region: '국내', type: '해킹', org: '금융보안원', title: '금융보안원 침입', source: 'x', url: 'https://x/3' };
+  const picked = pickVideos([listedRow], [
+    { id: 'a1', title: '쇼핑몰 회원정보 대량 유출 확인', channel: 'YTN', date: '2026-11-11', region: '국내' },
+    { id: 'a2', title: '해킹 대처법 브이로그', channel: '개인 채널', date: '2026-11-11', region: '국내' }, // not a broadcaster
+    { id: 'a3', title: '금융보안원 해킹 후속 보도', channel: 'KBS News', date: '2026-11-11', region: '국내' }, // already listed
+    { id: 'a4', title: '신제품 출시 소식', channel: 'YTN', date: '2026-11-11', region: '국내' }, // not an incident
+  ], vcfg);
+  assert.deepEqual(picked.map((v) => v.youtube), ['a1']);
+  assert.equal(picked[0].url, 'https://www.youtube.com/watch?v=a1');
 });

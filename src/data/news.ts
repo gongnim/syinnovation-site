@@ -66,7 +66,7 @@ export const news: NewsItem[] = [
     source: '신영이노베이션',
     title: '2026년 초기창업패키지 선정',
     date: '2026-10',
-    // illustrative picture (generated: a startup desk with a sealed document; no faces, text or logos)
+    // illustrative picture (generated: the kickoff orientation of a startup support programme; no faces, text or logos)
     image: '/images/news/startup-package-2026.webp',
     body: ['신영이노베이션이 2026년 초기창업패키지 지원 기업으로 선정되었습니다.'],
   },
@@ -76,16 +76,22 @@ export const news: NewsItem[] = [
     source: '신영이노베이션',
     title: '제2서울핀테크랩 입주',
     date: '2026-07',
+    // illustrative picture (generated: moving into a new office lounge; not the real building). Replace it with our own
+    // photo of the building once taken: the city's photos are KOGL type 4 (no commercial use)
+    image: '/images/news/fintechlab-move-in-2026.webp',
     body: ['신영이노베이션이 제2서울핀테크랩에 입주해 마포에서 새로운 사무실을 열었습니다.'],
   },
 ];
 
 export const sorted = [...news].sort((a, b) => b.date.localeCompare(a.date));
 
-// Security incidents for 언론보도: major hacks and leaks, each with our own one-line wording, the outlet and a link
-// to the original (no article text or photos). Hand-picked rows and rows from the automatic collector
+// Security incidents for 언론보도: major hacks and leaks, each with our own wording, the outlet and a link to the
+// original (no article text or photos are copied). Hand-picked rows and rows from the automatic collector
 // (scripts/collect-security-news.mjs) share src/data/security-news.json; hidden: true takes a row off the site.
 export interface Incident {
+  slug?: string; // hand-picked rows have our own page at /news/press/<slug>
+  image?: string; // the card picture: made for us, or for a video its YouTube thumbnail (never a news photo)
+  youtube?: string; // a news video: the YouTube id, played on our site
   date: string; // YYYY-MM-DD, or YYYY-MM when the day is not clear
   region: '국내' | '해외';
   org?: string; // the organisation hit (not shown; the collector uses it to skip stories already listed)

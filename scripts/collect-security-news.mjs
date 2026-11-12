@@ -1,16 +1,21 @@
-// Collect major security incident news for 소식 > 언론보도 and add it to src/data/security-news.json.
-// Runs on a schedule in GitHub Actions (.github/workflows/security-news.yml) or by hand:
-//   node scripts/collect-security-news.mjs          add new stories to the data file
+// Collect security incident news for 소식 > 언론보도 and add it to src/data/security-news.json.
+// Runs once a day in GitHub Actions (.github/workflows/security-news.yml) or by hand:
+//   node scripts/collect-security-news.mjs          add new stories (and make their pictures)
 //   node scripts/collect-security-news.mjs --dry    only print what would be added
-// Sources: Google News search feeds (no key needed) and, when NAVER_CLIENT_ID / NAVER_CLIENT_SECRET are set, the
-// Naver news search API. Word lists live in scripts/security-news.config.json. A row in the data file with
-// "hidden": true stays stored but is not shown on the site, and is never added again.
+// Sources: Google News search feeds (no key), the Naver news search API (NAVER_CLIENT_ID / NAVER_CLIENT_SECRET) and
+// YouTube news videos (YOUTUBE_API_KEY). Every card needs a picture: videos use their own thumbnail, and for each new
+// article a picture is made with the image API (OPENAI_API_KEY) and saved under public/images/security/auto/; the
+// site falls back to a picture of the same kind of incident if that fails. News photos are never copied.
+// Word lists live in scripts/security-news.config.json; a row with "hidden": true is kept off the site.
 import fs from 'node:fs';
-import { parseRss, isoDate, merge } from './security-news-lib.mjs';
+import crypto from 'node:crypto';
+import { parseRss, isoDate, merge, pickVideos } from './security-news-lib.mjs';
 
 const DATA = new URL('../src/data/security-news.json', import.meta.url);
+const PICS = new URL('../public/images/security/auto/', import.meta.url);
 const cfg = JSON.parse(fs.readFileSync(new URL('./security-news.config.json', import.meta.url), 'utf8'));
 const dry = process.argv.includes('--dry');
+const env = process.env;
 
 async function googleNews({ q, lang, region }) {
   const loc = lang === 'ko' ? 'hl=ko&gl=KR&ceid=KR:ko' : 'hl=en-US&gl=US&ceid=US:en';
@@ -20,31 +25,70 @@ async function googleNews({ q, lang, region }) {
   return parseRss(await res.text()).map((i) => ({ ...i, region }));
 }
 
+const strip = (s) => s.replace(/<[^>]+>/g, '').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+
 async function naverNews({ q, region }) {
-  const id = process.env.NAVER_CLIENT_ID, secret = process.env.NAVER_CLIENT_SECRET;
-  if (!id || !secret) return [];
+  if (!env.NAVER_CLIENT_ID || !env.NAVER_CLIENT_SECRET) return [];
   const query = q.split(' OR ').slice(0, 3).join(' '); // the API takes plain words
   const res = await fetch(`https://openapi.naver.com/v1/search/news.json?query=${encodeURIComponent(query)}&display=100&sort=date`, {
-    headers: { 'X-Naver-Client-Id': id, 'X-Naver-Client-Secret': secret },
+    headers: { 'X-Naver-Client-Id': env.NAVER_CLIENT_ID, 'X-Naver-Client-Secret': env.NAVER_CLIENT_SECRET },
   });
   if (!res.ok) throw new Error(`Naver: HTTP ${res.status}`);
   const { items = [] } = await res.json();
-  const strip = (s) => s.replace(/<[^>]+>/g, '').replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
   return items.map((i) => {
     const url = i.originallink || i.link;
     return { title: strip(i.title), url, source: new URL(url).hostname.replace(/^www\./, ''), date: isoDate(i.pubDate), region };
   });
 }
 
-const found = [];
+async function youtubeNews({ q, lang, region }) {
+  if (!env.YOUTUBE_API_KEY) return [];
+  const after = new Date(Date.now() - 3 * 864e5).toISOString();
+  const params = new URLSearchParams({
+    part: 'snippet', type: 'video', videoEmbeddable: 'true', order: 'date', maxResults: '25', q: q.replaceAll(' OR ', '|'),
+    publishedAfter: after, relevanceLanguage: lang, regionCode: lang === 'ko' ? 'KR' : 'US', key: env.YOUTUBE_API_KEY,
+  });
+  const res = await fetch(`https://www.googleapis.com/youtube/v3/search?${params}`);
+  if (!res.ok) throw new Error(`YouTube ${region}: HTTP ${res.status}`);
+  const { items = [] } = await res.json();
+  return items.map((i) => ({ id: i.id.videoId, title: strip(i.snippet.title), channel: strip(i.snippet.channelTitle), date: isoDate(i.snippet.publishedAt), region }));
+}
+
+// a picture made for one article: a scene that fits the story, in the site's documentary style
+async function makePicture(row) {
+  if (!env.OPENAI_API_KEY) return undefined;
+  const prompt = `A realistic editorial documentary photograph illustrating this cybersecurity news story: "${row.title}" (${row.type}). `
+    + 'Show a calm, believable scene that fits the field of the organisation and the kind of incident. Natural light, true-to-life colours, '
+    + 'slight film grain, shallow depth of field, wide composition with quiet space in the lower half. No logos, no brand names, '
+    + 'no readable text, numbers or signs, no identifiable faces (people only from behind, blurred or as hands).';
+  const res = await fetch('https://api.openai.com/v1/images/generations', {
+    method: 'POST', headers: { Authorization: `Bearer ${env.OPENAI_API_KEY}`, 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: 'gpt-image-2', prompt, size: '1536x1024', quality: 'medium', output_format: 'webp', output_compression: 80 }),
+  });
+  const j = await res.json();
+  if (j.error || !j.data?.[0]?.b64_json) { console.warn(`picture failed for "${row.title}": ${j.error?.message ?? 'no image'}`); return undefined; }
+  const name = `${row.date}-${crypto.createHash('sha1').update(row.url).digest('hex').slice(0, 8)}.webp`;
+  fs.mkdirSync(PICS, { recursive: true });
+  fs.writeFileSync(new URL(name, PICS), Buffer.from(j.data[0].b64_json, 'base64'));
+  return `/images/security/auto/${name}`;
+}
+
+const found = [], videos = [];
 for (const q of cfg.queries) {
   for (const get of [googleNews, ...(q.lang === 'ko' ? [naverNews] : [])]) {
     try { found.push(...(await get(q))); } catch (e) { console.warn(String(e.message ?? e)); }
   }
+  try { videos.push(...(await youtubeNews(q))); } catch (e) { console.warn(String(e.message ?? e)); }
 }
 
 const stored = JSON.parse(fs.readFileSync(DATA, 'utf8'));
 const { rows, added } = merge(stored, found, cfg);
-console.log(`fetched ${found.length} headlines; ${added} new ${added === 1 ? 'story' : 'stories'}`);
-for (const r of rows.slice(0, added)) console.log(`  + ${r.date} [${r.region} · ${r.type}] ${r.title} (${r.source})`);
-if (!dry && (added || rows.length !== stored.length)) fs.writeFileSync(DATA, JSON.stringify(rows, null, 2) + '\n');
+const newVideos = pickVideos(rows, videos, cfg);
+const fresh = [...newVideos, ...rows.slice(0, added)];
+console.log(`fetched ${found.length} headlines and ${videos.length} videos; ${added} new articles, ${newVideos.length} new videos`);
+for (const r of fresh) console.log(`  + ${r.date} [${r.region} · ${r.youtube ? '영상' : r.type}] ${r.title} (${r.source})`);
+if (dry) process.exit(0);
+
+for (const r of rows.slice(0, added)) r.image = await makePicture(r);
+const all = [...newVideos, ...rows];
+if (fresh.length || all.length !== stored.length) fs.writeFileSync(DATA, JSON.stringify(all, null, 2) + '\n');

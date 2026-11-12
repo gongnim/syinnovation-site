@@ -99,20 +99,47 @@ export function stories(items) {
  * minOutlets outlets, and anything already stored (same link, or the same story as a stored row); add at most
  * maxNewPerRun; drop collector rows older than keepDays. Hand-picked rows are never dropped or changed.
  */
-export function merge(stored, found, cfg, today = isoDate(new Date())) {
+/**
+ * A test for "is this already on the list?": the same link, a headline sharing two distinctive words with a stored
+ * row from within three days, or a headline naming the organisation of a stored row from within a week
+ * ("대한항공·아시아나항공", "Helpfeel (Gyazo)" name two each).
+ */
+export function listed(stored) {
   const known = new Set(stored.map((r) => r.url));
   const storedTokens = stored.map((r) => ({ date: r.date, tk: tokens(r.title) }));
-  // organisations of stored rows ("대한항공·아시아나항공", "Helpfeel (Gyazo)"): a new headline naming one within a week is the same story
   const storedOrgs = stored.flatMap((r) => (r.org ?? '').split(/[·,()]/).map((o) => o.trim().toLowerCase()).filter((o) => o.length >= 2).map((o) => ({ date: r.date, o })));
+  return ({ url, title, date }) => known.has(url)
+    || storedTokens.some((r) => days(r.date, date) <= 3 && shared(tokens(title), r.tk) >= 2)
+    || storedOrgs.some((r) => days(r.date, date) <= 7 && title.toLowerCase().includes(r.o));
+}
+
+export function merge(stored, found, cfg, today = isoDate(new Date())) {
+  const isListed = listed(stored);
   const fresh = [];
   for (const s of stories(found)) {
     const type = classify(s.title);
-    if (!type || isUnwanted(s.title, cfg, s.source) || s.outlets < minOutlets(cfg, s.region) || known.has(s.url)) continue;
-    if (storedTokens.some((r) => days(r.date, s.date) <= 3 && shared(s.tokens, r.tk) >= 2)) continue;
-    if (storedOrgs.some((r) => days(r.date, s.date) <= 7 && s.title.toLowerCase().includes(r.o))) continue;
+    if (!type || isUnwanted(s.title, cfg, s.source) || s.outlets < minOutlets(cfg, s.region) || isListed(s)) continue;
     fresh.push({ date: s.date, region: regionOf(s.title, s.region), type, title: s.title, source: s.source, url: s.url, auto: true });
   }
   fresh.sort((a, b) => b.date.localeCompare(a.date));
   const kept = stored.filter((r) => !r.auto || days(r.date, today) <= (cfg.keepDays ?? 120));
   return { rows: [...fresh.slice(0, cfg.maxNewPerRun ?? 6), ...kept], added: Math.min(fresh.length, cfg.maxNewPerRun ?? 6) };
+}
+
+/**
+ * News videos to add: about an incident, from a broadcaster's channel (cfg.videoChannels, matched in the channel
+ * name), not excluded, not already listed; newest first, at most cfg.maxVideosPerRun.
+ * videos: { id, title, channel, date, region }
+ */
+export function pickVideos(stored, videos, cfg) {
+  const isListed = listed(stored);
+  const channels = (cfg.videoChannels ?? []).map((c) => c.toLowerCase());
+  const seen = new Set();
+  return videos
+    .map((v) => ({ ...v, url: `https://www.youtube.com/watch?v=${v.id}`, type: classify(v.title) }))
+    .filter((v) => v.type && !isUnwanted(v.title, cfg, v.channel) && channels.some((c) => v.channel.toLowerCase().includes(c)))
+    .filter((v) => !isListed(v) && !seen.has(v.id) && seen.add(v.id))
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, cfg.maxVideosPerRun ?? 2)
+    .map((v) => ({ date: v.date, region: regionOf(v.title, v.region), type: v.type, title: v.title, source: v.channel, url: v.url, youtube: v.id, auto: true }));
 }

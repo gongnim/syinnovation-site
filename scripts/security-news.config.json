@@ -1,5 +1,5 @@
 {
-  "_about": "Settings for scripts/collect-security-news.mjs. Edit the word lists here; the collector reads them on every run.",
+  "_about": "Settings for scripts/collect-security-news.mjs (runs once a day). Edit the word lists here; the collector reads them on every run.",
   "queries": [
     {
       "region": "국내",
@@ -17,7 +17,34 @@
     "해외": 3
   },
   "maxNewPerRun": 6,
+  "maxVideosPerRun": 2,
   "keepDays": 120,
+  "videoChannels": [
+    "뉴스",
+    "News",
+    "YTN",
+    "KBS",
+    "MBC",
+    "SBS",
+    "JTBC",
+    "연합",
+    "채널A",
+    "TV조선",
+    "MBN",
+    "BBC",
+    "CNN",
+    "Reuters",
+    "Bloomberg",
+    "CNBC",
+    "NBC",
+    "ABC",
+    "CBS",
+    "Sky",
+    "DW",
+    "NHK",
+    "Al Jazeera",
+    "France 24"
+  ],
   "exclude": [
     "KB국민카드",
     "국민카드",

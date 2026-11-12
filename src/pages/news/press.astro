@@ -1,34 +1,30 @@
 ---
-// 소식 > 언론보도: articles about us as cards, then major security incidents (hacks, leaks, ransomware) as a list.
-// Incident rows carry our own one-line wording, the outlet, the date and a link to the original; no article text or
-// photos are copied. Rows come from src/data/security-news.json (hand-picked and from the automatic collector).
+// 소식 > 언론보도: major security incidents at home and abroad, as photo cards. Every card has a picture: hand-picked
+// incidents and collected articles use pictures made for us (never news photos), news videos use their YouTube
+// thumbnail. Hand-picked incidents open our own page (/news/press/<slug>), collected articles open the original,
+// and videos play here in a large player. Rows come from src/data/security-news.json.
 import Base from '../../layouts/Base.astro';
 import PageTitle from '../../components/PageTitle.astro';
 import Icon from '../../components/Icon.astro';
 import ResourceTabs from '../../components/ResourceTabs.astro';
-import NewsCard from '../../components/NewsCard.astro';
-import { sorted, security, fmt } from '../../data/news';
+import { security, fmt } from '../../data/news';
 import { newsNav } from '../../data/site';
 
-const press = sorted.filter((n) => n.kind === 'press');
-const PAGE = 10;
+const PAGE = 12;
 const regions = ['국내', '해외'].filter((r) => security.some((n) => n.region === r));
+// a collected article whose picture is missing borrows one made for the same kind of incident
+const byType = new Map<string, string>();
+for (const n of security) if (n.slug && n.image && !byType.has(n.type)) byType.set(n.type, n.image);
+const picture = (n: (typeof security)[number]) =>
+  n.youtube ? `https://i.ytimg.com/vi/${n.youtube}/hqdefault.jpg` : n.image ?? byType.get(n.type) ?? [...byType.values()][0];
 ---
-<Base title="언론보도" description="신영이노베이션 관련 보도와 국내외 주요 보안 사고 소식." tone="light">
+<Base title="언론보도" description="국내외에서 보도된 주요 해킹·정보 유출 사고와 보안 뉴스." tone="light">
   <PageTitle title="소식">신영이노베이션의 소식과 언론 보도,<br />함께 볼 만한 보안 이슈를 놓치지 마세요.<ResourceTabs slot="after" items={newsNav} label="소식 메뉴" /></PageTitle>
 
   <section class="news">
     <div class="wrap">
-      {press.length > 0 && (
-        <>
-          <h2 class="grp">신영이노베이션 보도</h2>
-          <ul class="grid">{press.map((n) => <li><NewsCard item={n} /></li>)}</ul>
-        </>
-      )}
-
-      <div class="sec-head">
-        <h2 class="grp">보안 사고</h2>
-        <p class="grp-lead">국내외에서 보도된 주요 해킹·정보 유출 사고입니다. 제목을 누르면 원문 기사로 이동합니다.</p>
+      <div class="head">
+        <p class="lead-s">국내외에서 보도된 주요 해킹·정보 유출 사고와 보안 뉴스입니다.</p>
         {regions.length > 1 && (
           <div class="chips" role="group" aria-label="지역">
             <button type="button" class="chip" data-region="" aria-pressed="true">전체</button>
@@ -38,81 +34,94 @@ const regions = ['국내', '해외'].filter((r) => security.some((n) => n.region
       </div>
 
       {security.length > 0
-        ? <ul class="incidents">
-            {security.map((n, i) => (
-              <li data-region={n.region} hidden={i >= PAGE}>
-                <a class="inc" href={n.url} target="_blank" rel="noopener">
-                  <span class="inc-date">{fmt(n.date)}</span>
-                  <span class="inc-tags"><span class:list={['tag', n.region === '해외' ? 'abroad' : 'home']}>{n.region}</span><span class="tag">{n.type}</span></span>
-                  <span class="inc-main">
-                    <span class="inc-title">{n.title}</span>
-                    {n.summary && <span class="inc-sum">{n.summary}</span>}
+        ? <ul class="cards">
+            {security.map((n, i) => {
+              const inner = (
+                <>
+                  <span class="media"><img src={picture(n)} alt="" loading="lazy" width="768" height="512" />{n.youtube && <span class="play"><Icon name="play" size={20} /></span>}</span>
+                  <span class="over">
+                    <span class="tags"><span class="tag">{n.region}</span><span class="tag">{n.youtube ? '영상' : n.type}</span></span>
+                    <span class="title">{n.title}</span>
+                    <span class="meta">{n.source}<span class="dot" aria-hidden="true"></span>{fmt(n.date)}{!n.slug && !n.youtube && <Icon name="external" size={13} label="새 창에서 원문 열기" />}</span>
                   </span>
-                  <span class="inc-src">{n.source} <Icon name="external" size={14} label="새 창에서 원문 열기" /></span>
-                </a>
-              </li>
-            ))}
+                </>
+              );
+              return (
+                <li data-region={n.region} hidden={i >= PAGE}>
+                  {n.youtube
+                    ? <button type="button" class="pcard" data-yt={n.youtube} data-title={n.title} aria-label={`${n.title} 영상 재생`}>{inner}</button>
+                    : n.slug
+                      ? <a class="pcard" href={`/news/press/${n.slug}`}>{inner}</a>
+                      : <a class="pcard" href={n.url} target="_blank" rel="noopener">{inner}</a>}
+                </li>
+              );
+            })}
           </ul>
-        : <p class="empty">아직 정리된 사고 소식이 없습니다.</p>}
+        : <p class="empty">아직 정리된 보안 소식이 없습니다.</p>}
       {security.length > PAGE && <button type="button" class="more" data-page={PAGE}>더보기</button>}
     </div>
   </section>
+
+  <!-- news videos play here, in the YouTube player (privacy-enhanced domain) -->
+  <dialog class="player" aria-label="영상 재생">
+    <button type="button" class="player-close" aria-label="닫기">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+    </button>
+    <div class="player-box"><div class="player-frame"></div></div>
+  </dialog>
 </Base>
 
 <style>
   .news { padding-bottom: var(--section-y); }
-  .grp { margin: 0 0 22px; font-size: 22px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink); }
-  .grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-
-  .sec-head { margin-top: clamp(56px, 7vw, 88px); }
-  .sec-head .grp { margin-bottom: 8px; }
-  .grp-lead { margin: 0 0 18px; font-size: 15px; line-height: 1.6; color: var(--ink-2); }
-  .chips { display: flex; gap: 8px; margin-bottom: 18px; }
+  .head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-bottom: 24px; }
+  .lead-s { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
+  .chips { display: flex; gap: 8px; }
   .chip { flex: none; white-space: nowrap; height: 36px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2); cursor: pointer; }
   .chip:hover { border-color: var(--ink-3); }
   .chip[aria-pressed='true'] { border-color: var(--ink); background: var(--ink); color: #fff; }
 
-  /* one incident per row: date, where and what kind, our one-line wording, and the outlet */
-  .incidents { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--ink); }
-  .incidents li { border-bottom: 1px solid var(--line); }
-  .inc { display: grid; grid-template-columns: 96px 150px minmax(0, 1fr) auto; gap: 20px; align-items: center; padding: 18px 4px; color: inherit; }
-  .inc-date { font-size: 14px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
-  .inc-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag { padding: 3px 9px; border-radius: 999px; background: var(--mist); font-size: 12px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
-  .tag.home { background: #e8eff8; color: var(--blue); }
-  .tag.abroad { background: var(--orange-soft); color: var(--orange-ink); }
-  .inc-main { display: grid; gap: 4px; }
-  .inc-title { font-size: 16px; font-weight: 700; line-height: 1.45; color: var(--ink); }
-  .inc-sum { font-size: 14px; line-height: 1.55; color: var(--ink-2); }
-  .inc-src { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: var(--ink-2); white-space: nowrap; }
-  .inc:hover .inc-title { color: var(--blue); }
+  /* photo cards, the same family as 사내소식: the picture fills the card, the words sit on a dark band */
+  .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+  .pcard { position: relative; display: block; width: 100%; aspect-ratio: 1 / 1; padding: 0; border: 0; border-radius: 25px; overflow: hidden; background: #16263c; color: #fff; font: inherit; text-align: left; cursor: pointer; }
+  .media { position: absolute; inset: 0; display: grid; place-items: center; }
+  .media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .6s var(--ease); }
+  .pcard:hover img { transform: scale(1.04); }
+  .play { position: relative; top: -14%; display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: rgb(255 255 255 / .92); color: var(--ink); }
+  .over {
+    position: absolute; inset: auto 0 0 0; display: grid; gap: 10px; padding: 80px 22px 22px;
+    background: linear-gradient(to top, rgba(10,20,40,.92), rgba(10,20,40,.55) 55%, rgba(10,20,40,0));
+  }
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag { padding: 3px 9px; border-radius: 999px; background: rgb(255 255 255 / .16); font-size: 12px; font-weight: 600; color: #fff; white-space: nowrap; }
+  .title { font-size: 17px; font-weight: 700; line-height: 1.45; color: #fff; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .meta { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: rgb(255 255 255 / .75); }
+  .dot { width: 3px; height: 3px; border-radius: 50%; background: rgb(255 255 255 / .5); }
   .empty { padding: 32px 0; color: var(--ink-3); }
-  .more { display: block; margin: 28px auto 0; padding: 0 26px; height: 46px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink); cursor: pointer; }
+  .more { display: block; margin: 32px auto 0; padding: 0 26px; height: 46px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink); cursor: pointer; }
   .more:hover { border-color: var(--ink); }
 
-  @media (max-width: 1023px) {
-    .grid { grid-template-columns: repeat(2, 1fr); }
-    .inc { grid-template-columns: 96px minmax(0, 1fr) auto; }
-    .inc-tags { grid-column: 2; grid-row: 1; }
-    .inc-main { grid-column: 1 / -1; }
-    .inc-src { grid-column: 3; grid-row: 1; }
-  }
+  .player { width: min(1120px, 92vw); max-width: none; max-height: none; padding: 56px 0 0; border: 0; background: transparent; overflow: visible; }
+  .player::backdrop { background: rgb(8 14 26 / .84); }
+  .player-box { position: relative; aspect-ratio: 16 / 9; max-height: 84vh; margin: 0 auto; border-radius: 14px; overflow: hidden; background: #000; }
+  .player-frame :global(iframe) { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  .player-close { position: absolute; top: 0; right: 0; display: grid; place-items: center; width: 42px; height: 42px; border: 0; border-radius: 50%; background: rgb(255 255 255 / .14); color: #fff; cursor: pointer; }
+  :global(html:has(.player[open])) { overflow: hidden; }
+
+  @media (max-width: 1023px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 559px) {
-    .grid { grid-template-columns: 1fr; }
-    .inc { grid-template-columns: auto minmax(0, 1fr); gap: 8px 12px; padding: 16px 2px; }
-    .inc-date { grid-column: 1; grid-row: 1; }
-    .inc-tags { grid-column: 2; grid-row: 1; justify-content: flex-end; }
-    .inc-main { grid-column: 1 / -1; grid-row: 2; }
-    .inc-src { grid-column: 1 / -1; grid-row: 3; }
+    .cards { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+    .player { width: 100vw; }
+    .player-box { border-radius: 0; }
+    .player-close { right: 12px; }
   }
 </style>
 
 <script>
-  // 국내 / 해외 filter and 더보기: PAGE rows at first, PAGE more per click
-  const list = document.querySelector<HTMLElement>('.incidents');
+  // 국내 / 해외 filter and 더보기: PAGE cards at first, PAGE more per click
+  const list = document.querySelector<HTMLElement>('.cards');
   const more = document.querySelector<HTMLButtonElement>('.more');
   const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.chip'));
-  const PAGE = Number(more?.dataset.page ?? 10);
+  const PAGE = Number(more?.dataset.page ?? 12);
   let region = '', limit = PAGE;
   const render = () => {
     if (!list) return;
@@ -129,4 +138,20 @@ const regions = ['국내', '해외'].filter((r) => security.some((n) => n.region
     chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
     render();
   }));
+
+  // news videos: open the large player and load YouTube only when asked; closing it removes the player
+  const player = document.querySelector<HTMLDialogElement>('.player')!;
+  const frame = player.querySelector<HTMLElement>('.player-frame')!;
+  document.querySelectorAll<HTMLButtonElement>('button.pcard[data-yt]').forEach((b) => b.addEventListener('click', () => {
+    const f = document.createElement('iframe');
+    f.src = `https://www.youtube-nocookie.com/embed/${b.dataset.yt}?autoplay=1&rel=0`;
+    f.title = b.dataset.title ?? '영상';
+    f.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+    f.allowFullscreen = true;
+    frame.replaceChildren(f);
+    player.showModal();
+  }));
+  player.querySelector('.player-close')!.addEventListener('click', () => player.close());
+  player.addEventListener('click', (e) => { if (e.target === player) player.close(); });
+  player.addEventListener('close', () => frame.replaceChildren());
 </script>
