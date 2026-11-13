@@ -245,7 +245,7 @@ export const glossary: Term[] = [
     b: '정상 기준을 세워 두고 크게 벗어난 접속이나 거래를 표시합니다. 기준을 잘못 잡으면 오탐이 늘어납니다.', rel: ['fds', 'false-positive'] },
   { id: 'fds', cat: 'detect', t: '이상거래탐지 시스템', en: 'FDS', s: '결제와 금융 거래에서 평소와 다른 거래를 찾아내는 시스템',
     b: '기기, 위치, 금액, 거래 패턴을 보고 위험한 거래를 골라냅니다. 카드사와 은행이 부정 사용을 막는 핵심 장치입니다.',
-    tg: 'Trust Gateway의 결제 위험 평가는 승인, 추가 확인, 보류 가운데 하나를 권고하며, 최종 결정은 결제사가 합니다.', rel: ['anomaly', 'risk-score'] },
+    tg: 'Trust Gateway는 결제 이상거래를 탐지해 고객사 FDS에 알림과 권고(승인, 추가 인증, 거부 권고)를 근거와 함께 보내고, 사후 리포트로 FDS 규칙을 진단합니다. 결제 승인과 거절은 고객사가 정합니다.', rel: ['anomaly', 'risk-score'] },
   { id: 'false-positive', cat: 'detect', t: '오탐·미탐', en: 'False Positive · Negative', s: '정상을 위험으로 잘못 보는 것과 위험을 놓치는 것',
     b: '오탐이 많으면 사용자가 불편하고, 미탐이 많으면 사고가 납니다. 둘 사이 균형을 맞추는 것이 탐지 설계의 핵심입니다.', rel: ['anomaly', 'explainability'] },
   { id: 'audit-log', aka: ['감사증적', 'Audit Trail'], cat: 'detect', t: '감사 로그', en: 'Audit Log', s: '누가 언제 무엇을 했는지 남기는 기록',
