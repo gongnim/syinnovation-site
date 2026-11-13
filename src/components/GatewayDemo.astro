@@ -1,5 +1,5 @@
 ---
-// The product screens in the Trust Gateway hero (TgHero; was the "제품 화면으로 보기" section until 2026-11-13): the demo-environment screens of Trust Gateway, redrawn in code so they stay sharp at any size,
+// The product screens on /trust-gateway (TgDemo, the "제품 화면으로 보기" section above the admin console): the demo-environment screens of Trust Gateway, redrawn in code so they stay sharp at any size,
 // carry no real host, account or id, and use the tech doc's terms. Short scenes in two tabs (employee access,
 // payment fraud advice) play in a loop once the section is on screen, with a chapter bar and a pause button.
 // Timing: elements with .in appear at --at (seconds); .win layers show from --at to --out. The scene's class "run"
@@ -291,7 +291,7 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
 
 <style>
   .demo { --hi: #e6eefc; --mu: #8fa3c2; --mint: #63d6b4; --or: #f6882a; --coral: #ff6f61; --line: #2a3a55; --panel: #0f141c; }
-  /* it sits in the dark Trust Gateway hero (TgHero) */
+  /* it sits in a dark section (TgDemo) */
   .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
   .tabs button {
     height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .24); background: transparent; cursor: pointer;

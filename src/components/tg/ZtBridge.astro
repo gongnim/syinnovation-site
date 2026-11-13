@@ -2,18 +2,20 @@
 // "Zero Trust is the principle, Trust Gateway is the solution (솔루션)." Many visitors take 제로트러스트 for our product name;
 // this band says the difference once, plainly, and draws each principle across to the Trust Gateway feature that
 // carries it out. Used on /trust-gateway, where the NIST mapping goes in the slot (it left home on 2026-11-13).
-interface Props { id?: string; tone?: 'white' | 'mist' }
-const { id, tone = 'white' } = Astro.props;
+// first: it opens the page, so its heading is the page's h1 and it clears the fixed header
+interface Props { id?: string; tone?: 'white' | 'mist'; first?: boolean }
+const { id, tone = 'white', first = false } = Astro.props;
+const H = first ? 'h1' : 'h2';
 const rows = [
   { p: '아무도 믿지 않는다', pe: 'Never Trust', t: '비밀번호만으로는 열리지 않습니다', td: '기기 인증서와 휴대폰 생체 확인을 함께 요구합니다' },
   { p: '매번 확인한다', pe: 'Always Verify', t: '로그인 뒤에도 요청마다 다시 판단합니다', td: '다중 신호 교차 검증 결과를 판단 엔진이 단계별로 평가합니다' },
   { p: '필요한 만큼만 연다', pe: 'Least Privilege', t: '허락된 앱과 경로만 엽니다', td: '사내망 전체가 아니라 정책에 지정한 곳만 열립니다' },
 ];
 ---
-<section class:list={['section', { mist: tone === 'mist' }]} id={id}>
+<section class:list={['section', { mist: tone === 'mist', first }]} id={id}>
   <div class="wrap">
     <div class="head-center reveal">
-      <h2 class="h2">Trust Gateway는 제로트러스트 <br />설계 원칙 기반 솔루션입니다</h2>
+      <H class="h2">Trust Gateway는 제로트러스트 <br />설계 원칙 기반 솔루션입니다</H>
     </div>
 
     <div class="zt reveal">
@@ -40,6 +42,7 @@ const rows = [
 </section>
 
 <style>
+  .section.first { padding-top: calc(var(--header-h) + clamp(88px, 9vw, 120px)); }
   /* three columns: the principle, a line drawn across, the product feature that carries it out */
   .zt { display: grid; grid-template-columns: minmax(0, 1fr) clamp(56px, 9vw, 120px) minmax(0, 1.15fr); align-items: stretch; row-gap: 12px; max-width: 1080px; margin: 0 auto; }
   .zt-h { display: grid; gap: 6px; padding: 0 4px 8px; }

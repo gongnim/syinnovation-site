@@ -1,12 +1,12 @@
 ---
-// Trust Gateway: the page walks a buyer from "why now" to "how we start". Hero with the product screens, zero trust vs
-// Trust Gateway (with the NIST mapping), what a leaked account opens (VPN vs Trust Gateway), attacks
-// and how they stop, where it is used, what an admin sees, how to start, then
+// Trust Gateway: the page walks a buyer from "why now" to "how we start". It opens with zero trust vs Trust Gateway
+// (with the NIST mapping), then what a leaked account opens (VPN vs Trust Gateway), attacks
+// and how they stop, where it is used, the product screens, what an admin sees, how to start, then
 // questions. Facts follow tech doc v0.3 and the product's demo page; web access only (no SSH/RDP).
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
-import TgHero from '../components/tg/TgHero.astro';
+import TgDemo from '../components/tg/TgDemo.astro';
 import TgVpnSwitch from '../components/tg/TgVpnSwitch.astro';
 import TgConsole from '../components/tg/TgConsole.astro';
 import ZtBridge from '../components/tg/ZtBridge.astro';
@@ -50,10 +50,8 @@ const faq = [
   { q: '기록은 어디에, 얼마나 남나요?', a: '판정 기록은 앞 기록과 해시로 이어져 중간을 바꾸면 드러납니다. 삭제와 덮어쓰기가 잠긴 저장소에 5년 동안 보관하고, 관리 콘솔에서 판단 근거를 문장으로 볼 수 있습니다.' },
 ];
 ---
-<Base title="Trust Gateway" description="제로트러스트 원칙을 업무 접속에 적용한 신영이노베이션의 솔루션, Trust Gateway. PC는 기기를, 휴대폰은 사람을 증명하고 요청마다 다시 확인합니다.">
-  <TgHero />
-
-  <ZtBridge id="zt">
+<Base title="Trust Gateway" tone="light" description="제로트러스트 원칙을 업무 접속에 적용한 신영이노베이션의 솔루션, Trust Gateway. PC는 기기를, 휴대폰은 사람을 증명하고 요청마다 다시 확인합니다.">
+  <ZtBridge id="zt" first>
     <div class="map reveal">
       <h3 class="h3">공개된 기준대로 만들었습니다</h3>
       <p class="body">제로트러스트 아키텍처(NIST SP 800-207)는 접근 요청을 가로채는 PEP, 허용 여부를 정하는 PDP, 판단에 필요한 정보를 주는 PIP로 나뉩니다. Trust Gateway는 이 구조를 그대로 따릅니다.</p>
@@ -113,6 +111,8 @@ const faq = [
       </div>
     </div>
   </section>
+
+  <TgDemo />
 
   <TgConsole />
 
