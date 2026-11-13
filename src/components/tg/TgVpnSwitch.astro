@@ -1,0 +1,165 @@
+---
+// Trust Gateway page: what one leaked account opens, with a switch between a classic VPN and Trust Gateway.
+// On first view the VPN case plays (the servers open one by one), then it switches to Trust Gateway once, unless the
+// visitor already picked a side. The table under it says the same thing in words.
+import Icon from '../Icon.astro';
+
+const servers = ['그룹웨어', '인사 시스템', '회계', '고객 DB', '개발 서버', '파일 서버'];
+const compare = [
+  { k: '확인 시점', vpn: '처음 접속할 때 한 번', tg: '요청마다' },
+  { k: '열리는 범위', vpn: '사내망 전체', tg: '허락된 앱과 경로만' },
+  { k: '본인 확인', vpn: '아이디와 비밀번호', tg: '기기 인증서 + 휴대폰 생체 확인' },
+  { k: '위치 확인', vpn: '없음', tg: 'PC · 휴대폰 · 네트워크 다중 신호 교차 검증' },
+  { k: '외부 노출', vpn: 'VPN 장비가 인터넷에 열려 있음', tg: '사내망 들어오는 포트 0' },
+];
+---
+<section class="section mist" id="vpn">
+  <div class="wrap">
+    <div class="head-center reveal">
+      <h2 class="h2">계정 하나가 새면,<br />어디까지 열릴까요</h2>
+      <p class="lead">도용된 직원 계정으로 들어온다고 해 봅시다.<br />기존 VPN과 Trust Gateway를 바꿔 가며 보세요.</p>
+    </div>
+
+    <div class="vs reveal" data-mode="vpn">
+      <div class="vs-tabs" role="group" aria-label="비교 대상">
+        <button type="button" data-m="vpn" aria-pressed="true">기존 VPN</button>
+        <button type="button" data-m="tg" aria-pressed="false">Trust Gateway</button>
+      </div>
+
+      <div class="stage">
+        <div class="who">
+          <span class="ico"><Icon name="user" size={22} /></span>
+          <b>도용된 직원 계정</b>
+          <ul>
+            <li class="ok"><Icon name="check" size={16} />아이디 · 비밀번호</li>
+            <li class="no only-tg">기기 인증서 없음</li>
+            <li class="no only-tg">휴대폰 생체 확인 없음</li>
+          </ul>
+        </div>
+        <div class="pipe in"><i></i></div>
+        <div class="gate">
+          <span class="ico"><Icon name="shield" size={22} /></span>
+          <b><span class="only-vpn">VPN 장비</span><span class="only-tg">Trust Gateway</span></b>
+          <span class="g-s only-vpn">로그인 한 번이면 통과</span>
+          <span class="g-s only-tg">요청마다 확인, 여기서 거부</span>
+          <span class="stop only-tg" aria-hidden="true"></span>
+        </div>
+        <div class="pipe out"><i></i></div>
+        <div class="net">
+          <p class="net-t">사내망</p>
+          <ul class="srv">
+            {servers.map((s, i) => (
+              <li style={`--i:${i}`}><Icon name="server" size={18} /><span>{s}</span><em class="only-vpn">열림</em><em class="only-tg">보이지 않음</em></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <p class="cap">
+        <span class="only-vpn">VPN은 한 번 들어오면 사내망 전체가 보입니다. 계정 하나로 옆 서버까지 넘어갈 수 있습니다.</span>
+        <span class="only-tg">기기 인증서와 휴대폰 확인이 없으면 게이트웨이에서 멈춥니다. 직원 본인이 접속해도 허락된 앱만 열립니다.</span>
+      </p>
+
+      <div class="cmp-wrap">
+        <table class="cmp">
+          <thead><tr><th scope="col">항목</th><th scope="col" class="c-vpn">기존 VPN</th><th scope="col" class="c-tg">Trust Gateway</th></tr></thead>
+          <tbody>{compare.map((c) => (<tr><th scope="row">{c.k}</th><td class="c-vpn">{c.vpn}</td><td class="c-tg">{c.tg}</td></tr>))}</tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .vs { --coral: #d4553f; max-width: 1040px; margin: 0 auto; background: #fff; border-radius: var(--r-xl); padding: clamp(20px, 3vw, 36px); }
+  .vs-tabs { display: flex; gap: 6px; padding: 6px; margin: 0 auto 28px; width: fit-content; background: var(--paper-2); border-radius: 999px; }
+  .vs-tabs button { border: 0; background: transparent; padding: 10px 22px; border-radius: 999px; font: inherit; font-weight: 600; color: var(--ink-2); cursor: pointer; transition: background-color .3s var(--ease), color .3s var(--ease); }
+  .vs-tabs button[aria-pressed='true'] { background: var(--ink); color: #fff; }
+  .vs-tabs button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+  /* only-vpn / only-tg pieces follow the mode */
+  .vs[data-mode='vpn'] .only-tg, .vs[data-mode='tg'] .only-vpn { display: none; }
+
+  .stage { display: grid; grid-template-columns: minmax(0, 200px) minmax(32px, 1fr) minmax(0, 190px) minmax(32px, 1fr) minmax(0, 330px); align-items: center; }
+  .who, .gate { position: relative; display: grid; gap: 8px; justify-items: start; padding: 18px; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--paper-2); }
+  .ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: #fff; color: var(--ink-2); border: 1px solid var(--line); }
+  .who b, .gate b { font-size: 16px; }
+  .who ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 14px; }
+  .who li { display: flex; align-items: center; gap: 6px; color: var(--ink-2); }
+  .who .ok :global(svg) { color: #2e9a7a; }
+  .who .no { color: var(--coral); }
+  .who .no::before { content: '✕'; width: 16px; text-align: center; font-size: 12px; font-weight: 800; }
+  .g-s { font-size: 14px; color: var(--ink-2); }
+  .vs[data-mode='tg'] .gate { border: 2px solid var(--blue); background: var(--mist); }
+  .vs[data-mode='tg'] .gate .ico { color: var(--blue); }
+  .stop { position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; border-radius: 50%; background: var(--coral); }
+  .stop::before, .stop::after { content: ''; position: absolute; left: 9px; top: 15px; width: 14px; height: 2px; background: #fff; transform: rotate(45deg); }
+  .stop::after { transform: rotate(-45deg); }
+
+  /* a pipe with a dot travelling along it; the second pipe is cut in Trust Gateway mode */
+  .pipe { position: relative; height: 2px; margin: 0 8px; background: #e7c3bd; }
+  .pipe i { position: absolute; top: -4px; left: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--coral); opacity: 0; }
+  .vs.play .pipe.in i, .vs.play[data-mode='vpn'] .pipe.out i { animation: travel 1.6s linear infinite; }
+  .vs.play[data-mode='vpn'] .pipe.out i { animation-delay: .8s; }
+  .vs[data-mode='tg'] .pipe.out { background: repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px); }
+  @keyframes travel { 0% { left: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: calc(100% - 10px); opacity: 0; } }
+
+  .net { border: 1px dashed var(--ink-3); border-radius: var(--r-lg); padding: 14px; }
+  .net-t { font-size: 14px; font-weight: 700; color: var(--ink-3); margin-bottom: 10px; }
+  .srv { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .srv li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 2px 8px; align-items: center; padding: 10px 12px; border-radius: var(--r-md); border: 1px solid var(--line); background: #fff; font-size: 14px; font-weight: 600; transition: background-color .4s var(--ease), border-color .4s var(--ease), color .4s var(--ease), opacity .4s var(--ease); }
+  .srv li :global(svg) { grid-row: span 2; color: var(--ink-3); }
+  .srv em { font-style: normal; font-size: 12px; font-weight: 600; color: var(--ink-3); }
+  .vs[data-mode='vpn'] .srv li { background: #fdf0ee; border-color: #efb9b0; color: #8e2f22; transition-delay: calc(var(--i) * .22s); }
+  .vs[data-mode='vpn'] .srv em, .vs[data-mode='vpn'] .srv li :global(svg) { color: var(--coral); }
+  .vs[data-mode='tg'] .srv li { opacity: .45; border-style: dashed; }
+  /* with scripts, the servers wait until the section comes into view before opening */
+  :global(html.js) .vs:not(.play) .srv li { background: #fff; border-color: var(--line); color: var(--ink); }
+  :global(html.js) .vs:not(.play) .srv em { visibility: hidden; }
+
+  .cap { margin: 22px auto 0; max-width: 640px; text-align: center; font-weight: 600; line-height: 1.6; }
+  .vs[data-mode='vpn'] .cap { color: #8e2f22; }
+  .vs[data-mode='tg'] .cap { color: var(--blue-deep); }
+
+  .cmp-wrap { overflow-x: auto; margin-top: 28px; }
+  .cmp { width: 100%; border-collapse: collapse; min-width: 560px; }
+  .cmp th, .cmp td { text-align: left; padding: 16px; border-bottom: 1px solid var(--line); vertical-align: top; transition: background-color .4s var(--ease), color .4s var(--ease); }
+  .cmp thead th { font-size: 14px; color: var(--ink-3); font-weight: 600; }
+  .cmp tbody th { font-weight: 700; width: 22%; }
+  .cmp td { color: var(--ink-3); }
+  .vs[data-mode='vpn'] td.c-vpn { color: #8e2f22; font-weight: 600; background: #fdf0ee; }
+  .vs[data-mode='vpn'] th.c-vpn { color: #8e2f22; }
+  .vs[data-mode='tg'] td.c-tg { color: var(--ink); font-weight: 600; background: var(--orange-soft); }
+  .vs[data-mode='tg'] th.c-tg { color: var(--blue); }
+
+  @media (max-width: 860px) {
+    .stage { grid-template-columns: minmax(0, 1fr); justify-items: stretch; }
+    .pipe { width: 2px; height: 36px; margin: 8px auto; }
+    .pipe i { top: 0; left: -4px; }
+    .vs.play .pipe.in i, .vs.play[data-mode='vpn'] .pipe.out i { animation-name: travel-down; }
+    .vs[data-mode='tg'] .pipe.out { background: repeating-linear-gradient(180deg, var(--line) 0 6px, transparent 6px 12px); }
+    @keyframes travel-down { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: calc(100% - 10px); opacity: 0; } }
+  }
+  @media (max-width: 767px) {
+    .head-center .lead br { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pipe i { display: none; }
+    .srv li, .cmp th, .cmp td { transition: none; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.vs').forEach((vs) => {
+    const btns = [...vs.querySelectorAll<HTMLButtonElement>('[data-m]')];
+    let touched = false;
+    const set = (m: string) => { vs.dataset.mode = m; btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m === m))); };
+    btns.forEach((b) => b.addEventListener('click', () => { touched = true; vs.classList.add('play'); set(b.dataset.m!); }));
+    new IntersectionObserver(([e], io) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      vs.classList.add('play');
+      if (!matchMedia('(prefers-reduced-motion: reduce)').matches) setTimeout(() => { if (!touched) set('tg'); }, 4600);
+    }, { threshold: 0.25 }).observe(vs);
+  });
+</script>

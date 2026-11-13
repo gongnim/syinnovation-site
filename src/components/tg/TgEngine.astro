@@ -1,0 +1,213 @@
+---
+// Trust Gateway page: how a decision is made, by scenario. Signals (left) feed 다중 신호 교차 검증 and the three
+// engines (ZEN 리스크 rules, AI 리스크 per-user normal range, OPA 정책), which end in 허용 / 추가 인증 / 거부.
+// Follows tech doc v0.3 and the product's own demo page ("This Request": per-user normal band, step-up on the
+// phone on its own channel, no approval means no access). Values are examples, and the page says so.
+// The scenarios play in turn while on screen; a tab click or the pointer resting on it stops the turns.
+type St = 'same' | 'diff' | 'none' | 'wait';
+interface Sc {
+  k: string; t: string; d: string; sig: [string, St][]; xc?: string; zen?: string; ai?: number[]; aiT?: string; opa?: string;
+  stop?: string; v: 'allow' | 'step' | 'deny'; vt: string; vd: string;
+}
+const names = ['기기 인증서', 'PC 위치', '휴대폰 위치', 'Wi-Fi', '시간대', '기기 상태', '네트워크'];
+const feats = ['시간대', '위치 변화', '네트워크 변화', '요청 빈도'];
+const scenarios: Sc[] = [
+  { k: 'normal', t: '평소 출근', d: '사무실에서 평소 시간에 업무 앱을 엽니다.',
+    sig: [['확인됨', 'same'], ['사무실', 'same'], ['사무실', 'same'], ['같은 사내 Wi-Fi', 'same'], ['평소 시간', 'same'], ['정상', 'same'], ['등록된 사무실 대역', 'same']],
+    xc: '신호가 서로 맞습니다', zen: '규칙 위반 없음', ai: [46, 50, 48, 52], aiT: '평소 범위 안', opa: '허락된 앱 · 허용',
+    v: 'allow', vt: '허용', vd: '업무 앱이 바로 열립니다. 다음 요청도 같은 방식으로 다시 확인합니다.' },
+  { k: 'travel', t: '출장지 새 네트워크', d: '출장지 호텔에서 처음 보는 네트워크로 접속합니다.',
+    sig: [['확인됨', 'same'], ['출장지', 'same'], ['출장지', 'same'], ['같은 호텔 Wi-Fi', 'same'], ['평소 시간', 'same'], ['정상', 'same'], ['처음 보는 네트워크', 'diff']],
+    xc: 'PC와 휴대폰은 함께 있지만, 네트워크가 처음입니다', zen: '처음 보는 네트워크', ai: [50, 76, 84, 48], aiT: '위치와 네트워크 변화가 평소보다 큼', opa: '추가 인증 필요',
+    v: 'step', vt: '추가 인증', vd: '무엇이 바뀌었는지 휴대폰으로 알립니다. Face ID로 승인하면 다음 요청부터 열립니다.' },
+  { k: 'stolen', t: '도난당한 업무 PC', d: '누군가 업무 PC를 들고 가 새벽에 접속합니다. 휴대폰은 직원이 가지고 있습니다.',
+    sig: [['확인됨', 'same'], ['낯선 곳', 'diff'], ['직원 집', 'diff'], ['서로 다른 Wi-Fi', 'diff'], ['새벽', 'diff'], ['정상', 'same'], ['처음 보는 네트워크', 'diff']],
+    xc: 'PC와 휴대폰의 위치가 맞지 않습니다', zen: 'PC와 휴대폰 위치 불일치', ai: [90, 86, 80, 58], aiT: '여러 신호가 한꺼번에 평소 범위 밖', opa: '모순 발견 · 추가 인증',
+    v: 'deny', vt: '거부', vd: '추가 인증은 PC가 아닌 휴대폰으로 묻습니다. 휴대폰은 직원에게 있으니 승인이 없고, 승인이 없으면 열리지 않습니다.' },
+  { k: 'unknown', t: '등록되지 않은 기기', d: '아이디와 비밀번호를 알아낸 사람이 자기 노트북으로 접속합니다.',
+    sig: [['없음', 'none'], ['확인 전', 'wait'], ['확인 전', 'wait'], ['확인 전', 'wait'], ['확인 전', 'wait'], ['확인 전', 'wait'], ['확인 전', 'wait']],
+    stop: '기기 인증서가 없어 게이트웨이에서 바로 멈춥니다',
+    v: 'deny', vt: '거부', vd: '요청이 판단 엔진까지 가지 않습니다. 내부망에는 닿지 않습니다.' },
+];
+const chip: Record<St, string> = { same: '맞음', diff: '다름', none: '없음', wait: '' };
+---
+<section class="section night" id="engine">
+  <div class="wrap">
+    <div class="head-center reveal">
+      <h2 class="h2">판단은 이렇게 내립니다</h2>
+      <p class="lead">같은 직원이라도 상황이 다르면 결과가 다릅니다.<br />상황을 골라 Trust Gateway가 무엇을 보는지 확인해 보세요.</p>
+    </div>
+
+    <div class="eng reveal">
+      <div class="sc-tabs" role="tablist" aria-label="상황">
+        {scenarios.map((s, i) => (
+          <button role="tab" type="button" id={`sc-${s.k}`} aria-controls={`sp-${s.k}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} class={`v-${s.v}`}>
+            <b>{s.t}</b><span class="sc-v">{s.vt}</span>
+          </button>
+        ))}
+      </div>
+
+      {scenarios.map((s, i) => (
+        <div class={`sp v-${s.v}${s.stop ? ' halted' : ''}`} role="tabpanel" id={`sp-${s.k}`} aria-labelledby={`sc-${s.k}`} hidden={i !== 0}>
+          <p class="sp-d">{s.d}</p>
+          <div class="cols">
+            <div class="col sigs">
+              <p class="col-t">신호</p>
+              <ul>
+                {s.sig.map(([v, st], k) => (
+                  <li class={`st-${st}`} style={`--k:${k}`}><span class="n">{names[k]}</span><span class="val">{v}</span>{chip[st] && <span class="chip">{chip[st]}</span>}</li>
+                ))}
+              </ul>
+            </div>
+
+            <div class="col judge">
+              <p class="col-t">판단</p>
+              {s.stop ? (
+                <div class="halt"><b>TG 게이트웨이</b><span>{s.stop}</span></div>
+              ) : (
+                <div class="xc"><b>다중 신호 교차 검증</b><span>{s.xc}</span></div>
+              )}
+              <div class="engs">
+                <div class="e e1"><b>ZEN 리스크</b><small>규칙</small><span>{s.zen ?? '판단 전'}</span></div>
+                <div class="e e2">
+                  <b>AI 리스크</b><small>이 사람의 평소와 비교</small>
+                  {s.ai ? (
+                    <>
+                      <ul class="bands" aria-label="평소 범위와 이번 요청">
+                        {feats.map((f, k) => <li><span>{f}</span><i class="band"><i class="mk" style={`--x:${s.ai![k]}%`}></i></i></li>)}
+                      </ul>
+                      <span>{s.aiT}</span>
+                    </>
+                  ) : <span>판단 전</span>}
+                </div>
+                <div class="e e3"><b>OPA 정책</b><small>정책</small><span>{s.opa ?? '판단 전'}</span></div>
+              </div>
+            </div>
+
+            <div class="col verdict">
+              <p class="col-t">결과</p>
+              <div class="vd"><b>{s.vt}</b><p>{s.vd}</p></div>
+            </div>
+          </div>
+        </div>
+      ))}
+      <p class="note">초록 띠는 이 직원의 평소 범위, 막대는 이번 요청입니다. 화면 속 신호와 판단은 이해를 돕기 위한 예시입니다.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .eng { --mint: #63d6b4; --or: #f6a24f; --coral: #ff7a6b; max-width: 1120px; margin: 0 auto; }
+  .sc-tabs { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-bottom: 20px; }
+  .sc-tabs button { display: grid; gap: 4px; justify-items: start; padding: 14px 16px; border-radius: var(--r-lg); border: 1px solid var(--night-line); background: transparent; color: var(--on-night-2); font: inherit; text-align: left; cursor: pointer; transition: background-color .3s var(--ease), border-color .3s var(--ease), color .3s var(--ease); }
+  .sc-tabs b { font-size: 16px; }
+  .sc-v { font-size: 13px; font-weight: 600; }
+  .sc-tabs .v-allow .sc-v { color: var(--mint); }
+  .sc-tabs .v-step .sc-v { color: var(--or); }
+  .sc-tabs .v-deny .sc-v { color: var(--coral); }
+  .sc-tabs button[aria-selected='true'] { background: var(--night-2); border-color: rgba(255, 255, 255, .32); color: #fff; }
+  .sc-tabs button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+
+  .sp { border: 1px solid var(--night-line); border-radius: var(--r-xl); background: #0b1626; padding: clamp(18px, 2.5vw, 28px); }
+  .sp[hidden] { display: none; }
+  .sp-d { color: var(--on-night); font-weight: 600; margin-bottom: 18px; }
+  .cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, .9fr); gap: 16px; align-items: stretch; }
+  .col { display: grid; gap: 10px; align-content: start; }
+  .col-t { font-size: 13px; font-weight: 700; color: #8fa3c2; }
+
+  .sigs ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+  .sigs li { display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; gap: 8px; align-items: center; padding: 9px 12px; border-radius: var(--r-md); background: var(--night-2); font-size: 14px; }
+  .sigs .n { color: #8fa3c2; font-size: 13px; }
+  .sigs .val { color: var(--on-night); font-weight: 600; min-width: 0; }
+  .chip { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+  .st-same .chip { color: var(--mint); background: rgba(99, 214, 180, .12); }
+  .st-diff .chip { color: var(--or); background: rgba(246, 162, 79, .16); }
+  .st-none .chip { color: var(--coral); background: rgba(255, 122, 107, .16); }
+  .st-wait .val { color: #5d7090; font-weight: 500; }
+
+  .xc, .halt, .e, .vd { border-radius: var(--r-md); padding: 12px 14px; display: grid; gap: 4px; }
+  .xc { background: var(--night-2); border: 1px solid rgba(159, 184, 222, .3); }
+  .xc span, .halt span, .e span { font-size: 14px; color: var(--on-night-2); }
+  .halt { background: rgba(255, 122, 107, .1); border: 1px solid rgba(255, 122, 107, .4); }
+  .halt b { color: var(--coral); }
+  .engs { display: grid; gap: 8px; }
+  .e { background: var(--night-2); border: 1px solid var(--night-line); grid-template-columns: auto minmax(0, 1fr); column-gap: 8px; }
+  .e b { font-size: 15px; }
+  .e small { font-size: 12px; color: #8fa3c2; align-self: center; }
+  .e > span, .e > .bands { grid-column: 1 / -1; }
+  .e2 b { color: #c9bffc; }
+  .halted .e > * { opacity: .45; }
+
+  /* AI 리스크: this person's normal range (band) and where this request sits (marker) */
+  .bands { list-style: none; margin: 6px 0 2px; padding: 0; display: grid; gap: 6px; }
+  .bands li { display: grid; grid-template-columns: 84px minmax(0, 1fr); gap: 8px; align-items: center; font-size: 12px; color: #8fa3c2; }
+  .band { position: relative; display: block; height: 8px; border-radius: 4px; background: rgba(159, 184, 222, .14); background-image: linear-gradient(90deg, transparent 30%, rgba(99, 214, 180, .3) 30%, rgba(99, 214, 180, .3) 66%, transparent 66%); }
+  .mk { position: absolute; top: -3px; left: var(--x); width: 3px; height: 14px; margin-left: -1px; border-radius: 2px; background: #c9bffc; }
+
+  .vd { height: 100%; align-content: start; gap: 10px; padding: 16px; border: 1px solid; }
+  .vd b { font-size: 24px; letter-spacing: -0.02em; }
+  .vd p { font-size: 14px; line-height: 1.65; color: var(--on-night-2); }
+  .v-allow .vd { border-color: rgba(99, 214, 180, .5); background: rgba(99, 214, 180, .08); }
+  .v-allow .vd b { color: var(--mint); }
+  .v-step .vd { border-color: rgba(246, 162, 79, .55); background: rgba(246, 162, 79, .08); }
+  .v-step .vd b { color: var(--or); }
+  .v-deny .vd { border-color: rgba(255, 122, 107, .55); background: rgba(255, 122, 107, .08); }
+  .v-deny .vd b { color: var(--coral); }
+  .note { margin-top: 14px; font-size: 13px; color: #8fa3c2; text-align: center; }
+
+  /* each time a panel is shown: signals come in one by one, then the checks, then the verdict */
+  :global(html.js) .sp.run .sigs li { animation: come .45s var(--ease) both; animation-delay: calc(var(--k) * .12s); }
+  :global(html.js) .sp.run .xc, :global(html.js) .sp.run .halt { animation: come .45s var(--ease) .95s both; }
+  :global(html.js) .sp.run .e1 { animation: come .45s var(--ease) 1.2s both; }
+  :global(html.js) .sp.run .e2 { animation: come .45s var(--ease) 1.4s both; }
+  :global(html.js) .sp.run .e3 { animation: come .45s var(--ease) 1.6s both; }
+  :global(html.js) .sp.run .mk { animation: slide .9s var(--ease) 1.6s both; }
+  :global(html.js) .sp.run .vd { animation: land .5s var(--ease) 2.2s both; }
+  @keyframes come { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes slide { from { left: 48%; } }
+  @keyframes land { from { opacity: 0; transform: scale(.94); } to { opacity: 1; transform: none; } }
+
+  @media (max-width: 1023px) {
+    .cols { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+    .verdict { grid-column: 1 / -1; }
+  }
+  @media (max-width: 767px) {
+    .sc-tabs { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cols { grid-template-columns: minmax(0, 1fr); }
+    .head-center .lead br { display: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('#engine .eng');
+  if (root) {
+    const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...root.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+    const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let cur = 0, timer = 0, auto = !still, hover = false;
+    const show = (n: number) => {
+      cur = n;
+      tabs.forEach((t, i) => { t.setAttribute('aria-selected', String(i === n)); t.tabIndex = i === n ? 0 : -1; });
+      panels.forEach((p, i) => { p.hidden = i !== n; p.classList.remove('run'); });
+      if (!still) { void panels[n].offsetWidth; panels[n].classList.add('run'); }
+    };
+    // while on screen, the next scenario comes up every 7s, unless the visitor picked one or rests the pointer on it
+    const tick = () => { clearTimeout(timer); if (auto) timer = window.setTimeout(() => { if (!hover) show((cur + 1) % tabs.length); tick(); }, 7000); };
+    const stop = () => { auto = false; clearTimeout(timer); };
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => { stop(); show(i); });
+      t.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault(); stop();
+        const n = (i + d + tabs.length) % tabs.length;
+        tabs[n].focus(); show(n);
+      });
+    });
+    root.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hover = true; });
+    root.addEventListener('pointerleave', () => { hover = false; });
+    if (!still) new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) { if (!panels[cur].classList.contains('run')) show(cur); tick(); } else clearTimeout(timer);
+    }, { threshold: 0.35 }).observe(root);
+  }
+</script>

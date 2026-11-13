@@ -1,80 +1,83 @@
 ---
+// Trust Gateway: the page walks a buyer from "why now" to "how we start". Hero film, proof strip, recent incidents,
+// what a leaked account opens (VPN vs Trust Gateway), the product screens, how a decision is made, attacks and how
+// they stop, where it is used, what an admin sees, how light the install is, the published standards, a customer,
+// how to start, then questions. Facts follow tech doc v0.3 and the product's demo page; web access only (no SSH/RDP).
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
 import GatewayHero from '../components/GatewayHero.astro';
 import GatewayDemo from '../components/GatewayDemo.astro';
+import TgIncidents from '../components/tg/TgIncidents.astro';
+import TgVpnSwitch from '../components/tg/TgVpnSwitch.astro';
+import TgEngine from '../components/tg/TgEngine.astro';
+import TgConsole from '../components/tg/TgConsole.astro';
 import { appName, parts } from '../data/site';
 
-const platforms = [
-  { k: '휴대폰', v: `iOS · Android (${appName} 앱 또는 고객사 앱용 SDK)` },
-  { k: 'PC', v: 'Windows · macOS (사용자 에이전트)' },
-  { k: '접속 대상', v: '웹 업무 시스템 (HTTP · HTTPS)' },
-  { k: '내부 설치', v: '사내 Linux 서버에 내부 에이전트만 설치, 전용 장비 없음' },
+const proof = [
+  { t: '금융 인증 운영 경험', d: '카드사와 저축은행 인증 서비스를 운영해 온 기술' },
+  { t: '특허 출원', d: '이종 단말 위치 신호 교차 검증 기반 동적 접근 제어' },
+  { t: '공개 기준에 맞춘 설계', d: 'CISA ZTMM v2.0 · NIST SP 800-207' },
 ];
 
-const governance = [
-  { t: '판단 근거를 문장으로', d: '허용하거나 막은 요청마다 어떤 신호가 서로 맞지 않았는지 기록하고, 관리 콘솔에서 판단 근거를 문장과 관계 표로 보여 줍니다.' },
-  { t: '고칠 수 없는 감사 기록', d: '판정 기록은 앞 기록과 해시로 이어져 중간을 바꾸면 드러납니다. 오래된 기록은 삭제와 덮어쓰기가 잠긴 저장소에 5년 동안 보관합니다.' },
-  { t: '관리 콘솔과 고객사 콘솔', d: '회사, 직원, 기기, 인증서, 정책을 한곳에서 관리합니다. 고객사 관리자는 자기 회사 설정을 직접 바꾸고, 바꿀 때마다 휴대폰 승인을 거칩니다.' },
-  { t: '사무실 IP 대역 등록', d: '회사 공인 IP 대역을 등록하면, 그 안에서 IP가 바뀌어도 재인증을 반복하지 않습니다.' },
-];
-
-const features = [
-  { t: '다중 신호 교차 검증', d: 'PC와 휴대폰의 위치, Wi-Fi, 시간대, 기기 상태와 네트워크 정보를 함께 대조합니다. 신호 하나를 꾸며도 나머지와 맞지 않으면 드러납니다.' },
-  { t: '요청마다 다시 평가', d: '로그인 뒤에도 요청마다 정책과 위험을 다시 봅니다. 결과는 허용, 추가 인증, 차단 셋 중 하나입니다.' },
-  { t: '앱 단위로만 열기', d: '사내망 전체가 아니라 허락된 앱과 경로만 엽니다. 나머지는 보이지도 않습니다.' },
-  { t: '재로그인 없는 업무 앱', d: '게이트웨이가 확인한 신원을 업무 앱에 전달합니다. 앱마다 다시 로그인할 필요가 없습니다.' },
-];
-
-const steps = [
-  { t: '휴대폰 등록', d: `회사 이메일로 받은 일회용 코드로 가입하면, ${appName} 앱이 휴대폰 보안 칩 안에서 키를 만들고 인증서를 받습니다.` },
-  { t: 'PC 등록', d: 'PC 화면의 QR을 휴대폰으로 찍고 Face ID로 승인하면, 회사 소유 PC 인증서가 발급됩니다. 키는 PC 보안 칩 안에 남습니다.' },
-  { t: '사용자 결합', d: '업무를 시작할 때 다시 QR과 생체 인증으로 지금 이 PC를 쓰는 사람을 묶습니다.' },
-  { t: '보안 브라우저로 접속', d: 'PC 인증서로 게이트웨이와 상호 인증(mTLS) 연결을 맺고, 허락된 업무 앱으로만 요청이 갑니다.' },
-  { t: '요청마다 검사', d: '인증서, 폐기 여부, 회사, 사용자 결합, 네트워크와 위치 변화, 정책을 차례로 확인합니다.' },
-  { t: '수상하면 휴대폰으로 재확인', d: '무엇이 바뀌었는지 휴대폰으로 알리고, Face ID로 승인하면 다음 요청부터 통과합니다.' },
-  { t: '위험하면 차단', d: '위험이 크면 요청을 막고, 필요하면 휴대폰 인증서를 폐기해 그 기기의 접속을 끊습니다.' },
-];
-
-const why = [
-  { t: 'PC는 기기를, 휴대폰은 사람을', d: '기기 인증서와 생체 확인을 서로 다른 기기에 나눠, 하나를 훔쳐도 접속할 수 없습니다.' },
-  { t: '꺼낼 수 없는 키', d: '개인키는 PC와 휴대폰의 하드웨어 보안 영역 안에서 만들어지고 밖으로 나오지 않습니다.' },
-  { t: '갱신마다 사람 승인', d: 'PC 인증서는 12시간짜리이고 자동 갱신이 없습니다. 다시 받을 때마다 휴대폰 승인이 필요합니다.' },
-  { t: '들어오는 포트 0', d: '고객 사내망은 포트를 열지 않습니다. 내부 에이전트가 밖으로만 연결합니다.' },
-  { t: '기본 차단 정책', d: '정책에 적은 것만 통과합니다. 관찰 모드로 결과를 본 뒤 실제 적용으로 넘어갈 수 있습니다.' },
-  { t: '위험한 기기 차단', d: '탈옥이나 루팅된 폰, 에뮬레이터, 디버거가 붙은 앱은 막습니다. 정품 앱인지는 Apple과 Google의 증명으로 확인합니다.' },
-];
-
-// from the developer tech doc v0.3 (ch. 2.2, 5.2, 5.4, 6.1, 6.5)
-const threats = [
+// from the tech doc v0.3 (ch. 2.2, 5.2, 5.4, 6.1, 6.5) and the demo page (signed identity per request)
+const attacks = [
+  { k: '비밀번호를 훔쳤다면', v: '비밀번호만으로는 열리지 않습니다. 등록된 PC의 기기 인증서와 본인 휴대폰의 생체 확인이 함께 필요합니다.' },
   { k: 'PC 인증서를 복사해 간다면', v: '키는 PC와 휴대폰의 보안 칩 안에서 만들어지고 밖으로 나오지 않습니다. 복사한 파일만으로는 접속할 수 없습니다.' },
-  { k: '중간에서 통신을 가로챈다면', v: 'TLS 1.3 상호 인증으로만 연결하고, 제품의 루트 인증서와 서버 공개키 고정(pinning)까지 확인합니다.' },
-  { k: '계정과 PC를 손에 넣었다면', v: '휴대폰 생체 승인과 다중 신호 교차 검증을 함께 통과해야 합니다. 사용자의 휴대폰과 같은 상황을 꾸미기는 어렵습니다.' },
-  { k: '같은 PC의 다른 프로그램이 인증서를 쓰려 한다면', v: '보호 대상 요청은 지원 브라우저에서 온 것만 받습니다. 다른 프로그램은 사용자의 인증서를 빌려 쓸 수 없습니다.' },
+  { k: '업무 PC를 통째로 훔쳤다면', v: 'PC와 휴대폰의 위치가 어긋나 추가 인증으로 넘어갑니다. 추가 인증은 휴대폰으로 따로 묻기 때문에 PC만으로는 답할 수 없습니다.' },
+  { k: '통신을 가로채 다시 보낸다면', v: 'TLS 1.3 상호 인증과 서버 공개키 고정으로 연결합니다. 신원은 요청마다 새로 서명해, 가로챈 값을 다시 보내도 통하지 않습니다.' },
+  { k: '퇴사자가 예전 권한을 쓴다면', v: '인사 시스템과 연동해 퇴사를 반영하고 인증서를 폐기합니다. PC 인증서는 12시간짜리이고, 사람의 승인 없이는 다시 받을 수 없습니다.' },
   { k: '기기를 잃어버렸다면', v: '관리 콘솔에서 인증서를 폐기하면 다음 요청부터 바로 거부됩니다.' },
-  { k: '판단할 정보가 없다면', v: '판단에 필요한 정보를 확인할 수 없으면 열지 않는 것이 원칙입니다. OPA 정책 엔진의 기본값도 거부입니다.' },
+];
+const rules = [
+  { t: '정책에 적은 것만 통과', d: '판단할 정보가 없으면 열지 않습니다. OPA 정책 엔진의 기본값도 거부입니다.' },
+  { t: '위험한 기기는 처음부터', d: '탈옥이나 루팅된 폰, 에뮬레이터, 디버거가 붙은 앱은 막습니다. 정품 앱인지는 Apple과 Google의 증명으로 확인합니다.' },
+  { t: '들어오는 포트 0', d: '고객 사내망은 포트를 열지 않습니다. 내부 에이전트가 밖으로만 연결합니다.' },
 ];
 
-const compare = [
-  { k: '확인 시점', vpn: '처음 접속할 때 한 번', tg: '요청마다' },
-  { k: '열리는 범위', vpn: '사내망 전체', tg: '허락된 앱과 경로만' },
-  { k: '본인 확인', vpn: '아이디와 비밀번호', tg: '기기 인증서 + 휴대폰 생체 확인' },
-  { k: '위치 확인', vpn: '없음', tg: 'PC · 휴대폰 · 네트워크 다중 신호 교차 검증' },
-  { k: '외부 노출', vpn: 'VPN 장비가 인터넷에 열려 있음', tg: '사내망 들어오는 포트 0' },
+const [auth, staff, pay] = parts;
+const uses = [
+  { id: 'remote', g: staff.k, t: '재택 · 출장', h: '집에서도, 출장지에서도 같은 확인', d: '업무 PC와 내 휴대폰이 함께 있어야 접속됩니다. 낯선 네트워크로 바뀌면 휴대폰으로 다시 확인합니다.', pts: ['VPN 없이 허락된 업무 앱만 연결', '새 네트워크에서는 휴대폰으로 추가 인증', '분실 PC는 관리 콘솔에서 바로 차단'] },
+  { id: 'partner', g: staff.k, t: '협력사 · 외주', h: '필요한 사람에게 필요한 앱만', d: '협력사 인력에게 사내망 전체가 아닌 지정된 앱과 경로만 열어 줍니다.', pts: ['사람별, 경로별 허용 범위 지정', '인사 시스템 연동으로 퇴사·계약 종료 반영', '누가 무엇에 접속했는지 기록'] },
+  { id: 'shared', g: staff.k, t: '공용 PC', h: '한 대의 PC를 여러 사람이 써도', d: '회사 PC의 기기 신원과 지금 쓰는 사람의 신원을 따로 관리합니다. 사람이 바뀌면 휴대폰으로 다시 묶고, 각자 권한에 맞는 업무 앱만 엽니다.', pts: ['사람이 바뀌면 휴대폰으로 다시 바인딩', '사용자 전환이나 자리 비움 때 이전 바인딩 해제', '각자 권한에 맞는 업무 앱만 연결'] },
+  { id: 'auth', g: auth.k, t: '금융 앱 인증', h: auth.h, d: auth.d, pts: auth.pts },
+  { id: 'payment', g: pay.k, t: '결제 이상거래', h: '결제 위험도를 평가해 권고합니다', d: '결제사가 거래를 보내면 기기와 위치, 신호 사이의 모순을 평가해 승인, 추가 확인, 보류를 권고합니다. 최종 결정은 결제사가 합니다.', pts: ['승인 · 추가 확인 · 보류 권고', '최종 차단은 결제사가 결정', '고객사 FDS 룰 진단(오탐 · 미탐 · 중복 룰)'] },
 ];
 
-const cases = [
-  { id: 'remote', t: '재택 · 출장', h: '집에서도, 출장지에서도 같은 확인', d: '업무 PC와 내 휴대폰이 함께 있어야 접속됩니다. 낯선 네트워크로 바뀌면 휴대폰으로 다시 확인합니다.', pts: ['VPN 없이 허락된 업무 앱만 연결', '새 네트워크에서는 휴대폰으로 추가 인증', '분실 PC는 관리 콘솔에서 바로 차단'] },
-  { id: 'partner', t: '협력사 · 외주', h: '필요한 사람에게 필요한 앱만', d: '협력사 인력에게 사내망 전체가 아닌 지정된 앱과 경로만 열어 줍니다.', pts: ['사람별, 경로별 허용 범위 지정', '인사 시스템 연동으로 퇴사·계약 종료 반영', '누가 무엇에 접속했는지 기록'] },
-  { id: 'shared', t: '공용 PC', h: '한 대의 PC를 여러 사람이 써도', d: '회사 PC의 기기 신원과 지금 쓰는 사람의 신원을 따로 관리합니다. 사람이 바뀌면 휴대폰으로 다시 묶고, 각자 권한에 맞는 업무 앱만 엽니다.', pts: ['사람이 바뀌면 휴대폰으로 다시 바인딩', '사용자 전환이나 자리 비움 때 이전 바인딩 해제', '각자 권한에 맞는 업무 앱만 연결'] },
-  { id: 'finance', t: '금융', h: '금융 현장에서 만든 인증 기술', d: '카드사와 저축은행 인증 서비스를 운영해 온 기술로, 임직원과 외부 인력의 업무 접속을 확인합니다.', pts: ['요청마다 재평가', '판단 근거를 문장으로 기록', '감사 기록 5년 보관(삭제 잠금)'] },
-  { id: 'payment', t: '결제 이상거래', h: '결제 위험도를 평가해 권고합니다', d: '결제사가 거래를 보내면 기기와 위치, 신호 사이의 모순을 평가해 승인, 추가 확인, 보류를 권고합니다. 최종 결정은 결제사가 합니다.', pts: ['승인 · 추가 확인 · 보류 권고', '최종 차단은 결제사가 결정', '고객사 FDS 룰 진단(오탐 · 미탐 · 중복 룰)'] },
+const ready = [
+  '사내 Linux 서버에 내부 에이전트 설치, 전용 장비 없음',
+  '방화벽에 들어오는 포트를 열지 않음',
+  'PC에 사용자 에이전트 (Windows · macOS)',
+  `휴대폰에 ${appName} 앱 (iOS · Android)`,
+  '접속 대상은 웹 업무 시스템 (HTTP · HTTPS)',
+  '관찰 모드로 결과를 먼저 보고 실제 적용',
+];
+const enroll = [
+  { t: '휴대폰 등록', d: `회사 이메일로 받은 일회용 코드로 가입하면, ${appName} 앱이 휴대폰 보안 칩 안에서 키를 만들고 인증서를 받습니다.` },
+  { t: 'PC 등록', d: 'PC 화면의 QR을 휴대폰으로 찍고 Face ID로 승인하면, 회사 PC 인증서가 발급됩니다. 키는 PC 보안 칩 안에 남습니다.' },
+  { t: '업무 시작', d: '업무를 시작할 때 다시 QR과 생체 인증으로 지금 이 PC를 쓰는 사람을 묶습니다. 이후 요청은 자동으로 확인됩니다.' },
+];
+
+const airrane = [
+  { i: 'key', t: '한 번 확인으로 여러 업무 시스템', d: '게이트웨이가 확인한 신원을 업무 시스템에 넘겨, 시스템마다 다시 로그인하지 않게 합니다.' },
+  { i: 'pin', t: '사외와 해외에서도 같은 기준', d: '출장지와 재택, 해외에서도 사무실과 같은 기준으로 사람과 기기를 확인합니다.' },
+  { i: 'shield', t: '기술 자료는 허락된 사람에게만', d: '핵심 기술과 정보가 담긴 시스템에 허락된 사람과 기기만 닿게 합니다.' },
 ];
 
 const rollout = [
-  { t: 'PoC', d: '평가용 환경과 서비스 하나를 연결해 정상 접속, 기본 차단, 정책 변경을 직접 확인합니다.' },
-  { t: '파일럿', d: '부서 단위로 넓힙니다. 관찰 모드로 결과를 비교한 뒤 제한적으로 적용합니다.' },
+  { t: 'PoC', d: '평가용 환경과 서비스 하나를 연결합니다.' },
+  { t: '파일럿', d: '부서 단위로 넓히고, 관찰 모드로 결과를 비교한 뒤 제한적으로 적용합니다.' },
   { t: '전사 적용', d: '서비스 목록을 확정하고 사용자를 옮깁니다. 감사, 보존, 장애 복구 절차를 함께 운영합니다.' },
+];
+const pocChecks = ['등록된 직원은 평소처럼 바로 열리는지', '등록되지 않은 기기는 게이트웨이에서 막히는지', '정책을 바꾸면 다음 요청부터 반영되는지', '판단 근거와 감사 기록이 남는지', '직원이 쓰기에 번거롭지 않은지'];
+
+const faq = [
+  { q: 'VPN을 바로 꺼야 하나요?', a: '아니요. 서비스 하나부터 Trust Gateway로 옮기고, 결과를 보며 넓힙니다. 옮기는 동안 기존 접속 방식은 그대로 둘 수 있습니다.' },
+  { q: '업무 시스템을 고쳐야 하나요?', a: '기존 로그인은 그대로 둘 수 있습니다. 게이트웨이가 확인한 신원을 서명해 함께 보내므로, 원하면 이를 받아 다시 로그인하지 않게 만들 수 있습니다.' },
+  { q: '휴대폰이 꼭 있어야 하나요?', a: `네. Trust Gateway는 휴대폰으로 사람을 확인합니다. ${appName} 앱을 등록한 휴대폰(iOS · Android)이 없는 직원은 Trust Gateway로 접속할 수 없습니다.` },
+  { q: '어떤 시스템에 쓸 수 있나요?', a: '웹 업무 시스템(HTTP · HTTPS)에 씁니다. 사내 Linux 서버에 내부 에이전트를 설치하며, 전용 장비는 필요 없습니다.' },
+  { q: 'Trust Gateway에 문제가 생기면 어떻게 되나요?', a: '판단에 필요한 정보를 확인할 수 없으면 열지 않는 것이 원칙입니다. 확인 없이 통과시키지 않습니다. 장애 복구 절차는 전사 적용 단계에서 함께 정해 운영합니다.' },
+  { q: '기록은 어디에, 얼마나 남나요?', a: '판정 기록은 앞 기록과 해시로 이어져 중간을 바꾸면 드러납니다. 삭제와 덮어쓰기가 잠긴 저장소에 5년 동안 보관하고, 관리 콘솔에서 판단 근거를 문장으로 볼 수 있습니다.' },
 ];
 ---
 <Base title="Trust Gateway" description="PC는 기기를, 휴대폰은 사람을 증명합니다. 요청마다 다시 확인하는 제로트러스트 접근 제어 Trust Gateway.">
@@ -85,45 +88,75 @@ const rollout = [
   </Fragment>
   <GatewayHero />
 
-  <section class="section mist" id="uses">
+  <section class="proof" aria-label="Trust Gateway의 근거">
+    <ul class="wrap proof-list">
+      {proof.map((p) => (<li><b>{p.t}</b><span>{p.d}</span></li>))}
+    </ul>
+  </section>
+
+  <TgIncidents />
+  <TgVpnSwitch />
+
+  <section class="section" id="demo">
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">하나의 판단 엔진, 세 가지 쓰임</h2>
-        <p class="lead">금융사 앱의 인증, 직원의 업무 접속, 고객의 결제까지. 같은 확인 기술이 각 자리에 맞게 들어갑니다.</p>
+        <h2 class="h2">제품 화면으로 보기</h2>
+        <p class="lead">시연 환경의 제품 화면을 단계별로 다시 그렸습니다.<br />직원의 업무 접속과 결제 이상거래, 두 흐름을 골라 보세요.</p>
       </div>
-      <ul class="parts">
-        {parts.map((p) => (
-          <li class="reveal">
-            <p class="part-k">{p.k}<span>{p.who}</span></p>
-            <h3 class="h4">{p.h}</h3>
-            <p class="body">{p.d}</p>
-            <ul class="part-pts">{p.pts.map((x) => <li>{x}</li>)}</ul>
+      <GatewayDemo />
+    </div>
+  </section>
+
+  <TgEngine />
+
+  <section class="section mist" id="attacks">
+    <div class="wrap">
+      <div class="head-center reveal">
+        <h2 class="h2">공격자가 이렇게 시도한다면</h2>
+        <p class="lead">비밀번호 하나에 기대지 않고, 여러 증거를 동시에 요구합니다.</p>
+      </div>
+      <ul class="atk">
+        {attacks.map((a, i) => (
+          <li class="reveal" style={`--i:${i % 3}`}>
+            <p class="a-try"><span class="a-k">시도</span>{a.k}</p>
+            <p class="a-def"><span class="a-k">Trust Gateway</span>{a.v}</p>
+            <span class="stamp" aria-hidden="true">막힘</span>
           </li>
         ))}
       </ul>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap">
-      <div class="head-center reveal">
-        <h2 class="h2">주요 기능</h2>
-        <p class="lead">사람, 기기, 장소를 한 번에 확인하고, 허락된 것만 엽니다.</p>
-      </div>
-      <ul class="feat4">
-        {features.map((f) => (<li class="reveal"><h3 class="h4">{f.t}</h3><p class="body">{f.d}</p></li>))}
+      <ul class="rules reveal">
+        {rules.map((r) => (<li><b>{r.t}</b><span>{r.d}</span></li>))}
       </ul>
-      <dl class="plat reveal">
-        {platforms.map((p) => (<div><dt>{p.k}</dt><dd>{p.v}</dd></div>))}
-      </dl>
     </div>
   </section>
 
-  <section class="section mist">
+  <section class="section" id="uses">
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">세 구역은 서로를 믿지 않습니다</h2>
-        <p class="lead">사용자 기기, Trust Gateway, 고객 사내망은 따로 운영되고, 경계를 넘을 때마다 다시 확인합니다.</p>
+        <h2 class="h2">어디에 쓰나요</h2>
+        <p class="lead">같은 판단 엔진이 세 자리에 들어갑니다.<br />직원의 업무 접속, 금융 앱의 본인 확인, 고객의 결제입니다.</p>
+      </div>
+      <div class="tabs reveal" id="use-cases">
+        <div class="tablist" role="tablist" aria-label="쓰임">
+          {uses.map((c, i) => (<button role="tab" type="button" id={`tab-${c.id}`} aria-controls={`panel-${c.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{c.t}</button>))}
+        </div>
+        {uses.map((c, i) => (
+          <div class="panel" role="tabpanel" id={`panel-${c.id}`} aria-labelledby={`tab-${c.id}`} hidden={i !== 0}>
+            <div><p class="pg">{c.g}</p><h3 class="h3">{c.h}</h3><p class="body">{c.d}</p></div>
+            <ul>{c.pts.map((p) => <li><Icon name="check" size={18} />{p}</li>)}</ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <TgConsole />
+
+  <section class="section" id="install">
+    <div class="wrap">
+      <div class="head-center reveal">
+        <h2 class="h2">설치는 가볍게</h2>
+        <p class="lead">전용 장비 없이, 사내 서버에 에이전트 하나로 시작합니다.<br />세 구역은 서로를 믿지 않고, 경계를 넘을 때마다 다시 확인합니다.</p>
       </div>
       <div class="arch reveal" role="img" aria-label="사용자 기기 구역에서 mTLS로 Trust Gateway에 연결하고, 고객 사내망의 내부 에이전트는 Trust Gateway로 바깥 방향 연결만 맺습니다">
         <div class="az">
@@ -145,92 +178,20 @@ const rollout = [
           <div class="node">업무 서비스<span>웹 업무 시스템 (HTTP · HTTPS)</span></div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap narrow">
-      <div class="head-left reveal">
-        <h2 class="h2 sm">접속은 이렇게 이어집니다</h2>
-        <p class="lead">휴대폰 등록부터 차단까지 일곱 단계입니다.</p>
+      <div class="setup">
+        <div class="ready reveal">
+          <h3 class="h4">준비할 것</h3>
+          <ul>{ready.map((r) => <li><Icon name="check" size={18} />{r}</li>)}</ul>
+        </div>
+        <div class="enroll reveal">
+          <h3 class="h4">직원 등록은 세 단계</h3>
+          <ol>{enroll.map((s, i) => (<li><span class="n">{i + 1}</span><div><b>{s.t}</b><p class="body">{s.d}</p></div></li>))}</ol>
+        </div>
       </div>
-      <ol class="steps">
-        {steps.map((s, i) => (<li class="reveal"><span class="n">{i + 1}</span><div><h3 class="h4">{s.t}</h3><p class="body">{s.d}</p></div></li>))}
-      </ol>
-    </div>
-  </section>
-
-  <section class="section mist" id="demo">
-    <div class="wrap">
-      <div class="head-center reveal">
-        <h2 class="h2">제품 화면으로 보기</h2>
-        <p class="lead">시연 환경의 실제 흐름을 화면 그대로 단계별로 보여 드립니다.</p>
-      </div>
-      <GatewayDemo />
-    </div>
-  </section>
-
-  <section class="section night">
-    <div class="wrap">
-      <div class="head-center reveal">
-        <h2 class="h2">왜 다른가</h2>
-        <p class="lead">비밀번호 하나에 기대지 않고, 여러 증거를 동시에 요구합니다.</p>
-      </div>
-      <ul class="why">
-        {why.map((w) => (<li class="reveal"><h3 class="h4">{w.t}</h3><p class="body">{w.d}</p></li>))}
-      </ul>
     </div>
   </section>
 
   <section class="section mist">
-    <div class="wrap narrow">
-      <div class="head-left reveal">
-        <h2 class="h2 sm">이런 공격은 이렇게 막습니다</h2>
-      </div>
-      <div class="cmp-wrap reveal">
-        <table class="cmp">
-          <thead><tr><th scope="col">상황</th><th scope="col">Trust Gateway가 막는 방법</th></tr></thead>
-          <tbody>{threats.map((r) => (<tr><th scope="row">{r.k}</th><td>{r.v}</td></tr>))}</tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap narrow">
-      <div class="head-left reveal">
-        <h2 class="h2 sm">기존 VPN과 무엇이 다른가요</h2>
-      </div>
-      <div class="cmp-wrap reveal">
-        <table class="cmp">
-          <thead><tr><th scope="col">항목</th><th scope="col">기존 VPN</th><th scope="col">Trust Gateway</th></tr></thead>
-          <tbody>{compare.map((c) => (<tr><th scope="row">{c.k}</th><td>{c.vpn}</td><td>{c.tg}</td></tr>))}</tbody>
-        </table>
-      </div>
-    </div>
-  </section>
-
-  <section class="section mist" id="use-cases">
-    <div class="wrap">
-      <div class="head-center reveal">
-        <h2 class="h2">활용 사례</h2>
-        <p class="lead">접속하는 사람과 장소가 달라도, 확인하는 기준은 같습니다.</p>
-      </div>
-      <div class="tabs reveal">
-        <div class="tablist" role="tablist" aria-label="활용 사례">
-          {cases.map((c, i) => (<button role="tab" type="button" id={`tab-${c.id}`} aria-controls={`panel-${c.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{c.t}</button>))}
-        </div>
-        {cases.map((c, i) => (
-          <div class="panel" role="tabpanel" id={`panel-${c.id}`} aria-labelledby={`tab-${c.id}`} hidden={i !== 0}>
-            <div><h3 class="h3">{c.h}</h3><p class="body">{c.d}</p></div>
-            <ul>{c.pts.map((p) => <li>{p}</li>)}</ul>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <section class="section">
     <div class="wrap std">
       <div class="reveal">
         <h2 class="h2 sm">공개된 제로트러스트 기준에 맞춰 설계했습니다</h2>
@@ -244,27 +205,53 @@ const rollout = [
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="head-left reveal">
-        <h2 class="h2 sm">관리와 감사</h2>
-        <p class="lead">막는 것만큼, 왜 막았는지 설명할 수 있어야 합니다.</p>
+  <section class="section night" id="customer">
+    <div class="wrap cust">
+      <figure class="cust-ph reveal">
+        <img src="/images/consulting/airrane-case.webp" alt="가스 배관과 밸브가 이어진 산업 설비" width="1400" height="1050" loading="lazy" />
+      </figure>
+      <div class="reveal">
+        <p class="cust-k">도입 고객</p>
+        <h2 class="h2 sm">에어레인(AIRRANE)</h2>
+        <p class="cust-s">코스닥 상장 기체분리막 전문기업</p>
+        <ul class="cust-pts">
+          {airrane.map((a) => (<li><span class="ci"><Icon name={a.i} size={18} /></span><div><b>{a.t}</b><p class="body">{a.d}</p></div></li>))}
+        </ul>
+        <a class="text-link" href="/consulting#airrane">에어레인 ERP 구축 사례도 함께 보기</a>
       </div>
-      <ul class="gov">
-        {governance.map((g) => (<li class="reveal"><h3 class="h4">{g.t}</h3><p class="body">{g.d}</p></li>))}
-      </ul>
     </div>
   </section>
 
-  <section class="section paper2">
+  <section class="section" id="start">
     <div class="wrap">
-      <div class="head-left reveal">
-        <h2 class="h2 sm">작게 시작해서 넓힙니다</h2>
+      <div class="head-center reveal">
+        <h2 class="h2">작게 시작해서 넓힙니다</h2>
         <p class="lead">무료 PoC에서 시작해, 결과를 확인하며 단계적으로 적용합니다.</p>
       </div>
-      <ol class="roll">
-        {rollout.map((r, i) => (<li class="reveal"><span class="n">{i + 1}</span><h3 class="h4">{r.t}</h3><p class="body">{r.d}</p></li>))}
+      <ol class="roll reveal">
+        {rollout.map((r, i) => (<li style={`--i:${i}`}><span class="n">{i + 1}</span><h3 class="h4">{r.t}</h3><p class="body">{r.d}</p></li>))}
       </ol>
+      <div class="poc reveal">
+        <div>
+          <h3 class="h4">PoC에서 직접 확인하는 것</h3>
+          <ul>{pocChecks.map((c) => <li><Icon name="check" size={18} />{c}</li>)}</ul>
+        </div>
+        <a class="btn primary" href="/contact?type=poc">무료 PoC 신청</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section paper2" id="faq">
+    <div class="wrap narrow">
+      <div class="head-left reveal"><h2 class="h2 sm">자주 묻는 질문</h2></div>
+      <div class="faq reveal">
+        {faq.map((f) => (
+          <details>
+            <summary>{f.q}<Icon name="plus" size={20} class="faq-i" /></summary>
+            <p class="body">{f.a}</p>
+          </details>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -272,101 +259,148 @@ const rollout = [
 </Base>
 
 <style>
-  .parts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .parts > li { background: #fff; border-radius: var(--r-xl); padding: 30px 28px 32px; display: grid; gap: 12px; align-content: start; }
-  .part-k { font-weight: 800; font-size: 20px; color: var(--blue); display: flex; align-items: baseline; gap: 10px; }
-  .part-k span { font-size: 14px; font-weight: 600; color: var(--ink-3); }
-  .part-pts { list-style: none; margin: 6px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 6px; }
-  .part-pts li { font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--mist); color: var(--blue-deep); }
-  .plat { margin: 48px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); border: 1px solid var(--line); border-radius: var(--r-md); }
-  .plat div { padding: 18px 22px; display: grid; gap: 4px; }
-  .plat div + div { border-left: 1px solid var(--line); }
-  .plat dt { font-size: 13px; font-weight: 700; color: var(--ink-3); }
-  .plat dd { margin: 0; font-weight: 600; }
-  .gov { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
-  .gov li { border: 1px solid var(--line); border-radius: var(--r-md); padding: 28px 30px 32px; display: grid; gap: 10px; align-content: start; }
-  .feat4 { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
-  .feat4 li { border-top: 3px solid var(--blue); padding-top: 22px; display: grid; gap: 10px; align-content: start; }
+  /* proof strip, right under the hero */
+  .proof { background: var(--night); color: var(--on-night); padding: 0 0 clamp(40px, 5vw, 64px); }
+  .proof-list { list-style: none; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .proof-list li { display: grid; gap: 4px; padding: 6px 24px; border-left: 1px solid var(--night-line); }
+  .proof-list li:first-child { border-left: 0; padding-left: 0; }
+  .proof-list b { font-size: 16px; }
+  .proof-list span { font-size: 14px; color: var(--on-night-2); }
 
-  .arch { display: grid; grid-template-columns: 1fr 90px 1.15fr 110px 1fr; align-items: stretch; gap: 0; }
+  /* attacks: each card gets a stamp when it comes into view */
+  .atk { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .atk li { position: relative; display: grid; gap: 12px; align-content: start; padding: 24px 22px 26px; border-radius: var(--r-xl); background: #fff; }
+  .a-try { display: grid; gap: 6px; font-size: 18px; font-weight: 700; line-height: 1.4; padding-right: 64px; }
+  .a-def { display: grid; gap: 6px; padding-top: 12px; border-top: 1px dashed var(--line); color: var(--ink-2); font-size: 15px; line-height: 1.65; }
+  .a-k { font-size: 12px; font-weight: 700; color: #b4443a; }
+  .a-def .a-k { color: var(--blue); }
+  .stamp { position: absolute; top: 20px; right: 18px; padding: 4px 10px; border: 2px solid #c94a3a; border-radius: 8px; color: #c94a3a; font-size: 14px; font-weight: 800; letter-spacing: .04em; transform: rotate(-8deg); }
+  :global(.js) .atk li .stamp { opacity: 0; }
+  :global(.js) .atk li.is-in .stamp { animation: stamp .45s var(--ease) calc(.5s + var(--i) * .15s) both; }
+  @keyframes stamp { from { opacity: 0; transform: rotate(-8deg) scale(1.8); } to { opacity: 1; transform: rotate(-8deg) scale(1); } }
+  .rules { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .rules li { display: grid; gap: 4px; padding: 16px 18px; border-radius: var(--r-lg); border: 1px solid var(--line); }
+  .rules b { font-size: 15px; }
+  .rules span { font-size: 14px; color: var(--ink-2); }
+
+  /* uses: tabs */
+  .tabs { background: var(--paper-2); border-radius: var(--r-xl); padding: 12px; }
+  .tablist { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px; background: #fff; border-radius: 999px; width: fit-content; max-width: 100%; margin: 0 auto 8px; }
+  .tablist button { border: 0; background: transparent; padding: 10px 20px; border-radius: 999px; font: inherit; font-weight: 600; cursor: pointer; color: var(--ink-2); }
+  .tablist button[aria-selected='true'] { background: var(--ink); color: #fff; }
+  .tablist button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .panel { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; padding: 36px clamp(20px, 4vw, 48px) 40px; align-items: start; }
+  .panel[hidden] { display: none; }
+  .pg { font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 8px; }
+  .panel .body { margin-top: 14px; }
+  .panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .panel li { display: flex; gap: 10px; align-items: center; padding: 16px 18px; border-radius: var(--r-md); background: #fff; font-weight: 600; }
+  .panel li :global(svg) { flex: none; color: var(--blue); }
+
+  /* install */
+  .arch { display: grid; grid-template-columns: 1fr 90px 1.15fr 110px 1fr; align-items: stretch; }
   .az { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 24px; display: grid; gap: 12px; align-content: start; }
-  .az.mid { border: 2px solid var(--blue); }
+  .az.mid { border: 2px solid var(--blue); background: var(--mist); }
   .az.in { background: var(--night); border-color: var(--night); color: var(--on-night); }
   .az-t { font-weight: 800; font-size: 18px; margin-bottom: 4px; }
   .node { border: 1px solid var(--line); border-radius: var(--r-md); padding: 12px 14px; font-weight: 700; font-size: 15px; display: grid; gap: 2px; background: var(--paper-2); }
+  .az.mid .node { background: #fff; }
   .node span { font-weight: 500; font-size: 13px; color: var(--ink-3); }
   .az.in .node { background: var(--night-2); border-color: var(--night-line); }
   .az.in .node span { color: var(--on-night-2); }
   .az.in .node:first-of-type span { color: var(--orange); font-weight: 700; }
   .link { position: relative; display: grid; place-items: center; }
   .link::before { content: ''; position: absolute; left: 6px; right: 6px; top: 50%; height: 2px; background: var(--blue); }
-  .link span { position: relative; background: var(--mist); font-size: 13px; font-weight: 700; color: var(--blue); padding: 2px 6px; margin-top: -34px; text-align: center; }
+  .link span { position: relative; background: #fff; font-size: 13px; font-weight: 700; color: var(--blue); padding: 2px 6px; margin-top: -34px; text-align: center; }
   .link.back::after { content: ''; position: absolute; left: 4px; top: calc(50% - 5px); width: 8px; height: 12px; background: var(--blue); clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+  .setup { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 20px; margin-top: 40px; }
+  .ready, .enroll { border: 1px solid var(--line); border-radius: var(--r-xl); padding: 28px; }
+  .ready ul { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; }
+  .ready li { display: flex; gap: 10px; align-items: flex-start; font-weight: 600; }
+  .ready li :global(svg) { flex: none; margin-top: 3px; color: #2e9a7a; }
+  .enroll ol { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 16px; }
+  .enroll li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; }
+  .enroll .body { margin-top: 2px; font-size: 15px; }
+  .n { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--blue); border: 2px solid var(--blue); }
 
-  .steps { list-style: none; margin: 0; padding: 0; display: grid; }
-  .steps li { display: grid; grid-template-columns: 56px 1fr; gap: 20px; padding: 24px 0; border-top: 1px solid var(--line); }
-  .steps li:last-child { border-bottom: 1px solid var(--line); }
-  .n { width: 40px; height: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--blue); border: 2px solid var(--blue); }
-  .steps .body { margin-top: 4px; }
-
-  .why { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--night-line); border: 1px solid var(--night-line); border-radius: var(--r-xl); overflow: hidden; }
-  .why li { background: var(--night); padding: 34px 30px 38px; display: grid; gap: 10px; align-content: start; }
-  .why .h4 { color: #fff; }
-
-  .cmp-wrap { overflow-x: auto; }
-  .cmp { width: 100%; border-collapse: collapse; min-width: 560px; }
-  .cmp th, .cmp td { text-align: left; padding: 18px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  .cmp thead th { font-size: 14px; color: var(--ink-3); font-weight: 600; }
-  .cmp thead th:last-child { color: var(--blue); }
-  .cmp tbody th { font-weight: 700; width: 22%; }
-  .cmp td { color: var(--ink-2); }
-  .cmp td:last-child { color: var(--ink); font-weight: 600; background: var(--orange-soft); }
-
-  .tabs { background: #fff; border-radius: var(--r-xl); padding: 12px; }
-  .tablist { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px; background: var(--paper-2); border-radius: 999px; width: fit-content; max-width: 100%; margin: 0 auto 8px; }
-  .tablist button { border: 0; background: transparent; padding: 10px 20px; border-radius: 999px; font-weight: 600; cursor: pointer; color: var(--ink-2); }
-  .tablist button[aria-selected='true'] { background: var(--ink); color: #fff; }
-  .panel { display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; padding: 40px clamp(20px, 4vw, 48px) 44px; align-items: start; }
-  .panel[hidden] { display: none; }
-  .panel .body { margin-top: 14px; }
-  .panel ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-  .panel li { padding: 16px 18px; border-radius: var(--r-md); background: var(--mist); font-weight: 600; }
-
+  /* standards */
   .std { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 80px); align-items: center; }
   .std .lead { margin-top: 16px; }
   .std-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
-  .std-list li { border: 1px solid var(--line); border-radius: var(--r-md); padding: 20px 22px; display: grid; gap: 4px; }
+  .std-list li { background: #fff; border-radius: var(--r-md); padding: 20px 22px; display: grid; gap: 4px; }
   .std-list b { font-size: 18px; }
   .std-list span { color: var(--ink-2); font-size: 15px; }
 
-  .roll { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; counter-reset: r; }
-  .roll li { background: #fff; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 30px 28px 34px; display: grid; gap: 12px; align-content: start; position: relative; }
-  .roll li:not(:last-child)::after { content: ''; position: absolute; right: -16px; top: 48px; width: 12px; height: 2px; background: var(--blue); }
+  /* customer */
+  .cust { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .cust-ph { margin: 0; border-radius: var(--r-xl); overflow: hidden; }
+  .cust-ph img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
+  .cust-k { font-size: 15px; font-weight: 700; color: #9fb8de; margin-bottom: 10px; }
+  .cust-s { margin-top: 8px; color: var(--on-night-2); }
+  .cust-pts { list-style: none; margin: 28px 0; padding: 0; display: grid; gap: 18px; }
+  .cust-pts li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; }
+  .ci { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--night-2); color: #9fb8de; }
+  .cust-pts b { font-size: 17px; }
+  .cust-pts .body { margin-top: 4px; font-size: 15px; }
+  .cust .text-link { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
+
+  /* start: three steps on a line that fills in, then what the PoC shows */
+  .roll { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .roll::before { content: ''; position: absolute; left: 18px; right: calc((100% - 40px) / 3 - 18px); top: 18px; height: 2px; background: var(--line); }
+  .roll::after { content: ''; position: absolute; left: 18px; right: calc((100% - 40px) / 3 - 18px); top: 18px; height: 2px; background: var(--orange); transform-origin: left; transform: scaleX(1); }
+  :global(.js) .roll::after { transform: scaleX(0); transition: transform 1.6s var(--ease) .3s; }
+  :global(.js) .roll.is-in::after { transform: scaleX(1); }
+  .roll li { position: relative; display: grid; gap: 10px; align-content: start; }
+  .roll .n { background: #fff; }
+  .roll li:first-child .n { background: var(--orange); border-color: var(--orange); color: #1a1209; }
+  .poc { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; padding: 28px; border-radius: var(--r-xl); background: var(--orange-soft); }
+  .poc ul { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; }
+  .poc li { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; }
+  .poc li :global(svg) { flex: none; margin-top: 3px; color: var(--orange-ink); }
+
+  /* questions */
+  .faq { display: grid; gap: 10px; }
+  .faq details { background: #fff; border-radius: var(--r-lg); border: 1px solid var(--line); }
+  .faq summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 20px 22px; font-weight: 700; font-size: 17px; cursor: pointer; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary :global(.faq-i) { flex: none; color: var(--ink-3); transition: rotate .25s var(--ease); }
+  .faq details[open] summary :global(.faq-i) { rotate: 45deg; color: var(--blue); }
+  .faq summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: var(--r-lg); }
+  .faq details .body { padding: 0 22px 22px; }
 
   @media (max-width: 1023px) {
-    .parts { grid-template-columns: 1fr; }
-    .plat { grid-template-columns: 1fr; }
-    .plat div + div { border-left: 0; border-top: 1px solid var(--line); }
-    .gov { grid-template-columns: 1fr; }
-    .feat4 { grid-template-columns: 1fr 1fr; }
-    .arch { grid-template-columns: 1fr; gap: 0; }
+    .atk, .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .arch { grid-template-columns: 1fr; }
     .link { height: 64px; }
     .link::before { left: 50%; right: auto; top: 8px; bottom: 8px; width: 2px; height: auto; }
     .link span { margin: 0; }
     .link.back::after { display: none; }
-    .why { grid-template-columns: 1fr 1fr; }
-    .panel, .std { grid-template-columns: 1fr; }
-    .roll { grid-template-columns: 1fr; }
-    .roll li::after { display: none; }
+    .panel, .std, .setup, .cust { grid-template-columns: minmax(0, 1fr); }
   }
   @media (max-width: 767px) {
-    .feat4, .why { grid-template-columns: 1fr; }
+    .proof-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .proof-list li, .proof-list li:first-child { border-left: 0; padding: 0 0 12px; border-bottom: 1px solid var(--night-line); }
+    .atk, .rules { grid-template-columns: minmax(0, 1fr); }
     .tablist { border-radius: var(--r-md); }
+    .roll { grid-template-columns: minmax(0, 1fr); }
+    .roll::before, .roll::after { left: 17px; right: auto; top: 18px; bottom: 18px; width: 2px; height: auto; }
+    .roll::after { transform-origin: top; }
+    :global(.js) .roll::after { transform: scaleY(0); }
+    :global(.js) .roll.is-in::after { transform: scaleY(1); }
+    .roll li { padding-left: 56px; }
+    .roll .n { position: absolute; left: 0; top: 0; }
+    .poc { grid-template-columns: minmax(0, 1fr); align-items: start; }
+    .poc ul { grid-template-columns: minmax(0, 1fr); }
+    .head-center .lead br { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(.js) .atk li .stamp { opacity: 1; animation: none; }
+    :global(.js) .roll::after { transform: none; transition: none; }
   }
 </style>
 
 <script>
-  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[role="tab"]'));
+  const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('#uses [role="tab"]'));
   const select = (tab: HTMLButtonElement) => {
     for (const t of tabs) {
       const on = t === tab;

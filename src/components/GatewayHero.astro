@@ -25,9 +25,9 @@ const services = [{ k: 's1', t: '그룹웨어' }, { k: 's2', t: '인사 시스�
 const chapters = [
   { t: '밖으로만 연결', from: 0, to: 4, still: 3.6, d: '고객사 서버의 Internal Agent가 게이트웨이로 먼저 연결을 엽니다. 내부망에는 들어오는 포트를 열지 않습니다.' },
   { t: '사람과 PC 묶기', from: 4, to: 8, still: 7.4, d: 'PC 화면의 QR을 휴대폰으로 찍고 생체 인증으로 승인해, 지금 이 PC를 쓰는 사람을 묶습니다.' },
-  { t: '요청마다 확인', from: 8, to: 14, still: 13.6, d: '요청이 올 때마다 인증서와 바인딩을 확인하고, PC와 휴대폰, 네트워크의 여러 신호를 교차 검증하고 ZEN 리스크, AI 리스크, OPA 정책 엔진으로 판정합니다.' },
-  { t: '검증된 신원 전달', from: 14, to: 18, still: 17.4, d: '허용된 요청에만 서명된 신원을 붙여 내부 서비스로 보냅니다. 업무 시스템은 이 신원으로 사용자를 알아봅니다.' },
-  { t: '수상하면 재확인', from: 18, to: 25.6, still: 22.2, d: '신호 사이에 모순이 보이면, 예를 들어 PC와 휴대폰의 위치가 맞지 않으면 휴대폰으로 추가 인증을 요청합니다. 승인하면 다시 판정합니다.' },
+  { t: '요청마다 확인', from: 8, to: 14, still: 13.6, d: '요청이 올 때마다 인증서와 바인딩을 확인합니다. PC와 휴대폰, 네트워크의 여러 신호를 교차 검증한 뒤 ZEN 리스크, AI 리스크, OPA 정책 엔진으로 판정합니다.' },
+  { t: '검증된 신원 전달', from: 14, to: 18, still: 17.4, d: '허용된 요청에만 요청마다 새로 서명한 신원을 붙입니다. Internal Agent가 서명을 확인한 뒤 내부 서비스로 넘기고, 업무 시스템은 이 신원으로 사용자를 알아봅니다.' },
+  { t: '수상하면 재확인', from: 18, to: 25.6, still: 22.2, d: '신호 사이에 모순이 보이면, 예를 들어 PC와 휴대폰의 위치가 맞지 않으면 휴대폰으로 추가 인증을 요청합니다. PC가 아닌 휴대폰으로 따로 묻기 때문에, PC를 손에 넣은 사람은 답할 수 없습니다.' },
   { t: '미등록 기기 거부', from: 25.6, to: 30.5, still: 29.4, d: '등록된 인증서가 없는 기기의 요청은 게이트웨이에서 거부됩니다. 내부망에는 닿지 않습니다.' },
 ];
 ---
@@ -132,11 +132,13 @@ const chapters = [
       <text class="hw coral cue" data-t="25.8-30.5" x="156" y="476">등록되지 않은 기기</text>
       <text class="hw coral cue" data-t="27.6-30.5" x="446" y="500">인증서 없음 · 내부망에 닿지 않음</text>
 
+      <text class="lbl w-s" style="--d:2.1s" x="318" y="142" text-anchor="middle">mTLS</text>
       <text class="lbl w-s" style="--d:2.2s" x="826" y="166" text-anchor="middle">mTLS</text>
       <text class="lbl w-s" style="--d:2.3s" x="826" y="188" text-anchor="middle">HTTP/2</text>
       <text class="hw cue" data-t="0.4-4.2" x="776" y="114">밖으로 연결</text>
       <text class="hw mint cue" data-t="14-16.4" x="776" y="114">서명된 신원</text>
-      <text class="hw cue" data-t="1.4-30.5" x="914" y="214">들어오는 포트 0</text>
+      <text class="hw cue" data-t="1.4-14.8,18-30.5" x="914" y="214">들어오는 포트 0</text>
+      <g class="cue" data-t="14.8-18"><path class="tk" d={tick(914, 200)} /><text class="hw mint" x="938" y="214">서명 확인</text></g>
 
       <text class="lbl w-t" style="--d:1.6s" x="932" y="130">Internal Agent</text>
       <text class="lbl w-s" style="--d:1.7s" x="932" y="156">고객사 서버에 설치</text>

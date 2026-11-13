@@ -1,0 +1,93 @@
+---
+// Trust Gateway page, right under the hero: recent incidents as a slowly moving photo strip. Each card pairs where
+// the incident came in (from the reports, attributed) with the point Trust Gateway checks. It never says Trust Gateway
+// would have prevented the incident. Six stories come from our own 언론보도 pages; 쿠팡 links to the government
+// findings (과기정통부 민관합동조사단, 2026-02-10). Pictures: our story images, and Pexels (Daniil Komov 34803994) for 쿠팡.
+import news from '../../data/security-news.json';
+
+const picks = [
+  { slug: 'fsec-2026-11', path: '시스템 약점을 이용해 높은 열람 권한을 얻었고, 여러 IP에서 접근했습니다.', tg: '권한이 있어도 요청마다 기기와 사람, 네트워크를 다시 확인합니다. 평소와 다르면 휴대폰으로 다시 묻습니다.' },
+  { slug: 'mirae-asset-2026-11', path: '로그인 서비스와 그룹웨어를 거쳐, 권한 없는 외부인이 내부 데이터를 조회했습니다.', tg: '그룹웨어 같은 업무 앱은 등록된 PC와 본인 휴대폰 확인을 함께 통과한 요청에만 열립니다.' },
+  { slug: 'ai-hacking-ring-2026-10', path: 'AI 침투 도구가 인터넷에 열린 시스템의 약점을 스스로 찾아 들어갔습니다.', tg: '업무 시스템은 인터넷에 문을 열지 않습니다. 들어오는 포트가 없고, 등록된 기기의 요청만 받습니다.' },
+  { slug: 'korean-air-asiana-2026-10', path: '예약 시스템 운영사 계정의 로그인 정보로 비인가 접근이 일어났습니다.', tg: '아이디와 비밀번호만으로는 열리지 않습니다. 기기 인증서와 휴대폰 생체 확인이 함께 필요합니다.' },
+  { slug: 'kepco-2026-10', path: '원인은 조사 중입니다. 직원 계정을 공유받아 접속한 사례가 지적됐고, 접속 기록이 남아 있지 않았습니다.', tg: '계정을 빌려도 그 사람의 휴대폰과 기기가 없으면 열리지 않습니다. 모든 판정은 근거와 함께 기록됩니다.' },
+  { slug: 'shinhan-bank-2026-10', path: '대출모집인 전용 조회 서비스의 본인 확인 절차가 우회됐습니다.', tg: '외부 인력의 업무 접속도 등록된 기기와 휴대폰 확인을 거치고, 요청마다 다시 평가합니다.' },
+];
+const rows = news as { slug?: string; date: string; org?: string; title: string; source: string }[];
+const dot = (d: string) => d.slice(0, 10).replaceAll('-', '.');
+const cards = [
+  ...picks.map((p) => {
+    const n = rows.find((r) => r.slug === p.slug)!;
+    return { ...p, href: `/news/press/${p.slug}`, ext: false, img: `/images/trust-gateway/inc-${p.slug}.webp`, meta: `${dot(n.date)} · ${n.source} 보도`, title: n.title };
+  }),
+  {
+    slug: 'coupang', href: 'https://v.daum.net/v/20260210170044700', ext: true, img: '/images/trust-gateway/inc-coupang.webp',
+    meta: '2025.11 · 과기정통부 조사 결과', title: '쿠팡, 고객 정보 3,367만여 건 유출',
+    path: '퇴사한 개발자가 재직 중 빼낸 인증 서명 키로 토큰을 위조해 접속했습니다. 키는 퇴사 뒤에도 바뀌지 않았습니다.',
+    tg: '키는 기기 보안 칩 밖으로 나오지 않습니다. 퇴사가 반영되면 인증서가 폐기돼 다음 요청부터 거부됩니다.',
+  },
+];
+---
+<section class="section inc-sec" id="incidents">
+  <div class="wrap">
+    <div class="head-center reveal">
+      <h2 class="h2">최근 사고, 어디로 들어왔을까요</h2>
+      <p class="lead">공개된 보도와 발표에서 사고가 들어온 길을 정리하고,<br />그 자리에서 Trust Gateway가 무엇을 확인하는지 나란히 놓았습니다.</p>
+    </div>
+  </div>
+  <div class="strip reveal">
+    <ul class="track">
+      {[0, 1].map((copy) => cards.map((c) => (
+        <li aria-hidden={copy ? 'true' : undefined} class={copy ? 'dup' : undefined}>
+          <a class="inc" href={c.href} tabindex={copy ? -1 : undefined} target={c.ext ? '_blank' : undefined} rel={c.ext ? 'noopener' : undefined}>
+            <img src={c.img} alt="" width="720" height="480" loading="lazy" decoding="async" />
+            <span class="inc-b">
+              <span class="inc-m">{c.meta}</span>
+              <b class="inc-t">{c.title}</b>
+              <span class="row in"><span class="k">들어온 길</span>{c.path}</span>
+              <span class="row tg"><span class="k">Trust Gateway가 확인하는 지점</span>{c.tg}</span>
+            </span>
+          </a>
+        </li>
+      )))}
+    </ul>
+  </div>
+  <div class="wrap">
+    <p class="note">사고 원인은 보도와 발표 기준이며, 조사 결과에 따라 달라질 수 있습니다. 카드를 누르면 사고 정리와 출처를 볼 수 있습니다.</p>
+  </div>
+</section>
+
+<style>
+  .inc-sec { overflow: hidden; }
+  .strip { --gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px var(--gutter) 12px; scrollbar-width: thin; }
+  .track { list-style: none; margin: 0 auto; padding: 0; display: flex; gap: var(--gap); width: max-content; }
+  .track li { scroll-snap-align: center; }
+  .track .dup { display: none; }
+  .inc { display: flex; flex-direction: column; width: 340px; height: 100%; border-radius: var(--r-xl); overflow: hidden; background: #fff; border: 1px solid var(--line); color: var(--ink); text-decoration: none; transition: border-color .3s var(--ease), translate .3s var(--ease); }
+  .inc:hover { border-color: var(--ink-3); translate: 0 -4px; }
+  .inc:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+  .inc img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
+  .inc-b { display: grid; gap: 10px; padding: 18px 20px 22px; align-content: start; }
+  .inc-m { font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .inc-t { font-size: 17px; line-height: 1.45; letter-spacing: -0.01em; }
+  .row { display: grid; gap: 4px; font-size: 14px; line-height: 1.6; color: var(--ink-2); padding: 10px 12px; border-radius: var(--r-md); }
+  .row .k { font-size: 12px; font-weight: 700; }
+  .row.in { background: #fdf0ee; }
+  .row.in .k { color: #b4443a; }
+  .row.tg { background: var(--mist); }
+  .row.tg .k { color: var(--blue); }
+  .note { margin-top: 20px; text-align: center; font-size: 14px; color: var(--ink-3); }
+
+  /* with a mouse, the strip drifts on its own and stops while the pointer or focus is on it */
+  @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    .strip { overflow: hidden; padding-inline: 0; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
+    .track { margin: 0; animation: drift 80s linear infinite; }
+    .track .dup { display: block; }
+    .strip:hover .track, .strip:focus-within .track { animation-play-state: paused; }
+    @keyframes drift { to { transform: translateX(calc(-50% - var(--gap) / 2)); } }
+  }
+  @media (max-width: 767px) {
+    .inc { width: 284px; }
+    .head-center .lead br { display: none; }
+  }
+</style>

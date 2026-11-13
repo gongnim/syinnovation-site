@@ -2,14 +2,23 @@
 // IT 컨설팅·개발: custom consulting and development. The page tells one story: the visitor's worries, the change they
 // can drag to compare, what we do (with small live screens), how a project runs (scroll-driven), how AI is used, and
 // proof from past work, then answers common questions. 에어레인 (AIRRANE) may be named (ERP case, owner approved
-// 2026-11-13); other client names and project figures stay off the page. Photos are
-// Pexels (no credit required): hero Mikhail Nilov 7988758, case Mumtaz Niazi 36825977, braille Eren Li 7188777,
+// 2026-11-13); other client names and project figures stay off the page. Hero pictures: colour-pencil scenes of the
+// team made with the image model from the company page portraits (2026-11-13). Other photos are
+// Pexels (no credit required): case Mumtaz Niazi 36825977, braille Eren Li 7188777,
 // payment Towfiqu barbhuiya 9122014, phone I'm Zion 12376016.
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
 
-const flow = ['요구사항', '기술 설계', '개발 · QA', '배포', '운영 · 유지보수'];
+// hero: the five steps take turns; each brings a colour-pencil sketch of the teammate who leads it (drawn from the
+// same portraits as the company page) and what happens in that step
+const flow = [
+  { t: '요구사항', img: 'sk-req', alt: '고객의 이야기를 들으며 메모하는 박성수 전략총괄을 그린 색연필 스케치', items: ['업무 담당자 인터뷰', '지금 업무와 문제 분석', '개선 방향 정리'] },
+  { t: '기술 설계', img: 'sk-design', alt: '화이트보드에 업무 흐름을 그리는 공동현 기술총괄을 그린 색연필 스케치', items: ['업무 흐름 다시 설계', 'IT 요구사항 명세', '시스템 구조와 단계별 로드맵'] },
+  { t: '개발 · QA', img: 'sk-dev', alt: '모니터 앞에서 코드를 검토하는 임종세 개발 엔지니어를 그린 색연필 스케치', items: ['AI 개발 도구로 빠르게 초안', '개발자가 코드 검토와 테스트', '짧은 주기로 시연하고 고침'] },
+  { t: '배포', img: 'sk-launch', alt: '서버 옆에서 노트북으로 배포를 확인하는 강민관 연구원을 그린 색연필 스케치', items: ['운영 환경 준비', '사용자 교육', '고객과 함께 오픈'] },
+  { t: '운영 · 유지보수', img: 'sk-ops', alt: '운영 현황 화면을 살펴보는 박희준 운영총괄을 그린 색연필 스케치', items: ['기능 개선과 업데이트', '장애 대응', '사용 현황을 보고 다음 개선 제안'] },
+];
 
 const pains = [
   { i: 'plan', q: '엑셀과 메일로 일합니다', a: '흩어진 업무를 하나의 시스템으로 모으고, 결재와 보고가 저절로 이어지게 합니다.' },
@@ -79,14 +88,29 @@ const at = (n: number) => `--at:${n}`;
           <a class="btn ghost" href="#process">진행 방식 보기</a>
         </div>
       </div>
-      <figure class="photo">
-        <img src="/images/consulting/hero.webp" srcset="/images/consulting/hero-800.webp 800w, /images/consulting/hero.webp 1600w" sizes="(max-width: 1023px) 100vw, 50vw"
-          alt="화면 앞에서 업무 흐름을 설명하는 사람과, 코드를 띄운 모니터 앞에 앉은 개발자들" width="1600" height="1068" fetchpriority="high" />
-      </figure>
+      <div class="show">
+        <figure class="photo">
+          {flow.map((f, i) => (
+            <img class={i === 0 ? 'on' : ''} src={`/images/consulting/${f.img}.webp`} srcset={`/images/consulting/${f.img}-800.webp 800w, /images/consulting/${f.img}.webp 1536w`}
+              sizes="(max-width: 1023px) 100vw, 50vw" alt={f.alt} width="1536" height="1024" fetchpriority={i === 0 ? 'high' : undefined} loading={i === 0 ? undefined : 'lazy'} decoding="async" />
+          ))}
+        </figure>
+        {flow.map((f, i) => (
+          <div class={`cap${i === 0 ? ' on' : ''}`} hidden={i !== 0}>
+            <p class="cap-k"><span>{String(i + 1).padStart(2, '0')}</span>{f.t}</p>
+            <ul>{f.items.map((x, k) => <li style={`--k:${k}`}><Icon name="check" size={16} />{x}</li>)}</ul>
+          </div>
+        ))}
+      </div>
     </div>
     <div class="wrap">
       <ol class="flow" aria-label="진행 순서">
-        {flow.map((f, i) => <li><span class="flow-n">{String(i + 1).padStart(2, '0')}</span>{f}</li>)}
+        {flow.map((f, i) => (
+          <li class={i === 0 ? 'on' : ''}>
+            <button type="button" aria-pressed={i === 0 ? 'true' : 'false'}><span class="flow-n">{String(i + 1).padStart(2, '0')}</span>{f.t}</button>
+            <i class="bar" aria-hidden="true"></i>
+          </li>
+        ))}
       </ol>
     </div>
   </section>
@@ -304,7 +328,7 @@ const at = (n: number) => `--at:${n}`;
   </section>
 
   <!-- 6. featured case -->
-  <section class="section">
+  <section class="section" id="airrane">
     <div class="wrap">
       <div class="head-left reveal"><h2 class="h2 sm">대표 사례</h2></div>
       <div class="case reveal">
@@ -384,13 +408,39 @@ const at = (n: number) => `--at:${n}`;
   .hero .btn-row { margin-top: 32px; }
   .hero .btn.ghost { background: transparent; color: var(--on-night); border-color: rgba(255, 255, 255, .32); }
   .hero .btn.ghost:hover { border-color: #fff; }
-  .photo { margin: 0; border-radius: 20px; overflow: hidden; }
-  .photo img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; animation: photo-in 1.8s var(--ease) both; }
-  @keyframes photo-in { from { transform: scale(1.08); opacity: 0; } to { transform: none; opacity: 1; } }
+  /* the photos cross-fade with a slow zoom; one step lasts --dur, and the strip's bar ending moves to the next */
+  .hero { --dur: 5s; }
+  .show { position: relative; }
+  .photo { margin: 0; border-radius: 20px; overflow: hidden; position: relative; aspect-ratio: 3 / 2; background: var(--night-2); }
+  .photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s var(--ease); }
+  .photo img.on { opacity: 1; }
+  :global(html.js) .hero.auto .photo img.on { animation: zoom var(--dur) linear both; }
+  @keyframes zoom { from { transform: scale(1.07); } to { transform: none; } }
+  .cap { position: absolute; left: 16px; bottom: 16px; max-width: min(320px, calc(100% - 32px)); padding: 16px 18px 18px; border-radius: 14px; background: rgba(11, 20, 34, .86); border: 1px solid rgba(255, 255, 255, .08); }
+  .cap-k { display: flex; align-items: baseline; gap: 8px; font-size: 17px; font-weight: 700; color: #fff; }
+  .cap-k span { font-size: 13px; color: var(--orange); font-variant-numeric: tabular-nums; }
+  .cap ul { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+  .cap li { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--on-night); }
+  .cap li :global(svg) { flex: none; color: #63d6b4; }
+  :global(html.js) .hero.auto .cap.on li { animation: item-in .5s var(--ease) both; animation-delay: calc(.25s + var(--k) * .18s); }
+  @keyframes item-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
   .flow { list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--night-line); border-radius: 16px; overflow: hidden; }
-  .flow li { display: grid; gap: 4px; justify-items: center; padding: 18px 12px; font-size: 16px; font-weight: 600; text-align: center; background: rgba(255, 255, 255, .03); }
+  .flow li { position: relative; background: rgba(255, 255, 255, .03); transition: background-color .4s var(--ease); }
   .flow li + li { border-left: 1px solid var(--night-line); }
-  .flow-n { font-size: 13px; font-weight: 600; color: #9fb8de; font-variant-numeric: tabular-nums; }
+  .flow button { width: 100%; display: grid; gap: 4px; justify-items: center; padding: 18px 12px 20px; border: 0; background: none; font: inherit; font-size: 16px; font-weight: 600; text-align: center; color: var(--on-night-2); cursor: pointer; transition: color .4s var(--ease); }
+  .flow button:focus-visible { outline: 2px solid var(--orange); outline-offset: -4px; border-radius: 12px; }
+  .flow-n { font-size: 13px; font-weight: 600; color: #9fb8de; font-variant-numeric: tabular-nums; transition: color .4s var(--ease); }
+  /* passed steps keep a quiet blue line, the current one fills in orange */
+  .bar { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: #9fb8de; transform: scaleX(0); transform-origin: left; opacity: .45; }
+  .flow li.done .bar { transform: none; }
+  .flow li.on { background: rgba(255, 255, 255, .08); }
+  .flow li.on button { color: #fff; }
+  .flow li.on .flow-n { color: var(--orange); }
+  .flow li.on .bar { background: var(--orange); opacity: 1; transform: none; }
+  :global(html.js) .hero.auto .flow li.on .bar { animation: fill var(--dur) linear both; }
+  @keyframes fill { from { transform: scaleX(0); } to { transform: none; } }
+  .hero.paused .photo img.on, .hero.paused .flow li.on .bar { animation-play-state: paused; }
 
   /* 1. worries: flip cards */
   .pains { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
@@ -673,8 +723,9 @@ const at = (n: number) => `--at:${n}`;
   }
   @media (max-width: 767px) {
     .flow { grid-template-columns: minmax(0, 1fr); }
-    .flow li { grid-template-columns: 32px minmax(0, 1fr); justify-items: start; text-align: left; padding: 12px 16px; }
+    .flow button { grid-template-columns: 32px minmax(0, 1fr); justify-items: start; text-align: left; padding: 12px 16px; }
     .flow li + li { border-left: 0; border-top: 1px solid var(--night-line); }
+    .cap { position: static; max-width: none; margin-top: 12px; }
     .pains { grid-template-columns: minmax(0, 1fr); }
     .pain { height: 170px; }
     .compare { aspect-ratio: 4 / 5; }
@@ -698,7 +749,8 @@ const at = (n: number) => `--at:${n}`;
     .rv-code code { white-space: pre-wrap; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .photo img, .m-live i, .now .ph-dot::after { animation: none !important; }
+    .photo img { transition: none; }
+    .m-live i, .now .ph-dot::after { animation: none !important; }
     :global(html.js) .review .rv-code li, :global(html.js) .review .rv-note, :global(html.js) .review .rv-checks li { opacity: 1; transform: none; transition: none; }
     .run .mini *, .run .mini *::after { animation: none !important; }
     .face { transition: none; }
@@ -708,6 +760,36 @@ const at = (n: number) => `--at:${n}`;
 
 <script>
   const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // hero: the five steps take turns. The current step's bar fills over --dur; when it ends, the next step comes up
+  // with its own photo and list. A click picks a step; the pointer resting on it, or scrolling away, pauses it.
+  const hero = document.querySelector<HTMLElement>('section.hero');
+  if (hero) {
+    const lis = [...hero.querySelectorAll<HTMLLIElement>('.flow li')];
+    const imgs = [...hero.querySelectorAll<HTMLImageElement>('.photo img')];
+    const caps = [...hero.querySelectorAll<HTMLElement>('.cap')];
+    let cur = 0;
+    const show = (n: number) => {
+      cur = n;
+      lis.forEach((li, i) => { li.classList.remove('on'); li.classList.toggle('done', i < n); li.querySelector('button')!.setAttribute('aria-pressed', String(i === n)); });
+      imgs.forEach((im) => im.classList.remove('on'));
+      caps.forEach((c, i) => { c.classList.remove('on'); c.hidden = i !== n; });
+      void hero.offsetWidth; // so a step shown again restarts its bar and zoom
+      lis[n].classList.add('on'); imgs[n].classList.add('on'); caps[n].classList.add('on');
+    };
+    lis.forEach((li, i) => li.querySelector('button')!.addEventListener('click', () => show(i)));
+    if (!still) {
+      hero.classList.add('auto');
+      hero.querySelector('.flow')!.addEventListener('animationend', (e) => { if ((e.target as HTMLElement).classList.contains('bar')) show((cur + 1) % lis.length); });
+      let hover = false, seen = true;
+      const sync = () => hero.classList.toggle('paused', hover || !seen);
+      hero.querySelectorAll('.show, .flow').forEach((el) => {
+        el.addEventListener('pointerenter', (e) => { if ((e as PointerEvent).pointerType === 'mouse') { hover = true; sync(); } });
+        el.addEventListener('pointerleave', () => { hover = false; sync(); });
+      });
+      new IntersectionObserver(([e]) => { seen = e.isIntersecting; sync(); }).observe(hero);
+    }
+  }
 
   // worry cards: a tap flips one (hover flips on desktop too)
   document.querySelectorAll<HTMLButtonElement>('.pain').forEach((b) => b.addEventListener('click', () => b.setAttribute('aria-pressed', String(b.getAttribute('aria-pressed') !== 'true'))));

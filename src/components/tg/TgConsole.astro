@@ -1,0 +1,157 @@
+---
+// Trust Gateway page: what an administrator sees. A redrawn console (example names and times, said so on the page):
+// decisions arrive one by one, and the newest one that was not a plain 허용 opens its reasons on the right.
+// Facts from the product: reasons written as sentences, a hash-chained audit ledger kept 5 years under a delete lock,
+// admin and tenant consoles with phone approval for changes, office IP ranges.
+import Icon from '../Icon.astro';
+
+const points = [
+  { i: 'search', t: '판단 근거를 문장으로', d: '허용하거나 막은 요청마다 어떤 신호가 서로 맞지 않았는지 문장으로 남깁니다.' },
+  { i: 'lock', t: '고칠 수 없는 감사 기록', d: '판정 기록은 앞 기록과 해시로 이어져 중간을 바꾸면 드러납니다. 삭제와 덮어쓰기가 잠긴 저장소에 5년 보관합니다.' },
+  { i: 'user', t: '고객사 관리자도 직접', d: '고객사 관리자는 자기 회사의 직원, 기기, 정책을 직접 바꾸고, 바꿀 때마다 휴대폰 승인을 거칩니다.' },
+  { i: 'pin', t: '사무실 IP 대역 등록', d: '회사 공인 IP 대역을 등록하면, 그 안에서 IP가 바뀌어도 재인증을 반복하지 않습니다.' },
+];
+// one example morning; the script keeps feeding these in a loop
+const log = [
+  { u: '김지훈', app: '그룹웨어', v: 'allow', vt: '허용', why: '사무실, 같은 Wi-Fi, 평소 시간대. 신호가 서로 맞습니다.', zen: '규칙 위반 없음', ai: '평소 범위 안', opa: '허용' },
+  { u: '이서연', app: '인사 시스템', v: 'allow', vt: '허용', why: '등록된 사무실 IP 대역 안에서 접속했습니다.', zen: '규칙 위반 없음', ai: '평소 범위 안', opa: '허용' },
+  { u: '박민수', app: '업무 포털', v: 'step', vt: '추가 인증', why: 'PC와 휴대폰은 함께 있지만, 처음 보는 네트워크입니다. 휴대폰 승인 뒤 허용했습니다.', zen: '처음 보는 네트워크', ai: '네트워크 변화가 평소보다 큼', opa: '추가 인증' },
+  { u: '최유나', app: '그룹웨어', v: 'allow', vt: '허용', why: '재택 근무지에서 평소 시간대에 접속했습니다.', zen: '규칙 위반 없음', ai: '평소 범위 안', opa: '허용' },
+  { u: '정다은', app: '회계', v: 'deny', vt: '거부', why: 'PC와 휴대폰의 위치가 맞지 않고, 휴대폰 승인이 없었습니다.', zen: 'PC와 휴대폰 위치 불일치', ai: '여러 신호가 평소 범위 밖', opa: '추가 인증 뒤 승인 없음' },
+  { u: '협력사 계정', app: '회계', v: 'deny', vt: '거부', why: '이 계정에 허락되지 않은 앱입니다. 정책 기본값은 거부입니다.', zen: '규칙 위반 없음', ai: '평소 범위 안', opa: '허락되지 않은 경로' },
+];
+const first = log.slice(0, 5).map((r, i) => ({ ...r, at: `09:${String(12 + i * 2).padStart(2, '0')}` })).reverse();
+const shown = first.find((r) => r.v !== 'allow')!;
+---
+<section class="section mist" id="console">
+  <div class="wrap con">
+    <div class="con-copy">
+      <h2 class="h2 sm reveal">관리자는<br />이렇게 봅니다</h2>
+      <p class="lead reveal">막는 것만큼, 왜 막았는지 설명할 수 있어야 합니다.</p>
+      <ul class="pts">
+        {points.map((p) => (<li class="reveal"><span class="pi"><Icon name={p.i} size={18} /></span><div><b>{p.t}</b><p class="body">{p.d}</p></div></li>))}
+      </ul>
+    </div>
+
+    <div class="win reveal" aria-label="관리 콘솔 예시 화면" role="img">
+      <div class="bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>TG 통제 센터</b><span class="live"><i></i>실시간</span></div>
+      <div class="body2">
+        <nav class="nav" aria-hidden="true"><span class="on">판정 기록</span><span>직원</span><span>기기</span><span>인증서</span><span>정책</span></nav>
+        <div class="main">
+          <table class="log" aria-hidden="true" data-log={JSON.stringify(log)}>
+            <thead><tr><th>시간</th><th>사용자</th><th class="c-app">앱</th><th>결과</th></tr></thead>
+            <tbody>
+              {first.map((r) => (<tr><td class="t">{r.at}</td><td>{r.u}</td><td class="c-app">{r.app}</td><td><span class={`chip v-${r.v}`}>{r.vt}</span></td></tr>))}
+            </tbody>
+          </table>
+          <div class="why" aria-hidden="true">
+            <p class="why-h"><span class={`chip v-${shown.v}`} data-f="vt">{shown.vt}</span><b data-f="u">{shown.u}</b><span data-f="app">{shown.app}</span></p>
+            <p class="why-s" data-f="why">{shown.why}</p>
+            <dl>
+              <div><dt>ZEN 리스크</dt><dd data-f="zen">{shown.zen}</dd></div>
+              <div><dt>AI 리스크</dt><dd data-f="ai">{shown.ai}</dd></div>
+              <div><dt>OPA 정책</dt><dd data-f="opa">{shown.opa}</dd></div>
+            </dl>
+            <p class="chain"><Icon name="lock" size={14} />감사 기록에 남김 · 앞 기록과 해시로 연결</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p class="note">관리 콘솔을 알아보기 쉽게 다시 그린 예시 화면입니다. 이름과 시간은 예시입니다.</p>
+</section>
+
+<style>
+  .con { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .con .lead { margin-top: 16px; }
+  .pts { list-style: none; margin: 28px 0 0; padding: 0; display: grid; gap: 18px; }
+  .pts li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; }
+  .pi { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: #fff; color: var(--blue); }
+  .pts b { font-size: 17px; }
+  .pts .body { margin-top: 4px; font-size: 15px; }
+
+  .win { border-radius: var(--r-xl); background: #fff; border: 1px solid var(--line); overflow: hidden; box-shadow: 0 18px 40px -24px rgba(14, 26, 43, .35); }
+  .bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--line); background: var(--paper-2); }
+  .dots { display: flex; gap: 6px; }
+  .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--line); }
+  .bar b { font-size: 14px; }
+  .live { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #2e9a7a; }
+  .live i { width: 7px; height: 7px; border-radius: 50%; background: #2e9a7a; }
+  .body2 { display: grid; grid-template-columns: 112px minmax(0, 1fr); }
+  .nav { display: grid; align-content: start; gap: 2px; padding: 12px 8px; border-right: 1px solid var(--line); font-size: 13px; color: var(--ink-3); }
+  .nav span { padding: 8px 10px; border-radius: 8px; }
+  .nav .on { background: var(--mist); color: var(--ink); font-weight: 700; }
+  .main { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 12px; padding: 14px; align-items: start; }
+
+  .log { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .log th { text-align: left; font-weight: 600; color: var(--ink-3); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  .log td { padding: 9px 8px; border-bottom: 1px solid #edf0f4; white-space: nowrap; }
+  .log .t { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .log tr.new { animation: arrive 1.4s var(--ease); }
+  @keyframes arrive { 0% { background: #fff4eb; opacity: 0; transform: translateY(-6px); } 30% { opacity: 1; transform: none; } 100% { background: transparent; } }
+  .chip { display: inline-block; font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 999px; }
+  .v-allow { color: #1f7a5f; background: #e5f5ef; }
+  .v-step { color: #a85a10; background: #fff1e2; }
+  .v-deny { color: #b23a2b; background: #fdecea; }
+
+  .why { border: 1px solid var(--line); border-radius: var(--r-md); padding: 12px; display: grid; gap: 10px; background: var(--paper-2); }
+  .why.flash { animation: flash .9s var(--ease); }
+  @keyframes flash { from { box-shadow: 0 0 0 3px rgba(246, 136, 42, .35); } to { box-shadow: 0 0 0 0 rgba(246, 136, 42, 0); } }
+  .why-h { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; font-size: 13px; color: var(--ink-3); }
+  .why-h b { color: var(--ink); font-size: 14px; }
+  .why-s { font-size: 14px; line-height: 1.6; font-weight: 600; }
+  .why dl { margin: 0; display: grid; gap: 4px; font-size: 13px; }
+  .why dl div { display: grid; grid-template-columns: 74px minmax(0, 1fr); gap: 6px; }
+  .why dt { color: var(--ink-3); }
+  .why dd { margin: 0; }
+  .chain { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #2e9a7a; font-weight: 600; }
+  .note { margin-top: 20px; text-align: center; font-size: 13px; color: var(--ink-3); }
+
+  @media (max-width: 1023px) {
+    .con { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 767px) {
+    .body2 { grid-template-columns: minmax(0, 1fr); }
+    .nav { display: none; }
+    .main { grid-template-columns: minmax(0, 1fr); }
+    .c-app { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .log tr.new, .why.flash { animation: none; }
+  }
+</style>
+
+<script>
+  // feed the example log: a new decision every 3s while the console is on screen
+  const table = document.querySelector<HTMLTableElement>('#console .log');
+  const why = document.querySelector<HTMLElement>('#console .why');
+  if (table && why && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    type Row = { u: string; app: string; v: string; vt: string; why: string; zen: string; ai: string; opa: string };
+    const log: Row[] = JSON.parse(table.dataset.log!);
+    const body = table.tBodies[0];
+    let n = 5, minute = 20, timer = 0;
+    const add = () => {
+      const r = log[n++ % log.length];
+      minute += 2;
+      const at = `${String(9 + Math.floor(minute / 60)).padStart(2, '0')}:${String(minute % 60).padStart(2, '0')}`;
+      // a copy of an existing row keeps the scoped-style attributes that a new element would lack
+      const tr = body.rows[0].cloneNode(true) as HTMLTableRowElement;
+      tr.classList.add('new');
+      tr.cells[0].textContent = at; tr.cells[1].textContent = r.u; tr.cells[2].textContent = r.app;
+      const chip = tr.querySelector<HTMLElement>('.chip')!;
+      chip.className = `chip v-${r.v}`; chip.textContent = r.vt;
+      body.prepend(tr);
+      while (body.rows.length > 5) body.deleteRow(-1);
+      if (r.v !== 'allow') {
+        for (const el of why.querySelectorAll<HTMLElement>('[data-f]')) el.textContent = r[el.dataset.f as keyof Row];
+        const chip = why.querySelector<HTMLElement>('[data-f="vt"]')!;
+        chip.className = `chip v-${r.v}`;
+        why.classList.remove('flash'); void why.offsetWidth; why.classList.add('flash');
+      }
+    };
+    new IntersectionObserver(([e]) => {
+      clearInterval(timer);
+      if (e.isIntersecting) timer = window.setInterval(add, 3000);
+    }, { threshold: 0.4 }).observe(table);
+  }
+</script>
