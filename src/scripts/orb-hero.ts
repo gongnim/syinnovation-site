@@ -525,7 +525,11 @@ export function orbHero(root: HTMLElement) {
   composer.addPass(bloom);
   composer.addPass(new OutputPass());
 
-  let W = 1, H = 1, pxPerUnit = 1, orbScale = 1, orbCy = 0, orbR = 0;
+  let W = 1, H = 1, pxPerUnit = 1, orbScale = 1, orbCy = 0, orbR = 0, copyBottom = 0;
+  // where the opening copy ends (it shares the pinned stage with the canvas): the night core starts below it, like PacketGo's
+  const copy = layers.find((el) => el.dataset.heroLayer === 'a');
+  const measureCopy = () => { copyBottom = copy ? copy.offsetTop + copy.offsetHeight : 0; };
+  if (copy) new ResizeObserver(measureCopy).observe(copy);
   const visH = () => 2 * camera.position.z * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
   function layout() {
     W = canvas.clientWidth; H = canvas.clientHeight;
@@ -540,6 +544,7 @@ export function orbHero(root: HTMLElement) {
     rayU.uRes.value.set(W * dpr, H * dpr);
     rayU.uWidth.value = 0.75 * dpr;
     moteU.uScale.value = (H * dpr) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
+    measureCopy();
   }
 
   // core position and size along the scroll (proportions follow PacketGo's main visual):
@@ -548,7 +553,8 @@ export function orbHero(root: HTMLElement) {
     const s1 = ss(0.18, 0.42, p), s2 = ss(0.48, 0.62, p), s3 = ss(0.66, 0.8, p);
     const mobile = W < 768;
     const r0 = Math.max(250, Math.min(W * 0.37, H * 0.56));
-    const cy0 = H * (mobile ? 0.7 : 0.59) + r0;
+    // the top of the night core: never above a clear gap under the opening copy
+    const cy0 = Math.max(H * (mobile ? 0.7 : 0.59), copyBottom + (mobile ? 44 : Math.max(72, H * 0.09))) + r0;
     const cyMid = H * (mobile ? 0.56 : 0.48) + r0;
     const r1 = Math.min(H * 0.25, W * 0.32), r2 = mobile ? Math.min(H * 0.15, W * 0.27) : Math.min(H * 0.19, W * 0.24);
     let rPx = r0, cy = lerp(cy0, cyMid, s1);

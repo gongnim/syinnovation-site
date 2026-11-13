@@ -239,7 +239,7 @@ const team = [
   /* type sizes follow PacketGo's main visual: Inter Tight 400 for the English headline, Pretendard 500 for the lead */
   .hero-title {
     font-family: 'Inter Tight Variable', 'Pretendard Variable', Pretendard, sans-serif; font-weight: 400; color: #fff;
-    font-size: clamp(44px, 5.44vw + 23.6px, 128px); line-height: 1; letter-spacing: -0.02em;
+    font-size: min(clamp(44px, 5.44vw + 23.6px, 128px), 11.5vh); line-height: 1; letter-spacing: -0.02em;
   }
   .hero-lead {
     margin: clamp(24px, 1.04vw + 20px, 40px) auto 0; max-width: 960px; color: rgba(243,246,251,.9);
