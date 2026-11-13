@@ -90,3 +90,12 @@ test('list items and description details break per sentence too, unless they hol
   );
   assert.equal(breakSentences('<li><p>안쪽 문단입니다. 이미 나뉩니다.</p></li>'), '<li><p><span class="sb">안쪽 문단입니다.</span><span class="sb">이미 나뉩니다.</span></p></li>');
 });
+
+test('one-syllable words stay with the next word, bound nouns with the one before', () => {
+  const N = String.fromCharCode(0xa0);
+  assert.equal(keepNamesTogether('<body><p>단계적으로 새 시스템으로 옮깁니다.</p></body>'), `<body><p>단계적으로 새${N}시스템으로 옮깁니다.</p></body>`);
+  assert.equal(keepNamesTogether('<body><p>기본을 지키면 막을 수 있습니다</p></body>'), `<body><p>기본을 지키면 막을${N}수${N}있습니다</p></body>`);
+  assert.equal(keepNamesTogether('<body><p>맡길 곳이 없습니다</p></body>'), `<body><p>맡길${N}곳이 없습니다</p></body>`);
+  // whole words only: 데이터, 수정, 때문에 are not bound nouns
+  assert.equal(keepNamesTogether('<body><p>고객 데이터를 수정하는 때문에</p></body>'), '<body><p>고객 데이터를 수정하는 때문에</p></body>');
+});

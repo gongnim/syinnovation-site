@@ -7,6 +7,9 @@
 //    so a sentence that has to wrap breaks after its comma, not in the middle of a phrase.
 // 2. Names never split across lines: the spaces inside them become non-breaking spaces, and a line never ends at
 //    a middle dot ("PC·태블릿" stays together).
+// 3. Short words never dangle: a one-syllable word ("새", "한", "할", "수") stays with the word after it ("새 시스템",
+//    "한 번"), and a one-syllable bound noun ("수", "것", "곳", "때"), alone or with one particle, stays with the word
+//    before it ("할 수", "맡길 곳이"). Non-breaking spaces again, text only.
 // Only text between tags is touched, never attribute values, scripts or styles.
 const SENTENCE_END = /([가-힣][.?!])[ \t]+(?=\S)/g;
 // a comma after a word, followed by a space: "결제까지, 사람들이" (but not "1,000")
@@ -15,6 +18,11 @@ const NAMES = ['Trust Gateway', 'Trust Auth', 'Never Trust', 'Always Verify', 'F
 const NAME_RE = new RegExp(NAMES.map((n) => n.replace(' ', '[ \\t]+')).join('|'), 'g');
 // a middle dot between two words ("PC·태블릿", "인증·인가"); word joiners (U+2060) on both sides forbid a break there
 const MIDDOT = /(?<=[가-힣A-Za-z0-9])·(?=[가-힣A-Za-z0-9])/g;
+const NBSP = '\u00A0';
+// a one-syllable Hangul word (at the start of a text run, after a space or an opening mark), then a space
+const SHORT_WORD = /(?<=^|[\s\u00A0(「“"'])([가-힣])[ \t]+(?=\S)/g;
+// a space before a one-syllable bound noun, with at most one particle, that ends there
+const BOUND_NOUN = /[ \t]+(?=(?:수|것|곳|때|줄|뿐|데)(?:이|가|을|를|은|는|도|에|만|과|와|로)?(?:[\s\u00A0.,!?)」”]|$))/g;
 const WJ = String.fromCharCode(0x2060);
 const JOINED_DOT = `${WJ}·${WJ}`;
 
@@ -66,7 +74,7 @@ export function keepNamesTogether(html) {
   const head = html.slice(0, start);
   // leave <script> and <style> blocks alone; transform the text between tags everywhere else in <body>
   const body = html.slice(start).split(/(<script\b[\s\S]*?<\/script>|<style\b[\s\S]*?<\/style>)/i)
-    .map((part, i) => (i % 2 ? part : eachText(part, (t) => t.replace(NAME_RE, (m) => m.replace(/[ \t]+/g, ' ')).replace(MIDDOT, JOINED_DOT))))
+    .map((part, i) => (i % 2 ? part : eachText(part, (t) => t.replace(NAME_RE, (m) => m.replace(/[ \t]+/g, ' ')).replace(MIDDOT, JOINED_DOT).replace(SHORT_WORD, `$1${NBSP}`).replace(BOUND_NOUN, NBSP))))
     .join('');
   return head + body;
 }

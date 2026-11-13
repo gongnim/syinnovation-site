@@ -40,7 +40,7 @@ const contacts = [
           <legend class="label">문의 유형</legend>
           <div class="type-row">
             {types.map((t, i) => (
-              <label class="type"><input type="radio" name="type" value={t.v} checked={i === 0} /><span>{t.l}</span></label>
+              <label class="type"><input type="radio" name="type" value={t.v} checked={i === 0} /><span>{t.l.replace("/", "/​")}</span></label>
             ))}
           </div>
         </fieldset>
@@ -94,12 +94,13 @@ const contacts = [
   .types { border: 0; margin: 0; padding: 0; min-width: 0; }
   .label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 8px; color: var(--ink); }
   .opt { font-weight: 500; color: var(--ink-3); font-size: 13px; }
-  .type-row { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+  /* the first option is the longest (무료 PoC/컨설팅): a wider column, and if it still does not fit it breaks after the slash */
+  .type-row { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(4, minmax(0, 1fr)); gap: 8px; }
   .type { position: relative; }
   .type input { position: absolute; opacity: 0; pointer-events: none; }
   .type span {
     display: grid; place-items: center; height: 44px; padding: 0 6px; border: 1px solid var(--line); border-radius: 10px; background: #fff;
-    font-size: 14px; font-weight: 600; white-space: nowrap; color: var(--ink-2); cursor: pointer; transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
+    font-size: 14px; font-weight: 600; line-height: 1.2; text-align: center; word-break: keep-all; color: var(--ink-2); cursor: pointer; transition: background-color .2s var(--ease), border-color .2s var(--ease), color .2s var(--ease);
   }
   .type span:hover { border-color: var(--ink-3); }
   .type input:checked + span { background: var(--blue); border-color: var(--blue); color: #fff; }

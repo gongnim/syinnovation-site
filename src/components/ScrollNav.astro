@@ -1,6 +1,6 @@
 ---
 // One floating button at the bottom right of every page (user, 2026-11-13). On the home hero it points down: the first
-// press jumps to the day screen (no slide, like one scroll gesture there), the next glides to the section after the hero. Past that, and on every other page once it has
+// press glides to the hero's closing line, the next to the section after the hero. Past that, and on every other page once it has
 // scrolled a screen, it points up and goes back to the top. A page opts into the down stops with data-snav-down on its
 // tall hero.
 ---
@@ -29,24 +29,24 @@
   if (btn) {
     const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
     const hero = document.querySelector<HTMLElement>('[data-snav-down]');
-    let target = 0, jump = false;
+    let target = 0;
     const sync = () => {
       const y = scrollY;
       let dir: 'down' | 'up' | '' = '';
       if (hero) {
         const top = hero.getBoundingClientRect().top + y, end = top + hero.offsetHeight;
-        const day = end - innerHeight; // the hero's last screen
-        if (y < day - 4) { dir = 'down'; target = day; jump = true; }
-        else if (y < end - 4) { dir = 'down'; target = end; jump = false; }
+        const last = end - innerHeight; // the hero's last screen (the closing line)
+        if (y < last - 4) { dir = 'down'; target = last; }
+        else if (y < end - 4) { dir = 'down'; target = end; }
       }
-      if (!dir && y > innerHeight * 0.8) { dir = 'up'; target = 0; jump = false; }
+      if (!dir && y > innerHeight * 0.8) { dir = 'up'; target = 0; }
       btn.classList.toggle('on', !!dir);
       if (dir) {
         btn.dataset.dir = dir;
         btn.setAttribute('aria-label', dir === 'down' ? '아래로 이동' : '맨 위로');
       }
     };
-    btn.addEventListener('click', () => window.scrollTo({ top: target, behavior: jump ? 'instant' : smooth ? 'smooth' : 'auto' }));
+    btn.addEventListener('click', () => window.scrollTo({ top: target, behavior: smooth ? 'smooth' : 'auto' }));
     addEventListener('scroll', sync, { passive: true });
     addEventListener('resize', sync);
     sync();

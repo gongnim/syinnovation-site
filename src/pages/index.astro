@@ -19,7 +19,7 @@ const latest = sorted.slice(0, 3);
 const ba = [['엑셀로 취합', '한 번만 입력'], ['메일로 결재', '휴대폰으로 결재'], ['보고서는 수작업', '보고서는 자동']];
 const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추가', '배포 완료'], ['로그인 오류 신고', '대응 완료']];
 ---
-<Base title="신영이노베이션" description="제로트러스트 원칙을 업무 접속에 적용한 Trust Gateway. 휴대폰과 PC의 신호를 함께 확인하고, 로그인 이후에도 요청마다 다시 검증합니다.">
+<Base title="신영이노베이션" description="제로트러스트 원칙을 적용하여 개발한 Trust Gateway. 휴대폰과 PC의 신호를 함께 확인하고, 로그인 이후에도 요청마다 다시 검증합니다.">
 
   <!-- 1. hero -->
   <section class="hero" data-snav-down>
@@ -30,8 +30,10 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
       <h1 class="hero-title">Never Trust, <br />Always Verify</h1>
       <p class="hero-lead">Trust Gateway는 다중 신호 교차 검증을 실시간으로 수행해, <br />로그인 이후에도 본인인지 검증하는 제로트러스트 기반 솔루션입니다.</p>
     </div>
-    <div class="wrap hero-focus" data-hero-layer="b">
-      <h2 class="hero-focus-title">AI에 의한 공격이 아무리 정교해져도, <br />기본을 지키면 막을 수 있습니다</h2>
+    <div class="hero-band">
+      <div class="wrap hero-focus" data-hero-layer="b">
+        <h2 class="hero-focus-title">AI에 의한 공격이 아무리 정교해져도, <br />기본을 지키면 막을 수 있습니다</h2>
+      </div>
     </div>
   </section>
 
@@ -168,24 +170,24 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
 
 <style>
   /* hero */
-  /* two screens: the sphere (.hero-pin) stays behind while the copy scrolls normally over it; orb-hero.ts turns
-     night into day with the scroll position. No snap, no timed play-through (user, 2026-11-13) */
-  .hero { position: relative; height: 200vh; height: 200svh; background: #fff; }
-  .hero-pin {
-    position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 620px; overflow: hidden; color: var(--on-night);
-    background: color-mix(in srgb, #050a14, #eef2f8 calc(var(--hero-day, 0) * 100%));
-  }
+  /* one night screen that scrolls away like any section (user, 2026-11-13: no paging, no sudden bright day scene);
+     the sphere's lower part fades into the dark, and the band below fades from that dark to white */
+  .hero { position: relative; background: #050a14; }
+  /* --pin-h is set by orb-hero.ts: tall enough for the whole core under the opening copy (at least one screen) */
+  .hero-pin { position: relative; height: 100vh; height: var(--pin-h, 100svh); min-height: 620px; overflow: hidden; color: var(--on-night); background: #050a14; }
   .hero-pin::after {
-    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 22%; pointer-events: none;
-    background: linear-gradient(to bottom, rgba(255,255,255,0), #fff); opacity: var(--hero-end, 0);
+    content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: clamp(72px, 13vh, 140px); pointer-events: none;
+    background: linear-gradient(to bottom, rgba(5, 10, 20, 0), #050a14);
   }
-  /* the copy sits over the pinned sphere and scrolls with the page: the opening copy on the first screen, the
-     closing line where the second screen ends */
-  .hero-copy { position: absolute; z-index: 1; top: 0; left: 0; right: 0; text-align: center; color: var(--on-night); pointer-events: none; opacity: calc(1 - var(--hero-day, 0)); padding-top: calc(var(--header-h) + clamp(88px, 11vh, 132px)); }
-  .hero-focus { position: absolute; z-index: 1; left: 0; right: 0; top: calc(100% - 35vh); top: calc(100% - 35svh); text-align: center; color: var(--ink); opacity: var(--hero-day, 1); }
+  /* the opening copy over the sphere; the closing line under the core (see .hero-band) */
+  .hero-copy { position: absolute; z-index: 1; top: 0; left: 0; right: 0; text-align: center; color: var(--on-night); pointer-events: none; padding-top: calc(var(--header-h) + clamp(88px, 11vh, 132px)); }
+  /* the closing line right under the core, in white on the dark; below it the page fades to white */
+  .hero-focus { text-align: center; color: #fff; }
+  .hero-band {
+    padding: clamp(4px, 1vh, 16px) 0 clamp(200px, 34vh, 340px);
+    background: linear-gradient(to bottom, #050a14 0%, #050a14 30%, #142238 46%, #6d7f9b 64%, #c9d4e3 80%, #eef2f8 91%, #fff 100%);
+  }
   .hero-focus-title { font-size: clamp(26px, 3.6vw, 52px); line-height: 1.22; letter-spacing: -0.03em; font-weight: 700; word-break: keep-all; overflow-wrap: normal; text-wrap: balance; }
-  html:not(.js) .hero { height: auto; }
-  html:not(.js) .hero-focus { display: none; }
   /* type sizes follow PacketGo's main visual: Inter Tight 400 for the English headline, Pretendard 500 for the lead */
   .hero-title {
     font-family: 'Inter Tight Variable', 'Pretendard Variable', Pretendard, sans-serif; font-weight: 400; color: #fff;
@@ -299,19 +301,20 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
   .kind.press, .kind.security { color: var(--orange-ink); }
 
   @media (max-width: 1023px) {
-    .proofs { grid-template-columns: 1fr; }
+    .proofs { grid-template-columns: minmax(0, 1fr); }
     .proof.wide { grid-template-columns: 1fr; }
     .news-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 767px) {
     .hero-lead br:not(.sb) { display: none; }
-    .hero-focus { top: calc(100% - 48vh); top: calc(100% - 48svh); }
     .head-center .lead br { display: none; }
     .log li { grid-template-columns: 1fr auto; }
     .log .why { grid-column: 1 / -1; grid-row: 2; }
   }
   /* narrow phones: the before/after stacks, and the code lines wrap instead of being cut */
   @media (max-width: 560px) {
+    .proof { padding: 16px 16px 24px; }
+    .proof .media { padding: 16px; }
     .cs .proof .media { padding: 18px; }
     .ba { grid-template-columns: minmax(0, 1fr); gap: 12px; }
     .ba-arrow { width: 2px; height: 22px; justify-self: center; }
@@ -336,63 +339,5 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
       else if (!e.isIntersecting) el.classList.remove('play');
     }, { threshold: [0, 0.25] }).observe(el);
   });
-
-  // hero: two pages (user, 2026-11-13). On the first screen one gesture down (wheel, swipe or key) jumps straight to the
-  // second, and one gesture up from the second jumps back; the scene and the copy change with a short fade
-  // (orb-hero.ts). Below the hero the page scrolls as usual. After a jump the rest of that gesture (wheel momentum, the
-  // same swipe) is swallowed, so one flick does not also carry on past the second page.
-  const heroEl = document.querySelector<HTMLElement>('.hero[data-snav-down]');
-  if (heroEl) {
-    const page2 = () => Math.max(0, heroEl.offsetHeight - innerHeight);
-    const want = (down: boolean) => {
-      const y = scrollY, end = page2();
-      if (down && y < end - 2) return end;
-      if (!down && y > 2 && y <= end + 2) return 0;
-      return -1;
-    };
-    let locked = false, lockUntil = 0, quiet = 0;
-    const release = () => {
-      clearTimeout(quiet);
-      quiet = window.setTimeout(() => { if (performance.now() >= lockUntil) locked = false; else release(); }, 220);
-    };
-    const go = (top: number) => { window.scrollTo({ top, behavior: 'instant' }); locked = true; lockUntil = performance.now() + 700; release(); };
-
-    addEventListener('wheel', (e) => {
-      if (e.ctrlKey) return; // pinch zoom
-      if (locked) { e.preventDefault(); release(); return; }
-      if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
-      const t = want(e.deltaY > 0);
-      if (t < 0) return;
-      e.preventDefault(); go(t);
-    }, { passive: false });
-
-    let startY = 0, mode: 'native' | 'wait' | 'swallow' = 'native';
-    addEventListener('touchstart', (e) => {
-      startY = e.touches[0].clientY;
-      mode = e.touches.length === 1 && scrollY <= page2() + 2 ? 'wait' : 'native';
-    }, { passive: true });
-    addEventListener('touchmove', (e) => {
-      if (mode === 'native') return;
-      if (mode === 'swallow') { e.preventDefault(); return; }
-      const dy = startY - e.touches[0].clientY; // > 0: the finger moves up, the page goes down
-      if (Math.abs(dy) < 8) return;
-      const t = want(dy > 0);
-      if (t < 0) { mode = 'native'; return; }
-      e.preventDefault(); mode = 'swallow'; go(t);
-    }, { passive: false });
-    addEventListener('touchend', () => { mode = 'native'; }, { passive: true });
-
-    addEventListener('keydown', (e) => {
-      if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
-      const el = e.target as HTMLElement;
-      if (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(el.tagName)) return;
-      const down = e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey);
-      const up = e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey);
-      if (!down && !up) return;
-      const t = want(down);
-      if (t < 0) return;
-      e.preventDefault(); go(t);
-    });
-  }
 
 </script>

@@ -5,9 +5,9 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 // Home hero. The .hero section is two screens tall; .hero-pin (the sphere) sticks while the copy scrolls normally over
-// it. The scene is night (p 0) or day (p 1): crossing a scroll point eases p to the other end in about half a second,
-// with no in-between tied to the scroll (user, 2026-11-13: that lagged). No snap and no timed play-through (the page
-// should just scroll); a floating button (ScrollNav) jumps to the day screen. Copy sits at the start and the end, like PacketGo:
+// it. Latest (user, 2026-11-13): the scene stays night (p 0) and the hero is one screen that scrolls away normally;
+// the band below fades from its dark to white (index.astro). The day mode below is kept for dev screenshots only
+// (__heroStep with p) and is not reached by scrolling. Rendering stops once the sphere is off screen. Copy sits at the start and the end, like PacketGo:
 //   p 0      night. Large lights circle the screen edges in brand colours; the glowing core rises from the bottom.
 //            A few coral motes (threats) float among the white ones. Every few seconds one heads for the core; the
 //            two device lights rush to meet where it lands, and it is flicked away and gone. A white one turns coral
@@ -374,20 +374,13 @@ export function orbHero(root: HTMLElement) {
   const span = () => Math.max(1, root.offsetHeight - innerHeight);
   const heroY = () => -root.getBoundingClientRect().top;
   const progress = () => clamp01(heroY() / span());
-  let isDay = progress() >= 0.3;
-  const stateOf = () => {
-    if (forceP !== null) return forceP;
-    const r = progress();
-    if (r >= 0.3) isDay = true; else if (r < 0.2) isDay = false;
-    return isDay ? 1 : 0;
-  };
+  const stateOf = () => (forceP !== null ? forceP : 0); // night only
   let inView = true;
   let onChange = () => applyCopy(stateOf());
   addEventListener('scroll', () => onChange(), { passive: true });
   const dayOf = (p: number) => ss(0.44, 0.6, p);
   function applyCopy(p: number) {
     root.style.setProperty('--hero-day', dayOf(p).toFixed(3));
-    root.style.setProperty('--hero-end', ss(0.92, 0.99, progress()).toFixed(3));
     html.classList.toggle('hero-dark', inView && dayOf(p) < 0.5);
   }
   applyCopy(stateOf());
@@ -503,7 +496,7 @@ export function orbHero(root: HTMLElement) {
   composer.addPass(bloom);
   composer.addPass(new OutputPass());
 
-  let W = 1, H = 1, pxPerUnit = 1, orbScale = 1, orbCy = 0, orbR = 0, copyBottom = 0;
+  let W = 1, H = 1, pxPerUnit = 1, orbScale = 1, orbCy = 0, orbR = 0, copyBottom = 0, pinH = 0;
   // where the opening copy ends (it shares the pinned stage with the canvas): the night core starts below it, like PacketGo's
   const copy = layers.find((el) => el.dataset.heroLayer === 'a');
   const measureCopy = () => { copyBottom = copy ? copy.offsetTop + copy.offsetHeight : 0; };
@@ -530,16 +523,19 @@ export function orbHero(root: HTMLElement) {
   function place(p: number, intro: number) {
     const s1 = ss(0.18, 0.42, p), s2 = ss(0.48, 0.62, p), s3 = ss(0.66, 0.8, p);
     const mobile = W < 768;
-    const r0 = Math.max(250, Math.min(W * 0.37, H * 0.56));
-    // the top of the night core: never above a clear gap under the opening copy
-    // on phones the core sits just under the copy, not at a fixed height far below it (user, 2026-11-13)
-    const cy0 = Math.max(H * (mobile ? 0.45 : 0.59), copyBottom + (mobile ? 56 : Math.max(72, H * 0.09))) + r0;
+    const Hv = innerHeight; // sizes follow the viewport; the canvas itself grows to hold the whole core
+    // night: the whole core shows under the opening copy, inside the screen width on phones (user, 2026-11-13), and
+    // the sphere's screen (.hero-pin) is made tall enough to hold it; the page then scrolls on as usual
+    const r0 = mobile ? Math.min(W * 0.4, Hv * 0.3) : Math.max(200, Math.min(W * 0.3, Hv * 0.36));
+    const cy0 = copyBottom + (mobile ? 40 : Math.max(56, Hv * 0.07)) + r0 * 1.12;
+    const want = Math.max(Hv, Math.ceil(cy0 + r0 * 1.4)); // room under the core for the fade into the dark
+    if (Math.abs(want - pinH) > 1) { pinH = want; root.style.setProperty('--pin-h', `${pinH}px`); }
     const cyMid = Math.min(H * (mobile ? 0.56 : 0.48) + r0, cy0); // it only ever rises
     const r1 = Math.min(H * 0.25, W * 0.32), r2 = mobile ? Math.min(H * 0.15, W * 0.27) : Math.min(H * 0.19, W * 0.24);
     let rPx = r0, cy = lerp(cy0, cyMid, s1);
     rPx = lerp(rPx, r1, s2); cy = lerp(cy, H * 0.46, s2);
     rPx = lerp(rPx, r2, s3); cy = lerp(cy, H * (mobile ? 0.33 : 0.38), s3);
-    cy += (1 - intro) * H * 0.16; // the core rises in on load
+    cy += (1 - intro) * Hv * 0.16; // the core rises in on load
     orbCy = cy; orbR = rPx;
     orbScale = rPx / pxPerUnit;
     world.scale.setScalar(orbScale);
@@ -751,7 +747,7 @@ export function orbHero(root: HTMLElement) {
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting; inView = visible;
     if (visible) wake(); else html.classList.remove('hero-dark');
-  }).observe(root);
+  }).observe(root.querySelector<HTMLElement>('.hero-pin') ?? root); // render only while the sphere's screen is in view
   document.addEventListener('visibilitychange', () => { visible = !document.hidden && inView; if (visible) wake(); });
   layout();
   renderer.compileAsync(scene, camera).finally(() => { root.classList.add('is-ready'); wake(); });

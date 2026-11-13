@@ -23,7 +23,7 @@ export const glossary: Term[] = [
   // 제로트러스트
   { id: 'zero-trust', cat: 'zt', t: '제로트러스트', en: 'Zero Trust', s: '아무것도 처음부터 믿지 않고, 접속할 때마다 확인하는 보안 원칙',
     b: '회사 안에서 접속했는지와 상관없이 사람, 기기, 상황을 매번 확인한 뒤에만 필요한 만큼 접근을 허용합니다. 「Never Trust, Always Verify」라는 말로 요약됩니다.',
-    tg: '제로트러스트는 원칙이고 제품 이름이 아닙니다. Trust Gateway는 이 원칙을 업무 접속과 인증에 그대로 적용한 신영이노베이션의 솔루션입니다.', rel: ['continuous-verification', 'least-privilege', 'ztna'] },
+    tg: '제로트러스트는 원칙이고 제품 이름이 아닙니다. Trust Gateway는 이 원칙을 적용하여 개발한 신영이노베이션의 솔루션입니다.', rel: ['continuous-verification', 'least-privilege', 'ztna'] },
   { id: 'zta', cat: 'zt', t: '제로트러스트 아키텍처', en: 'ZTA', s: '제로트러스트 원칙을 실제 시스템으로 구현한 구조',
     b: '누가 어디에 접근하려 하는지 판단하는 정책 결정 부분과, 그 판단대로 연결을 열고 닫는 시행 부분으로 나뉩니다. 미국 NIST SP 800-207 문서가 대표적인 기준입니다.', rel: ['pdp', 'pep', 'nist-800-207'] },
   { id: 'implicit-trust', cat: 'zt', t: '암묵적 신뢰', en: 'Implicit Trust', s: '사내망 안에 있다는 이유만으로 믿어 주는 것',
