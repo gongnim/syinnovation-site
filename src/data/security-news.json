@@ -3,6 +3,96 @@
     "date": "2026-11-13",
     "region": "국내",
     "type": "개인정보 유출",
+    "title": "카카오워크 개인정보 유출…이름·연락처 등 노출",
+    "source": "KBS 뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5YdkxLN0hVLUdHeUVOYWE0VnRfYnNPeVlSLS1kMUt5RUlscmQzcW9YX192dUJuXzdkSGNicEtfcmwzZVY3RmhMcDQwVTlUOVlMNDNSNV9TV1hwQ3JLTG05ZnJGa0FQZw?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-02c9c6c1.jpg",
+    "credit": {
+      "name": "Stefan Coders",
+      "url": "https://www.pexels.com/photo/macbook-pro-on-brown-wooden-table-5243610/",
+      "id": 5243610
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "'모두의 창업' 참가자 818명 개인정보 유출…AI 솔루션 업체 해킹",
+    "source": "매일일보",
+    "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5UZ0ozOFpaTEZFVGMzc0RjY1JQd1R3WU5WQmJzM25TOURFaERpYldlX21hYXZhQ2tqZXhBMktnX25KZnZCdzFRR2RiSlYxWFZ4WFA3RWdPd3M3TmY1Wm9qcmNZdXU?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-763f2384.jpg",
+    "credit": {
+      "name": "Dan Nelson",
+      "url": "https://www.pexels.com/photo/person-using-laptop-on-table-5530195/",
+      "id": 5530195
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "“KB 또 해킹 당했다”…KB캐피탈, 해킹 공격 이틀 뒤 1800명 개인정보 유출 공지",
+    "source": "동아일보",
+    "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE9EcmJQLTh4emJjS29sN0NlallzeUZpaERwZ2hnbHhxZ3JTY3VYUXlQektaUWIteXFVMXdyci1tcXRBanVoTmZrQkhnTGIySjFoanlHaEFTU0xsREx1MDlFQ29zRlptZ3FQQ3JlOExoUktKRUp0M0HSAWZBVV95cUxOWnVNWl9XUkZmQmxIVXBWd3gzaVJaV3h0eFRHZ3VwRWJDM3ZHZUVqUFI5NmMzWHN3Tkhuc01VTzFfRWRDWmZlUjFINEJGVlJCZXB1eVM3UWk0RmpHTzA3ZDJYYzN4TGc?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-e4184a3b.jpg",
+    "credit": {
+      "name": "cottonbro studio",
+      "url": "https://www.pexels.com/photo/laptop-in-close-up-shot-5483248/",
+      "id": 5483248
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "카카오워크 해킹 공격… 일부 이용자 개인정보 유출",
+    "source": "아시아타임즈",
+    "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9pcERacTYxZkhGMDRGd21taXd2NzJxWDVVTjdxUkFLMl84ZWVVOEFKRXhFRzRibV9OcGlkX09pTjBxQXlOWUZVQllYcjl3VWFZUG81bHNFX1A1OTVqWVE?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-f587280d.jpg",
+    "credit": {
+      "name": "Sora Shimazaki",
+      "url": "https://www.pexels.com/photo/crop-unrecognizable-man-using-laptop-in-darkness-5926397/",
+      "id": 5926397
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "SafePal Data Breach Victims Are Now Getting Scam Letters at Home",
+    "source": "BeInCrypto",
+    "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE84R2l0Z3BmU1cweGloY2tPYzJjbWRxOGdSQ05DZUZzeUEtb3RCYTUwcnJGMVJHZkoyWDdINmdzMlFVbjIyOVpwVmlaVXZ1d01RckZxTHVGYXhVMmttbUUySXZvWElvdnc?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-b32af842.jpg",
+    "credit": {
+      "name": "Towfiqu barbhuiya",
+      "url": "https://www.pexels.com/photo/a-person-using-a-laptop-11341890/",
+      "id": 11341890
+    }
+  },
+  {
+    "date": "2026-11-12",
+    "region": "해외",
+    "type": "랜섬웨어",
+    "title": "Lessons Learned From The Biggest Ransomware Attacks",
+    "source": "Cybercrime Magazine",
+    "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNUU92MnpubWFTSkwtWjNyRTk5WGlZQ3RIOVRQUnFfcXd1a0lGVDBGNW1ONFI3V05UODJYUm9TY19CNURIczRMY3RQR1FZQVBTQWJhWVVVeWotVUVKNS1KaFlCalBDUTN0ckRuT2xxWFRKOFBNc1VoR0tiQXpoN3dkaC1oU2JVQ01vMnZRODRJTQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-12-28a40d09.jpg",
+    "credit": {
+      "name": "panumas nikhomkhai",
+      "url": "https://www.pexels.com/photo/line-of-pc-towers-17489151/",
+      "id": 17489151
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
     "title": "KB캐피탈, 해킹에 임직원·고객 1811명 개인정보 유출",
     "source": "파이낸셜포스트",
     "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5zOGRjUDZaY1RPYjg2S2FjVHJ3NDJYNWJaTFNaazQzbFhPbjZWQXQ2MmlJQnRaUWNtdXZlSUlpVTZwTjJhN2VCTEE4aEtjR0pMLUg5elU1eHhtNkpMVlE1VFRWcTROVHVlUGc0ODZaRjRlRGFz?oc=5",
