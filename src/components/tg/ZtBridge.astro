@@ -1,9 +1,9 @@
 ---
 // "Zero Trust is the principle, Trust Gateway is the solution (솔루션)." Many visitors take 제로트러스트 for our product name;
 // this band says the difference once, plainly, and draws each principle across to the Trust Gateway feature that
-// carries it out. Used on home (with a link onward) and on /trust-gateway (where the NIST mapping goes in the slot).
-interface Props { id?: string; tone?: 'white' | 'mist'; more?: boolean }
-const { id, tone = 'white', more = false } = Astro.props;
+// carries it out. Used on /trust-gateway, where the NIST mapping goes in the slot (it left home on 2026-11-13).
+interface Props { id?: string; tone?: 'white' | 'mist' }
+const { id, tone = 'white' } = Astro.props;
 const rows = [
   { p: '아무도 믿지 않는다', pe: 'Never Trust', t: '비밀번호만으로는 열리지 않습니다', td: '기기 인증서와 휴대폰 생체 확인을 함께 요구합니다' },
   { p: '매번 확인한다', pe: 'Always Verify', t: '로그인 뒤에도 요청마다 다시 판단합니다', td: '다중 신호 교차 검증 결과를 판단 엔진이 단계별로 평가합니다' },
@@ -36,7 +36,6 @@ const rows = [
     </div>
 
     <slot />
-    {more && <p class="zt-more reveal"><a class="text-link" href="/trust-gateway#zt">공개된 기준과 Trust Gateway 구성 요소 비교 보기</a></p>}
   </div>
 </section>
 
@@ -57,7 +56,6 @@ const rows = [
   .section.mist .zt-p { background: #fff; }
   .zt-link { position: relative; align-self: center; height: 2px; margin: 0 6px; background: var(--blue); transform-origin: left; }
   .zt-link::after { content: ''; position: absolute; right: -2px; top: -5px; width: 10px; height: 12px; background: var(--blue); clip-path: polygon(0 0, 100% 50%, 0 100%); }
-  .zt-more { margin-top: 28px; text-align: center; }
 
   /* in view: each line draws across, then its product feature settles in */
   :global(html.js) .zt:not(.play) .zt-link { transform: scaleX(0); }
