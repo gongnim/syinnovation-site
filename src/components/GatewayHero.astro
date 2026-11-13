@@ -8,7 +8,7 @@ import { rr, guide, tick } from '../lib/sketch';
 const B: Record<string, [number, number, number, number, number]> = {
   pc: [60, 126, 168, 104, 8], phone: [60, 284, 72, 136, 14],
   gw: [450, 96, 320, 76, 12],
-  e1: [450, 232, 152, 58, 10], e2: [618, 232, 152, 58, 10], e3: [450, 302, 152, 58, 10], e4: [618, 302, 152, 58, 10],
+  x1: [450, 232, 320, 50, 10], e1: [450, 298, 100, 52, 10], e2: [560, 298, 100, 52, 10], e3: [670, 298, 100, 52, 10],
   agent: [912, 96, 176, 76, 12],
   s1: [950, 268, 200, 48, 10], s2: [950, 330, 200, 48, 10], s3: [950, 392, 200, 48, 10],
 };
@@ -16,17 +16,16 @@ const box = (k: string) => rr(...B[k]);
 const hatch = Array.from({ length: 28 }, (_, i) => `M868 ${80 + i * 16} L880 ${70 + i * 16}`).join(' ');
 
 const engines = [
-  { k: 'e1', t: '교차 검증', on: '10.6-14.4,24-25.6', warn: '19.6-23.4' },
-  { k: 'e2', t: '규칙', on: '11-14.4,19.9-25.6' },
-  { k: 'e3', t: '이상 탐지', on: '11.3-14.4,20.1-25.6', cls: 'violet' },
-  { k: 'e4', t: '정책 (OPA)', on: '11.6-14.4,20.3-25.6' },
+  { k: 'e1', t: 'ZEN 리스크', on: '11-14.4,19.9-25.6' },
+  { k: 'e2', t: 'AI 리스크', on: '11.3-14.4,20.1-25.6', cls: 'violet' },
+  { k: 'e3', t: 'OPA 정책', on: '11.6-14.4,20.3-25.6' },
 ];
 const services = [{ k: 's1', t: '그룹웨어' }, { k: 's2', t: '인사 시스템' }, { k: 's3', t: '업무 포털' }];
 
 const chapters = [
   { t: '밖으로만 연결', from: 0, to: 4, still: 3.6, d: '고객사 서버의 Internal Agent가 게이트웨이로 먼저 연결을 엽니다. 내부망에는 들어오는 포트를 열지 않습니다.' },
   { t: '사람과 PC 묶기', from: 4, to: 8, still: 7.4, d: 'PC 화면의 QR을 휴대폰으로 찍고 생체 인증으로 승인해, 지금 이 PC를 쓰는 사람을 묶습니다.' },
-  { t: '요청마다 확인', from: 8, to: 14, still: 13.6, d: '요청이 올 때마다 인증서와 바인딩을 확인하고, PC와 휴대폰, 네트워크의 여러 신호를 교차 검증한 뒤 정책으로 판정합니다.' },
+  { t: '요청마다 확인', from: 8, to: 14, still: 13.6, d: '요청이 올 때마다 인증서와 바인딩을 확인하고, PC와 휴대폰, 네트워크의 여러 신호를 교차 검증하고 ZEN 리스크, AI 리스크, OPA 정책 엔진으로 판정합니다.' },
   { t: '검증된 신원 전달', from: 14, to: 18, still: 17.4, d: '허용된 요청에만 서명된 신원을 붙여 내부 서비스로 보냅니다. 업무 시스템은 이 신원으로 사용자를 알아봅니다.' },
   { t: '수상하면 재확인', from: 18, to: 25.6, still: 22.2, d: '신호 사이에 모순이 보이면, 예를 들어 PC와 휴대폰의 위치가 맞지 않으면 휴대폰으로 추가 인증을 요청합니다. 승인하면 다시 판정합니다.' },
   { t: '미등록 기기 거부', from: 25.6, to: 30.5, still: 29.4, d: '등록된 인증서가 없는 기기의 요청은 게이트웨이에서 거부됩니다. 내부망에는 닿지 않습니다.' },
@@ -74,7 +73,9 @@ const chapters = [
       <!-- gateway and engines -->
       <path class="ink st gw" pathLength="1" style="--d:.7s" data-t="9.6-14.4,18.9-25.6" d={box('gw')} />
       <path class="ink" pathLength="1" style="--d:1.3s" d="M610 172 V232" />
-      {engines.map((e, i) => <path class={`ink st eng ${e.cls ?? ''}`} pathLength="1" style={`--d:${0.95 + i * 0.1}s`} data-t={e.on} data-warn={e.warn} d={box(e.k)} />)}
+      <path class="ink st eng" pathLength="1" style="--d:.95s" data-t="10.6-14.4,24-25.6" data-warn="19.6-23.4" d={box('x1')} />
+      <path class="ink thin" pathLength="1" style="--d:1.1s" d="M500 282 V298 M610 282 V298 M720 282 V298" />
+      {engines.map((e, i) => <path class={`ink st eng ${e.cls ?? ''}`} pathLength="1" style={`--d:${1.05 + i * 0.1}s`} data-t={e.on} d={box(e.k)} />)}
       <path class="ink st pill allow" pathLength="1" style="--d:1.5s" data-t="12.6-16.2,24.4-25.6" d={rr(450, 408, 100, 40, 20)} />
       <path class="ink st pill step" pathLength="1" style="--d:1.6s" data-t="20.4-24.2" d={rr(560, 408, 100, 40, 20)} />
       <path class="ink st pill deny" pathLength="1" style="--d:1.7s" data-t="27.4-30.5" d={rr(670, 408, 100, 40, 20)} />
@@ -120,7 +121,8 @@ const chapters = [
       <g class="cue" data-t="10.3-14.4,19.4-25.6"><path class="tk" d={tick(650, 146)} /><text class="hw" x="676" y="159">바인딩</text></g>
 
       <text class="lbl w-s" style="--d:1.2s" x="450" y="222">판단 엔진</text>
-      {engines.map((e, i) => <text class={`lbl w-e ${e.cls ?? ''}`} style={`--d:${1.3 + i * 0.1}s`} x={B[e.k][0] + 76} y={B[e.k][1] + 35} text-anchor="middle">{e.t}</text>)}
+      <text class="lbl w-e" style="--d:1.25s" x="610" y="263" text-anchor="middle">다중 신호 교차 검증</text>
+      {engines.map((e, i) => <text class={`lbl w-e2 ${e.cls ?? ''}`} style={`--d:${1.35 + i * 0.1}s`} x={B[e.k][0] + 50} y={B[e.k][1] + 32} text-anchor="middle">{e.t}</text>)}
       <g class="cue" data-t="10.8-14.4"><path class="tk" d={tick(450, 380)} /><text class="hw" x="474" y="394">같은 Wi-Fi · 같은 시간대</text></g>
       <text class="hw cue" data-t="19.6-23" x="450" y="394">PC와 휴대폰 위치가 맞지 않음</text>
       <g class="cue" data-t="23.4-25.6"><path class="tk" d={tick(450, 380)} /><text class="hw" x="474" y="394">승인 후 다시 판정</text></g>
@@ -177,6 +179,7 @@ const chapters = [
   .sketch .bad path { stroke: var(--coral); stroke-dasharray: 4 5; }
   .sketch .bad .wire { opacity: 1; }
   .sketch .deny-x { stroke: var(--coral); stroke-width: 3; }
+  .w-e2 { font-size: 16px; font-weight: 700; }
   .w-v { font-size: 17px; font-weight: 600; fill: #8fa3c2; transition: fill .35s; }
   .w-v.allow.on { fill: var(--hi); }
   .w-v.step.on { fill: var(--or); }

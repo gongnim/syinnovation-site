@@ -1,8 +1,9 @@
 ---
 // IT 컨설팅·개발: custom consulting and development. The page tells one story: the visitor's worries, the change they
 // can drag to compare, what we do (with small live screens), how a project runs (scroll-driven), how AI is used, and
-// proof from past work, then answers common questions. Client names and project figures stay off the page; photos are
-// Pexels (no credit required): hero Mikhail Nilov 7988758, factory Sergey Sergeev 32845690, braille Eren Li 7188777,
+// proof from past work, then answers common questions. 에어레인 (AIRRANE) may be named (ERP case, owner approved
+// 2026-11-13); other client names and project figures stay off the page. Photos are
+// Pexels (no credit required): hero Mikhail Nilov 7988758, case Mumtaz Niazi 36825977, braille Eren Li 7188777,
 // payment Towfiqu barbhuiya 9122014, phone I'm Zion 12376016.
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
@@ -21,7 +22,7 @@ const pains = [
 const services = [
   { k: 'pi', i: 'search', t: 'PI 컨설팅', s: '일하는 방식부터 다시 짭니다', d: '지금 일하는 방식을 함께 들여다보고, 줄일 일과 바꿀 일을 정리합니다. 개발 전에 무엇을 만들지부터 분명히 합니다.',
     pts: ['현황 분석: 인터뷰와 문서로 문제 정리', '개선 방향과 개선 과제 정의', '시스템 구축 전략과 단계별 로드맵', '구축과 운영 인계까지 연결'] },
-  { k: 'dev', i: 'code', t: '맞춤 개발', s: 'Web · iOS · Android · 백엔드', d: '회사 업무에 꼭 맞는 시스템과 앱을 만듭니다. AI 개발 도구로 빠르게 만들고, 코드 검토와 시험은 사람이 직접 챙깁니다.',
+  { k: 'dev', i: 'code', t: '맞춤 개발', s: 'Web · iOS · Android · 백엔드', d: '회사 업무에 꼭 맞는 시스템과 앱을 만듭니다. AI 개발 도구로 빠르게 만들고, 코드 검토와 테스트는 개발자가 직접 챙깁니다.',
     pts: ['업무 시스템, 관리자 화면, 모바일 앱', '짧은 주기로 만들어 보여 드리며 고침', '기존 시스템과의 연동 설계'] },
   { k: 'ops', i: 'cycle', t: '운영과 유지보수', s: '오픈한 뒤에도 함께합니다', d: '쓰는 모습을 보며 기능을 고치고, 업데이트와 장애 대응을 이어서 맡습니다.',
     pts: ['기능 개선과 업데이트', '장애 대응', '사용 현황을 보며 다음 개선 제안'] },
@@ -32,28 +33,21 @@ const services = [
 const steps = [
   { t: '요구사항', you: '업무 담당자 인터뷰에 참여하고 자료를 나눠 주세요', we: '지금 업무를 분석하고 문제와 개선 방향을 정리합니다', left: ['현황 분석 보고서', '이슈 목록', '개선 방향'] },
   { t: '기술 설계', you: '바뀐 업무 흐름이 맞는지 확인해 주세요', we: '업무 흐름을 다시 설계하고 IT 요구사항과 시스템 구조, 단계별 로드맵을 정합니다', left: ['업무 설계서', 'IT 요구사항 명세', '단계별 로드맵'] },
-  { t: '개발 · QA', you: '짧은 주기의 시연을 보고 의견을 주세요', we: 'AI 개발 도구로 빠르게 만들고, 코드 검토와 시험은 사람이 직접 합니다', left: ['동작하는 시스템', '시험 결과'] },
+  { t: '개발 · QA', you: '짧은 주기의 시연을 보고 의견을 주세요', we: 'AI 개발 도구로 빠르게 만들고, 코드 검토와 테스트는 개발자가 직접 합니다', left: ['동작하는 시스템', '시험 결과'] },
   { t: '배포', you: '사용자 교육에 참여해 주세요', we: '운영 환경을 갖추고 오픈을 준비해, 함께 오픈합니다', left: ['운영 환경', '사용자 교육'] },
   { t: '운영 · 유지보수', you: '쓰면서 불편한 점을 알려 주세요', we: '기능을 고치고 업데이트와 장애 대응을 이어 갑니다', left: ['업데이트 기록', '운영 인계 문서'] },
 ];
 
 const principles = [
   { t: 'PI 먼저', d: '시스템을 정하기 전에 일하는 방식부터 바꿉니다.' },
-  { t: '업무 효율 우선', d: '기술이 할 수 있는 것보다 사람이 일하는 방식을 기준으로 합니다.' },
+  { t: '업무 효율 우선', d: '기술이 할 수 있는 것보다 실제로 일하는 방식을 기준으로 합니다.' },
   { t: '꼭 필요한 것만', d: '필요한 화면만 만들고, 같은 내용을 두 번 입력하지 않게 합니다.' },
   { t: '단계별 구축', d: '핵심을 먼저, 확장은 다음, 고도화는 마지막에 합니다.' },
 ];
 
-const loop = [
-  { i: 'spark', t: 'AI 초안', x: 160, y: 30 },
-  { i: 'user', t: '사람 검토', x: 290, y: 160 },
-  { i: 'check', t: '자동 시험', x: 160, y: 290 },
-  { i: 'play', t: '고객 시연', x: 30, y: 160 },
-];
-
 const phases = [
   { t: 'PI 컨설팅', d: '현황 분석 · 업무 재설계 · IT 요구사항과 로드맵', when: '2025년 11월 ~ 2026년 3월', s: 'done' },
-  { t: '1단계 핵심 구축', d: '생산 · 품질 · 프로젝트 관리 · 지식 관리 · 통합 분석', when: '2026년 4월 ~ 12월', s: 'now' },
+  { t: '1단계 ERP 핵심 구축', d: '생산 · 품질 · 프로젝트 관리 · 지식 관리 · 통합 분석', when: '2026년 4월 ~ 12월', s: 'now' },
   { t: '2단계 확대', d: '신규 사업부로 넓히기', when: '2027년 상반기 예정', s: 'next' },
   { t: '3단계 고도화', d: '대시보드 · 분석 · 운영 인계', when: '2027년 하반기 예정', s: 'next' },
 ];
@@ -67,7 +61,7 @@ const cases = [
 const faq = [
   { q: '기간과 비용은 어떻게 정하나요?', a: '업무 범위, 화면과 기능의 양, 연동할 시스템에 따라 달라집니다. 상담에서 지금 상황을 듣고 단계별 일정과 견적을 드립니다.' },
   { q: '개발부터 맡길 수도 있나요?', a: '네. 요구사항이 이미 정리되어 있다면 설계와 개발부터 시작합니다. 업무 흐름부터 다시 보고 싶다면 PI 컨설팅부터 함께합니다.' },
-  { q: 'AI로 만들면 품질은 괜찮나요?', a: 'AI 개발 도구는 초안을 빠르게 만드는 데 씁니다. 모든 코드는 사람이 검토하고, 시험을 거친 뒤 짧은 주기로 시연해 확인받습니다.' },
+  { q: 'AI로 만들면 품질은 괜찮나요?', a: 'AI 개발 도구는 초안을 빠르게 만드는 데 씁니다. 모든 코드는 개발자가 검토하고, 테스트를 거친 뒤 짧은 주기로 시연해 확인받습니다.' },
   { q: '지금 쓰는 시스템과 연결할 수 있나요?', a: '설계 단계에서 연결할 시스템과 데이터를 함께 정리하고, 필요한 연계를 개발합니다.' },
   { q: '오픈한 뒤에도 맡길 수 있나요?', a: '네. 기능 개선, 업데이트, 장애 대응을 이어서 맡습니다. 다른 곳에서 만든 시스템의 유지보수도 상담해 드립니다.' },
 ];
@@ -281,25 +275,30 @@ const at = (n: number) => `--at:${n}`;
     </div>
   </section>
 
-  <!-- 5. AI fast, people careful: a loop that keeps turning -->
+  <!-- 5. AI writes the first draft, a developer finishes it: shown as a code review, revealed once -->
   <section class="section night">
     <div class="wrap ai">
       <div class="reveal">
-        <h2 class="h2 sm">AI로 빠르게,<br />사람이 꼼꼼하게</h2>
-        <p class="lead">AI 개발 도구로 초안을 빠르게 만들고, 검토와 시험은 사람이 직접 합니다. 이 고리를 짧게 여러 번 돌려 일찍 보여 드리고 일찍 고칩니다.</p>
+        <h2 class="h2 sm">AI는 초안을,<br />완성은 개발자가</h2>
+        <p class="lead">반복되는 코드는 AI 개발 도구로 빠르게 쓰고, 업무 규칙과 예외는 개발자가 직접 챙깁니다. 그래서 일찍 보여 드리고 일찍 고칠 수 있습니다.</p>
         <ul class="ai-pts">
-          <li><Icon name="spark" size={18} />반복되는 코드는 AI가 먼저 씁니다</li>
-          <li><Icon name="user" size={18} />모든 코드는 사람이 읽고 검토합니다</li>
-          <li><Icon name="play" size={18} />짧은 주기로 동작하는 화면을 보여 드립니다</li>
+          <li><Icon name="spark" size={18} />반복되는 코드는 AI 도구가 먼저 씁니다</li>
+          <li><Icon name="code" size={18} />모든 코드는 개발자가 읽고, 업무 규칙에 맞게 고칩니다</li>
+          <li><Icon name="check" size={18} />테스트를 통과한 것만 보여 드립니다</li>
         </ul>
       </div>
-      <div class="loop reveal" aria-hidden="true">
-        <svg viewBox="0 0 320 320">
-          <circle class="ring" cx="160" cy="160" r="130" />
-          <g class="orbit"><circle class="dot" cx="160" cy="30" r="7" /></g>
-        </svg>
-        {loop.map((n, j) => <span class="node" style={`left:${(n.x / 320) * 100}%;top:${(n.y / 320) * 100}%;--j:${j}`}><Icon name={n.i} size={20} /><b>{n.t}</b></span>)}
-        <span class="loop-c">짧은 주기로<br />반복</span>
+      <div class="review reveal" aria-hidden="true">
+        <div class="rv-head"><span class="rv-file">approval.ts</span><span class="rv-tag t-ai">AI 초안</span><span class="rv-tag t-dev">개발자 수정</span></div>
+        <ol class="rv-code">
+          <li class="l-cm" style="--k:0"><i>1</i><code>// 결재선 정하기</code></li>
+          <li class="l-ai" style="--k:1"><i>2</i><code>export function approvalLine(doc) {'{'}</code></li>
+          <li class="l-ai" style="--k:2"><i>3</i><code>  const steps = doc.amount &gt; limit ? 3 : 2;</code></li>
+          <li class="l-del" style="--k:3"><i>4</i><code>  return approvers(doc.team, steps);</code></li>
+          <li class="l-dev" style="--k:4"><i>4</i><code>  return withDelegates(approvers(doc.team, steps));</code></li>
+          <li class="l-ai" style="--k:5"><i>5</i><code>{'}'}</code></li>
+        </ol>
+        <div class="rv-note"><span class="rv-who">개발자</span><p>휴가 중인 결재자는 대리 결재로 넘어가야 해서, 업무 규칙에 맞게 고쳤습니다.</p></div>
+        <ul class="rv-checks"><li style="--k:0"><Icon name="check" size={16} />코드 검토 완료</li><li style="--k:1"><Icon name="check" size={16} />테스트 통과</li><li style="--k:2"><Icon name="check" size={16} />시연 화면 준비</li></ul>
       </div>
     </div>
   </section>
@@ -310,15 +309,16 @@ const at = (n: number) => `--at:${n}`;
       <div class="head-left reveal"><h2 class="h2 sm">대표 사례</h2></div>
       <div class="case reveal">
         <figure class="case-photo">
-          <img src="/images/consulting/factory.webp" alt="공장 안에서 태블릿을 보며 업무를 논의하는 엔지니어들" width="1600" height="1064" loading="lazy" />
-          <figcaption>제조사 · PI 컨설팅과 시스템 구축</figcaption>
+          <img src="/images/consulting/airrane-case.webp" alt="가스 배관과 밸브가 이어진 산업 설비" width="1400" height="1050" loading="lazy" />
+          <figcaption>에어레인 · PI 컨설팅과 ERP 구축</figcaption>
         </figure>
         <div class="case-copy">
-          <h3 class="h3">제조사 업무 프로세스 혁신</h3>
+          <h3 class="h3">에어레인(AIRRANE) ERP 구축</h3>
+          <p class="case-sub">코스닥 상장 기체분리막 전문기업</p>
           <dl class="case-dl">
-            <div><dt>과제</dt><dd>생산과 품질 업무를 엑셀로 따로 관리했고, 통합 시스템이 없었습니다. 업무 흐름을 다시 짜지 않고는 시스템 요구사항을 정할 수 없었습니다.</dd></div>
-            <div><dt>한 일</dt><dd>현황을 분석해 문제를 모으고, 사업부별 업무 흐름을 다시 설계한 뒤 IT 요구사항과 단계별 로드맵을 확정했습니다.</dd></div>
-            <div><dt>결과</dt><dd>생산, 품질, 프로젝트 관리, 지식 관리, 통합 분석 화면을 1단계로 구축하고 있고, 클라우드 인프라 설계를 마쳤습니다.</dd></div>
+            <div><dt>과제</dt><dd>생산과 품질 업무를 엑셀로 따로 관리했고, 통합 시스템이 없었습니다. 업무 흐름을 다시 짜지 않고는 ERP 요구사항을 정할 수 없었습니다.</dd></div>
+            <div><dt>한 일</dt><dd>PI 컨설팅으로 현황을 분석해 문제를 모으고, 사업부별 업무 흐름을 다시 설계한 뒤 ERP 요구사항과 단계별 로드맵을 확정했습니다.</dd></div>
+            <div><dt>결과</dt><dd>생산, 품질, 프로젝트 관리, 지식 관리, 통합 분석 ERP를 1단계로 구축하고 있고, 클라우드 인프라 설계를 마쳤습니다.</dd></div>
           </dl>
         </div>
       </div>
@@ -573,23 +573,38 @@ const at = (n: number) => `--at:${n}`;
   .rules b { font-size: 17px; }
   .rules .body { margin-top: 4px; }
 
-  /* 5. AI loop */
-  .ai { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 420px); gap: clamp(32px, 6vw, 96px); align-items: center; }
+  /* 5. code review card */
+  .ai { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 560px); gap: clamp(32px, 6vw, 88px); align-items: center; }
   .ai .lead { margin-top: 18px; color: var(--on-night-2); }
   .ai-pts { list-style: none; margin: 24px 0 0; padding: 0; display: grid; gap: 12px; }
   .ai-pts li { display: flex; align-items: center; gap: 10px; color: var(--on-night); font-weight: 600; }
-  .ai-pts li :global(svg) { color: #9fb8de; }
-  .loop { position: relative; aspect-ratio: 1; width: 100%; }
-  .loop svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-  .ring { fill: none; stroke: #2a3a55; stroke-width: 2; stroke-dasharray: 4 8; }
-  .orbit { transform-origin: 160px 160px; animation: orbit 8s linear infinite; }
-  .dot { fill: var(--orange); }
-  @keyframes orbit { to { transform: rotate(360deg); } }
-  .node { position: absolute; transform: translate(-50%, -50%); display: grid; justify-items: center; gap: 6px; padding: 12px 14px; min-width: 104px; border-radius: 16px; background: var(--night-2); border: 1px solid var(--night-line); color: #e6eefc; animation: node-on 8s linear infinite; animation-delay: calc(var(--j) * 2s - .3s); }
-  .node b { font-size: 15px; white-space: nowrap; }
-  .node :global(svg) { color: #9fb8de; }
-  @keyframes node-on { 0%, 18% { border-color: var(--orange); box-shadow: 0 0 0 4px rgba(246, 136, 42, .18); } 25%, 100% { border-color: var(--night-line); box-shadow: none; } }
-  .loop-c { position: absolute; inset: 0; display: grid; place-items: center; text-align: center; color: #9fb8de; font-weight: 700; font-size: 16px; line-height: 1.5; pointer-events: none; }
+  .ai-pts li :global(svg) { flex: none; color: #9fb8de; }
+  .review { border-radius: 16px; background: #0b1422; border: 1px solid var(--night-line); overflow: hidden; color: #c9d6ea; }
+  .rv-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 12px 16px; border-bottom: 1px solid var(--night-line); background: #101b2c; }
+  .rv-file { margin-right: auto; font-family: ui-monospace, Consolas, monospace; font-size: 14px; color: #e6eefc; }
+  .rv-tag { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
+  .rv-tag.t-ai { background: rgba(127, 178, 255, .16); color: #9fc2ff; }
+  .rv-tag.t-dev { background: rgba(246, 136, 42, .18); color: #f6b26b; }
+  .rv-code { list-style: none; margin: 0; padding: 10px 0; font-family: ui-monospace, Consolas, monospace; font-size: clamp(12px, 1vw, 14px); }
+  .rv-code li { display: grid; grid-template-columns: 40px minmax(0, 1fr); align-items: center; padding: 3px 16px 3px 0; border-left: 3px solid transparent; }
+  .rv-code i { font-style: normal; text-align: right; padding-right: 14px; color: #4d6080; }
+  .rv-code code { white-space: pre; overflow: hidden; text-overflow: ellipsis; }
+  .rv-code .l-cm code { color: #7f93b3; }
+  .rv-code .l-ai { background: rgba(127, 178, 255, .07); border-left-color: #5d86c8; }
+  .rv-code .l-del { background: rgba(255, 111, 97, .08); border-left-color: #c75b51; }
+  .rv-code .l-del code { color: #c98b84; text-decoration: line-through; }
+  .rv-code .l-dev { background: rgba(246, 136, 42, .1); border-left-color: var(--orange); }
+  .rv-code .l-dev code { color: #f6d2b0; }
+  .rv-note { margin: 4px 16px 0; padding: 12px 14px; border-radius: 12px; background: #142238; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: start; }
+  .rv-who { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: rgba(246, 136, 42, .18); color: #f6b26b; }
+  .rv-note p { font-size: 14px; line-height: 1.6; color: #dfe7f5; }
+  .rv-checks { list-style: none; margin: 0; padding: 14px 16px 16px; display: flex; flex-wrap: wrap; gap: 8px 16px; }
+  .rv-checks li { display: flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 600; color: #63d6b4; }
+  /* revealed once, line by line, when the card comes into view */
+  :global(html.js) .review .rv-code li, :global(html.js) .review .rv-note, :global(html.js) .review .rv-checks li { opacity: 0; transform: translateY(4px); transition: opacity .4s var(--ease), transform .4s var(--ease); }
+  :global(html.js) .review.is-in .rv-code li { opacity: 1; transform: none; transition-delay: calc(.2s + var(--k) * .22s); }
+  :global(html.js) .review.is-in .rv-note { opacity: 1; transform: none; transition-delay: 1.7s; }
+  :global(html.js) .review.is-in .rv-checks li { opacity: 1; transform: none; transition-delay: calc(2.2s + var(--k) * .25s); }
 
   /* 6. featured case */
   .case { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
@@ -597,6 +612,7 @@ const at = (n: number) => `--at:${n}`;
   .case-photo img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; transition: transform 1.2s var(--ease); }
   .case-photo:hover img { transform: scale(1.04); }
   .case-photo figcaption { position: absolute; left: 16px; bottom: 16px; padding: 8px 14px; border-radius: 999px; background: rgba(14, 26, 43, .82); color: #fff; font-size: 14px; font-weight: 600; }
+  .case-sub { margin-top: 6px; color: var(--ink-3); font-weight: 600; }
   .case-dl { margin: 18px 0 0; display: grid; gap: 16px; }
   .case-dl div { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; }
   .case-dl dt { font-weight: 700; color: var(--blue); }
@@ -652,7 +668,6 @@ const at = (n: number) => `--at:${n}`;
     .proc-steps li { min-height: 0; }
     .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ai { grid-template-columns: minmax(0, 1fr); }
-    .loop { max-width: 380px; justify-self: center; }
     .case { grid-template-columns: minmax(0, 1fr); }
     .cases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
@@ -680,11 +695,11 @@ const at = (n: number) => `--at:${n}`;
     .phases::before { left: 7px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
     .phases::after { display: none; }
     .phases li { padding: 0 0 0 32px; }
-    .node { min-width: 0; padding: 8px 10px; }
-    .node b { font-size: 13px; }
+    .rv-code code { white-space: pre-wrap; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .photo img, .orbit, .node, .m-live i, .now .ph-dot::after { animation: none !important; }
+    .photo img, .m-live i, .now .ph-dot::after { animation: none !important; }
+    :global(html.js) .review .rv-code li, :global(html.js) .review .rv-note, :global(html.js) .review .rv-checks li { opacity: 1; transform: none; transition: none; }
     .run .mini *, .run .mini *::after { animation: none !important; }
     .face { transition: none; }
     .m-screen.s1 { opacity: 1; } .m-screen.s2, .m-screen.s3 { opacity: 0; }
