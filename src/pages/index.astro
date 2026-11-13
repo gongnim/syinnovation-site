@@ -1,28 +1,36 @@
 ---
+// Home: a trailer for both businesses. The hero plays night to day on one scroll; then proof, recent incidents,
+// how one login is not enough (three proofs that play in turn), the signal check, what a leaked account opens,
+// where Trust Gateway is used (tabs that take turns), the consulting team, a customer and news, and the call.
+// Each section has one moment that moves, started when it comes into view.
 import Base from '../layouts/Base.astro';
 import ShieldSphere from '../components/ShieldSphere.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import TgProof from '../components/tg/TgProof.astro';
+import TgIncidents from '../components/tg/TgIncidents.astro';
+import TgVpnSwitch from '../components/tg/TgVpnSwitch.astro';
 import { sorted, kindLabel, fmt } from '../data/news';
-import { appName, parts } from '../data/site';
+import { appName, tgUses } from '../data/site';
 import '@fontsource-variable/inter-tight/wght.css';
 
 const latest = sorted.slice(0, 3);
 
-const useCases = [
-  { t: '재택 · 출장 접속', d: '집이나 출장지에서도 사무실과 같은 기준으로 확인한 뒤 업무 시스템을 엽니다.' },
-  { t: '협력사 · 외주 인력 접속', d: '필요한 사람에게 필요한 앱만 열어 주고, 일이 끝나면 접속을 닫습니다.' },
-  { t: '공용 PC 접속', d: '한 대의 회사 PC를 여러 사람이 써도, 지금 쓰는 사람을 휴대폰으로 확인하고 각자 권한에 맞는 업무 앱만 엽니다.' },
-  { t: '전사 통합 로그인', d: '한 번 확인한 사람과 기기를 여러 업무 앱이 함께 믿고 씁니다.' },
-  { t: '결제 이상거래 평가', d: '결제 요청의 기기와 위치 신호를 평가해 결제사에 위험도를 권고합니다. 최종 결정은 결제사가 합니다.' },
+const signals = [
+  { k: '위치', pc: '서울 마포', ph: '서울 마포' },
+  { k: 'Wi-Fi', pc: '사무실 Wi-Fi', ph: '사무실 Wi-Fi' },
+  { k: '시간대', pc: 'KST', ph: 'KST' },
+  { k: '기기 상태', pc: '정상', ph: '정상' },
+  { k: '경유', pc: '해외 VPN', ph: '국내 통신사', bad: true },
 ];
 
-const easy = [
-  { t: 'VPN 없이', d: '사내망 전체를 여는 VPN 대신, 허락된 앱으로 가는 길만 엽니다.' },
-  { t: '휴대폰 생체 한 번', d: '비밀번호를 외우는 대신 내 휴대폰에서 지문이나 얼굴로 확인합니다.' },
-  { t: '기본은 차단', d: '정책에 적힌 앱과 사람만 통과합니다. 적지 않은 것은 열리지 않습니다.' },
-  { t: '관찰 모드로 먼저', d: '바로 막지 않고 결과를 지켜본 뒤, 확인한 정책부터 실제로 적용합니다.' },
-  { t: '위험한 기기 차단', d: '탈옥이나 루팅된 폰, 에뮬레이터, 디버거가 붙은 앱은 막고, 정품 앱인지는 Apple과 Google의 증명으로 확인합니다.' },
-  { t: '판단 근거까지 기록', d: '누가 언제 무엇에 접속했고 왜 허용하거나 막았는지, 고칠 수 없는 기록으로 남깁니다.' },
+// the consulting steps with the teammate sketches from /consulting
+const team = [
+  { t: '요구사항', img: 'sk-req', alt: '고객의 이야기를 들으며 메모하는 박성수 전략총괄을 그린 색연필 스케치' },
+  { t: '기술 설계', img: 'sk-design', alt: '화이트보드에 업무 흐름을 그리는 공동현 기술총괄을 그린 색연필 스케치' },
+  { t: '개발 · QA', img: 'sk-dev', alt: '모니터 앞에서 코드를 검토하는 임종세 개발 엔지니어를 그린 색연필 스케치' },
+  { t: '배포', img: 'sk-launch', alt: '서버 옆에서 노트북으로 배포를 확인하는 강민관 연구원을 그린 색연필 스케치' },
+  { t: '운영 · 유지보수', img: 'sk-ops', alt: '운영 현황 화면을 살펴보는 박희준 운영총괄을 그린 색연필 스케치' },
 ];
 ---
 <Base title="신영이노베이션" description="휴대폰과 PC의 신호를 함께 확인하고, 로그인 이후에도 계속 검증하는 제로트러스트 보안 Trust Gateway.">
@@ -32,7 +40,7 @@ const easy = [
     <div class="hero-pin">
       <ShieldSphere />
       <div class="wrap hero-copy" data-hero-layer="a">
-        <h1 class="hero-title">Never Trust,<br />Always Verify</h1>
+        <h1 class="hero-title">Never Trust, <br />Always Verify</h1>
         <p class="hero-lead">제로트러스트 기반의 Trust Gateway는 PC·태블릿과 휴대폰을 함께 확인하고, <br />접속한 뒤에도 요청마다 다시 검증하는 보안 플랫폼입니다.</p>
       </div>
       <div class="wrap hero-focus" data-hero-layer="b">
@@ -41,58 +49,43 @@ const easy = [
     </div>
   </section>
 
-  <!-- 2. three uses -->
-  <section class="section">
-    <div class="wrap">
-      <div class="head-center reveal">
-        <h2 class="h2">Trust Gateway,<br />세 가지 자리에서 확인합니다</h2>
-        <p class="lead">금융사 앱의 인증, 직원의 업무 접속, 고객의 결제까지. 하나의 판단 엔진이 각 자리에 맞게 들어갑니다.</p>
-      </div>
-      <ul class="uses">
-        {parts.map((p) => (
-          <li class="reveal">
-            <a class="use-card" href="/trust-gateway#uses">
-              <p class="use-k">{p.k}<span>{p.who}</span></p>
-              <h3 class="h4">{p.h}</h3>
-              <p class="body">{p.short}</p>
-              <ul class="use-pts">{p.pts.map((x) => <li>{x}</li>)}</ul>
-            </a>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+  <!-- 2. grounds for trust, 3. recent incidents -->
+  <TgProof tone="light" />
+  <TgIncidents />
 
-  <!-- 3. three proofs -->
-  <section class="section mist">
+  <!-- 4. three proofs, played in turn: the PC's certificate, the phone's approval, the gateway's decisions -->
+  <section class="section mist" id="proofs">
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">로그인 한 번이 아니라,<br />요청마다 확인합니다</h2>
-        <p class="lead">Trust Gateway는 두 기기와 게이트웨이가 각자 다른 것을 증명하게 나눕니다. 하나가 뚫려도 나머지가 막습니다.</p>
+        <h2 class="h2">로그인 한 번이 아니라, <br />요청마다 확인합니다</h2>
+        <p class="lead">PC는 기기를, 휴대폰은 사람을, 게이트웨이는 매 요청을 증명합니다. <br />하나가 뚫려도 나머지가 막습니다.</p>
       </div>
-      <div class="proofs">
+      <div class="proofs play-on-view">
         <article class="card proof reveal">
-          <div class="media pc">
+          <div class="media">
             <div class="cert">
               <p class="cert-title">기기 인증서</p>
               <dl>
-                <div><dt>보관</dt><dd>PC 하드웨어 보안 영역</dd></div>
-                <div><dt>내보내기</dt><dd>불가</dd></div>
-                <div><dt>수명</dt><dd>12시간, 다시 받을 땐 휴대폰 승인</dd></div>
+                <div style="--k:0"><dt>보관</dt><dd>PC 하드웨어 보안 영역</dd></div>
+                <div style="--k:1"><dt>내보내기</dt><dd>불가</dd></div>
+                <div style="--k:2"><dt>수명</dt><dd>12시간, 다시 받을 땐 휴대폰 승인</dd></div>
               </dl>
-              <p class="cert-ok"><i></i>이 PC는 등록된 업무 기기입니다</p>
+              <p class="cert-ok"><Icon name="check" size={16} />이 PC는 등록된 업무 기기입니다</p>
             </div>
           </div>
           <h3 class="h4">PC는 기기를 증명합니다</h3>
           <p class="body">개인키가 PC의 보안 영역 밖으로 나오지 않아, 인증서를 복사해 다른 PC에서 쓸 수 없습니다.</p>
         </article>
         <article class="card proof reveal">
-          <div class="media phone-wrap">
+          <div class="media">
             <div class="phone">
-              <div class="fp" aria-hidden="true"></div>
-              <p class="ph-title">업무 PC 접속을<br />승인할까요?</p>
+              <div class="fp" aria-hidden="true"><i></i></div>
+              <p class="ph-title">업무 PC 접속을 <br />승인할까요?</p>
               <p class="ph-sub">{appName} · Face ID 또는 지문</p>
-              <div class="ph-btns"><span>거절</span><span class="go">승인</span></div>
+              <div class="ph-act">
+                <div class="ph-btns"><span>거절</span><span class="go">승인</span></div>
+                <p class="ph-done"><Icon name="check" size={16} />승인했습니다</p>
+              </div>
             </div>
           </div>
           <h3 class="h4">휴대폰은 사람을 증명합니다</h3>
@@ -101,149 +94,104 @@ const easy = [
         <article class="card proof wide reveal">
           <div class="media log">
             <ul>
-              <li><span class="who">재무팀 ERP</span><span class="why">등록 기기 · 평소 위치</span><b class="ok">허용</b></li>
-              <li><span class="who">사내 인트라넷</span><span class="why">새로운 네트워크에서 접속</span><b class="step">휴대폰 추가 인증</b></li>
-              <li><span class="who">개발 서버</span><span class="why">등록되지 않은 기기</span><b class="no">차단</b></li>
+              <li style="--k:0"><span class="who">재무팀 ERP</span><span class="why">등록 기기 · 평소 위치</span><b class="ok">허용</b></li>
+              <li style="--k:1"><span class="who">사내 인트라넷</span><span class="why">처음 보는 네트워크</span><b class="step">추가 인증</b></li>
+              <li style="--k:2"><span class="who">개발 서버</span><span class="why">등록되지 않은 기기</span><b class="no">거부</b></li>
             </ul>
           </div>
           <div class="wide-copy">
             <h3 class="h4">게이트웨이는 매 요청을 확인합니다</h3>
-            <p class="body">접속한 뒤에도 요청마다 정책과 위험을 다시 봅니다. 결과는 허용, 휴대폰 추가 인증, 차단 셋 중 하나입니다.</p>
+            <p class="body">접속한 뒤에도 요청마다 정책과 위험을 다시 봅니다. 결과는 허용, 추가 인증, 거부 셋 중 하나입니다.</p>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- 4. features -->
-  <section class="section">
-    <div class="wrap narrow">
-      <div class="head-center reveal">
-        <h2 class="h2">하나를 속여도,<br />나머지가 알아챕니다</h2>
-        <p class="lead">위치, 네트워크, 시간, 기기. 신호 하나는 속일 수 있어도 여러 신호를 동시에 계속 맞추기는 어렵습니다.</p>
+  <!-- 5. the signal check: rows agree one by one, the last one does not, and the phone is asked -->
+  <section class="section" id="signals">
+    <div class="wrap sig">
+      <div class="sig-copy reveal">
+        <h2 class="h2 sm">하나를 속여도, <br />나머지가 알아챕니다</h2>
+        <p class="lead">PC와 휴대폰의 위치, Wi-Fi, 시간대, 기기 상태와 네트워크를 함께 대조합니다. 해외 VPN으로 신호 하나를 꾸며도 나머지와 맞지 않으면 드러납니다.</p>
+        <a class="text-link" href="/trust-gateway#engine">판단 과정 자세히 보기</a>
       </div>
-
-      <div class="feature reveal">
-        <div class="f-copy">
-          <span class="tag">다중 신호 교차 검증</span>
-          <h3 class="h3">PC와 휴대폰이<br />서로의 위치를 확인합니다</h3>
-          <p class="body">PC와 휴대폰의 위치, Wi-Fi, 시간대, 기기 상태와 네트워크 정보를 함께 대조합니다. VPN이나 위치 위조로 신호 하나를 꾸며도 나머지와 맞지 않으면 드러납니다.</p>
-        </div>
-        <div class="f-media">
-          <table class="match">
-            <caption class="sr-only">PC와 휴대폰 신호 대조 예시</caption>
-            <thead><tr><th scope="col">신호</th><th scope="col">PC</th><th scope="col">휴대폰</th><th scope="col">결과</th></tr></thead>
-            <tbody>
-              <tr><th scope="row">위치</th><td>서울 마포</td><td>서울 마포</td><td class="y">일치</td></tr>
-              <tr><th scope="row">네트워크</th><td>사무실 Wi-Fi</td><td>사무실 Wi-Fi</td><td class="y">일치</td></tr>
-              <tr><th scope="row">시간대</th><td>KST</td><td>KST</td><td class="y">일치</td></tr>
-              <tr class="bad"><th scope="row">경유</th><td>해외 VPN</td><td>국내 통신사</td><td class="n">불일치</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div class="feature flip reveal">
-        <div class="f-copy">
-          <span class="tag">지속 검증</span>
-          <h3 class="h3">접속한 다음에도<br />계속 지켜봅니다</h3>
-          <p class="body">세션이 이어지는 동안 네트워크와 위치 변화를 살핍니다. 위험이 올라가면 휴대폰으로 무엇이 바뀌었는지 알리고, 승인하기 전까지는 요청을 들여보내지 않습니다.</p>
-        </div>
-        <div class="f-media">
-          <div class="timeline" role="img" aria-label="세션 중 위치가 바뀌자 휴대폰 추가 인증을 요청하는 흐름">
-            <div class="tl-bar"><i style="left:6%"></i><i style="left:30%"></i><i style="left:54%"></i><i class="hot" style="left:74%"></i></div>
-            <div class="tl-labels"><span>로그인</span><span>요청 확인</span><span>요청 확인</span><span class="hot">네트워크 변경 감지</span></div>
-            <div class="tl-alert"><b>휴대폰으로 추가 인증 요청</b><span>Face ID로 승인하면 계속, 승인 전까지는 접속 보류</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="feature reveal">
-        <div class="f-copy">
-          <span class="tag">숨은 사내망</span>
-          <h3 class="h3">밖에서 보이지 않으면,<br />뚫을 수도 없습니다</h3>
-          <p class="body">사내망에는 들어오는 포트를 열지 않습니다. 내부 에이전트가 게이트웨이로 먼저 연결을 걸어, 확인된 요청만 안으로 전달합니다.</p>
-        </div>
-        <div class="f-media">
-          <div class="zones" role="img" aria-label="사용자, Trust Gateway, 고객 사내망 세 구역. 사내망 쪽에서만 바깥으로 연결합니다">
-            <div class="zone"><b>사용자</b><span>PC + 휴대폰</span></div>
-            <div class="arrow r" aria-hidden="true"></div>
-            <div class="zone mid"><b>Trust Gateway</b><span>확인과 정책</span></div>
-            <div class="arrow l" aria-hidden="true"></div>
-            <div class="zone in"><b>고객 사내망</b><span>들어오는 포트 0</span></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="feature flip reveal">
-        <div class="f-copy">
-          <span class="tag">기본 차단 정책</span>
-          <h3 class="h3">적어 둔 것만 열리고,<br />나머지는 닫혀 있습니다</h3>
-          <p class="body">정책은 기본이 차단입니다. 어떤 사람이 어떤 기기로 어떤 앱에 들어갈 수 있는지 적어 둔 것만 통과하고, 정책 변경 이력도 남습니다.</p>
-        </div>
-        <div class="f-media">
-          <div class="policy" role="img" aria-label="기본은 차단, 재무팀은 등록된 기기에서 ERP만 허용하는 정책 예시">
-            <p><span class="k">기본</span><span class="v no">차단</span></p>
-            <p><span class="k">재무팀</span><span class="v">등록 기기 + 휴대폰 확인 → ERP 허용</span></p>
-            <p><span class="k">협력사</span><span class="v">등록 기기 → 유지보수 서버만 허용</span></p>
-            <p><span class="k">그 밖의 요청</span><span class="v no">차단</span></p>
-          </div>
-        </div>
+      <div class="sig-card play-on-view reveal">
+        <p class="sig-k">다중 신호 교차 검증</p>
+        <table class="match">
+          <caption class="sr-only">PC와 휴대폰 신호 대조 예시</caption>
+          <thead><tr><th scope="col">신호</th><th scope="col">PC</th><th scope="col">휴대폰</th><th scope="col">결과</th></tr></thead>
+          <tbody>
+            {signals.map((s, k) => (
+              <tr class={s.bad ? 'bad' : undefined} style={`--k:${k}`}><th scope="row">{s.k}</th><td>{s.pc}</td><td>{s.ph}</td><td><span class={s.bad ? 'n' : 'y'}>{s.bad ? '불일치' : '일치'}</span></td></tr>
+            ))}
+          </tbody>
+        </table>
+        <div class="alert"><b>휴대폰으로 추가 인증 요청</b><span>Face ID로 승인하면 계속, 승인 전까지는 접속 보류</span></div>
       </div>
     </div>
   </section>
 
-  <!-- 5. use cases -->
-  <section class="section mist">
-    <div class="wrap uc">
-      <div class="uc-head reveal">
-        <h2 class="h2 sm">어디서 일하든,<br />같은 기준으로</h2>
-        <p class="lead">사람, 기기, 장소가 달라져도 확인하는 방법은 하나입니다.</p>
-        <a class="text-link" href="/trust-gateway#use-cases">활용 사례 자세히 보기</a>
-      </div>
-      <ul class="uc-list">
-        {useCases.map((u) => (
-          <li class="uc-card reveal">
-            <h3 class="h4">{u.t}</h3>
-            <p class="body">{u.d}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  </section>
+  <!-- 6. what a leaked account opens -->
+  <TgVpnSwitch />
 
-  <!-- 6. easy security -->
-  <section class="section">
+  <!-- 7. where it is used: tabs that take turns while on screen -->
+  <section class="section" id="uses">
     <div class="wrap">
-      <div class="head-left reveal">
-        <h2 class="h2 sm">VPN 없이, 휴대폰 확인 한 번으로</h2>
-        <p class="lead">쓰는 사람은 더 간단하게, 관리하는 사람은 더 분명하게.</p>
+      <div class="head-center reveal">
+        <h2 class="h2">하나의 판단 엔진, <br />여러 자리에서</h2>
+        <p class="lead">직원의 업무 접속, 금융 앱의 본인 확인, 고객의 결제까지 같은 기준으로 확인합니다.</p>
       </div>
-      <ul class="easy">
-        {easy.map((e) => (
-          <li class="easy-card reveal">
-            <h3 class="h4">{e.t}</h3>
-            <p class="body">{e.d}</p>
-          </li>
+      <div class="ut reveal">
+        <div class="ut-list" role="tablist" aria-label="쓰임">
+          {tgUses.map((u, i) => (
+            <button role="tab" type="button" id={`ut-${u.id}`} aria-controls={`up-${u.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
+              <span class="ut-i"><Icon name={u.i} size={20} /></span><span class="ut-t"><b>{u.t}</b><small>{u.g}</small></span><i class="bar" aria-hidden="true"></i>
+            </button>
+          ))}
+        </div>
+        {tgUses.map((u, i) => (
+          <div class="ut-panel" role="tabpanel" id={`up-${u.id}`} aria-labelledby={`ut-${u.id}`} hidden={i !== 0}>
+            <p class="pg">{u.g}</p>
+            <h3 class="h3">{u.h}</h3>
+            <p class="body">{u.d}</p>
+            <ul>{u.pts.map((p) => <li><Icon name="check" size={18} />{p}</li>)}</ul>
+            <a class="text-link" href="/trust-gateway#uses">Trust Gateway 쓰임 자세히 보기</a>
+          </div>
         ))}
-      </ul>
-    </div>
-  </section>
-
-  <!-- 7. IT consulting and development band -->
-  <section class="ai-band">
-    <div class="wrap ai-row reveal">
-      <div>
-        <h2 class="h4">IT 컨설팅·개발</h2>
-        <p class="body">업무 분석부터 맞춤 개발과 운영까지, 회사에 맞춘 IT 컨설팅과 개발도 함께 합니다.</p>
       </div>
-      <a class="btn ghost" href="/consulting">IT 컨설팅·개발 보기</a>
     </div>
   </section>
 
-  <!-- 8. latest news -->
+  <!-- 8. IT consulting and development: the team, step by step -->
+  <section class="section night" id="team">
+    <div class="wrap team">
+      <div class="reveal">
+        <p class="team-k">IT 컨설팅·개발</p>
+        <h2 class="h2 sm">전략부터 시스템까지, <br />한 팀이 맡습니다</h2>
+        <p class="lead">업무 분석(PI)부터 맞춤 개발과 운영까지, <br />회사에 맞춘 IT 컨설팅과 개발도 함께 합니다.</p>
+        <ol class="team-steps">
+          {team.map((s, i) => (<li class={i === 0 ? 'on' : undefined}><span>{String(i + 1).padStart(2, '0')}</span>{s.t}</li>))}
+        </ol>
+        <a class="btn primary" href="/consulting">IT 컨설팅·개발 보기</a>
+      </div>
+      <figure class="team-ph reveal">
+        {team.map((s, i) => (
+          <img class={i === 0 ? 'on' : undefined} src={`/images/consulting/${s.img}-800.webp`} srcset={`/images/consulting/${s.img}-800.webp 800w, /images/consulting/${s.img}.webp 1536w`}
+            sizes="(max-width: 1023px) 100vw, 50vw" alt={s.alt} width="1536" height="1024" loading="lazy" decoding="async" />
+        ))}
+      </figure>
+    </div>
+  </section>
+
+  <!-- 9. a customer, and the latest news -->
   <section class="section paper2">
     <div class="wrap">
+      <a class="cust reveal" href="/trust-gateway#customer">
+        <span class="cust-k">도입 고객</span>
+        <b>에어레인(AIRRANE)</b>
+        <span class="cust-d">코스닥 상장 기체분리막 전문기업 · Trust Gateway 도입과 ERP 구축</span>
+      </a>
       <div class="news-head reveal">
         <h2 class="h2 sm">소식</h2>
         <a class="text-link" href="/news">전체 소식 보기</a>
@@ -262,14 +210,14 @@ const easy = [
     </div>
   </section>
 
-  <!-- 9. CTA -->
+  <!-- 10. CTA -->
   <CtaBand title="우리 회사 환경에서 먼저 확인해 보세요" lead="평가용 환경과 서비스 하나로 시작합니다. 접속 흐름과 정책을 직접 보고 결정하세요." secondary={{ href: '/trust-gateway', label: 'Trust Gateway 보기' }} />
 </Base>
 
 <style>
   /* hero */
-  /* the section is tall; .hero-pin sticks while orb-hero.ts maps scroll progress to --hero-* */
-  .hero { position: relative; height: 420vh; background: #fff; }
+  /* a short pinned stretch: .hero-pin sticks while orb-hero.ts plays night to day once, by time, on the first scroll */
+  .hero { position: relative; height: 170vh; height: 170svh; background: #fff; }
   .hero-pin {
     position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 620px; overflow: hidden; color: var(--on-night);
     background: color-mix(in srgb, #050a14, #eef2f8 calc(var(--hero-day, 0) * 100%));
@@ -283,7 +231,6 @@ const easy = [
   .hero-focus { position: absolute; z-index: 1; left: 0; right: 0; top: 65%; text-align: center; color: var(--ink); }
   html.js .hero-focus { opacity: 0; visibility: hidden; }
   .hero-focus-title { font-size: clamp(26px, 3.6vw, 52px); line-height: 1.22; letter-spacing: -0.03em; font-weight: 700; word-break: keep-all; overflow-wrap: normal; text-wrap: balance; }
-  .hero-focus-lead { word-break: keep-all; overflow-wrap: normal; text-wrap: balance; margin: 18px auto 0; max-width: 640px; color: var(--ink-2); font-size: clamp(16px, 1.3vw, 19px); line-height: 1.7; font-weight: 500; }
   html:not(.js) .hero { height: auto; }
   html:not(.js) .hero-focus { display: none; }
   /* type sizes follow PacketGo's main visual: Inter Tight 400 for the English headline, Pretendard 500 for the lead */
@@ -299,18 +246,8 @@ const easy = [
   html.js .hero-title, html.js .hero-lead { animation: hero-rise 1200ms cubic-bezier(0.22, 0.65, 0.3, 1) 160ms both; }
   html.js .hero-lead { animation-delay: 300ms; }
   @keyframes hero-rise { from { opacity: 0; transform: translate3d(0, clamp(24px, 1.55vw + 18px, 48px), 0); } to { opacity: 1; transform: none; } }
-  @media (prefers-reduced-motion: reduce) { html.js .hero-title, html.js .hero-lead { animation: none; } }
 
-  /* three uses */
-  .uses { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .use-card { height: 100%; display: grid; gap: 12px; align-content: start; border: 1px solid var(--line); border-radius: var(--r-xl); padding: 30px 28px 30px; background: #fff; transition: border-color .2s var(--ease); }
-  .use-card:hover { border-color: var(--blue); }
-  .use-k { font-weight: 800; font-size: 20px; color: var(--blue); display: flex; align-items: baseline; gap: 10px; }
-  .use-k span { font-size: 14px; font-weight: 600; color: var(--ink-3); }
-  .use-pts { list-style: none; margin: 4px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 6px; }
-  .use-pts li { font-size: 13px; font-weight: 600; padding: 4px 12px; border-radius: 999px; background: var(--mist); color: var(--blue-deep); }
-
-  /* proofs */
+  /* proofs: the certificate fills in, the phone scans and approves, then the gateway's decisions arrive */
   .proofs { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   .proof { display: flex; flex-direction: column; gap: 10px; padding: 22px 22px 30px; }
   .proof .media { border-radius: var(--r-lg); background: var(--paper-2); min-height: 300px; display: grid; place-items: center; margin-bottom: 14px; padding: 28px; }
@@ -324,82 +261,106 @@ const easy = [
   .cert dl { margin: 0; display: grid; gap: 8px; font-size: 14px; }
   .cert dl div { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dashed var(--line); padding-bottom: 8px; }
   .cert dt { color: var(--ink-3); } .cert dd { margin: 0; font-weight: 600; text-align: right; }
-  .cert-ok { margin-top: 14px; font-size: 14px; font-weight: 600; color: var(--blue); display: flex; align-items: center; gap: 8px; }
-  .cert-ok i { width: 8px; height: 8px; border-radius: 50%; background: var(--orange); }
+  .cert-ok { margin-top: 14px; font-size: 14px; font-weight: 600; color: #1f7a5f; display: flex; align-items: center; gap: 8px; }
 
   .phone { width: 200px; border-radius: 30px; background: var(--night); color: var(--on-night); padding: 34px 18px 22px; text-align: center; box-shadow: 0 16px 40px rgba(14,26,43,.25); border: 6px solid #22324a; }
-  .fp { width: 56px; height: 56px; margin: 0 auto 18px; border-radius: 50%; border: 2px solid #8fb4e3; background: repeating-radial-gradient(circle, transparent 0 5px, rgba(143,180,227,.55) 5px 6px); }
+  .fp { position: relative; overflow: hidden; width: 56px; height: 56px; margin: 0 auto 18px; border-radius: 50%; border: 2px solid #8fb4e3; background: repeating-radial-gradient(circle, transparent 0 5px, rgba(143,180,227,.55) 5px 6px); transition: border-color .4s var(--ease); }
+  .fp i { position: absolute; left: 0; right: 0; top: 0; height: 3px; background: #63d6b4; box-shadow: 0 0 8px #63d6b4; opacity: 0; }
   .ph-title { font-weight: 700; line-height: 1.4; }
   .ph-sub { font-size: 12px; color: var(--on-night-2); margin-top: 6px; }
-  .ph-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 20px; font-size: 13px; font-weight: 600; }
+  .ph-act { position: relative; margin-top: 20px; }
+  .ph-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 13px; font-weight: 600; }
   .ph-btns span { padding: 8px 0; border-radius: 999px; background: rgba(255,255,255,.08); }
   .ph-btns .go { background: var(--orange); color: #1a1209; }
+  .ph-done { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; gap: 6px; border-radius: 999px; background: #63d6b4; color: #0b2a21; font-size: 13px; font-weight: 700; opacity: 0; }
 
   .log ul { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; gap: 10px; }
   .log li { display: grid; grid-template-columns: 1fr 1.3fr auto; gap: 12px; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); padding: 14px 16px; font-size: 14px; }
   .log .who { font-weight: 700; } .log .why { color: var(--ink-3); }
   .log b { font-size: 13px; padding: 4px 12px; border-radius: 999px; white-space: nowrap; }
-  .log .ok { background: var(--mist-2); color: var(--blue); }
+  .log .ok { background: #e5f5ef; color: #1f7a5f; }
   .log .step { background: var(--orange-soft); color: var(--orange-ink); }
-  .log .no { background: var(--ink); color: #fff; }
+  .log .no { background: #fdecea; color: #b23a2b; }
 
-  /* features */
-  .feature { display: grid; grid-template-columns: 1fr 1.05fr; gap: clamp(32px, 6vw, 72px); align-items: center; padding: 48px 0; }
-  .feature.flip .f-copy { order: 2; }
-  .f-copy .h3 { margin: 10px 0 14px; }
-  .f-media { background: var(--paper-2); border-radius: var(--r-lg); padding: 28px; min-height: 320px; display: grid; place-items: center; }
+  :global(html.js) .proofs:not(.play) .cert dl div, :global(html.js) .proofs:not(.play) .cert-ok, :global(html.js) .proofs:not(.play) .log li { opacity: 0; }
+  .proofs.play .cert dl div { animation: rise .5s var(--ease) calc(.3s + var(--k) * .25s) both; }
+  .proofs.play .cert-ok { animation: pop .5s var(--ease) 1.2s both; }
+  .proofs.play .fp i { animation: scan 1s ease-in-out 1.6s 1 both; }
+  .proofs.play .fp { border-color: #63d6b4; transition-delay: 2.5s; }
+  .proofs.play .ph-btns .go { animation: press .4s var(--ease) 2.6s both; }
+  .proofs.play .ph-done { animation: pop .45s var(--ease) 2.9s both; }
+  .proofs.play .log li { animation: slide-in .5s var(--ease) calc(3.4s + var(--k) * .4s) both; }
+  @keyframes rise { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+  @keyframes pop { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: none; } }
+  @keyframes scan { 0% { top: 0; opacity: 0; } 15% { opacity: 1; } 85% { opacity: 1; } 100% { top: calc(100% - 3px); opacity: 0; } }
+  @keyframes press { 50% { transform: scale(.92); } }
+  @keyframes slide-in { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
+
+  /* signals: each row agrees in turn, the last one does not, then the phone is asked */
+  .sig { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: clamp(32px, 6vw, 80px); align-items: center; }
+  .sig-copy .lead { margin: 16px 0 20px; }
+  .sig-card { background: var(--paper-2); border-radius: var(--r-xl); padding: clamp(18px, 3vw, 32px); display: grid; gap: 14px; }
+  .sig-k { font-size: 14px; font-weight: 700; color: var(--blue); }
   .match { width: 100%; border-collapse: collapse; font-size: 14px; background: #fff; border-radius: var(--r-md); overflow: hidden; border: 1px solid var(--line); }
-  .match th, .match td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); }
+  .match th, .match td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--line); transition: background-color .4s var(--ease); }
   .match thead th { font-size: 13px; color: var(--ink-3); font-weight: 600; background: var(--paper-2); }
   .match tbody th { font-weight: 700; }
-  .match .y { color: var(--blue); font-weight: 700; }
-  .match .bad td, .match .bad th { background: var(--orange-soft); }
+  .match .y { color: #1f7a5f; font-weight: 700; }
   .match .n { color: var(--orange-ink); font-weight: 700; }
+  .match .bad > * { background: var(--orange-soft); }
   .match tr:last-child > * { border-bottom: 0; }
+  .alert { background: var(--orange-soft); border: 1px solid #f3cfae; border-radius: var(--r-md); padding: 14px 16px; display: grid; gap: 4px; font-size: 14px; }
+  .alert b { color: var(--orange-ink); }
+  .alert span { color: var(--ink-2); }
+  :global(html.js) .sig-card:not(.play) .match tbody span, :global(html.js) .sig-card:not(.play) .alert { opacity: 0; }
+  :global(html.js) .sig-card:not(.play) .match .bad > * { background: #fff; }
+  .sig-card.play .match tbody span { display: inline-block; animation: pop .4s var(--ease) calc(.4s + var(--k) * .45s) both; }
+  .sig-card.play .match .bad > * { animation: flag .6s var(--ease) 2.3s both; }
+  .sig-card.play .alert { animation: rise .5s var(--ease) 2.9s both; }
+  @keyframes flag { from { background: #fff; } to { background: var(--orange-soft); } }
 
-  .timeline { width: 100%; }
-  .tl-bar { position: relative; height: 6px; border-radius: 6px; background: var(--line); margin: 20px 0 14px; }
-  .tl-bar i { position: absolute; top: -5px; width: 16px; height: 16px; border-radius: 50%; background: var(--blue); border: 3px solid #fff; transform: translateX(-50%); }
-  .tl-bar i.hot { background: var(--orange); }
-  .tl-labels { display: grid; grid-template-columns: repeat(4, 1fr); font-size: 13px; color: var(--ink-3); }
-  .tl-labels .hot { color: var(--orange-ink); font-weight: 700; }
-  .tl-alert { margin-top: 24px; background: var(--orange-soft); border: 1px solid #f3cfae; border-radius: var(--r-md); padding: 14px 16px; display: grid; gap: 4px; font-size: 14px; }
-  .tl-alert b { color: var(--orange-ink); }
-  .tl-alert span { color: var(--ink-2); }
+  /* uses: a list of tabs that take turns (the bar fills, then the next one opens) */
+  .ut { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 20px; align-items: stretch; }
+  .ut-list { display: grid; gap: 8px; align-content: start; }
+  .ut-list button { position: relative; overflow: hidden; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 12px; align-items: center; padding: 14px 16px; border-radius: var(--r-lg); border: 1px solid var(--line); background: #fff; font: inherit; text-align: left; cursor: pointer; color: var(--ink-2); transition: border-color .3s var(--ease), background-color .3s var(--ease), color .3s var(--ease); }
+  .ut-list button:hover { border-color: var(--ink-3); }
+  .ut-list button[aria-selected='true'] { border-color: var(--ink); color: var(--ink); background: var(--paper-2); }
+  .ut-list button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
+  .ut-i { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--mist); color: var(--blue); }
+  .ut-t { display: grid; gap: 2px; }
+  .ut-t b { font-size: 16px; }
+  .ut-t small { font-size: 13px; color: var(--ink-3); }
+  .ut-list .bar { position: absolute; left: 0; bottom: 0; height: 3px; width: 100%; background: var(--orange); transform-origin: left; transform: scaleX(0); }
+  .ut.auto .ut-list [aria-selected='true'] .bar { animation: fill 6s linear both; }
+  .ut.paused .ut-list .bar { animation-play-state: paused !important; }
+  @keyframes fill { from { transform: scaleX(0); } to { transform: none; } }
+  .ut-panel { border-radius: var(--r-xl); background: var(--paper-2); padding: clamp(24px, 4vw, 44px); display: grid; gap: 12px; align-content: start; }
+  .ut-panel[hidden] { display: none; }
+  .ut.auto .ut-panel:not([hidden]) { animation: rise .5s var(--ease) both; }
+  .pg { font-size: 14px; font-weight: 700; color: var(--blue); }
+  .ut-panel ul { list-style: none; margin: 8px 0; padding: 0; display: grid; gap: 10px; }
+  .ut-panel li { display: flex; gap: 10px; align-items: center; padding: 14px 16px; border-radius: var(--r-md); background: #fff; font-weight: 600; }
+  .ut-panel li :global(svg) { flex: none; color: var(--blue); }
 
-  .zones { width: 100%; display: grid; grid-template-columns: 1fr 28px 1fr 28px 1fr; align-items: center; gap: 6px; }
-  .zone { background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); padding: 18px 10px; text-align: center; display: grid; gap: 4px; font-size: 14px; }
-  .zone span { color: var(--ink-3); font-size: 13px; }
-  .zone.mid { border-color: var(--blue); }
-  .zone.in { background: var(--night); color: var(--on-night); border-color: var(--night); }
-  .zone.in span { color: var(--orange); font-weight: 700; }
-  .arrow { height: 2px; background: var(--blue); position: relative; }
-  .arrow.r::after, .arrow.l::after { content: ''; position: absolute; top: -4px; width: 8px; height: 10px; background: var(--blue); }
-  .arrow.r::after { right: -1px; clip-path: polygon(0 0, 100% 50%, 0 100%); }
-  .arrow.l::after { left: -1px; clip-path: polygon(100% 0, 0 50%, 100% 100%); }
+  /* team: the step list and the sketches take turns */
+  .team { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .team-k { font-size: 15px; font-weight: 700; color: #9fb8de; margin-bottom: 12px; }
+  .team .lead { margin-top: 16px; }
+  .team-steps { list-style: none; margin: 24px 0 28px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .team-steps li { display: flex; gap: 6px; align-items: baseline; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--night-line); font-size: 15px; font-weight: 600; color: var(--on-night-2); transition: background-color .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease); }
+  .team-steps span { font-size: 12px; color: #9fb8de; font-variant-numeric: tabular-nums; transition: color .4s var(--ease); }
+  .team-steps li.on { background: #fff; color: var(--ink); border-color: #fff; }
+  .team-steps li.on span { color: var(--orange-ink); }
+  .team-ph { position: relative; margin: 0; border-radius: var(--r-xl); overflow: hidden; aspect-ratio: 3 / 2; background: #f4ede0; }
+  .team-ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s var(--ease), transform 4.5s linear; transform: scale(1.04); }
+  .team-ph img.on { opacity: 1; transform: none; }
 
-  .policy { width: 100%; background: var(--night); color: var(--on-night); border-radius: var(--r-md); padding: 22px; font-size: 14px; display: grid; gap: 12px; }
-  .policy p { display: grid; grid-template-columns: 96px 1fr; gap: 12px; }
-  .policy .k { color: var(--on-night-2); }
-  .policy .no { color: var(--orange); font-weight: 700; }
-
-  /* use cases */
-  .uc { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
-  .uc-head { position: sticky; top: calc(var(--header-h) + 48px); display: grid; gap: 18px; justify-items: start; }
-  .uc-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; }
-  .uc-card { background: #fff; border-radius: var(--r-md); padding: 28px 30px; display: grid; gap: 6px; }
-
-  /* easy */
-  .easy { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-  .easy-card { border: 1px solid var(--line); border-radius: var(--r-sm); padding: 30px 28px 34px; display: grid; gap: 10px; align-content: start; min-height: 220px; }
-  .easy-card .h4 { padding-bottom: 14px; border-bottom: 2px solid var(--ink); }
-
-  /* ai band */
-  .ai-band { border-top: 1px solid var(--line); }
-  .ai-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-top: 40px; padding-bottom: 40px; }
-  .ai-row .body { margin-top: 6px; }
-
-  /* news */
+  /* customer and news */
+  .cust { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 20px 24px; margin-bottom: clamp(40px, 5vw, 64px); border-radius: var(--r-lg); background: #fff; border: 1px solid var(--line); transition: border-color .2s var(--ease); }
+  .cust:hover { border-color: var(--blue); }
+  .cust-k { font-size: 13px; font-weight: 700; color: var(--blue); }
+  .cust b { font-size: 18px; }
+  .cust-d { color: var(--ink-2); font-size: 15px; }
   .news-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
   .news-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .news-card { display: grid; gap: 14px; align-content: start; height: 100%; background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); padding: 26px 26px 30px; transition: border-color .2s var(--ease); }
@@ -408,26 +369,93 @@ const easy = [
   .kind.press, .kind.security { color: var(--orange-ink); }
 
   @media (max-width: 1023px) {
-    .uses { grid-template-columns: 1fr; }
     .proofs { grid-template-columns: 1fr; }
     .proof.wide { grid-template-columns: 1fr; }
-    .feature, .feature.flip { grid-template-columns: 1fr; }
-    .feature.flip .f-copy { order: 0; }
-    .uc { grid-template-columns: 1fr; }
-    .uc-head { position: static; }
-    .easy { grid-template-columns: 1fr 1fr; }
+    .sig, .team { grid-template-columns: 1fr; }
+    .ut { grid-template-columns: 1fr; }
+    .ut-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .news-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 767px) {
-    .hero { height: 360vh; }
+    .hero { height: 160vh; height: 160svh; }
     .hero-lead br:not(.sb) { display: none; }
     .hero-focus { top: 52%; }
-    .easy { grid-template-columns: 1fr; }
-    .zones { grid-template-columns: 1fr; }
-    .arrow { width: 2px; height: 22px; justify-self: center; }
-    .arrow.r::after, .arrow.l::after { display: none; }
+    .head-center .lead br, .team .lead br { display: none; }
     .log li { grid-template-columns: 1fr auto; }
     .log .why { grid-column: 1 / -1; grid-row: 2; }
-    .ai-row { flex-direction: column; align-items: flex-start; }
+    .ut-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ut-list button { grid-template-columns: minmax(0, 1fr); padding: 12px; }
+    .ut-i { display: none; }
+    .ut-t small { display: none; }
+    .sig-card { padding: 14px; }
+    .match { font-size: 13px; }
+    .match th, .match td { padding: 9px 7px; white-space: nowrap; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    html.js .hero-title, html.js .hero-lead { animation: none; }
+    .team-ph img { transition: none; transform: none; }
   }
 </style>
+
+<script>
+  const still = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // sections that play a short scene: start when they come into view, and again on the next visit
+  document.querySelectorAll<HTMLElement>('.play-on-view').forEach((el) => {
+    if (still) { el.classList.add('play'); return; }
+    new IntersectionObserver(([e]) => {
+      if (e.intersectionRatio >= 0.25) el.classList.add('play');
+      else if (!e.isIntersecting) el.classList.remove('play');
+    }, { threshold: [0, 0.25] }).observe(el);
+  });
+
+  // uses: tabs. While on screen they take turns (the bar's end opens the next); a click or a key stops that.
+  const ut = document.querySelector<HTMLElement>('.ut');
+  if (ut) {
+    const tabs = [...ut.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panels = [...ut.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
+    let cur = 0;
+    const show = (n: number) => {
+      cur = n;
+      tabs.forEach((t, i) => { t.setAttribute('aria-selected', String(i === n)); t.tabIndex = i === n ? 0 : -1; });
+      panels.forEach((p, i) => { p.hidden = i !== n; });
+    };
+    const stop = () => ut.classList.remove('auto');
+    tabs.forEach((t, i) => {
+      t.addEventListener('click', () => { stop(); show(i); });
+      t.addEventListener('keydown', (e) => {
+        const d = e.key === 'ArrowDown' || e.key === 'ArrowRight' ? 1 : e.key === 'ArrowUp' || e.key === 'ArrowLeft' ? -1 : 0;
+        if (!d) return;
+        e.preventDefault(); stop();
+        const n = (i + d + tabs.length) % tabs.length;
+        tabs[n].focus(); show(n);
+      });
+    });
+    if (!still) {
+      ut.classList.add('auto', 'paused');
+      ut.addEventListener('animationend', (e) => { if ((e.target as HTMLElement).classList.contains('bar') && ut.classList.contains('auto')) show((cur + 1) % tabs.length); });
+      let hover = false, seen = false;
+      const sync = () => ut.classList.toggle('paused', hover || !seen);
+      ut.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') { hover = true; sync(); } });
+      ut.addEventListener('pointerleave', () => { hover = false; sync(); });
+      new IntersectionObserver(([e]) => { seen = e.isIntersecting; sync(); }, { threshold: 0.4 }).observe(ut);
+    }
+  }
+
+  // team: the sketches and the step list take turns every few seconds while on screen
+  const team = document.querySelector<HTMLElement>('#team');
+  if (team && !still) {
+    const imgs = [...team.querySelectorAll<HTMLImageElement>('.team-ph img')];
+    const steps = [...team.querySelectorAll<HTMLLIElement>('.team-steps li')];
+    let n = 0, timer = 0;
+    const next = () => {
+      n = (n + 1) % imgs.length;
+      imgs.forEach((im, i) => im.classList.toggle('on', i === n));
+      steps.forEach((s, i) => s.classList.toggle('on', i === n));
+    };
+    new IntersectionObserver(([e]) => {
+      clearInterval(timer);
+      if (e.isIntersecting) timer = window.setInterval(next, 3600);
+    }, { threshold: 0.3 }).observe(team);
+  }
+</script>

@@ -1,0 +1,31 @@
+---
+// A slim row of three grounds for trust, right under a hero: dark under the Trust Gateway film, light under the
+// home hero (which ends on a bright field).
+interface Props { tone?: 'night' | 'light' }
+const { tone = 'night' } = Astro.props;
+const proof = [
+  { t: '금융 인증 운영 경험', d: '카드사와 저축은행 인증 서비스를 운영해 온 기술' },
+  { t: '특허 출원', d: '이종 단말 위치 신호 교차 검증 기반 동적 접근 제어' },
+  { t: '공개 기준에 맞춘 설계', d: 'CISA ZTMM v2.0 · NIST SP 800-207' },
+];
+---
+<section class={`proof ${tone}`} aria-label="Trust Gateway의 근거">
+  <ul class="wrap proof-list">
+    {proof.map((p) => (<li><b>{p.t}</b><span>{p.d}</span></li>))}
+  </ul>
+</section>
+
+<style>
+  .proof { padding: 0 0 clamp(40px, 5vw, 64px); }
+  .proof.night { background: var(--night); color: var(--on-night); --pl: var(--night-line); --ps: var(--on-night-2); }
+  .proof.light { background: #fff; color: var(--ink); padding-top: clamp(24px, 3vw, 40px); --pl: var(--line); --ps: var(--ink-2); }
+  .proof-list { list-style: none; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .proof-list li { display: grid; gap: 4px; padding: 6px 24px; border-left: 1px solid var(--pl); }
+  .proof-list li:first-child { border-left: 0; padding-left: 0; }
+  .proof-list b { font-size: 16px; }
+  .proof-list span { font-size: 14px; color: var(--ps); }
+  @media (max-width: 767px) {
+    .proof-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .proof-list li, .proof-list li:first-child { border-left: 0; padding: 0 0 12px; border-bottom: 1px solid var(--pl); }
+  }
+</style>

@@ -12,13 +12,8 @@ import TgIncidents from '../components/tg/TgIncidents.astro';
 import TgVpnSwitch from '../components/tg/TgVpnSwitch.astro';
 import TgEngine from '../components/tg/TgEngine.astro';
 import TgConsole from '../components/tg/TgConsole.astro';
-import { appName, parts } from '../data/site';
-
-const proof = [
-  { t: '금융 인증 운영 경험', d: '카드사와 저축은행 인증 서비스를 운영해 온 기술' },
-  { t: '특허 출원', d: '이종 단말 위치 신호 교차 검증 기반 동적 접근 제어' },
-  { t: '공개 기준에 맞춘 설계', d: 'CISA ZTMM v2.0 · NIST SP 800-207' },
-];
+import TgProof from '../components/tg/TgProof.astro';
+import { appName, tgUses as uses } from '../data/site';
 
 // from the tech doc v0.3 (ch. 2.2, 5.2, 5.4, 6.1, 6.5) and the demo page (signed identity per request)
 const attacks = [
@@ -33,15 +28,6 @@ const rules = [
   { t: '정책에 적은 것만 통과', d: '판단할 정보가 없으면 열지 않습니다. OPA 정책 엔진의 기본값도 거부입니다.' },
   { t: '위험한 기기는 처음부터', d: '탈옥이나 루팅된 폰, 에뮬레이터, 디버거가 붙은 앱은 막습니다. 정품 앱인지는 Apple과 Google의 증명으로 확인합니다.' },
   { t: '들어오는 포트 0', d: '고객 사내망은 포트를 열지 않습니다. 내부 에이전트가 밖으로만 연결합니다.' },
-];
-
-const [auth, staff, pay] = parts;
-const uses = [
-  { id: 'remote', g: staff.k, t: '재택 · 출장', h: '집에서도, 출장지에서도 같은 확인', d: '업무 PC와 내 휴대폰이 함께 있어야 접속됩니다. 낯선 네트워크로 바뀌면 휴대폰으로 다시 확인합니다.', pts: ['VPN 없이 허락된 업무 앱만 연결', '새 네트워크에서는 휴대폰으로 추가 인증', '분실 PC는 관리 콘솔에서 바로 차단'] },
-  { id: 'partner', g: staff.k, t: '협력사 · 외주', h: '필요한 사람에게 필요한 앱만', d: '협력사 인력에게 사내망 전체가 아닌 지정된 앱과 경로만 열어 줍니다.', pts: ['사람별, 경로별 허용 범위 지정', '인사 시스템 연동으로 퇴사·계약 종료 반영', '누가 무엇에 접속했는지 기록'] },
-  { id: 'shared', g: staff.k, t: '공용 PC', h: '한 대의 PC를 여러 사람이 써도', d: '회사 PC의 기기 신원과 지금 쓰는 사람의 신원을 따로 관리합니다. 사람이 바뀌면 휴대폰으로 다시 묶고, 각자 권한에 맞는 업무 앱만 엽니다.', pts: ['사람이 바뀌면 휴대폰으로 다시 바인딩', '사용자 전환이나 자리 비움 때 이전 바인딩 해제', '각자 권한에 맞는 업무 앱만 연결'] },
-  { id: 'auth', g: auth.k, t: '금융 앱 인증', h: auth.h, d: auth.d, pts: auth.pts },
-  { id: 'payment', g: pay.k, t: '결제 이상거래', h: '결제 위험도를 평가해 권고합니다', d: '결제사가 거래를 보내면 기기와 위치, 신호 사이의 모순을 평가해 승인, 추가 확인, 보류를 권고합니다. 최종 결정은 결제사가 합니다.', pts: ['승인 · 추가 확인 · 보류 권고', '최종 차단은 결제사가 결정', '고객사 FDS 룰 진단(오탐 · 미탐 · 중복 룰)'] },
 ];
 
 const ready = [
@@ -88,11 +74,7 @@ const faq = [
   </Fragment>
   <GatewayHero />
 
-  <section class="proof" aria-label="Trust Gateway의 근거">
-    <ul class="wrap proof-list">
-      {proof.map((p) => (<li><b>{p.t}</b><span>{p.d}</span></li>))}
-    </ul>
-  </section>
+  <TgProof />
 
   <TgIncidents />
   <TgVpnSwitch />
@@ -101,7 +83,7 @@ const faq = [
     <div class="wrap">
       <div class="head-center reveal">
         <h2 class="h2">제품 화면으로 보기</h2>
-        <p class="lead">시연 환경의 제품 화면을 단계별로 다시 그렸습니다.<br />직원의 업무 접속과 결제 이상거래, 두 흐름을 골라 보세요.</p>
+        <p class="lead">시연 환경의 제품 화면을 단계별로 다시 그렸습니다. <br />직원의 업무 접속과 결제 이상거래, 두 흐름을 골라 보세요.</p>
       </div>
       <GatewayDemo />
     </div>
@@ -134,7 +116,7 @@ const faq = [
     <div class="wrap">
       <div class="head-center reveal">
         <h2 class="h2">어디에 쓰나요</h2>
-        <p class="lead">같은 판단 엔진이 세 자리에 들어갑니다.<br />직원의 업무 접속, 금융 앱의 본인 확인, 고객의 결제입니다.</p>
+        <p class="lead">같은 판단 엔진이 세 자리에 들어갑니다. <br />직원의 업무 접속, 금융 앱의 본인 확인, 고객의 결제입니다.</p>
       </div>
       <div class="tabs reveal" id="use-cases">
         <div class="tablist" role="tablist" aria-label="쓰임">
@@ -156,7 +138,7 @@ const faq = [
     <div class="wrap">
       <div class="head-center reveal">
         <h2 class="h2">설치는 가볍게</h2>
-        <p class="lead">전용 장비 없이, 사내 서버에 에이전트 하나로 시작합니다.<br />세 구역은 서로를 믿지 않고, 경계를 넘을 때마다 다시 확인합니다.</p>
+        <p class="lead">전용 장비 없이, 사내 서버에 에이전트 하나로 시작합니다. <br />세 구역은 서로를 믿지 않고, 경계를 넘을 때마다 다시 확인합니다.</p>
       </div>
       <div class="arch reveal" role="img" aria-label="사용자 기기 구역에서 mTLS로 Trust Gateway에 연결하고, 고객 사내망의 내부 에이전트는 Trust Gateway로 바깥 방향 연결만 맺습니다">
         <div class="az">
@@ -259,14 +241,6 @@ const faq = [
 </Base>
 
 <style>
-  /* proof strip, right under the hero */
-  .proof { background: var(--night); color: var(--on-night); padding: 0 0 clamp(40px, 5vw, 64px); }
-  .proof-list { list-style: none; margin: 0 auto; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
-  .proof-list li { display: grid; gap: 4px; padding: 6px 24px; border-left: 1px solid var(--night-line); }
-  .proof-list li:first-child { border-left: 0; padding-left: 0; }
-  .proof-list b { font-size: 16px; }
-  .proof-list span { font-size: 14px; color: var(--on-night-2); }
-
   /* attacks: each card gets a stamp when it comes into view */
   .atk { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
   .atk li { position: relative; display: grid; gap: 12px; align-content: start; padding: 24px 22px 26px; border-radius: var(--r-xl); background: #fff; }
@@ -378,8 +352,6 @@ const faq = [
     .panel, .std, .setup, .cust { grid-template-columns: minmax(0, 1fr); }
   }
   @media (max-width: 767px) {
-    .proof-list { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-    .proof-list li, .proof-list li:first-child { border-left: 0; padding: 0 0 12px; border-bottom: 1px solid var(--night-line); }
     .atk, .rules { grid-template-columns: minmax(0, 1fr); }
     .tablist { border-radius: var(--r-md); }
     .roll { grid-template-columns: minmax(0, 1fr); }

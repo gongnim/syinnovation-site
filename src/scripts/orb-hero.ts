@@ -4,7 +4,9 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
-// Scroll-driven home hero. The .hero section is tall and .hero-pin sticks while it scrolls; p runs 0..1 across it.
+// Home hero. The .hero section is a little taller than the screen and .hero-pin sticks while it scrolls. p runs 0..1
+// from night to day, but by time, not by scroll position: a scroll down from the top plays it through in DUR seconds,
+// a scroll up plays it back, and a stop inside the pinned stretch glides the page to its nearer end.
 // Copy appears only at the start and the end, like PacketGo. The visuals tell the rest:
 //   p 0      night. Large lights circle the screen edges in brand colours; the glowing core rises from the bottom.
 //            Two lights orbit the core: device 1 (PC / tablet, blue) and device 2 (phone, orange). Each time they meet
@@ -366,15 +368,31 @@ export function orbHero(root: HTMLElement) {
   const html = document.documentElement;
   const layers = [...root.querySelectorAll<HTMLElement>('[data-hero-layer]')];
 
-  // scroll progress across the tall hero, and the copy layers it drives (these run even without WebGL)
+  // open (day) or closed (night), set by the scroll direction; the copy layers follow p (these run even without WebGL)
   let forceP: number | null = null; // dev screenshots only
-  const progress = () => {
-    if (forceP !== null) return forceP;
-    const r = root.getBoundingClientRect();
-    const span = r.height - innerHeight;
-    return span > 0 ? clamp01(-r.top / span) : 0;
-  };
+  const DUR = 2.4;
+  const span = () => Math.max(1, root.offsetHeight - innerHeight);
+  const heroY = () => -root.getBoundingClientRect().top;
+  let open = heroY() > span() * 0.04;
+  const progress = () => (forceP !== null ? forceP : open ? 1 : 0);
   let inView = true;
+  let onChange = () => applyCopy(progress());
+  let lastY = scrollY, settle = 0, snapUntil = 0;
+  addEventListener('scroll', () => {
+    const y = heroY(), s = span(), dir = Math.sign(scrollY - lastY);
+    lastY = scrollY;
+    const snapping = performance.now() < snapUntil;
+    if (!snapping && dir > 0 && y > s * 0.04) open = true;
+    else if (!snapping && dir < 0 && y < s * 0.96) open = false;
+    if (y <= 1) open = false;
+    if (y >= s) open = true;
+    clearTimeout(settle);
+    if (!snapping && y > 1 && y < s - 1) settle = window.setTimeout(() => {
+      snapUntil = performance.now() + 900;
+      scrollTo({ top: scrollY - heroY() + (open ? s : 0), behavior: reduce ? 'auto' : 'smooth' });
+    }, 130);
+    onChange();
+  }, { passive: true });
   const dayOf = (p: number) => ss(0.44, 0.6, p);
   function applyCopy(p: number) {
     for (const el of layers) {
@@ -396,7 +414,6 @@ export function orbHero(root: HTMLElement) {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
   } catch {
     root.classList.add('is-fallback');
-    addEventListener('scroll', () => applyCopy(progress()), { passive: true });
     return;
   }
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
@@ -567,8 +584,8 @@ export function orbHero(root: HTMLElement) {
     const dt = last ? Math.min(0.05, (nowMs - last) / 1000) : 0.016; last = nowMs;
     if (!reduce) clock += dt;
     const target = progress();
-    pS = reduce ? target : pS + (target - pS) * (1 - Math.exp(-dt * 9));
-    if (Math.abs(target - pS) < 0.0005) pS = target;
+    // a steady walk toward the target: the whole night-to-day change takes DUR seconds; its stages ease on their own
+    pS = reduce || forceP !== null ? target : pS + Math.max(-dt / DUR, Math.min(dt / DUR, target - pS));
     const p = pS;
     applyCopy(p);
 
@@ -636,7 +653,7 @@ export function orbHero(root: HTMLElement) {
     for (let i = 0; i < n; i++) { cancelAnimationFrame(raf); raf = 0; tick(last + 16.7); }
   };
 
-  addEventListener('scroll', () => { if (inView) wake(); }, { passive: true });
+  onChange = () => { if (inView) wake(); };
   new ResizeObserver(() => { layout(); wake(); }).observe(canvas);
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting; inView = visible;
