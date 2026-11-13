@@ -78,14 +78,14 @@ const faq = [
   <ZtBridge id="zt" tone="mist">
     <div class="map reveal">
       <h3 class="h3">공개된 기준대로 만들었습니다</h3>
-      <p class="body">제로트러스트 아키텍처의 기준 문서인 NIST SP 800-207은 세 가지 구성 요소를 정의합니다. Trust Gateway는 이 구조를 그대로 따릅니다.</p>
+      <p class="body">제로트러스트 아키텍처(NIST SP 800-207)는 접근 요청을 가로채는 정책 시행 지점, 허용 여부를 정하는 정책 결정 지점, 판단에 필요한 정보를 주는 정책 정보 지점으로 나뉩니다. Trust Gateway는 이 구조를 그대로 따릅니다.</p>
       <div class="cmp-wrap">
         <table class="nist">
-          <thead><tr><th scope="col">NIST SP 800-207 구성 요소</th><th scope="col">하는 일</th><th scope="col">Trust Gateway</th></tr></thead>
+          <thead><tr><th scope="col">구성 요소</th><th scope="col">하는 일</th><th scope="col">Trust Gateway</th></tr></thead>
           <tbody>
-            <tr><th scope="row">정책 엔진<span>Policy Engine</span></th><td>접근을 허용할지 판단합니다</td><td>판단 엔진<span>ZEN 리스크 · AI 리스크 · OPA 정책</span></td></tr>
-            <tr><th scope="row">정책 관리자<span>Policy Administrator</span></th><td>판단에 따라 연결을 열고 닫습니다</td><td>통제 센터<span>인증서 발급과 폐기</span></td></tr>
-            <tr><th scope="row">정책 집행 지점<span>Policy Enforcement Point</span></th><td>요청을 실제로 통과시키거나 막습니다</td><td>접속 관문<span>요청마다 검사 · 전달</span></td></tr>
+            <tr><th scope="row">정책 시행 지점<span>PEP · Policy Enforcement Point</span></th><td>사용자의 접근 요청을 가로채고, 정책 결정 지점의 결정에 따라 접근을 허용하거나 차단·종료합니다</td><td>접속 관문<span>요청마다 검사 · 전달</span></td></tr>
+            <tr><th scope="row">정책 결정 지점<span>PDP · Policy Decision Point</span></th><td>요청을 평가해 허용 또는 거부를 결정합니다</td><td>OPA 정책 · ZEN 리스크<span>정책과 규칙으로 판정</span></td></tr>
+            <tr><th scope="row">정책 정보 지점<span>PIP · Policy Information Point</span></th><td>정책 결정 지점이 올바르게 판단하도록 필요한 데이터와 속성을 제공합니다</td><td>AI 리스크<span>Isolation Forest로 평소와 다른 정도를 계산</span></td></tr>
           </tbody>
         </table>
       </div>

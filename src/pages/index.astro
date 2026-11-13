@@ -41,7 +41,6 @@ const team = [
     <div class="hero-pin">
       <ShieldSphere />
       <div class="wrap hero-copy" data-hero-layer="a">
-        <p class="hero-k">제로트러스트의 원칙</p>
         <h1 class="hero-title">Never Trust, <br />Always Verify</h1>
         <p class="hero-lead">Trust Gateway는 PC·태블릿과 휴대폰으로 기기와 사람을 함께 확인하고, <br />로그인한 뒤에도 요청마다 다시 검증하는 제로트러스트 기반 접근 제어 솔루션입니다.</p>
       </div>
@@ -245,10 +244,8 @@ const team = [
     margin: clamp(24px, 1.04vw + 20px, 40px) auto 0; max-width: 960px; color: rgba(243,246,251,.9);
     font-size: clamp(15px, 0.58vw + 12.8px, 24px); line-height: 1.6; font-weight: 500;
   }
-  /* the motto is the principle; this small line says so before the product is named */
-  .hero-k { margin-bottom: clamp(14px, 1.2vw, 22px); font-size: clamp(15px, .4vw + 12px, 18px); font-weight: 600; color: #9fb8de; }
   /* the copy rises in once on load, like PacketGo's */
-  html.js .hero-k, html.js .hero-title, html.js .hero-lead { animation: hero-rise 1200ms cubic-bezier(0.22, 0.65, 0.3, 1) 160ms both; }
+  html.js .hero-title, html.js .hero-lead { animation: hero-rise 1200ms cubic-bezier(0.22, 0.65, 0.3, 1) 160ms both; }
   html.js .hero-lead { animation-delay: 300ms; }
   @keyframes hero-rise { from { opacity: 0; transform: translate3d(0, clamp(24px, 1.55vw + 18px, 48px), 0); } to { opacity: 1; transform: none; } }
 
@@ -397,7 +394,7 @@ const team = [
     .match th, .match td { padding: 9px 7px; white-space: nowrap; }
   }
   @media (prefers-reduced-motion: reduce) {
-    html.js .hero-k, html.js .hero-title, html.js .hero-lead { animation: none; }
+    html.js .hero-title, html.js .hero-lead { animation: none; }
     .team-ph img { transition: none; transform: none; }
   }
 </style>
