@@ -1,4 +1,4 @@
-# Once a day (08:00 Korea time), collect security incident news and news videos for 소식 > 언론보도 and commit them
+# Twice a day (about 07:17 and 12:17 Korea time), collect security incident news and news videos for 소식 > 언론보도 and commit them
 # to src/data/security-news.json, with a free Pexels photo for each new article in public/images/security/auto/
 # (see scripts/collect-security-news.mjs). Everything it uses is free. Run it by hand from the Actions tab too.
 # Repository secrets (all free, all optional; without one that part is skipped): PEXELS_API_KEY (photos),
@@ -9,7 +9,10 @@ name: Security news
 
 on:
   schedule:
-    - cron: '0 23 * * *'
+    # off the hour: GitHub delays or drops scheduled runs that start on the hour; the second run is a
+    # fallback and adds nothing when the first one already collected the day's stories
+    - cron: '17 22 * * *'
+    - cron: '17 3 * * *'
   workflow_dispatch:
 
 permissions:

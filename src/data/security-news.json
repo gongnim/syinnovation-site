@@ -1,5 +1,89 @@
 [
   {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "KB캐피탈, 해킹에 임직원·고객 1811명 개인정보 유출",
+    "source": "파이낸셜포스트",
+    "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5zOGRjUDZaY1RPYjg2S2FjVHJ3NDJYNWJaTFNaazQzbFhPbjZWQXQ2MmlJQnRaUWNtdXZlSUlpVTZwTjJhN2VCTEE4aEtjR0pMLUg5elU1eHhtNkpMVlE1VFRWcTROVHVlUGc0ODZaRjRlRGFz?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-6e70fd55.jpg",
+    "credit": {
+      "name": "Sora Shimazaki",
+      "url": "https://www.pexels.com/photo/crop-unrecognizable-man-typing-on-laptop-in-obscurity-5926399/",
+      "id": 5926399
+    }
+  },
+  {
+    "date": "2026-11-12",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "'무인양품'도 해킹에 뚫렸다…고객 신용카드번호 109만건 유출",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5YSGlpd3ZtX0hFd09YNDBXVWp1SlBIN1NZdUQzTjYtMGpBVGtOb0RqRWp3Z2pQeVUxMlFOWWZDUGpqcHVnbVZoV0RLS2RFVVdiZ0RLYy1YWmdQZWlmQmdJa9IBYEFVX3lxTE5YSGlpd3ZtX0hFd09YNDBXVWp1SlBIN1NZdUQzTjYtMGpBVGtOb0RqRWp3Z2pQeVUxMlFOWWZDUGpqcHVnbVZoV0RLS2RFVVdiZ0RLYy1YWmdQZWlmQmdJaw?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-12-e0ddd030.jpg",
+    "credit": {
+      "name": "Anna Tarazevich",
+      "url": "https://www.pexels.com/photo/a-person-handing-bank-card-to-another-person-5242822/",
+      "id": 5242822
+    }
+  },
+  {
+    "date": "2026-11-12",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "코인마켓 거래소 플라이빗도 해킹...고객 40명 정보유출",
+    "source": "서울경제",
+    "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE40aF90bTVrajVGNkczVGdCOTlsekFVeVY4MGd1N1I0R05ZRWdTOVhsZFRyYzZDWnZ2ekZiOWxjanBmWXVoSmJ6WkloUUMyaTN4VFHSAVNBVV95cUxOYzgwSm02ektPMVhNN0dxdTJIQmdPSzVDSlFpTXVJU2MzbHp3ellwd2t4dlkwZUV5U3k4WWgteDEyUVBNLUxGSGRCUTlKd2FwZkJaUQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-12-400a7181.jpg",
+    "credit": {
+      "name": "Kevin Paster",
+      "url": "https://www.pexels.com/photo/macbook-pro-on-brown-wooden-table-1901388/",
+      "id": 1901388
+    }
+  },
+  {
+    "date": "2026-11-12",
+    "region": "해외",
+    "type": "랜섬웨어",
+    "title": "Maersk investigates legacy-system breach after WhiteArmor ransomware group claims 100GB logistics data theft",
+    "source": "Industrial Cyber",
+    "url": "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNenhHMndrelhHXzU2NG1hUE9HaTVjZktSZ05ZejZPZ1RQR1JiNXhCOVlkNHJwRkt5dkp4MldXT01pbFRHQTUyN0pQeEgxV3ZSNDAyWTNFOFpEaC1FTGF2eExNS2dIYXNpeTY5REt6ekc3ZTJfUE5yTTRlWlI0WVJhMVRBOU5qQVBKdnJWQ0RGelpNWWFZMGhwZE53ekdwaXFoREVvMnRMY2pyMjBUU0dkTDQyMXI3Q3ZyTUFWcmRXTUpWLVh5VzQ1dDlBaE5KZDRETzBaRWJYck1XSUZWSHN5dQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-12-32d37634.jpg",
+    "credit": {
+      "name": "Tiger Lily",
+      "url": "https://www.pexels.com/photo/workers-walking-along-aisle-in-warehouse-4487383/",
+      "id": 4487383
+    }
+  },
+  {
+    "date": "2026-11-12",
+    "region": "해외",
+    "type": "해킹",
+    "title": "Richmond Schools respond as cyberattack data hits the dark web: 'Deeply disturbed'",
+    "source": "WTVR.com",
+    "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPUmFDTUFuM2M4WGVEdmh1WFR0NUNFWGtNQk43QjV0OEtUOXJmNWNneUdPcFFEcUplQjFlZGI2Q01XOHJWcEpuMnEzT2I4TkdmZjBQMlhjcWVQYzByU1hua1VsVnJ6N2VIQzdYV0FSY1FUa3VqTnUyWWFhOWF2ZF9Dc1B5eGNVU0JGYzc5NEllNGZLVFhtWkRR?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-11",
+    "region": "해외",
+    "type": "랜섬웨어",
+    "title": "Ransomware crew claims 5 banks and a CU; 2 confirm breaches",
+    "source": "American Banker",
+    "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQQUlpQjF5V1dOMHNYRFlFeGdTUFczRVB6LURRTlZSOWxxLXNiRTgyY1R4N1hMVDExYnNVVEtVZUZRRWJNTDFwblBSUV84VVRaejlUWGFWTm8tRW5Pb0VLNHBpNVNvYUxyckJpb0RNYkxONHcwWXdMcVIxWnhfVGw3bF83YzIzNjV6WUFHNE9jS3BEV2Z0Q0VWRExB?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-11-7bb5944a.jpg",
+    "credit": {
+      "name": "Matheus Natan",
+      "url": "https://www.pexels.com/photo/banco-exterior-with-reflective-glass-facade-in-brasilia-37201873/",
+      "id": 37201873
+    }
+  },
+  {
     "date": "2026-11-12",
     "region": "해외",
     "type": "해킹",

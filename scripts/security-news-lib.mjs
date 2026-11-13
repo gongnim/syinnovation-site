@@ -62,11 +62,23 @@ const STOP = new Set(('해킹 유출 개인정보 정보 랜섬웨어 공격 사
   + 'data breach ransomware attack attacks cyberattack hacked hackers hacker leak leaked exposed after says said '
   + 'with from that this have been over million users customers company report reports cyber security').split(' '));
 const PARTICLE = /(에서도|으로도|까지도|에게서|마저|조차|에도|이라도|라도|처럼|보다|으로|에서|에게|까지|부터|이며|이고|으며|하고|에|은|는|이|가|을|를|의|와|과|로|도|만)$/;
+// "1만4천500건" and "1만4500건" (and "14,500건") are the same count: write Korean numbers as plain digits
+const UNIT = { 억: 1e8, 만: 1e4, 천: 1e3, 백: 1e2 };
+export function plainNumber(w) {
+  const m = w.match(/^(\d[\d.]*(?:[억만천백][\d.]*)*)(.*)$/);
+  if (!m || !/[억만천백]/.test(m[1])) return w;
+  let total = 0, section = 0;
+  for (const [, n, u] of m[1].matchAll(/([\d.]+)([억만천백])?/g)) {
+    const v = Number(n);
+    if (u === '억' || u === '만') { total += (section + v) * UNIT[u]; section = 0; } else section += v * (u ? UNIT[u] : 1);
+  }
+  return String(total + section) + m[2];
+}
 /** Distinctive words of a headline, for telling whether two headlines are about the same story. */
 export function tokens(title) {
-  return new Set(title.toLowerCase()
+  return new Set(title.toLowerCase().replace(/(\d),(?=\d{3})/g, '$1')
     .split(/[^0-9a-z가-힣]+/)
-    .map((w) => (/[가-힣]/.test(w) ? w.replace(PARTICLE, '') : w))
+    .map((w) => (/[가-힣]/.test(w) ? plainNumber(w).replace(PARTICLE, '') : w))
     .filter((w) => (/[가-힣]/.test(w) ? w.length >= 2 : w.length >= 3) && !STOP.has(w) && !/^\d+$/.test(w)));
 }
 

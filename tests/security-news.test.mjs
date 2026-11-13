@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseRss, classify, isUnwanted, stories, merge, regionOf, pickVideos, photoQuery } from '../scripts/security-news-lib.mjs';
+import { parseRss, classify, isUnwanted, stories, merge, regionOf, pickVideos, photoQuery, listed, plainNumber } from '../scripts/security-news-lib.mjs';
 
 const cfg = { exclude: ['롯데카드'], noise: ['대회', 'webinar'], minOutlets: 2, maxNewPerRun: 6, keepDays: 120 };
 
@@ -109,4 +109,14 @@ test('free photo search: the field named in the headline first, else the kind of
 test('an English headline about South Korea counts as an incident at home', () => {
   assert.equal(regionOf("South Korea's financial security regulator found personal information stolen", '해외'), '국내');
   assert.equal(regionOf('Capcom confirms data breach', '해외'), '해외');
+});
+
+test('the same count written two ways is the same word, so a second report of a listed story is known', () => {
+  assert.equal(plainNumber('1만4천500건'), '14500건');
+  assert.equal(plainNumber('1만4500건'), '14500건');
+  assert.equal(plainNumber('109만건'), '1090000건');
+  assert.equal(plainNumber('1811명'), '1811명');
+  const isListed = listed([{ date: '2026-11-12', title: "'침략미화' 야스쿠니신사 사이트 해킹…1만4천500건 정보 유출", url: 'https://x/a' }]);
+  assert.ok(isListed({ date: '2026-11-12', title: 'A급 전범 합사된 日 야스쿠니 신사 해킹…개인정보 1만4500건 유출', url: 'https://x/b' }));
+  assert.ok(!isListed({ date: '2026-11-13', title: 'KB캐피탈, 해킹에 임직원·고객 1811명 개인정보 유출', url: 'https://x/c' }));
 });
