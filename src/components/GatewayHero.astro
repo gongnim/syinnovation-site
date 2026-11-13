@@ -1,6 +1,7 @@
 ---
 // Trust Gateway hero: a blueprint sketch of our own architecture that draws itself, then plays the real flow
-// (developer tech doc v0.3, ch. 2.4, 4 and 5) in six chapters. The film, player and timing engine are SketchHero's.
+// (developer tech doc v0.3, ch. 2.4, 4 and 5) in five chapters, starting with the employee; the agent's
+// outbound link is drawn from the start and shown in use in the delivery chapter. The film, player and timing engine are SketchHero's.
 import SketchHero from './SketchHero.astro';
 import { appName } from '../data/site';
 import { rr, guide, tick } from '../lib/sketch';
@@ -16,25 +17,25 @@ const box = (k: string) => rr(...B[k]);
 const hatch = Array.from({ length: 28 }, (_, i) => `M868 ${80 + i * 16} L880 ${70 + i * 16}`).join(' ');
 
 const engines = [
-  { k: 'e1', t: 'ZEN 리스크', on: '11-14.4,19.9-25.6' },
-  { k: 'e2', t: 'AI 리스크', on: '11.3-14.4,20.1-25.6', cls: 'violet' },
-  { k: 'e3', t: 'OPA 정책', on: '11.6-14.4,20.3-25.6' },
+  { k: 'e1', t: 'ZEN 리스크', on: '7-10.4,16.9-22.6' },
+  { k: 'e2', t: 'AI 리스크', on: '7.3-10.4,17.1-22.6', cls: 'violet' },
+  { k: 'e3', t: 'OPA 정책', on: '7.6-10.4,17.3-22.6' },
 ];
 const services = [{ k: 's1', t: '그룹웨어' }, { k: 's2', t: '인사 시스템' }, { k: 's3', t: '업무 포털' }];
 
 const chapters = [
-  { t: '밖으로만 연결', from: 0, to: 4, still: 3.6, d: '고객사 서버의 Internal Agent가 게이트웨이로 먼저 연결을 엽니다. 내부망에는 들어오는 포트를 열지 않습니다.' },
-  { t: '사람과 PC 묶기', from: 4, to: 8, still: 7.4, d: 'PC 화면의 QR을 휴대폰으로 찍고 생체 인증으로 승인해, 지금 이 PC를 쓰는 사람을 묶습니다.' },
-  { t: '요청마다 확인', from: 8, to: 14, still: 13.6, d: '요청이 올 때마다 인증서와 바인딩을 확인합니다. PC와 휴대폰, 네트워크의 여러 신호를 교차 검증한 뒤 ZEN 리스크, AI 리스크, OPA 정책 엔진으로 판정합니다.' },
-  { t: '검증된 신원 전달', from: 14, to: 18, still: 17.4, d: '허용된 요청에만 요청마다 새로 서명한 신원을 붙입니다. Internal Agent가 서명을 확인한 뒤 내부 서비스로 넘기고, 업무 시스템은 이 신원으로 사용자를 알아봅니다.' },
-  { t: '수상하면 재확인', from: 18, to: 25.6, still: 22.2, d: '신호 사이에 모순이 보이면, 예를 들어 PC와 휴대폰의 위치가 맞지 않으면 휴대폰으로 추가 인증을 요청합니다. PC가 아닌 휴대폰으로 따로 묻기 때문에, PC를 손에 넣은 사람은 답할 수 없습니다.' },
-  { t: '미등록 기기 거부', from: 25.6, to: 30.5, still: 29.4, d: '등록된 인증서가 없는 기기의 요청은 게이트웨이에서 거부됩니다. 내부망에는 닿지 않습니다.' },
+  { t: '휴대폰으로 본인 확인', from: 0, to: 4, still: 3.4, d: '업무를 시작할 때 PC 화면의 QR을 휴대폰으로 찍고 Face ID로 승인합니다. 승인은 휴대폰에서 Trust Gateway로 가고, 이 PC를 지금 누가 쓰는지 정해집니다.' },
+  { t: '요청마다 확인', from: 4, to: 10, still: 9.6, d: '요청이 올 때마다 기기 인증서와 본인 확인이 유효한지 봅니다. PC와 휴대폰, 네트워크의 여러 신호를 교차 검증한 뒤 ZEN 리스크, AI 리스크, OPA 정책 엔진으로 판정합니다.' },
+  { t: '미리 열어 둔 길로만 전달', from: 10, to: 15, still: 14.4, d: '허용된 요청은 고객사 서버의 Internal Agent가 밖으로 열어 둔 연결로만 들어갑니다. 내부망에는 들어오는 포트가 없습니다. 요청마다 새로 서명한 신원을 붙이고, Internal Agent가 서명을 확인한 뒤 업무 시스템에 넘깁니다.' },
+  { t: '수상하면 재확인', from: 15, to: 22.6, still: 19.2, d: '신호 사이에 모순이 보이면, 예를 들어 PC와 휴대폰의 위치가 맞지 않으면 휴대폰으로 추가 인증을 요청합니다. PC가 아닌 휴대폰으로 따로 묻기 때문에, PC를 손에 넣은 사람은 답할 수 없습니다.' },
+  { t: '미등록 기기 거부', from: 22.6, to: 27.5, still: 26.4, d: '등록된 인증서가 없는 기기의 요청은 게이트웨이에서 거부됩니다. 내부망에는 닿지 않습니다.' },
 ];
 ---
-<SketchHero eyebrow="제로트러스트 접근 제어" chapters={chapters} loop={30.5} poster={13.6}
-  cam={[[0, 860], [4, 190], [8.2, 320], [9.8, 600], [14, 850], [15.2, 1010], [18, 340], [19.4, 600], [20.4, 300], [23, 420], [24.2, 600], [25.6, 280], [27, 380]]}>
-  <Fragment slot="title">VPN 없이,<br />휴대폰 확인 한&nbsp;번으로<br />여는 사내 업무</Fragment>
-  <Fragment slot="lead">PC와 휴대폰, 네트워크의 여러 신호를 교차 검증하고,<br />로그인 이후에도 요청마다 다시 확인합니다.</Fragment>
+<SketchHero eyebrow="Trust Gateway" chapters={chapters} loop={27.5} poster={9.6}
+  cam={[[0, 600], [0.6, 190], [4.2, 320], [5.8, 600], [10, 860], [12.5, 1010], [15, 340], [16.4, 600], [17.4, 300], [20, 420], [21.2, 600], [22.6, 280], [24, 380]]}>
+  <Fragment slot="title">Never Trust, <br />Always Verify</Fragment>
+  <Fragment slot="sub">아무도 믿지 않고, 매번 확인합니다</Fragment>
+  <Fragment slot="lead">PC는 기기를, 휴대폰은 사람을 증명합니다. <br />둘 다 확인돼야 사내 업무가 열리고, 요청마다 다시 확인합니다.</Fragment>
   <a slot="actions" class="btn primary" href="/contact?type=poc">무료 PoC 신청</a>
 
   <svg viewBox="0 0 1200 540" role="img" aria-labelledby="gh-title gh-desc">
@@ -63,46 +64,46 @@ const chapters = [
       <path class="ink" pathLength="1" style="--d:.2s" d={box('pc')} />
       <path class="ink" pathLength="1" style="--d:.5s" d="M60 232 L40 248 H248 L228 232" />
       <path class="ink thin" pathLength="1" style="--d:.7s" d="M60 146 H228 M76 166 H156 M76 182 H196 M76 198 H140" />
-      <path class="cue qr" data-t="4.2-7.6" d="M172 156 h12 v12 h-12 z M200 156 h12 v12 h-12 z M172 184 h12 v12 h-12 z M190 159 h4 M190 170 h6 M200 176 h4 M190 190 h10 M204 186 v8" />
+      <path class="cue qr" data-t="0.2-3.6" d="M172 156 h12 v12 h-12 z M200 156 h12 v12 h-12 z M172 184 h12 v12 h-12 z M190 159 h4 M190 170 h6 M200 176 h4 M190 190 h10 M204 186 v8" />
       <path class="ink" pathLength="1" style="--d:.45s" d={box('phone')} />
       <path class="ink thin" pathLength="1" style="--d:.8s" d="M86 296 H106 M74 318 H118" />
-      <path class="cue scan" data-t="4.8-6.2" d="M80 346 v-8 h8 M104 338 h8 v8 M112 366 v8 h-8 M88 374 h-8 v-8" />
-      <path class="cue finger" data-t="21.4-22.8" d="M84 372 C84 346 108 346 108 372 M90 376 C90 356 102 356 102 374 M96 364 V380 M78 362 C80 340 112 340 114 362" />
-      <path class="cue ok-mint" data-t="6.2-7.8,22.8-24.4" d={tick(82, 356)} />
+      <path class="cue scan" data-t="0.6-1.6" d="M80 346 v-8 h8 M104 338 h8 v8 M112 366 v8 h-8 M88 374 h-8 v-8" />
+      <path class="cue finger" data-t="18.4-19.8" d="M84 372 C84 346 108 346 108 372 M90 376 C90 356 102 356 102 374 M96 364 V380 M78 362 C80 340 112 340 114 362" />
+      <path class="cue ok-mint" data-t="1.6-3.8,19.8-21.4" d={tick(82, 356)} />
 
       <!-- gateway and engines -->
-      <path class="ink st gw" pathLength="1" style="--d:.7s" data-t="9.6-14.4,18.9-25.6" d={box('gw')} />
+      <path class="ink st gw" pathLength="1" style="--d:.7s" data-t="5.6-10.4,15.9-22.6" d={box('gw')} />
       <path class="ink" pathLength="1" style="--d:1.3s" d="M610 172 V232" />
-      <path class="ink st eng" pathLength="1" style="--d:.95s" data-t="10.6-14.4,24-25.6" data-warn="19.6-23.4" d={box('x1')} />
+      <path class="ink st eng" pathLength="1" style="--d:.95s" data-t="6.6-10.4,21-22.6" data-warn="16.6-20.4" d={box('x1')} />
       <path class="ink thin" pathLength="1" style="--d:1.1s" d="M500 282 V298 M610 282 V298 M720 282 V298" />
       {engines.map((e, i) => <path class={`ink st eng ${e.cls ?? ''}`} pathLength="1" style={`--d:${1.05 + i * 0.1}s`} data-t={e.on} d={box(e.k)} />)}
-      <path class="ink st pill allow" pathLength="1" style="--d:1.5s" data-t="12.6-16.2,24.4-25.6" d={rr(450, 408, 100, 40, 20)} />
-      <path class="ink st pill step" pathLength="1" style="--d:1.6s" data-t="20.4-24.2" d={rr(560, 408, 100, 40, 20)} />
-      <path class="ink st pill deny" pathLength="1" style="--d:1.7s" data-t="27.4-30.5" d={rr(670, 408, 100, 40, 20)} />
+      <path class="ink st pill allow" pathLength="1" style="--d:1.5s" data-t="8.6-13.6,21.4-22.6" d={rr(450, 408, 100, 40, 20)} />
+      <path class="ink st pill step" pathLength="1" style="--d:1.6s" data-t="17.4-21.2" d={rr(560, 408, 100, 40, 20)} />
+      <path class="ink st pill deny" pathLength="1" style="--d:1.7s" data-t="24.4-27.5" d={rr(670, 408, 100, 40, 20)} />
 
       <!-- customer network -->
       <path class="ink" pathLength="1" style="--d:1.3s" d={box('agent')} />
       <path class="ink" pathLength="1" style="--d:1.6s" d="M930 172 V416 M930 292 H950 M930 354 H950 M930 416 H950" />
-      {services.map((s, i) => <path class={`ink st svc`} pathLength="1" style={`--d:${1.7 + i * 0.1}s`} data-t={i === 0 ? '16-18' : undefined} d={box(s.k)} />)}
-      <path class="tun st" pathLength="1" data-t="0.8-30.5" d="M912 127 H770 M912 139 H770" />
+      {services.map((s, i) => <path class={`ink st svc`} pathLength="1" style={`--d:${1.7 + i * 0.1}s`} data-t={i === 0 ? '13.4-15' : undefined} d={box(s.k)} />)}
+      <path class="tun st" pathLength="1" data-t="0-27.5" d="M912 127 H770 M912 139 H770" />
 
       <!-- wires (packets travel along the ones with an id) -->
       <path id="gh-pc" class="ink wire" pathLength="1" style="--d:2s" d="M228 176 C330 176 350 134 450 134" />
       <path id="gh-ph" class="ink wire" pathLength="1" style="--d:2.1s" d="M134 372 C300 372 340 261 450 261" />
-      <path id="gh-bind" class="st bind" data-t="6.4-30.5" d="M214 254 C236 290 200 326 134 334" />
+      <path id="gh-bind" class="st bind" data-t="3.2-27.5" d="M214 254 C236 290 200 326 134 334" />
       <path id="gh-tun" class="ghost" d="M770 133 H912" />
       <path id="gh-svc" class="ghost" d="M930 172 V292 H950" />
 
       <!-- an unregistered device -->
-      <g class="cue bad" data-t="25.6-30.5">
+      <g class="cue bad" data-t="22.6-27.5">
         <path d={rr(60, 474, 80, 44, 6)} /><path d="M52 524 H148" /><path d="M92 488 c0 -8 14 -8 14 0 c0 6 -7 6 -7 12 M99 508 v1" />
         <path id="gh-bad" class="wire" d="M150 498 C280 498 330 490 412 490" />
       </g>
-      <path class="cue deny-x" data-t="27.4-30.5" d="M410 480 l20 20 M430 480 l-20 20" />
+      <path class="cue deny-x" data-t="24.4-27.5" d="M410 480 l20 20 M430 480 l-20 20" />
 
       <!-- highlighter swashes under the notes that matter -->
-      <path class="swash mint" pathLength="1" data-t="1.4-30.5" d="M910 220 L1066 214" />
-      <path class="swash orange" pathLength="1" data-t="19.6-23" d="M446 400 L716 395" />
+      <path class="swash mint" pathLength="1" data-t="0-27.5" d="M910 220 L1066 214" />
+      <path class="swash orange" pathLength="1" data-t="16.6-20" d="M446 400 L716 395" />
     </g>
 
     <g class="words" aria-hidden="true">
@@ -112,52 +113,53 @@ const chapters = [
 
       <text class="lbl" style="--d:.5s" x="48" y="108"><tspan class="w-t">업무 PC</tspan><tspan class="w-s" dx="10">보안 브라우저</tspan></text>
       <text class="lbl" style="--d:.8s" x="60" y="446"><tspan class="w-t">휴대폰</tspan><tspan class="w-s" dx="10">{appName} 앱</tspan></text>
-      <text class="hw mint cue" data-t="4.6-8.2" x="232" y="292">QR 승인</text>
-      <text class="hw mint cue" data-t="5.2-8.2" x="232" y="318">사람과 PC 묶기</text>
+      <text class="hw mint cue" data-t="0.6-4.2" x="232" y="292">QR 승인</text>
+      <text class="hw mint cue" data-t="2.4-4.2" x="232" y="318">본인 확인</text>
 
-      <text class="lbl w-t" style="--d:1s" x="472" y="130">TG 게이트웨이</text>
+      <text class="lbl w-t" style="--d:1s" x="472" y="130">접속 관문</text>
       <text class="lbl w-s" style="--d:1.1s" x="472" y="156">요청마다 확인</text>
-      <g class="cue" data-t="9.9-14.4,19.1-25.6"><path class="tk" d={tick(650, 118)} /><text class="hw" x="676" y="131">인증서</text></g>
-      <g class="cue" data-t="10.3-14.4,19.4-25.6"><path class="tk" d={tick(650, 146)} /><text class="hw" x="676" y="159">바인딩</text></g>
+      <g class="cue" data-t="5.9-10.4,16.1-22.6"><path class="tk" d={tick(650, 118)} /><text class="hw" x="676" y="131">인증서</text></g>
+      <g class="cue" data-t="6.3-10.4,16.4-22.6"><path class="tk" d={tick(650, 146)} /><text class="hw" x="676" y="159">본인 확인</text></g>
 
       <text class="lbl w-s" style="--d:1.2s" x="450" y="222">판단 엔진</text>
       <text class="lbl w-e" style="--d:1.25s" x="610" y="263" text-anchor="middle">다중 신호 교차 검증</text>
       {engines.map((e, i) => <text class={`lbl w-e2 ${e.cls ?? ''}`} style={`--d:${1.35 + i * 0.1}s`} x={B[e.k][0] + 50} y={B[e.k][1] + 32} text-anchor="middle">{e.t}</text>)}
-      <g class="cue" data-t="10.8-14.4"><path class="tk" d={tick(450, 380)} /><text class="hw" x="474" y="394">같은 Wi-Fi · 같은 시간대</text></g>
-      <text class="hw cue" data-t="19.6-23" x="450" y="394">PC와 휴대폰 위치가 맞지 않음</text>
-      <g class="cue" data-t="23.4-25.6"><path class="tk" d={tick(450, 380)} /><text class="hw" x="474" y="394">승인 후 다시 판정</text></g>
-      <text class="lbl w-v st allow" style="--d:1.7s" data-t="12.6-16.2,24.4-25.6" x="500" y="434" text-anchor="middle">허용</text>
-      <text class="lbl w-v st step" style="--d:1.8s" data-t="20.4-24.2" x="610" y="434" text-anchor="middle">추가 인증</text>
-      <text class="lbl w-v st deny" style="--d:1.9s" data-t="27.4-30.5" x="720" y="434" text-anchor="middle">거부</text>
-      <text class="hw coral cue" data-t="25.8-30.5" x="156" y="476">등록되지 않은 기기</text>
-      <text class="hw coral cue" data-t="27.6-30.5" x="446" y="500">인증서 없음 · 내부망에 닿지 않음</text>
+      <g class="cue" data-t="6.8-10.4"><path class="tk" d={tick(450, 380)} /><text class="hw" x="474" y="394">같은 Wi-Fi · 같은 시간대</text></g>
+      <text class="hw cue" data-t="16.6-20" x="450" y="394">PC와 휴대폰 위치가 맞지 않음</text>
+      <g class="cue" data-t="20.4-22.6"><path class="tk" d={tick(450, 380)} /><text class="hw" x="474" y="394">승인 후 다시 판정</text></g>
+      <text class="lbl w-v st allow" style="--d:1.7s" data-t="8.6-13.6,21.4-22.6" x="500" y="434" text-anchor="middle">허용</text>
+      <text class="lbl w-v st step" style="--d:1.8s" data-t="17.4-21.2" x="610" y="434" text-anchor="middle">추가 인증</text>
+      <text class="lbl w-v st deny" style="--d:1.9s" data-t="24.4-27.5" x="720" y="434" text-anchor="middle">거부</text>
+      <text class="hw coral cue" data-t="22.8-27.5" x="156" y="476">등록되지 않은 기기</text>
+      <text class="hw coral cue" data-t="24.6-27.5" x="446" y="500">인증서 없음 · 내부망에 닿지 않음</text>
 
       <text class="lbl w-s" style="--d:2.1s" x="318" y="142" text-anchor="middle">mTLS</text>
       <text class="lbl w-s" style="--d:2.2s" x="826" y="166" text-anchor="middle">mTLS</text>
       <text class="lbl w-s" style="--d:2.3s" x="826" y="188" text-anchor="middle">HTTP/2</text>
-      <text class="hw cue" data-t="0.4-4.2" x="776" y="114">밖으로 연결</text>
-      <text class="hw mint cue" data-t="14-16.4" x="776" y="114">서명된 신원</text>
-      <text class="hw cue" data-t="1.4-14.8,18-30.5" x="914" y="214">들어오는 포트 0</text>
-      <g class="cue" data-t="14.8-18"><path class="tk" d={tick(914, 200)} /><text class="hw mint" x="938" y="214">서명 확인</text></g>
+      <text class="hw cue" data-t="10-11.4" x="776" y="114">밖으로 연결</text>
+      <text class="hw mint cue" data-t="11.4-13.8" x="776" y="114">서명된 신원</text>
+      <text class="hw cue" data-t="0-12.2,15-27.5" x="914" y="214">들어오는 포트 0</text>
+      <g class="cue" data-t="12.2-15"><path class="tk" d={tick(914, 200)} /><text class="hw mint" x="938" y="214">서명 확인</text></g>
 
       <text class="lbl w-t" style="--d:1.6s" x="932" y="130">Internal Agent</text>
       <text class="lbl w-s" style="--d:1.7s" x="932" y="156">고객사 서버에 설치</text>
       <text class="lbl w-s" style="--d:1.8s" x="912" y="254">내부 업무 서비스</text>
       {services.map((s, i) => <text class="lbl w-e" style={`--d:${1.9 + i * 0.1}s`} x={B[s.k][0] + 20} y={B[s.k][1] + 30}>{s.t}</text>)}
-      <text class="hw mint cue" data-t="16.2-18" x="950" y="476">검증된 신원만 도착</text>
+      <text class="hw mint cue" data-t="13.6-15" x="950" y="476">검증된 신원만 도착</text>
     </g>
 
     <g class="pkts" aria-hidden="true">
-      <g class="pk" data-path="gh-tun" data-w="0.2-1.6" data-rev><circle r="11" /><circle r="5" /></g>
-      <g class="pk mint" data-path="gh-bind" data-w="5.4-6.4" data-rev><circle r="11" /><circle r="5" /></g>
-      <g class="pk" data-path="gh-ph" data-w="8.2-9.4"><circle r="11" /><circle r="5" /></g>
-      <g class="pk" data-path="gh-pc" data-w="8.6-9.8"><circle r="11" /><circle r="5" /></g>
-      <g class="pk mint" data-path="gh-tun" data-w="14-15.2"><circle r="11" /><circle r="5" /></g>
-      <g class="pk mint" data-path="gh-svc" data-w="15.2-16.1"><circle r="11" /><circle r="5" /></g>
-      <g class="pk" data-path="gh-pc" data-w="18.2-19.2"><circle r="11" /><circle r="5" /></g>
-      <g class="pk orange" data-path="gh-ph" data-w="20.2-21.4" data-rev><circle r="11" /><circle r="5" /></g>
-      <g class="pk mint" data-path="gh-ph" data-w="23-24"><circle r="11" /><circle r="5" /></g>
-      <g class="pk coral" data-path="gh-bad" data-w="26-27.5"><circle r="11" /><circle r="5" /></g>
+      <g class="pk" data-path="gh-tun" data-w="10-11.1" data-rev><circle r="11" /><circle r="5" /></g>
+      <g class="pk mint" data-path="gh-ph" data-w="1.7-2.5"><circle r="11" /><circle r="5" /></g>
+      <g class="pk mint" data-path="gh-pc" data-w="2.5-3.3" data-rev><circle r="11" /><circle r="5" /></g>
+      <g class="pk" data-path="gh-ph" data-w="4.2-5.4"><circle r="11" /><circle r="5" /></g>
+      <g class="pk" data-path="gh-pc" data-w="4.6-5.8"><circle r="11" /><circle r="5" /></g>
+      <g class="pk mint" data-path="gh-tun" data-w="11.4-12.5"><circle r="11" /><circle r="5" /></g>
+      <g class="pk mint" data-path="gh-svc" data-w="12.5-13.4"><circle r="11" /><circle r="5" /></g>
+      <g class="pk" data-path="gh-pc" data-w="15.2-16.2"><circle r="11" /><circle r="5" /></g>
+      <g class="pk orange" data-path="gh-ph" data-w="17.2-18.4" data-rev><circle r="11" /><circle r="5" /></g>
+      <g class="pk mint" data-path="gh-ph" data-w="20-21"><circle r="11" /><circle r="5" /></g>
+      <g class="pk coral" data-path="gh-bad" data-w="23-24.5"><circle r="11" /><circle r="5" /></g>
     </g>
   </svg>
 </SketchHero>

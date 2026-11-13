@@ -10,6 +10,7 @@ import Icon from '../components/Icon.astro';
 import TgProof from '../components/tg/TgProof.astro';
 import TgIncidents from '../components/tg/TgIncidents.astro';
 import TgVpnSwitch from '../components/tg/TgVpnSwitch.astro';
+import ZtBridge from '../components/tg/ZtBridge.astro';
 import { sorted, kindLabel, fmt } from '../data/news';
 import { appName, tgUses } from '../data/site';
 import '@fontsource-variable/inter-tight/wght.css';
@@ -33,15 +34,16 @@ const team = [
   { t: '운영 · 유지보수', img: 'sk-ops', alt: '운영 현황 화면을 살펴보는 박희준 운영총괄을 그린 색연필 스케치' },
 ];
 ---
-<Base title="신영이노베이션" description="휴대폰과 PC의 신호를 함께 확인하고, 로그인 이후에도 계속 검증하는 제로트러스트 보안 Trust Gateway.">
+<Base title="신영이노베이션" description="제로트러스트 원칙을 업무 접속에 적용한 Trust Gateway. 휴대폰과 PC의 신호를 함께 확인하고, 로그인 이후에도 요청마다 다시 검증합니다.">
 
   <!-- 1. hero -->
   <section class="hero">
     <div class="hero-pin">
       <ShieldSphere />
       <div class="wrap hero-copy" data-hero-layer="a">
+        <p class="hero-k">제로트러스트의 원칙</p>
         <h1 class="hero-title">Never Trust, <br />Always Verify</h1>
-        <p class="hero-lead">제로트러스트 기반의 Trust Gateway는 PC·태블릿과 휴대폰을 함께 확인하고, <br />접속한 뒤에도 요청마다 다시 검증하는 보안 플랫폼입니다.</p>
+        <p class="hero-lead">Trust Gateway는 이 원칙을 업무 접속에 적용한 신영이노베이션의 솔루션입니다. <br />PC·태블릿과 휴대폰을 함께 확인하고, 접속한 뒤에도 요청마다 다시 검증합니다.</p>
       </div>
       <div class="wrap hero-focus" data-hero-layer="b">
         <h2 class="hero-focus-title">AI로 공격이 정교해져도, <br />기본을 지키면 막을 수 있습니다</h2>
@@ -49,8 +51,9 @@ const team = [
     </div>
   </section>
 
-  <!-- 2. grounds for trust, 3. recent incidents -->
+  <!-- 2. grounds for trust; the principle versus the product (people take 제로트러스트 for our product); 3. recent incidents -->
   <TgProof tone="light" />
+  <ZtBridge tone="mist" more />
   <TgIncidents />
 
   <!-- 4. three proofs, played in turn: the PC's certificate, the phone's approval, the gateway's decisions -->
@@ -242,8 +245,10 @@ const team = [
     margin: clamp(24px, 1.04vw + 20px, 40px) auto 0; max-width: 960px; color: rgba(243,246,251,.9);
     font-size: clamp(15px, 0.58vw + 12.8px, 24px); line-height: 1.6; font-weight: 500;
   }
+  /* the motto is the principle; this small line says so before the product is named */
+  .hero-k { margin-bottom: clamp(14px, 1.2vw, 22px); font-size: clamp(15px, .4vw + 12px, 18px); font-weight: 600; color: #9fb8de; }
   /* the copy rises in once on load, like PacketGo's */
-  html.js .hero-title, html.js .hero-lead { animation: hero-rise 1200ms cubic-bezier(0.22, 0.65, 0.3, 1) 160ms both; }
+  html.js .hero-k, html.js .hero-title, html.js .hero-lead { animation: hero-rise 1200ms cubic-bezier(0.22, 0.65, 0.3, 1) 160ms both; }
   html.js .hero-lead { animation-delay: 300ms; }
   @keyframes hero-rise { from { opacity: 0; transform: translate3d(0, clamp(24px, 1.55vw + 18px, 48px), 0); } to { opacity: 1; transform: none; } }
 
@@ -392,7 +397,7 @@ const team = [
     .match th, .match td { padding: 9px 7px; white-space: nowrap; }
   }
   @media (prefers-reduced-motion: reduce) {
-    html.js .hero-title, html.js .hero-lead { animation: none; }
+    html.js .hero-k, html.js .hero-title, html.js .hero-lead { animation: none; }
     .team-ph img { transition: none; transform: none; }
   }
 </style>
