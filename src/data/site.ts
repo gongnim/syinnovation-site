@@ -24,6 +24,8 @@ export const parts = [
 // Where Trust Gateway is used, as tabs on home and /trust-gateway (i: icon on home; g: which of the three uses)
 const [auth, staff, pay] = parts;
 export const tgUses = [
+  // user, 2026-11-13: not only from outside; it is the everyday system inside the office too, for internal and external systems
+  { id: 'office', i: 'server', g: staff.k, t: '사내 업무', h: '사무실 안에서도 같은 기준으로', d: '밖에서만 쓰는 것이 아닙니다. 사무실에서 평소 업무를 볼 때도 Trust Gateway가 요청마다 사람과 기기를 확인합니다. 사내망에 있다는 이유만으로 믿지 않습니다.', pts: ['사무실 안과 밖에 같은 기준 적용', '대내외 업무 시스템에 함께 적용', '허락된 업무 앱과 경로만 연결'] },
   { id: 'remote', i: 'pin', g: staff.k, t: '재택 · 출장', h: '집에서도, 출장지에서도 같은 확인', d: '업무 PC와 내 휴대폰이 함께 있어야 접속됩니다. 낯선 네트워크로 바뀌면 휴대폰으로 다시 확인합니다.', pts: ['VPN 없이 허락된 업무 앱만 연결', '새 네트워크에서는 휴대폰으로 추가 인증', '분실 PC는 관리 콘솔에서 바로 차단'] },
   { id: 'partner', i: 'user', g: staff.k, t: '협력사 · 외주', h: '필요한 사람에게 필요한 앱만', d: '협력사 인력에게 사내망 전체가 아닌 지정된 앱과 경로만 열어 줍니다.', pts: ['사람별, 경로별 허용 범위 지정', '인사 시스템 연동으로 퇴사·계약 종료 반영', '누가 무엇에 접속했는지 기록'] },
   { id: 'shared', i: 'laptop', g: staff.k, t: '공용 PC', h: '한 대의 PC를 여러 사람이 써도', d: '회사 PC의 기기 신원과 지금 쓰는 사람의 신원을 따로 관리합니다. 사람이 바뀌면 휴대폰으로 다시 본인 확인을 하고, 각자 권한에 맞는 업무 앱만 엽니다.', pts: ['기기 신원과 사용자 신원을 따로 관리', '사용자 전환이나 자리 비움 때 이전 사용자의 인증 해제', '각자 권한에 맞는 업무 앱만 연결'] },

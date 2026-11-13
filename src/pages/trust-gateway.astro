@@ -1,16 +1,14 @@
 ---
-// Trust Gateway: the page walks a buyer from "why now" to "how we start". Hero film, zero trust vs Trust Gateway (with the NIST mapping), recent incidents,
-// what a leaked account opens (VPN vs Trust Gateway), the product screens, how a decision is made, attacks and how
-// they stop, where it is used, what an admin sees, how light the install is, the published standards, a customer,
-// how to start, then questions. Facts follow tech doc v0.3 and the product's demo page; web access only (no SSH/RDP).
+// Trust Gateway: the page walks a buyer from "why now" to "how we start". Hero with the product screens, zero trust vs
+// Trust Gateway (with the NIST mapping), recent incidents, what a leaked account opens (VPN vs Trust Gateway), attacks
+// and how they stop, where it is used, what an admin sees, how light the install is, a customer, how to start, then
+// questions. Facts follow tech doc v0.3 and the product's demo page; web access only (no SSH/RDP).
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
-import GatewayHero from '../components/GatewayHero.astro';
-import GatewayDemo from '../components/GatewayDemo.astro';
+import TgHero from '../components/tg/TgHero.astro';
 import TgIncidents from '../components/tg/TgIncidents.astro';
 import TgVpnSwitch from '../components/tg/TgVpnSwitch.astro';
-import TgEngine from '../components/tg/TgEngine.astro';
 import TgConsole from '../components/tg/TgConsole.astro';
 import ZtBridge from '../components/tg/ZtBridge.astro';
 import { appName, tgUses as uses } from '../data/site';
@@ -51,7 +49,7 @@ const airrane = [
 ];
 
 const rollout = [
-  { t: 'PoC', d: '평가용 환경에 업무 서비스 하나를 연결합니다.' },
+  { t: 'PoC/컨설팅', d: '평가용 환경에 업무 서비스 하나를 연결합니다.' },
   { t: '파일럿', d: '부서 단위로 넓히고, 관찰 모드로 결과를 비교한 뒤 제한적으로 적용합니다.' },
   { t: '전사 적용', d: '서비스 목록을 확정하고 전체 사용자를 Trust Gateway로 전환합니다. 감사, 기록 보존, 장애 복구 절차를 함께 운영합니다.' },
 ];
@@ -68,12 +66,7 @@ const faq = [
 ];
 ---
 <Base title="Trust Gateway" description="제로트러스트 원칙을 업무 접속에 적용한 신영이노베이션의 솔루션, Trust Gateway. PC는 기기를, 휴대폰은 사람을 증명하고 요청마다 다시 확인합니다.">
-  <Fragment slot="head">
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" />
-  </Fragment>
-  <GatewayHero />
+  <TgHero />
 
   <ZtBridge id="zt" tone="mist">
     <div class="map reveal">
@@ -90,27 +83,11 @@ const faq = [
         </table>
       </div>
       <p class="cap">결제 위험 평가에서는 고객사 결제 시스템이 PEP입니다. Trust Gateway는 거래 위험을 평가해 권고하고, 승인과 거절은 결제 시스템이 정합니다.</p>
-      <ul class="std-list">
-        <li><b>CISA ZTMM v2.0</b><span>신원 · 기기 · 네트워크 · 애플리케이션 · 데이터 다섯 영역 기준으로 설계</span></li>
-        <li><b>특허 출원</b><span>이종 단말 위치 신호 교차 검증 기반 동적 접근 제어</span></li>
-      </ul>
     </div>
   </ZtBridge>
 
   <TgIncidents />
   <TgVpnSwitch />
-
-  <section class="section" id="demo">
-    <div class="wrap">
-      <div class="head-center reveal">
-        <h2 class="h2">제품 화면으로 보기</h2>
-        <p class="lead">시연 환경의 제품 화면을 단계별로 다시 그렸습니다. <br />직원의 업무 접속과 결제 이상거래, 두 흐름을 골라 보세요.</p>
-      </div>
-      <GatewayDemo />
-    </div>
-  </section>
-
-  <TgEngine />
 
   <section class="section mist" id="attacks">
     <div class="wrap">
@@ -327,10 +304,6 @@ const faq = [
     .nist tbody th { width: auto; margin-bottom: 6px; }
     .nist td:last-child { margin-top: 10px; padding: 12px 14px; border-radius: var(--r-md); }
   }
-  .std-list { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .std-list li { border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px 18px; display: grid; gap: 4px; }
-  .std-list b { font-size: 16px; }
-  .std-list span { color: var(--ink-2); font-size: 14px; }
 
   /* customer */
   .cust { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
@@ -347,12 +320,13 @@ const faq = [
 
   /* start: three steps on a line that fills in, then what the PoC shows */
   .roll { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
-  .roll::before { content: ''; position: absolute; left: 18px; right: calc((100% - 40px) / 3 - 18px); top: 18px; height: 2px; background: var(--line); }
-  .roll::after { content: ''; position: absolute; left: 18px; right: calc((100% - 40px) / 3 - 18px); top: 18px; height: 2px; background: var(--orange); transform-origin: left; transform: scaleX(1); }
+  /* the line runs centre to centre behind the circles (36px, so centred at 17px + 1px) and shows only between them */
+  .roll::before { content: ''; position: absolute; left: 18px; right: calc((100% - 40px) / 3 - 18px); top: 17px; height: 2px; background: var(--line); }
+  .roll::after { content: ''; position: absolute; left: 18px; right: calc((100% - 40px) / 3 - 18px); top: 17px; height: 2px; background: var(--orange); transform-origin: left; transform: scaleX(1); }
   :global(.js) .roll::after { transform: scaleX(0); transition: transform 1.6s var(--ease) .3s; }
   :global(.js) .roll.is-in::after { transform: scaleX(1); }
   .roll li { position: relative; display: grid; gap: 10px; align-content: start; }
-  .roll .n { background: #fff; }
+  .roll .n { position: relative; z-index: 1; background: #fff; }
   .roll li:first-child .n { background: var(--orange); border-color: var(--orange); color: #1a1209; }
   .poc { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; padding: 28px; border-radius: var(--r-xl); background: var(--orange-soft); }
   .poc ul { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; }
@@ -376,7 +350,7 @@ const faq = [
     .link::before { left: 50%; right: auto; top: 8px; bottom: 8px; width: 2px; height: auto; }
     .link span { margin: 0; }
     .link.back::after { display: none; }
-    .panel, .setup, .cust, .std-list { grid-template-columns: minmax(0, 1fr); }
+    .panel, .setup, .cust { grid-template-columns: minmax(0, 1fr); }
   }
   @media (max-width: 767px) {
     .atk, .rules { grid-template-columns: minmax(0, 1fr); }

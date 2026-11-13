@@ -47,14 +47,15 @@ const { eyebrow, chapters, loop, cam, poster } = Astro.props;
 </section>
 
 <style>
-  /* same height and rhythm as the consulting hero: copy left, the drawing in a panel right, chapters below */
+  /* a narrow copy column and a wide drawing: from 1280px the panel is wide enough (830px+) to show the whole stage at
+     once, so the camera stays still (user, 2026-11-13: "한 눈에 다 보이게"); below that the two stack */
   .sh { background: var(--night); color: var(--on-night); padding: calc(96px + clamp(40px, 4vw, 72px)) 0 clamp(56px, 6vw, 88px); }
-  .sh-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(32px, 4vw, 64px); align-items: center; }
-  .sh-eyebrow { font-size: clamp(16px, .3vw + 14px, 18px); font-weight: 600; color: #9fb8de; }
-  .sh-title { margin-top: 14px; font-size: clamp(32px, 2.8vw + 10px, 54px); line-height: 1.22; letter-spacing: -0.03em; font-weight: 700; }
-  .sh-sub { margin-top: 18px; font-size: clamp(20px, 1vw + 12px, 28px); line-height: 1.4; letter-spacing: -0.02em; font-weight: 700; color: #fff; }
-  .sh-lead { margin-top: 22px; font-size: clamp(16px, .4vw + 13px, 19px); line-height: 1.7; color: var(--on-night-2); }
-  .sh-copy .btn-row { margin-top: 32px; }
+  .sh-grid { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 40px; align-items: center; }
+  .sh-eyebrow { font-size: 15px; font-weight: 600; color: #9fb8de; }
+  .sh-title { margin-top: 12px; font-size: clamp(32px, 1.2vw + 24px, 42px); line-height: 1.22; letter-spacing: -0.03em; font-weight: 700; }
+  .sh-sub { margin-top: 16px; font-size: 20px; line-height: 1.45; letter-spacing: -0.02em; font-weight: 700; color: #fff; }
+  .sh-lead { margin-top: 16px; font-size: 16px; line-height: 1.7; color: var(--on-night-2); }
+  .sh-copy .btn-row { margin-top: 28px; }
 
   /* the drawing: a blueprint panel; the script narrows the viewBox here and pans it with the story */
   .stage {
@@ -89,8 +90,8 @@ const { eyebrow, chapters, loop, cam, poster } = Astro.props;
   .film.paused .i-play { display: inline-grid; }
   .film.still .pause { display: none; }
 
-  @media (max-width: 1023px) {
-    .sh-grid { grid-template-columns: minmax(0, 1fr); }
+  @media (max-width: 1279px) {
+    .sh-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
   }
   @media (max-width: 767px) {
     .stage { padding: 12px 8px 4px; }

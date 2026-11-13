@@ -1,0 +1,32 @@
+---
+// Trust Gateway hero (user, 2026-11-13): the copy on the left, the product-screen demo (GatewayDemo) on the right.
+// The blueprint film it replaces (GatewayHero + SketchHero) is kept unused in src/components; to bring it back, put
+// <GatewayHero /> here again and re-add the Nanum Pen Script font link in trust-gateway.astro's head slot.
+import GatewayDemo from '../GatewayDemo.astro';
+---
+<section class="th">
+  <div class="wrap th-grid">
+    <div class="th-copy">
+      <p class="th-eyebrow">Trust Gateway</p>
+      <h1 class="th-title">Never Trust, <br />Always Verify</h1>
+      <p class="th-sub">아무도 믿지 않고, 매번 확인합니다</p>
+      <p class="th-lead">다중 신호 교차 검증으로 여러분의 소중한 자산을 보호합니다.</p>
+      <div class="btn-row"><a class="btn primary" href="/contact?type=poc">무료 PoC 신청</a></div>
+    </div>
+    <div class="th-demo"><GatewayDemo /></div>
+  </div>
+</section>
+
+<style>
+  /* a narrow copy column and a wide demo; below 1280px the two stack so the demo keeps its full width */
+  .th { background: var(--night); color: var(--on-night); padding: calc(96px + clamp(24px, 2.5vw, 40px)) 0 clamp(56px, 6vw, 88px); }
+  .th-grid { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 40px; align-items: center; }
+  .th-eyebrow { font-size: 15px; font-weight: 600; color: #9fb8de; }
+  .th-title { margin-top: 12px; font-size: clamp(32px, 1.2vw + 24px, 42px); line-height: 1.22; letter-spacing: -0.03em; font-weight: 700; }
+  .th-sub { margin-top: 16px; font-size: 20px; line-height: 1.45; letter-spacing: -0.02em; font-weight: 700; color: #fff; }
+  .th-lead { margin-top: 16px; font-size: 16px; line-height: 1.7; color: var(--on-night-2); }
+  .th-copy .btn-row { margin-top: 28px; }
+  @media (max-width: 1279px) {
+    .th-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  }
+</style>

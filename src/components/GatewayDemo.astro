@@ -1,32 +1,11 @@
 ---
-// "실제 화면으로 보기": the demo-environment screens of Trust Gateway, redrawn in code so they stay sharp at any size,
-// carry no real host, account or id, and use the tech doc's terms. Seven short scenes in two tabs (employee access,
+// The product screens in the Trust Gateway hero (TgHero; was the "제품 화면으로 보기" section until 2026-11-13): the demo-environment screens of Trust Gateway, redrawn in code so they stay sharp at any size,
+// carry no real host, account or id, and use the tech doc's terms. Short scenes in two tabs (employee access,
 // payment fraud advice) play in a loop once the section is on screen, with a chapter bar and a pause button.
 // Timing: elements with .in appear at --at (seconds); .win layers show from --at to --out. The scene's class "run"
 // starts its timeline; without it (reduced motion) every scene shows its finished state.
 import Icon from './Icon.astro';
 import { appName } from '../data/site';
-
-type Line = { k: 'cmd' | 'row'; t: string; s?: string; c?: 'bad' | 'ok' | 'lock' | 'dim'; at: number };
-const scan: Line[] = [
-  { k: 'cmd', t: '인터넷에서 업무 서버 스캔', at: 0.2 },
-  { k: 'row', t: '웹 서비스', s: '열림', c: 'bad', at: 1 },
-  { k: 'row', t: '업무 API', s: '열림', c: 'bad', at: 1.3 },
-  { k: 'row', t: '관리 화면', s: '열림', c: 'bad', at: 1.6 },
-  { k: 'cmd', t: 'Trust Gateway 적용 뒤 같은 스캔', at: 3.2 },
-  { k: 'row', t: '웹 서비스', s: '안 보임', c: 'ok', at: 4 },
-  { k: 'row', t: '업무 API', s: '안 보임', c: 'ok', at: 4.3 },
-  { k: 'row', t: '관리 화면', s: '안 보임', c: 'ok', at: 4.6 },
-  { k: 'row', t: '게이트웨이 입구', s: '인증서가 있어야 열림', c: 'lock', at: 5.4 },
-];
-const block: Line[] = [
-  { k: 'cmd', t: '인증서 없이 게이트웨이에 접속', at: 0.2 },
-  { k: 'row', t: '연결 시도', s: '...', c: 'dim', at: 0.9 },
-  { k: 'row', t: '상호 인증(mTLS)', s: '실패, 연결 끊김', c: 'bad', at: 1.6 },
-  { k: 'cmd', t: '다른 입구로 다시 시도', at: 2.8 },
-  { k: 'row', t: '응답', s: '403 거부', c: 'bad', at: 3.6 },
-  { k: 'row', t: '사내망', s: '닿지 않음', c: 'ok', at: 4.4 },
-];
 
 // a QR-like 21x21 pattern (finder squares plus fixed pseudo-random modules; it encodes nothing)
 const qr = (() => {
@@ -87,11 +66,9 @@ const fdsTips = ['해외 결제 규칙은 기준을 조정', '겹치는 규칙�
 
 const tracks = [
   { id: 'access', t: '직원 업무 접속', shots: [
-    { k: 'scan', t: '숨은 사내망', dur: 8.5, q: '인터넷에서 우리 업무 서버가 보일까요?', d: '인터넷에서 보이던 업무 서버의 포트가, Trust Gateway를 붙인 뒤에는 보이지 않습니다. 남는 입구는 인증서가 있어야 열리는 게이트웨이뿐입니다.' },
     { k: 'bind', t: '휴대폰으로 본인 확인', dur: 7.5, q: '이 PC를 지금 누가 쓰는지 어떻게 알까요?', d: `PC 화면의 QR을 ${appName} 앱으로 찍고 생체 인증으로 승인합니다. 지금 이 PC를 쓰는 사람이 누구인지 확인합니다.` },
     { k: 'portal', t: '업무 시스템 열림', dur: 6, q: '확인이 끝나면 무엇이 열릴까요?', d: '다시 로그인하지 않고 허락된 업무 시스템만 열립니다. 이후 요청도 계속 확인합니다.' },
     { k: 'xcheck', t: '다중 신호 교차 검증', dur: 12, q: '계정과 PC를 훔치면 들어올 수 있을까요?', d: 'PC와 휴대폰, 네트워크의 신호를 요청마다 대조합니다. 훔친 PC로 다른 곳에서 접속하면 신호가 서로 맞지 않아 휴대폰으로 다시 확인하고, 주인이 승인하지 않으면 그 요청은 거부됩니다.' },
-    { k: 'block', t: '인증서 없으면 차단', dur: 7, q: '등록되지 않은 기기가 접속하면요?', d: '인증서가 없는 접속은 연결 단계에서 끊깁니다. 사내망에는 닿지 않습니다.' },
     { k: 'lost', t: '분실 기기 차단', dur: 7.5, q: 'PC를 잃어버렸다면요?', d: '관리 콘솔에서 그 기기의 인증서를 폐기하면, 폐기 정보가 게이트웨이에 바로 전달되어 다음 요청부터 거부됩니다.' },
     { k: 'audit', t: '감사 기록', dur: 7.5, q: '누가 언제 무엇을 했는지 남을까요?', d: '허용, 추가 인증, 거부마다 누가 어디에 접속했고 왜 그렇게 판단했는지 남습니다. 기록은 앞 기록과 이어져 있어 중간을 바꾸면 드러납니다.' },
   ] },
@@ -116,13 +93,6 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
       <div class="screen">
         {tr.shots.map((s, i) => (
           <div class={`shot s-${s.k}`} data-dur={s.dur} hidden={i !== 0} role="img" aria-label={s.d}>
-            {(s.k === 'scan' || s.k === 'block') && (
-              <div class="win-frame term">
-                <div class="bar-top"><i></i><i></i><i></i><span>터미널</span></div>
-                <ol>{(s.k === 'scan' ? scan : block).map((l) => <li class={`in ${l.k} ${l.c ?? ''}`} style={at(l.at)}>{l.k === 'cmd' ? <><b>$</b>{l.t}</> : <><span>{l.t}</span><em>{l.s}</em></>}</li>)}</ol>
-              </div>
-            )}
-
             {s.k === 'bind' && (
               <div class="bind-stage">
                 <div class="win-frame pc">
@@ -318,22 +288,24 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
 
 <style>
   .demo { --hi: #e6eefc; --mu: #8fa3c2; --mint: #63d6b4; --or: #f6882a; --coral: #ff6f61; --line: #2a3a55; --panel: #0f141c; }
-  .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
+  /* it sits in the dark Trust Gateway hero (TgHero) */
+  .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
   .tabs button {
-    height: 44px; padding: 0 20px; border-radius: 999px; border: 1px solid #d6dbe4; background: #fff; cursor: pointer;
-    font-size: 15px; font-weight: 600; color: var(--ink-2); transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
+    height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .24); background: transparent; cursor: pointer;
+    font-size: 15px; font-weight: 600; color: #c9d6ea; transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
   }
-  .tabs button[aria-selected='true'] { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .tabs button:hover { border-color: #fff; }
+  .tabs button[aria-selected='true'] { background: #fff; border-color: #fff; color: var(--ink); }
   .tabs button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 
-  .reel { border-radius: 20px; overflow: hidden; background: #0b1626; box-shadow: 0 24px 48px rgba(16, 24, 40, .12); color: var(--hi); }
+  .reel { border-radius: 20px; overflow: hidden; background: #0b1626; border: 1px solid var(--night-line); color: var(--hi); }
   .screen {
     position: relative; aspect-ratio: 16 / 9; container-type: inline-size;
     background-color: #0b1626;
     background-image: linear-gradient(rgba(159, 184, 222, .05) 1px, transparent 1px), linear-gradient(90deg, rgba(159, 184, 222, .05) 1px, transparent 1px);
     background-size: 24px 24px;
   }
-  .shot { position: absolute; inset: 0; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; padding: 4cqi; font-size: max(12px, 1.35cqi); line-height: 1.5; }
+  .shot { position: absolute; inset: 0; display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; padding: 4cqi; font-size: max(12.5px, 1.35cqi); line-height: 1.5; } /* .88em notes stay at 11px */
 
   /* timeline */
   .layer { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; text-align: center; }
@@ -357,20 +329,6 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
   .big-ok { display: grid; place-items: center; width: 4.6em; height: 4.6em; border-radius: 50%; background: rgba(99, 214, 180, .14); color: var(--mint); margin-bottom: .6em; }
   .h { font-size: 1.35em; font-weight: 700; }
   .sub { color: var(--mu); margin-top: .2em; }
-
-  /* terminal */
-  .term { width: 84%; height: auto; max-height: 100%; font-family: ui-monospace, 'SFMono-Regular', Consolas, 'Pretendard Variable', monospace; }
-  .term ol { list-style: none; margin: 0; padding: 2.6cqi 3cqi; display: grid; gap: .55em; font-size: max(12px, 1.7cqi); }
-  .term li { display: grid; grid-template-columns: minmax(0, 15em) minmax(0, 1fr); gap: 1em; color: #c9d6ea; }
-  .term li.cmd { display: block; margin-top: .4em; color: var(--hi); }
-  .term li.cmd:first-child { margin-top: 0; }
-  .term li.cmd b { color: var(--mint); margin-right: .6em; font-weight: 600; }
-  .term li span { padding-left: 1.6em; color: #9fb0c8; }
-  .term li em { font-style: normal; font-weight: 600; }
-  .term li.bad em { color: var(--coral); }
-  .term li.ok em { color: var(--mint); }
-  .term li.lock em { color: #f6b26b; }
-  .term li.dim em { color: #7f93b3; }
 
   /* bind: PC window and phone side by side */
   .bind-stage { position: relative; width: 100%; height: 100%; display: grid; grid-template-columns: minmax(0, 1fr) 24%; gap: 5%; align-items: center; }
@@ -528,9 +486,6 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
   /* narrow screens: fewer columns, same story */
   @container (max-width: 640px) {
     .shot { padding: 3cqi; font-size: 12.5px; } /* .88em notes stay at 11px */
-    .term { width: 100%; }
-    .term ol { font-size: 12px; padding: 14px; }
-    .term li { grid-template-columns: minmax(0, 1fr) auto; }
     .bind-stage { grid-template-columns: minmax(0, 1fr) 36%; gap: 4%; }
     .qr { width: 7em; height: 7em; }
     .pc .sub { display: none; }
@@ -586,7 +541,7 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
   .i-pause, .i-play { display: inline-grid; }
   .i-play, .demo.paused .i-pause { display: none; }
   .demo.paused .i-play { display: inline-grid; }
-  .note { margin-top: 14px; text-align: center; font-size: 13px; color: var(--ink-3); }
+  .note { margin-top: 12px; font-size: 13px; color: var(--mu); }
 
   @media (max-width: 767px) {
     .screen { aspect-ratio: 4 / 5; }
