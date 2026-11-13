@@ -19,15 +19,15 @@ import { appName, tgUses as uses } from '../data/site';
 const attacks = [
   { k: '비밀번호를 훔쳤다면', v: '비밀번호만으로는 열리지 않습니다. 등록된 PC의 기기 인증서와 본인 휴대폰의 생체 확인이 함께 필요합니다.' },
   { k: 'PC 인증서를 복사해 간다면', v: '키는 PC와 휴대폰의 보안 칩 안에서 만들어지고 밖으로 나오지 않습니다. 복사한 파일만으로는 접속할 수 없습니다.' },
-  { k: '업무 PC를 통째로 훔쳤다면', v: 'PC와 휴대폰의 위치가 어긋나 추가 인증으로 넘어갑니다. 추가 인증은 휴대폰으로 따로 묻기 때문에 PC만으로는 답할 수 없습니다.' },
+  { k: '업무 PC를 통째로 훔쳤다면', v: 'PC와 휴대폰의 위치가 어긋나 추가 인증을 요청합니다. 확인 요청은 휴대폰으로만 가므로 PC만으로는 통과할 수 없습니다.' },
   { k: '통신을 가로채 다시 보낸다면', v: 'TLS 1.3 상호 인증과 서버 공개키 고정으로 연결합니다. 신원은 요청마다 새로 서명해, 가로챈 값을 다시 보내도 통하지 않습니다.' },
-  { k: '퇴사자가 예전 권한을 쓴다면', v: '인사 시스템과 연동해 퇴사를 반영하고 인증서를 폐기합니다. PC 인증서는 12시간짜리이고, 사람의 승인 없이는 다시 받을 수 없습니다.' },
+  { k: '퇴사자가 예전 권한을 쓴다면', v: '인사 시스템과 연동해 퇴사를 반영하고 인증서를 폐기합니다. PC 인증서는 12시간만 유효하고, 다시 받으려면 매번 승인을 거쳐야 합니다.' },
   { k: '기기를 잃어버렸다면', v: '관리 콘솔에서 인증서를 폐기하면 다음 요청부터 바로 거부됩니다.' },
 ];
 const rules = [
-  { t: '정책에 적은 것만 통과', d: '판단할 정보가 없으면 열지 않습니다. OPA 정책 엔진의 기본값도 거부입니다.' },
-  { t: '위험한 기기는 처음부터', d: '탈옥이나 루팅된 폰, 에뮬레이터, 디버거가 붙은 앱은 막습니다. 정품 앱인지는 Apple과 Google의 증명으로 확인합니다.' },
-  { t: '들어오는 포트 0', d: '고객 사내망은 포트를 열지 않습니다. 내부 에이전트가 밖으로만 연결합니다.' },
+  { t: '정책에 정한 것만 통과', d: '판단할 정보가 없으면 열지 않습니다. 정책의 기본값도 거부입니다.' },
+  { t: '위험한 기기는 처음부터 차단', d: '탈옥되거나 루팅된 휴대폰, 에뮬레이터, 디버거가 붙은 앱은 막습니다. 정품 앱인지는 Apple과 Google의 앱 무결성 검증으로 확인합니다.' },
+  { t: '들어오는 포트 없음', d: '고객 사내망은 포트를 열지 않습니다. 내부 에이전트가 밖으로만 연결합니다.' },
 ];
 
 const ready = [
@@ -41,26 +41,26 @@ const ready = [
 const enroll = [
   { t: '휴대폰 등록', d: `회사 이메일로 받은 일회용 코드로 가입하면, ${appName} 앱이 휴대폰 보안 칩 안에서 키를 만들고 인증서를 받습니다.` },
   { t: 'PC 등록', d: 'PC 화면의 QR을 휴대폰으로 찍고 Face ID로 승인하면, 회사 PC 인증서가 발급됩니다. 키는 PC 보안 칩 안에 남습니다.' },
-  { t: '업무 시작', d: '업무를 시작할 때 다시 QR과 생체 인증으로 본인을 확인하면, 지금 이 PC를 쓰는 사람이 정해집니다. 이후 요청은 자동으로 확인됩니다.' },
+  { t: '업무 시작', d: '업무를 시작할 때 다시 QR과 생체 인증으로 본인을 확인하면, 지금 이 PC를 쓰는 사람이 확인됩니다. 이후 요청은 자동으로 확인됩니다.' },
 ];
 
 const airrane = [
-  { i: 'key', t: '한 번 확인으로 여러 업무 시스템', d: '게이트웨이가 확인한 신원을 업무 시스템에 넘겨, 시스템마다 다시 로그인하지 않게 합니다.' },
+  { i: 'key', t: '한 번 확인으로 여러 업무 시스템 이용', d: '게이트웨이가 확인한 신원을 업무 시스템에 넘겨, 시스템마다 다시 로그인하지 않게 합니다.' },
   { i: 'pin', t: '사외와 해외에서도 같은 기준', d: '출장지와 재택, 해외에서도 사무실과 같은 기준으로 사람과 기기를 확인합니다.' },
-  { i: 'shield', t: '기술 자료는 허락된 사람에게만', d: '핵심 기술과 정보가 담긴 시스템에 허락된 사람과 기기만 닿게 합니다.' },
+  { i: 'shield', t: '기술 자료는 허락된 사람에게만', d: '핵심 기술과 정보가 담긴 시스템에 허락된 사람과 기기만 접근하게 합니다.' },
 ];
 
 const rollout = [
-  { t: 'PoC', d: '평가용 환경과 서비스 하나를 연결합니다.' },
+  { t: 'PoC', d: '평가용 환경에 업무 서비스 하나를 연결합니다.' },
   { t: '파일럿', d: '부서 단위로 넓히고, 관찰 모드로 결과를 비교한 뒤 제한적으로 적용합니다.' },
-  { t: '전사 적용', d: '서비스 목록을 확정하고 사용자를 옮깁니다. 감사, 보존, 장애 복구 절차를 함께 운영합니다.' },
+  { t: '전사 적용', d: '서비스 목록을 확정하고 전체 사용자를 Trust Gateway로 전환합니다. 감사, 기록 보존, 장애 복구 절차를 함께 운영합니다.' },
 ];
-const pocChecks = ['등록된 직원은 평소처럼 바로 열리는지', '등록되지 않은 기기는 게이트웨이에서 막히는지', '정책을 바꾸면 다음 요청부터 반영되는지', '판단 근거와 감사 기록이 남는지', '직원이 쓰기에 번거롭지 않은지'];
+const pocChecks = ['등록된 직원은 평소처럼 바로 접속되는지', '등록되지 않은 기기는 게이트웨이에서 막히는지', '정책을 바꾸면 다음 요청부터 반영되는지', '판단 근거와 감사 기록이 남는지', '직원이 쓰기에 번거롭지 않은지'];
 
 const faq = [
-  { q: '제로트러스트와 Trust Gateway는 같은 건가요?', a: '아니요. 제로트러스트는 「아무도 믿지 않고 매번 확인한다」는 보안 원칙이고, 미국 NIST와 CISA, 과학기술정보통신부가 기준을 공개했습니다. Trust Gateway는 그 원칙을 회사의 업무 접속에 적용한 신영이노베이션의 솔루션입니다.' },
+  { q: '제로트러스트와 Trust Gateway는 같은 건가요?', a: '아니요. 제로트러스트는 「아무도 믿지 않고 매번 확인한다」는 보안 원칙이고, 미국 NIST·CISA와 한국 과학기술정보통신부가 기준을 공개했습니다. Trust Gateway는 그 원칙을 회사의 업무 접속에 적용한 신영이노베이션의 솔루션입니다.' },
   { q: 'VPN을 바로 꺼야 하나요?', a: '아니요. 서비스 하나부터 Trust Gateway로 옮기고, 결과를 보며 넓힙니다. 옮기는 동안 기존 접속 방식은 그대로 둘 수 있습니다.' },
-  { q: '업무 시스템을 고쳐야 하나요?', a: '기존 로그인은 그대로 둘 수 있습니다. 게이트웨이가 확인한 신원을 서명해 함께 보내므로, 원하면 이를 받아 다시 로그인하지 않게 만들 수 있습니다.' },
+  { q: '업무 시스템을 고쳐야 하나요?', a: '아니요. 기존 로그인은 그대로 둘 수 있습니다. 게이트웨이가 확인한 신원을 서명해 함께 보내므로, 원하면 업무 시스템이 이 신원을 받아 다시 로그인하지 않게 할 수 있습니다.' },
   { q: '휴대폰이 꼭 있어야 하나요?', a: `네. Trust Gateway는 휴대폰으로 사람을 확인합니다. ${appName} 앱을 등록한 휴대폰(iOS · Android)이 없는 직원은 Trust Gateway로 접속할 수 없습니다.` },
   { q: '어떤 시스템에 쓸 수 있나요?', a: '웹 업무 시스템(HTTP · HTTPS)에 씁니다. 사내 Linux 서버에 내부 에이전트를 설치하며, 전용 장비는 필요 없습니다.' },
   { q: 'Trust Gateway에 문제가 생기면 어떻게 되나요?', a: '판단에 필요한 정보를 확인할 수 없으면 열지 않는 것이 원칙입니다. 확인 없이 통과시키지 않습니다. 장애 복구 절차는 전사 적용 단계에서 함께 정해 운영합니다.' },
@@ -78,17 +78,18 @@ const faq = [
   <ZtBridge id="zt" tone="mist">
     <div class="map reveal">
       <h3 class="h3">공개된 기준대로 만들었습니다</h3>
-      <p class="body">제로트러스트 아키텍처(NIST SP 800-207)는 접근 요청을 가로채는 정책 시행 지점, 허용 여부를 정하는 정책 결정 지점, 판단에 필요한 정보를 주는 정책 정보 지점으로 나뉩니다. Trust Gateway는 이 구조를 그대로 따릅니다.</p>
+      <p class="body">제로트러스트 아키텍처(NIST SP 800-207)는 접근 요청을 가로채는 PEP, 허용 여부를 정하는 PDP, 판단에 필요한 정보를 주는 PIP로 나뉩니다. Trust Gateway는 이 구조를 그대로 따릅니다.</p>
       <div class="cmp-wrap">
         <table class="nist">
           <thead><tr><th scope="col">구성 요소</th><th scope="col">하는 일</th><th scope="col">Trust Gateway</th></tr></thead>
           <tbody>
-            <tr><th scope="row">정책 시행 지점<span>PEP · Policy Enforcement Point</span></th><td>사용자의 접근 요청을 가로채고, 정책 결정 지점의 결정에 따라 접근을 허용하거나 차단·종료합니다</td><td>접속 관문<span>요청마다 검사 · 전달</span></td></tr>
-            <tr><th scope="row">정책 결정 지점<span>PDP · Policy Decision Point</span></th><td>요청을 평가해 허용 또는 거부를 결정합니다</td><td>OPA 정책 · ZEN 리스크<span>정책과 규칙으로 판정</span></td></tr>
-            <tr><th scope="row">정책 정보 지점<span>PIP · Policy Information Point</span></th><td>정책 결정 지점이 올바르게 판단하도록 필요한 데이터와 속성을 제공합니다</td><td>AI 리스크<span>Isolation Forest로 평소와 다른 정도를 계산</span></td></tr>
+            <tr><th scope="row">PEP<span>정책 시행 지점 · Policy Enforcement Point</span></th><td>사용자의 접근 요청을 가로채고, PDP의 결정에 따라 접근을 허용하거나 차단·종료합니다</td><td>접속 관문<span>요청마다 인증서를 확인하고 허용된 요청만 전달합니다. 휴대폰 앱과 PC 에이전트는 추가 인증을 진행합니다</span></td></tr>
+            <tr><th scope="row">PDP<span>정책 결정 지점 · Policy Decision Point</span></th><td>요청을 평가해 허용, 추가 인증, 거부를 결정합니다</td><td>정책 엔진: 금지 사항 확인 · 최종 결정<span>금지 사항 확인(Zen)이 의견을 내면 최종 결정(OPA)이 허용 여부를 정합니다. 결정은 통제 센터가 실행합니다</span></td></tr>
+            <tr><th scope="row">PIP<span>정책 정보 지점 · Policy Information Point</span></th><td>PDP가 올바르게 판단하도록 필요한 데이터와 속성을 제공합니다</td><td>머신러닝 이상 탐지<span>평소 행동과 얼마나 달라졌는지 계산해, 위험 점수, 위치, 휴대폰과 PC 신호의 불일치, 기기 보안 상태, 알려진 악성 IP 목록, 회사 설정과 함께 넘깁니다</span></td></tr>
           </tbody>
         </table>
       </div>
+      <p class="cap">결제 위험 평가에서는 고객사 결제 시스템이 PEP입니다. Trust Gateway는 거래 위험을 평가해 권고하고, 승인과 거절은 결제 시스템이 정합니다.</p>
       <ul class="std-list">
         <li><b>CISA ZTMM v2.0</b><span>신원 · 기기 · 네트워크 · 애플리케이션 · 데이터 다섯 영역 기준으로 설계</span></li>
         <li><b>특허 출원</b><span>이종 단말 위치 신호 교차 검증 기반 동적 접근 제어</span></li>
@@ -169,14 +170,14 @@ const faq = [
         <div class="link"><span>mTLS</span></div>
         <div class="az mid">
           <p class="az-t">Trust Gateway</p>
-          <div class="node">접속 관문<span>요청마다 검사 · 전달</span></div>
+          <div class="node">접속 관문 (PEP)<span>요청마다 검사 · 전달</span></div>
           <div class="node">통제 센터 · 인증기관(CA)<span>위험 평가 · 인증서 발급과 폐기</span></div>
-          <div class="node">판단 엔진<span>ZEN 리스크 · AI 리스크 · OPA 정책</span></div>
+          <div class="node">판단 엔진<span>이상 탐지 (PIP) · 금지 사항 확인, 최종 결정 (PDP)</span></div>
         </div>
         <div class="link back"><span>밖으로만 연결</span></div>
         <div class="az in">
           <p class="az-t">고객 사내망</p>
-          <div class="node">내부 에이전트<span>들어오는 포트 0</span></div>
+          <div class="node">내부 에이전트<span>들어오는 포트 없음</span></div>
           <div class="node">업무 서비스<span>웹 업무 시스템 (HTTP · HTTPS)</span></div>
         </div>
       </div>
@@ -243,7 +244,7 @@ const faq = [
     </div>
   </section>
 
-  <CtaBand title="Trust Gateway, 무료 PoC로 먼저 써 보세요" lead="평가용 환경과 서비스 하나로 시작합니다." />
+  <CtaBand title="Trust Gateway, 무료 PoC로 먼저 써 보세요" lead="평가용 환경에 업무 서비스 하나를 연결해 시작합니다." />
 </Base>
 
 <style>
@@ -314,6 +315,18 @@ const faq = [
   .nist tbody th span, .nist td span { display: block; margin-top: 2px; font-size: 13px; font-weight: 500; color: var(--ink-3); }
   .nist td { color: var(--ink-2); }
   .nist td:last-child { color: var(--ink); font-weight: 700; background: var(--mist); }
+  .cap { margin-top: 10px; font-size: 13px; color: var(--ink-3); }
+  .map { grid-template-columns: minmax(0, 1fr); }
+  .map .cmp-wrap { overflow-x: auto; }
+  @media (max-width: 640px) {
+    .nist { min-width: 0; }
+    .nist thead { display: none; }
+    .nist tr, .nist th, .nist td { display: block; width: auto; }
+    .nist tr { padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .nist tbody th, .nist td { padding: 0; border-bottom: 0; }
+    .nist tbody th { width: auto; margin-bottom: 6px; }
+    .nist td:last-child { margin-top: 10px; padding: 12px 14px; border-radius: var(--r-md); }
+  }
   .std-list { list-style: none; margin: 6px 0 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .std-list li { border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px 18px; display: grid; gap: 4px; }
   .std-list b { font-size: 16px; }

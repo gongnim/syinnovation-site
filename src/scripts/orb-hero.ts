@@ -4,10 +4,9 @@ import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
-// Home hero. The .hero section is a little taller than the screen and .hero-pin sticks while it scrolls. p runs 0..1
-// from night to day, but by time, not by scroll position: a scroll down from the top plays it through in DUR seconds,
-// a scroll up plays it back, and a stop inside the pinned stretch glides the page to its nearer end.
-// Copy appears only at the start and the end, like PacketGo. The visuals tell the rest:
+// Home hero. The .hero section is two screens tall; .hero-pin (the sphere) sticks while the copy scrolls normally over
+// it. p runs 0..1 from night to day with the scroll position, lightly smoothed. No snap and no timed play-through
+// (user, 2026-11-13: the page should just scroll). Copy sits at the start and the end, like PacketGo:
 //   p 0      night. Large lights circle the screen edges in brand colours; the glowing core rises from the bottom.
 //            A few coral motes (threats) float among the white ones. Every few seconds one heads for the core; the
 //            two device lights rush to meet where it lands, and it is flicked away and gone. A white one turns coral
@@ -361,53 +360,22 @@ function glowTexture() {
   return new THREE.CanvasTexture(c);
 }
 
-// copy layers: fade/slide in over [inA, inB], out over [outA, outB]
-const LAYERS: Record<string, [number, number, number, number]> = {
-  a: [-1, 0, 0.06, 0.14],
-  b: [0.76, 0.86, 2, 3],
-};
-
 export function orbHero(root: HTMLElement) {
   const canvas = root.querySelector<HTMLCanvasElement>('canvas.orb3d')!;
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const html = document.documentElement;
   const layers = [...root.querySelectorAll<HTMLElement>('[data-hero-layer]')];
 
-  // open (day) or closed (night), set by the scroll direction; the copy layers follow p (these run even without WebGL)
+  // p follows how far the page has scrolled through the hero (the copy itself is ordinary page content)
   let forceP: number | null = null; // dev screenshots only
-  const DUR = 2.4;
   const span = () => Math.max(1, root.offsetHeight - innerHeight);
   const heroY = () => -root.getBoundingClientRect().top;
-  let open = heroY() > span() * 0.04;
-  const progress = () => (forceP !== null ? forceP : open ? 1 : 0);
+  const progress = () => (forceP !== null ? forceP : clamp01(heroY() / span()));
   let inView = true;
   let onChange = () => applyCopy(progress());
-  let lastY = scrollY, settle = 0, snapUntil = 0;
-  addEventListener('scroll', () => {
-    const y = heroY(), s = span(), dir = Math.sign(scrollY - lastY);
-    lastY = scrollY;
-    const snapping = performance.now() < snapUntil;
-    if (!snapping && dir > 0 && y > s * 0.04) open = true;
-    else if (!snapping && dir < 0 && y < s * 0.96) open = false;
-    if (y <= 1) open = false;
-    if (y >= s) open = true;
-    clearTimeout(settle);
-    if (!snapping && y > 1 && y < s - 1) settle = window.setTimeout(() => {
-      snapUntil = performance.now() + 900;
-      scrollTo({ top: scrollY - heroY() + (open ? s : 0), behavior: reduce ? 'auto' : 'smooth' });
-    }, 130);
-    onChange();
-  }, { passive: true });
+  addEventListener('scroll', () => onChange(), { passive: true });
   const dayOf = (p: number) => ss(0.44, 0.6, p);
   function applyCopy(p: number) {
-    for (const el of layers) {
-      const [ia, ib, oa, ob] = LAYERS[el.dataset.heroLayer!];
-      const i = ss(ia, ib, p), o = ss(oa, ob, p);
-      const op = i * (1 - o);
-      el.style.opacity = op.toFixed(3);
-      el.style.transform = `translateY(${((1 - i) * 36 - o * 48).toFixed(1)}px)`;
-      el.style.visibility = op < 0.02 ? 'hidden' : 'visible';
-    }
     root.style.setProperty('--hero-day', dayOf(p).toFixed(3));
     root.style.setProperty('--hero-end', ss(0.92, 0.99, p).toFixed(3));
     html.classList.toggle('hero-dark', inView && dayOf(p) < 0.5);
@@ -554,8 +522,9 @@ export function orbHero(root: HTMLElement) {
     const mobile = W < 768;
     const r0 = Math.max(250, Math.min(W * 0.37, H * 0.56));
     // the top of the night core: never above a clear gap under the opening copy
-    const cy0 = Math.max(H * (mobile ? 0.7 : 0.59), copyBottom + (mobile ? 44 : Math.max(72, H * 0.09))) + r0;
-    const cyMid = H * (mobile ? 0.56 : 0.48) + r0;
+    // on phones the core sits just under the copy, not at a fixed height far below it (user, 2026-11-13)
+    const cy0 = Math.max(H * (mobile ? 0.45 : 0.59), copyBottom + (mobile ? 56 : Math.max(72, H * 0.09))) + r0;
+    const cyMid = Math.min(H * (mobile ? 0.56 : 0.48) + r0, cy0); // it only ever rises
     const r1 = Math.min(H * 0.25, W * 0.32), r2 = mobile ? Math.min(H * 0.15, W * 0.27) : Math.min(H * 0.19, W * 0.24);
     let rPx = r0, cy = lerp(cy0, cyMid, s1);
     rPx = lerp(rPx, r1, s2); cy = lerp(cy, H * 0.46, s2);
@@ -629,8 +598,8 @@ export function orbHero(root: HTMLElement) {
     const dt = last ? Math.min(0.05, (nowMs - last) / 1000) : 0.016; last = nowMs;
     if (!reduce) clock += dt;
     const target = progress();
-    // a steady walk toward the target: the whole night-to-day change takes DUR seconds; its stages ease on their own
-    pS = reduce || forceP !== null ? target : pS + Math.max(-dt / DUR, Math.min(dt / DUR, target - pS));
+    // follows the scroll, eased a little so a flick of the wheel does not jump
+    pS = reduce || forceP !== null || Math.abs(target - pS) < 1e-4 ? target : pS + (target - pS) * (1 - Math.exp(-dt * 9));
     const p = pS;
     applyCopy(p);
 

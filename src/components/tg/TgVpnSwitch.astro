@@ -10,13 +10,13 @@ const compare = [
   { k: '열리는 범위', vpn: '사내망 전체', tg: '허락된 앱과 경로만' },
   { k: '본인 확인', vpn: '아이디와 비밀번호', tg: '기기 인증서 + 휴대폰 생체 확인' },
   { k: '위치 확인', vpn: '없음', tg: 'PC · 휴대폰 · 네트워크 다중 신호 교차 검증' },
-  { k: '외부 노출', vpn: 'VPN 장비가 인터넷에 열려 있음', tg: '사내망 들어오는 포트 0' },
+  { k: '외부 노출', vpn: 'VPN 장비가 인터넷에 열려 있음', tg: '사내망으로 들어오는 포트 없음' },
 ];
 ---
 <section class="section mist" id="vpn">
   <div class="wrap">
     <div class="head-center reveal">
-      <h2 class="h2">계정 하나가 새면, <br />어디까지 열릴까요</h2>
+      <h2 class="h2">계정 하나가 유출되면, <br />어디까지 열릴까요</h2>
       <p class="lead">도용된 직원 계정으로 들어온다고 해 봅시다. <br />기존 VPN과 Trust Gateway를 바꿔 가며 보세요.</p>
     </div>
 

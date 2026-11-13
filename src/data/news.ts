@@ -57,7 +57,7 @@ export const news: NewsItem[] = [
     image: '/images/photos/anniversary-3rd.webp',
     body: [
       '2023년 10월 25일 문을 연 신영이노베이션이 창립 3주년을 맞았습니다.',
-      '앞으로도 Never Trust, Always Verify. 원칙으로 금융과 기업의 업무 접속을 지키는 제품을 만들겠습니다.',
+      '앞으로도 Never Trust, Always Verify 원칙으로 금융과 기업의 업무 접속을 지키는 솔루션을 만들겠습니다.',
     ],
   },
   {

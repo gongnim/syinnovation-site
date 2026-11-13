@@ -6,19 +6,19 @@
 import Icon from '../Icon.astro';
 
 const points = [
-  { i: 'search', t: '판단 근거를 문장으로', d: '허용하거나 막은 요청마다 어떤 신호가 서로 맞지 않았는지 문장으로 남깁니다.' },
-  { i: 'lock', t: '고칠 수 없는 감사 기록', d: '판정 기록은 앞 기록과 해시로 이어져 중간을 바꾸면 드러납니다. 삭제와 덮어쓰기가 잠긴 저장소에 5년 보관합니다.' },
-  { i: 'user', t: '고객사 관리자도 직접', d: '고객사 관리자는 자기 회사의 직원, 기기, 정책을 직접 바꾸고, 바꿀 때마다 휴대폰 승인을 거칩니다.' },
+  { i: 'search', t: '판단 근거를 문장으로', d: '요청마다 왜 허용하거나 막았는지 문장으로 남깁니다.' },
+  { i: 'lock', t: '위변조가 드러나는 감사 기록', d: '판정 기록은 앞 기록과 해시로 이어져 중간을 바꾸면 드러납니다. 삭제와 덮어쓰기가 잠긴 저장소에 5년 보관합니다.' },
+  { i: 'user', t: '고객사 관리자도 직접', d: '고객사 관리자는 자기 회사의 직원, 기기, 정책을 직접 관리하고, 변경할 때마다 휴대폰 승인을 거칩니다.' },
   { i: 'pin', t: '사무실 IP 대역 등록', d: '회사 공인 IP 대역을 등록하면, 그 안에서 IP가 바뀌어도 재인증을 반복하지 않습니다.' },
 ];
 // one example morning; the script keeps feeding these in a loop
 const log = [
-  { u: '김지훈', app: '그룹웨어', v: 'allow', vt: '허용', why: '사무실, 같은 Wi-Fi, 평소 시간대. 신호가 서로 맞습니다.', zen: '규칙 위반 없음', ai: '평소 범위 안', opa: '허용' },
-  { u: '이서연', app: '인사 시스템', v: 'allow', vt: '허용', why: '등록된 사무실 IP 대역 안에서 접속했습니다.', zen: '규칙 위반 없음', ai: '평소 범위 안', opa: '허용' },
-  { u: '박민수', app: '업무 포털', v: 'step', vt: '추가 인증', why: 'PC와 휴대폰은 함께 있지만, 처음 보는 네트워크입니다. 휴대폰 승인 뒤 허용했습니다.', zen: '처음 보는 네트워크', ai: '네트워크 변화가 평소보다 큼', opa: '추가 인증' },
-  { u: '최유나', app: '그룹웨어', v: 'allow', vt: '허용', why: '재택 근무지에서 평소 시간대에 접속했습니다.', zen: '규칙 위반 없음', ai: '평소 범위 안', opa: '허용' },
-  { u: '정다은', app: '회계', v: 'deny', vt: '거부', why: 'PC와 휴대폰의 위치가 맞지 않고, 휴대폰 승인이 없었습니다.', zen: 'PC와 휴대폰 위치 불일치', ai: '여러 신호가 평소 범위 밖', opa: '추가 인증 뒤 승인 없음' },
-  { u: '협력사 계정', app: '회계', v: 'deny', vt: '거부', why: '이 계정에 허락되지 않은 앱입니다. 정책 기본값은 거부입니다.', zen: '규칙 위반 없음', ai: '평소 범위 안', opa: '허락되지 않은 경로' },
+  { u: '김지훈', app: '그룹웨어', v: 'allow', vt: '허용', why: '사무실, 같은 Wi-Fi, 평소 시간대. 신호가 서로 맞습니다.', zen: '의견 통과', ai: '평소 범위 안', opa: '허용' },
+  { u: '이서연', app: '인사 시스템', v: 'allow', vt: '허용', why: '등록된 사무실 IP 대역 안에서 접속했습니다.', zen: '의견 통과', ai: '평소 범위 안', opa: '허용' },
+  { u: '박민수', app: '업무 포털', v: 'step', vt: '추가 인증', why: 'PC와 휴대폰은 함께 있지만, 처음 보는 네트워크입니다. 휴대폰 승인 뒤 허용했습니다.', zen: '의견 통과', ai: '네트워크 변화가 평소보다 큼', opa: '추가 인증' },
+  { u: '최유나', app: '그룹웨어', v: 'allow', vt: '허용', why: '재택 근무지에서 평소 시간대에 접속했습니다.', zen: '의견 통과', ai: '평소 범위 안', opa: '허용' },
+  { u: '정다은', app: '회계', v: 'deny', vt: '거부', why: 'PC와 휴대폰의 위치가 맞지 않고, 휴대폰 승인이 없었습니다.', zen: '의견 추가 인증', ai: '여러 신호가 평소 범위 밖', opa: '추가 인증 뒤 승인 없음' },
+  { u: '협력사 계정', app: '회계', v: 'deny', vt: '거부', why: '이 계정에 허락되지 않은 앱입니다. 정책 기본값은 거부입니다.', zen: '의견 통과', ai: '평소 범위 안', opa: '허락되지 않은 경로' },
 ];
 const first = log.slice(0, 5).map((r, i) => ({ ...r, at: `09:${String(12 + i * 2).padStart(2, '0')}` })).reverse();
 const shown = first.find((r) => r.v !== 'allow')!;
@@ -48,9 +48,9 @@ const shown = first.find((r) => r.v !== 'allow')!;
             <p class="why-h"><span class={`chip v-${shown.v}`} data-f="vt">{shown.vt}</span><b data-f="u">{shown.u}</b><span data-f="app">{shown.app}</span></p>
             <p class="why-s" data-f="why">{shown.why}</p>
             <dl>
-              <div><dt>ZEN 리스크</dt><dd data-f="zen">{shown.zen}</dd></div>
-              <div><dt>AI 리스크</dt><dd data-f="ai">{shown.ai}</dd></div>
-              <div><dt>OPA 정책</dt><dd data-f="opa">{shown.opa}</dd></div>
+              <div><dt>이상 탐지</dt><dd data-f="ai">{shown.ai}</dd></div>
+              <div><dt>금지 사항 확인</dt><dd data-f="zen">{shown.zen}</dd></div>
+              <div><dt>최종 결정</dt><dd data-f="opa">{shown.opa}</dd></div>
             </dl>
             <p class="chain"><Icon name="lock" size={14} />감사 기록에 남김 · 앞 기록과 해시로 연결</p>
           </div>

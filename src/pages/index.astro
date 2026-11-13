@@ -40,13 +40,13 @@ const team = [
   <section class="hero">
     <div class="hero-pin">
       <ShieldSphere />
-      <div class="wrap hero-copy" data-hero-layer="a">
-        <h1 class="hero-title">Never Trust, <br />Always Verify</h1>
-        <p class="hero-lead">Trust Gateway는 PC·태블릿과 휴대폰으로 기기와 사람을 함께 확인하고, <br />로그인한 뒤에도 요청마다 다시 검증하는 제로트러스트 기반 접근 제어 솔루션입니다.</p>
-      </div>
-      <div class="wrap hero-focus" data-hero-layer="b">
-        <h2 class="hero-focus-title">AI로 공격이 정교해져도, <br />기본을 지키면 막을 수 있습니다</h2>
-      </div>
+    </div>
+    <div class="wrap hero-copy" data-hero-layer="a">
+      <h1 class="hero-title">Never Trust, <br />Always Verify</h1>
+      <p class="hero-lead">Trust Gateway는 다중 신호 교차 검증을 실시간으로 수행해, <br />로그인 이후에도 본인인지 검증하는 제로트러스트 기반 솔루션입니다.</p>
+    </div>
+    <div class="wrap hero-focus" data-hero-layer="b">
+      <h2 class="hero-focus-title">AI에 의해 공격이 정교해져도, <br />기본을 지키면 막을 수 있습니다</h2>
     </div>
   </section>
 
@@ -60,7 +60,7 @@ const team = [
     <div class="wrap">
       <div class="head-center reveal">
         <h2 class="h2">로그인 한 번이 아니라, <br />요청마다 확인합니다</h2>
-        <p class="lead">PC는 기기를, 휴대폰은 사람을, 게이트웨이는 매 요청을 증명합니다. <br />하나가 뚫려도 나머지가 막습니다.</p>
+        <p class="lead">PC는 기기를, 휴대폰은 사람을 증명하고, 게이트웨이는 요청마다 다시 확인합니다. <br />하나가 뚫려도 나머지가 막습니다.</p>
       </div>
       <div class="proofs play-on-view">
         <article class="card proof reveal">
@@ -91,7 +91,7 @@ const team = [
             </div>
           </div>
           <h3 class="h4">휴대폰은 사람을 증명합니다</h3>
-          <p class="body">업무를 시작할 때 PC의 QR을 휴대폰으로 찍고 생체 인증을 하면, 지금 이 PC를 쓰는 사람이 정해집니다. 공용 PC도 사람 단위로 구분됩니다.</p>
+          <p class="body">업무를 시작할 때 PC의 QR을 휴대폰으로 찍고 생체 인증을 하면, 지금 이 PC를 쓰는 사람이 확인됩니다. 공용 PC도 사람 단위로 구분됩니다.</p>
         </article>
         <article class="card proof wide reveal">
           <div class="media log">
@@ -171,7 +171,7 @@ const team = [
       <div class="reveal">
         <p class="team-k">IT 컨설팅·개발</p>
         <h2 class="h2 sm">전략부터 시스템까지, <br />한 팀이 맡습니다</h2>
-        <p class="lead">업무 분석(PI)부터 맞춤 개발과 운영까지, <br />회사에 맞춘 IT 컨설팅과 개발도 함께 합니다.</p>
+        <p class="lead">업무 분석(PI)부터 맞춤 개발과 운영까지, <br />IT 컨설팅과 개발도 한 팀이 함께합니다.</p>
         <ol class="team-steps">
           {team.map((s, i) => (<li class={i === 0 ? 'on' : undefined}><span>{String(i + 1).padStart(2, '0')}</span>{s.t}</li>))}
         </ol>
@@ -213,13 +213,14 @@ const team = [
   </section>
 
   <!-- 10. CTA -->
-  <CtaBand title="우리 회사 환경에서 먼저 확인해 보세요" lead="평가용 환경과 서비스 하나로 시작합니다. 접속 흐름과 정책을 직접 보고 결정하세요." secondary={{ href: '/trust-gateway', label: 'Trust Gateway 보기' }} />
+  <CtaBand title="우리 회사 환경에서 먼저 확인해 보세요" lead="평가용 환경에 업무 서비스 하나를 연결해 시작합니다. 접속 흐름과 정책을 직접 보고 결정하세요." secondary={{ href: '/trust-gateway', label: 'Trust Gateway 보기' }} />
 </Base>
 
 <style>
   /* hero */
-  /* a short pinned stretch: .hero-pin sticks while orb-hero.ts plays night to day once, by time, on the first scroll */
-  .hero { position: relative; height: 170vh; height: 170svh; background: #fff; }
+  /* two screens: the sphere (.hero-pin) stays behind while the copy scrolls normally over it; orb-hero.ts turns
+     night into day with the scroll position. No snap, no timed play-through (user, 2026-11-13) */
+  .hero { position: relative; height: 200vh; height: 200svh; background: #fff; }
   .hero-pin {
     position: sticky; top: 0; height: 100vh; height: 100svh; min-height: 620px; overflow: hidden; color: var(--on-night);
     background: color-mix(in srgb, #050a14, #eef2f8 calc(var(--hero-day, 0) * 100%));
@@ -228,10 +229,10 @@ const team = [
     content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 22%; pointer-events: none;
     background: linear-gradient(to bottom, rgba(255,255,255,0), #fff); opacity: var(--hero-end, 0);
   }
-  /* copy layers ([data-hero-layer]) get opacity/transform/visibility inline from orb-hero.ts */
-  .hero-copy { position: relative; z-index: 1; text-align: center; pointer-events: none; padding-top: calc(var(--header-h) + clamp(88px, 11vh, 132px)); }
-  .hero-focus { position: absolute; z-index: 1; left: 0; right: 0; top: 65%; text-align: center; color: var(--ink); }
-  html.js .hero-focus { opacity: 0; visibility: hidden; }
+  /* the copy sits over the pinned sphere and scrolls with the page: the opening copy on the first screen, the
+     closing line where the second screen ends */
+  .hero-copy { position: absolute; z-index: 1; top: 0; left: 0; right: 0; text-align: center; color: var(--on-night); pointer-events: none; padding-top: calc(var(--header-h) + clamp(88px, 11vh, 132px)); }
+  .hero-focus { position: absolute; z-index: 1; left: 0; right: 0; top: calc(100% - 35vh); top: calc(100% - 35svh); text-align: center; color: var(--ink); }
   .hero-focus-title { font-size: clamp(26px, 3.6vw, 52px); line-height: 1.22; letter-spacing: -0.03em; font-weight: 700; word-break: keep-all; overflow-wrap: normal; text-wrap: balance; }
   html:not(.js) .hero { height: auto; }
   html:not(.js) .hero-focus { display: none; }
@@ -379,9 +380,8 @@ const team = [
     .news-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 767px) {
-    .hero { height: 160vh; height: 160svh; }
     .hero-lead br:not(.sb) { display: none; }
-    .hero-focus { top: 52%; }
+    .hero-focus { top: calc(100% - 48vh); top: calc(100% - 48svh); }
     .head-center .lead br, .team .lead br { display: none; }
     .log li { grid-template-columns: 1fr auto; }
     .log .why { grid-column: 1 / -1; grid-row: 2; }

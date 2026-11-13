@@ -4,7 +4,7 @@ interface Props { tone?: 'night' | 'light' }
 const { tone = 'night' } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isOn = (href: string) => path === href || path.startsWith(href + '/');
-const KEY = '/trust-gateway'; // the main product is shown in brand orange, except on the home page (user, 2026-11-13)
+const KEY = '/trust-gateway'; // the main product turns brand orange only while you are on its page (user, 2026-11-13)
 ---
 <header class="hdr" data-tone={tone} data-scrolled="false" data-hidden="false">
   <div class="hdr-row">
@@ -22,7 +22,7 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange, exce
                 {n.children.map((c) => <a href={c.href} aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>)}
               </div>
             </div>
-          : <a href={n.href} class:list={{ key: n.href === KEY && path !== '/' }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
+          : <a href={n.href} class:list={{ key: n.href === KEY && isOn(n.href) }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
       </nav>
       <!-- Korean and English versions only; the English site is not built yet -->
       <div class="lang" role="group" aria-label="언어">
@@ -41,7 +41,7 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange, exce
           <span class="mobile-head">{n.label}</span>
           {n.children.map((c) => <a href={c.href} class="mobile-sub" aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>)}
         </div>
-      : <a href={n.href} class:list={{ key: n.href === KEY && path !== '/' }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
+      : <a href={n.href} class:list={{ key: n.href === KEY && isOn(n.href) }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
     <div class="mobile-lang"><a href="/" lang="ko" aria-current="true">KO</a><span lang="en" aria-disabled="true">EN 준비 중</span></div>
   </div>
 </header>
@@ -51,7 +51,7 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange, exce
      The contact button sits outside the bar, on its right. */
   .hdr {
     /* the web logo (smaller symbol, larger text than the CI lockup) with its "RE:Think innovation" tagline */
-    --logo-w: clamp(168px, 1.6vw + 152px, 192px);
+    --logo-w: clamp(132px, 1.2vw + 122px, 150px);
     --bar-h: clamp(60px, 0.78vw + 57px, 72px);
     position: fixed; top: 24px; left: 50%; z-index: 50; width: min(100% - 40px, 1236px);
     transform: translate3d(-50%, 0, 0); transition: transform 520ms cubic-bezier(0.22, 0.65, 0.3, 1); will-change: transform;
@@ -143,7 +143,7 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange, exce
   .mobile-lang a { padding: 0; }
   .mobile-lang [aria-disabled='true'] { color: var(--ink-3); }
   @media (max-width: 1023px) {
-    .hdr { --logo-w: 152px; }
+    .hdr { --logo-w: 124px; }
     .hdr-bar { grid-template-columns: var(--logo-w) 1fr auto; column-gap: 8px; }
     .menu, .lang { display: none; }
     .burger { display: block; grid-column: 3; }

@@ -66,7 +66,7 @@ const devices = [{ n: '업무 PC', who: '직원 A' }, { n: '휴대폰', who: '�
 // Amounts, counts and rule names are examples.
 const paySignals = [
   { i: 'chart', t: '결제 금액' }, { i: 'cycle', t: '짧은 시간 결제 횟수' }, { i: 'lock', t: '결제 실패 횟수' }, { i: 'phone', t: '처음 보는 기기' },
-  { i: 'pin', t: '처음 거래하는 가맹점' }, { i: 'shield', t: '가맹점 위험 등급' }, { i: 'plan', t: '결제 시간대' }, { i: 'search', t: '위치와 신원의 모순' },
+  { i: 'pin', t: '처음 거래하는 가맹점' }, { i: 'shield', t: '가맹점 위험 등급' }, { i: 'plan', t: '결제 시간대' }, { i: 'search', t: '위치와 신원의 불일치' },
 ];
 type Row = [string, string, boolean];
 const cases: Record<string, { rows: Row[]; tone: 'ok' | 'warn' | 'stop'; label: string; level: number; why: string[]; act: string }> = {
@@ -88,7 +88,7 @@ const fdsTips = ['해외 결제 규칙은 기준을 조정', '겹치는 규칙�
 const tracks = [
   { id: 'access', t: '직원 업무 접속', shots: [
     { k: 'scan', t: '숨은 사내망', dur: 8.5, q: '인터넷에서 우리 업무 서버가 보일까요?', d: '인터넷에서 보이던 업무 서버의 포트가, Trust Gateway를 붙인 뒤에는 보이지 않습니다. 남는 입구는 인증서가 있어야 열리는 게이트웨이뿐입니다.' },
-    { k: 'bind', t: '휴대폰으로 본인 확인', dur: 7.5, q: '이 PC를 지금 누가 쓰는지 어떻게 알까요?', d: `PC 화면의 QR을 ${appName} 앱으로 찍고 생체 인증으로 승인합니다. 지금 이 PC를 쓰는 사람이 누구인지 정해집니다.` },
+    { k: 'bind', t: '휴대폰으로 본인 확인', dur: 7.5, q: '이 PC를 지금 누가 쓰는지 어떻게 알까요?', d: `PC 화면의 QR을 ${appName} 앱으로 찍고 생체 인증으로 승인합니다. 지금 이 PC를 쓰는 사람이 누구인지 확인합니다.` },
     { k: 'portal', t: '업무 시스템 열림', dur: 6, q: '확인이 끝나면 무엇이 열릴까요?', d: '다시 로그인하지 않고 허락된 업무 시스템만 열립니다. 이후 요청도 계속 확인합니다.' },
     { k: 'xcheck', t: '다중 신호 교차 검증', dur: 12, q: '계정과 PC를 훔치면 들어올 수 있을까요?', d: 'PC와 휴대폰, 네트워크의 신호를 요청마다 대조합니다. 훔친 PC로 다른 곳에서 접속하면 신호가 서로 맞지 않아 휴대폰으로 다시 확인하고, 주인이 승인하지 않으면 그 요청은 거부됩니다.' },
     { k: 'block', t: '인증서 없으면 차단', dur: 7, q: '등록되지 않은 기기가 접속하면요?', d: '인증서가 없는 접속은 연결 단계에서 끊깁니다. 사내망에는 닿지 않습니다.' },
@@ -195,10 +195,10 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
                       <div class="xc-row head"><span>신호</span><span>업무 PC</span><span>휴대폰</span><span></span></div>
                       {sigs.map((g, j) => {
                         const v = ph ? g.b : g.a, good = ph ? g.ok : true, t0 = (ph ? 6.2 : 0.4) + j * 0.3;
-                        return <div class="xc-row in" style={at(t0)}><span>{g.n}</span><span class={good ? '' : 'odd'}>{v[0]}</span><span>{v[1]}</span><em class={`mark in ${good ? 'ok' : 'stop'}`} style={at(t0 + 0.9)}>{good ? '일치' : '모순'}</em></div>;
+                        return <div class="xc-row in" style={at(t0)}><span>{g.n}</span><span class={good ? '' : 'odd'}>{v[0]}</span><span>{v[1]}</span><em class={`mark in ${good ? 'ok' : 'stop'}`} style={at(t0 + 0.9)}>{good ? '일치' : '불일치'}</em></div>;
                       })}
                       {ph
-                        ? <><p class="verdict warn in" style={at(8.4)}>모순 발견, 휴대폰으로 추가 인증 요청</p><p class="verdict stop in" style={at(10)}>주인이 승인하지 않아 이 요청은 거부</p></>
+                        ? <><p class="verdict warn in" style={at(8.4)}>불일치 발견, 휴대폰으로 추가 인증 요청</p><p class="verdict stop in" style={at(10)}>주인이 승인하지 않아 이 요청은 거부</p></>
                         : <p class="verdict ok in" style={at(3.6)}>모든 신호가 맞아 허용</p>}
                     </div>
                   ))}
@@ -260,7 +260,7 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
               <div class="sig-board">
                 <p class="sb-h in" style={at(0.2)}>이 고객의 평소 결제와 비교해 봅니다</p>
                 <ul class="sig-grid">{paySignals.map((g, j) => <li class="in" style={at(0.6 + j * 0.25)}><Icon name={g.i} size={18} /><span>{g.t}</span></li>)}</ul>
-                <p class="sb-m in" style={at(3.4)}>신호를 하나씩 따로 보지 않고 함께 봅니다. AI 리스크 엔진이 평소에서 얼마나 벗어났는지 계산하고, ZEN 리스크 엔진의 규칙과 OPA 정책으로 판정합니다.</p>
+                <p class="sb-m in" style={at(3.4)}>신호를 하나씩 따로 보지 않고 함께 봅니다. 이 고객의 평소 결제에서 얼마나 벗어났는지 계산하고, 금지 사항에 걸리는지 함께 봐서 권고를 정합니다.</p>
                 <p class="sb-r in" style={at(5)}><span class="badge ok">승인</span><span class="badge warn">추가 확인</span><span class="badge stop">보류</span><span>중 하나를 이유와 함께 권고합니다</span></p>
               </div>
             )}
