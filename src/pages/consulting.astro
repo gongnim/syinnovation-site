@@ -1,0 +1,179 @@
+---
+// IT 컨설팅·개발: custom consulting and development. Laid out after the company's current site (Full IT 서비스):
+// strategy to system in one team, process before code, the PI steps and build principles, what each stage leaves
+// behind, and past work. No client names or project figures. The hero is a plain photo (Pexels, credited).
+import Base from '../layouts/Base.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+
+const flow = ['요구사항', '기술 설계', '개발 · QA', '배포', '운영 · 유지보수'];
+
+const services = [
+  { i: 'search', t: 'PI 컨설팅', d: '지금 일하는 방식을 함께 들여다보고, 줄일 일과 바꿀 일을 정리합니다. 개발 전에 무엇을 만들지부터 분명히 합니다.' },
+  { i: 'code', t: '맞춤 개발', d: 'Web, iOS, Android, 백엔드를 회사 업무에 맞게 만듭니다. AI 개발 도구로 빠르게 만들고, 코드 검토와 시험은 사람이 직접 챙깁니다.' },
+  { i: 'cycle', t: '운영과 유지보수', d: '오픈한 뒤에도 기능 개선, 업데이트, 장애 대응을 이어서 맡습니다.' },
+  { i: 'shield', t: '맞춤 기술 개발', d: '인증, 결제, 보안처럼 회사마다 다른 요구에 맞춰 필요한 기능을 직접 개발합니다.' },
+];
+
+const pi = [
+  { t: '현황 분석', d: '담당자 인터뷰와 문서 검토로 지금의 업무와 문제를 정리합니다.' },
+  { t: '개선 방향 설정', d: '문제의 근본 원인을 찾고, 회사 전체의 개선 방향을 정합니다.' },
+  { t: '개선 과제 정의', d: '바뀐 업무 흐름을 설계하고, 필요한 IT 요구사항을 적습니다.' },
+  { t: '시스템 구축 전략', d: '단계별 로드맵과 예산, 진행 방식을 정합니다.' },
+  { t: '구축과 운영 인계', d: '인프라와 시스템을 만들고, 사용자 교육을 거쳐 운영까지 넘깁니다.' },
+];
+
+const principles = [
+  { t: 'PI 먼저', d: '시스템을 정하기 전에 일하는 방식부터 바꿉니다.' },
+  { t: '업무 효율 우선', d: '기술이 할 수 있는 것보다 사람이 일하는 방식을 기준으로 합니다.' },
+  { t: '꼭 필요한 것만', d: '필요한 화면만 만들고, 같은 내용을 두 번 입력하지 않게 합니다.' },
+  { t: '단계별 구축', d: '핵심을 먼저, 확장은 다음, 고도화는 마지막에 합니다.' },
+];
+
+const stages = [
+  { k: '1단계', t: '분석과 방향 수립', items: ['현황 분석 보고서', '이슈 목록', '개선 방향'] },
+  { k: '2단계', t: '업무와 IT 설계', items: ['업무 설계서', 'IT 요구사항 명세', '시스템 청사진'] },
+  { k: '3단계', t: '구축과 운영 인계', items: ['인프라와 시스템', '사용자 교육', '운영 인계'] },
+];
+
+const work = [
+  { t: '제조사 업무 프로세스 혁신(PI)', d: '업무 흐름을 분석하고 새 시스템 개발로 이어지는 PI 컨설팅' },
+  { t: '카드사 인증 서비스', d: '금융권 모바일 인증 서비스 개발과 운영' },
+  { t: '결제 모듈 개발', d: 'NFC 결제 모듈 등 결제 기능 개발' },
+  { t: '점자 변환 솔루션', d: '접근성을 위한 점자 변환 기능 개발' },
+];
+---
+<Base title="IT 컨설팅·개발" description="업무 분석(PI)부터 맞춤 개발과 운영까지, 회사에 맞춘 신영이노베이션의 IT 컨설팅·개발.">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">IT 컨설팅·개발</p>
+        <h1 class="title">전략부터 시스템까지,<br />회사에 맞춰 컨설팅하고<br />개발합니다</h1>
+        <p class="lead-d">코드 한 줄 쓰기 전에 일하는 방식부터 봅니다.<br />PI 컨설팅부터 맞춤 개발과 운영까지 한 팀이 맡습니다.</p>
+        <div class="btn-row">
+          <a class="btn primary" href="/contact?type=ai">IT 컨설팅·개발 문의</a>
+          <a class="btn ghost" href="#process">진행 방식 보기</a>
+        </div>
+      </div>
+      <figure class="photo">
+        <img src="/images/consulting/hero.webp" srcset="/images/consulting/hero-800.webp 800w, /images/consulting/hero.webp 1600w" sizes="(max-width: 1023px) 100vw, 50vw"
+          alt="화면 앞에서 업무 흐름을 설명하는 사람과, 코드를 띄운 모니터 앞에 앉은 개발자들" width="1600" height="1068" fetchpriority="high" />
+        <figcaption>사진: Mikhail Nilov, Pexels</figcaption>
+      </figure>
+    </div>
+    <div class="wrap">
+      <ol class="flow" aria-label="진행 순서">
+        {flow.map((f, i) => <li><span class="flow-n">{String(i + 1).padStart(2, '0')}</span>{f}</li>)}
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head-center reveal">
+        <h2 class="h2">무엇을 하나요</h2>
+        <p class="lead">정해진 제품을 파는 대신, 회사의 일하는 방식에 맞춰 컨설팅하고 직접 만듭니다.</p>
+      </div>
+      <ul class="svc">
+        {services.map((s) => (
+          <li class="reveal"><span class="svc-ico"><Icon name={s.i} size={24} /></span><h3 class="h4">{s.t}</h3><p class="body">{s.d}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section mist" id="process">
+    <div class="wrap">
+      <div class="head-left reveal">
+        <h2 class="h2 sm">PI 컨설팅과 맞춤 개발</h2>
+        <p class="lead">프로세스 혁신이 언제나 먼저입니다. 화면 하나를 설계하기 전에 일하는 방식부터 다시 짭니다.</p>
+      </div>
+      <div class="pi-grid">
+        <div class="reveal">
+          <h3 class="sub">PI 컨설팅 5단계</h3>
+          <ol class="pi">
+            {pi.map((p, i) => <li><span class="pi-n">{i + 1}</span><div><b>{p.t}</b><p class="body">{p.d}</p></div></li>)}
+          </ol>
+        </div>
+        <div class="reveal">
+          <h3 class="sub">구축 원칙</h3>
+          <ul class="rules">
+            {principles.map((p) => <li><b>{p.t}</b><p class="body">{p.d}</p></li>)}
+          </ul>
+        </div>
+      </div>
+      <ul class="stages">
+        {stages.map((s) => (
+          <li class="reveal"><p class="stage-k">{s.k}</p><h3 class="h4">{s.t}</h3><p class="stage-items">{s.items.join(' · ')}</p></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="head-left reveal"><h2 class="h2 sm">해 온 일</h2></div>
+      <ul class="work">
+        {work.map((w) => (<li class="reveal"><h3 class="h4">{w.t}</h3><p class="body">{w.d}</p></li>))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title="만들고 싶은 것이 있다면, 업무 이야기부터 들려주세요" primary={{ href: '/contact?type=ai', label: 'IT 컨설팅·개발 문의' }} />
+</Base>
+
+<style>
+  /* hero: copy beside a plain photo, the delivery steps underneath */
+  .hero { background: var(--night); color: var(--on-night); padding: calc(96px + clamp(40px, 4vw, 72px)) 0 clamp(56px, 6vw, 88px); }
+  .hero-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+  .eyebrow { font-size: clamp(16px, .3vw + 14px, 18px); font-weight: 600; color: #9fb8de; }
+  .title { margin-top: 14px; font-size: clamp(32px, 2.8vw + 10px, 54px); line-height: 1.22; letter-spacing: -0.03em; font-weight: 700; }
+  .lead-d { margin-top: 22px; font-size: clamp(16px, .4vw + 13px, 19px); line-height: 1.7; color: var(--on-night-2); }
+  .hero .btn-row { margin-top: 32px; }
+  .hero .btn.ghost { background: transparent; color: var(--on-night); border-color: rgba(255, 255, 255, .32); }
+  .hero .btn.ghost:hover { border-color: #fff; }
+  .photo { margin: 0; }
+  .photo img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 20px; }
+  .photo figcaption { margin-top: 8px; font-size: 12px; color: rgba(243, 246, 251, .5); text-align: right; }
+  .flow { list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--night-line); border-radius: 16px; overflow: hidden; }
+  .flow li { display: grid; gap: 4px; justify-items: center; padding: 18px 12px; font-size: 16px; font-weight: 600; text-align: center; background: rgba(255, 255, 255, .03); }
+  .flow li + li { border-left: 1px solid var(--night-line); }
+  .flow-n { font-size: 13px; font-weight: 600; color: #9fb8de; font-variant-numeric: tabular-nums; }
+
+  /* services */
+  .svc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
+  .svc li { padding: 28px 24px 30px; border-radius: var(--r-xl); border: 1px solid var(--line); background: #fff; display: grid; gap: 10px; align-content: start; }
+  .svc-ico { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 14px; background: var(--mist); color: var(--blue); margin-bottom: 6px; }
+
+  /* PI steps and principles */
+  .pi-grid { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: clamp(28px, 4vw, 56px); }
+  .sub { font-size: 15px; font-weight: 700; color: var(--ink-3); margin-bottom: 14px; }
+  .pi { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .pi li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 14px; padding: 14px 0; border-top: 1px solid var(--line); }
+  .pi li:first-child { border-top: 0; padding-top: 0; }
+  .pi-n { display: grid; place-items: center; width: 32px; height: 32px; border-radius: 50%; background: var(--blue); color: #fff; font-weight: 700; font-size: 15px; }
+  .pi b, .rules b { font-size: 17px; }
+  .pi .body, .rules .body { margin-top: 2px; }
+  .rules { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .rules li { padding: 20px 20px 22px; border-radius: var(--r-lg); background: #fff; }
+  .stages { list-style: none; margin: clamp(36px, 4vw, 56px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+  .stages li { padding: 24px 24px 26px; border-radius: var(--r-xl); background: #fff; border-top: 3px solid var(--blue); display: grid; gap: 6px; }
+  .stage-k { font-size: 14px; font-weight: 700; color: var(--blue); }
+  .stage-items { color: var(--ink-2); }
+
+  .work { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .work li { padding: 26px 26px 28px; border-radius: var(--r-xl); border: 1px solid var(--line); display: grid; gap: 8px; }
+
+  @media (max-width: 1023px) {
+    .hero-grid { grid-template-columns: minmax(0, 1fr); }
+    .svc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pi-grid { grid-template-columns: minmax(0, 1fr); }
+    .stages { grid-template-columns: minmax(0, 1fr); }
+  }
+  @media (max-width: 767px) {
+    .flow { grid-template-columns: minmax(0, 1fr); }
+    .flow li { grid-template-columns: 32px minmax(0, 1fr); justify-items: start; text-align: left; padding: 12px 16px; }
+    .flow li + li { border-left: 0; border-top: 1px solid var(--night-line); }
+    .svc, .rules, .work { grid-template-columns: minmax(0, 1fr); }
+  }
+</style>

@@ -36,7 +36,7 @@ export const newsNav = [
 
 export const nav: { href: string; label: string; children?: { href: string; label: string }[] }[] = [
   { href: '/trust-gateway', label: 'Trust Gateway' },
-  { href: '/ai-consulting', label: 'AI컨설팅' },
+  { href: '/consulting', label: 'IT 컨설팅·개발' },
   { href: '/news', label: '소식', children: newsNav },
   { href: '/library', label: '자료실', children: libraryNav },
   { href: '/company', label: '회사소개' },

@@ -10,7 +10,7 @@
 const SENTENCE_END = /([가-힣][.?!])[ \t]+(?=\S)/g;
 // a comma after a word, followed by a space: "결제까지, 사람들이" (but not "1,000")
 const CLAUSE = /(?<=[가-힣A-Za-z0-9)],)[ \t]+(?=\S)/;
-const NAMES = ['Trust Gateway', 'Trust Auth', 'Never Trust', 'Always Verify', 'Face ID'];
+const NAMES = ['Trust Gateway', 'Trust Auth', 'Never Trust', 'Always Verify', 'Face ID', 'IT 컨설팅'];
 const NAME_RE = new RegExp(NAMES.map((n) => n.replace(' ', '[ \\t]+')).join('|'), 'g');
 // a middle dot between two words ("PC·태블릿", "인증·인가"); word joiners (U+2060) on both sides forbid a break there
 const MIDDOT = /(?<=[가-힣A-Za-z0-9])·(?=[가-힣A-Za-z0-9])/g;
