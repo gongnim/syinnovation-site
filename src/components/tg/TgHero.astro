@@ -1,11 +1,11 @@
 ---
-// Trust Gateway hero (user, 2026-11-13): the copy on the left, the product-screen demo (GatewayDemo) on the right.
-// The blueprint film it replaces (GatewayHero + SketchHero) is kept unused in src/components; to bring it back, put
-// <GatewayHero /> here again and re-add the Nanum Pen Script font link in trust-gateway.astro's head slot.
+// Trust Gateway hero (user, 2026-11-13): the copy on top, centred, and the product-screen demo (GatewayDemo) full width
+// below it. The blueprint film it replaced (GatewayHero + SketchHero) is kept unused in src/components; to bring it
+// back, put <GatewayHero /> here again and re-add the Nanum Pen Script font link in trust-gateway.astro's head slot.
 import GatewayDemo from '../GatewayDemo.astro';
 ---
 <section class="th">
-  <div class="wrap th-grid">
+  <div class="wrap">
     <div class="th-copy">
       <p class="th-eyebrow">Trust Gateway</p>
       <h1 class="th-title">Never Trust, <br />Always Verify</h1>
@@ -18,15 +18,14 @@ import GatewayDemo from '../GatewayDemo.astro';
 </section>
 
 <style>
-  /* a narrow copy column and a wide demo; below 1280px the two stack so the demo keeps its full width */
-  .th { background: var(--night); color: var(--on-night); padding: calc(96px + clamp(24px, 2.5vw, 40px)) 0 clamp(56px, 6vw, 88px); }
-  .th-grid { display: grid; grid-template-columns: 320px minmax(0, 1fr); gap: 40px; align-items: center; }
+  .th { background: var(--night); color: var(--on-night); padding: calc(96px + clamp(32px, 4vw, 56px)) 0 clamp(56px, 6vw, 88px); }
+  .th-copy { max-width: 760px; margin: 0 auto; text-align: center; }
   .th-eyebrow { font-size: 15px; font-weight: 600; color: #9fb8de; }
-  .th-title { margin-top: 12px; font-size: clamp(32px, 1.2vw + 24px, 42px); line-height: 1.22; letter-spacing: -0.03em; font-weight: 700; }
-  .th-sub { margin-top: 16px; font-size: 20px; line-height: 1.45; letter-spacing: -0.02em; font-weight: 700; color: #fff; }
-  .th-lead { margin-top: 16px; font-size: 16px; line-height: 1.7; color: var(--on-night-2); }
-  .th-copy .btn-row { margin-top: 28px; }
-  @media (max-width: 1279px) {
-    .th-grid { grid-template-columns: minmax(0, 1fr); gap: 32px; }
-  }
+  .th-title { margin-top: 12px; font-size: clamp(32px, 2.4vw + 18px, 52px); line-height: 1.2; letter-spacing: -0.03em; font-weight: 700; }
+  .th-sub { margin-top: 14px; font-size: clamp(20px, .5vw + 16px, 24px); line-height: 1.45; letter-spacing: -0.02em; font-weight: 700; color: #fff; }
+  .th-lead { margin-top: 12px; font-size: clamp(16px, .2vw + 14px, 18px); line-height: 1.7; color: var(--on-night-2); }
+  .th-copy .btn-row { margin-top: 24px; justify-content: center; }
+  .th-demo { margin-top: clamp(40px, 5vw, 56px); }
+  /* one line on wide screens, two on phones */
+  @media (min-width: 768px) { .th-title br { display: none; } }
 </style>

@@ -293,7 +293,7 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
 <style>
   .demo { --hi: #e6eefc; --mu: #8fa3c2; --mint: #63d6b4; --or: #f6882a; --coral: #ff6f61; --line: #2a3a55; --panel: #0f141c; }
   /* it sits in the dark Trust Gateway hero (TgHero) */
-  .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
+  .tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 16px; }
   .tabs button {
     height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, .24); background: transparent; cursor: pointer;
     font-size: 15px; font-weight: 600; color: #c9d6ea; transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
@@ -548,7 +548,7 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
   .i-pause, .i-play { display: inline-grid; }
   .i-play, .demo.paused .i-pause { display: none; }
   .demo.paused .i-play { display: inline-grid; }
-  .note { margin-top: 12px; font-size: 13px; color: var(--mu); }
+  .note { margin-top: 12px; text-align: center; font-size: 13px; color: var(--mu); }
 
   @media (max-width: 767px) {
     .screen { aspect-ratio: 3 / 4; } /* tall enough for the wrapped report and case cards */

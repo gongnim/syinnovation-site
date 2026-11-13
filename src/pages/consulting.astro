@@ -317,11 +317,11 @@ const at = (n: number) => `--at:${n}`;
           <li class="l-cm" style="--k:0"><i>1</i><code>// 결재선 정하기</code></li>
           <li class="l-ai" style="--k:1"><i>2</i><code>export function approvalLine(doc) {'{'}</code></li>
           <li class="l-ai" style="--k:2"><i>3</i><code>  const steps = doc.amount &gt; limit ? 3 : 2;</code></li>
-          <li class="l-del" style="--k:3"><i>4</i><code>  return approvers(doc.team, steps);</code></li>
-          <li class="l-dev" style="--k:4"><i>4</i><code>  return withDelegates(approvers(doc.team, steps));</code></li>
+          <li class="l-del" style="--k:3"><i></i><code>  return approvers(doc.team, steps);</code><b class="rv-mark t-ai">AI 초안</b></li>
+          <li class="l-dev" style="--k:4"><i>4</i><code>  return withDelegates(approvers(doc.team, steps));</code><b class="rv-mark t-dev">개발자 수정</b></li>
           <li class="l-ai" style="--k:5"><i>5</i><code>{'}'}</code></li>
         </ol>
-        <div class="rv-note"><span class="rv-who">개발자</span><p>결재자가 휴가 중이면 결재가 대리 결재자에게 넘어가야 해서, 업무 규칙에 맞게 고쳤습니다.</p></div>
+        <div class="rv-note"><span class="rv-who">개발자</span><p>AI 초안은 결재자가 휴가 중인 경우를 빠뜨렸습니다. 대리 결재자에게 넘어가도록 업무 규칙에 맞게 고쳤습니다.</p></div>
         <ul class="rv-checks"><li style="--k:0"><Icon name="check" size={16} />코드 검토 완료</li><li style="--k:1"><Icon name="check" size={16} />테스트 통과</li><li style="--k:2"><Icon name="check" size={16} />시연 화면 준비</li></ul>
       </div>
     </div>
@@ -633,10 +633,10 @@ const at = (n: number) => `--at:${n}`;
   .rv-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 12px 16px; border-bottom: 1px solid var(--night-line); background: #101b2c; }
   .rv-file { margin-right: auto; font-family: ui-monospace, Consolas, monospace; font-size: 14px; color: #e6eefc; }
   .rv-tag { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; }
-  .rv-tag.t-ai { background: rgba(127, 178, 255, .16); color: #9fc2ff; }
-  .rv-tag.t-dev { background: rgba(246, 136, 42, .18); color: #f6b26b; }
+  .review .t-ai { background: rgba(127, 178, 255, .16); color: #9fc2ff; }
+  .review .t-dev { background: rgba(246, 136, 42, .18); color: #f6b26b; }
   .rv-code { list-style: none; margin: 0; padding: 10px 0; font-family: ui-monospace, Consolas, monospace; font-size: clamp(12px, 1vw, 14px); }
-  .rv-code li { display: grid; grid-template-columns: 40px minmax(0, 1fr); align-items: center; padding: 3px 16px 3px 0; border-left: 3px solid transparent; }
+  .rv-code li { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; align-items: center; padding: 3px 16px 3px 0; border-left: 3px solid transparent; }
   .rv-code i { font-style: normal; text-align: right; padding-right: 14px; color: #4d6080; }
   .rv-code code { white-space: pre; overflow: hidden; text-overflow: ellipsis; }
   .rv-code .l-cm code { color: #7f93b3; }
@@ -645,6 +645,8 @@ const at = (n: number) => `--at:${n}`;
   .rv-code .l-del code { color: #c98b84; text-decoration: line-through; }
   .rv-code .l-dev { background: rgba(246, 136, 42, .1); border-left-color: var(--orange); }
   .rv-code .l-dev code { color: #f6d2b0; }
+  /* the changed lines say who wrote them, so the colours need no legend */
+  .rv-mark { margin-left: 8px; padding: 2px 8px; border-radius: 999px; font: 700 11px/1.4 'Pretendard Variable', Pretendard, system-ui, sans-serif; white-space: nowrap; }
   .rv-note { margin: 4px 16px 0; padding: 12px 14px; border-radius: 12px; background: #142238; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px; align-items: start; }
   .rv-who { font-size: 12px; font-weight: 700; padding: 3px 9px; border-radius: 999px; background: rgba(246, 136, 42, .18); color: #f6b26b; }
   .rv-note p { font-size: 14px; line-height: 1.6; color: #dfe7f5; }
