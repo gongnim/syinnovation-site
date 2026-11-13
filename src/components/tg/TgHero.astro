@@ -1,31 +1,19 @@
 ---
-// Trust Gateway hero (user, 2026-11-13): the copy on top, centred, and the product-screen demo (GatewayDemo) full width
-// below it. The blueprint film it replaced (GatewayHero + SketchHero) is kept unused in src/components; to bring it
-// back, put <GatewayHero /> here again and re-add the Nanum Pen Script font link in trust-gateway.astro's head slot.
+// Trust Gateway hero (user, 2026-11-13): the product-screen demo (GatewayDemo) is the hero on its own, with the free
+// PoC/consulting button under it. The page title stays for search and screen readers only.
+// The blueprint film this replaced (GatewayHero + SketchHero) is kept unused in src/components; to bring it back, put
+// <GatewayHero /> here again and re-add the Nanum Pen Script font link in trust-gateway.astro's head slot.
 import GatewayDemo from '../GatewayDemo.astro';
 ---
 <section class="th">
   <div class="wrap">
-    <div class="th-copy">
-      <p class="th-eyebrow">Trust Gateway</p>
-      <h1 class="th-title">Never Trust, <br />Always Verify</h1>
-      <p class="th-sub">아무도 믿지 않고, 매번 확인합니다</p>
-      <p class="th-lead">다중 신호 교차 검증으로 여러분의 소중한 자산을 보호합니다.</p>
-      <div class="btn-row"><a class="btn primary" href="/contact?type=poc">무료 PoC 신청</a></div>
-    </div>
-    <div class="th-demo"><GatewayDemo /></div>
+    <h1 class="sr-only">Trust Gateway: Never Trust, Always Verify. 아무도 믿지 않고, 매번 확인합니다</h1>
+    <GatewayDemo />
+    <div class="th-cta"><a class="btn primary" href="/contact?type=poc">무료 PoC/컨설팅 신청</a></div>
   </div>
 </section>
 
 <style>
   .th { background: var(--night); color: var(--on-night); padding: calc(96px + clamp(32px, 4vw, 56px)) 0 clamp(56px, 6vw, 88px); }
-  .th-copy { max-width: 760px; margin: 0 auto; text-align: center; }
-  .th-eyebrow { font-size: 15px; font-weight: 600; color: #9fb8de; }
-  .th-title { margin-top: 12px; font-size: clamp(32px, 2.4vw + 18px, 52px); line-height: 1.2; letter-spacing: -0.03em; font-weight: 700; }
-  .th-sub { margin-top: 14px; font-size: clamp(20px, .5vw + 16px, 24px); line-height: 1.45; letter-spacing: -0.02em; font-weight: 700; color: #fff; }
-  .th-lead { margin-top: 12px; font-size: clamp(16px, .2vw + 14px, 18px); line-height: 1.7; color: var(--on-night-2); }
-  .th-copy .btn-row { margin-top: 24px; justify-content: center; }
-  .th-demo { margin-top: clamp(40px, 5vw, 56px); }
-  /* one line on wide screens, two on phones */
-  @media (min-width: 768px) { .th-title br { display: none; } }
+  .th-cta { margin-top: clamp(24px, 3vw, 32px); display: flex; justify-content: center; }
 </style>

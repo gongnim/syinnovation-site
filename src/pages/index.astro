@@ -1,7 +1,7 @@
 ---
 // Home: a trailer for both businesses. The hero plays night to day on one scroll; then recent incidents,
-// how one login is not enough (three proofs that play in turn) with the way on to /trust-gateway, the consulting
-// team, a customer and news, and the call. The signal check, the leaked-account switch and the uses tabs live only on
+// how one login is not enough (three proofs that play in turn) with the way on to /trust-gateway, IT consulting on one
+// sheet with the way on to /consulting, the latest news, and the call. The signal check, the leaked-account switch and the uses tabs live only on
 // /trust-gateway (user, 2026-11-13: no duplicates).
 // Each section has one moment that moves, started when it comes into view.
 import Base from '../layouts/Base.astro';
@@ -15,19 +15,14 @@ import '@fontsource-variable/inter-tight/wght.css';
 
 const latest = sorted.slice(0, 3);
 
-// the consulting steps with the teammate sketches from /consulting
-const team = [
-  { t: '요구사항', img: 'sk-req', alt: '고객의 이야기를 들으며 메모하는 박성수 전략총괄을 그린 색연필 스케치' },
-  { t: '기술 설계', img: 'sk-design', alt: '화이트보드에 업무 흐름을 그리는 공동현 기술총괄을 그린 색연필 스케치' },
-  { t: '개발 · QA', img: 'sk-dev', alt: '모니터 앞에서 코드를 검토하는 임종세 개발 엔지니어를 그린 색연필 스케치' },
-  { t: '배포', img: 'sk-launch', alt: '서버 옆에서 노트북으로 배포를 확인하는 강민관 연구원을 그린 색연필 스케치' },
-  { t: '운영 · 유지보수', img: 'sk-ops', alt: '운영 현황 화면을 살펴보는 박희준 운영총괄을 그린 색연필 스케치' },
-];
+// IT consulting one-sheet: before and after (from /consulting's 바뀐 뒤의 모습), and the ops log
+const ba = [['엑셀로 취합', '한 번만 입력'], ['메일로 결재', '휴대폰으로 결재'], ['보고서는 수작업', '보고서는 자동']];
+const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추가', '배포 완료'], ['로그인 오류 신고', '대응 완료']];
 ---
 <Base title="신영이노베이션" description="제로트러스트 원칙을 업무 접속에 적용한 Trust Gateway. 휴대폰과 PC의 신호를 함께 확인하고, 로그인 이후에도 요청마다 다시 검증합니다.">
 
   <!-- 1. hero -->
-  <section class="hero">
+  <section class="hero" data-snav-down>
     <div class="hero-pin">
       <ShieldSphere />
     </div>
@@ -47,6 +42,7 @@ const team = [
   <section class="section mist" id="proofs">
     <div class="wrap">
       <div class="head-center reveal">
+        <p class="proofs-k">Trust Gateway</p>
         <h2 class="h2">로그인 한 번이 아니라, <br />요청마다 확인합니다</h2>
         <p class="lead">PC는 기기를, 휴대폰은 사람을 증명하고, 게이트웨이는 요청마다 다시 확인합니다. <br />하나가 뚫려도 나머지가 막습니다.</p>
       </div>
@@ -99,35 +95,55 @@ const team = [
     </div>
   </section>
 
-  <!-- 4. IT consulting and development: the team, step by step -->
-  <section class="section night" id="team">
-    <div class="wrap team">
-      <div class="reveal">
-        <p class="team-k">IT 컨설팅·개발</p>
-        <h2 class="h2 sm">전략부터 시스템까지, <br />한 팀이 맡습니다</h2>
-        <p class="lead">업무 분석(PI)부터 맞춤 개발과 운영까지, <br />IT 컨설팅과 개발도 한 팀이 함께합니다.</p>
-        <ol class="team-steps">
-          {team.map((s, i) => (<li class={i === 0 ? 'on' : undefined}><span>{String(i + 1).padStart(2, '0')}</span>{s.t}</li>))}
-        </ol>
-        <a class="btn primary" href="/consulting">IT 컨설팅·개발 보기</a>
+  <!-- 4. IT consulting and development on one sheet, like the Trust Gateway one above -->
+  <section class="section night" id="consult">
+    <div class="wrap">
+      <div class="head-center reveal">
+        <p class="cs-k">IT 컨설팅·개발</p>
+        <h2 class="h2">만들고 끝이 아니라, <br />업무부터 운영까지 함께합니다</h2>
+        <p class="lead">업무를 먼저 분석하고, AI로 빠르게 만들어 개발자가 검증하고, 오픈한 뒤의 운영까지 이어 갑니다. <br />분석부터 운영까지 신영이노베이션이 함께합니다.</p>
       </div>
-      <figure class="team-ph reveal">
-        {team.map((s, i) => (
-          <img class={i === 0 ? 'on' : undefined} src={`/images/consulting/${s.img}-800.webp`} srcset={`/images/consulting/${s.img}-800.webp 800w, /images/consulting/${s.img}.webp 1536w`}
-            sizes="(max-width: 1023px) 100vw, 50vw" alt={s.alt} width="1536" height="1024" loading="lazy" decoding="async" />
-        ))}
-      </figure>
+      <div class="proofs cs play-on-view">
+        <article class="card proof reveal">
+          <div class="media">
+            <div class="ba">
+              <div class="ba-col"><p class="ba-h">지금</p><ul>{ba.map(([a], k) => <li style={`--k:${k}`}>{a}</li>)}</ul></div>
+              <span class="ba-arrow" aria-hidden="true"></span>
+              <div class="ba-col after"><p class="ba-h">바뀐 뒤</p><ul>{ba.map(([, b], k) => <li style={`--k:${k}`}><Icon name="check" size={14} />{b}</li>)}</ul></div>
+            </div>
+          </div>
+          <h3 class="h4">업무부터 다시 그립니다</h3>
+          <p class="body">코드보다 일하는 방식을 먼저 봅니다. 업무 흐름을 다시 그려, 꼭 필요한 기능만 만듭니다.</p>
+        </article>
+        <article class="card proof reveal">
+          <div class="media">
+            <div class="mrv" aria-hidden="true">
+              <p class="mrv-f">approval.ts</p>
+              <p class="mrv-l del"><code>return approvers(team);</code><b class="t-ai">AI 초안</b></p>
+              <p class="mrv-l add"><code>return withDelegates(team);</code><b class="t-dev">개발자 수정</b></p>
+              <p class="mrv-ok"><Icon name="check" size={14} />코드 검토 · 테스트 통과</p>
+            </div>
+          </div>
+          <h3 class="h4">AI가 빠르게 만들고, 개발자가 검증합니다</h3>
+          <p class="body">반복되는 코드는 AI 개발 도구가 빠르게 만들고, 신영이노베이션 개발자가 모든 코드를 검증해 업무 규칙에 맞게 고칩니다.</p>
+        </article>
+        <article class="card proof wide reveal">
+          <div class="media">
+            <ul class="ops">{ops.map(([a, b], k) => <li style={`--k:${k}`}><span>{a}</span><b>{b}</b></li>)}</ul>
+          </div>
+          <div class="wide-copy">
+            <h3 class="h4">오픈한 뒤에도 운영과 개선을 이어 갑니다</h3>
+            <p class="body">기능 개선과 장애 대응을 맡고, 사용 현황을 보고 다음 개선을 제안합니다.</p>
+          </div>
+        </article>
+      </div>
+      <p class="tg-more reveal"><a class="btn ghost" href="/consulting">IT 컨설팅·개발 자세히 알아보기</a></p>
     </div>
   </section>
 
-  <!-- 5. a customer, and the latest news -->
+  <!-- 5. the latest news (the customer strip left home on 2026-11-13) -->
   <section class="section paper2">
     <div class="wrap">
-      <a class="cust reveal" href="/trust-gateway#customer">
-        <span class="cust-k">도입 고객</span>
-        <b>에어레인(AIRRANE)</b>
-        <span class="cust-d">코스닥 상장 기체분리막 전문기업 · Trust Gateway 도입과 ERP 구축</span>
-      </a>
       <div class="news-head reveal">
         <h2 class="h2 sm">소식</h2>
         <a class="text-link" href="/news">전체 소식 보기</a>
@@ -147,7 +163,7 @@ const team = [
   </section>
 
   <!-- 6. CTA -->
-  <CtaBand title="우리 회사 환경에서 먼저 확인해 보세요" lead="평가용 환경에 업무 서비스 하나를 연결해 시작합니다. 접속 흐름과 정책을 직접 보고 결정하세요." secondary={{ href: '/trust-gateway', label: 'Trust Gateway 보기' }} />
+  <CtaBand title="IT 개발부터 보안까지, 필요한 것부터 시작하세요" lead="새 업무 시스템이 필요하다면 무료 컨설팅으로 지금 상황부터 함께 살펴봅니다. 접속 보안이 고민이라면 무료 PoC로 Trust Gateway를 우리 회사 환경에서 직접 써 보세요." />
 </Base>
 
 <style>
@@ -165,8 +181,8 @@ const team = [
   }
   /* the copy sits over the pinned sphere and scrolls with the page: the opening copy on the first screen, the
      closing line where the second screen ends */
-  .hero-copy { position: absolute; z-index: 1; top: 0; left: 0; right: 0; text-align: center; color: var(--on-night); pointer-events: none; padding-top: calc(var(--header-h) + clamp(88px, 11vh, 132px)); }
-  .hero-focus { position: absolute; z-index: 1; left: 0; right: 0; top: calc(100% - 35vh); top: calc(100% - 35svh); text-align: center; color: var(--ink); }
+  .hero-copy { position: absolute; z-index: 1; top: 0; left: 0; right: 0; text-align: center; color: var(--on-night); pointer-events: none; opacity: calc(1 - var(--hero-day, 0)); padding-top: calc(var(--header-h) + clamp(88px, 11vh, 132px)); }
+  .hero-focus { position: absolute; z-index: 1; left: 0; right: 0; top: calc(100% - 35vh); top: calc(100% - 35svh); text-align: center; color: var(--ink); opacity: var(--hero-day, 1); }
   .hero-focus-title { font-size: clamp(26px, 3.6vw, 52px); line-height: 1.22; letter-spacing: -0.03em; font-weight: 700; word-break: keep-all; overflow-wrap: normal; text-wrap: balance; }
   html:not(.js) .hero { height: auto; }
   html:not(.js) .hero-focus { display: none; }
@@ -233,28 +249,48 @@ const team = [
   @keyframes press { 50% { transform: scale(.92); } }
   @keyframes slide-in { from { opacity: 0; transform: translateX(14px); } to { opacity: 1; transform: none; } }
 
+  /* which product this is: the section label over the heading, like the consulting section's */
+  .proofs-k { font-size: 15px; font-weight: 700; color: var(--blue); margin-bottom: 12px; }
+
   /* the way on to the full Trust Gateway page */
   .tg-more { margin-top: clamp(28px, 4vw, 40px); text-align: center; }
 
-  /* team: the step list and the sketches take turns */
-  .team { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
-  .team-k { font-size: 15px; font-weight: 700; color: #9fb8de; margin-bottom: 12px; }
-  .team .lead { margin-top: 16px; }
-  .team-steps { list-style: none; margin: 24px 0 28px; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .team-steps li { display: flex; gap: 6px; align-items: baseline; padding: 8px 14px; border-radius: 999px; border: 1px solid var(--night-line); font-size: 15px; font-weight: 600; color: var(--on-night-2); transition: background-color .4s var(--ease), color .4s var(--ease), border-color .4s var(--ease); }
-  .team-steps span { font-size: 12px; color: #9fb8de; font-variant-numeric: tabular-nums; transition: color .4s var(--ease); }
-  .team-steps li.on { background: #fff; color: var(--ink); border-color: #fff; }
-  .team-steps li.on span { color: var(--orange-ink); }
-  .team-ph { position: relative; margin: 0; border-radius: var(--r-xl); overflow: hidden; aspect-ratio: 3 / 2; background: #f4ede0; }
-  .team-ph img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s var(--ease), transform 4.5s linear; transform: scale(1.04); }
-  .team-ph img.on { opacity: 1; transform: none; }
+  /* consulting one-sheet: the Trust Gateway card layout on the night section; each card plays one small scene */
+  .cs-k { font-size: 15px; font-weight: 700; color: #9fb8de; margin-bottom: 12px; }
+  .cs .card { background: #13233a; border: 1px solid var(--night-line); color: var(--on-night); }
+  .cs .proof .media { background: #0b1626; }
+  .ba { width: 100%; max-width: 420px; display: grid; grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr); align-items: center; gap: 10px; }
+  .ba-h { font-size: 13px; font-weight: 700; color: var(--on-night-2); margin-bottom: 10px; }
+  .ba ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .ba li { display: flex; align-items: center; gap: 6px; padding: 10px 12px; border-radius: var(--r-md); font-size: 14px; font-weight: 600; }
+  .ba-col:not(.after) li { background: rgba(255, 255, 255, .04); color: #8fa3c2; text-decoration: line-through; text-decoration-color: rgba(255, 111, 97, .7); }
+  .ba-col.after .ba-h { color: #63d6b4; }
+  .ba-col.after li { background: rgba(99, 214, 180, .12); color: #e6eefc; }
+  .ba-col.after li :global(svg) { flex: none; color: #63d6b4; }
+  .ba-arrow { height: 2px; background: var(--orange); position: relative; }
+  .ba-arrow::after { content: ''; position: absolute; right: -2px; top: -5px; width: 10px; height: 12px; background: var(--orange); clip-path: polygon(0 0, 100% 50%, 0 100%); }
+  .mrv { width: 100%; max-width: 420px; border-radius: var(--r-md); background: #101b2c; border: 1px solid var(--night-line); padding: 14px 0 16px; font-size: 13px; }
+  .mrv-f { padding: 0 16px 10px; font-family: ui-monospace, Consolas, monospace; color: #e6eefc; border-bottom: 1px solid var(--night-line); }
+  .mrv-l { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 8px; padding: 9px 16px; border-left: 3px solid transparent; }
+  .mrv-l code { font-family: ui-monospace, Consolas, monospace; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .mrv-l.del { background: rgba(255, 111, 97, .08); border-left-color: #c75b51; }
+  .mrv-l.del code { color: #c98b84; text-decoration: line-through; }
+  .mrv-l.add { background: rgba(246, 136, 42, .1); border-left-color: var(--orange); }
+  .mrv-l.add code { color: #f6d2b0; }
+  .mrv-l b { font-size: 11px; padding: 2px 8px; border-radius: 999px; white-space: nowrap; }
+  .mrv .t-ai { background: rgba(127, 178, 255, .16); color: #9fc2ff; }
+  .mrv .t-dev { background: rgba(246, 136, 42, .18); color: #f6b26b; }
+  .mrv-ok { display: flex; align-items: center; gap: 6px; padding: 12px 16px 0; font-weight: 600; color: #63d6b4; }
+  .ops { list-style: none; margin: 0; padding: 0; width: 100%; display: grid; gap: 10px; }
+  .ops li { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 14px 16px; border-radius: var(--r-md); background: #13233a; border: 1px solid var(--night-line); font-size: 14px; font-weight: 600; color: #e6eefc; }
+  .ops b { font-size: 13px; padding: 4px 12px; border-radius: 999px; background: rgba(99, 214, 180, .14); color: #63d6b4; white-space: nowrap; }
+  :global(html.js) .cs:not(.play) .ba-col.after li, :global(html.js) .cs:not(.play) .mrv-l.add, :global(html.js) .cs:not(.play) .mrv-ok, :global(html.js) .cs:not(.play) .ops li { opacity: 0; }
+  .cs.play .ba-col.after li { animation: rise .5s var(--ease) calc(.4s + var(--k) * .3s) both; }
+  .cs.play .mrv-l.add { animation: rise .5s var(--ease) 1.6s both; }
+  .cs.play .mrv-ok { animation: pop .5s var(--ease) 2.2s both; }
+  .cs.play .ops li { animation: slide-in .5s var(--ease) calc(2.8s + var(--k) * .4s) both; }
 
-  /* customer and news */
-  .cust { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 20px 24px; margin-bottom: clamp(40px, 5vw, 64px); border-radius: var(--r-lg); background: #fff; border: 1px solid var(--line); transition: border-color .2s var(--ease); }
-  .cust:hover { border-color: var(--blue); }
-  .cust-k { font-size: 13px; font-weight: 700; color: var(--blue); }
-  .cust b { font-size: 18px; }
-  .cust-d { color: var(--ink-2); font-size: 15px; }
+  /* news */
   .news-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 32px; }
   .news-grid { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
   .news-card { display: grid; gap: 14px; align-content: start; height: 100%; background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); padding: 26px 26px 30px; transition: border-color .2s var(--ease); }
@@ -265,19 +301,27 @@ const team = [
   @media (max-width: 1023px) {
     .proofs { grid-template-columns: 1fr; }
     .proof.wide { grid-template-columns: 1fr; }
-    .team { grid-template-columns: 1fr; }
     .news-grid { grid-template-columns: 1fr; }
   }
   @media (max-width: 767px) {
     .hero-lead br:not(.sb) { display: none; }
     .hero-focus { top: calc(100% - 48vh); top: calc(100% - 48svh); }
-    .head-center .lead br, .team .lead br { display: none; }
+    .head-center .lead br { display: none; }
     .log li { grid-template-columns: 1fr auto; }
     .log .why { grid-column: 1 / -1; grid-row: 2; }
   }
+  /* narrow phones: the before/after stacks, and the code lines wrap instead of being cut */
+  @media (max-width: 560px) {
+    .cs .proof .media { padding: 18px; }
+    .ba { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+    .ba-arrow { width: 2px; height: 22px; justify-self: center; }
+    .ba-arrow::after { right: -5px; top: auto; bottom: -2px; width: 12px; height: 10px; clip-path: polygon(0 0, 100% 0, 50% 100%); }
+    .mrv-l { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+    .mrv-l code { white-space: normal; overflow-wrap: anywhere; }
+    .mrv-l b { justify-self: start; }
+  }
   @media (prefers-reduced-motion: reduce) {
     html.js .hero-title, html.js .hero-lead { animation: none; }
-    .team-ph img { transition: none; transform: none; }
   }
 </style>
 
@@ -293,20 +337,62 @@ const team = [
     }, { threshold: [0, 0.25] }).observe(el);
   });
 
-  // team: the sketches and the step list take turns every few seconds while on screen
-  const team = document.querySelector<HTMLElement>('#team');
-  if (team && !still) {
-    const imgs = [...team.querySelectorAll<HTMLImageElement>('.team-ph img')];
-    const steps = [...team.querySelectorAll<HTMLLIElement>('.team-steps li')];
-    let n = 0, timer = 0;
-    const next = () => {
-      n = (n + 1) % imgs.length;
-      imgs.forEach((im, i) => im.classList.toggle('on', i === n));
-      steps.forEach((s, i) => s.classList.toggle('on', i === n));
+  // hero: two pages (user, 2026-11-13). On the first screen one gesture down (wheel, swipe or key) jumps straight to the
+  // second, and one gesture up from the second jumps back; the scene and the copy change with a short fade
+  // (orb-hero.ts). Below the hero the page scrolls as usual. After a jump the rest of that gesture (wheel momentum, the
+  // same swipe) is swallowed, so one flick does not also carry on past the second page.
+  const heroEl = document.querySelector<HTMLElement>('.hero[data-snav-down]');
+  if (heroEl) {
+    const page2 = () => Math.max(0, heroEl.offsetHeight - innerHeight);
+    const want = (down: boolean) => {
+      const y = scrollY, end = page2();
+      if (down && y < end - 2) return end;
+      if (!down && y > 2 && y <= end + 2) return 0;
+      return -1;
     };
-    new IntersectionObserver(([e]) => {
-      clearInterval(timer);
-      if (e.isIntersecting) timer = window.setInterval(next, 3600);
-    }, { threshold: 0.3 }).observe(team);
+    let locked = false, lockUntil = 0, quiet = 0;
+    const release = () => {
+      clearTimeout(quiet);
+      quiet = window.setTimeout(() => { if (performance.now() >= lockUntil) locked = false; else release(); }, 220);
+    };
+    const go = (top: number) => { window.scrollTo({ top, behavior: 'instant' }); locked = true; lockUntil = performance.now() + 700; release(); };
+
+    addEventListener('wheel', (e) => {
+      if (e.ctrlKey) return; // pinch zoom
+      if (locked) { e.preventDefault(); release(); return; }
+      if (Math.abs(e.deltaY) < Math.abs(e.deltaX)) return;
+      const t = want(e.deltaY > 0);
+      if (t < 0) return;
+      e.preventDefault(); go(t);
+    }, { passive: false });
+
+    let startY = 0, mode: 'native' | 'wait' | 'swallow' = 'native';
+    addEventListener('touchstart', (e) => {
+      startY = e.touches[0].clientY;
+      mode = e.touches.length === 1 && scrollY <= page2() + 2 ? 'wait' : 'native';
+    }, { passive: true });
+    addEventListener('touchmove', (e) => {
+      if (mode === 'native') return;
+      if (mode === 'swallow') { e.preventDefault(); return; }
+      const dy = startY - e.touches[0].clientY; // > 0: the finger moves up, the page goes down
+      if (Math.abs(dy) < 8) return;
+      const t = want(dy > 0);
+      if (t < 0) { mode = 'native'; return; }
+      e.preventDefault(); mode = 'swallow'; go(t);
+    }, { passive: false });
+    addEventListener('touchend', () => { mode = 'native'; }, { passive: true });
+
+    addEventListener('keydown', (e) => {
+      if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey) return;
+      const el = e.target as HTMLElement;
+      if (el.isContentEditable || /^(INPUT|TEXTAREA|SELECT|BUTTON)$/.test(el.tagName)) return;
+      const down = e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey);
+      const up = e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey);
+      if (!down && !up) return;
+      const t = want(down);
+      if (t < 0) return;
+      e.preventDefault(); go(t);
+    });
   }
+
 </script>

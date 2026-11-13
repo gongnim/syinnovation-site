@@ -5,8 +5,9 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 // Home hero. The .hero section is two screens tall; .hero-pin (the sphere) sticks while the copy scrolls normally over
-// it. p runs 0..1 from night to day with the scroll position, lightly smoothed. No snap and no timed play-through
-// (user, 2026-11-13: the page should just scroll). Copy sits at the start and the end, like PacketGo:
+// it. The scene is night (p 0) or day (p 1): crossing a scroll point eases p to the other end in about half a second,
+// with no in-between tied to the scroll (user, 2026-11-13: that lagged). No snap and no timed play-through (the page
+// should just scroll); a floating button (ScrollNav) jumps to the day screen. Copy sits at the start and the end, like PacketGo:
 //   p 0      night. Large lights circle the screen edges in brand colours; the glowing core rises from the bottom.
 //            A few coral motes (threats) float among the white ones. Every few seconds one heads for the core; the
 //            two device lights rush to meet where it lands, and it is flicked away and gone. A white one turns coral
@@ -366,21 +367,30 @@ export function orbHero(root: HTMLElement) {
   const html = document.documentElement;
   const layers = [...root.querySelectorAll<HTMLElement>('[data-hero-layer]')];
 
-  // p follows how far the page has scrolled through the hero (the copy itself is ordinary page content)
+  // r is how far the page has scrolled through the hero (the copy itself is ordinary page content). The scene does not
+  // follow r step by step (user, 2026-11-13: the in-between lagged): it is night or day, and p eases to 0 or 1 when r
+  // crosses a point, with a little hysteresis so it does not flicker there.
   let forceP: number | null = null; // dev screenshots only
   const span = () => Math.max(1, root.offsetHeight - innerHeight);
   const heroY = () => -root.getBoundingClientRect().top;
-  const progress = () => (forceP !== null ? forceP : clamp01(heroY() / span()));
+  const progress = () => clamp01(heroY() / span());
+  let isDay = progress() >= 0.3;
+  const stateOf = () => {
+    if (forceP !== null) return forceP;
+    const r = progress();
+    if (r >= 0.3) isDay = true; else if (r < 0.2) isDay = false;
+    return isDay ? 1 : 0;
+  };
   let inView = true;
-  let onChange = () => applyCopy(progress());
+  let onChange = () => applyCopy(stateOf());
   addEventListener('scroll', () => onChange(), { passive: true });
   const dayOf = (p: number) => ss(0.44, 0.6, p);
   function applyCopy(p: number) {
     root.style.setProperty('--hero-day', dayOf(p).toFixed(3));
-    root.style.setProperty('--hero-end', ss(0.92, 0.99, p).toFixed(3));
+    root.style.setProperty('--hero-end', ss(0.92, 0.99, progress()).toFixed(3));
     html.classList.toggle('hero-dark', inView && dayOf(p) < 0.5);
   }
-  applyCopy(progress());
+  applyCopy(stateOf());
 
   let renderer: THREE.WebGLRenderer;
   try {
@@ -592,14 +602,14 @@ export function orbHero(root: HTMLElement) {
     wake();
   });
 
-  let clock = 0, last = 0, raf = 0, visible = true, pS = progress(), lastLap = -1;
+  let clock = 0, last = 0, raf = 0, visible = true, pS = stateOf(), lastLap = -1;
   function tick(nowMs: number) {
     raf = 0;
     const dt = last ? Math.min(0.05, (nowMs - last) / 1000) : 0.016; last = nowMs;
     if (!reduce) clock += dt;
-    const target = progress();
-    // follows the scroll, eased a little so a flick of the wheel does not jump
-    pS = reduce || forceP !== null || Math.abs(target - pS) < 1e-4 ? target : pS + (target - pS) * (1 - Math.exp(-dt * 9));
+    const target = stateOf();
+    // night or day: a short eased change (about half a second) when the scroll crosses the point
+    pS = reduce || forceP !== null || Math.abs(target - pS) < 1e-4 ? target : pS + (target - pS) * (1 - Math.exp(-dt * 6));
     const p = pS;
     applyCopy(p);
 
@@ -610,7 +620,7 @@ export function orbHero(root: HTMLElement) {
     orbMat.uniforms.uTime.value = clock;
     orbMat.uniforms.uDay.value = day;
     bgU.uDay.value = day; bgU.uTime.value = clock;
-    rayU.uTime.value = clock; rayU.uOpacity.value = day * (1 - ss(0.92, 1, p) * 0.5);
+    rayU.uTime.value = clock; rayU.uOpacity.value = day * (1 - ss(0.92, 1, progress()) * 0.5);
     moteU.uTime.value = clock;
     moteU.uOpacity.value = 1 - day;
     bloom.strength = lerp(0.6, 0.3, day);

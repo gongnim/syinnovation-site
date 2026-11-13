@@ -1,0 +1,54 @@
+---
+// One floating button at the bottom right of every page (user, 2026-11-13). On the home hero it points down: the first
+// press jumps to the day screen (no slide, like one scroll gesture there), the next glides to the section after the hero. Past that, and on every other page once it has
+// scrolled a screen, it points up and goes back to the top. A page opts into the down stops with data-snav-down on its
+// tall hero.
+---
+<button class="snav" type="button" aria-label="맨 위로">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
+</button>
+
+<style>
+  .snav {
+    position: fixed; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 60;
+    width: 48px; height: 48px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+    background: rgba(14, 26, 43, .88); color: #fff; border: 1px solid rgba(255, 255, 255, .2); box-shadow: 0 8px 24px rgba(14, 26, 43, .28);
+    opacity: 0; visibility: hidden; transform: translateY(8px);
+    transition: opacity .3s var(--ease), visibility .3s, transform .3s var(--ease), background-color .2s;
+  }
+  .snav.on { opacity: 1; visibility: visible; transform: none; }
+  .snav:hover { background: var(--night); }
+  .snav:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+  .snav svg { transition: transform .3s var(--ease); }
+  .snav[data-dir='down'] svg { transform: rotate(180deg); }
+  @media (prefers-reduced-motion: reduce) { .snav, .snav svg { transition: none; } }
+</style>
+
+<script>
+  const btn = document.querySelector<HTMLButtonElement>('.snav');
+  if (btn) {
+    const smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const hero = document.querySelector<HTMLElement>('[data-snav-down]');
+    let target = 0, jump = false;
+    const sync = () => {
+      const y = scrollY;
+      let dir: 'down' | 'up' | '' = '';
+      if (hero) {
+        const top = hero.getBoundingClientRect().top + y, end = top + hero.offsetHeight;
+        const day = end - innerHeight; // the hero's last screen
+        if (y < day - 4) { dir = 'down'; target = day; jump = true; }
+        else if (y < end - 4) { dir = 'down'; target = end; jump = false; }
+      }
+      if (!dir && y > innerHeight * 0.8) { dir = 'up'; target = 0; jump = false; }
+      btn.classList.toggle('on', !!dir);
+      if (dir) {
+        btn.dataset.dir = dir;
+        btn.setAttribute('aria-label', dir === 'down' ? '아래로 이동' : '맨 위로');
+      }
+    };
+    btn.addEventListener('click', () => window.scrollTo({ top: target, behavior: jump ? 'instant' : smooth ? 'smooth' : 'auto' }));
+    addEventListener('scroll', sync, { passive: true });
+    addEventListener('resize', sync);
+    sync();
+  }
+</script>

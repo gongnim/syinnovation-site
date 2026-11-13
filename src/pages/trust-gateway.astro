@@ -1,13 +1,12 @@
 ---
 // Trust Gateway: the page walks a buyer from "why now" to "how we start". Hero with the product screens, zero trust vs
-// Trust Gateway (with the NIST mapping), recent incidents, what a leaked account opens (VPN vs Trust Gateway), attacks
-// and how they stop, where it is used, what an admin sees, a customer, how to start, then
+// Trust Gateway (with the NIST mapping), what a leaked account opens (VPN vs Trust Gateway), attacks
+// and how they stop, where it is used, what an admin sees, how to start, then
 // questions. Facts follow tech doc v0.3 and the product's demo page; web access only (no SSH/RDP).
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
 import TgHero from '../components/tg/TgHero.astro';
-import TgIncidents from '../components/tg/TgIncidents.astro';
 import TgVpnSwitch from '../components/tg/TgVpnSwitch.astro';
 import TgConsole from '../components/tg/TgConsole.astro';
 import ZtBridge from '../components/tg/ZtBridge.astro';
@@ -29,18 +28,17 @@ const rules = [
 ];
 
 
-const airrane = [
-  { i: 'key', t: '한 번 확인으로 여러 업무 시스템 이용', d: '게이트웨이가 확인한 신원을 업무 시스템에 넘겨, 시스템마다 다시 로그인하지 않게 합니다.' },
-  { i: 'pin', t: '사외와 해외에서도 같은 기준', d: '출장지와 재택, 해외에서도 사무실과 같은 기준으로 사람과 기기를 확인합니다.' },
-  { i: 'shield', t: '기술 자료는 허락된 사람에게만', d: '핵심 기술과 정보가 담긴 시스템에 허락된 사람과 기기만 접근하게 합니다.' },
-];
 
 const rollout = [
-  { t: 'PoC/컨설팅', d: '평가용 환경에 업무 서비스 하나를 연결합니다.' },
+  { t: 'PoC/컨설팅', d: '지금 업무 접속의 보안 위험을 함께 진단하고, 평가용 환경에 업무 서비스 하나를 연결해 직접 써 봅니다.' },
   { t: '파일럿', d: '부서 단위로 넓히고, 관찰 모드로 결과를 비교한 뒤 제한적으로 적용합니다.' },
   { t: '전사 적용', d: '서비스 목록을 확정하고 전체 사용자를 Trust Gateway로 전환합니다. 감사, 기록 보존, 장애 복구 절차를 함께 운영합니다.' },
 ];
-const pocChecks = ['등록된 직원은 평소처럼 바로 접속되는지', '등록되지 않은 기기는 게이트웨이에서 막히는지', '정책을 바꾸면 다음 요청부터 반영되는지', '판단 근거와 감사 기록이 남는지', '직원이 쓰기에 번거롭지 않은지'];
+// the free first step, about security: what the consultation looks at, then what the PoC shows first-hand
+const pocGroups = [
+  { k: '보안 컨설팅', items: ['VPN, 계정 공유, 외부 접속 등 지금 업무 접속의 보안 위험', '퇴사자와 협력사의 계정, 접근 권한 관리 상태', '공개된 제로트러스트 기준에 비춰 무엇부터 바꿀지'] },
+  { k: 'PoC', items: ['등록된 직원은 평소처럼 바로 접속되는지', '등록되지 않은 기기는 게이트웨이에서 막히는지', '정책을 바꾸면 다음 요청부터 반영되는지', '판단 근거와 감사 기록이 남는지', '직원이 쓰기에 번거롭지 않은지'] },
+];
 
 const faq = [
   { q: '제로트러스트와 Trust Gateway는 같은 건가요?', a: '아니요. 제로트러스트는 「아무도 믿지 않고 매번 확인한다」는 보안 원칙이고, 미국 NIST·CISA와 한국 과학기술정보통신부가 기준을 공개했습니다. Trust Gateway는 그 원칙을 회사의 업무 접속에 적용한 신영이노베이션의 솔루션입니다.' },
@@ -55,7 +53,7 @@ const faq = [
 <Base title="Trust Gateway" description="제로트러스트 원칙을 업무 접속에 적용한 신영이노베이션의 솔루션, Trust Gateway. PC는 기기를, 휴대폰은 사람을 증명하고 요청마다 다시 확인합니다.">
   <TgHero />
 
-  <ZtBridge id="zt" tone="mist">
+  <ZtBridge id="zt">
     <div class="map reveal">
       <h3 class="h3">공개된 기준대로 만들었습니다</h3>
       <p class="body">제로트러스트 아키텍처(NIST SP 800-207)는 접근 요청을 가로채는 PEP, 허용 여부를 정하는 PDP, 판단에 필요한 정보를 주는 PIP로 나뉩니다. Trust Gateway는 이 구조를 그대로 따릅니다.</p>
@@ -73,7 +71,6 @@ const faq = [
     </div>
   </ZtBridge>
 
-  <TgIncidents />
   <TgVpnSwitch />
 
   <section class="section mist" id="attacks">
@@ -119,38 +116,23 @@ const faq = [
 
   <TgConsole />
 
-  <section class="section night" id="customer">
-    <div class="wrap cust">
-      <figure class="cust-ph reveal">
-        <img src="/images/consulting/airrane-case.webp" alt="가스 배관과 밸브가 이어진 산업 설비" width="1400" height="1050" loading="lazy" />
-      </figure>
-      <div class="reveal">
-        <p class="cust-k">도입 고객</p>
-        <h2 class="h2 sm">에어레인(AIRRANE)</h2>
-        <p class="cust-s">코스닥 상장 기체분리막 전문기업</p>
-        <ul class="cust-pts">
-          {airrane.map((a) => (<li><span class="ci"><Icon name={a.i} size={18} /></span><div><b>{a.t}</b><p class="body">{a.d}</p></div></li>))}
-        </ul>
-        <a class="text-link" href="/consulting#airrane">에어레인 ERP 구축 사례도 함께 보기</a>
-      </div>
-    </div>
-  </section>
-
   <section class="section" id="start">
     <div class="wrap">
       <div class="head-center reveal">
         <h2 class="h2">작게 시작해서 넓힙니다</h2>
-        <p class="lead">무료 PoC에서 시작해, 결과를 확인하며 단계적으로 적용합니다.</p>
+        <p class="lead">무료 PoC/컨설팅에서 시작해, 결과를 확인하며 단계적으로 적용합니다.</p>
       </div>
       <ol class="roll reveal">
         {rollout.map((r, i) => (<li style={`--i:${i}`}><span class="n">{i + 1}</span><h3 class="h4">{r.t}</h3><p class="body">{r.d}</p></li>))}
       </ol>
       <div class="poc reveal">
         <div>
-          <h3 class="h4">PoC에서 직접 확인하는 것</h3>
-          <ul>{pocChecks.map((c) => <li><Icon name="check" size={18} />{c}</li>)}</ul>
+          <h3 class="h4">무료 PoC/컨설팅에서 함께 보는 것</h3>
+          <div class="poc-groups">
+            {pocGroups.map((g) => (<div><p class="poc-k">{g.k}</p><ul>{g.items.map((c) => <li><Icon name="check" size={18} />{c}</li>)}</ul></div>))}
+          </div>
         </div>
-        <a class="btn primary" href="/contact?type=poc">무료 PoC 신청</a>
+        <a class="btn primary" href="/contact?type=poc">무료 PoC/컨설팅 신청</a>
       </div>
     </div>
   </section>
@@ -169,7 +151,7 @@ const faq = [
     </div>
   </section>
 
-  <CtaBand title="Trust Gateway, 무료 PoC로 먼저 써 보세요" lead="평가용 환경에 업무 서비스 하나를 연결해 시작합니다." />
+  <CtaBand title={"Trust Gateway\n무료 PoC/⁠컨설팅으로 먼저 시작하세요"} lead="지금 업무 접속의 보안 위험을 함께 진단하고, 평가용 환경에 업무 서비스 하나를 연결해 직접 써 봅니다." />
 </Base>
 
 <style>
@@ -206,7 +188,7 @@ const faq = [
   .n { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--blue); border: 2px solid var(--blue); }
 
   /* the NIST mapping inside the zero trust band */
-  .map { max-width: 1080px; margin: clamp(48px, 6vw, 72px) auto 0; padding: clamp(24px, 3vw, 36px); border-radius: var(--r-xl); background: #fff; display: grid; gap: 14px; }
+  .map { max-width: 1080px; margin: clamp(48px, 6vw, 72px) auto 0; padding: clamp(24px, 3vw, 36px); border-radius: var(--r-xl); background: #fff; border: 1px solid var(--line); display: grid; gap: 14px; }
   .map .body { max-width: 720px; }
   .nist { width: 100%; border-collapse: collapse; min-width: 560px; }
   .nist th, .nist td { text-align: left; padding: 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -229,20 +211,8 @@ const faq = [
     .nist td:last-child { margin-top: 10px; padding: 12px 14px; border-radius: var(--r-md); }
   }
 
-  /* customer */
-  .cust { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
-  .cust-ph { margin: 0; border-radius: var(--r-xl); overflow: hidden; }
-  .cust-ph img { width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; display: block; }
-  .cust-k { font-size: 15px; font-weight: 700; color: #9fb8de; margin-bottom: 10px; }
-  .cust-s { margin-top: 8px; color: var(--on-night-2); }
-  .cust-pts { list-style: none; margin: 28px 0; padding: 0; display: grid; gap: 18px; }
-  .cust-pts li { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 12px; }
-  .ci { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; background: var(--night-2); color: #9fb8de; }
-  .cust-pts b { font-size: 17px; }
-  .cust-pts .body { margin-top: 4px; font-size: 15px; }
-  .cust .text-link { color: #fff; font-weight: 600; text-decoration: underline; text-underline-offset: 4px; }
 
-  /* start: three steps on a line that fills in, then what the PoC shows */
+  /* start: three steps on a line that fills in, then what the PoC/consulting shows */
   .roll { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
   /* the line runs centre to centre behind the circles (36px, so centred at 17px + 1px) and shows only between them */
   .roll::before { content: ''; position: absolute; left: 18px; right: calc((100% - 40px) / 3 - 18px); top: 17px; height: 2px; background: var(--line); }
@@ -253,7 +223,9 @@ const faq = [
   .roll .n { position: relative; z-index: 1; background: #fff; }
   .roll li:first-child .n { background: var(--orange); border-color: var(--orange); color: #1a1209; }
   .poc { margin-top: 40px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px; align-items: end; padding: 28px; border-radius: var(--r-xl); background: var(--orange-soft); }
-  .poc ul { list-style: none; margin: 14px 0 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; }
+  .poc-groups { margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 32px; }
+  .poc-k { font-size: 14px; font-weight: 700; color: var(--orange-ink); }
+  .poc ul { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 8px; }
   .poc li { display: flex; gap: 8px; align-items: flex-start; font-weight: 600; }
   .poc li :global(svg) { flex: none; margin-top: 3px; color: var(--orange-ink); }
 
@@ -269,7 +241,7 @@ const faq = [
 
   @media (max-width: 1023px) {
     .atk, .rules { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .panel, .cust { grid-template-columns: minmax(0, 1fr); }
+    .panel { grid-template-columns: minmax(0, 1fr); }
   }
   @media (max-width: 767px) {
     .atk, .rules { grid-template-columns: minmax(0, 1fr); }
@@ -282,7 +254,7 @@ const faq = [
     .roll li { padding-left: 56px; }
     .roll .n { position: absolute; left: 0; top: 0; }
     .poc { grid-template-columns: minmax(0, 1fr); align-items: start; }
-    .poc ul { grid-template-columns: minmax(0, 1fr); }
+    .poc-groups { grid-template-columns: minmax(0, 1fr); }
     .head-center .lead br { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
