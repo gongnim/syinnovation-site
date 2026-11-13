@@ -11,7 +11,8 @@ import Icon from './Icon.astro';
 import '../styles/sketch.css';
 
 export interface Chapter { t: string; from: number; to: number; still: number; d: string }
-interface Props { eyebrow: string; chapters: Chapter[]; loop: number; cam: [number, number][]; poster: number }
+// cam keyframes: [time, stage x] pans; [time, stage x, window width, stage y] also zooms in on a part of the stage
+interface Props { eyebrow: string; chapters: Chapter[]; loop: number; cam: number[][]; poster: number }
 const { eyebrow, chapters, loop, cam, poster } = Astro.props;
 ---
 <section class="sh">
@@ -112,7 +113,7 @@ const { eyebrow, chapters, loop, cam, poster } = Astro.props;
     const stage = film.querySelector<HTMLElement>('.stage')!;
     const svg = stage.querySelector('svg')!;
     const LOOP = +film.dataset.loop!;
-    const CAM: [number, number][] = JSON.parse(film.dataset.cam!);
+    const CAM: number[][] = JSON.parse(film.dataset.cam!);
     const states = [...svg.querySelectorAll<SVGElement>('[data-t],[data-warn]')].map((el) => ({ el, on: wins(el.dataset.t), warn: wins(el.dataset.warn) }));
     const packets = [...svg.querySelectorAll<SVGGElement>('[data-path]')].map((el) => {
       const path = svg.querySelector<SVGPathElement>(`#${el.dataset.path}`)!;
@@ -124,10 +125,10 @@ const { eyebrow, chapters, loop, cam, poster } = Astro.props;
     const pauseBtn = film.querySelector<HTMLButtonElement>('.pause')!;
     const pauseT = film.querySelector<HTMLElement>('.pause-t')!;
 
-    let t = still ? +film.dataset.poster! : -DRAW, playing = !still, onScreen = true, drawn = still, last = 0, raf = 0, viewW = VW, cx = 600;
+    let t = still ? +film.dataset.poster! : -DRAW, playing = !still, onScreen = true, drawn = still, last = 0, raf = 0, viewW = VW, cx = 600, cw = 0, cy = VH / 2;
     if (still) film.classList.add('still');
 
-    const camAt = () => CAM.reduce((x, [a, v]) => (t >= a ? v : x), CAM[0][1]);
+    const camAt = () => CAM.reduce((k, f) => (t >= f[0] ? f : k), CAM[0]);
     // under 830px the stage shows a window of it, wide enough that 16-unit labels stay at 11px or more
     const fit = () => {
       const cs = getComputedStyle(stage);
@@ -154,10 +155,13 @@ const { eyebrow, chapters, loop, cam, poster } = Astro.props;
       chapters.forEach((c, i) => (i === cur ? c.el.setAttribute('aria-current', 'step') : c.el.removeAttribute('aria-current')));
       descs.forEach((d, i) => (d.hidden = i !== cur));
       if (viewW < VW) {
-        const target = camAt();
-        cx = dt < 0 ? target : cx + (target - cx) * (1 - Math.exp(-dt * 2.5));
-        const x = Math.max(0, Math.min(VW - viewW, cx - viewW / 2));
-        svg.setAttribute('viewBox', `${x.toFixed(1)} 0 ${viewW.toFixed(1)} ${VH}`);
+        // pan (and zoom, when a keyframe names a narrower window); the window keeps the svg's aspect ratio
+        const [, tx, tw = viewW, ty = VH / 2] = camAt();
+        const k = dt < 0 || !cw ? 1 : 1 - Math.exp(-dt * 2.5);
+        cx += (tx - cx) * k; cw += (Math.min(viewW, tw) - cw) * k; cy += (ty - cy) * k;
+        const h = (cw * VH) / viewW;
+        const x = Math.max(0, Math.min(VW - cw, cx - cw / 2)), y = Math.max(0, Math.min(VH - h, cy - h / 2));
+        svg.setAttribute('viewBox', `${x.toFixed(1)} ${y.toFixed(1)} ${cw.toFixed(1)} ${h.toFixed(1)}`);
       } else svg.setAttribute('viewBox', `0 0 ${VW} ${VH}`);
     };
 

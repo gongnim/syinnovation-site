@@ -4,7 +4,7 @@ interface Props { tone?: 'night' | 'light' }
 const { tone = 'night' } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const isOn = (href: string) => path === href || path.startsWith(href + '/');
-const KEY = '/trust-gateway'; // the main product is shown in brand orange
+const KEY = '/trust-gateway'; // the main product is shown in brand orange, except on the home page (user, 2026-11-13)
 ---
 <header class="hdr" data-tone={tone} data-scrolled="false" data-hidden="false">
   <div class="hdr-row">
@@ -22,7 +22,7 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
                 {n.children.map((c) => <a href={c.href} aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>)}
               </div>
             </div>
-          : <a href={n.href} class:list={{ key: n.href === KEY }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
+          : <a href={n.href} class:list={{ key: n.href === KEY && path !== '/' }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
       </nav>
       <!-- Korean and English versions only; the English site is not built yet -->
       <div class="lang" role="group" aria-label="언어">
@@ -41,7 +41,7 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
           <span class="mobile-head">{n.label}</span>
           {n.children.map((c) => <a href={c.href} class="mobile-sub" aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>)}
         </div>
-      : <a href={n.href} class:list={{ key: n.href === KEY }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
+      : <a href={n.href} class:list={{ key: n.href === KEY && path !== '/' }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
     <div class="mobile-lang"><a href="/" lang="ko" aria-current="true">KO</a><span lang="en" aria-disabled="true">EN 준비 중</span></div>
   </div>
 </header>
@@ -171,8 +171,10 @@ const KEY = '/trust-gateway'; // the main product is shown in brand orange
     hdr.addEventListener('focusin', () => { hdr.dataset.hidden = 'false'; });
   }
   // 자료실 sub-menu: the button opens and closes it; a click elsewhere or Esc closes it
-  document.querySelectorAll<HTMLElement>('.sub').forEach((sub) => {
-    const top = sub.querySelector<HTMLButtonElement>('.sub-top')!;
+  // (only the header's own sub-menus: other parts of a page may use a class named sub too)
+  document.querySelectorAll<HTMLElement>('.hdr .sub').forEach((sub) => {
+    const top = sub.querySelector<HTMLButtonElement>('.sub-top');
+    if (!top) return;
     const set = (open: boolean) => { sub.dataset.open = String(open); top.setAttribute('aria-expanded', String(open)); };
     top.addEventListener('click', () => set(sub.dataset.open !== 'true'));
     document.addEventListener('click', (e) => { if (!sub.contains(e.target as Node)) set(false); });

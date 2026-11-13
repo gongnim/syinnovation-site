@@ -9,6 +9,9 @@ import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 // a scroll up plays it back, and a stop inside the pinned stretch glides the page to its nearer end.
 // Copy appears only at the start and the end, like PacketGo. The visuals tell the rest:
 //   p 0      night. Large lights circle the screen edges in brand colours; the glowing core rises from the bottom.
+//            A few coral motes (threats) float among the white ones. Every few seconds one heads for the core; the
+//            two device lights rush to meet where it lands, and it is flicked away and gone. A white one turns coral
+//            to take its place.
 //            Two lights orbit the core: device 1 (PC / tablet, blue) and device 2 (phone, orange). Each time they meet
 //            at their crossing, a verification light spreads over the core.
 //   p ~0.3   the core rises.
@@ -106,6 +109,7 @@ function makeOrbMaterial() {
         vec3 outCol = mix(mix(vec3(0.34, 0.67, 1.0), vec3(0.40, 0.62, 0.96), side), vec3(0.80, 0.90, 1.0), crest * 0.68);
         body += outline * outCol * (0.3 + crest * 0.45);
         body += vec3(0.62, 0.74, 0.92) * (streak * 0.55 + streakGlow * 0.05);
+
         vec3 night = pow(clamp(body, 0.0, 1.0), vec3(2.2));
 
         // day: vivid blue glass with a translucent edge and a warm peach underside
@@ -114,6 +118,7 @@ function makeOrbMaterial() {
         day = mix(day, vec3(0.64, 0.75, 1.0), smoothstep(0.55, 1.0, edge) * 0.5);
         day += vec3(1.0) * (rimLine * 0.5 + streak * 0.75 + streakGlow * 0.08);
         day += vec3(1.0) * pow(clamp(dot(n, normalize(vec3(-0.45, 0.6, 0.66))), 0.0, 1.0), 14.0) * 0.18;
+
 
         vec3 col = mix(night, day, uDay);
         col += mix(vec3(0.72, 0.87, 1.0), vec3(1.0, 0.97, 0.92), uDay) * ripple(vObjN);
@@ -471,6 +476,40 @@ export function orbHero(root: HTMLElement) {
   const flash = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowTexture(), color: new THREE.Color(1.5, 1.45, 1.35), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0 }));
   flash.position.copy(meetPt);
   rings.add(flash);
+  // coral motes (threats): each borrows a white mote's place (that mote is hidden meanwhile and comes back later).
+  // mode 0 turning from white to coral where it floats, 1 floating, 2 heading for the core, 3 flicked away, 4 gone
+  const RED_N = small ? 2 : 3, T_IN = 2.4, T_OUT = 0.6, HURRY = 1.1, TURN_IN = 1.2;
+  const WHITE = new THREE.Color(0.78, 0.84, 1.0), CORAL = new THREE.Color(0.95, 0.44, 0.36);
+  const glowMap = glowTexture();
+  type Red = { i: number; size: number; spr: THREE.Sprite; mode: number; t0: number; from: THREE.Vector3; pos: THREE.Vector3 };
+  const reds: Red[] = [];
+  const backs: { i: number; size: number; t0: number }[] = []; // white motes fading back in
+  let seeded = false, attacker: Red | null = null, nextAttack = 2, nextRed = -1, tHit = -1, phase = 0, boostFrom = 0, boostTo = 0;
+  const tAt = new THREE.Vector3();
+  const mPos = motes.geometry.getAttribute('position') as THREE.BufferAttribute;
+  const mSeed = motes.geometry.getAttribute('aSeed') as THREE.BufferAttribute;
+  const mSize = motes.geometry.getAttribute('aSize') as THREE.BufferAttribute;
+  // where a mote is at time t (the same drift the mote shader applies)
+  const motePos = (i: number, t: number, out: THREE.Vector3) => {
+    const sd = mSeed.getX(i), a = t * (0.012 + 0.02 * sd) * (sd > 0.5 ? 1 : -1), x0 = mPos.getX(i), y0 = mPos.getY(i);
+    return out.set(Math.cos(a) * x0 - Math.sin(a) * y0, Math.sin(a) * x0 + Math.cos(a) * y0 + Math.sin(t * 0.35 + sd * 30) * 0.012, mPos.getZ(i));
+  };
+  // a white mote on the visible front turns coral (at once for the first few)
+  const addRed = (t: number, instant: boolean) => {
+    const sx = small ? 0.45 : 0.85, p = new THREE.Vector3();
+    for (let n = 0; n < 60; n++) {
+      const i = Math.floor(Math.random() * mPos.count);
+      if (mSize.getX(i) < 0.006 || reds.some((r) => r.i === i) || backs.some((b) => b.i === i)) continue;
+      motePos(i, t, p);
+      if (p.z < 0.15 || p.y < 0.55 || Math.abs(p.x) > sx) continue;
+      const spr = new THREE.Sprite(new THREE.SpriteMaterial({ map: glowMap, color: (instant ? CORAL : WHITE).clone(), blending: THREE.AdditiveBlending, depthWrite: false, transparent: true, opacity: 0 }));
+      spr.position.copy(p);
+      world.add(spr);
+      reds.push({ i, size: mSize.getX(i), spr, mode: instant ? 1 : 0, t0: t, from: new THREE.Vector3(), pos: p });
+      mSize.setX(i, 0); mSize.needsUpdate = true;
+      return;
+    }
+  };
   // the whole pair turns so its crossing faces a chosen direction: at rest, up on the core's visible shoulder
   // (at night most of the core is below the fold); after a click or tap, toward the point that was pressed
   const crossDir = meetPt.clone().normalize();
@@ -630,7 +669,9 @@ export function orbHero(root: HTMLElement) {
     orbA.visible = orbB.visible = orbit > 0.01;
 
     // both lights travel one lap per MEET_PERIOD and meet at the front crossing on every lap
-    const laps = (clock - FIRST_MEET) / MEET_PERIOD;
+    // a threat on its way: the lights hurry (the lap phase eases forward) so they meet at the crossing as it arrives
+    if (tHit > 0 && clock > tHit - HURRY) { const k = clamp01((clock - (tHit - HURRY)) / HURRY); phase = boostFrom + (boostTo - boostFrom) * k * k * (3 - 2 * k); }
+    const laps = (clock + phase - FIRST_MEET) / MEET_PERIOD;
     const travel = laps * Math.PI * 2;
     for (const m of [solidA, orbitA]) m.uniforms.uHead.value = angA + travel;
     for (const m of [solidB, orbitB]) m.uniforms.uHead.value = angB - travel;
@@ -642,6 +683,73 @@ export function orbHero(root: HTMLElement) {
     const fm = flash.material as THREE.SpriteMaterial;
     fm.opacity = fa >= 0 && fa < 1.2 ? (fa < 0.12 ? fa / 0.12 : 1 - (fa - 0.12) / 1.08) : 0;
     flash.scale.setScalar(0.15 + Math.min(fa, 1.2) * 0.3);
+
+    // coral motes: the first few at the start, one heading in every few seconds, a new one after each is gone
+    const fade = 1 - ss(0, 0.2, day); // the day coming in takes them away
+    if (!reduce && !seeded && clock > 0.2) { seeded = true; for (let n = 0; n < RED_N; n++) addRed(clock, true); }
+    if (!reduce && nextRed > 0 && clock > nextRed) { addRed(clock, false); nextRed = reds.length < RED_N ? clock + 2 : -1; }
+    if (!reduce && !attacker && day < 0.02 && clock > nextAttack) {
+      // start when the lights are mid-lap at the arrival time, so they visibly rush to it
+      const fT = (((laps + T_IN / MEET_PERIOD) % 1) + 1) % 1;
+      const ready = reds.filter((r) => r.mode === 1);
+      if (ready.length && fT > 0.3 && fT < 0.8) {
+        const r = ready[Math.floor(Math.random() * ready.length)];
+        r.mode = 2; r.t0 = clock; r.from.copy(r.pos); attacker = r;
+        tHit = clock + T_IN; boostFrom = phase; boostTo = phase + (1 - fT) * MEET_PERIOD;
+        // the rings turn their crossing toward it (the turn a click makes)
+        world.updateMatrixWorld(true);
+        const local = tilt.worldToLocal(world.localToWorld(r.pos.clone().normalize())).normalize();
+        local.z = Math.max(local.z, 0.25);
+        aimTo.setFromUnitVectors(crossDir, local.normalize());
+      }
+    }
+    for (const r of reds) {
+      const m = r.spr.material as THREE.SpriteMaterial;
+      if (r.mode <= 1) {
+        // floating with its mote's drift; a new one turns from white to coral first
+        motePos(r.i, clock, r.pos);
+        r.spr.position.copy(r.pos);
+        const c = r.mode === 0 ? clamp01((clock - r.t0) / TURN_IN) : 1;
+        if (c >= 1) r.mode = 1;
+        m.color.copy(WHITE).lerp(CORAL, c * c * (3 - 2 * c));
+        r.spr.scale.setScalar(lerp(r.size * 2.6, 0.06, c));
+        m.opacity = fade;
+      } else if (r.mode === 2) {
+        // heading for the rings' crossing as it is now, just outside the core
+        world.updateMatrixWorld(true);
+        world.worldToLocal(rings.localToWorld(tAt.copy(meetPt))).normalize().multiplyScalar(1.12);
+        const k = clamp01((clock - r.t0) / T_IN);
+        r.pos.lerpVectors(r.from, tAt, k * k * (3 - 2 * k));
+        r.spr.position.copy(r.pos);
+        r.spr.scale.setScalar(lerp(0.06, 0.075, k));
+        m.opacity = fade;
+        if (clock >= tHit) { r.mode = 3; r.t0 = clock; }
+      } else if (r.mode === 3) {
+        // flicked away: a quick hop off the surface while it shrinks, greys and is gone
+        const k = clamp01((clock - r.t0) / T_OUT);
+        r.spr.position.copy(r.pos).normalize().multiplyScalar(1.12 + (1 - (1 - k) ** 3) * 0.28);
+        r.spr.scale.setScalar(0.075 * (1 - k * 0.6));
+        m.opacity = (1 - k) ** 2 * fade;
+        m.color.setRGB(lerp(0.95, 0.55, k), lerp(0.44, 0.6, k), lerp(0.36, 0.68, k));
+        if (k >= 1) r.mode = 4;
+      }
+    }
+    for (let n = reds.length - 1; n >= 0; n--) {
+      const r = reds[n];
+      if (r.mode !== 4) continue;
+      world.remove(r.spr); (r.spr.material as THREE.SpriteMaterial).dispose(); reds.splice(n, 1);
+      backs.push({ i: r.i, size: r.size, t0: clock + 1.5 }); // its white mote comes back later, further along its drift
+      attacker = null; tHit = -1; aimTo.copy(restAim);
+      nextAttack = clock + 5 + Math.random() * 3;
+      nextRed = clock + 2.5;
+    }
+    for (let n = backs.length - 1; n >= 0; n--) {
+      const b = backs[n];
+      if (clock < b.t0) continue;
+      const k = clamp01((clock - b.t0) / 1.5);
+      mSize.setX(b.i, b.size * k); mSize.needsUpdate = true;
+      if (k >= 1) backs.splice(n, 1);
+    }
 
     composer.render();
     if (visible && (!reduce || pS !== target)) raf = requestAnimationFrame(tick);
