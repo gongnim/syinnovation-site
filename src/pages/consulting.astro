@@ -1,7 +1,8 @@
 ---
 // IT 컨설팅·개발: custom consulting and development. Laid out after the company's current site (Full IT 서비스):
 // strategy to system in one team, process before code, the PI steps and build principles, what each stage leaves
-// behind, and past work. No client names or project figures. The hero is a plain photo (Pexels, credited).
+// behind, and past work. No client names or project figures. The hero is a plain photo: Mikhail Nilov on Pexels
+// (pexels.com/photo/7988758); the Pexels license needs no visible credit, so none is shown.
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
@@ -58,7 +59,6 @@ const work = [
       <figure class="photo">
         <img src="/images/consulting/hero.webp" srcset="/images/consulting/hero-800.webp 800w, /images/consulting/hero.webp 1600w" sizes="(max-width: 1023px) 100vw, 50vw"
           alt="화면 앞에서 업무 흐름을 설명하는 사람과, 코드를 띄운 모니터 앞에 앉은 개발자들" width="1600" height="1068" fetchpriority="high" />
-        <figcaption>사진: Mikhail Nilov, Pexels</figcaption>
       </figure>
     </div>
     <div class="wrap">
@@ -134,7 +134,6 @@ const work = [
   .hero .btn.ghost:hover { border-color: #fff; }
   .photo { margin: 0; }
   .photo img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 20px; }
-  .photo figcaption { margin-top: 8px; font-size: 12px; color: rgba(243, 246, 251, .5); text-align: right; }
   .flow { list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--night-line); border-radius: 16px; overflow: hidden; }
   .flow li { display: grid; gap: 4px; justify-items: center; padding: 18px 12px; font-size: 16px; font-weight: 600; text-align: center; background: rgba(255, 255, 255, .03); }
   .flow li + li { border-left: 1px solid var(--night-line); }
