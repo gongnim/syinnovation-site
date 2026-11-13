@@ -82,3 +82,11 @@ test('a comma inside 「quotes」 does not end a clause', () => {
     '<p><span class="sb">매번 확인합니다.</span><span class="sb">「Never Trust, Always Verify」라는 말로 요약됩니다.</span></p>',
   );
 });
+
+test('list items and description details break per sentence too, unless they hold blocks or icons', () => {
+  assert.equal(
+    breakSentences('<ul><li>첫 문장입니다. 둘째 문장입니다.</li><li><svg></svg>아이콘 줄입니다. 그대로 둡니다.</li></ul><dl><dd>설명입니다. 이어집니다.</dd></dl>'),
+    '<ul><li><span class="sb">첫 문장입니다.</span><span class="sb">둘째 문장입니다.</span></li><li><svg></svg>아이콘 줄입니다. 그대로 둡니다.</li></ul><dl><dd><span class="sb">설명입니다.</span><span class="sb">이어집니다.</span></dd></dl>',
+  );
+  assert.equal(breakSentences('<li><p>안쪽 문단입니다. 이미 나뉩니다.</p></li>'), '<li><p><span class="sb">안쪽 문단입니다.</span><span class="sb">이미 나뉩니다.</span></p></li>');
+});

@@ -1,5 +1,6 @@
 // House style for body copy, applied to every page by src/middleware.ts.
 // 1. A new sentence starts on a new line: inside each <p>, text is split after a Korean sentence end ("다." "요?" "지." ...).
+//    List items (<li>) and description details (<dd>) get the same, unless they hold blocks, icons or form parts.
 //    Plain-text paragraphs get one <span class="sb"> block per sentence (balanced separately); paragraphs with inline
 //    tags get <br class="sb" /> instead. Class "sb" lets mobile CSS that hides hand-placed <br> keep these.
 //    Inside a plain-text paragraph, each comma clause is also kept on one line (<span class="cl">, inline-block),
@@ -38,17 +39,25 @@ const clauses = (s) => {
 
 /** @param {string} html */
 export function breakSentences(html) {
-  return html.replace(/<p\b([^>]*)>([\s\S]*?)<\/p>/g, (_m, attrs, body) => {
+  const one = (tag) => (_m, attrs, body) => {
     if (!body.includes('<')) {
       // plain text: each sentence becomes its own block, so the browser balances every sentence on its own
       const parts = body.split(/(?<=[가-힣][.?!])[ \t]+(?=\S)/);
-      if (parts.length > 1) return `<p${attrs}>${parts.map((s) => `<span class="sb">${clauses(s)}</span>`).join('')}</p>`;
-      return `<p${attrs}>${clauses(body)}</p>`;
+      if (parts.length > 1) return `<${tag}${attrs}>${parts.map((s) => `<span class="sb">${clauses(s)}</span>`).join('')}</${tag}>`;
+      return `<${tag}${attrs}>${clauses(body)}</${tag}>`;
     }
-    // paragraphs with inline tags: a line break between sentences, text segments only
-    return `<p${attrs}>${eachText(body, (t) => t.replace(SENTENCE_END, '$1<br class="sb" />'))}</p>`;
-  });
+    // items holding blocks, icons or form parts keep their layout; their inner <p>s were handled in the first pass
+    if (tag !== 'p' && BLOCKISH.test(body)) return `<${tag}${attrs}>${body}</${tag}>`;
+    // inline tags: a line break between sentences, text segments only
+    return `<${tag}${attrs}>${eachText(body, (t) => t.replace(SENTENCE_END, '$1<br class="sb" />'))}</${tag}>`;
+  };
+  return html
+    .replace(/<p\b([^>]*)>([\s\S]*?)<\/p>/g, one('p'))
+    .replace(/<li\b([^>]*)>([\s\S]*?)<\/li>/g, one('li'))
+    .replace(/<dd\b([^>]*)>([\s\S]*?)<\/dd>/g, one('dd'));
 }
+// tags that make a list item more than a line of text
+const BLOCKISH = /<(p|div|ul|ol|li|dl|dt|dd|h[1-6]|svg|img|figure|table|section|article|button|input|select|textarea|span class="(?:sb|cl)")\b/;
 
 /** @param {string} html */
 export function keepNamesTogether(html) {

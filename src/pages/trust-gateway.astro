@@ -87,7 +87,7 @@ const faq = [
         ))}
       </ul>
       <ul class="rules reveal">
-        {rules.map((r) => (<li><b>{r.t}</b><span>{r.d}</span></li>))}
+        {rules.map((r) => (<li><b>{r.t}</b><p>{r.d}</p></li>))}
       </ul>
     </div>
   </section>
@@ -95,7 +95,7 @@ const faq = [
   <section class="section" id="uses">
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">어디에 쓰나요</h2>
+        <h2 class="h2">어디에 쓰나요?</h2>
         <p class="lead">같은 판단 엔진이 세 자리에 들어갑니다. <br />직원의 업무 접속, 금융 앱의 본인 확인, 고객의 결제입니다.</p>
       </div>
       <div class="tabs reveal" id="use-cases">
@@ -169,7 +169,7 @@ const faq = [
   .rules { list-style: none; margin: 24px 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
   .rules li { display: grid; gap: 4px; padding: 16px 18px; border-radius: var(--r-lg); border: 1px solid var(--line); }
   .rules b { font-size: 15px; }
-  .rules span { font-size: 14px; color: var(--ink-2); }
+  .rules p { font-size: 14px; color: var(--ink-2); } /* a <p>, so each sentence starts on its own line (house style) */
 
   /* uses: tabs */
   .tabs { background: var(--paper-2); border-radius: var(--r-xl); padding: 12px; }
