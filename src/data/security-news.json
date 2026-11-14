@@ -1,5 +1,95 @@
 [
   {
+    "date": "2026-11-14",
+    "region": "해외",
+    "type": "해킹",
+    "title": "FAA ground stop sparks cyberattack questions. Here’s what officials are saying",
+    "source": "Cleveland.com",
+    "url": "https://news.google.com/rss/articles/CBMivAFBVV95cUxNZVA3S1RzQnl3QjRCaW1MMlJ4ejh0bEY2ZjdjVTZYS244OFdSNUN5UmdFQ2hVUFFSU2Z5Q2ZSVUpPbDVISUdGekJ3d0FQUXR4QzI4a2RsVHdVVzR5TWxjODNRY1ctdnRWZWt2VHVYSG1WR1QtX09mSFA5VGpwN1BxbE1sVFJkblhJYWtTQzBpbWhaN3czWDZsUjlUNGhhaUpZSGRvWEZlcEdFdXVBXzZPUVZGYnlNaTh6MksxRNIB0AFBVV95cUxPTTdBbDFCOXFrNm9nbXFBR3loZzN5M2ZNVUY2b2ZjaUdFWlBuWVdnLTNKVmk0SkNKWWFFMXFxVTB5aHIyYXhGNnJyS0t2OHZWM1VvZC1VLVExOTN5Y2xyTldGcHFDLTlPQjFrV3pBUHlwWVlfVWZ4WHhOdjV3RkFHNmY2d050RzVpR0Z6TUZEbHlTSExrWTNtdzFsNVBvWDV0ZjBJekpBencwaWRzd256eDhVa0RyclRjejJMZTUyQUZDcjR0WmZOeko3cHVBZTlz?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-14-4baa311a.jpg",
+    "credit": {
+      "name": "Nemuel Sereti",
+      "url": "https://www.pexels.com/photo/monitor-displaying-lines-of-code-6424583/",
+      "id": 6424583
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "카카오워크, 외부 해킹 공격에 개인정보 유출",
+    "source": "www.ebn.co.kr",
+    "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBWdzVvN3JBcmhJVmlEUng1NTg5TWFJMnJwYTc5ajFoVWZRRHlYMzZyUTVKaXFXV0VzU0p4QzNJdHhSVllwekgzbDZVZXlPdWZhWk1fdmxfUkJ6MlJjRW9YcS02bzNzRnpG?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-b1012eca.jpg",
+    "credit": {
+      "name": "Ron Lach",
+      "url": "https://www.pexels.com/photo/close-up-photo-of-a-person-using-a-laptop-7983360/",
+      "id": 7983360
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "2차 모두의창업 정보 유출, 1차 사고 판박이…'취약한 API' 타깃(종합)",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9tMllJM05mZklDSnRpeVVySDUwYmdmQ0xiR0tTZDdxVWpMZmxTYUVKWVl1dGl3aE9TWmJ6X1hGazc3MkNoUjdibXdoTjRmYzUzM2E3eVlXaGxfN25KSkZMdtIBYEFVX3lxTE9tMllJM05mZklDSnRpeVVySDUwYmdmQ0xiR0tTZDdxVWpMZmxTYUVKWVl1dGl3aE9TWmJ6X1hGazc3MkNoUjdibXdoTjRmYzUzM2E3eVlXaGxfN25KSkZMdg?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-4f7d7d0b.jpg",
+    "credit": {
+      "name": "John (Giannis) Tekeridis",
+      "url": "https://www.pexels.com/photo/a-man-sitting-in-the-dark-19285776/",
+      "id": 19285776
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "Uber confirms hackers stole thousands of drivers’ license information in data breach",
+    "source": "TechCrunch",
+    "url": "https://news.google.com/rss/articles/CBMiugFBVV95cUxQc1VrWGJ1SDZGWXZRT1VZZmpoSEV6a184dTd2WkpqeFNkNzdxbmxMcU1leVJnT2xXLTVhS2pxcWtPTkw0ZmN5OFgwel9NN3JaTnJyTFl0RHZSZVlIcVZxMDhjWE5IWUVfbVA4VFlUcVVQUVU1QUU4OTZiNGpJQmpIVVpfXzJzMFFFeVN2TjdDRjJkZEt1NTlBWTF3U1FidEVXRk9YTXhBbEZ6bXN2RUFlbVpDTzlDQy1FV2c?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-59e057ee.jpg",
+    "credit": {
+      "name": "Antoni Shkraba",
+      "url": "https://www.pexels.com/photo/person-using-black-laptop-computer-5475752/",
+      "id": 5475752
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "해외",
+    "type": "해킹",
+    "title": "Quantum Systems says grounded German military drones flying again after cyberattack",
+    "source": "Reuters",
+    "url": "https://news.google.com/rss/articles/CBMizwFBVV95cUxQc2Vkc3h1WU5hemtpajdWWFN4ZU1Eb3NMVS1aaUliem1Ja2lvem5ERDZMU0gtUU9adjUzRUxaZXJtNVlkTEpRcFQwamp2am9xRVc2UzFxQVNpWFdVY2c0RFZUX3diQTJ0c3E5X1FhZm5KYjUyVk8teFQxaU44LW5yVl9VUXl6YkRWd283RXd1N1huM3YxR3d0UkQ2ZzF1aWZWeEZJYTBwT0dmVWdKMGJaN2lOVU0wcDRDWFQ3ajNzZUx4RWZNalFYdWJBUS1SWkE?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-a686f0d7.jpg",
+    "credit": {
+      "name": "Al Nahian",
+      "url": "https://www.pexels.com/photo/computer-program-on-computer-screen-7325498/",
+      "id": 7325498
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "해외",
+    "type": "랜섬웨어",
+    "title": "Ransomware attack on Belarusian cloud firm disrupts businesses for days",
+    "source": "The Record from Recorded Future News",
+    "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxQWUdEWS1FSTBNMnRWdFRWVWtNa3Fsc3U1N3JaZldSUXVfeW84Q1VBdkZITTJuT2N6dXlJa2YxMUxlMEROR2luTF8yWml2T3htZFJBVHhDbXBXbTladDVMalROTnYzbTVKSWZDR1dHTmFBaTZQcldQdFA1OXFlVFdHbXFB?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-69ead9f0.jpg",
+    "credit": {
+      "name": "panumas nikhomkhai",
+      "url": "https://www.pexels.com/photo/data-center-server-racks-with-active-equipment-37730212/",
+      "id": 37730212
+    }
+  },
+  {
     "date": "2026-11-13",
     "region": "국내",
     "type": "개인정보 유출",
