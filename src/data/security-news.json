@@ -1,6 +1,36 @@
 [
   {
     "date": "2026-11-14",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "192만 소상공인 생명줄 털렸나… '노란우산 개인정보 유출 정황'에 발칵 뒤집힌 중기중앙회",
+    "source": "내외일보",
+    "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5DQXFUaFBVZno1Y3R4am5TbDlmbzZveXcwYTJRbFpBU0FGVlJyRjhvMWVDWU82US1mMXFaQnA4eG5YWDhITFJ3X0tVRE0tZXBkQS1sMDZ2emNiRm1fT183MzVHRGlQRXU0MnF4cmdESQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-14-33b696d0.jpg",
+    "credit": {
+      "name": "Dan Nelson",
+      "url": "https://www.pexels.com/photo/smartphone-and-laptop-with-active-surfshark-vpn-service-4489171/",
+      "id": 4489171
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "日, 개인정보 유출 잇따르자 보안 소프트웨어 매출 증가",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5HVGV5eldkLUQyaW1QU3hYQkprTUdfMl9XMHFmQTdsVm9MZW9pcEtYUVBYRDVMSmlRQzI3MUxrN2UtT2tPU3p2QWlVNWpMYy1SaTNreGV6QlgtenRGWXJ3MdIBYEFVX3lxTE5HVGV5eldkLUQyaW1QU3hYQkprTUdfMl9XMHFmQTdsVm9MZW9pcEtYUVBYRDVMSmlRQzI3MUxrN2UtT2tPU3p2QWlVNWpMYy1SaTNreGV6QlgtenRGWXJ3MQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-188820ab.jpg",
+    "credit": {
+      "name": "Stefan Coders",
+      "url": "https://www.pexels.com/photo/person-using-black-laptop-computer-5243611/",
+      "id": 5243611
+    }
+  },
+  {
+    "date": "2026-11-14",
     "region": "해외",
     "type": "해킹",
     "title": "FAA ground stop sparks cyberattack questions. Here’s what officials are saying",
