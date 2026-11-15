@@ -1,5 +1,100 @@
 [
   {
+    "date": "2026-11-15",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "JAPAN UNDER CYBERATTACK! Millions of Records Potentially Exposed 🇯🇵",
+    "source": "Watch and Pray News",
+    "url": "https://www.youtube.com/watch?v=Xs8gSgH8aAU",
+    "youtube": "Xs8gSgH8aAU",
+    "auto": true
+  },
+  {
+    "date": "2026-11-14",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "김해 인제대 2만4천명 규모 개인정보 유출 / KNN",
+    "source": "KNN NEWS",
+    "url": "https://www.youtube.com/watch?v=W14zUNMenXE",
+    "youtube": "W14zUNMenXE",
+    "auto": true
+  },
+  {
+    "date": "2026-11-15",
+    "region": "국내",
+    "type": "해킹",
+    "title": "北 해킹조직 '라자루스', 정부·금융·통신 국내 서버 30곳 조준… \"금융 탈취·첩보 수집\"",
+    "source": "글로벌이코노믹",
+    "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPQk02REw4eV83OTRjQWFDSHptM0RGMnlacVZkVHhNZ0s2Q2tQR2RSSVFyMWZ5WUI3ZlZTNnBYeU5GX24xUVZ6Yy1RWU9BZExDVF9oVnAtOWQ2OFpIQzY2Nno5WS03RmZnenlfbkVuVGFzaGdNRUlqX05XRUgyM3l1UnphM2FtMDhMbEZr?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-15-f5148ec4.jpg",
+    "credit": {
+      "name": "Barnabas Davoti",
+      "url": "https://www.pexels.com/photo/tall-cell-towers-9290878/",
+      "id": 9290878
+    }
+  },
+  {
+    "date": "2026-11-14",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "인제대 서버에 외부 공격…폰 번호 등 개인정보 2만4천11건 유출",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBFeFkwVVB1WWhJQmEweFhSMTF3dWpuajdkczFSUXVLT1djUFgxd2hnRElla0lxTXp6cVdWSzNnZ2MxMlNSM3UzTkVQelE0NWlXRDR0dmVlSzBhNHfSAWBBVV95cUxNZHlWUEtTWUpkVTJaeXcyaXJVS0ZIQzE0aEdzaWVMUGlVZlNLZEZHcDBqdG9jeV81NWc5TUVkWHV0UFgyMDJyaGNFdGpENE16WWhSM1hpMHJGQUZNMVk1eUI?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-14-6f8a045c.jpg",
+    "credit": {
+      "name": "Antoni Shkraba",
+      "url": "https://www.pexels.com/photo/person-in-black-long-sleeve-shirt-using-macbook-pro-5475793/",
+      "id": 5475793
+    }
+  },
+  {
+    "date": "2026-11-14",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "조폐공사 지역사랑상품권 '착(chak)', 외부 공격으로 개인정보 3000여 건 유출",
+    "source": "파이낸셜뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9pX1JBSlcxUi12Z0ZMa2ExYmk2cDVrdi1hWkxINnh5SjhNcm1SU3ExOURYdUVjRFZwTmZPbUdsSUlRSDBwNnE4LXJpelEtTHNDbFFBbTNoTE0xZw?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-14-3ef1ac69.jpg",
+    "credit": {
+      "name": "Towfiqu barbhuiya",
+      "url": "https://www.pexels.com/photo/a-person-typing-on-laptop-while-wearing-a-fingerless-gloves-8541751/",
+      "id": 8541751
+    }
+  },
+  {
+    "date": "2026-11-14",
+    "region": "해외",
+    "type": "랜섬웨어",
+    "title": "Beware the New AI-Fueled Ransomware Boom",
+    "source": "WIRED",
+    "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1jVlEzblczTFcwZTFqalo2VDNtZzVOOTlQUkR1bW04eXpqRUJWckZJR3VrWU84X3NXZ2xUZ09YQTJoQmlzeXk5aDlQaThjVXRodWRoanlIVjZHMjNjLU1wbUFKTk9OVGxFOG16Rzczek5hVDFYS0R4aQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-14-beda7324.jpg",
+    "credit": {
+      "name": "panumas nikhomkhai",
+      "url": "https://www.pexels.com/photo/close-up-of-a-blue-server-rack-in-datacenter-37730211/",
+      "id": 37730211
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "업무용 메신저 '카카오워크' 해킹…메신저·이메일 내용 유출",
+    "source": "한국일보",
+    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1sSWlUWU1CSXZSRU1BYjVNY1pSbEM4M0ctUzMtWGl1YWZtS0xKVGdoZ0FPdFF3aVVVcXg3eF9SSWdqUC1sOVRxNW5DSi01TXlmWGRITFV3ei1Yc0lNQjRKRjM5RS16QTdJdW5xRk0wMkgyQVnSAXNBVV95cUxNbElpVFlNQkl2UkVNQWI1TWNaUmxDODNHLVMzLVhpdWFmbUtMSlRnaGdBT3RRd2lVVXF4N3hfUklnalAtbDlUcTVuQ0otNU15ZlhkSExVd3otWHNJTUI0SkYzOUUtekE3SXVucUZNMDJIMkFZ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-730ed344.jpg",
+    "credit": {
+      "name": "Antoni Shkraba",
+      "url": "https://www.pexels.com/photo/person-playing-game-on-black-laptop-computer-5475757/",
+      "id": 5475757
+    }
+  },
+  {
     "date": "2026-11-14",
     "region": "국내",
     "type": "개인정보 유출",
