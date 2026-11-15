@@ -3,6 +3,80 @@
     "date": "2026-11-15",
     "region": "해외",
     "type": "개인정보 유출",
+    "title": "A Closer Look at Oil Price Rollbacks, Data Breach, and SALN Transparency | The Week Explained",
+    "source": "GMA News",
+    "url": "https://www.youtube.com/watch?v=1h0QIEpOflQ",
+    "youtube": "1h0QIEpOflQ",
+    "auto": true
+  },
+  {
+    "date": "2026-11-15",
+    "region": "해외",
+    "type": "해킹",
+    "title": "SBI ग्राहकांचा डेटा चोरीला! | SBI Cyber Attack",
+    "source": "Saam TV News",
+    "url": "https://www.youtube.com/watch?v=hRNi9pk78dA",
+    "youtube": "hRNi9pk78dA",
+    "auto": true
+  },
+  {
+    "date": "2026-11-15",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "금융·대학·공공기관까지 줄줄이 뚫렸다…개인정보 유출 비상",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5rVXhBTDV5RzVyak5CSTlualM2TWdJek1LcmR3Q1NBUWtRU3BaYjR3Q1VhRjNBRHllcUtjNmVFUHRnMTNSc21Mdnd5WTJaS0QzaTNwQmY1OTViWWvSAWBBVV95cUxPOTVqaEgyV1lieGJ2U2hNajlnNDBCdkdYNUpnTk9ONDRGd21CTm4tQ0ttbkxUZWJncldkX1VGLXhxRHdiNmhfeEJTMGxlSzk4Z2llRW5PY1dNNXlrVDhhYmc?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-15",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "코인원 고객상담 수탁사 해킹…주민번호·계좌번호 등 개인정보 유출",
+    "source": "지디넷코리아",
+    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5pQTFnYW95el9zM2o4X1Z5SUY0cWVkX2p3TzI2UU1La2t5LUhKaGNOYXBVeURaRGlEZHBPUS1maXpNV2ludkFIZklXUjVZYzFIdExXNWxB?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-15-d1e9dab2.jpg",
+    "credit": {
+      "name": "Antoni Shkraba",
+      "url": "https://www.pexels.com/photo/person-using-black-tablet-computer-5475763/",
+      "id": 5475763
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "KB캐피탈에서도 개인정보 유출… 고객·협력사 등 1800여 명 피해",
+    "source": "한국일보",
+    "url": "https://news.google.com/rss/articles/CBMibkFVX3lxTE9CeDFNaWIySDR5aE10S09TSEpkSnJyWkFYWjAzemJJano5ek82bTRTVnFpbnJYUUZCWmE2bE9vaDU1WjMxaTZraFdINHNlZlc0Z2Jpd09zczYtb1ZKQnBfS0xTanNMRFprSWs5QWdn0gFzQVVfeXFMTVNDZWhnano5WXk0Sk9vd2ZJaGxRdHZndm5EZ0RVVUlKNFlCS3Iya2h5NS1Ma2xjSkFwcTE2eVRqSmpzdU54YlpCMFJHVWNNS1pJVzJUV2wtYnB2Q0xLc1RfTHU2ckhTV1NacVNkTzdZVXV0VQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-d967f824.jpg",
+    "credit": {
+      "name": "Antoni Shkraba",
+      "url": "https://www.pexels.com/photo/person-using-macbook-air-on-table-5475779/",
+      "id": 5475779
+    }
+  },
+  {
+    "date": "2026-11-13",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "한국조폐공사 지역사랑상품권 '착' 해킹…이용자 3,083명 개인정보 유출",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1lVkFxeU53UzhORjh2VDdsN3l0Zjg0aXZaOWYzQjlUXzVMQ1g5Y1BIYWJGeG84TzRXODZxejJ5ZWh2TmQyYnYxLXJGUFFYVlRmUExFMmcxZjNMOGg1ajExd3NuSnBEQ0Jyc1lyUA?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-13-4ae4fedb.jpg",
+    "credit": {
+      "name": "Antoni Shkraba",
+      "url": "https://www.pexels.com/photo/person-using-macbook-pro-on-brown-wooden-table-5475758/",
+      "id": 5475758
+    }
+  },
+  {
+    "date": "2026-11-15",
+    "region": "해외",
+    "type": "개인정보 유출",
     "title": "JAPAN UNDER CYBERATTACK! Millions of Records Potentially Exposed 🇯🇵",
     "source": "Watch and Pray News",
     "url": "https://www.youtube.com/watch?v=Xs8gSgH8aAU",
