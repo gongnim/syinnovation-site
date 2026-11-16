@@ -5,11 +5,12 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 // Home hero. The .hero section is two screens tall; .hero-pin (the sphere) sticks while the copy scrolls normally over
-// it. Latest (user, 2026-11-13): the scene stays night (p 0) and the hero is one screen that scrolls away normally;
-// the band below fades from its dark to white (index.astro). The day mode below is kept for dev screenshots only
+// it. Latest (user, 2026-11-13): the scene stays night (p 0) and shows the whole core: the scene fades out from just
+// above the core's middle, its lower half is an outline (.hero-ring) on the white page with the incidents heading
+// inside, and the page scrolls on normally (place() sets the sizes as --vars on .hero). The day mode below is kept for dev screenshots only
 // (__heroStep with p) and is not reached by scrolling. Rendering stops once the sphere is off screen. Copy sits at the start and the end, like PacketGo:
 //   p 0      night. Large lights circle the screen edges in brand colours; the glowing core rises from the bottom.
-//            A few coral motes (threats) float among the white ones. Every few seconds one heads for the core; the
+//            (Off since 2026-11-13, see RED_N.) A few coral motes (threats) float among the white ones. Every few seconds one heads for the core; the
 //            two device lights rush to meet where it lands, and it is flicked away and gone. A white one turns coral
 //            to take its place.
 //            Two lights orbit the core: device 1 (PC / tablet, blue) and device 2 (phone, orange). Each time they meet
@@ -376,12 +377,13 @@ export function orbHero(root: HTMLElement) {
   const progress = () => clamp01(heroY() / span());
   const stateOf = () => (forceP !== null ? forceP : 0); // night only
   let inView = true;
+  let darkUntil = Infinity; // how far down the hero the scene is still dark (the header bar stays dark over it)
   let onChange = () => applyCopy(stateOf());
   addEventListener('scroll', () => onChange(), { passive: true });
   const dayOf = (p: number) => ss(0.44, 0.6, p);
   function applyCopy(p: number) {
     root.style.setProperty('--hero-day', dayOf(p).toFixed(3));
-    html.classList.toggle('hero-dark', inView && dayOf(p) < 0.5);
+    html.classList.toggle('hero-dark', inView && dayOf(p) < 0.5 && darkUntil - heroY() > 72);
   }
   applyCopy(stateOf());
 
@@ -395,7 +397,7 @@ export function orbHero(root: HTMLElement) {
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.NeutralToneMapping;
-  canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); root.classList.add('is-fallback'); });
+  canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); root.classList.add('is-fallback'); root.classList.remove('has-orb'); });
 
   const small = innerWidth < 768;
   const scene = new THREE.Scene();
@@ -449,7 +451,9 @@ export function orbHero(root: HTMLElement) {
   rings.add(flash);
   // coral motes (threats): each borrows a white mote's place (that mote is hidden meanwhile and comes back later).
   // mode 0 turning from white to coral where it floats, 1 floating, 2 heading for the core, 3 flicked away, 4 gone
-  const RED_N = small ? 2 : 3, T_IN = 2.4, T_OUT = 0.6, HURRY = 1.1, TURN_IN = 1.2;
+  // the coral motes are off (user, 2026-11-13: the calm version, no threat flying in and being flicked away);
+  // small ? 2 : 3 brings them back, with the attacks below
+  const RED_N = 0, T_IN = 2.4, T_OUT = 0.6, HURRY = 1.1, TURN_IN = 1.2;
   const WHITE = new THREE.Color(0.78, 0.84, 1.0), CORAL = new THREE.Color(0.95, 0.44, 0.36);
   const glowMap = glowTexture();
   type Red = { i: number; size: number; spr: THREE.Sprite; mode: number; t0: number; from: THREE.Vector3; pos: THREE.Vector3 };
@@ -496,7 +500,21 @@ export function orbHero(root: HTMLElement) {
   composer.addPass(bloom);
   composer.addPass(new OutputPass());
 
-  let W = 1, H = 1, pxPerUnit = 1, orbScale = 1, orbCy = 0, orbR = 0, copyBottom = 0, pinH = 0;
+  let W = 1, H = 1, Hs = 1, pxPerUnit = 1, orbScale = 1, orbCy = 0, orbR = 0, copyBottom = 0;
+  // the first screen's height (the canvas is taller than the screen: it reaches down to where the scene has faded)
+  const screenEl = root.querySelector<HTMLElement>('.hero-screen');
+  const measureScreen = () => { Hs = screenEl?.offsetHeight || innerHeight; };
+  // the incidents heading: its widest line and height, for the gap it takes in the outline's bottom
+  const head = root.querySelector<HTMLElement>('.hero-next-t');
+  let headW = 0, headH = 0, headPad = 0;
+  const measureHead = () => {
+    if (!head) return;
+    const rg = document.createRange(); rg.selectNodeContents(head);
+    headW = Math.max(0, ...[...rg.getClientRects()].map((r) => r.width));
+    headH = head.offsetHeight;
+    headPad = parseFloat(getComputedStyle(head).fontSize) * 0.7;
+  };
+  document.fonts?.ready.then(() => { measureHead(); wake(); });
   // where the opening copy ends (it shares the pinned stage with the canvas): the night core starts below it, like PacketGo's
   const copy = layers.find((el) => el.dataset.heroLayer === 'a');
   const measureCopy = () => { copyBottom = copy ? copy.offsetTop + copy.offsetHeight : 0; };
@@ -516,6 +534,36 @@ export function orbHero(root: HTMLElement) {
     rayU.uWidth.value = 0.75 * dpr;
     moteU.uScale.value = (H * dpr) / (2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)));
     measureCopy();
+    measureScreen();
+    measureHead();
+  }
+
+  // the hero's frame around the night core (r0, cy0 without the rise-in): how tall the scene is and where it fades,
+  // the outline that carries on below it, and the incidents heading in the core's lower half. Written only on change.
+  const frameVars: Record<string, number> = {};
+  function frame(cy0: number, r0: number, cy: number) {
+    const fadeA = cy0 - r0 * 0.1, fadeL = r0 * 0.75;
+    // the outline follows the silhouette the camera sees: the core sits below the lens axis, so it is a slightly tall
+    // ellipse, a little lower and larger than r0
+    const f = camera.position.z, yW = (cy0 - H / 2) / pxPerUnit, R = r0 / pxPerUnit;
+    const a = Math.atan(yW / f), b = Math.asin(Math.min(0.95, R / Math.hypot(yW, f)));
+    const top = H / 2 + f * Math.tan(a - b) * pxPerUnit, bot = H / 2 + f * Math.tan(a + b) * pxPerUnit;
+    const half = (f * Math.sin(b) / Math.sqrt(Math.cos(a) ** 2 - Math.sin(b) ** 2)) * pxPerUnit;
+    // the heading sits in a gap of the outline's bottom: the line comes down on both sides and stops short of the
+    // text, level with its middle (user, 2026-11-16)
+    const gap = headW / 2 + headPad, k = Math.min(0.95, gap / half);
+    const nextY = (top + bot) / 2 + ((bot - top) / 2) * Math.sqrt(1 - k * k);
+    const next: Record<string, number> = {
+      '--pin-h': Math.max(Hs, Math.ceil(fadeA + fadeL)), '--fade-a': fadeA, '--fade-l': fadeL,
+      '--ring-top': top, '--ring-h': bot - top, '--ring-w': half * 2, '--ring-gap': gap,
+      '--next-y': nextY, '--hero-h': Math.ceil(nextY + headH / 2 + 24), '--intro-y': cy - cy0,
+    };
+    for (const k in next) {
+      if (Math.abs((frameVars[k] ?? -1e9) - next[k]) < 0.5) continue;
+      frameVars[k] = next[k]; root.style.setProperty(k, `${next[k].toFixed(1)}px`);
+    }
+    darkUntil = fadeA + fadeL * 0.35;
+    root.classList.add('has-orb');
   }
 
   // core position and size along the scroll (proportions follow PacketGo's main visual):
@@ -523,19 +571,21 @@ export function orbHero(root: HTMLElement) {
   function place(p: number, intro: number) {
     const s1 = ss(0.18, 0.42, p), s2 = ss(0.48, 0.62, p), s3 = ss(0.66, 0.8, p);
     const mobile = W < 768;
-    const Hv = innerHeight; // sizes follow the viewport; the canvas itself grows to hold the whole core
-    // night: the whole core shows under the opening copy, inside the screen width on phones (user, 2026-11-13), and
-    // the sphere's screen (.hero-pin) is made tall enough to hold it; the page then scrolls on as usual
-    const r0 = mobile ? Math.min(W * 0.4, Hv * 0.3) : Math.max(200, Math.min(W * 0.3, Hv * 0.36));
-    const cy0 = copyBottom + (mobile ? 40 : Math.max(56, Hv * 0.07)) + r0 * 1.12;
-    const want = Math.max(Hv, Math.ceil(cy0 + r0 * 1.4)); // room under the core for the fade into the dark
-    if (Math.abs(want - pinH) > 1) { pinH = want; root.style.setProperty('--pin-h', `${pinH}px`); }
-    const cyMid = Math.min(H * (mobile ? 0.56 : 0.48) + r0, cy0); // it only ever rises
-    const r1 = Math.min(H * 0.25, W * 0.32), r2 = mobile ? Math.min(H * 0.15, W * 0.27) : Math.min(H * 0.19, W * 0.24);
+    // night, like PacketGo's main visual: a large planet rising from the bottom edge, its top a clear gap under the
+    // opening copy and its lower part out of view (user, 2026-11-13)
+    // sizes follow the first screen (Hs), not the taller canvas (H)
+    const r0 = Math.max(250, Math.min(W * 0.37, Hs * 0.56));
+    let cy0 = Math.max(Hs * (mobile ? 0.45 : 0.59), copyBottom + (mobile ? 56 : Math.max(72, Hs * 0.09))) + r0;
+    // the first screen is all night scene on every screen: the fade, and the incidents heading below it, start under
+    // its bottom edge, so on tall phones and tablets the core sits lower (user, 2026-11-13)
+    cy0 = Math.max(cy0, Hs - 24 + r0 * 0.2);
+    const cyMid = Math.min(Hs * (mobile ? 0.56 : 0.48) + r0, cy0); // it only ever rises
+    const r1 = Math.min(Hs * 0.25, W * 0.32), r2 = mobile ? Math.min(Hs * 0.15, W * 0.27) : Math.min(Hs * 0.19, W * 0.24);
     let rPx = r0, cy = lerp(cy0, cyMid, s1);
-    rPx = lerp(rPx, r1, s2); cy = lerp(cy, H * 0.46, s2);
-    rPx = lerp(rPx, r2, s3); cy = lerp(cy, H * (mobile ? 0.33 : 0.38), s3);
-    cy += (1 - intro) * Hv * 0.16; // the core rises in on load
+    rPx = lerp(rPx, r1, s2); cy = lerp(cy, Hs * 0.46, s2);
+    rPx = lerp(rPx, r2, s3); cy = lerp(cy, Hs * (mobile ? 0.33 : 0.38), s3);
+    cy += (1 - intro) * Hs * 0.16; // the core rises in on load
+    frame(cy0, r0, cy);
     orbCy = cy; orbR = rPx;
     orbScale = rPx / pxPerUnit;
     world.scale.setScalar(orbScale);
@@ -744,6 +794,7 @@ export function orbHero(root: HTMLElement) {
 
   onChange = () => { if (inView) wake(); };
   new ResizeObserver(() => { layout(); wake(); }).observe(canvas);
+  if (screenEl) new ResizeObserver(() => { layout(); wake(); }).observe(screenEl);
   new IntersectionObserver(([e]) => {
     visible = e.isIntersecting; inView = visible;
     if (visible) wake(); else html.classList.remove('hero-dark');

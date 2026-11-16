@@ -13,6 +13,8 @@ const picks = [
   { slug: 'kepco-2026-10', path: '원인은 조사 중입니다. 직원 계정을 공유받아 접속한 사례가 지적됐고, 접속 기록이 남아 있지 않았습니다.', tg: '계정을 빌려도 그 사람의 휴대폰과 기기가 없으면 열리지 않습니다. 모든 판정은 근거와 함께 기록됩니다.' },
   { slug: 'shinhan-bank-2026-10', path: '대출모집인 전용 조회 서비스의 본인 확인 절차가 우회됐습니다.', tg: '외부 인력의 업무 접속도 등록된 기기와 휴대폰 확인을 거치고, 요청마다 다시 평가합니다.' },
 ];
+// labelledBy: the heading lives elsewhere (on home it sits inside the hero's sphere) and labels this section
+const { labelledBy } = Astro.props as { labelledBy?: string };
 const rows = news as { slug?: string; date: string; org?: string; title: string; source: string }[];
 const dot = (d: string) => d.slice(0, 10).replaceAll('-', '.');
 const cards = [
@@ -28,12 +30,14 @@ const cards = [
   },
 ];
 ---
-<section class="section inc-sec" id="incidents">
-  <div class="wrap">
-    <div class="head-center reveal">
-      <h2 class="h2">최근 심각한 보안 사고, 어디가 뚫렸을까요?</h2>
+<section class="section inc-sec" id="incidents" aria-labelledby={labelledBy}>
+  {!labelledBy && (
+    <div class="wrap">
+      <div class="head-center reveal">
+        <h2 class="h2">최근 심각한 보안 사고, 어디가 뚫렸을까요?</h2>
+      </div>
     </div>
-  </div>
+  )}
   <div class="strip reveal">
     <ul class="track">
       {[0, 1].map((copy) => cards.map((c) => (
