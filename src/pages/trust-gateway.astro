@@ -1,6 +1,7 @@
 ---
-// Trust Gateway: the page walks a buyer from "why now" to "how we start". It opens with zero trust vs Trust Gateway
-// (with the NIST mapping), then what a leaked account opens (VPN vs Trust Gateway), attacks
+// Trust Gateway: the page walks a buyer from "why now" to "how we start". It opens with the night hero (TgIntro: the
+// same password, a thief stopped and the employee let in), then zero trust vs Trust Gateway with the NIST mapping
+// (ZtBridge), then what a leaked account opens (VPN vs Trust Gateway), attacks
 // and how they stop, where it is used, the product screens, what an admin sees, how to start, then
 // questions. Facts follow tech doc v0.3 and the product's demo page; web access only (no SSH/RDP).
 import Base from '../layouts/Base.astro';
@@ -10,6 +11,7 @@ import TgDemo from '../components/tg/TgDemo.astro';
 import TgVpnSwitch from '../components/tg/TgVpnSwitch.astro';
 import TgConsole from '../components/tg/TgConsole.astro';
 import TgIntro from '../components/tg/TgIntro.astro';
+import ZtBridge from '../components/tg/ZtBridge.astro';
 import { appName, tgUses as uses } from '../data/site';
 
 // from the tech doc v0.3 (ch. 2.2, 5.2, 5.4, 6.1, 6.5) and the demo page (signed identity per request)
@@ -58,6 +60,24 @@ const faq = [
 <Base title="Trust Gateway" description="제로트러스트 원칙을 적용하여 개발한 신영이노베이션의 솔루션, Trust Gateway. PC는 기기를, 휴대폰은 사람을 증명하고 요청마다 다시 확인합니다.">
 
   <TgIntro />
+
+  <ZtBridge id="zt">
+    <div class="map reveal">
+      <h3 class="h3">공개된 기준대로 만들었습니다</h3>
+      <p class="body">제로트러스트 아키텍처(NIST SP 800-207)는 접근 요청을 가로채는 PEP, 허용 여부를 정하는 PDP, 판단에 필요한 정보를 주는 PIP로 나뉩니다. Trust Gateway는 이 구조를 그대로 따릅니다.</p>
+      <div class="cmp-wrap">
+        <table class="nist">
+          <thead><tr><th scope="col">구성 요소</th><th scope="col">하는 일</th><th scope="col">Trust Gateway</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">PEP<span>정책 시행 지점 · Policy Enforcement Point</span></th><td>사용자의 접근 요청을 가로채고, PDP의 결정에 따라 접근을 허용하거나 차단·종료합니다</td><td>접속 관문<span>요청마다 인증서를 확인하고 허용된 요청만 전달합니다. 휴대폰 앱과 PC 에이전트는 추가 인증을 진행합니다</span></td></tr>
+            <tr><th scope="row">PDP<span>정책 결정 지점 · Policy Decision Point</span></th><td>요청을 평가해 허용, 추가 인증, 거부를 결정합니다</td><td>정책 엔진: 금지 사항 확인 · 최종 결정<span>금지 사항 확인(Zen)이 의견을 내면 최종 결정(OPA)이 허용 여부를 정합니다. 결정은 통제 센터가 실행합니다</span></td></tr>
+            <tr><th scope="row">PIP<span>정책 정보 지점 · Policy Information Point</span></th><td>PDP가 올바르게 판단하도록 필요한 데이터와 속성을 제공합니다</td><td>머신러닝 이상 탐지<span>평소 행동과 얼마나 달라졌는지 계산해, 위험 점수, 위치, 휴대폰과 PC 신호의 불일치, 기기 보안 상태, 알려진 악성 IP 목록, 회사 설정과 함께 넘깁니다</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="cap">결제 이상거래 탐지에서는 고객사의 결제 시스템과 FDS가 PEP입니다. Trust Gateway는 이상거래를 탐지해 알림과 권고를 보내고, 승인과 거절은 고객사가 정합니다.</p>
+    </div>
+  </ZtBridge>
 
   <TgVpnSwitch />
 
@@ -178,6 +198,30 @@ const faq = [
   .n { width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; color: var(--blue); border: 2px solid var(--blue); }
 
 
+
+  /* the NIST mapping inside the zero trust band */
+  .map { max-width: 1080px; margin: clamp(48px, 6vw, 72px) auto 0; padding: clamp(24px, 3vw, 36px); border-radius: var(--r-xl); background: #fff; border: 1px solid var(--line); display: grid; gap: 14px; }
+  .map .body { max-width: 720px; }
+  .nist { width: 100%; border-collapse: collapse; min-width: 560px; }
+  .nist th, .nist td { text-align: left; padding: 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .nist thead th { font-size: 14px; color: var(--ink-3); font-weight: 600; }
+  .nist thead th:last-child { color: var(--blue); }
+  .nist tbody th { font-weight: 700; width: 30%; }
+  .nist tbody th span, .nist td span { display: block; margin-top: 2px; font-size: 13px; font-weight: 500; color: var(--ink-3); }
+  .nist td { color: var(--ink-2); }
+  .nist td:last-child { color: var(--ink); font-weight: 700; background: var(--mist); }
+  .cap { margin-top: 10px; font-size: 13px; color: var(--ink-3); }
+  .map { grid-template-columns: minmax(0, 1fr); }
+  .map .cmp-wrap { overflow-x: auto; }
+  @media (max-width: 640px) {
+    .nist { min-width: 0; }
+    .nist thead { display: none; }
+    .nist tr, .nist th, .nist td { display: block; width: auto; }
+    .nist tr { padding: 14px 0; border-bottom: 1px solid var(--line); }
+    .nist tbody th, .nist td { padding: 0; border-bottom: 0; }
+    .nist tbody th { width: auto; margin-bottom: 6px; }
+    .nist td:last-child { margin-top: 10px; padding: 12px 14px; border-radius: var(--r-md); }
+  }
 
   /* start: three steps on a line that fills in, then what the PoC/consulting shows */
   .roll { position: relative; list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }

@@ -10,7 +10,7 @@ import ResourceTabs from '../components/ResourceTabs.astro';
 const docs = [
   { title: '회사 소개서', note: '신영이노베이션이 하는 일과 팀, 걸어온 길을 담았습니다.', tone: 'blue',
     files: [{ label: '한국어', href: '' }, { label: 'English', href: '' }] },
-  { title: 'Trust Gateway 소개서', note: 'PC·태블릿과 휴대폰을 함께 확인하는, 제로트러스트 기반 솔루션 Trust Gateway를 소개합니다.', tone: 'navy',
+  { title: 'Trust Gateway 브로슈어', note: '다중 신호 교차 검증 솔루션인\n제로트러스트 기반 Trust Gateway를 소개합니다.', tone: 'navy',
     files: [{ label: '한국어', href: '' }, { label: 'English', href: '' }] },
 ];
 
@@ -42,12 +42,12 @@ const refs = [
     href: 'https://www.cisa.gov/news-events/alerts/2025/07/29/cisa-releases-part-one-zero-trust-microsegmentation-guidance' },
 ].sort((a, b) => b.date.localeCompare(a.date));
 ---
-<Base title="자료실 문서" description="신영이노베이션 회사 소개서, Trust Gateway 소개서와 제로트러스트 공식 문서." tone="light">
-  <PageTitle title="문서">회사와 Trust Gateway 소개서, 제로트러스트 공식 문서를 모았습니다.<ResourceTabs slot="after" /></PageTitle>
+<Base title="자료실 문서" description="신영이노베이션 회사 소개서, Trust Gateway 브로슈어와 제로트러스트 공식 문서." tone="light">
+  <PageTitle title="문서">회사 소개서와 Trust Gateway 브로슈어, 제로트러스트 공식 문서를 모았습니다.<ResourceTabs slot="after" /></PageTitle>
 
   <section class="section lib">
     <div class="wrap">
-      <h2 class="grp reveal">소개서</h2>
+      <h2 class="grp reveal">소개 자료</h2>
       <!-- two large brochure cards: the brand colour fills each card, with one quiet graphic behind the text -->
       <ul class="docs reveal">
         {docs.map((d) => (
@@ -72,7 +72,7 @@ const refs = [
             <div class="doc-top">
               <img class="doc-logo" src="/images/brand/syinnovation-logo-web-white.svg" alt="" width="300" height="57" />
               <h3>{d.title}</h3>
-              <p>{d.note}</p>
+              <p>{d.note.split('\n').map((line, k) => [k > 0 && <br />, line])}</p>
             </div>
             <div class="dls">
               {d.files.map((f) => f.href

@@ -1,0 +1,16 @@
+---
+// A seated person seen from the side, facing right, for the /trust-gateway intro (TgIntro). (x, y) is the hip on the
+// seat; the hands rest at about (x + 32s, y - 22s), on a keyboard. typing: the two hands tap in turn (CSS, .hand).
+interface Props { x: number; y: number; s?: number; shirt?: string; hair?: string; typing?: boolean }
+const { x, y, s = 1, shirt = '#4d84cc', hair = '#2a2f3d', typing = true } = Astro.props;
+---
+<g transform={`translate(${x} ${y}) scale(${s})`}>
+  <path d="M-4 0 H22 V34" fill="none" stroke="#2c3a52" stroke-width="9" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M22 34 h9" stroke="#121a28" stroke-width="5" stroke-linecap="round" />
+  <rect x="-13" y="-46" width="22" height="49" rx="10" fill={shirt} />
+  <circle cx="-1" cy="-61" r="11.5" fill="#f1c9a5" />
+  <path d="M-12.5 -62 a11.5 11.5 0 0 1 23 -1 c-6 -1 -12 0 -16 4 c-2 4 -5 6 -7 6z" fill={hair} />
+  <path d="M1 -40 L13 -23 L28 -23" fill="none" stroke={shirt} stroke-width="7" stroke-linecap="round" stroke-linejoin="round" />
+  <g class:list={['hand', { on: typing }]}><ellipse cx="31" cy="-23" rx="4.2" ry="3" fill="#f1c9a5" /></g>
+  <g class:list={['hand', 'b', { on: typing }]}><ellipse cx="25" cy="-22" rx="4.2" ry="3" fill="#e2b38c" /></g>
+</g>

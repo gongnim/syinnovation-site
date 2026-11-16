@@ -1,0 +1,21 @@
+---
+// A small car seen from the side, facing right, for the /trust-gateway intro (TgIntro). (x, y) is the rear end on the
+// road line; the car is 62 long and 34 high at scale 1. spin: the wheels turn (CSS, .wheel). glow: a halo colour.
+interface Props { x: number; y: number; s?: number; color?: string; glow?: string; spin?: boolean }
+const { x, y, s = 1, color = '#4d84cc', glow, spin = true } = Astro.props;
+---
+<g transform={`translate(${x} ${y}) scale(${s})`}>
+  {glow && <rect x="-5" y="-38" width="72" height="38" rx="14" fill={glow} opacity=".18" />}
+  <rect x="0" y="-23" width="62" height="15" rx="7" fill={color} />
+  <path d="M12 -23 L21 -34 H41 L50 -23 Z" fill={color} />
+  <path d="M23 -32 H30 V-24 H16 Z M32 -32 H40 L46 -24 H32 Z" fill="#cfe1f8" opacity=".75" />
+  <rect x="58" y="-20" width="5" height="4" rx="1.5" fill="#ffe7a3" />
+  <rect x="-1" y="-20" width="4" height="4" rx="1.5" fill="#ff8a7a" />
+  {[15, 48].map((cx) => (
+    <g transform={`translate(${cx} -7)`}>
+      <g class:list={['wheel', { on: spin }]}>
+        <circle r="7" fill="#0b1220" /><circle r="3.2" fill="#6b7a90" /><path d="M-6 0 H6" stroke="#6b7a90" stroke-width="1.6" />
+      </g>
+    </g>
+  ))}
+</g>
