@@ -77,7 +77,7 @@ const tracks = [
     { k: 'audit', t: '감사 기록', dur: 7.5, q: '누가 언제 무엇을 했는지 남을까요?', d: '이 직원의 하루가 그대로 남습니다. 허용, 추가 인증, 거부마다 누가 어디에 접속했고 왜 그렇게 판단했는지 기록하고, 기록은 앞 기록과 이어져 있어 중간을 바꾸면 드러납니다.' },
   ] },
   { id: 'payment', t: '결제 이상거래', shots: [
-    { k: 'payflow', t: '누가 쓰나요', dur: 8.5, q: '결제 이상거래 탐지는 누가, 언제 쓰나요?', d: '고객이 결제하면 결제대행사나 가맹점의 시스템이 거래 정보와 기기 신호를 Trust Gateway에 보냅니다. Trust Gateway는 이상거래를 탐지해 알림과 권고를 근거와 함께 고객사 FDS에 돌려줍니다. 결제를 승인할지 거절할지는 고객사가 정합니다.' },
+    { k: 'payflow', t: '누가 쓰나요', dur: 8.5, q: '결제 이상거래 탐지는 누가, 언제 쓰나요?', d: '고객이 가맹점에서 카드로 결제하면, 거래 정보와 기기 신호가 PG나 카드사로 가는 사이에서 Trust Gateway가 이상거래를 탐지합니다. 알림과 권고는 근거와 함께 PG나 카드사의 FDS로 보냅니다. 결제를 승인할지 거절할지는 PG나 카드사가 정합니다.' },
     { k: 'paysig', t: '무엇을 보나요', dur: 7.5, q: '무엇을 보고 수상하다고 판단하나요?', d: '금액, 기기, 가맹점, 실패와 재시도처럼 여러 신호를 함께 봅니다. 이 고객의 평소 결제에서 얼마나 벗어났는지를 통계와 기계학습으로 계산해 이상거래를 찾습니다.' },
     { k: 'payok', t: '평범한 결제', dur: 6.5, q: '평소와 같은 결제라면요?', d: '모든 신호가 평소와 같으면 이상 없음으로 돌려줍니다. 결제는 고객사가 평소대로 처리합니다.' },
     { k: 'paybig', t: '평소보다 큰 금액', dur: 6.5, q: '평소보다 훨씬 큰 결제라면요?', d: '금액과 가맹점이 평소와 다르면 고객사 FDS에 주의 알림과 추가 인증 권고를 근거와 함께 보냅니다. 추가 인증을 받을지는 고객사가 정합니다.' },
@@ -212,22 +212,24 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
             )}
 
             {s.k === 'payflow' && (
+              // CEO, 2026-11-16: Trust Gateway sits between the merchant and the PG or card company; it detects and advises,
+              // the PG or card company decides
               <div class="flow">
-                <div class="node in" style={at(0.2)}><span class="ico"><Icon name="phone" size={24} /></span><b>결제하는 고객</b><small>카드 · 간편결제</small></div>
+                <div class="node in" style={at(0.2)}><span class="ico"><Icon name="phone" size={24} /></span><b>고객 · 가맹점</b><small>카드 결제</small></div>
                 <div class="link">
-                  <em class="in" style={at(0.6)}>결제 요청</em>
+                  <em class="in" style={at(0.6)}>거래 정보 + 기기 신호</em>
                   <span class="lane fwd"><i class="dot" style={at(0.6)}></i></span>
                   <span class="lane back"><i class="dot" style={at(6.2)}></i></span>
                   <em class="in" style={at(6.6)}>승인 또는 본인 확인</em>
                 </div>
-                <div class="node in" style={at(0.4)}><span class="ico"><Icon name="server" size={24} /></span><b>결제대행사 · 가맹점</b><small>결제 처리 · FDS</small><span class="decide in" style={at(5.2)}>최종 결정</span></div>
+                <div class="node tg in" style={at(0.4)}><span class="ico"><Icon name="shield" size={24} /></span><b>Trust Gateway</b><small>이상거래 탐지</small><span class="eval win" style={win(1.6, 2.8)}>탐지 중</span><span class="recs in" style={at(2.8)}><i class="ok">이상 없음</i><i class="warn">주의 알림</i><i class="stop">위험 알림</i></span></div>
                 <div class="link">
-                  <em class="in" style={at(1.8)}>거래 정보 + 기기 신호</em>
-                  <span class="lane fwd"><i class="dot" style={at(1.8)}></i></span>
-                  <span class="lane back"><i class="dot" style={at(4)}></i></span>
-                  <em class="in" style={at(4.4)}>알림 · 권고 + 근거</em>
+                  <em class="in" style={at(3)}>알림 · 권고 + 근거</em>
+                  <span class="lane fwd"><i class="dot" style={at(3)}></i></span>
+                  <span class="lane back"><i class="dot" style={at(5.2)}></i></span>
+                  <em class="in" style={at(5.6)}>결정 결과</em>
                 </div>
-                <div class="node tg in" style={at(0.6)}><span class="ico"><Icon name="shield" size={24} /></span><b>Trust Gateway</b><small>이상거래 탐지</small><span class="eval win" style={win(2.6, 4)}>탐지 중</span><span class="recs in" style={at(4)}><i class="ok">이상 없음</i><i class="warn">주의 알림</i><i class="stop">위험 알림</i></span></div>
+                <div class="node in" style={at(0.6)}><span class="ico"><Icon name="server" size={24} /></span><b>PG · 카드사</b><small>결제 처리 · FDS</small><span class="decide in" style={at(4.2)}>최종 결정</span></div>
               </div>
             )}
 

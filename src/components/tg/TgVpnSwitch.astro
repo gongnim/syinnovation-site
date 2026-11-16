@@ -10,7 +10,7 @@ const compare = [
   { k: '열리는 범위', vpn: '사내망 전체', tg: '허락된 앱과 경로만' },
   { k: '본인 확인', vpn: '아이디와 비밀번호', tg: '기기 인증서 + 휴대폰 생체 확인' },
   { k: '위치 확인', vpn: '없음', tg: 'PC · 휴대폰 · 네트워크 다중 신호 교차 검증' },
-  { k: '외부 노출', vpn: 'VPN 장비가 인터넷에 열려 있음', tg: '사내망으로 들어오는 포트 없음' },
+  { k: '외부 노출', vpn: 'VPN 장비가 인터넷에 열려 있음', tg: '사내망으로 들어오는 포트가 보이지 않음' },
 ];
 ---
 <section class="section mist" id="vpn">
@@ -36,13 +36,12 @@ const compare = [
             <li class="no only-tg">휴대폰 생체 확인 없음</li>
           </ul>
         </div>
-        <div class="pipe in"><i></i></div>
+        <div class="pipe in"><i></i><span class="blk only-tg" aria-hidden="true"></span></div>
         <div class="gate">
           <span class="ico"><Icon name="shield" size={22} /></span>
           <b><span class="only-vpn">VPN 장비</span><span class="only-tg">Trust Gateway</span></b>
           <span class="g-s only-vpn">로그인 한 번이면 통과</span>
-          <span class="g-s only-tg">요청마다 확인, 여기서 거부</span>
-          <span class="stop only-tg" aria-hidden="true"></span>
+          <span class="g-s only-tg">확인 안 되면 여기서 차단</span>
         </div>
         <div class="pipe out"><i></i></div>
         <div class="net">
@@ -53,11 +52,21 @@ const compare = [
             ))}
           </ul>
         </div>
+        <!-- going around Trust Gateway straight to 사내망 finds nothing (user, 2026-11-16): the script draws the detour from
+             the account's box to the network's edge; on narrow screens a one-line note stands in -->
+        <div class="bp only-tg" aria-hidden="true">
+          <svg class="bp-svg"><path d="" /></svg>
+          <i class="bp-dot"></i>
+          <span class="bp-x"></span>
+          <span class="bp-t1">Trust Gateway를 건너뛰고 사내망으로 바로 가 보면</span>
+          <span class="bp-t2">바깥에서 포트가 보이지 않음</span>
+        </div>
+        <p class="bp-m only-tg" aria-hidden="true"><span class="bp-mx"></span>Trust Gateway를 건너뛰고 바로 가 봐도 바깥에서 포트가 보이지 않습니다</p>
       </div>
 
       <p class="cap">
         <span class="only-vpn">VPN은 한 번 들어오면 사내망 전체가 보입니다. 계정 하나로 옆 서버까지 넘어갈 수 있습니다.</span>
-        <span class="only-tg">기기 인증서와 휴대폰 확인이 없으면 게이트웨이에서 멈춥니다. 직원 본인이 접속해도 허락된 앱만 열립니다.</span>
+        <span class="only-tg">기기 인증서와 휴대폰 확인이 없으면 게이트웨이에서 멈춥니다. 게이트웨이를 건너뛰고 사내망으로 바로 가 봐도 바깥에서 포트가 보이지 않습니다. 직원 본인이 접속해도 허락된 앱만 열립니다.</span>
       </p>
 
       <div class="cmp-wrap">
@@ -80,7 +89,8 @@ const compare = [
   /* only-vpn / only-tg pieces follow the mode */
   .vs[data-mode='vpn'] .only-tg, .vs[data-mode='tg'] .only-vpn { display: none; }
 
-  .stage { display: grid; grid-template-columns: minmax(0, 200px) minmax(32px, 1fr) minmax(0, 190px) minmax(32px, 1fr) minmax(0, 330px); align-items: center; }
+  /* the bottom padding is room for the detour drawn in Trust Gateway mode (kept in both modes so switching does not move the page) */
+  .stage { position: relative; padding-bottom: 64px; display: grid; grid-template-columns: minmax(0, 200px) minmax(32px, 1fr) minmax(0, 190px) minmax(32px, 1fr) minmax(0, 330px); align-items: center; }
   .who, .gate { position: relative; display: grid; gap: 8px; justify-items: start; padding: 18px; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--paper-2); }
   .ico { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: #fff; color: var(--ink-2); border: 1px solid var(--line); }
   .who b, .gate b { font-size: 16px; }
@@ -92,9 +102,11 @@ const compare = [
   .g-s { font-size: 14px; color: var(--ink-2); }
   .vs[data-mode='tg'] .gate { border: 2px solid var(--blue); background: var(--mist); }
   .vs[data-mode='tg'] .gate .ico { color: var(--blue); }
-  .stop { position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; border-radius: 50%; background: var(--coral); }
-  .stop::before, .stop::after { content: ''; position: absolute; left: 9px; top: 15px; width: 14px; height: 2px; background: #fff; transform: rotate(45deg); }
-  .stop::after { transform: rotate(-45deg); }
+  /* the stolen account's path ends at a red X in front of the gate (CEO, 2026-11-16: an X on Trust Gateway itself read as
+     "Trust Gateway fails"); the dot runs into it */
+  .blk { position: absolute; z-index: 1; right: 0; top: 50%; width: 24px; height: 24px; margin-top: -12px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 4px #fff; }
+  .blk::before, .blk::after { content: ''; position: absolute; left: 6px; top: 11px; width: 12px; height: 2px; background: #fff; transform: rotate(45deg); }
+  .blk::after { transform: rotate(-45deg); }
 
   /* a pipe with a dot travelling along it; the second pipe is cut in Trust Gateway mode */
   .pipe { position: relative; height: 2px; margin: 0 8px; background: #e7c3bd; }
@@ -104,6 +116,21 @@ const compare = [
   .vs[data-mode='tg'] .pipe.out { background: repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px); }
   @keyframes travel { 0% { left: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { left: calc(100% - 10px); opacity: 0; } }
 
+  /* the detour: --path, --gx, --nx, --nb, --y come from the script */
+  .bp { position: absolute; inset: 0; pointer-events: none; }
+  .bp-svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+  .bp-svg path { fill: none; stroke: #e7c3bd; stroke-width: 2; stroke-dasharray: 6 6; }
+  .bp-dot { position: absolute; left: 0; top: 0; width: 10px; height: 10px; border-radius: 50%; background: var(--coral); opacity: 0; offset-path: var(--path); offset-anchor: 50% 50%; offset-rotate: 0deg; }
+  .vs.play[data-mode='tg'] .bp-dot { animation: bp-run 2.6s linear infinite; }
+  @keyframes bp-run { 0% { offset-distance: 0%; opacity: 0; } 8% { opacity: 1; } 90% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+  .bp-x, .bp-mx { width: 24px; height: 24px; border-radius: 50%; background: var(--coral); box-shadow: 0 0 0 4px #fff; }
+  .bp-x { position: absolute; z-index: 1; left: var(--nx); top: var(--nb); transform: translate(-50%, -50%); }
+  .bp-x::before, .bp-x::after, .bp-mx::before, .bp-mx::after { content: ''; position: absolute; left: 6px; top: 11px; width: 12px; height: 2px; background: #fff; transform: rotate(45deg); }
+  .bp-x::after, .bp-mx::after { transform: rotate(-45deg); }
+  .bp-t1, .bp-t2 { position: absolute; white-space: nowrap; font-size: 13px; font-weight: 600; color: #b5473a; }
+  .bp-t1 { left: var(--gx); top: var(--y); transform: translate(-50%, calc(-100% - 6px)); }
+  .bp-t2 { left: var(--nx); top: var(--y); transform: translate(-50%, 6px); }
+  .bp-m { display: none; }
   .net { border: 1px dashed var(--ink-3); border-radius: var(--r-lg); padding: 14px; }
   .net-t { font-size: 14px; font-weight: 700; color: var(--ink-3); margin-bottom: 10px; }
   .srv { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
@@ -133,9 +160,13 @@ const compare = [
   .vs[data-mode='tg'] th.c-tg { color: var(--blue); }
 
   @media (max-width: 860px) {
-    .stage { grid-template-columns: minmax(0, 1fr); justify-items: stretch; }
+    .stage { grid-template-columns: minmax(0, 1fr); justify-items: stretch; padding-bottom: 0; }
+    .bp { display: none; }
+    .bp-m { display: flex; align-items: center; gap: 10px; margin: 14px 0 0; font-size: 14px; font-weight: 600; color: #b5473a; }
+    .bp-mx { position: relative; flex: none; }
     .pipe { width: 2px; height: 36px; margin: 8px auto; }
     .pipe i { top: 0; left: -4px; }
+    .blk { right: auto; top: auto; bottom: 0; left: -11px; margin-top: 0; }
     .vs.play .pipe.in i, .vs.play[data-mode='vpn'] .pipe.out i { animation-name: travel-down; }
     .vs[data-mode='tg'] .pipe.out { background: repeating-linear-gradient(180deg, var(--line) 0 6px, transparent 6px 12px); }
     @keyframes travel-down { 0% { top: 0; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: calc(100% - 10px); opacity: 0; } }
@@ -144,7 +175,7 @@ const compare = [
     .head-center .lead br { display: none; }
   }
   @media (prefers-reduced-motion: reduce) {
-    .pipe i { display: none; }
+    .pipe i, .bp-dot { display: none; }
     .srv li, .cmp th, .cmp td { transition: none; }
   }
 </style>
@@ -153,7 +184,22 @@ const compare = [
   document.querySelectorAll<HTMLElement>('.vs').forEach((vs) => {
     const btns = [...vs.querySelectorAll<HTMLButtonElement>('[data-m]')];
     let touched = false;
-    const set = (m: string) => { vs.dataset.mode = m; btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m === m))); };
+    // the detour from the account's box, under the gate, to the bottom edge of 사내망 (wide layout only)
+    const stage = vs.querySelector<HTMLElement>('.stage')!;
+    const bp = stage.querySelector<HTMLElement>('.bp')!;
+    const draw = () => {
+      const s = stage.getBoundingClientRect();
+      const box = (sel: string) => { const b = stage.querySelector(sel)!.getBoundingClientRect(); return { cx: (b.left + b.right) / 2 - s.left, b: b.bottom - s.top }; };
+      const who = box('.who'), gate = box('.gate'), net = box('.net');
+      if (!s.width || Math.abs(who.cx - net.cx) < 40) return; // stacked: the note stands in
+      const y = Math.round(Math.max(who.b, net.b) + 30);
+      const d = `M${Math.round(who.cx)} ${Math.round(who.b + 6)} V${y} H${Math.round(net.cx)} V${Math.round(net.b)}`;
+      bp.querySelector('path')!.setAttribute('d', d);
+      Object.entries({ '--path': `path('${d}')`, '--gx': `${gate.cx}px`, '--nx': `${net.cx}px`, '--nb': `${net.b}px`, '--y': `${y}px` }).forEach(([k, v]) => bp.style.setProperty(k, v));
+    };
+    draw();
+    new ResizeObserver(draw).observe(stage);
+    const set = (m: string) => { vs.dataset.mode = m; btns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.m === m))); draw(); };
     btns.forEach((b) => b.addEventListener('click', () => { touched = true; vs.classList.add('play'); set(b.dataset.m!); }));
     new IntersectionObserver(([e], io) => {
       if (!e.isIntersecting) return;

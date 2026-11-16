@@ -4,11 +4,11 @@ import { company, nav, cta } from '../data/site';
 <footer class="ft">
   <div class="wrap ft-grid">
     <div>
-      <img src="/images/brand/logo-sy-web.svg" alt="SYINNOVATION" width="300" height="42" class="ft-logo" />
+      <img src="/images/brand/syinnovation-logo-web.svg" alt="SYINNOVATION RE:Think innovation" width="300" height="57" class="ft-logo" />
       <p class="ft-motto">{company.motto}</p>
     </div>
     <nav aria-label="사이트 메뉴" class="ft-links">
-      {[...nav, cta].map((n) => <a href={n.href}>{n.label}</a>)}
+      {[nav.slice(0, 3), [...nav.slice(3), cta]].map((col) => <div>{col.map((n) => <a href={n.href}>{n.label}</a>)}</div>)}
     </nav>
     <address class="ft-info">
       <span>{company.legal}</span>
@@ -28,9 +28,12 @@ import { company, nav, cta } from '../data/site';
 <style>
   .ft { background: var(--paper-2); border-top: 1px solid var(--line); padding: 56px 0 32px; font-size: 15px; color: var(--ink-2); }
   .ft-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.4fr; gap: 40px; }
-  .ft-logo { height: 28px; width: auto; }
+  /* the same web logo as the header, with its "RE:Think innovation" tagline (user, 2026-11-16); the name stays the size it was */
+  .ft-logo { height: 38px; width: auto; }
   .ft-motto { margin-top: 14px; font-weight: 600; color: var(--ink); }
-  .ft-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 24px; align-content: start; }
+  /* the menu in order down two columns (user, 2026-11-16): 홈 · Trust Gateway · IT 컨설팅·개발, then 소식 · 자료실 · 회사소개 · 문의하기 */
+  .ft-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; align-content: start; }
+  .ft-links div { display: grid; gap: 8px; align-content: start; }
   .ft-links a:hover { color: var(--blue); }
   .ft-info { font-style: normal; display: grid; gap: 4px; align-content: start; }
   .ft-info a { color: var(--blue); }

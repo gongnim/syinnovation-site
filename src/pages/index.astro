@@ -30,7 +30,7 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
     <div class="hero-ring" aria-hidden="true"></div>
     <div class="wrap hero-copy" data-hero-layer="a">
       <h1 class="hero-title">Never Trust, <br />Always Verify</h1>
-      <p class="hero-lead">Trust Gateway는 다중 신호 교차 검증을 실시간으로 수행해, <br />로그인 이후에도 본인인지 검증하는 제로트러스트 기반 솔루션입니다.</p>
+      <p class="hero-lead">Trust Gateway는 로그인 이후에도 본인인지 <br />실시간 검증하는 제로트러스트 기반 솔루션입니다.</p>
     </div>
     <!-- the incidents heading sits inside the sphere's lower half (user, 2026-11-13) -->
     <div class="wrap hero-next">
@@ -53,8 +53,8 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
     <div class="wrap">
       <div class="head-center reveal">
         <p class="proofs-k">Trust Gateway</p>
-        <h2 class="h2">로그인 한 번이 아니라, <br />요청마다 확인합니다</h2>
-        <p class="lead">PC는 기기를, 휴대폰은 사람을 증명하고, 게이트웨이는 요청마다 다시 확인합니다. <br />하나가 뚫려도 나머지가 막습니다.</p>
+        <h2 class="h2">로그인 한 번이 아니라, <br />매 순간 다시 확인합니다</h2>
+        <p class="lead">PC는 기기를, 휴대폰은 사용자를 증명하고, 게이트웨이는 매 순간 다시 확인합니다. <br />하나가 뚫려도 나머지가 막습니다.</p>
       </div>
       <div class="proofs play-on-view">
         <article class="card proof reveal">
@@ -84,7 +84,7 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
               </div>
             </div>
           </div>
-          <h3 class="h4">휴대폰은 사람을 증명합니다</h3>
+          <h3 class="h4">휴대폰은 사용자를 증명합니다</h3>
           <p class="body">업무를 시작할 때 PC의 QR을 휴대폰으로 찍고 생체 인증을 하면, 지금 이 PC를 쓰는 사람이 확인됩니다. 공용 PC도 사람 단위로 구분됩니다.</p>
         </article>
         <article class="card proof wide reveal">
@@ -96,8 +96,8 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
             </ul>
           </div>
           <div class="wide-copy">
-            <h3 class="h4">게이트웨이는 매 요청을 확인합니다</h3>
-            <p class="body">접속한 뒤에도 요청마다 정책과 위험을 다시 봅니다. 결과는 허용, 추가 인증, 거부 셋 중 하나입니다.</p>
+            <h3 class="h4">게이트웨이는 매 순간 확인합니다</h3>
+            <p class="body">접속한 뒤에도 업무를 하는 내내 정책과 위험을 다시 따져 봅니다. 결과는 허용, 추가 인증, 거부 셋 중 하나입니다.</p>
           </div>
         </article>
       </div>
@@ -142,7 +142,7 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
             <ul class="ops">{ops.map(([a, b], k) => <li style={`--k:${k}`}><span>{a}</span><b>{b}</b></li>)}</ul>
           </div>
           <div class="wide-copy">
-            <h3 class="h4">오픈한 뒤에도 운영과 개선을 이어 갑니다</h3>
+            <h3 class="h4">개발이 완료된 뒤에도 운영과 개선을 이어 갑니다</h3>
             <p class="body">기능 개선과 장애 대응을 맡고, 사용 현황을 보고 다음 개선을 제안합니다.</p>
           </div>
         </article>
@@ -173,7 +173,7 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
   </section>
 
   <!-- 6. CTA -->
-  <CtaBand title="IT 개발부터 보안까지, 필요한 것부터 시작하세요" lead="새 업무 시스템이 필요하다면, 무료 컨설팅으로 지금 상황부터 함께 살펴봅니다. 접속 보안이 고민이라면, 무료 PoC로 Trust Gateway를 우리 회사 환경에서 직접 써 보세요." />
+  <CtaBand title={"IT 개발부터 보안까지 고민이시라면\n사전 컨설팅으로 시작해 보세요"} lead="필요한 프로그램부터 보안의 위험까지 함께 진단합니다." />
 </Base>
 
 <style>
@@ -236,6 +236,8 @@ const ops = [['입력 화면 개선', '배포 완료'], ['보고서 항목 추�
   .proof { display: flex; flex-direction: column; gap: 10px; padding: 22px 22px 30px; }
   .proof .media { border-radius: var(--r-lg); background: var(--paper-2); min-height: 300px; display: grid; place-items: center; margin-bottom: 14px; padding: 28px; }
   .proof h3, .proof .body { padding: 0 8px; }
+  /* the two cards side by side share their rows, so the grey panels end on one line and the titles start on one line */
+  .proof:not(.wide) { display: grid; grid-row: span 3; grid-template-rows: subgrid; row-gap: 10px; }
   .proof.wide { grid-column: 1 / -1; display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 32px; }
   .proof.wide .media { margin: 0; min-height: 260px; }
   .wide-copy { display: grid; gap: 10px; }

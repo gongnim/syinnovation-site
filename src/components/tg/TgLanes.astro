@@ -6,6 +6,7 @@
 // To bring it back as the hero: in src/pages/trust-gateway.astro import TgLanes instead of TgIntro and put <TgLanes />
 // first. It uses the same .tg-hero class as TgIntro, so never put both on one page.
 import Icon from '../Icon.astro';
+import ConsultBtn from '../ConsultBtn.astro';
 const lanes = [
   { who: '본사 직원', dev: '회사 PC', to: '그룹웨어', v: 'ok', l: '허용', why: '기기 · 본인 확인', d: 0 },
   { who: '재택 근무자', dev: '노트북', to: 'ERP', v: 'more', l: '추가 확인', l2: '허용', why: '평소와 다른 접속', d: 1.6 },
@@ -20,7 +21,7 @@ const lanes = [
       <h1 class="title">Trust Gateway는 제로트러스트 <br />설계 원칙 기반 솔루션입니다</h1>
       <p class="lead-d">비밀번호가 새어 나가도 회사 시스템은 열리지 않습니다. <br />등록된 PC와 본인 휴대폰이 함께 확인돼야 열리고, 로그인한 뒤에도 평소와 다르면 다시 확인합니다.</p>
       <div class="btn-row">
-        <a class="btn primary" href="/contact?type=poc">무료 PoC/컨설팅 신청</a>
+        <ConsultBtn />
         <a class="btn ghost" href="#demo">제품 화면 보기</a>
       </div>
     </div>

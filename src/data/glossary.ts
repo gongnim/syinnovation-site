@@ -250,7 +250,7 @@ export const glossary: Term[] = [
     b: '오탐이 많으면 사용자가 불편하고, 미탐이 많으면 사고가 납니다. 둘 사이 균형을 맞추는 것이 탐지 설계의 핵심입니다.', rel: ['anomaly', 'explainability'] },
   { id: 'audit-log', aka: ['감사증적', 'Audit Trail'], cat: 'detect', t: '감사 로그', en: 'Audit Log', s: '누가 언제 무엇을 했는지 남기는 기록',
     b: '사고가 났을 때 원인을 추적하고 책임을 가리는 근거가 됩니다. 고쳐 쓸 수 없게 보관해야 증거로 쓸 수 있습니다.',
-    tg: 'Trust Gateway는 감사 기록을 해시로 이어 묶어, 나중에 고친 흔적이 드러나게 합니다.', rel: ['hash-chain', 'siem'] },
+    tg: 'Trust Gateway는 접근 판정마다 근거를 남기고, 인증서 발급과 폐기 이력은 해시로 이어 나중에 고친 흔적이 드러나게 합니다.', rel: ['hash-chain', 'siem'] },
   { id: 'hash-chain', cat: 'detect', t: '해시 체인', en: 'Hash Chain', s: '앞 기록의 해시를 다음 기록에 넣어 사슬처럼 이은 구조',
     b: '중간 기록 하나만 바꿔도 뒤의 해시가 모두 어긋나 위조를 알아챌 수 있습니다.', rel: ['hash', 'audit-log'] },
   { id: 'siem', cat: 'detect', t: '보안 이벤트 관리', en: 'SIEM', s: '여러 시스템의 보안 로그를 모아 분석하는 시스템',

@@ -4,7 +4,7 @@
 // code (user chose "A안": people type, a finger taps the phone, cars drive, barriers lift, and it holds still while a
 // panel explains). One long night street the camera flies along, nine chapters and an ending (user: the steps gather
 // into a shield, "이것이 Trust Gateway입니다"):
-//   출발 (office: registered PC, phone fingerprint) · 밖에서도 (cafe: PC and phone send Wi-Fi, location, time zone) ·
+//   출발 (office: registered PC, phone fingerprint, then the two check each other) · 밖에서도 (cafe: PC and phone send Wi-Fi, location, time zone) ·
 //   연결 (road: requests drive to the gate over a mutually authenticated encrypted link, a suspicious one weaves) ·
 //   신호 대조 (panel: 다중 신호 교차 검증, PC and phone signals compared) · 판정 (three lanes: 허용, 추가 인증, 거부) ·
 //   평소와 다를 때 (panel: PC and phone point to different countries) · 회사 안으로 (no door on the outside, drones bounce;
@@ -17,6 +17,7 @@
 // JavaScript: the 신호 대조 chapter, still. Earlier versions: TgLanes.astro (live lanes map); the AI island stills in
 // public/images/trust-gateway/world are not used.
 import Icon from '../Icon.astro';
+import ConsultBtn from '../ConsultBtn.astro';
 import Person from './intro/Person.astro';
 import Car from './intro/Car.astro';
 
@@ -49,7 +50,7 @@ const enter = (t0: number, t1: number, dx = 0): Step[] => [
 const fade = (t0: number, t1: number): Step[] => [[t0, { opacity: 0 }], [t0 + 0.5, { opacity: 1 }], [t1, { opacity: 1 }], [t1 + 0.5, { opacity: 0 }]];
 
 const chapters = [
-  { n: '출발', area: 0, hold: [0, 7], t: '사무실에서 등록된 PC로 일을 시작합니다. 본인 휴대폰으로 생체 확인을 하면, 이 PC를 지금 누가 쓰는지 확인됩니다.' },
+  { n: '출발', area: 0, hold: [0, 7], t: '사무실에서 등록된 PC로 일을 시작합니다. 본인 휴대폰으로 생체 확인을 하면 PC와 휴대폰이 서로 확인해, 이 PC를 지금 누가 쓰는지 알 수 있습니다.' },
   { n: '밖에서도', area: 1, hold: [8.2, 15], t: '카페나 출장지에서도 같은 기준으로 확인합니다. PC와 휴대폰은 Wi-Fi, 위치, 시간대 같은 신호를 함께 보냅니다.' },
   { n: '연결', area: 2, hold: [16.2, 22], t: '요청은 암호화된 상호 인증 연결로 Trust Gateway에 갑니다. 그 사이에 수상한 요청도 섞여 있습니다.' },
   { n: '신호 대조', area: 3, hold: [23.2, 35], t: 'PC와 휴대폰의 신호를 서로 맞춰 봅니다. 같은 장소인지, 같은 Wi-Fi인지, 같은 시간대인지, 평소와 다른지 확인합니다.' },
@@ -111,7 +112,11 @@ const marks: Mark[] = [
   // 출발
   { k: 'chip', tone: 'ok', t: '등록된 PC', x: 342, y: 145, tl: pop(1, 6.6) },
   { k: 'ring', tone: 'ok', x: 415, y: 232, tl: ring(2.5) },
-  { k: 'chip', tone: 'ok', t: '본인 휴대폰 · 생체 확인', x: 470, y: 210, tl: pop(2.6, 6.6) },
+  { k: 'chip', tone: 'ok', t: '본인 휴대폰 · 생체 확인', x: 500, y: 266, tl: pop(2.6, 6.6) },
+  // then the PC and the phone check each other (CEO, 2026-11-16): two dots swap ends along the arc drawn in the office
+  { k: 'ring', tone: 'ok', x: 398, y: 170, tl: ring(4.3, 0.8) },
+  { k: 'ring', tone: 'ok', x: 426, y: 222, tl: ring(4.3, 0.8) },
+  { k: 'chip', tone: 'ok', t: 'PC와 휴대폰이 서로 확인', x: 525, y: 186, tl: pop(4.2, 6.6) },
   // 밖에서도: the signals go up from the laptop and the phone
   { k: 'chip', tone: 'info', t: '같은 기준으로 확인', x: 890, y: 74, tl: pop(9, 14.6) },
   { k: 'float', tone: 'sig', t: 'Wi-Fi', tl: rise(9.2, 11.4, 918, 232, 870, 175) },
@@ -179,8 +184,7 @@ const shelfYs = [140, 200, 260];
       <h1 class="title">Trust Gateway는 제로트러스트 <br />설계 원칙 기반 솔루션입니다</h1>
       <p class="lead-d">다중 신호 교차 검증을 통해 로그인 접속 이후에도 실시간으로 검증합니다.</p>
       <div class="btn-row">
-        <a class="btn primary" href="/contact?type=poc">무료 PoC/컨설팅 신청</a>
-        <a class="btn ghost" href="#demo">제품 화면 보기</a>
+        <ConsultBtn />
       </div>
     </div>
 
@@ -223,6 +227,9 @@ const shelfYs = [140, 200, 260];
               <rect x="407" y="218" width="16" height="30" rx="3" fill="#0b1424" data-tl={tl(fill('#0b1424', '#1f4d7a', 1.4, 6.6))} />
               <path d="M410 233 l4 4 l7 -8" data-tl={tl(show(3, 6.6))} opacity="0" fill="none" stroke="#63d6b4" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
               <g data-tl={tl(move([[2, 0, -40, 0], [2.2, 0, -30], [2.5, 0, 0], [2.9, 0, 0], [3.2, 0, -40, 0]]))} opacity="0"><rect x="410" y="208" width="10" height="26" rx="5" fill="#f1c9a5" /></g>
+              <path d="M398 170 C450 140 470 200 426 222" fill="none" stroke="#9fc3ef" stroke-width="2" stroke-dasharray="4 5" stroke-linecap="round" data-tl={tl(show(3.3, 6.6))} opacity="0" />
+              <g data-tl={tl(move([[3.4, 0, 0, 0], [3.5, 0, 0], [3.8, 40, -5], [4.05, 52, 22], [4.3, 28, 52], [4.4, 28, 52, 0]]))} opacity="0"><circle cx="398" cy="170" r="5" fill="#9fc3ef" /></g>
+              <g data-tl={tl(move([[3.4, 0, 0, 0], [3.5, 0, 0], [3.8, 24, -30], [4.05, 12, -57], [4.3, -28, -52], [4.4, -28, -52, 0]]))} opacity="0"><circle cx="426" cy="222" r="5" fill="#63d6b4" /></g>
 
               <!-- 2. cafe -->
               <rect x="600" y="330" width="600" height="70" fill="#16233a" />

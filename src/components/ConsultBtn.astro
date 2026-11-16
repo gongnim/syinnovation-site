@@ -1,0 +1,11 @@
+---
+// The 사전 컨설팅 button, wherever Trust Gateway asks for the first step (user, 2026-11-16): "사전 컨설팅 신청" with
+// "(무료)" on its own line under it, as tall as a one-line button. Only the 사전 컨설팅 is free; the PoC is not.
+---
+<a class="btn primary cbtn" href="/contact?type=poc">사전 컨설팅 신청<small>(무료)</small></a>
+
+<style>
+  /* white text like the header 문의하기 button (user, 2026-11-16) */
+  .btn.cbtn { flex-direction: column; gap: 0; padding-block: 6px; line-height: 1.2; color: #fff; }
+  .cbtn small { font-size: .8em; font-weight: 600; }
+</style>

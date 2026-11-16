@@ -7,7 +7,7 @@ import Icon from '../Icon.astro';
 
 const points = [
   { i: 'search', t: '판단 근거를 문장으로', d: '요청마다 왜 허용하거나 막았는지 문장으로 남깁니다.' },
-  { i: 'lock', t: '위변조가 드러나는 감사 기록', d: '판정 기록은 앞 기록과 해시로 이어져 중간을 바꾸면 드러납니다. 삭제와 덮어쓰기가 잠긴 저장소에 5년 보관합니다.' },
+  { i: 'lock', t: '위변조가 드러나는 인증서 이력', d: '인증서 발급과 폐기 이력은 해시로 이어 두어, 바뀌거나 빠진 기록을 검증 도구로 찾아냅니다. 기록의 보존 기간은 도입할 때 함께 정합니다.' },
   { i: 'user', t: '고객사 관리자도 직접', d: '고객사 관리자는 자기 회사의 직원, 기기, 정책을 직접 관리하고, 변경할 때마다 휴대폰 승인을 거칩니다.' },
   { i: 'pin', t: '사무실 IP 대역 등록', d: '회사 공인 IP 대역을 등록하면, 그 안에서 IP가 바뀌어도 재인증을 반복하지 않습니다.' },
 ];
@@ -33,6 +33,7 @@ const shown = first.find((r) => r.v !== 'allow')!;
       </ul>
     </div>
 
+    <div class="shot">
     <div class="win reveal" aria-label="관리 콘솔 예시 화면" role="img">
       <div class="bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>Trust Gateway 관리 콘솔</b><span class="live"><i></i>실시간</span></div>
       <div class="body2">
@@ -52,13 +53,15 @@ const shown = first.find((r) => r.v !== 'allow')!;
               <div><dt>금지 사항 확인</dt><dd data-f="zen">{shown.zen}</dd></div>
               <div><dt>최종 결정</dt><dd data-f="opa">{shown.opa}</dd></div>
             </dl>
-            <p class="chain"><Icon name="lock" size={14} />감사 기록에 남김 · 앞 기록과 해시로 연결</p>
+            <p class="chain"><Icon name="lock" size={14} />판정과 근거를 기록에 남김</p>
           </div>
         </div>
       </div>
     </div>
+    <!-- a quiet caption under the screen, not a centred line under the section (user, 2026-11-16) -->
+    <p class="note">관리 콘솔을 알아보기 쉽게 다시 그린 예시 화면입니다. 이름과 시간은 예시입니다.</p>
+    </div>
   </div>
-  <p class="note">관리 콘솔을 알아보기 쉽게 다시 그린 예시 화면입니다. 이름과 시간은 예시입니다.</p>
 </section>
 
 <style>
@@ -105,7 +108,7 @@ const shown = first.find((r) => r.v !== 'allow')!;
   .why dt { color: var(--ink-3); }
   .why dd { margin: 0; }
   .chain { display: flex; align-items: center; gap: 6px; font-size: 12px; color: #2e9a7a; font-weight: 600; }
-  .note { margin-top: 20px; text-align: center; font-size: 13px; color: var(--ink-3); }
+  .note { margin-top: 10px; font-size: 13px; color: var(--ink-3); }
 
   @media (max-width: 1023px) {
     .con { grid-template-columns: minmax(0, 1fr); }

@@ -1,7 +1,9 @@
 ---
+import ConsultBtn from './ConsultBtn.astro';
 // a line break in the title is written as \n
+// without a primary button the band asks for the 사전 컨설팅
 interface Props { title: string; lead?: string; primary?: { href: string; label: string }; secondary?: { href: string; label: string } }
-const { title, lead, primary = { href: '/contact?type=poc', label: '무료 PoC/컨설팅 신청' }, secondary } = Astro.props;
+const { title, lead, primary, secondary } = Astro.props;
 ---
 <section class="cta-band">
   <svg class="lines" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
@@ -13,7 +15,7 @@ const { title, lead, primary = { href: '/contact?type=poc', label: '무료 PoC/�
     <h2 class="h2">{title.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</h2>
     {lead && <p class="lead">{lead}</p>}
     <div class="btn-row">
-      <a class="btn primary" href={primary.href}>{primary.label}</a>
+      {primary ? <a class="btn primary" href={primary.href}>{primary.label}</a> : <ConsultBtn />}
       {secondary && <a class="btn ghost" href={secondary.href}>{secondary.label}</a>}
     </div>
   </div>
