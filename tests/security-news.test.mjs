@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseRss, classify, isUnwanted, stories, merge, regionOf, pickVideos, photoQuery, listed, plainNumber } from '../scripts/security-news-lib.mjs';
+import { parseRss, classify, isUnwanted, stories, merge, regionOf, pickVideos, photoQuery, listed, plainNumber, hangul } from '../scripts/security-news-lib.mjs';
 
 const cfg = { exclude: ['롯데카드'], noise: ['대회', 'webinar'], minOutlets: 2, maxNewPerRun: 6, keepDays: 120 };
 
@@ -86,16 +86,21 @@ test('foreign reports and follow-ups of a listed story are known by its other na
   assert.equal(merge([{ ...france, date: '2026-08-01' }], found, cfg, '2026-11-12').added > 0, true); // past 60 days: news again
 });
 
-test('news videos: only incident videos from broadcaster channels, never ones already listed', () => {
-  const vcfg = { ...cfg, videoChannels: ['YTN', 'News'], maxVideosPerRun: 2 };
+test('news videos: only incident videos from Korean outlets, in Korean, never ones already listed', () => {
+  const vcfg = { ...cfg, videoChannels: ['YTN', 'KBS', 'KNN'], maxVideosPerRun: 3 };
   const listedRow = { date: '2026-11-10', region: '국내', type: '해킹', org: '금융보안원', title: '금융보안원 침입', source: 'x', url: 'https://x/3' };
   const picked = pickVideos([listedRow], [
     { id: 'a1', title: '쇼핑몰 회원정보 대량 유출 확인 | YTN', channel: 'YTN', date: '2026-11-11', region: '국내' },
     { id: 'a2', title: '해킹 대처법 브이로그', channel: '개인 채널', date: '2026-11-11', region: '국내' }, // not a broadcaster
     { id: 'a3', title: '금융보안원 해킹 후속 보도', channel: 'KBS News', date: '2026-11-11', region: '국내' }, // already listed
     { id: 'a4', title: '신제품 출시 소식', channel: 'YTN', date: '2026-11-11', region: '국내' }, // not an incident
+    { id: 'a5', title: 'Bank confirms data breach after cyberattack', channel: 'GMA News', date: '2026-11-11', region: '해외' }, // foreign outlet
+    { id: 'a6', title: 'Hospital hit by ransomware attack', channel: 'KBS World', date: '2026-11-11', region: '해외' }, // not in Korean
+    { id: 'a7', title: '일본 대형 병원 랜섬웨어 감염 / KNN', channel: 'KNN NEWS', date: '2026-11-10', region: '국내' }, // abroad, by Korean media
   ], vcfg);
-  assert.deepEqual(picked.map((v) => v.youtube), ['a1']);
+  assert.deepEqual(picked.map((v) => v.youtube), ['a1', 'a7']);
+  assert.equal(picked[1].title, '일본 대형 병원 랜섬웨어 감염'); // "/ KNN": the channel's first word goes too
+  assert.equal(picked[1].region, '해외'); // a Korean outlet's report on an incident abroad
   assert.equal(picked[0].url, 'https://www.youtube.com/watch?v=a1');
   assert.equal(picked[0].title, '쇼핑몰 회원정보 대량 유출 확인'); // the channel is not repeated in the title
 });
@@ -104,6 +109,23 @@ test('free photo search: the field named in the headline first, else the kind of
   assert.equal(photoQuery('OO은행 고객 정보 유출', '개인정보 유출'), 'bank office');
   assert.equal(photoQuery('Airline confirms breach of booking system', '개인정보 유출'), 'airport terminal');
   assert.equal(photoQuery('XX사 랜섬웨어 감염', '랜섬웨어'), 'server room red light');
+});
+
+test('news abroad from Korean media: the region follows the place a Korean headline names', () => {
+  assert.equal(regionOf('日 대형 출판사 랜섬웨어 감염…고객 정보 유출', '해외'), '해외');
+  assert.equal(regionOf('미국 병원 해킹으로 환자 기록 유출', '국내'), '해외');
+  assert.equal(regionOf('코인원 고객상담 수탁사 해킹', '해외'), '국내'); // found by the search abroad, but at home
+});
+
+test('a video title loses its channel and MBC\'s date tail', () => {
+  const [v] = pickVideos([], [{ id: 'm1', title: '코인원 등 전방위 해킹 (2026.11.15/뉴스데스크/MBC)', channel: 'MBCNEWS', date: '2026-11-15', region: '국내' }], { ...cfg, videoChannels: ['MBC'] });
+  assert.equal(v.title, '코인원 등 전방위 해킹');
+});
+
+test('headline hanja are spelled out in Hangul', () => {
+  assert.equal(hangul("北 해킹조직 '라자루스', 국내 서버 30곳 조준"), "북한 해킹조직 '라자루스', 국내 서버 30곳 조준");
+  assert.equal(hangul('日, 개인정보 유출 잇따라'), '일본, 개인정보 유출 잇따라');
+  assert.equal(hangul('中企 노린 랜섬웨어'), '중소기업 노린 랜섬웨어');
 });
 
 test('an English headline about South Korea counts as an incident at home', () => {

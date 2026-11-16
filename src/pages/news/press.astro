@@ -1,8 +1,8 @@
 ---
 // 소식 > 언론보도: major security incidents at home and abroad, as photo cards. Every card has a picture: hand-picked
 // incidents and collected articles use pictures made for us (never news photos), news videos use their YouTube
-// thumbnail. Hand-picked incidents open our own page (/news/press/<slug>), collected articles open the original,
-// and videos play here in a large player. Rows come from src/data/security-news.json.
+// thumbnail. Every article opens our own page (/news/press/<slug>), collected ones too, and videos play here in a
+// large player. Rows come from src/data/security-news.json.
 import Base from '../../layouts/Base.astro';
 import PageTitle from '../../components/PageTitle.astro';
 import Icon from '../../components/Icon.astro';
@@ -16,7 +16,7 @@ const pexels = security.some((n) => n.credit);
 const regions = ['국내', '해외'].filter((r) => security.some((n) => n.region === r));
 // a collected article whose picture is missing borrows one made for the same kind of incident
 const byType = new Map<string, string>();
-for (const n of security) if (n.slug && n.image && !byType.has(n.type)) byType.set(n.type, n.image);
+for (const n of security) if (!n.auto && n.image && !byType.has(n.type)) byType.set(n.type, n.image);
 const picture = (n: (typeof security)[number]) =>
   n.youtube ? `https://i.ytimg.com/vi/${n.youtube}/hqdefault.jpg` : n.image ?? byType.get(n.type) ?? [...byType.values()][0];
 ---

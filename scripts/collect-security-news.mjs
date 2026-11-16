@@ -11,7 +11,7 @@
 // Word lists live in scripts/security-news.config.json; a row with "hidden": true is kept off the site.
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { parseRss, isoDate, merge, pickVideos, photoQuery } from './security-news-lib.mjs';
+import { parseRss, isoDate, merge, pickVideos, photoQuery, hangul } from './security-news-lib.mjs';
 
 const DATA = new URL('../src/data/security-news.json', import.meta.url);
 const PICS = new URL('../public/images/security/auto/', import.meta.url);
@@ -102,9 +102,11 @@ for (const q of cfg.queries) {
   for (const get of [googleNews, ...(q.lang === 'ko' ? [naverNews] : [])]) {
     try { found.push(...(await get(q))); } catch (e) { console.warn(String(e.message ?? e)); }
   }
-  try { videos.push(...(await youtubeNews(q))); } catch (e) { console.warn(String(e.message ?? e)); }
+  // videos: Korean media only, so they are searched in Korean (their reports on incidents abroad come up too)
+  if (q.lang === 'ko') try { videos.push(...(await youtubeNews(q))); } catch (e) { console.warn(String(e.message ?? e)); }
 }
 
+for (const it of [...found, ...videos]) it.title = hangul(it.title); // the site uses no hanja
 const stored = JSON.parse(fs.readFileSync(DATA, 'utf8'));
 const { rows, added } = merge(stored, found, cfg);
 const newVideos = pickVideos(rows, videos, cfg);

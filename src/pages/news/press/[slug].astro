@@ -3,6 +3,8 @@
 // impact, what is known about the cause, the response, what any organisation can check, and the reports we used,
 // each with a link to the original. No article text or photos are copied; the picture was made for this page.
 // The longer write-ups live in src/data/security-stories.json (keyed by slug); without one, the summary is shown.
+// A collected article (auto) has only its headline, outlet, date and link: its page says where it was reported,
+// links to the original and adds the checks for its kind of incident, nothing more.
 import Base from '../../../layouts/Base.astro';
 import Icon from '../../../components/Icon.astro';
 import CtaBand from '../../../components/CtaBand.astro';
@@ -32,13 +34,16 @@ const sources = s.sources?.length ? s.sources : [{ outlet: n.source, date: n.dat
       <nav class="crumb" aria-label="위치"><a href="/news">소식</a><span aria-hidden="true">/</span><a href="/news/press">언론보도</a></nav>
       <div class="tags"><span class:list={['tag', n.region === '해외' ? 'abroad' : 'home']}>{n.region}</span><span class="tag">{n.type}</span></div>
       <h1>{n.title}</h1>
-      <p class="meta">{fmt(n.date)}<span class="dot" aria-hidden="true"></span>{sources.map((x) => x.outlet).join(', ')} 보도 정리</p>
+      <p class="meta">{fmt(n.date)}<span class="dot" aria-hidden="true"></span>{sources.map((x) => x.outlet).join(', ')} {n.auto ? '보도' : '보도 정리'}</p>
       {n.summary && <p class="lead-in">{n.summary}</p>}
       {n.image && <img class="hero" src={n.image} alt="" width="1536" height="1024" />}
 
       <section>
         <h2>사고 개요</h2>
-        {(s.overview?.length ? s.overview : [n.summary]).map((p) => <p>{p}</p>)}
+        {s.overview?.length || n.summary
+          ? (s.overview?.length ? s.overview : [n.summary]).map((p) => <p>{p}</p>)
+          : <p>{fmt(n.date)} {n.source} 보도로 알려진 사고입니다. 사고 경위와 피해 규모는 원문 기사에서 볼 수 있습니다.</p>}
+        {n.auto && <a class="btn ghost orig" href={n.url} target="_blank" rel="noopener">원문 기사 보기<Icon name="external" size={15} /></a>}
       </section>
 
       {s.timeline?.length ? (
@@ -84,7 +89,9 @@ const sources = s.sources?.length ? s.sources : [{ outlet: n.source, date: n.dat
             <li><a href={x.url} target="_blank" rel="noopener">{x.outlet}{x.date && <span>{fmt(x.date)}</span>}<Icon name="external" size={14} label="새 창에서 원문 열기" /></a></li>
           ))}
         </ul>
-        <p>이 글은 위 보도에 나온 사실을 바탕으로 신영이노베이션이 직접 정리했습니다. 이미지는 이해를 돕기 위해 만든 것으로, 실제 현장 사진이 아닙니다.</p>
+        {n.auto
+          ? <p>제목과 출처는 위 보도를 따랐고, 점검할 점은 신영이노베이션이 정리했습니다. {n.credit ? `사진은 Pexels의 자료 사진(${n.credit.name})으로, 실제 현장 사진이 아닙니다.` : ''}</p>
+          : <p>이 글은 위 보도에 나온 사실을 바탕으로 신영이노베이션이 직접 정리했습니다. 이미지는 이해를 돕기 위해 만든 것으로, 실제 현장 사진이 아닙니다.</p>}
       </aside>
 
       <nav class="pn" aria-label="다른 보안 소식">
@@ -132,6 +139,7 @@ const sources = s.sources?.length ? s.sources : [{ outlet: n.source, date: n.dat
   .checks li { display: flex; align-items: flex-start; gap: 10px; padding: 14px 16px; border-radius: 12px; background: #fff; font-size: 16px; line-height: 1.6; color: var(--ink); }
   .checks :global(svg) { flex: none; margin-top: 3px; color: var(--blue); }
 
+  .orig { margin-top: 20px; }
   .source { margin-top: 44px; padding: 22px 24px; border-radius: 16px; border: 1px solid var(--line); }
   .source h2 { font-size: 17px; margin-bottom: 10px; }
   .source ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }

@@ -1,5 +1,5 @@
 {
-  "_about": "Settings for scripts/collect-security-news.mjs (runs once a day, free sources only). pictures: \"pexels\" (free photos, default) or \"openai\" (paid image generation). Edit the word lists here; the collector reads them on every run.",
+  "_about": "Settings for scripts/collect-security-news.mjs (runs once a day, free sources only). pictures: \"pexels\" (free photos, default) or \"openai\" (paid image generation). Edit the word lists here; the collector reads them on every run. Articles and videos come from Korean media only, news abroad included (the 해외 search is in Korean). A video must come from a channel in videoChannels (matched in the channel name) and have a Korean title.",
   "pictures": "pexels",
   "queries": [
     {
@@ -9,8 +9,8 @@
     },
     {
       "region": "해외",
-      "lang": "en",
-      "q": "\"data breach\" OR ransomware OR cyberattack OR hacked OR \"data leak\""
+      "lang": "ko",
+      "q": "해외 해킹 OR 해외 랜섬웨어 OR 해외 정보 유출 OR 미국 해킹 OR 일본 해킹 OR 글로벌 사이버 공격"
     }
   ],
   "minOutlets": {
@@ -21,30 +21,39 @@
   "maxVideosPerRun": 2,
   "keepDays": 120,
   "videoChannels": [
-    "뉴스",
-    "News",
     "YTN",
     "KBS",
     "MBC",
     "SBS",
     "JTBC",
-    "연합",
+    "연합뉴스",
     "채널A",
     "TV조선",
+    "TV CHOSUN",
     "MBN",
-    "BBC",
-    "CNN",
-    "Reuters",
-    "Bloomberg",
-    "CNBC",
-    "NBC",
-    "ABC",
-    "CBS",
-    "Sky",
-    "DW",
-    "NHK",
-    "Al Jazeera",
-    "France 24"
+    "KNN",
+    "TBC",
+    "TJB",
+    "CJB",
+    "JIBS",
+    "OBS",
+    "한국경제",
+    "한경",
+    "매일경제",
+    "머니투데이",
+    "서울경제",
+    "이데일리",
+    "뉴스1",
+    "뉴시스",
+    "조선일보",
+    "중앙일보",
+    "동아일보",
+    "한겨레",
+    "경향신문",
+    "보안뉴스",
+    "디지털데일리",
+    "전자신문",
+    "지디넷"
   ],
   "exclude": [
     "KB국민카드",
@@ -112,6 +121,10 @@
     "소송 제기",
     "가능성",
     "?",
-    "？"
+    "？",
+    "할까",
+    "될까",
+    "을까",
+    "킬까"
   ]
 }

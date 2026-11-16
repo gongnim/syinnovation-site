@@ -7,7 +7,8 @@
     "source": "GMA News",
     "url": "https://www.youtube.com/watch?v=1h0QIEpOflQ",
     "youtube": "1h0QIEpOflQ",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-15",
@@ -17,7 +18,8 @@
     "source": "Saam TV News",
     "url": "https://www.youtube.com/watch?v=hRNi9pk78dA",
     "youtube": "hRNi9pk78dA",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-15",
@@ -81,13 +83,14 @@
     "source": "Watch and Pray News",
     "url": "https://www.youtube.com/watch?v=Xs8gSgH8aAU",
     "youtube": "Xs8gSgH8aAU",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-14",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "김해 인제대 2만4천명 규모 개인정보 유출 / KNN",
+    "title": "김해 인제대 2만4천명 규모 개인정보 유출",
     "source": "KNN NEWS",
     "url": "https://www.youtube.com/watch?v=W14zUNMenXE",
     "youtube": "W14zUNMenXE",
@@ -97,7 +100,7 @@
     "date": "2026-11-15",
     "region": "국내",
     "type": "해킹",
-    "title": "北 해킹조직 '라자루스', 정부·금융·통신 국내 서버 30곳 조준… \"금융 탈취·첩보 수집\"",
+    "title": "북한 해킹조직 '라자루스', 정부·금융·통신 국내 서버 30곳 조준… \"금융 탈취·첩보 수집\"",
     "source": "글로벌이코노믹",
     "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPQk02REw4eV83OTRjQWFDSHptM0RGMnlacVZkVHhNZ0s2Q2tQR2RSSVFyMWZ5WUI3ZlZTNnBYeU5GX24xUVZ6Yy1RWU9BZExDVF9oVnAtOWQ2OFpIQzY2Nno5WS03RmZnenlfbkVuVGFzaGdNRUlqX05XRUgyM3l1UnphM2FtMDhMbEZr?oc=5",
     "auto": true,
@@ -151,7 +154,8 @@
       "name": "panumas nikhomkhai",
       "url": "https://www.pexels.com/photo/close-up-of-a-blue-server-rack-in-datacenter-37730211/",
       "id": 37730211
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
@@ -187,7 +191,7 @@
     "date": "2026-11-13",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "日, 개인정보 유출 잇따르자 보안 소프트웨어 매출 증가",
+    "title": "일본, 개인정보 유출 잇따르자 보안 소프트웨어 매출 증가",
     "source": "연합뉴스",
     "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5HVGV5eldkLUQyaW1QU3hYQkprTUdfMl9XMHFmQTdsVm9MZW9pcEtYUVBYRDVMSmlRQzI3MUxrN2UtT2tPU3p2QWlVNWpMYy1SaTNreGV6QlgtenRGWXJ3MdIBYEFVX3lxTE5HVGV5eldkLUQyaW1QU3hYQkprTUdfMl9XMHFmQTdsVm9MZW9pcEtYUVBYRDVMSmlRQzI3MUxrN2UtT2tPU3p2QWlVNWpMYy1SaTNreGV6QlgtenRGWXJ3MQ?oc=5",
     "auto": true,
@@ -211,7 +215,8 @@
       "name": "Nemuel Sereti",
       "url": "https://www.pexels.com/photo/monitor-displaying-lines-of-code-6424583/",
       "id": 6424583
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
@@ -256,7 +261,8 @@
       "name": "Antoni Shkraba",
       "url": "https://www.pexels.com/photo/person-using-black-laptop-computer-5475752/",
       "id": 5475752
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
@@ -271,7 +277,8 @@
       "name": "Al Nahian",
       "url": "https://www.pexels.com/photo/computer-program-on-computer-screen-7325498/",
       "id": 7325498
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
@@ -286,7 +293,8 @@
       "name": "panumas nikhomkhai",
       "url": "https://www.pexels.com/photo/data-center-server-racks-with-active-equipment-37730212/",
       "id": 37730212
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
@@ -361,7 +369,8 @@
       "name": "Towfiqu barbhuiya",
       "url": "https://www.pexels.com/photo/a-person-using-a-laptop-11341890/",
       "id": 11341890
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-12",
@@ -376,7 +385,8 @@
       "name": "panumas nikhomkhai",
       "url": "https://www.pexels.com/photo/line-of-pc-towers-17489151/",
       "id": 17489151
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
@@ -436,7 +446,8 @@
       "name": "Tiger Lily",
       "url": "https://www.pexels.com/photo/workers-walking-along-aisle-in-warehouse-4487383/",
       "id": 4487383
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-12",
@@ -445,7 +456,8 @@
     "title": "Richmond Schools respond as cyberattack data hits the dark web: 'Deeply disturbed'",
     "source": "WTVR.com",
     "url": "https://news.google.com/rss/articles/CBMilwFBVV95cUxPUmFDTUFuM2M4WGVEdmh1WFR0NUNFWGtNQk43QjV0OEtUOXJmNWNneUdPcFFEcUplQjFlZGI2Q01XOHJWcEpuMnEzT2I4TkdmZjBQMlhjcWVQYzByU1hua1VsVnJ6N2VIQzdYV0FSY1FUa3VqTnUyWWFhOWF2ZF9Dc1B5eGNVU0JGYzc5NEllNGZLVFhtWkRR?oc=5",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-11",
@@ -460,7 +472,8 @@
       "name": "Matheus Natan",
       "url": "https://www.pexels.com/photo/banco-exterior-with-reflective-glass-facade-in-brasilia-37201873/",
       "id": 37201873
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-12",
@@ -470,7 +483,8 @@
     "source": "9 News Australia",
     "url": "https://www.youtube.com/watch?v=AhpzB_gEdb0",
     "youtube": "AhpzB_gEdb0",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-12",

@@ -89,10 +89,18 @@ const shared = (a, b) => [...a].filter((w) => [...b].some((v) => same(w, v))).le
 
 // a Korean headline naming another country, or a big city or landmark abroad, is about an incident abroad
 // (no 파리: it is also in Korean brand names)
-const FOREIGN = /미국|일본|중국|프랑스|영국|독일|러시아|이란|우크라이나|대만|유럽|EU|호주|캐나다|인도|베트남|싱가포르|이스라엘|홍콩|브라질|도쿄|오사카|야스쿠니|뉴욕|워싱턴|런던|베이징|상하이/;
+const FOREIGN = /美|日|英|獨|佛|미국|일본|중국|프랑스|영국|독일|러시아|이란|우크라이나|대만|유럽|EU|호주|캐나다|인도|베트남|싱가포르|이스라엘|홍콩|브라질|태국|필리핀|캄보디아|말레이시아|스페인|이탈리아|네덜란드|도쿄|오사카|야스쿠니|뉴욕|워싱턴|런던|베이징|상하이/;
 // and an English headline about South Korea is about an incident at home
 const KOREA = /South Korea|Korean|Seoul/;
-export const regionOf = (title, region) => (region === '국내' && FOREIGN.test(title) ? '해외' : region === '해외' && KOREA.test(title) ? '국내' : region);
+// hanja shorthand in Korean headlines, spelled out in Hangul (the site uses no hanja)
+const HANJA = [['中企', '중소기업'], ['北', '북한'], ['美', '미국'], ['日', '일본'], ['中', '중국'], ['英', '영국'], ['獨', '독일'], ['佛', '프랑스'], ['韓', '한국'], ['與', '여당'], ['野', '야당']];
+export const hangul = (title) => HANJA.reduce((t, [h, k]) => t.replaceAll(h, k), title);
+
+// a Korean headline found by the search for news abroad but naming no place abroad is about an incident at home
+const HANGUL = /[가-힣]/;
+export const regionOf = (title, region) =>
+  region === '국내' && FOREIGN.test(title) ? '해외'
+    : region === '해외' && (KOREA.test(title) || (HANGUL.test(title) && !FOREIGN.test(title))) ? '국내' : region;
 
 /**
  * Group headlines about the same incident (two shared distinctive words, within three days). A story's size is the
@@ -163,13 +171,16 @@ const PHOTO_TYPES = {
 export const photoQuery = (title, type) => PHOTO_FIELDS.find(([re]) => re.test(title))?.[1] ?? PHOTO_TYPES[type] ?? PHOTO_TYPES['기타'];
 
 /**
- * News videos to add: about an incident, from a broadcaster's channel (cfg.videoChannels, matched in the channel
- * name), not excluded, not already listed; newest first, at most cfg.maxVideosPerRun.
+ * News videos to add: about an incident, from a Korean outlet's channel (cfg.videoChannels, matched in the channel
+ * name) and with a Korean title (user, 2026-11-16: Korean media only, incidents abroad included), not excluded, not
+ * already listed; newest first, at most cfg.maxVideosPerRun.
  * videos: { id, title, channel, date, region }
  */
-// a video title often ends with " | Channel" or " - Channel"; the card shows the channel already
+// a video title often ends with " | Channel", " - Channel" or " / Channel"; the card shows the channel already
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-const bare = (title, channel) => title.replace(new RegExp(`\\s*[|-]\\s*${escapeRe(channel)}\\s*$`, 'i'), '');
+const bare = (title, channel) =>
+  title.replace(/\s*\(\d{4}\.\d{1,2}\.\d{1,2}\/[^)]*\)\s*$/, '') // MBC: "(2026.11.15/뉴스데스크/MBC)"
+    .replace(new RegExp(`\\s*[|/-]\\s*(?:${escapeRe(channel)}|${escapeRe(channel.split(/\s+/)[0])})\\s*$`, 'i'), ''); // or its first word: "/ KNN" for KNN NEWS
 
 export function pickVideos(stored, videos, cfg) {
   const isListed = listed(stored);
@@ -177,7 +188,7 @@ export function pickVideos(stored, videos, cfg) {
   const seen = new Set();
   return videos
     .map((v) => ({ ...v, url: `https://www.youtube.com/watch?v=${v.id}`, type: classify(v.title) }))
-    .filter((v) => v.type && !isUnwanted(v.title, cfg, v.channel) && channels.some((c) => v.channel.toLowerCase().includes(c)))
+    .filter((v) => v.type && HANGUL.test(v.title) && !isUnwanted(v.title, cfg, v.channel) && channels.some((c) => v.channel.toLowerCase().includes(c)))
     .filter((v) => !isListed(v) && !seen.has(v.id) && seen.add(v.id))
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, cfg.maxVideosPerRun ?? 2)

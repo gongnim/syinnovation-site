@@ -89,7 +89,7 @@ export const sorted = [...news].sort((a, b) => b.date.localeCompare(a.date));
 // original (no article text or photos are copied). Hand-picked rows and rows from the automatic collector
 // (scripts/collect-security-news.mjs) share src/data/security-news.json; hidden: true takes a row off the site.
 export interface Incident {
-  slug?: string; // hand-picked rows have our own page at /news/press/<slug>
+  slug?: string; // our page at /news/press/<slug>: set for hand-picked rows, made from date and link for collected ones
   image?: string; // the card picture: made for us, or for a video its YouTube thumbnail (never a news photo)
   youtube?: string; // a news video: the YouTube id, played on our site
   credit?: { name: string; url: string; id?: number }; // the photographer of a free Pexels photo
@@ -105,5 +105,10 @@ export interface Incident {
   auto?: boolean; // added by the collector
   hidden?: boolean;
 }
-export const security = (incidents as Incident[]).filter((n) => !n.hidden).sort((a, b) => b.date.localeCompare(a.date));
+// every article opens our own page (user, 2026-11-16); a collected one gets a slug from its date and link
+const idOf = (s: string) => { let h = 2166136261; for (const c of s) h = Math.imul(h ^ c.charCodeAt(0), 16777619); return (h >>> 0).toString(36); };
+export const security = (incidents as Incident[])
+  .filter((n) => !n.hidden)
+  .map((n) => (n.slug || n.youtube ? n : { ...n, slug: `${n.date}-${idOf(n.url)}` }))
+  .sort((a, b) => b.date.localeCompare(a.date));
 export const fmt = (d: string) => d.replaceAll('-', '.');
