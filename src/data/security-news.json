@@ -1,5 +1,30 @@
 [
   {
+    "date": "2026-11-16",
+    "region": "국내",
+    "type": "해킹",
+    "title": "[🔴속보] \"사례비 받아가세요\" 믿고 열었다간…북한 해킹조직 '김수키' 신종 공격 / 연합뉴스TV(YonhapnewsTV)",
+    "source": "연합뉴스TV",
+    "url": "https://www.youtube.com/watch?v=It6Ii4K8J9I",
+    "youtube": "It6Ii4K8J9I",
+    "auto": true
+  },
+  {
+    "date": "2026-11-16",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "강원대 산학협력단 해킹에 개인정보 유출",
+    "source": "강원일보",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBPVDZFX2lyNUxKaHBuZEJDc0RZTjF5alJtQmxpdEV1UVNqMXZmMXdsNDVUb3ZheW4yOFVNdGtKR0lpT09aeW4yNzVDRjN0NmxyZ1F6X1FUM3ItM2s?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-16-ef69d331.jpg",
+    "credit": {
+      "name": "Antoni Shkraba",
+      "url": "https://www.pexels.com/photo/person-holding-black-tablet-computer-5475814/",
+      "id": 5475814
+    }
+  },
+  {
     "date": "2026-11-15",
     "region": "해외",
     "type": "개인정보 유출",
