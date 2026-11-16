@@ -1,6 +1,6 @@
 ---
 // Trust Gateway product screens (user, 2026-11-13): the demo (GatewayDemo) in a dark section right above "관리자는
-// 이렇게 봅니다", with the free PoC/consulting button under it. It was the page's hero for a while (TgHero); the page now
+// 이렇게 봅니다" (its PoC/consulting button went on 2026-11-16: the page had too many). It was the page's hero for a while (TgHero); the page now
 // opens with the zero trust band.
 // The blueprint film that was the hero before that (GatewayHero + SketchHero) is kept unused in src/components; to bring
 // it back as the hero, put <GatewayHero /> first in trust-gateway.astro, re-add the Nanum Pen Script font link in its
@@ -13,10 +13,6 @@ import GatewayDemo from '../GatewayDemo.astro';
       <h2 class="h2">제품 화면으로 보기</h2>
     </div>
     <GatewayDemo />
-    <div class="td-cta"><a class="btn primary" href="/contact?type=poc">무료 PoC/컨설팅 신청</a></div>
   </div>
 </section>
 
-<style>
-  .td-cta { margin-top: clamp(24px, 3vw, 32px); display: flex; justify-content: center; }
-</style>

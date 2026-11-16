@@ -11,7 +11,10 @@
 //    "한 번"), and a one-syllable bound noun ("수", "것", "곳", "때"), alone or with one particle, stays with the word
 //    before it ("할 수", "맡길 곳이"). Non-breaking spaces again, text only.
 // Only text between tags is touched, never attribute values, scripts or styles.
-const SENTENCE_END = /([가-힣][.?!])[ \t]+(?=\S)/g;
+// a sentence ends after Hangul, or after a Korean note in brackets: "유출됐습니다(회사 발표 기준). 다음"
+const END = '(?:[가-힣]|\\([^()]*[가-힣][^()]*\\))[.?!]';
+const SENTENCE_END = new RegExp(`(${END})[ \\t]+(?=\\S)`, 'g');
+const SENTENCE_GAP = new RegExp(`(?<=${END})[ \\t]+(?=\\S)`);
 // a comma after a word, followed by a space: "결제까지, 사람들이" (but not "1,000")
 const CLAUSE = /(?<=[가-힣A-Za-z0-9)],)[ \t]+(?=\S)/;
 const NAMES = ['Trust Gateway', 'Trust Auth', 'Never Trust', 'Always Verify', 'Face ID', 'IT 컨설팅'];
@@ -50,7 +53,7 @@ export function breakSentences(html) {
   const one = (tag) => (_m, attrs, body) => {
     if (!body.includes('<')) {
       // plain text: each sentence becomes its own block, so the browser balances every sentence on its own
-      const parts = body.split(/(?<=[가-힣][.?!])[ \t]+(?=\S)/);
+      const parts = body.split(SENTENCE_GAP);
       if (parts.length > 1) return `<${tag}${attrs}>${parts.map((s) => `<span class="sb">${clauses(s)}</span>`).join('')}</${tag}>`;
       return `<${tag}${attrs}>${clauses(body)}</${tag}>`;
     }

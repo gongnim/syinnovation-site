@@ -28,22 +28,29 @@
     "title": "금융·대학·공공기관까지 줄줄이 뚫렸다…개인정보 유출 비상",
     "source": "연합뉴스",
     "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5rVXhBTDV5RzVyak5CSTlualM2TWdJek1LcmR3Q1NBUWtRU3BaYjR3Q1VhRjNBRHllcUtjNmVFUHRnMTNSc21Mdnd5WTJaS0QzaTNwQmY1OTViWWvSAWBBVV95cUxPOTVqaEgyV1lieGJ2U2hNajlnNDBCdkdYNUpnTk9ONDRGd21CTm4tQ0ttbkxUZWJncldkX1VGLXhxRHdiNmhfeEJTMGxlSzk4Z2llRW5PY1dNNXlrVDhhYmc?oc=5",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-15",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "코인원 고객상담 수탁사 해킹…주민번호·계좌번호 등 개인정보 유출",
-    "source": "지디넷코리아",
-    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5pQTFnYW95el9zM2o4X1Z5SUY0cWVkX2p3TzI2UU1La2t5LUhKaGNOYXBVeURaRGlEZHBPUS1maXpNV2ludkFIZklXUjVZYzFIdExXNWxB?oc=5",
-    "auto": true,
+    "title": "코인원, 고객상담 위탁업체 해킹으로 상담 고객 개인정보 유출",
+    "source": "한국일보",
+    "url": "https://www.hankookilbo.com/news/article/A2026111510320003231",
     "image": "/images/security/auto/2026-11-15-d1e9dab2.jpg",
     "credit": {
       "name": "Antoni Shkraba",
       "url": "https://www.pexels.com/photo/person-using-black-tablet-computer-5475763/",
       "id": 5475763
-    }
+    },
+    "slug": "coinone-2026-11",
+    "org": "코인원",
+    "aka": [
+      "Coinone",
+      "메타엠"
+    ],
+    "summary": "코인원의 고객상담을 맡은 위탁업체 메타엠의 서버가 외부 공격을 받아, 상담 과정에서 고객이 남긴 개인정보가 유출됐습니다(코인원 공지 기준)."
   },
   {
     "date": "2026-11-13",
@@ -58,22 +65,30 @@
       "name": "Antoni Shkraba",
       "url": "https://www.pexels.com/photo/person-using-macbook-air-on-table-5475779/",
       "id": 5475779
-    }
+    },
+    "hidden": true
   },
   {
-    "date": "2026-11-13",
+    "date": "2026-11-14",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "한국조폐공사 지역사랑상품권 '착' 해킹…이용자 3,083명 개인정보 유출",
-    "source": "데일리시큐",
-    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1lVkFxeU53UzhORjh2VDdsN3l0Zjg0aXZaOWYzQjlUXzVMQ1g5Y1BIYWJGeG84TzRXODZxejJ5ZWh2TmQyYnYxLXJGUFFYVlRmUExFMmcxZjNMOGg1ajExd3NuSnBEQ0Jyc1lyUA?oc=5",
-    "auto": true,
+    "title": "한국조폐공사 지역사랑상품권 앱 '착', 이용자 3,083명 정보 조회돼",
+    "source": "헤럴드경제",
+    "url": "https://biz.heraldcorp.com/article/10937112",
     "image": "/images/security/auto/2026-11-13-4ae4fedb.jpg",
     "credit": {
       "name": "Antoni Shkraba",
       "url": "https://www.pexels.com/photo/person-using-macbook-pro-on-brown-wooden-table-5475758/",
       "id": 5475758
-    }
+    },
+    "slug": "chak-2026-11",
+    "org": "한국조폐공사",
+    "aka": [
+      "조폐공사",
+      "chak",
+      "지역사랑상품권"
+    ],
+    "summary": "외부 비인가자가 모바일 지역사랑상품권 플랫폼 '착'에 접근해 이용자 3,083명의 개인정보 일부를 조회했습니다(공사 발표 기준)."
   },
   {
     "date": "2026-11-15",
@@ -100,31 +115,44 @@
     "date": "2026-11-15",
     "region": "국내",
     "type": "해킹",
-    "title": "북한 해킹조직 '라자루스', 정부·금융·통신 국내 서버 30곳 조준… \"금융 탈취·첩보 수집\"",
-    "source": "글로벌이코노믹",
-    "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPQk02REw4eV83OTRjQWFDSHptM0RGMnlacVZkVHhNZ0s2Q2tQR2RSSVFyMWZ5WUI3ZlZTNnBYeU5GX24xUVZ6Yy1RWU9BZExDVF9oVnAtOWQ2OFpIQzY2Nno5WS03RmZnenlfbkVuVGFzaGdNRUlqX05XRUgyM3l1UnphM2FtMDhMbEZr?oc=5",
-    "auto": true,
+    "title": "라자루스 추정 공격자의 표적 목록에 국내 서버 30곳",
+    "source": "헤럴드경제",
+    "url": "https://biz.heraldcorp.com/article/10937288",
     "image": "/images/security/auto/2026-11-15-f5148ec4.jpg",
     "credit": {
       "name": "Barnabas Davoti",
       "url": "https://www.pexels.com/photo/tall-cell-towers-9290878/",
       "id": 9290878
-    }
+    },
+    "slug": "lazarus-targets-2026-11",
+    "org": "라자루스",
+    "aka": [
+      "Lazarus",
+      "사이퍼마",
+      "CYFIRMA"
+    ],
+    "summary": "위협 정보 분석 기업 사이퍼마는 북한 해킹조직 라자루스 계열로 추정되는 공격자의 표적 목록에 국내 서버 30곳이 들어 있다고 밝혔습니다. 실제 침해 여부는 확인되지 않았습니다."
   },
   {
     "date": "2026-11-14",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "인제대 서버에 외부 공격…폰 번호 등 개인정보 2만4천11건 유출",
-    "source": "연합뉴스",
-    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBFeFkwVVB1WWhJQmEweFhSMTF3dWpuajdkczFSUXVLT1djUFgxd2hnRElla0lxTXp6cVdWSzNnZ2MxMlNSM3UzTkVQelE0NWlXRDR0dmVlSzBhNHfSAWBBVV95cUxNZHlWUEtTWUpkVTJaeXcyaXJVS0ZIQzE0aEdzaWVMUGlVZlNLZEZHcDBqdG9jeV81NWc5TUVkWHV0UFgyMDJyaGNFdGpENE16WWhSM1hpMHJGQUZNMVk1eUI?oc=5",
-    "auto": true,
+    "title": "인제대학교, 외부 공격으로 학생·교직원 정보 2만4천여 건 유출",
+    "source": "헤럴드경제",
+    "url": "https://biz.heraldcorp.com/article/10937167",
     "image": "/images/security/auto/2026-11-14-6f8a045c.jpg",
     "credit": {
       "name": "Antoni Shkraba",
       "url": "https://www.pexels.com/photo/person-in-black-long-sleeve-shirt-using-macbook-pro-5475793/",
       "id": 5475793
-    }
+    },
+    "slug": "inje-univ-2026-11",
+    "org": "인제대학교",
+    "aka": [
+      "인제대",
+      "Inje University"
+    ],
+    "summary": "수업 운영 사이트와 관련된 서버가 외부 공격을 받아 학생과 교직원의 학번, 이름, 이메일, 휴대전화 번호 2만4,011건이 유출됐습니다(학교 발표 기준)."
   },
   {
     "date": "2026-11-14",
@@ -139,7 +167,8 @@
       "name": "Towfiqu barbhuiya",
       "url": "https://www.pexels.com/photo/a-person-typing-on-laptop-while-wearing-a-fingerless-gloves-8541751/",
       "id": 8541751
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-14",
@@ -161,31 +190,44 @@
     "date": "2026-11-13",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "업무용 메신저 '카카오워크' 해킹…메신저·이메일 내용 유출",
-    "source": "한국일보",
-    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1sSWlUWU1CSXZSRU1BYjVNY1pSbEM4M0ctUzMtWGl1YWZtS0xKVGdoZ0FPdFF3aVVVcXg3eF9SSWdqUC1sOVRxNW5DSi01TXlmWGRITFV3ei1Yc0lNQjRKRjM5RS16QTdJdW5xRk0wMkgyQVnSAXNBVV95cUxNbElpVFlNQkl2UkVNQWI1TWNaUmxDODNHLVMzLVhpdWFmbUtMSlRnaGdBT3RRd2lVVXF4N3hfUklnalAtbDlUcTVuQ0otNU15ZlhkSExVd3otWHNJTUI0SkYzOUUtekE3SXVucUZNMDJIMkFZ?oc=5",
-    "auto": true,
+    "title": "업무용 메신저 카카오워크, 외부 접근으로 메일·메시지 등 유출",
+    "source": "전자신문",
+    "url": "https://www.etnews.com/20261113000152",
     "image": "/images/security/auto/2026-11-13-730ed344.jpg",
     "credit": {
       "name": "Antoni Shkraba",
       "url": "https://www.pexels.com/photo/person-playing-game-on-black-laptop-computer-5475757/",
       "id": 5475757
-    }
+    },
+    "slug": "kakaowork-2026-11",
+    "org": "카카오워크",
+    "aka": [
+      "Kakao Work",
+      "디케이테크인"
+    ],
+    "summary": "외부 공격자가 업무용 메신저 카카오워크 시스템에 무단 접근해 이용자 정보와 메일 본문·첨부파일, 암호화된 메시지가 유출됐습니다. 피해 규모는 조사 중입니다."
   },
   {
     "date": "2026-11-14",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "192만 소상공인 생명줄 털렸나… '노란우산 개인정보 유출 정황'에 발칵 뒤집힌 중기중앙회",
+    "title": "중소기업중앙회 노란우산 홈페이지, 개인정보 무단 조회 의심 정황",
     "source": "내외일보",
-    "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5DQXFUaFBVZno1Y3R4am5TbDlmbzZveXcwYTJRbFpBU0FGVlJyRjhvMWVDWU82US1mMXFaQnA4eG5YWDhITFJ3X0tVRE0tZXBkQS1sMDZ2emNiRm1fT183MzVHRGlQRXU0MnF4cmdESQ?oc=5",
-    "auto": true,
+    "url": "https://www.naewoeilbo.com/news/articleView.html?idxno=2454178",
     "image": "/images/security/auto/2026-11-14-33b696d0.jpg",
     "credit": {
       "name": "Dan Nelson",
       "url": "https://www.pexels.com/photo/smartphone-and-laptop-with-active-surfshark-vpn-service-4489171/",
       "id": 4489171
-    }
+    },
+    "slug": "yellow-umbrella-2026-11",
+    "org": "중소기업중앙회",
+    "aka": [
+      "노란우산",
+      "중기중앙회",
+      "노란우산공제"
+    ],
+    "summary": "노란우산 홈페이지에 외부 비인가자가 비정상적으로 접근해 일부 가입자의 개인정보가 조회됐을 가능성이 확인됐습니다. 실제 유출 규모는 조사 중입니다."
   },
   {
     "date": "2026-11-13",
@@ -200,7 +242,8 @@
       "name": "Stefan Coders",
       "url": "https://www.pexels.com/photo/person-using-black-laptop-computer-5243611/",
       "id": 5243611
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-14",
@@ -231,22 +274,30 @@
       "name": "Ron Lach",
       "url": "https://www.pexels.com/photo/close-up-photo-of-a-person-using-a-laptop-7983360/",
       "id": 7983360
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "2차 모두의창업 정보 유출, 1차 사고 판박이…'취약한 API' 타깃(종합)",
-    "source": "연합뉴스",
-    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9tMllJM05mZklDSnRpeVVySDUwYmdmQ0xiR0tTZDdxVWpMZmxTYUVKWVl1dGl3aE9TWmJ6X1hGazc3MkNoUjdibXdoTjRmYzUzM2E3eVlXaGxfN25KSkZMdtIBYEFVX3lxTE9tMllJM05mZklDSnRpeVVySDUwYmdmQ0xiR0tTZDdxVWpMZmxTYUVKWVl1dGl3aE9TWmJ6X1hGazc3MkNoUjdibXdoTjRmYzUzM2E3eVlXaGxfN25KSkZMdg?oc=5",
-    "auto": true,
+    "title": "'모두의 창업' AI 솔루션 공급기업 해킹, 이용자 2만28명 정보 유출",
+    "source": "헤럴드경제",
+    "url": "https://biz.heraldcorp.com/article/10936795",
     "image": "/images/security/auto/2026-11-13-4f7d7d0b.jpg",
     "credit": {
       "name": "John (Giannis) Tekeridis",
       "url": "https://www.pexels.com/photo/a-man-sitting-in-the-dark-19285776/",
       "id": 19285776
-    }
+    },
+    "slug": "modu-startup-2026-11",
+    "org": "모두의 창업",
+    "aka": [
+      "모두의창업",
+      "아미쿠스렉스",
+      "로폼"
+    ],
+    "summary": "중소벤처기업부 '모두의 창업' 사업의 AI 솔루션 공급기업이 해킹을 당해 이용자 2만28명의 이름, 전화번호, 이메일이 유출됐습니다. 이 가운데 사업 참가자는 818명입니다(중기부 발표 기준)."
   },
   {
     "date": "2026-11-13",
@@ -309,7 +360,8 @@
       "name": "Stefan Coders",
       "url": "https://www.pexels.com/photo/macbook-pro-on-brown-wooden-table-5243610/",
       "id": 5243610
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
@@ -324,7 +376,8 @@
       "name": "Dan Nelson",
       "url": "https://www.pexels.com/photo/person-using-laptop-on-table-5530195/",
       "id": 5530195
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
@@ -339,7 +392,8 @@
       "name": "cottonbro studio",
       "url": "https://www.pexels.com/photo/laptop-in-close-up-shot-5483248/",
       "id": 5483248
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
@@ -354,7 +408,8 @@
       "name": "Sora Shimazaki",
       "url": "https://www.pexels.com/photo/crop-unrecognizable-man-using-laptop-in-darkness-5926397/",
       "id": 5926397
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-13",
@@ -392,46 +447,65 @@
     "date": "2026-11-13",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "KB캐피탈, 해킹에 임직원·고객 1811명 개인정보 유출",
-    "source": "파이낸셜포스트",
-    "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE5zOGRjUDZaY1RPYjg2S2FjVHJ3NDJYNWJaTFNaazQzbFhPbjZWQXQ2MmlJQnRaUWNtdXZlSUlpVTZwTjJhN2VCTEE4aEtjR0pMLUg5elU1eHhtNkpMVlE1VFRWcTROVHVlUGc0ODZaRjRlRGFz?oc=5",
-    "auto": true,
+    "title": "KB캐피탈, 외부 공격으로 고객·협력사 직원 등 1,811명 정보 유출",
+    "source": "파이낸셜뉴스",
+    "url": "https://www.fnnews.com/news/202611130929319866",
     "image": "/images/security/auto/2026-11-13-6e70fd55.jpg",
     "credit": {
       "name": "Sora Shimazaki",
       "url": "https://www.pexels.com/photo/crop-unrecognizable-man-typing-on-laptop-in-obscurity-5926399/",
       "id": 5926399
-    }
+    },
+    "slug": "kb-capital-2026-11",
+    "org": "KB캐피탈",
+    "aka": [
+      "KB Capital"
+    ],
+    "summary": "직원과 협력사가 쓰는 자동차임대자산관리시스템이 외부 공격을 받아 고객, 협력사 직원, 임직원 1,811명의 개인정보가 유출됐습니다(회사 잠정 집계)."
   },
   {
     "date": "2026-11-12",
     "region": "해외",
     "type": "개인정보 유출",
-    "title": "'무인양품'도 해킹에 뚫렸다…고객 신용카드번호 109만건 유출",
-    "source": "연합뉴스",
-    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5YSGlpd3ZtX0hFd09YNDBXVWp1SlBIN1NZdUQzTjYtMGpBVGtOb0RqRWp3Z2pQeVUxMlFOWWZDUGpqcHVnbVZoV0RLS2RFVVdiZ0RLYy1YWmdQZWlmQmdJa9IBYEFVX3lxTE5YSGlpd3ZtX0hFd09YNDBXVWp1SlBIN1NZdUQzTjYtMGpBVGtOb0RqRWp3Z2pQeVUxMlFOWWZDUGpqcHVnbVZoV0RLS2RFVVdiZ0RLYy1YWmdQZWlmQmdJaw?oc=5",
-    "auto": true,
+    "title": "무인양품, 시스템 무단 접근으로 카드번호 약 109만 건 노출",
+    "source": "아시아경제",
+    "url": "https://view.asiae.co.kr/article/2026111218415075630",
     "image": "/images/security/auto/2026-11-12-e0ddd030.jpg",
     "credit": {
       "name": "Anna Tarazevich",
       "url": "https://www.pexels.com/photo/a-person-handing-bank-card-to-another-person-5242822/",
       "id": 5242822
-    }
+    },
+    "slug": "muji-2026-11",
+    "org": "무인양품",
+    "aka": [
+      "MUJI",
+      "양품계획",
+      "Ryohin Keikaku",
+      "크레디세존"
+    ],
+    "summary": "무인양품 운영사 양품계획의 시스템이 무단 접근을 당해, 지웠어야 할 MUJI 카드 번호 약 109만 건이 노출됐을 가능성이 확인됐습니다(회사와 카드사 발표 기준)."
   },
   {
     "date": "2026-11-12",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "코인마켓 거래소 플라이빗도 해킹...고객 40명 정보유출",
+    "title": "플라이빗, 그룹웨어 무단 접근으로 고객 40명 개인정보 유출",
     "source": "서울경제",
-    "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE40aF90bTVrajVGNkczVGdCOTlsekFVeVY4MGd1N1I0R05ZRWdTOVhsZFRyYzZDWnZ2ekZiOWxjanBmWXVoSmJ6WkloUUMyaTN4VFHSAVNBVV95cUxOYzgwSm02ektPMVhNN0dxdTJIQmdPSzVDSlFpTXVJU2MzbHp3ellwd2t4dlkwZUV5U3k4WWgteDEyUVBNLUxGSGRCUTlKd2FwZkJaUQ?oc=5",
-    "auto": true,
+    "url": "https://m.sedaily.com/article/20113739",
     "image": "/images/security/auto/2026-11-12-400a7181.jpg",
     "credit": {
       "name": "Kevin Paster",
       "url": "https://www.pexels.com/photo/macbook-pro-on-brown-wooden-table-1901388/",
       "id": 1901388
-    }
+    },
+    "slug": "flybit-2026-11",
+    "org": "플라이빗",
+    "aka": [
+      "Flybit",
+      "한국디지털거래소"
+    ],
+    "summary": "가상자산 거래소 플라이빗의 사내 그룹웨어에 외부 공격자가 접근해, 이메일 첨부파일에 들어 있던 고객 40명의 개인정보가 유출됐습니다(회사 발표 기준)."
   },
   {
     "date": "2026-11-12",
@@ -490,16 +564,22 @@
     "date": "2026-11-12",
     "region": "해외",
     "type": "개인정보 유출",
-    "title": "'침략미화' 야스쿠니신사 사이트 해킹…1만4천500건 정보 유출",
-    "source": "연합뉴스",
-    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFAtdG9FSk5NUk43NElrMkVYNFc4aWNGMDJ4dnZCcmMzZFZSZVJnVmZaRHdrUGtsYmVLalJPTjRaenpGbnhGZHlkWjdIU0ljanliVFpLU3dEOXFCRDDSAWBBVV95cUxOdVA4SU9ZRHNDbHdBMU9IOFJzVFNKYklMRnU2aEhrZXNqcVg0bXJoNTFtZzl0ajRKT1RiR1hSOTJWRk0tTXlhRjZzaGZULTBBRFdXX2NKRHh4SVc3Q3BGYjY?oc=5",
-    "auto": true,
+    "title": "일본 야스쿠니신사 온라인 판매 사이트, 회원 정보 약 1만4,500건 유출",
+    "source": "헤럴드경제",
+    "url": "https://biz.heraldcorp.com/article/10934778",
     "image": "/images/security/auto/2026-11-12-b52f6d5c.jpg",
     "credit": {
       "name": "Dan Nelson",
       "url": "https://www.pexels.com/photo/a-laptop-over-a-round-table-4973899/",
       "id": 4973899
-    }
+    },
+    "slug": "yasukuni-2026-11",
+    "org": "야스쿠니신사",
+    "aka": [
+      "Yasukuni",
+      "야스쿠니"
+    ],
+    "summary": "일본 도쿄의 야스쿠니신사가 운영하는 온라인 판매 사이트가 무단 접근을 당해 회원 정보 약 1만4,500건이 유출됐습니다(신사 발표 기준)."
   },
   {
     "slug": "fsec-2026-11",

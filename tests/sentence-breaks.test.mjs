@@ -31,6 +31,14 @@ test('each sentence of a plain paragraph becomes its own line block', () => {
   );
 });
 
+test('a sentence that ends with a Korean note in brackets ends there too; an English one does not', () => {
+  assert.equal(
+    breakSentences('<p>정보가 유출됐습니다(회사 발표 기준). 조사 중입니다.</p>'),
+    '<p><span class="sb">정보가 유출됐습니다(회사 발표 기준).</span><span class="sb">조사 중입니다.</span></p>',
+  );
+  assert.equal(breakSentences('<p>See the notice (NHK). Then more.</p>'), '<p>See the notice (NHK). Then more.</p>');
+});
+
 test('a one-sentence paragraph is left as it is', () => {
   const html = '<p>하나의 엔진이 각 자리에 맞게 들어갑니다.</p>';
   assert.equal(breakSentences(html), html);
