@@ -99,7 +99,8 @@ h1, h2, h3, h4, p { margin: 0; }
   border: 1px solid transparent; cursor: pointer;
   transition: background-color .2s var(--ease), color .2s var(--ease), border-color .2s var(--ease);
 }
-.btn.primary { background: var(--orange); color: #1a1209; }
+/* white on orange, like the header 문의하기 button (user, 2026-11-16) */
+.btn.primary { background: var(--orange); color: #fff; }
 .btn.primary:hover { background: #ff9a44; }
 .btn.ghost { border-color: var(--line); color: var(--ink); background: var(--paper); }
 .btn.ghost:hover { border-color: var(--ink-2); }

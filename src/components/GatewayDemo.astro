@@ -1,11 +1,11 @@
 ---
 // The product screens on /trust-gateway (TgDemo, the "제품 화면으로 보기" section above the admin console): the demo-environment screens of Trust Gateway, redrawn in code so they stay sharp at any size,
 // carry no real host, account or id, and use the tech doc's terms. Two tabs of scenes (employee access, payment fraud advice)
-// and a third, 구조도: the blueprint film (GatewayHero, bare) with its own chapter strip. The scenes play in a loop once the section is on screen, with a chapter bar and a pause button.
+// The scenes play in a loop once the section is on screen, with a chapter bar and a pause button. (A third tab, 구조도, played
+// the blueprint film, GatewayHero; it went on 2026-11-16 and the film became an MP4 for the user.)
 // Timing: elements with .in appear at --at (seconds); .win layers show from --at to --out. The scene's class "run"
 // starts its timeline; without it (reduced motion) every scene shows its finished state.
 import Icon from './Icon.astro';
-import GatewayHero from './GatewayHero.astro';
 import { appName } from '../data/site';
 
 // a QR-like 21x21 pattern (finder squares plus fixed pseudo-random modules; it encodes nothing)
@@ -91,7 +91,6 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
 <div class="demo">
   <div class="tabs" role="tablist" aria-label="제품 화면">
     {tracks.map((tr, ti) => <button type="button" role="tab" id={`demo-tab-${tr.id}`} aria-controls={`demo-${tr.id}`} aria-selected={ti === 0 ? 'true' : 'false'} tabindex={ti === 0 ? 0 : -1}>{tr.t}</button>)}
-    <button type="button" role="tab" id="demo-tab-arch" aria-controls="demo-arch" aria-selected="false" tabindex="-1">구조도</button>
   </div>
   {tracks.map((tr, ti) => (
     <div class="reel" id={`demo-${tr.id}`} role="tabpanel" aria-labelledby={`demo-tab-${tr.id}`} hidden={ti !== 0}>
@@ -291,8 +290,6 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
       </div>
     </div>
   ))}
-  <!-- 구조도 (user, 2026-11-16): the blueprint film that was the hero, "훨씬 역동적"; it runs its own player -->
-  <div class="film-tab" id="demo-arch" role="tabpanel" aria-labelledby="demo-tab-arch" hidden><GatewayHero bare /></div>
 </div>
 
 <style>
@@ -619,17 +616,12 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
         else run();
       });
     }
-    // the tabs show their panel; the 구조도 panel is the film, which plays itself, so the scenes stop meanwhile
-    const panels = [...demo.querySelectorAll<HTMLElement>('[role="tabpanel"]')];
-    let onFilm = false;
+    // the tabs show their reel
     const select = (n: number) => {
       tabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === n)); t.tabIndex = k === n ? 0 : -1; });
       reel().shots[i].el.classList.remove('run');
-      panels.forEach((p, k) => (p.hidden = k !== n));
-      const k = reels.findIndex((x) => x.el === panels[n]);
-      onFilm = k < 0;
-      if (onFilm) { cancelAnimationFrame(raf); raf = 0; playing = false; return; }
-      r = k; i = 0;
+      reels.forEach((x, k) => (x.el.hidden = k !== n));
+      r = n; i = 0;
       go(0);
       if (wanted && !playing) run();
     };
@@ -643,7 +635,7 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
     });
     // play only while the reel is on screen; scrolling away pauses without changing the visitor's choice
     new IntersectionObserver(([e]) => {
-      if (e.isIntersecting) { if (wanted && !playing && !onFilm) run(); }
+      if (e.isIntersecting) { if (wanted && !playing) run(); }
       else if (playing) { halt(); wanted = true; }
     }, { threshold: 0.4 }).observe(demo);
     setPaused(true);

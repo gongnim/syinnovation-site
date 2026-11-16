@@ -22,15 +22,15 @@ export const parts = [
 ];
 
 // Where Trust Gateway is used, as tabs on home and /trust-gateway (i: icon on home; g: which of the three uses)
-const [auth, staff, pay] = parts;
+// user, 2026-11-16: no 금융 앱 인증 tab (통합 인증 stays in parts, it is just not one of the tabs)
+const [, staff, pay] = parts;
 export const tgUses = [
   // user, 2026-11-13: not only from outside; it is the everyday system inside the office too, for internal and external systems
   { id: 'office', i: 'server', g: staff.k, t: '사내 업무', h: '사무실 안에서도 같은 기준으로', d: '밖에서만 쓰는 것이 아닙니다. 사무실에서 평소 업무를 볼 때도 Trust Gateway가 매 순간 사람과 기기를 확인합니다. 사내망에 있다는 이유만으로 믿지 않습니다.', pts: ['사무실 안과 밖에 같은 기준 적용', '대내외 업무 시스템에 적용', '망분리 완화 대응', '허락된 업무 앱과 경로만 연결'] },
   { id: 'remote', i: 'pin', g: staff.k, t: '재택 · 출장', h: '집에서도, 출장지에서도 같은 확인', d: '업무 PC와 내 휴대폰이 함께 있어야 접속됩니다. 낯선 네트워크로 바뀌면 휴대폰으로 다시 확인합니다.', pts: ['VPN 없이 허락된 업무 앱만 연결', '새 네트워크에서는 휴대폰으로 추가 인증', '분실 PC는 관리 콘솔에서 바로 차단'] },
   { id: 'partner', i: 'user', g: staff.k, t: '협력사 · 외주', h: '필요한 사람에게 필요한 앱만', d: '협력사 인력에게 사내망 전체가 아닌 지정된 앱과 경로만 열어 줍니다.', pts: ['사람별, 경로별 허용 범위 지정', '인사 시스템 연동으로 퇴사·계약 종료 반영', '누가 무엇에 접속했는지 기록'] },
   { id: 'shared', i: 'laptop', g: staff.k, t: '공용 PC', h: '한 대의 PC를 여러 사람이 써도', d: '회사 PC의 기기 신원과 지금 쓰는 사람의 신원을 따로 관리합니다. 사람이 바뀌면 휴대폰으로 다시 본인 확인을 하고, 각자 권한에 맞는 업무 앱만 엽니다.', pts: ['기기 신원과 사용자 신원을 따로 관리', '사용자 전환이나 자리 비움 때 이전 사용자의 인증 해제', '각자 권한에 맞는 업무 앱만 연결'] },
-  { id: 'auth', i: 'phone', g: auth.k, t: '금융 앱 인증', h: auth.h, d: auth.d, pts: auth.pts },
-  { id: 'payment', i: 'chart', g: pay.k, t: '결제 이상거래', h: '이상거래를 찾아 알립니다', d: '결제사가 거래를 보내면 기기, 위치, 금액 같은 신호를 평소와 비교해 이상거래를 찾습니다. 이상하면 고객사 FDS에 알림과 권고를 근거와 함께 보내고, 결제 승인과 거절은 고객사가 정합니다.', pts: ['이상거래 실시간 알림과 권고', '권고 뒤 승인된 거래는 리포트로 다시 알림', '고객사 FDS 규칙 진단(오탐 · 미탐 · 중복 규칙)'] },
+  { id: 'payment', i: 'chart', g: pay.k, t: '결제 이상거래', h: '이상거래를 찾아 알립니다', d: '결제사가 거래를 보내면 기기, 위치, 금액 같은 신호를 평소와 비교해 이상거래를 찾습니다. 이상하면 고객사 FDS에 알림과 권고를 근거와 함께 보내고, 결제 승인과 거절은 고객사가 정합니다.', pts: ['이상거래 실시간 알림과 권고', '권고 뒤 승인된 거래는 리포트로 다시 알림', '고객사 FDS 규칙 보완(오탐 · 미탐 · 중복 규칙)'] },
 ];
 
 // 자료실 has three pages; the header shows them as its sub-menu and each page shows them as tabs

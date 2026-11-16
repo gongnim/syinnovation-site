@@ -283,7 +283,6 @@ const ciKinds = [
       </div>
       <dl class="info">
         <div><dt>주소</dt><dd>{company.address}</dd></div>
-        <div><dt>연락처</dt><dd><a href={`tel:${company.phone.replaceAll('-', '')}`}>{company.phone}</a></dd></div>
         <div><dt>이메일</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
       </dl>
     </div>
@@ -436,7 +435,8 @@ const ciKinds = [
     font-size: 14px; font-weight: 700; box-shadow: 0 2px 10px rgb(25 31 40 / .12); transition: background .2s, color .2s;
   }
   .map-open:hover { background: var(--ink); color: #fff; }
-  .info { margin: 48px 0 0; border-top: 1px solid var(--blue); display: grid; grid-template-columns: 1.5fr 1fr 1fr; }
+  /* 주소 and 이메일 (user, 2026-11-16: no phone line here) */
+  .info { margin: 48px 0 0; border-top: 1px solid var(--blue); display: grid; grid-template-columns: 1.5fr 1fr; }
   .info div { display: flex; align-items: baseline; gap: 28px; padding: 44px 40px; }
   .info div + div { border-left: 1px solid var(--line); }
   .info dt { flex: 0 0 auto; font-size: 18px; font-weight: 700; color: var(--ink); }
