@@ -55,7 +55,7 @@ const chapters = [
   { n: '신호 대조', area: 3, hold: [23.2, 35], t: 'PC와 휴대폰의 신호를 서로 맞춰 봅니다. 같은 장소인지, 같은 Wi-Fi인지, 같은 시간대인지, 평소와 다른지 확인합니다.' },
   { n: '판정', area: 3, hold: [35, 43], t: '확인 결과에 따라 요청마다 허용, 추가 인증, 거부로 나눕니다.' },
   { n: '평소와 다를 때', area: 3, hold: [43, 54], t: 'PC와 휴대폰이 서로 다른 곳을 가리키면 휴대폰으로 다시 묻습니다. 본인이 승인하지 않으면 그 요청은 거부됩니다.' },
-  { n: '회사 안으로', area: 4, hold: [55.2, 62], t: '회사 서버는 인터넷에 문을 열지 않습니다. 회사 안의 에이전트가 먼저 밖으로 연결해 둔 길로만 요청이 들어갑니다.' },
+  { n: '회사 안으로', area: 4, hold: [55.2, 62], t: '회사 서버는 인터넷에 문을 열지 않습니다. 회사 안의 에이전트가 Trust Gateway에 먼저 연결해 두고, 요청은 그 연결로만 들어갑니다.' },
   { n: '도착', area: 5, hold: [63.2, 70], t: '허락된 업무 시스템만 열리고, 확인된 신원이 함께 전달됩니다. 나머지는 닫혀 있습니다.' },
   { n: '기록', area: 6, hold: [71.2, 79], t: '모든 판정은 근거와 함께 남고, 관리자는 관리 콘솔에서 봅니다.' },
   { n: 'Trust Gateway', area: 7, hold: [80.2, 92], t: '출발부터 기록까지, 모든 요청을 PC와 휴대폰의 신호로 확인합니다. 비밀번호가 새어 나가도 회사 시스템은 열리지 않습니다.' },
@@ -129,7 +129,7 @@ const marks: Mark[] = [
   // 회사 안으로
   { k: 'chip', tone: 'no', t: '열린 포트 없음', x: 2730, y: 98, tl: pop(56.2, 61.6) },
   ...drones.map((d) => ({ k: 'chip', tone: 'no', t: '✕', x: d.x + d.dx, y: d.y + d.dy, tl: pop(d.t + 0.5, 61.6) }) as Mark),
-  { k: 'chip', tone: 'info', t: '회사 안에서 밖으로 연결한 길', x: 2560, y: 352, tl: pop(58.4, 61.6) },
+  { k: 'chip', tone: 'info', t: '에이전트가 먼저 연결해 둔 길', x: 2560, y: 352, tl: pop(58.4, 61.6) },
   // 도착
   { k: 'chip', tone: 'ok', t: '열림', x: 3140, y: 124, tl: pop(65, 69.6) },
   { k: 'chip', tone: 'ok', t: '열림', x: 3300, y: 250, tl: pop(65.2, 69.6) },
@@ -517,8 +517,10 @@ const shelfYs = [140, 200, 260];
   .cap-t { margin-top: 6px; font-size: 15px; line-height: 1.6; color: var(--on-night); }
 
   /* the chapters under the hero follow the clock: the passed ones keep a quiet line, the current one fills in orange */
-  .flow { list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: 1px; background: var(--night-line); border: 1px solid var(--night-line); border-radius: 16px; overflow: hidden; }
-  .flow li { --p: 0; position: relative; background: #111e30; transition: background-color .4s var(--ease); }
+  .flow { list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); border: 1px solid var(--night-line); border-radius: 16px; overflow: hidden; }
+  /* the lines between the steps are each step's own left and top border, pulled 1px over its neighbour (the outer ones
+     are clipped): a 1px grid gap vanished on some screens where the columns fall on fractions of a pixel */
+  .flow li { --p: 0; position: relative; margin: -1px 0 0 -1px; border-left: 1px solid var(--night-line); border-top: 1px solid var(--night-line); background: #111e30; transition: background-color .4s var(--ease); }
   .flow button { width: 100%; height: 100%; display: grid; gap: 4px; justify-items: center; align-content: start; padding: 16px 6px 18px; border: 0; background: none; font: inherit; font-size: 15px; font-weight: 600; text-align: center; color: var(--on-night-2); cursor: pointer; word-break: keep-all; transition: color .4s var(--ease); }
   .flow button:focus-visible { outline: 2px solid var(--orange); outline-offset: -4px; border-radius: 12px; }
   .flow-n { font-size: 13px; font-weight: 600; color: #9fb8de; font-variant-numeric: tabular-nums; transition: color .4s var(--ease); }

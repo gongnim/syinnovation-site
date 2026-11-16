@@ -3,7 +3,8 @@
 // same password, a thief stopped and the employee let in), then zero trust vs Trust Gateway with the NIST mapping
 // (ZtBridge), then what a leaked account opens (VPN vs Trust Gateway), attacks
 // and how they stop, where it is used, the product screens, what an admin sees, how to start, then
-// questions. Facts follow tech doc v0.3 and the product's demo page; web access only (no SSH/RDP).
+// questions. Facts follow tech doc v0.3 and the product's demo page; web access only (no SSH/RDP). The CISA mapping and
+// 지원 환경 tables (user, 2026-11-16, after a look at 한컴위드's page) follow tech doc v0.4.3 appendix A and ch. 8.
 import Base from '../layouts/Base.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Icon from '../components/Icon.astro';
@@ -26,7 +27,7 @@ const attacks = [
 const rules = [
   { t: '정책에 정한 것만 통과', d: '판단할 정보가 없으면 열지 않습니다. 정책의 기본값도 거부입니다.' },
   { t: '위험한 기기는 처음부터 차단', d: '탈옥되거나 루팅된 휴대폰, 에뮬레이터, 디버거가 붙은 앱은 막습니다. 정품 앱인지는 Apple과 Google의 앱 무결성 검증으로 확인합니다.' },
-  { t: '들어오는 포트 없음', d: '고객 사내망은 포트를 열지 않습니다. 내부 에이전트가 밖으로만 연결합니다.' },
+  { t: '들어오는 포트 없음', d: '고객 사내망은 들어오는 포트를 열지 않습니다. 내부 에이전트가 Trust Gateway에 먼저 연결하고, 요청은 그 연결로만 들어옵니다.' },
 ];
 
 
@@ -40,6 +41,28 @@ const rollout = [
 const pocGroups = [
   { k: '보안 컨설팅', items: ['VPN, 계정 공유, 외부 접속 등 지금 업무 접속의 보안 위험', '퇴사자와 협력사의 계정, 접근 권한 관리 상태', '공개된 제로트러스트 기준에 비춰 무엇부터 바꿀지'] },
   { k: 'PoC', items: ['등록된 직원은 평소처럼 바로 접속되는지', '등록되지 않은 기기는 게이트웨이에서 막히는지', '정책을 바꾸면 다음 요청부터 반영되는지', '판단 근거와 감사 기록이 남는지', '직원이 쓰기에 번거롭지 않은지'] },
+];
+
+// CISA Zero Trust Maturity Model 2.0: how each area maps (tech doc v0.4.3, appendix A). It maps, it does not claim a
+// maturity level: that depends on how widely a customer applies it and on its operating records (said under the table).
+const cisa = [
+  { k: '신원', e: 'Identity', v: '기기의 신원과 지금 그 기기를 쓰는 사람을 따로 확인합니다. 추가 인증과 권한 회수 결과도 남깁니다' },
+  { k: '기기', e: 'Devices', v: '기기 키를 보안 칩에 두고, 기기 보안 상태를 판정에 씁니다. 등록되지 않았거나 정책에 어긋나는 기기는 막습니다' },
+  { k: '네트워크', e: 'Networks', v: 'PC에서 접속 관문, 내부 에이전트, 업무 시스템까지 모든 구간을 암호화합니다. 회사 쪽은 들어오는 포트를 열지 않습니다' },
+  { k: '애플리케이션 및 워크로드', e: 'Applications & Workloads', v: '업무 시스템마다 허용과 거부를 정합니다. 시스템 안의 메뉴와 데이터 권한은 각 업무 시스템이 관리합니다' },
+  { k: '데이터', e: 'Data', v: '전송 구간을 보호합니다. 설정에 따라 응답에 섞인 개인정보를 기록하거나 가리거나 막습니다. 저장된 데이터의 보호는 각 업무 시스템이 맡습니다' },
+  { k: '가시성 및 분석', e: 'Visibility & Analytics', v: '판정마다 쓰인 위험 신호와 실제 전달 결과를 함께 조회합니다' },
+  { k: '자동화 및 오케스트레이션', e: 'Automation & Orchestration', v: '인증서 만료와 폐기, 정책 갱신, 위험 대응을 정해진 절차대로 처리합니다' },
+  { k: '거버넌스', e: 'Governance', v: '운영 역할과 책임, 변경 승인, 예외 처리를 기록합니다' },
+];
+// 지원 환경 (tech doc v0.4.3, ch. 8)
+const env = [
+  { k: 'PC 사용자 에이전트', v: 'Windows 10, 11 · macOS 12 이상' },
+  { k: '태블릿 사용자 에이전트', v: 'Android 9 이상' },
+  { k: `휴대폰 인증 앱 (${appName})`, v: 'iOS 16 이상 · Android 9 이상' },
+  { k: 'PC 지원 브라우저', v: 'Windows에서 Chrome, Edge' },
+  { k: '내부 에이전트', v: 'Linux 서버 (RHEL 계열, Ubuntu) · RPM, DEB 패키지' },
+  { k: '보호 대상 서비스', v: '웹(HTTP, HTTPS) 기반 업무 시스템' },
 ];
 
 const faq = [
@@ -58,11 +81,17 @@ const faq = [
 ];
 ---
 <Base title="Trust Gateway" description="제로트러스트 원칙을 적용하여 개발한 신영이노베이션의 솔루션, Trust Gateway. PC는 기기를, 휴대폰은 사람을 증명하고 요청마다 다시 확인합니다.">
+  <!-- the handwriting in the 구조도 film (GatewayHero in TgDemo) -->
+  <Fragment slot="head">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" />
+  </Fragment>
 
   <TgIntro />
 
   <ZtBridge id="zt">
-    <div class="map reveal">
+    <div class="map" slot="nist">
       <h3 class="h3">공개된 기준대로 만들었습니다</h3>
       <p class="body">제로트러스트 아키텍처(NIST SP 800-207)는 접근 요청을 가로채는 PEP, 허용 여부를 정하는 PDP, 판단에 필요한 정보를 주는 PIP로 나뉩니다. Trust Gateway는 이 구조를 그대로 따릅니다.</p>
       <div class="cmp-wrap">
@@ -76,6 +105,14 @@ const faq = [
         </table>
       </div>
       <p class="cap">결제 이상거래 탐지에서는 고객사의 결제 시스템과 FDS가 PEP입니다. Trust Gateway는 이상거래를 탐지해 알림과 권고를 보내고, 승인과 거절은 고객사가 정합니다.</p>
+    </div>
+    <div class="map" slot="cisa">
+      <h3 class="h3">성숙도 모델의 영역마다 이렇게 대응합니다</h3>
+      <p class="body">미국 CISA의 제로트러스트 성숙도 모델(2.0)은 다섯 영역과 세 공통 역량으로 조직의 수준을 봅니다. 영역마다 Trust Gateway가 하는 일을 정리했습니다.</p>
+      <dl class="cisa">
+        {cisa.map((c) => <div><dt>{c.k}<span>{c.e}</span></dt><dd>{c.v}</dd></div>)}
+      </dl>
+      <p class="cap">조직의 성숙도는 Trust Gateway를 적용한 서비스의 범위와 실제 운영 기록으로 판단합니다.</p>
     </div>
   </ZtBridge>
 
@@ -144,6 +181,18 @@ const faq = [
         </div>
         <a class="btn primary" href="/contact?type=poc">무료 PoC/컨설팅 신청</a>
       </div>
+      <div class="map env reveal">
+        <h3 class="h3">지원 환경</h3>
+        <div class="cmp-wrap">
+          <table class="nist plain">
+            <thead><tr><th scope="col">구성 요소</th><th scope="col">지원 환경</th></tr></thead>
+            <tbody>
+              {env.map((e) => <tr><th scope="row">{e.k}</th><td>{e.v}</td></tr>)}
+            </tbody>
+          </table>
+        </div>
+        <p class="cap">배포 전에 제공 버전, 브라우저, 패키지와 회사 구성에서의 호환성을 함께 확인합니다.</p>
+      </div>
     </div>
   </section>
 
@@ -200,7 +249,7 @@ const faq = [
 
 
   /* the NIST mapping inside the zero trust band */
-  .map { max-width: 1080px; margin: clamp(48px, 6vw, 72px) auto 0; padding: clamp(24px, 3vw, 36px); border-radius: var(--r-xl); background: #fff; border: 1px solid var(--line); display: grid; gap: 14px; }
+  .map { max-width: 1080px; margin: 0 auto; padding: clamp(24px, 3vw, 36px); border-radius: var(--r-xl); background: #fff; border: 1px solid var(--line); display: grid; gap: 14px; }
   .map .body { max-width: 720px; }
   .nist { width: 100%; border-collapse: collapse; min-width: 560px; }
   .nist th, .nist td { text-align: left; padding: 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -210,8 +259,16 @@ const faq = [
   .nist tbody th span, .nist td span { display: block; margin-top: 2px; font-size: 13px; font-weight: 500; color: var(--ink-3); }
   .nist td { color: var(--ink-2); }
   .nist td:last-child { color: var(--ink); font-weight: 700; background: var(--mist); }
+  .nist.plain td:last-child { font-weight: 500; } /* whole sentences, not names */
   .cap { margin-top: 10px; font-size: 13px; color: var(--ink-3); }
   .map { grid-template-columns: minmax(0, 1fr); }
+  /* the CISA areas as a two-column grid, so its page is no taller than the NIST one */
+  .cisa { margin: 4px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .cisa div { padding: 14px 18px; border-radius: var(--r-md); background: var(--mist); }
+  .cisa dt { font-weight: 700; color: var(--ink); }
+  .cisa dt span { margin-left: 8px; font-size: 12px; font-weight: 500; color: var(--ink-3); }
+  .cisa dd { margin: 6px 0 0; font-size: 14.5px; line-height: 1.6; color: var(--ink-2); }
+  .map.env { margin-top: 40px; max-width: none; } /* 지원 환경, under the PoC box */
   .map .cmp-wrap { overflow-x: auto; }
   @media (max-width: 640px) {
     .nist { min-width: 0; }
@@ -221,6 +278,7 @@ const faq = [
     .nist tbody th, .nist td { padding: 0; border-bottom: 0; }
     .nist tbody th { width: auto; margin-bottom: 6px; }
     .nist td:last-child { margin-top: 10px; padding: 12px 14px; border-radius: var(--r-md); }
+    .cisa { grid-template-columns: minmax(0, 1fr); }
   }
 
   /* start: three steps on a line that fills in, then what the PoC/consulting shows */

@@ -9,13 +9,13 @@ import { company } from '../data/site';
 // the originals are kept outside the repo. up: who this person reports to inside their team
 // (임종세, 강민관 -> 공동현; 김재원 -> 박성수).
 const people = [
-  { n: '강형구', r: '대표이사', g: '', p: 'kang-hyungkoo',
+  { n: '강형구', r: '대표이사', e: 'CEO', g: '', p: 'kang-hyungkoo',
     hi: '금융 현장에서 보안과 편리함이 늘 부딪히는 모습을 오래 지켜봤습니다. 둘 중 무엇도 포기하지 않는 보안, Trust Gateway로 증명하겠습니다.',
     c: ['BANKBE 베트남 대표 · TMX코리아 창업자, 대표', 'GREY MOS · IBM GBS 비즈니스 · 정보기술 컨설팅', '삼성카드 데이터베이스 마케팅', '고려대학교 학사 · 석사'] },
-  { n: '박희준', r: '운영총괄', g: '경영지원', p: 'park-heejun',
+  { n: '박희준', r: '운영총괄', e: 'COO', g: '경영지원', p: 'park-heejun',
     hi: '창업과 보안 신사업을 거치며 회사가 단단해지는 과정을 직접 겪었습니다. 고객과 한 약속은 끝까지 지키는 회사, 제가 책임지고 만들겠습니다.',
     c: ['BANKBE 재무총괄 · 큐바이노베이션 창업', 'KT · 소프트포럼 · 이글루시큐리티 신사업', '컴퓨터보안공학 학사 · 석사'] },
-  { n: '공동현', r: '기술총괄', g: '연구개발', p: 'gong-donghyun',
+  { n: '공동현', r: '기술총괄', e: 'CTO', g: '연구개발', p: 'gong-donghyun',
     hi: '전자여권부터 모바일 결제까지, 사용자들이 매일 쓰는 보안을 만들어 왔습니다. 사용자는 느끼지 못할 만큼 자연스럽고, 공격자에게는 빈틈이 없는 기술을 만들겠습니다.',
     c: ['BANKBE · TMX코리아 연구소장', 'LG전자 · LG CNS 보안 분야', '전자여권 · 교통카드 · 모바일 결제 개발'] },
   { n: '임종세', r: '개발 엔지니어', g: '연구개발', p: 'lim-jongse', up: '공동현',
@@ -24,17 +24,17 @@ const people = [
   { n: '강민관', r: '연구원', g: '연구개발', p: 'kang-mingwan', up: '공동현',
     hi: '공격보다 한 걸음 먼저 움직이는 것이 연구소의 일입니다. 새로운 공격 기법을 먼저 파고들어, 막아 내는 기술로 만들겠습니다.',
     c: ['기업부설연구소 연구원', '보안 개발자'] },
-  { n: '박성수', r: '전략총괄', g: '비즈니스', p: 'park-sungsoo',
+  { n: '박성수', r: '전략총괄', e: 'CSO', g: '비즈니스', p: 'park-sungsoo',
     hi: '좋은 보안은 일을 멈추게 하지 않습니다. 금융권 업무 혁신 현장에서 쌓은 경험으로, 고객의 업무에 꼭 맞는 보안을 설계하겠습니다.',
     c: ['IBM · PwC · KPMG · AT Kearney 컨설팅', '금융권 업무혁신 · 정보기술 기획', '상담센터 · 고객관리 시스템 개발 총괄'] },
-  { n: '김재원', r: '마케팅총괄', g: '비즈니스', p: 'kim-jaewon', up: '박성수',
+  { n: '김재원', r: '마케팅총괄', e: 'CMO', g: '비즈니스', p: 'kim-jaewon', up: '박성수',
     hi: '좋은 기술은 제대로 알려질 때 더 큰 힘을 냅니다. 어려운 보안을 누구나 이해할 수 있는 말로 전하고, Trust Gateway를 더 많은 곳에 알리겠습니다.',
     c: ['KB증권 베트남 마케팅 총괄', '온라인 마케팅 · 콘텐츠 전략', '정보기술 기획 · 고객 커뮤니케이션'] },
 ];
 // dot: team colour (slides, org chart status lights); tint: the team hub's soft background
 const teams = [
   { t: '경영지원', d: '운영 · 사업 관리', dot: '#d9772b', tint: '#fdf3ea' },
-  { t: '연구개발', d: 'Trust Gateway 연구 · 개발', dot: '#3a78bd', tint: '#ecf3fb' },
+  { t: '연구개발', d: '연구 · 개발', dot: '#3a78bd', tint: '#ecf3fb' },
   { t: '비즈니스', d: '전략 · 컨설팅 · 마케팅', dot: '#3f8c69', tint: '#ebf5f0' },
 ];
 // The org chart as a network diagram: CEO -> team hubs -> people, joined by right-angle links. Points are box centres in a 1000x460 canvas on desktop and a 400x790 canvas on phones; each link
@@ -85,7 +85,7 @@ const scribble = (() => {
 })();
 const dotOf =(g: string) => teams.find((t) => t.t === g)?.dot ?? '#366399';
 const naverLink = `https://map.naver.com/p/search/${encodeURIComponent('서울 마포구 마포대로 78')}`;
-const advisor = { n: '박구준', d: '퍼듀대학교 컴퓨터공학 · 아마존 프라임 서비스 근무 · 인공지능 프로그래밍 자문' };
+const advisor = '퍼듀대학교 컴퓨터공학 · 아마존 프라임 서비스 근무 · 인공지능 프로그래밍 자문';
 
 const history: Record<string, { m: string; t: string }[]> = {
   '2026': [
@@ -142,7 +142,7 @@ const ciKinds = [
     </div>
   </section>
 
-  <!-- team: one person per slide on their own backdrop with a greeting, then the org chart (names only) that
+  <!-- team: one person per slide on their own backdrop with a greeting, then the org chart (titles only, no names: user 2026-11-16, 대표이사 = CEO) that
        also works as the slider's index -->
   <section class="section paper2">
     <div class="wrap">
@@ -205,11 +205,11 @@ const ciKinds = [
           ))}
           {people.map((m, i) => (
             <div class={i ? 'node' : 'node ceo'} data-go={i} data-id={m.n} style={`${posStyle(m.n)};--c:${i ? dotOf(m.g) : 'var(--orange)'}`}>
-              <span class="r">{m.r}</span><b>{m.n}</b>
+              {m.e ? <><span class="r">{m.r}</span><b>{m.e}</b></> : <b>{m.r}</b>}
             </div>
           ))}
         </div>
-        <p class="adv"><b>기술 자문 {advisor.n}</b> {advisor.d}</p>
+        <p class="adv"><b>기술 자문</b> {advisor}</p>
       </div>
     </div>
   </section>

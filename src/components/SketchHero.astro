@@ -12,19 +12,23 @@ import '../styles/sketch.css';
 
 export interface Chapter { t: string; from: number; to: number; still: number; d: string }
 // cam keyframes: [time, stage x] pans; [time, stage x, window width, stage y] also zooms in on a part of the stage
-interface Props { eyebrow: string; chapters: Chapter[]; loop: number; cam: number[][]; poster: number }
-const { eyebrow, chapters, loop, cam, poster } = Astro.props;
+// bare: only the film and its chapter strip, no copy and no section of its own (the 구조도 tab in GatewayDemo)
+interface Props { eyebrow: string; chapters: Chapter[]; loop: number; cam: number[][]; poster: number; bare?: boolean }
+const { eyebrow, chapters, loop, cam, poster, bare = false } = Astro.props;
+const Tag = bare ? 'div' : 'section';
 ---
-<section class="sh">
+<Tag class:list={['sh', { bare }]}>
   <div class="wrap film" data-loop={loop} data-poster={poster} data-cam={JSON.stringify(cam)}>
     <div class="sh-grid">
-      <div class="sh-copy">
-        <p class="sh-eyebrow">{eyebrow}</p>
-        <h1 class="sh-title"><slot name="title" /></h1>
-        {Astro.slots.has('sub') && <p class="sh-sub"><slot name="sub" /></p>}
-        <p class="sh-lead"><slot name="lead" /></p>
-        <div class="btn-row"><slot name="actions" /></div>
-      </div>
+      {!bare && (
+        <div class="sh-copy">
+          <p class="sh-eyebrow">{eyebrow}</p>
+          <h1 class="sh-title"><slot name="title" /></h1>
+          {Astro.slots.has('sub') && <p class="sh-sub"><slot name="sub" /></p>}
+          <p class="sh-lead"><slot name="lead" /></p>
+          <div class="btn-row"><slot name="actions" /></div>
+        </div>
+      )}
       <div class="stage"><slot /></div>
     </div>
     <div class="player">
@@ -44,7 +48,7 @@ const { eyebrow, chapters, loop, cam, poster } = Astro.props;
       </div>
     </div>
   </div>
-</section>
+</Tag>
 
 <style>
   /* a narrow copy column and a wide drawing: from 1280px the panel is wide enough (830px+) to show the whole stage at
@@ -56,6 +60,10 @@ const { eyebrow, chapters, loop, cam, poster } = Astro.props;
   .sh-sub { margin-top: 16px; font-size: 20px; line-height: 1.45; letter-spacing: -0.02em; font-weight: 700; color: #fff; }
   .sh-lead { margin-top: 16px; font-size: 16px; line-height: 1.7; color: var(--on-night-2); }
   .sh-copy .btn-row { margin-top: 28px; }
+  .sh.bare { padding: 0; background: none; }
+  .sh.bare .wrap { max-width: none; padding: 0; }
+  .sh.bare .sh-grid { grid-template-columns: minmax(0, 1fr); }
+  .sh.bare .player { margin-top: 16px; }
 
   /* the drawing: a blueprint panel; the script narrows the viewBox here and pans it with the story */
   .stage {
@@ -133,11 +141,15 @@ const { eyebrow, chapters, loop, cam, poster } = Astro.props;
     // under 830px the stage shows a window of it, wide enough that 16-unit labels stay at 11px or more
     const fit = () => {
       const cs = getComputedStyle(stage);
-      const w = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight) || VW; // the svg's own width
+      // the svg's own width; a hidden stage (a tab not shown yet) measures 0, so it counts as wide
+      const w = Math.max(0, stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)) || VW;
       viewW = w < 830 ? Math.min(VW, Math.max(420, w / 0.72)) : VW;
     };
 
+    let fitW = -1;
     const render = (dt: number) => {
+      // a stage that was hidden (a tab) gets its width when shown: measure again whenever it changed
+      if (stage.clientWidth !== fitW) { fitW = stage.clientWidth; fit(); }
       for (const s of states) { s.el.classList.toggle('on', within(s.on, t)); s.el.classList.toggle('warn', within(s.warn, t)); }
       for (const p of packets) {
         const k = (t - p.a) / (p.b - p.a);

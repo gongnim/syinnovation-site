@@ -4,7 +4,8 @@
 // decision steps notice it and ask for step-up, the employee approves on the phone, work goes on. Attack scenes
 // (an unregistered device, the hidden network) were cut on 2026-11-13 (user: no need to show attacks). Engine names
 // and roles follow the developer's charts.
-// The film, player and timing engine are SketchHero's.
+// The film, player and timing engine are SketchHero's. Since 2026-11-16 it plays as the 구조도 tab of "제품 화면으로
+// 보기" (GatewayDemo, bare: no copy), user: "이게 훨씬 역동적인거라 좋더라". The page loads the Nanum Pen Script font.
 import SketchHero from './SketchHero.astro';
 import { appName } from '../data/site';
 import { rr, guide, tick } from '../lib/sketch';
@@ -19,6 +20,7 @@ const B: Record<string, [number, number, number, number, number]> = {
 const box = (k: string) => rr(...B[k]);
 const hatch = Array.from({ length: 28 }, (_, i) => `M868 ${80 + i * 16} L880 ${70 + i * 16}`).join(' ');
 
+const { bare = false } = Astro.props as { bare?: boolean };
 const LOOP = 38;
 const engines = [
   { k: 'e1', t: '이상 탐지', on: '7-9,16.4-27.2,31.4-33,34.8-35.8', cls: 'violet' },
@@ -29,14 +31,14 @@ const services = [{ k: 's1', t: '그룹웨어' }, { k: 's2', t: '인사 시스�
 
 const chapters = [
   { t: '휴대폰으로 본인 확인', from: 0, to: 4, still: 3.4, d: '업무를 시작할 때 PC 화면의 QR을 휴대폰으로 찍고 Face ID로 승인합니다. 승인 결과가 휴대폰에서 Trust Gateway로 전달되어, 지금 이 PC를 쓰는 사람이 확인됩니다.' },
-  { t: '평소처럼 업무', from: 4, to: 12, still: 11.4, d: '업무 요청이 올 때마다 기기 인증서와 본인 확인을 보고, 다중 신호 교차 검증과 판단 엔진을 거쳐 허용합니다. 허용된 요청은 내부 에이전트가 밖으로 열어 둔 연결로만 들어가고, 요청마다 새로 서명한 신원이 붙어 업무 시스템에 닿습니다.' },
+  { t: '평소처럼 업무', from: 4, to: 12, still: 11.4, d: '업무 요청이 올 때마다 기기 인증서와 본인 확인을 보고, 다중 신호 교차 검증과 판단 엔진을 거쳐 허용합니다. 허용된 요청은 내부 에이전트가 Trust Gateway에 먼저 연결해 둔 길로만 들어가고, 요청마다 새로 서명한 신원이 붙어 업무 시스템에 닿습니다.' },
   { t: '갑자기 IP가 바뀜', from: 12, to: 16.2, still: 15.6, d: '직원이 카페로 자리를 옮겨 다른 Wi-Fi로 접속합니다. 휴대폰 앱이 바뀐 상태를 알려 오고, 인증할 때와 IP가 달라져 위험 점수가 올라갑니다.' },
   { t: '단계별 위험 판정', from: 16.2, to: 27.2, still: 26.4, d: '이상 탐지 단계가 이 사람의 평소 행동과 비교해 이번 접속이 평소와 달라졌다는 것을 알아챕니다. 금지 사항 확인 단계는 절대 안 되는 상황은 아니라며 통과 의견을 내지만, 최종 결정 단계가 회사 기준에 따라 추가 인증을 정합니다.' },
   { t: '휴대폰으로 다시 인증', from: 27.2, to: 33, still: 30.8, d: '휴대폰으로 추가 인증을 요청하고, 마칠 때까지 접속을 잠시 멈춥니다. 직원이 Face ID로 승인하면 다시 판정해 허용합니다. PC가 아닌 휴대폰으로 따로 묻기 때문에, PC만 손에 넣은 사람은 답할 수 없습니다.' },
   { t: '다시 원래대로 업무', from: 33, to: LOOP, still: 37.4, d: '승인이 끝나면 직원은 하던 일을 그대로 이어 갑니다. 그 뒤의 요청도 지금까지처럼 하나하나 다시 확인합니다.' },
 ];
 ---
-<SketchHero eyebrow="Trust Gateway" chapters={chapters} loop={LOOP} poster={25.8}
+<SketchHero eyebrow="Trust Gateway" chapters={chapters} loop={LOOP} poster={25.8} bare={bare}
   cam={[[0, 600], [0.6, 190], [4.2, 320], [5.8, 600], [8.4, 860], [9.8, 1010], [12, 320], [13.8, 600], [16.2, 610, 500, 400], [26.8, 600], [27.4, 300], [30.4, 420], [31.4, 600], [33, 320], [34.2, 600], [35.6, 860], [36.6, 1010]]}>
   <Fragment slot="title">Never Trust, <br />Always Verify</Fragment>
   <Fragment slot="sub">아무도 믿지 않고, 매번 확인합니다</Fragment>
@@ -138,9 +140,9 @@ const chapters = [
       <text class="lbl w-s" style="--d:2.1s" x="318" y="142" text-anchor="middle">mTLS</text>
       <text class="lbl w-s" style="--d:2.2s" x="826" y="166" text-anchor="middle">mTLS</text>
       <text class="lbl w-s" style="--d:2.3s" x="826" y="188" text-anchor="middle">HTTP/2</text>
-      <text class="hw cue" data-t="8.4-9.4" x="776" y="114">밖으로 연결</text>
+      <text class="hw cue" data-t="8.4-9.4" x="841" y="90" text-anchor="middle"><tspan x="841">에이전트가</tspan><tspan x="841" dy="24">먼저 연결</tspan></text>
       <text class="hw mint cue" data-t="9.4-11.8,35.6-37.4" x="776" y="114">서명된 신원</text>
-      <text class="hw cue" data-t={`0-10.2,12-36.2,37.6-${LOOP}`} x="914" y="214">들어오는 포트 없음</text>
+      <text class="hw cue" data-t={`0-10.2,12-36.2,37.6-${LOOP}`} x="914" y="214">바깥에서 포트가 안 보임</text>
       <g class="cue" data-t="10.2-12,36.2-37.6"><path class="tk" d={tick(914, 200)} /><text class="hw mint" x="938" y="214">서명 확인</text></g>
 
       <text class="lbl w-t" style="--d:1.6s" x="932" y="130">내부 에이전트</text>
