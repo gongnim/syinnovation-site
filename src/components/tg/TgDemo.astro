@@ -1,10 +1,10 @@
 ---
 // Trust Gateway product screens (user, 2026-11-13): the demo (GatewayDemo) in a dark section right above "관리자는
 // 이렇게 봅니다" (its PoC/consulting button went on 2026-11-16: the page had too many). It was the page's hero for a while (TgHero); the page now
-// opens with the zero trust band.
+// opens with TgIntro (2026-11-16), the night hero that plays zero trust and the NIST structure.
 // The blueprint film that was the hero before that (GatewayHero + SketchHero) is kept unused in src/components; to bring
 // it back as the hero, put <GatewayHero /> first in trust-gateway.astro, re-add the Nanum Pen Script font link in its
-// head slot, and give the zero trust band back its h2 (drop "first").
+// head slot, and take TgIntro out (or move it below the film).
 import GatewayDemo from '../GatewayDemo.astro';
 ---
 <section class="section night" id="demo">

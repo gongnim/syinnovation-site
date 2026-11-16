@@ -54,13 +54,6 @@ const principles = [
   { t: '단계별 구축', d: '핵심을 먼저, 확장은 다음, 고도화는 마지막에 합니다.' },
 ];
 
-const phases = [
-  { t: 'PI 컨설팅', d: '현황 분석 · 업무 재설계 · IT 요구사항과 로드맵', when: '2025년 11월 ~ 2026년 3월', s: 'done' },
-  { t: '1단계 ERP 핵심 구축', d: '생산 · 품질 · 프로젝트 관리 · 지식 관리 · 통합 분석', when: '2026년 4월 ~ 12월', s: 'now' },
-  { t: '2단계 확대', d: '신규 사업부로 넓히기', when: '2027년 상반기 예정', s: 'next' },
-  { t: '3단계 고도화', d: '대시보드 · 분석 · 운영 인계', when: '2027년 하반기 예정', s: 'next' },
-];
-
 const cases = [
   { img: 'auth', k: '금융', t: '카드사 · 저축은행 모바일 인증', d: '카드사와 저축은행 앱의 모바일 통합인증을 구축하고 운영했습니다.', tags: ['모바일 인증', '앱 통합', '구축과 운영'] },
   { img: 'nfc', k: '결제', t: '모바일 POS NFC 결제 모듈', d: '모바일 POS에 쓰는 NFC 결제 모듈을 개발하고, 해외 개발사 기술을 현장에서 검증해 EMV 국제 인증을 지원했습니다.', tags: ['NFC', 'EMV 인증', '국제 결제 규격'] },
@@ -349,17 +342,6 @@ const at = (n: number) => `--at:${n}`;
           </dl>
         </div>
       </div>
-      <ol class="phases reveal">
-        {phases.map((p) => (
-          <li class={p.s}>
-            <span class="ph-dot"></span>
-            <p class="ph-when">{p.when}</p>
-            <b>{p.t}</b>
-            <p class="ph-d">{p.d}</p>
-            <em class="ph-s">{p.s === 'done' ? '완료' : p.s === 'now' ? '진행 중' : '예정'}</em>
-          </li>
-        ))}
-      </ol>
     </div>
   </section>
 
@@ -672,23 +654,6 @@ const at = (n: number) => `--at:${n}`;
   .case-dl div { display: grid; grid-template-columns: 56px minmax(0, 1fr); gap: 12px; }
   .case-dl dt { font-weight: 700; color: var(--blue); }
   .case-dl dd { margin: 0; color: var(--ink-2); }
-  .phases { list-style: none; margin: clamp(32px, 4vw, 48px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; position: relative; }
-  .phases::before { content: ''; position: absolute; left: 0; right: 0; top: 9px; height: 2px; background: var(--line); }
-  .phases::after { content: ''; position: absolute; left: 0; top: 9px; height: 2px; width: 37.5%; background: var(--blue); transform-origin: left; transform: scaleX(0); transition: transform 1.4s var(--ease) .3s; }
-  .phases.is-in::after { transform: scaleX(1); }
-  :global(html:not(.js)) .phases::after { transform: scaleX(1); }
-  .phases li { position: relative; padding: 32px 16px 0 0; display: grid; gap: 4px; align-content: start; }
-  .ph-dot { position: absolute; left: 0; top: 2px; width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 2px solid var(--line); }
-  .done .ph-dot { background: var(--blue); border-color: var(--blue); }
-  .now .ph-dot { background: var(--orange); border-color: var(--orange); }
-  .now .ph-dot::after { content: ''; position: absolute; inset: -6px; border-radius: 50%; border: 2px solid var(--orange); animation: ph-ping 1.8s ease-out infinite; }
-  @keyframes ph-ping { from { opacity: .8; transform: scale(.6); } to { opacity: 0; transform: scale(1.6); } }
-  .ph-when { font-size: 14px; color: var(--ink-3); }
-  .phases b { font-size: 17px; }
-  .ph-d { font-size: 15px; color: var(--ink-2); }
-  .ph-s { justify-self: start; margin-top: 6px; font-style: normal; font-size: 13px; font-weight: 700; padding: 3px 10px; border-radius: 999px; background: var(--mist); color: var(--ink-3); }
-  .done .ph-s { background: rgba(54, 99, 153, .12); color: var(--blue); }
-  .now .ph-s { background: var(--orange-soft); color: var(--orange-ink); }
 
   /* 7. development work */
   .cases { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
@@ -747,15 +712,11 @@ const at = (n: number) => `--at:${n}`;
     .svc-ico { width: 36px; height: 36px; }
     .svc-panel { grid-template-columns: minmax(0, 1fr); }
     .rules, .cases { grid-template-columns: minmax(0, 1fr); }
-    .phases { grid-template-columns: minmax(0, 1fr); gap: 20px; }
-    .phases::before { left: 7px; right: auto; top: 0; bottom: 0; width: 2px; height: auto; }
-    .phases::after { display: none; }
-    .phases li { padding: 0 0 0 32px; }
     .rv-code code { white-space: pre-wrap; }
   }
   @media (prefers-reduced-motion: reduce) {
     .photo img { transition: none; }
-    .m-live i, .now .ph-dot::after { animation: none !important; }
+    .m-live i { animation: none !important; }
     :global(html.js) .review .rv-code li, :global(html.js) .review .rv-note, :global(html.js) .review .rv-checks li { opacity: 1; transform: none; transition: none; }
     .run .mini *, .run .mini *::after { animation: none !important; }
     .face { transition: none; }
