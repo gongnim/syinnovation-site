@@ -422,6 +422,22 @@ const shelfYs = [140, 200, 260];
     </ol>
   </div>
 </section>
+{/* The markup above is the still frame (신호 대조) for visitors without JavaScript or with reduced motion. Everyone
+    else must see the story's first frame from the first paint, not 신호 대조 until the module script below loads
+    (user, 2026-11-16: "F5를 누르면 4번부터 보이거든"), so this runs in place, before the page is painted. */}
+<script is:inline>
+  (() => {
+    const h = document.querySelector('.tg-hero');
+    if (!h || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    h.querySelector('.world').style.transform = 'none';
+    h.querySelectorAll('.still').forEach((e) => e.classList.remove('still'));
+    h.querySelector('.cap').classList.add('still');
+    h.querySelectorAll('.flow li').forEach((li, i) => {
+      li.classList.toggle('on', i === 0); li.classList.remove('done');
+      li.querySelector('button').setAttribute('aria-pressed', String(i === 0));
+    });
+  })();
+</script>
 
 <style>
   .tg-hero { background: var(--night); color: var(--on-night); padding: calc(96px + clamp(40px, 4vw, 72px)) 0 clamp(56px, 6vw, 88px); }
