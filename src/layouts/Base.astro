@@ -18,6 +18,10 @@ const fullTitle = title === '신영이노베이션' ? '신영이노베이션 | �
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
     <meta name="theme-color" content="#0e1a2b" />
+    <!-- the brand symbol as the tab icon (user, 2026-11-16: the tab showed a blank globe) -->
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <slot name="head" />
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
