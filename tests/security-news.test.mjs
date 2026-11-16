@@ -122,6 +122,11 @@ test('a video title loses its channel and MBC\'s date tail', () => {
   assert.equal(v.title, '코인원 등 전방위 해킹');
 });
 
+test('a video title loses a leading [속보] tag, emoji and the channel with its English name', () => {
+  const [v] = pickVideos([], [{ id: 'y1', title: '[🔴속보] "사례비 받아가세요" 믿고 열었다간…북한 해킹조직 \'김수키\' 신종 공격 / 연합뉴스TV(YonhapnewsTV)', channel: '연합뉴스TV', date: '2026-11-16', region: '국내' }], { ...cfg, videoChannels: ['연합뉴스TV'] });
+  assert.equal(v.title, '"사례비 받아가세요" 믿고 열었다간…북한 해킹조직 \'김수키\' 신종 공격');
+});
+
 test('headline hanja are spelled out in Hangul', () => {
   assert.equal(hangul("北 해킹조직 '라자루스', 국내 서버 30곳 조준"), "북한 해킹조직 '라자루스', 국내 서버 30곳 조준");
   assert.equal(hangul('日, 개인정보 유출 잇따라'), '일본, 개인정보 유출 잇따라');

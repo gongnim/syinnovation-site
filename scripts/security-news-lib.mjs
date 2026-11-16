@@ -179,8 +179,11 @@ export const photoQuery = (title, type) => PHOTO_FIELDS.find(([re]) => re.test(t
 // a video title often ends with " | Channel", " - Channel" or " / Channel"; the card shows the channel already
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const bare = (title, channel) =>
-  title.replace(/\s*\(\d{4}\.\d{1,2}\.\d{1,2}\/[^)]*\)\s*$/, '') // MBC: "(2026.11.15/뉴스데스크/MBC)"
-    .replace(new RegExp(`\\s*[|/-]\\s*(?:${escapeRe(channel)}|${escapeRe(channel.split(/\s+/)[0])})\\s*$`, 'i'), ''); // or its first word: "/ KNN" for KNN NEWS
+  title.replace(/^\s*\[[^\]]*\]\s*/, '') // a leading tag: "[속보]", "[🔴속보]"
+    .replace(/[\p{Extended_Pictographic}\uFE0F]/gu, '') // emoji
+    .replace(/\s*\(\d{4}\.\d{1,2}\.\d{1,2}\/[^)]*\)\s*$/, '') // MBC: "(2026.11.15/뉴스데스크/MBC)"
+    .replace(new RegExp(`\\s*[|/-]\\s*(?:${escapeRe(channel)}|${escapeRe(channel.split(/\s+/)[0])})(?:\\s*\\([^)]*\\))?\\s*$`, 'i'), '') // or its first word: "/ KNN" for KNN NEWS; "(YonhapnewsTV)" after it
+    .trim();
 
 export function pickVideos(stored, videos, cfg) {
   const isListed = listed(stored);
