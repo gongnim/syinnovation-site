@@ -30,11 +30,11 @@ const engines = [
 const services = [{ k: 's1', t: '그룹웨어' }, { k: 's2', t: '인사 시스템' }, { k: 's3', t: '업무 포털' }];
 
 const chapters = [
-  { t: '휴대폰으로 본인 확인', from: 0, to: 4, still: 3.4, d: '업무를 시작할 때 PC 화면의 QR을 휴대폰으로 찍고 Face ID로 승인합니다. 승인 결과가 휴대폰에서 Trust Gateway로 전달되어, 지금 이 PC를 쓰는 사람이 확인됩니다.' },
-  { t: '평소처럼 업무', from: 4, to: 12, still: 11.4, d: '업무 요청이 올 때마다 기기 인증서와 본인 확인을 보고, 다중 신호 교차 검증과 판단 엔진을 거쳐 허용합니다. 허용된 요청은 내부 에이전트가 Trust Gateway에 먼저 연결해 둔 길로만 들어가고, 요청마다 새로 서명한 신원이 붙어 업무 시스템에 닿습니다.' },
+  { t: '휴대폰으로 본인 확인', from: 0, to: 4, still: 3.4, d: '업무를 시작할 때 PC 화면의 QR을 휴대폰으로 찍고 생체 인증(Face ID나 지문)으로 승인합니다. 승인 결과가 휴대폰에서 Trust Gateway로 전달되어, 지금 이 PC를 쓰는 사람이 확인됩니다.' },
+  { t: '평소처럼 업무', from: 4, to: 12, still: 11.4, d: '업무 요청이 올 때마다 기기 인증서와 본인 확인을 보고, 판단 엔진이 허용합니다. PC와 휴대폰은 위치, Wi-Fi 같은 신호를 요청과 따로 계속 보내고, 다중 신호 교차 검증은 이 신호를 미리 대조해 둡니다. 허용된 요청은 내부 에이전트가 Trust Gateway에 미리 연결해 둔 길로만 들어가고, 요청마다 새로 서명한 신원이 붙어 업무 시스템에 닿습니다.' },
   { t: '갑자기 IP가 바뀜', from: 12, to: 16.2, still: 15.6, d: '직원이 카페로 자리를 옮겨 다른 Wi-Fi로 접속합니다. 휴대폰 앱이 바뀐 상태를 알려 오고, 인증할 때와 IP가 달라져 위험 점수가 올라갑니다.' },
   { t: '단계별 위험 판정', from: 16.2, to: 27.2, still: 26.4, d: '이상 탐지 단계가 이 사람의 평소 행동과 비교해 이번 접속이 평소와 달라졌다는 것을 알아챕니다. 금지 사항 확인 단계는 절대 안 되는 상황은 아니라며 통과 의견을 내지만, 최종 결정 단계가 회사 기준에 따라 추가 인증을 정합니다.' },
-  { t: '휴대폰으로 다시 인증', from: 27.2, to: 33, still: 30.8, d: '휴대폰으로 추가 인증을 요청하고, 마칠 때까지 접속을 잠시 멈춥니다. 직원이 Face ID로 승인하면 다시 판정해 허용합니다. PC가 아닌 휴대폰으로 따로 묻기 때문에, PC만 손에 넣은 사람은 답할 수 없습니다.' },
+  { t: '휴대폰으로 다시 인증', from: 27.2, to: 33, still: 30.8, d: '휴대폰으로 추가 인증을 요청하고, 마칠 때까지 접속을 잠시 멈춥니다. 직원이 생체 인증으로 승인하면 다시 판정해 허용합니다. PC가 아닌 휴대폰으로 따로 묻기 때문에, PC만 손에 넣은 사람은 답할 수 없습니다.' },
   { t: '다시 원래대로 업무', from: 33, to: LOOP, still: 37.4, d: '승인이 끝나면 직원은 하던 일을 그대로 이어 갑니다. 그 뒤의 요청도 지금까지처럼 하나하나 다시 확인합니다.' },
 ];
 ---
@@ -96,13 +96,14 @@ const chapters = [
 
       <!-- wires (packets travel along the ones with an id) -->
       <path id="gh-pc" class="ink wire" pathLength="1" style="--d:2s" d="M228 176 C330 176 350 134 450 134" />
+      <path id="gh-pcs" class="ink wire" pathLength="1" style="--d:2.05s" d="M228 206 C330 206 360 245 450 245" />
       <path id="gh-ph" class="ink wire" pathLength="1" style="--d:2.1s" d="M134 372 C300 372 340 261 450 261" />
       <path id="gh-bind" class="st bind" data-t={`3.2-${LOOP}`} d="M214 254 C236 290 200 326 134 334" />
       <path id="gh-tun" class="ghost" d="M770 133 H912" />
       <path id="gh-svc" class="ghost" d="M930 172 V292 H950" />
 
       <!-- highlighter swashes under the notes that matter -->
-      <path class="swash mint" pathLength="1" data-t={`0-${LOOP}`} d="M910 220 L1066 214" />
+      <path class="swash mint" pathLength="1" data-t={`0-${LOOP}`} d="M910 220 L1128 214" />
       <path class="swash orange" pathLength="1" data-t="15-16.2,27.8-31" d="M446 400 L776 395" />
     </g>
 
@@ -111,15 +112,19 @@ const chapters = [
       <text class="w-zone lbl" style="--d:.1s" x="420" y="48">Trust Gateway</text>
       <text class="w-zone lbl" style="--d:.1s" x="880" y="48">고객사 내부망</text>
 
-      <text class="lbl" style="--d:.5s" x="48" y="108"><tspan class="w-t">업무 PC</tspan><tspan class="w-s" dx="10">보안 브라우저</tspan></text>
+      <text class="lbl" style="--d:.5s" x="48" y="108"><tspan class="w-t">업무 PC</tspan><tspan class="w-s" dx="10">사용자 에이전트</tspan></text>
       <text class="lbl" style="--d:.8s" x="60" y="446"><tspan class="w-t">휴대폰</tspan><tspan class="w-s" dx="10">{appName} 앱</tspan></text>
       <text class="hw mint cue" data-t="0.6-4.2" x="232" y="292">QR 승인</text>
       <text class="hw mint cue" data-t="2.4-4.2" x="232" y="318">본인 확인</text>
       <!-- the change, and the step-up on the phone -->
+      <!-- work as usual: what the two kinds of dots are -->
+      <text class="hw cue" data-t="4.4-6.4,33-34.6" x="322" y="116">업무 요청</text>
+      <text class="hw cue" data-t="5-12,33.4-38" x="160" y="398">PC · 휴대폰 신호</text>
+      <text class="hw cue" data-t="5.4-12,33.8-38" x="160" y="422">요청과 따로 계속 보냄</text>
       <text class="hw orange cue" data-t="12.2-16.2" x="232" y="292">카페 Wi-Fi로 이동</text>
       <text class="hw orange cue" data-t="12.8-16.2" x="232" y="318">IP 바뀜</text>
       <text class="hw orange cue" data-t="27.8-30.2" x="232" y="292">다시 인증 요청</text>
-      <text class="hw mint cue" data-t="30.2-32.4" x="232" y="292">Face ID로 승인</text>
+      <text class="hw mint cue" data-t="30.2-32.4" x="232" y="292">생체 인증으로 승인</text>
 
       <text class="lbl w-t" style="--d:1s" x="472" y="130">접속 관문</text>
       <text class="lbl w-s" style="--d:1.1s" x="472" y="156">요청마다 확인</text>
@@ -140,7 +145,7 @@ const chapters = [
       <text class="lbl w-s" style="--d:2.1s" x="318" y="142" text-anchor="middle">mTLS</text>
       <text class="lbl w-s" style="--d:2.2s" x="826" y="166" text-anchor="middle">mTLS</text>
       <text class="lbl w-s" style="--d:2.3s" x="826" y="188" text-anchor="middle">HTTP/2</text>
-      <text class="hw cue" data-t="8.4-9.4" x="841" y="90" text-anchor="middle"><tspan x="841">에이전트가</tspan><tspan x="841" dy="24">먼저 연결</tspan></text>
+      <text class="hw cue" data-t="8.4-9.4" x="841" y="90" text-anchor="middle"><tspan x="841">에이전트가</tspan><tspan x="841" dy="24">미리 연결</tspan></text>
       <text class="hw mint cue" data-t="9.4-11.8,35.6-37.4" x="776" y="114">서명된 신원</text>
       <text class="hw cue" data-t={`0-10.2,12-36.2,37.6-${LOOP}`} x="914" y="214">바깥에서 포트가 안 보임</text>
       <g class="cue" data-t="10.2-12,36.2-37.6"><path class="tk" d={tick(914, 200)} /><text class="hw mint" x="938" y="214">서명 확인</text></g>
@@ -195,11 +200,26 @@ const chapters = [
       <g class="pk mint" data-path="gh-ph" data-w="1.7-2.5"><circle r="11" /><circle r="5" /></g>
       <g class="pk mint" data-path="gh-pc" data-w="2.5-3.3" data-rev><circle r="11" /><circle r="5" /></g>
       <!-- 2. work as usual -->
-      <g class="pk" data-path="gh-ph" data-w="4.2-5.4"><circle r="11" /><circle r="5" /></g>
       <g class="pk" data-path="gh-pc" data-w="4.6-5.8"><circle r="11" /><circle r="5" /></g>
-      <g class="pk" data-path="gh-tun" data-w="8.4-9.2" data-rev><circle r="11" /><circle r="5" /></g>
       <g class="pk mint" data-path="gh-tun" data-w="9.4-10.3"><circle r="11" /><circle r="5" /></g>
       <g class="pk mint" data-path="gh-svc" data-w="10.3-11.1"><circle r="11" /><circle r="5" /></g>
+      <!-- signals: PC and phone report on their own beat, apart from the requests (tech doc: the cross-check runs ahead) -->
+      <g class="pk sig" data-path="gh-ph" data-w="5-6.2"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-ph" data-w="7.6-8.8"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-ph" data-w="10.2-11.4"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-ph" data-w="17-18.2"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-ph" data-w="20.6-21.8"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-ph" data-w="24-25.2"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-ph" data-w="33.6-34.8"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-ph" data-w="36.2-37.4"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-pcs" data-w="5.4-6.6"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-pcs" data-w="8-9.2"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-pcs" data-w="10.6-11.8"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-pcs" data-w="17.4-18.6"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-pcs" data-w="21-22.2"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-pcs" data-w="24.4-25.6"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-pcs" data-w="34-35.2"><circle r="7" /><circle r="3.5" /></g>
+      <g class="pk sig" data-path="gh-pcs" data-w="36.6-37.8"><circle r="7" /><circle r="3.5" /></g>
       <!-- 3. the IP changes: the phone reports it, the next request comes from the new network -->
       <g class="pk orange" data-path="gh-ph" data-w="12.6-13.6"><circle r="11" /><circle r="5" /></g>
       <g class="pk orange" data-path="gh-pc" data-w="13-14"><circle r="11" /><circle r="5" /></g>
@@ -224,6 +244,7 @@ const chapters = [
   .sketch .pill.step.on { stroke: var(--or); fill: rgba(246, 136, 42, .16); }
   .sketch .tun { stroke: var(--hi); stroke-width: 2; stroke-dasharray: 1 1; stroke-dashoffset: 1; opacity: 0; }
   .sketch .tun.on { stroke-dashoffset: 0; opacity: 1; }
+  .pkts .pk.sig { color: #9fc3ef; }
   .sketch .bind { stroke-width: 1.6; stroke-dasharray: 3 7; opacity: .5; }
   .sketch .bind.on { stroke: var(--mint); stroke-width: 2.2; stroke-dasharray: none; opacity: 1; }
   .sketch .qr { stroke: var(--hi); stroke-width: 1.8; }
