@@ -1,4 +1,6 @@
 ---
+import { bothLangs, langOf, href } from '../../lib/i18n';
+export const getStaticPaths = bothLangs;
 // IT 컨설팅·개발: custom consulting and development. The page tells one story: the visitor's worries, the change they
 // can drag to compare, what we do (with small live screens), how a project runs (scroll-driven), how AI is used, and
 // proof from past work, then answers common questions. 에어레인 (AIRRANE) may be named (ERP case, owner approved
@@ -6,13 +8,21 @@
 // team made with the image model from the company page portraits (2026-11-13). Other photos are
 // Pexels (no credit required): case Mumtaz Niazi 36825977, braille Eren Li 7188777,
 // payment Towfiqu barbhuiya 9122014, phone I'm Zion 12376016.
-import Base from '../layouts/Base.astro';
-import CtaBand from '../components/CtaBand.astro';
-import Icon from '../components/Icon.astro';
+import Base from '../../layouts/Base.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+const lang = langOf(Astro.url);
+const en = lang === 'en';
 
 // hero: the five steps take turns; each brings a colour-pencil sketch of the teammate who leads it (drawn from the
 // same portraits as the company page) and what happens in that step
-const flow = [
+const flow = en ? [
+  { t: 'Requirements', img: 'sk-req', alt: 'Colored-pencil sketch of CSO Sungsoo Park taking notes while listening to a client', items: ['Interviews with business staff', 'Analysis of current work and problems', 'Direction for improvement'] },
+  { t: 'Technical design', img: 'sk-design', alt: 'Colored-pencil sketch of CTO Donghyun Gong drawing a workflow on a whiteboard', items: ['Workflow redesign', 'IT requirements specification', 'System architecture and phased roadmap'] },
+  { t: 'Development · QA', img: 'sk-dev', alt: 'Colored-pencil sketch of software engineer Jongse Lim reviewing code at a monitor', items: ['Fast first drafts with AI development tools', 'Code review and testing by developers', 'Short cycles of demos and fixes'] },
+  { t: 'Deployment', img: 'sk-launch', alt: 'Colored-pencil sketch of researcher Minkwan Kang checking a deployment on a laptop beside a server', items: ['Production environment setup', 'User training', 'Launch together with you'] },
+  { t: 'Operations · maintenance', img: 'sk-ops', alt: 'Colored-pencil sketch of COO Heejun Park looking over an operations status screen', items: ['Feature improvements and updates', 'Incident response', 'Next improvements proposed from usage'] },
+] : [
   { t: '요구사항', img: 'sk-req', alt: '고객의 이야기를 들으며 메모하는 박성수 전략총괄을 그린 색연필 스케치', items: ['업무 담당자 인터뷰', '지금 업무와 문제 분석', '개선 방향 정리'] },
   { t: '기술 설계', img: 'sk-design', alt: '화이트보드에 업무 흐름을 그리는 공동현 기술총괄을 그린 색연필 스케치', items: ['업무 흐름 다시 설계', 'IT 요구사항 명세', '시스템 구조와 단계별 로드맵'] },
   { t: '개발 · QA', img: 'sk-dev', alt: '모니터 앞에서 코드를 검토하는 임종세 개발 엔지니어를 그린 색연필 스케치', items: ['AI 개발 도구로 빠르게 초안', '개발자가 코드 검토와 테스트', '짧은 주기로 시연하고 고침'] },
@@ -20,7 +30,13 @@ const flow = [
   { t: '운영 · 유지보수', img: 'sk-ops', alt: '운영 현황 화면을 살펴보는 박희준 운영총괄을 그린 색연필 스케치', items: ['기능 개선과 업데이트', '장애 대응', '사용 현황을 보고 다음 개선 제안'] },
 ];
 
-const pains = [
+const pains = en ? [
+  { i: 'plan', q: 'We work in Excel and email', a: 'We bring scattered work into one system, so approvals and reports follow on their own.' },
+  { i: 'cycle', q: 'We enter the same data twice', a: 'We redesign the workflow so that data entered once flows to wherever it is needed.' },
+  { i: 'server', q: 'No one to look after our old system', a: 'We analyze your current system and take over its maintenance, or move you to a new system step by step.' },
+  { i: 'phone', q: 'We need an app but have no dev team', a: 'We build web, iOS, Android and backend in one place, and run them after launch too.' },
+  { i: 'shield', q: 'We need authentication and payment features', a: 'We develop the features you need ourselves, with authentication, payment and security technology built in the financial sector.' },
+] : [
   { i: 'plan', q: '엑셀과 메일로 일합니다', a: '흩어진 업무를 하나의 시스템으로 모으고, 결재와 보고가 저절로 이어지게 합니다.' },
   { i: 'cycle', q: '같은 내용을 두 번 입력합니다', a: '업무 흐름을 다시 짜서, 한 번 입력한 내용이 필요한 곳으로 흘러가게 합니다.' },
   { i: 'server', q: '오래된 시스템을 맡길 곳이 없습니다', a: '지금 시스템을 분석해 유지보수를 맡거나, 단계적으로 새 시스템으로 옮깁니다.' },
@@ -28,7 +44,16 @@ const pains = [
   { i: 'shield', q: '인증과 결제 기능이 필요합니다', a: '금융 현장에서 만든 인증, 결제, 보안 기술로 필요한 기능을 직접 개발합니다.' },
 ];
 
-const services = [
+const services = en ? [
+  { k: 'pi', i: 'search', t: 'PI consulting', s: 'We start by rethinking how you work', d: 'Together with you, we look at how you work today and sort out what to cut and what to change. Before development, we make clear what to build.',
+    pts: ['Current-state analysis: problems defined through interviews and documents', 'Improvement direction and improvement tasks defined', 'System build strategy and phased roadmap', 'Carried through to the build and the operations handover'] },
+  { k: 'dev', i: 'code', t: 'Custom development', s: 'Web · iOS · Android · Backend', d: 'We build systems and apps that fit your work exactly. We build quickly with AI development tools, and developers handle code review and testing themselves.',
+    pts: ['Business systems, admin screens, mobile apps', 'Built in short cycles, shown to you and fixed', 'Integration design with existing systems'] },
+  { k: 'ops', i: 'cycle', t: 'Operations and maintenance', s: 'With you after launch', d: 'We improve features by watching how the system is used, and keep handling updates and incident response.',
+    pts: ['Feature improvements and updates', 'Incident response', 'Next improvements proposed from usage'] },
+  { k: 'tech', i: 'shield', t: 'Custom technology development', s: 'Authentication · payment · security', d: 'We develop authentication, payment and security features ourselves to meet each company\'s own needs. This is technology we built up while making and running financial services.',
+    pts: ['Mobile authentication and biometric approval', 'Payment module development', 'Security features and access control'] },
+] : [
   { k: 'pi', i: 'search', t: 'PI 컨설팅', s: '일하는 방식부터 다시 짭니다', d: '지금 일하는 방식을 함께 들여다보고, 줄일 일과 바꿀 일을 정리합니다. 개발 전에 무엇을 만들지부터 분명히 합니다.',
     pts: ['현황 분석: 인터뷰와 문서로 문제 정리', '개선 방향과 개선 과제 정의', '시스템 구축 전략과 단계별 로드맵', '구축과 운영 인계까지 연결'] },
   { k: 'dev', i: 'code', t: '맞춤 개발', s: 'Web · iOS · Android · 백엔드', d: '회사 업무에 꼭 맞는 시스템과 앱을 만듭니다. AI 개발 도구로 빠르게 만들고, 코드 검토와 테스트는 개발자가 직접 챙깁니다.',
@@ -39,7 +64,13 @@ const services = [
     pts: ['모바일 인증과 생체 승인', '결제 모듈 개발', '보안 기능과 접근 제어'] },
 ];
 
-const steps = [
+const steps = en ? [
+  { t: 'Requirements', you: 'Join the interviews with your business staff and share your materials', we: 'We analyze your current work and define the problems and the direction for improvement', left: ['Current-state analysis report', 'Issue list', 'Improvement direction'] },
+  { t: 'Technical design', you: 'Confirm that the new workflow is right', we: 'We redesign the workflow and set the IT requirements, system architecture and phased roadmap', left: ['Business process design', 'IT requirements specification', 'Phased roadmap'] },
+  { t: 'Development · QA', you: 'Watch the short-cycle demos and give us feedback', we: 'We build quickly with AI development tools, and developers do the code review and testing themselves', left: ['Working system', 'Test results'] },
+  { t: 'Deployment', you: 'Take part in user training', we: 'We set up the production environment, prepare the launch and go live together with you', left: ['Production environment', 'User training'] },
+  { t: 'Operations · maintenance', you: 'Tell us what is inconvenient as you use it', we: 'We improve features and continue with updates and incident response', left: ['Update log', 'Operations handover documents'] },
+] : [
   { t: '요구사항', you: '업무 담당자 인터뷰에 참여하고 자료를 나눠 주세요', we: '지금 업무를 분석하고 문제와 개선 방향을 정리합니다', left: ['현황 분석 보고서', '이슈 목록', '개선 방향'] },
   { t: '기술 설계', you: '바뀐 업무 흐름이 맞는지 확인해 주세요', we: '업무 흐름을 다시 설계하고 IT 요구사항과 시스템 구조, 단계별 로드맵을 정합니다', left: ['업무 설계서', 'IT 요구사항 명세', '단계별 로드맵'] },
   { t: '개발 · QA', you: '짧은 주기의 시연을 보고 의견을 주세요', we: 'AI 개발 도구로 빠르게 만들고, 코드 검토와 테스트는 개발자가 직접 합니다', left: ['동작하는 시스템', '시험 결과'] },
@@ -47,20 +78,38 @@ const steps = [
   { t: '운영 · 유지보수', you: '쓰면서 불편한 점을 알려 주세요', we: '기능을 고치고 업데이트와 장애 대응을 이어 갑니다', left: ['업데이트 기록', '운영 인계 문서'] },
 ];
 
-const principles = [
+const principles = en ? [
+  { t: 'PI first', d: 'We change how you work before choosing the system.' },
+  { t: 'Work efficiency first', d: 'We go by how people actually work, not by what the technology can do.' },
+  { t: 'Only what is needed', d: 'We build only the screens you need, so the same data does not have to be entered twice.' },
+  { t: 'Phased build', d: 'The core comes first, expansion next and enhancement last.' },
+] : [
   { t: 'PI 먼저', d: '시스템을 정하기 전에 일하는 방식부터 바꿉니다.' },
   { t: '업무 효율 우선', d: '기술이 할 수 있는 것보다 실제로 일하는 방식을 기준으로 합니다.' },
   { t: '꼭 필요한 것만', d: '필요한 화면만 만들고, 같은 내용을 두 번 입력하지 않게 합니다.' },
   { t: '단계별 구축', d: '핵심을 먼저, 확장은 다음, 고도화는 마지막에 합니다.' },
 ];
 
-const cases = [
+const cases = en ? [
+  { img: 'auth', k: 'Finance', t: 'Mobile authentication for card companies · savings banks', d: 'We built and ran integrated mobile authentication for card company and savings bank apps.', tags: ['Mobile authentication', 'App integration', 'Build and operation'] },
+  { img: 'nfc', k: 'Payments', t: 'Mobile POS NFC payment module', d: 'We developed an NFC payment module for mobile POS and supported EMV international certification by verifying an overseas developer\'s technology in the field.', tags: ['NFC', 'EMV certification', 'International payment standards'] },
+  { img: 'braille', k: 'Accessibility', t: 'Braille conversion solution', d: 'We developed our own document-to-braille conversion engine for overseas export, replacing an overseas solution that was no longer supported.', tags: ['In-house algorithm', 'Image-to-braille conversion', 'Public accessibility project'] },
+] : [
   { img: 'auth', k: '금융', t: '카드사 · 저축은행 모바일 인증', d: '카드사와 저축은행 앱의 모바일 통합인증을 구축하고 운영했습니다.', tags: ['모바일 인증', '앱 통합', '구축과 운영'] },
   { img: 'nfc', k: '결제', t: '모바일 POS NFC 결제 모듈', d: '모바일 POS에 쓰는 NFC 결제 모듈을 개발하고, 해외 개발사 기술을 현장에서 검증해 EMV 국제 인증을 지원했습니다.', tags: ['NFC', 'EMV 인증', '국제 결제 규격'] },
   { img: 'braille', k: '접근성', t: '점자 변환 솔루션', d: '해외 수출용 문서 점자 변환 엔진을 직접 개발해, 지원이 끊긴 기존 해외 솔루션을 대체했습니다.', tags: ['자체 알고리즘', '이미지 점자 변환', '공공 접근성 사업'] },
 ];
 
-const faq = [
+const faq = en ? [
+  { q: 'How are the timeline and cost decided?', a: 'They depend on the scope of work, the number of screens and features, and the systems to integrate. In a free consultation, we hear about your current situation and lay out the scope, schedule and quote for each phase. Rather than building everything at once, we split the work and start with the features you really need, which lightens the burden.' },
+  { q: 'What do we need to prepare?', a: 'All you need is the person who knows the work best to join us. At the start, they take part in interviews and share the materials you use now. During the project, they watch the short-cycle demos and give feedback. Before launch, please take part in user training.' },
+  { q: 'What can you build?', a: 'We build business systems and admin screens, web and mobile apps (iOS · Android), and backends. We also develop authentication, payment and security features ourselves, such as mobile authentication, biometric approval and payment modules, which we have worked with in the financial sector.' },
+  { q: 'Can we start with development?', a: 'Yes. If your requirements are already defined, we start with design and development. If you want to rethink the workflow first, we start with PI consulting together.' },
+  { q: 'Is the quality reliable when AI builds it?', a: 'Repetitive code is written quickly with AI development tools, and SYINNOVATION developers verify all the code. Developers check business rules and exception handling themselves, and only results that pass testing are demonstrated to you in short cycles for your confirmation.' },
+  { q: 'Can the new system connect to the systems we use now?', a: 'Yes. In the design phase, we work out with you which systems to connect and what data they exchange. We either keep your existing systems as they are and develop the links you need, or move you to a new system step by step.' },
+  { q: 'Can you take on systems where security matters?', a: 'Yes. Drawing on our experience building authentication, payment and security technology ourselves, we consider access rights and personal data protection from the design phase. If needed, Trust Gateway can protect access to the new system.' },
+  { q: 'Can you look after the system after launch?', a: 'Yes. We continue with feature improvements, updates and incident response, and propose the next improvement based on usage. We also offer consultations on maintaining systems built elsewhere.' },
+] : [
   { q: '기간과 비용은 어떻게 정하나요?', a: '업무 범위, 화면과 기능의 양, 연동할 시스템에 따라 달라집니다. 무료 컨설팅에서 지금 상황을 듣고 단계별 범위와 일정, 견적을 정리해 드립니다. 한 번에 모두 만들기보다 꼭 필요한 기능부터 나눠 진행해 부담을 줄입니다.' },
   { q: '저희는 무엇을 준비하면 되나요?', a: '업무를 가장 잘 아는 담당자가 함께해 주시면 됩니다. 처음에는 인터뷰에 참여하고 지금 쓰는 자료를 나눠 주시고, 진행 중에는 짧은 주기의 시연을 보고 의견을 주시면 됩니다. 오픈 전에는 사용자 교육에 참여해 주세요.' },
   { q: '어떤 것을 만들 수 있나요?', a: '업무 시스템과 관리자 화면, 웹과 모바일 앱(iOS · Android), 백엔드를 만듭니다. 모바일 인증, 생체 승인, 결제 모듈처럼 금융 현장에서 다뤄 온 인증 · 결제 · 보안 기능도 직접 개발합니다.' },
@@ -72,15 +121,15 @@ const faq = [
 ];
 const at = (n: number) => `--at:${n}`;
 ---
-<Base title="IT 컨설팅·개발" description="업무 분석(PI)부터 맞춤 개발과 운영까지 함께하는 신영이노베이션의 IT 컨설팅·개발.">
+<Base title={en ? 'IT consulting & development' : 'IT 컨설팅·개발'} description={en ? 'SYINNOVATION\'s IT consulting & development, with you from business analysis (PI) to custom development and operations. Together, we diagnose everything from the programs you need to the security risks.' : '업무 분석(PI)부터 맞춤 개발과 운영까지 함께하는 신영이노베이션의 IT 컨설팅·개발. 필요한 프로그램부터 보안의 위험까지 함께 진단합니다.'}>
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">IT 컨설팅·개발</p>
-        <h1 class="title">전략부터 시스템까지, <br />회사에 맞춰 컨설팅하고 <br />개발합니다</h1>
-        <p class="lead-d">코드 한 줄 쓰기 전에 일하는 방식부터 봅니다. <br />PI 컨설팅부터 맞춤 개발과 운영까지 한곳에서 맡습니다.</p>
+        <p class="eyebrow">{en ? <>IT consulting &amp; development</> : <>IT 컨설팅·개발</>}</p>
+        <h1 class="title">{en ? <>From strategy to systems, <br />we consult and develop <br />to fit your company</> : <>전략부터 시스템까지, <br />회사에 맞춰 컨설팅하고 <br />개발합니다</>}</h1>
+        <p class="lead-d">{en ? <>Before writing a single line of code, we look at how you work. <br />From process innovation (PI) consulting to custom development and operations, we handle it all in one place.</> : <>코드 한 줄 쓰기 전에 일하는 방식부터 봅니다. <br />PI 컨설팅부터 맞춤 개발과 운영까지 한곳에서 맡습니다.</>}</p>
         <div class="btn-row">
-          <a class="btn primary" href="/contact?type=ai">IT 컨설팅·개발 문의</a>
+          <a class="btn primary" href={href('/contact?type=ai', lang)}>{en ? <>Ask about IT consulting &amp; development</> : <>IT 컨설팅·개발 문의</>}</a>
         </div>
       </div>
       <div class="show">
@@ -99,7 +148,7 @@ const at = (n: number) => `--at:${n}`;
       </div>
     </div>
     <div class="wrap">
-      <ol class="flow" aria-label="진행 순서">
+      <ol class="flow" aria-label={en ? 'Process steps' : '진행 순서'}>
         {flow.map((f, i) => (
           <li class={i === 0 ? 'on' : ''}>
             <button type="button" aria-pressed={i === 0 ? 'true' : 'false'}><span class="flow-n">{String(i + 1).padStart(2, '0')}</span>{f.t}</button>
@@ -114,15 +163,15 @@ const at = (n: number) => `--at:${n}`;
   <section class="section">
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">이런 고민이 있다면</h2>
-        <p class="lead">하나라도 해당한다면 이야기를 나눠 볼 때입니다. 카드를 눌러 보세요.</p>
+        <h2 class="h2">{en ? <>If any of these sound familiar</> : <>이런 고민이 있다면</>}</h2>
+        <p class="lead">{en ? <>If even one applies, it is time to talk. Select a card.</> : <>하나라도 해당한다면 이야기를 나눠 볼 때입니다. 카드를 눌러 보세요.</>}</p>
       </div>
       <ul class="pains">
         {pains.map((p) => (
           <li class="reveal">
             <button class="pain" type="button" aria-pressed="false">
-              <span class="face front"><span class="p-ico"><Icon name={p.i} size={22} /></span><b>{p.q}</b><small>이렇게 풉니다</small></span>
-              <span class="face back"><b>이렇게 풉니다</b><span>{p.a}</span></span>
+              <span class="face front"><span class="p-ico"><Icon name={p.i} size={22} /></span><b>{p.q}</b><small>{en ? <>How we solve it</> : <>이렇게 풉니다</>}</small></span>
+              <span class="face back"><b>{en ? <>How we solve it</> : <>이렇게 풉니다</>}</b><span>{p.a}</span></span>
             </button>
           </li>
         ))}
@@ -134,40 +183,40 @@ const at = (n: number) => `--at:${n}`;
   <section class="section mist">
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">바뀐 뒤의 모습</h2>
-        <p class="lead">가운데 손잡이를 끌어 지금과 바뀐 뒤를 비교해 보세요.</p>
+        <h2 class="h2">{en ? <>How it looks after the change</> : <>바뀐 뒤의 모습</>}</h2>
+        <p class="lead">{en ? <>Drag the handle in the middle to compare today with after the change.</> : <>가운데 손잡이를 끌어 지금과 바뀐 뒤를 비교해 보세요.</>}</p>
       </div>
       <div class="compare reveal" style="--pos: 50%">
         <div class="pane before" aria-hidden="true">
-          <div class="win-bar"><i></i><i></i><i></i><span>생산현황_최종_수정(3).xlsx</span></div>
+          <div class="win-bar"><i></i><i></i><i></i><span>{en ? <>Production_status_final_rev(3).xlsx</> : <>생산현황_최종_수정(3).xlsx</>}</span></div>
           <div class="sheet">
-            {['날짜', '품목', '수량', '담당', '확인'].map((h) => <b>{h}</b>)}
-            {Array.from({ length: 11 }, (_, r) => [`11/${String(r + 3).padStart(2, '0')}`, ['A-12', 'B-07', 'A-12', 'C-21', 'B-07', 'A-03', 'C-21', 'A-12', 'B-07', 'A-03', 'C-21'][r], ['120', '?', '118', '95', '다시 확인', '120', '88', '?', '102', '120', '96'][r], ['김', '이', '김', '박', '이', '최', '박', '김', '이', '최', '박'][r], ['', '메일 확인', '', '수정본?', '', '', '', '메일 확인', '', '', '수정본?'][r]]).flat().map((c) => <span class={c === '?' || c === '다시 확인' ? 'bad' : c === '메일 확인' || c === '수정본?' ? 'warn' : ''}>{c}</span>)}
+            {(en ? ['Date', 'Item', 'Qty', 'Owner', 'Check'] : ['날짜', '품목', '수량', '담당', '확인']).map((h) => <b>{h}</b>)}
+            {Array.from({ length: 11 }, (_, r) => [`11/${String(r + 3).padStart(2, '0')}`, ['A-12', 'B-07', 'A-12', 'C-21', 'B-07', 'A-03', 'C-21', 'A-12', 'B-07', 'A-03', 'C-21'][r], (en ? ['120', '?', '118', '95', 'Recheck', '120', '88', '?', '102', '120', '96'] : ['120', '?', '118', '95', '다시 확인', '120', '88', '?', '102', '120', '96'])[r], (en ? ['Kim', 'Lee', 'Kim', 'Park', 'Lee', 'Choi', 'Park', 'Kim', 'Lee', 'Choi', 'Park'] : ['김', '이', '김', '박', '이', '최', '박', '김', '이', '최', '박'])[r], (en ? ['', 'See email', '', 'Revised?', '', '', '', 'See email', '', '', 'Revised?'] : ['', '메일 확인', '', '수정본?', '', '', '', '메일 확인', '', '', '수정본?'])[r]]).flat().map((c) => <span class={c === '?' || c === '다시 확인' || c === 'Recheck' ? 'bad' : c === '메일 확인' || c === '수정본?' || c === 'See email' || c === 'Revised?' ? 'warn' : ''}>{c}</span>)}
           </div>
-          <div class="mail m1"><Icon name="mail" size={14} />RE: RE: 수량 다시 확인 부탁드립니다</div>
-          <div class="mail m2"><Icon name="mail" size={14} />FW: 결재 요청 (2차)</div>
-          <div class="note">어디까지 했지?</div>
+          <div class="mail m1"><Icon name="mail" size={14} />{en ? <>RE: RE: Please recheck the quantity</> : <>RE: RE: 수량 다시 확인 부탁드립니다</>}</div>
+          <div class="mail m2"><Icon name="mail" size={14} />{en ? <>FW: Approval request (2nd)</> : <>FW: 결재 요청 (2차)</>}</div>
+          <div class="note">{en ? <>Where was I?</> : <>어디까지 했지?</>}</div>
         </div>
         <div class="pane after" aria-hidden="true">
-          <div class="win-bar"><i></i><i></i><i></i><span>업무 시스템</span></div>
+          <div class="win-bar"><i></i><i></i><i></i><span>{en ? <>Business system</> : <>업무 시스템</>}</span></div>
           <div class="dash">
             <aside><b></b><b></b><b></b><b></b></aside>
             <div class="dash-main">
-              <p class="dash-h">오늘의 업무</p>
-              <div class="kpis"><span><small>결재 대기</small><b>3</b></span><span><small>생산 계획</small><b>확정</b></span><span><small>품질 이슈</small><b>1</b></span></div>
+              <p class="dash-h">{en ? <>Today's work</> : <>오늘의 업무</>}</p>
+              <div class="kpis"><span><small>{en ? <>Pending approvals</> : <>결재 대기</>}</small><b>3</b></span><span><small>{en ? <>Production plan</> : <>생산 계획</>}</small><b>{en ? <>Confirmed</> : <>확정</>}</b></span><span><small>{en ? <>Quality issues</> : <>품질 이슈</>}</small><b>1</b></span></div>
               <div class="bars">{[60, 75, 52, 88, 70, 94].map((h) => <i style={`height:${h}%`}></i>)}</div>
-              <p class="dash-ok"><Icon name="check" size={14} />보고서는 매일 자동으로 만들어집니다</p>
+              <p class="dash-ok"><Icon name="check" size={14} />{en ? <>Reports are generated automatically every day</> : <>보고서는 매일 자동으로 만들어집니다</>}</p>
             </div>
           </div>
         </div>
         <span class="divider" aria-hidden="true"><span class="knob"><Icon name="code" size={18} /></span></span>
-        <span class="cmp-tag l" aria-hidden="true">지금</span><span class="cmp-tag r" aria-hidden="true">바뀐 뒤</span>
-        <input class="cmp-range" type="range" min="0" max="100" value="50" aria-label="지금과 바뀐 뒤 비교: 왼쪽은 지금, 오른쪽은 바뀐 뒤" />
+        <span class="cmp-tag l" aria-hidden="true">{en ? <>Now</> : <>지금</>}</span><span class="cmp-tag r" aria-hidden="true">{en ? <>After</> : <>바뀐 뒤</>}</span>
+        <input class="cmp-range" type="range" min="0" max="100" value="50" aria-label={en ? 'Compare now and after: now on the left, after on the right' : '지금과 바뀐 뒤 비교: 왼쪽은 지금, 오른쪽은 바뀐 뒤'} />
       </div>
       <ul class="cmp-notes">
-        <li class="reveal"><Icon name="check" size={18} />같은 내용은 한 번만 입력</li>
-        <li class="reveal"><Icon name="check" size={18} />결재는 휴대폰으로</li>
-        <li class="reveal"><Icon name="check" size={18} />보고서는 자동으로</li>
+        <li class="reveal"><Icon name="check" size={18} />{en ? <>Same data entered only once</> : <>같은 내용은 한 번만 입력</>}</li>
+        <li class="reveal"><Icon name="check" size={18} />{en ? <>Approvals on the phone</> : <>결재는 휴대폰으로</>}</li>
+        <li class="reveal"><Icon name="check" size={18} />{en ? <>Reports made automatically</> : <>보고서는 자동으로</>}</li>
       </ul>
     </div>
   </section>
@@ -176,11 +225,11 @@ const at = (n: number) => `--at:${n}`;
   <section class="section">
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">무엇을 하나요?</h2>
-        <p class="lead">정해진 제품을 파는 대신, 회사의 일하는 방식에 맞춰 컨설팅하고 직접 만듭니다.</p>
+        <h2 class="h2">{en ? <>What we do</> : <>무엇을 하나요?</>}</h2>
+        <p class="lead">{en ? <>Instead of selling a ready-made product, we consult and build in-house to fit the way your company works.</> : <>정해진 제품을 파는 대신, 회사의 일하는 방식에 맞춰 컨설팅하고 직접 만듭니다.</>}</p>
       </div>
       <div class="svc reveal">
-        <div class="svc-list" role="tablist" aria-label="서비스">
+        <div class="svc-list" role="tablist" aria-label={en ? 'Services' : '서비스'}>
           {services.map((s, i) => (
             <button type="button" role="tab" id={`svc-tab-${s.k}`} aria-controls={`svc-${s.k}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>
               <span class="svc-ico"><Icon name={s.i} size={22} /></span><span><b>{s.t}</b><small>{s.s}</small></span>
@@ -198,11 +247,11 @@ const at = (n: number) => `--at:${n}`;
               {s.k === 'pi' && (
                 <div class="m-pi">
                   <ol class="m-col">
-                    {['요청 접수', '엑셀에 정리', '메일로 전달', '시스템에 다시 입력', '결재 받기', '보고서 따로 작성'].map((t, j) => <li class={[2, 3, 5].includes(j) ? 'cut' : ''} style={at(0.2 + j * 0.15)}><span class="in" style={at(0.2 + j * 0.15)}>{t}</span></li>)}
+                    {(en ? ['Receive request', 'Sort in Excel', 'Send by email', 'Re-enter in system', 'Get approval', 'Write report separately'] : ['요청 접수', '엑셀에 정리', '메일로 전달', '시스템에 다시 입력', '결재 받기', '보고서 따로 작성']).map((t, j) => <li class={[2, 3, 5].includes(j) ? 'cut' : ''} style={at(0.2 + j * 0.15)}><span class="in" style={at(0.2 + j * 0.15)}>{t}</span></li>)}
                   </ol>
                   <span class="m-arrow in" style={at(2.2)}></span>
                   <ol class="m-col new">
-                    {['요청 접수', '한 번만 입력', '휴대폰으로 결재', '보고서 자동 작성'].map((t, j) => <li class="in" style={at(2.5 + j * 0.25)}>{t}</li>)}
+                    {(en ? ['Receive request', 'Enter once', 'Approve on phone', 'Report made automatically'] : ['요청 접수', '한 번만 입력', '휴대폰으로 결재', '보고서 자동 작성']).map((t, j) => <li class="in" style={at(2.5 + j * 0.25)}>{t}</li>)}
                   </ol>
                 </div>
               )}
@@ -215,16 +264,16 @@ const at = (n: number) => `--at:${n}`;
                   <div class="m-phone in" style={at(0.6)}>
                     <span class="m-screen s1"><b></b><b></b><b></b></span>
                     <span class="m-screen s2"><i class="m-card"></i><b></b></span>
-                    <span class="m-screen s3"><span class="m-ok"><Icon name="check" size={20} /></span><small>처리 완료</small></span>
+                    <span class="m-screen s3"><span class="m-ok"><Icon name="check" size={20} /></span><small>{en ? <>Done</> : <>처리 완료</>}</small></span>
                   </div>
-                  <p class="m-stack in" style={at(1.4)}>Web · iOS · Android · 백엔드</p>
+                  <p class="m-stack in" style={at(1.4)}>{en ? <>Web · iOS · Android · Backend</> : <>Web · iOS · Android · 백엔드</>}</p>
                 </div>
               )}
               {s.k === 'ops' && (
                 <div class="m-ops">
-                  <p class="m-live in" style={at(0.1)}><i></i>정상 운영 중</p>
+                  <p class="m-live in" style={at(0.1)}><i></i>{en ? <>Running normally</> : <>정상 운영 중</>}</p>
                   <ul class="m-log">
-                    {[['입력 화면 개선', '배포 완료'], ['보고서 항목 추가', '배포 완료'], ['로그인 오류 신고', '대응 완료'], ['결재 알림 개선', '배포 완료']].map(([a, b], j) => <li class="in" style={at(0.5 + j * 0.5)}><span>{a}</span><em>{b}</em></li>)}
+                    {(en ? [['Input screen improved', 'Deployed'], ['Report field added', 'Deployed'], ['Login error reported', 'Resolved'], ['Approval alerts improved', 'Deployed']] : [['입력 화면 개선', '배포 완료'], ['보고서 항목 추가', '배포 완료'], ['로그인 오류 신고', '대응 완료'], ['결재 알림 개선', '배포 완료']]).map(([a, b], j) => <li class="in" style={at(0.5 + j * 0.5)}><span>{a}</span><em>{b}</em></li>)}
                   </ul>
                 </div>
               )}
@@ -232,14 +281,14 @@ const at = (n: number) => `--at:${n}`;
                 <div class="m-tech">
                   <div class="m-phone2 in" style={at(0.1)}>
                     <span class="m-finger"><Icon name="key" size={26} /></span>
-                    <small class="m-wait">생체 인증</small>
-                    <span class="m-done"><Icon name="check" size={20} />승인 완료</span>
+                    <small class="m-wait">{en ? <>Biometric auth</> : <>생체 인증</>}</small>
+                    <span class="m-done"><Icon name="check" size={20} />{en ? <>Approved</> : <>승인 완료</>}</span>
                   </div>
                   <div class="m-pos in" style={at(0.4)}>
                     <span class="m-term"><i></i></span>
                     <span class="m-tap"><i></i><i></i><i></i></span>
                     <span class="m-cardx"></span>
-                    <small>NFC 결제</small>
+                    <small>{en ? <>NFC payment</> : <>NFC 결제</>}</small>
                   </div>
                 </div>
               )}
@@ -254,8 +303,8 @@ const at = (n: number) => `--at:${n}`;
   <section class="section mist" id="process">
     <div class="wrap">
       <div class="head-left reveal">
-        <h2 class="h2 sm">이렇게 진행합니다</h2>
-        <p class="lead">단계마다 고객이 할 일, 우리가 할 일, 남는 것이 분명합니다.</p>
+        <h2 class="h2 sm">{en ? <>How a project runs</> : <>이렇게 진행합니다</>}</h2>
+        <p class="lead">{en ? <>At every step, what you do, what we do and what you get are clear.</> : <>단계마다 고객이 할 일, 우리가 할 일, 남는 것이 분명합니다.</>}</p>
       </div>
       <div class="proc" style="--prog: 0">
         <div class="proc-visual" aria-hidden="true">
@@ -264,7 +313,7 @@ const at = (n: number) => `--at:${n}`;
               <div class={`pv ${i === 0 ? 'on' : ''}`}>
                 <span class="pv-n">{String(i + 1).padStart(2, '0')}</span>
                 <p class="pv-t">{s.t}</p>
-                <p class="pv-k">남는 것</p>
+                <p class="pv-k">{en ? <>What you get</> : <>남는 것</>}</p>
                 <ul>{s.left.map((l) => <li>{l}</li>)}</ul>
               </div>
             ))}
@@ -278,16 +327,16 @@ const at = (n: number) => `--at:${n}`;
               <div>
                 <h3 class="h4">{s.t}</h3>
                 <dl>
-                  <div><dt>고객이 할 일</dt><dd>{s.you}</dd></div>
-                  <div><dt>우리가 할 일</dt><dd>{s.we}</dd></div>
-                  <div class="ps-left"><dt>남는 것</dt><dd>{s.left.join(' · ')}</dd></div>
+                  <div><dt>{en ? <>What you do</> : <>고객이 할 일</>}</dt><dd>{s.you}</dd></div>
+                  <div><dt>{en ? <>What we do</> : <>우리가 할 일</>}</dt><dd>{s.we}</dd></div>
+                  <div class="ps-left"><dt>{en ? <>What you get</> : <>남는 것</>}</dt><dd>{s.left.join(' · ')}</dd></div>
                 </dl>
               </div>
             </li>
           ))}
         </ol>
       </div>
-      <h3 class="sub reveal">이 원칙으로 일합니다</h3>
+      <h3 class="sub reveal">{en ? <>We work by these principles</> : <>이 원칙으로 일합니다</>}</h3>
       <ul class="rules">
         {principles.map((p) => <li class="reveal"><b>{p.t}</b><p class="body">{p.d}</p></li>)}
       </ul>
@@ -298,26 +347,26 @@ const at = (n: number) => `--at:${n}`;
   <section class="section night">
     <div class="wrap ai">
       <div class="reveal">
-        <h2 class="h2 sm">AI가 빠르게 만들고, <br />개발자가 정확하게 검증합니다</h2>
-        <p class="lead">AI 개발 도구로 빠르게 만들고, 신영이노베이션 개발자가 모든 코드를 직접 검증합니다. 그래서 더 빨리, 더 정확한 결과를 받아 보실 수 있습니다.</p>
+        <h2 class="h2 sm">{en ? <>AI builds fast, <br />developers verify precisely</> : <>AI가 빠르게 만들고, <br />개발자가 정확하게 검증합니다</>}</h2>
+        <p class="lead">{en ? <>We build quickly with AI development tools, and SYINNOVATION developers verify all the code themselves. So you can get more accurate results, sooner.</> : <>AI 개발 도구로 빠르게 만들고, 신영이노베이션 개발자가 모든 코드를 직접 검증합니다. 그래서 더 빨리, 더 정확한 결과를 받아 보실 수 있습니다.</>}</p>
         <ul class="ai-pts">
-          <li><Icon name="spark" size={18} />반복되는 코드는 AI 개발 도구가 빠르게 만듭니다</li>
-          <li><Icon name="code" size={18} />신영이노베이션 개발자가 모든 코드를 검증하고 업무 규칙에 맞게 고칩니다</li>
-          <li><Icon name="check" size={18} />테스트를 통과한 결과만 전달합니다</li>
+          <li><Icon name="spark" size={18} />{en ? <>AI development tools write repetitive code quickly</> : <>반복되는 코드는 AI 개발 도구가 빠르게 만듭니다</>}</li>
+          <li><Icon name="code" size={18} />{en ? <>SYINNOVATION developers verify all the code and fix it to fit your business rules</> : <>신영이노베이션 개발자가 모든 코드를 검증하고 업무 규칙에 맞게 고칩니다</>}</li>
+          <li><Icon name="check" size={18} />{en ? <>Only results that pass testing are delivered</> : <>테스트를 통과한 결과만 전달합니다</>}</li>
         </ul>
       </div>
       <div class="review reveal" aria-hidden="true">
-        <div class="rv-head"><span class="rv-file">approval.ts</span><span class="rv-tag t-ai">AI 초안</span><span class="rv-tag t-dev">개발자 수정</span></div>
+        <div class="rv-head"><span class="rv-file">approval.ts</span><span class="rv-tag t-ai">{en ? <>AI draft</> : <>AI 초안</>}</span><span class="rv-tag t-dev">{en ? <>Developer fix</> : <>개발자 수정</>}</span></div>
         <ol class="rv-code">
-          <li class="l-cm" style="--k:0"><i>1</i><code>// 결재선 정하기</code></li>
+          <li class="l-cm" style="--k:0"><i>1</i><code>{en ? '// set the approval line' : '// 결재선 정하기'}</code></li>
           <li class="l-ai" style="--k:1"><i>2</i><code>export function approvalLine(doc) {'{'}</code></li>
           <li class="l-ai" style="--k:2"><i>3</i><code>  const steps = doc.amount &gt; limit ? 3 : 2;</code></li>
-          <li class="l-del" style="--k:3"><i></i><code>  return approvers(doc.team, steps);</code><b class="rv-mark t-ai">AI 초안</b></li>
-          <li class="l-dev" style="--k:4"><i>4</i><code>  return withDelegates(approvers(doc.team, steps));</code><b class="rv-mark t-dev">개발자 수정</b></li>
+          <li class="l-del" style="--k:3"><i></i><code>  return approvers(doc.team, steps);</code><b class="rv-mark t-ai">{en ? <>AI draft</> : <>AI 초안</>}</b></li>
+          <li class="l-dev" style="--k:4"><i>4</i><code>  return withDelegates(approvers(doc.team, steps));</code><b class="rv-mark t-dev">{en ? <>Developer fix</> : <>개발자 수정</>}</b></li>
           <li class="l-ai" style="--k:5"><i>5</i><code>{'}'}</code></li>
         </ol>
-        <div class="rv-note"><span class="rv-who">개발자</span><p>AI 초안은 결재자가 휴가 중인 경우를 빠뜨렸습니다. 대리 결재자에게 넘어가도록 업무 규칙에 맞게 고쳤습니다.</p></div>
-        <ul class="rv-checks"><li style="--k:0"><Icon name="check" size={16} />코드 검토 완료</li><li style="--k:1"><Icon name="check" size={16} />테스트 통과</li><li style="--k:2"><Icon name="check" size={16} />시연 화면 준비</li></ul>
+        <div class="rv-note"><span class="rv-who">{en ? <>Developer</> : <>개발자</>}</span><p>{en ? <>The AI draft missed the case where the approver is on leave. I fixed it to follow the business rules, so the approval passes to a delegate approver.</> : <>AI 초안은 결재자가 휴가 중인 경우를 빠뜨렸습니다. 대리 결재자에게 넘어가도록 업무 규칙에 맞게 고쳤습니다.</>}</p></div>
+        <ul class="rv-checks"><li style="--k:0"><Icon name="check" size={16} />{en ? <>Code reviewed</> : <>코드 검토 완료</>}</li><li style="--k:1"><Icon name="check" size={16} />{en ? <>Tests passed</> : <>테스트 통과</>}</li><li style="--k:2"><Icon name="check" size={16} />{en ? <>Demo screen ready</> : <>시연 화면 준비</>}</li></ul>
       </div>
     </div>
   </section>
@@ -325,19 +374,19 @@ const at = (n: number) => `--at:${n}`;
   <!-- 6. featured case -->
   <section class="section" id="airrane">
     <div class="wrap">
-      <div class="head-left reveal"><h2 class="h2 sm">대표 사례</h2></div>
+      <div class="head-left reveal"><h2 class="h2 sm">{en ? <>Featured case</> : <>대표 사례</>}</h2></div>
       <div class="case reveal">
         <figure class="case-photo">
-          <img src="/images/consulting/airrane-case.webp" alt="가스 배관과 밸브가 이어진 산업 설비" width="1400" height="1050" loading="lazy" />
-          <figcaption>에어레인 · PI 컨설팅과 ERP 구축</figcaption>
+          <img src="/images/consulting/airrane-case.webp" alt={en ? 'Industrial equipment with connected gas pipes and valves' : '가스 배관과 밸브가 이어진 산업 설비'} width="1400" height="1050" loading="lazy" />
+          <figcaption>{en ? <>AIRRANE · PI consulting and ERP implementation</> : <>에어레인 · PI 컨설팅과 ERP 구축</>}</figcaption>
         </figure>
         <div class="case-copy">
-          <h3 class="h3">에어레인(AIRRANE) ERP 구축</h3>
-          <p class="case-sub">코스닥 상장 기체분리막 전문기업</p>
+          <h3 class="h3">{en ? <>AIRRANE ERP implementation</> : <>에어레인(AIRRANE) ERP 구축</>}</h3>
+          <p class="case-sub">{en ? <>KOSDAQ-listed gas separation membrane specialist</> : <>코스닥 상장 기체분리막 전문기업</>}</p>
           <dl class="case-dl">
-            <div><dt>과제</dt><dd>생산과 품질 업무를 엑셀로 따로 관리했고, 통합 시스템이 없었습니다. 업무 흐름을 다시 짜지 않고는 ERP 요구사항을 정할 수 없었습니다.</dd></div>
-            <div><dt>한 일</dt><dd>PI 컨설팅으로 현황을 분석해 문제를 모으고, 사업부별 업무 흐름을 다시 설계한 뒤 ERP 요구사항과 단계별 로드맵을 확정했습니다.</dd></div>
-            <div><dt>결과</dt><dd>1단계로 생산, 품질, 프로젝트 관리, 지식 관리, 통합 분석 기능을 갖춘 ERP를 구축하고 있고, 클라우드 인프라 설계를 마쳤습니다.</dd></div>
+            <div><dt>{en ? <>Challenge</> : <>과제</>}</dt><dd>{en ? <>Production and quality work were managed separately in Excel, with no integrated system. The ERP requirements could not be set without first redesigning the workflow.</> : <>생산과 품질 업무를 엑셀로 따로 관리했고, 통합 시스템이 없었습니다. 업무 흐름을 다시 짜지 않고는 ERP 요구사항을 정할 수 없었습니다.</>}</dd></div>
+            <div><dt>{en ? <>Action</> : <>한 일</>}</dt><dd>{en ? <>Through PI consulting, we analyzed the current state and gathered the problems, redesigned the workflow of each business division, and then finalized the ERP requirements and a phased roadmap.</> : <>PI 컨설팅으로 현황을 분석해 문제를 모으고, 사업부별 업무 흐름을 다시 설계한 뒤 ERP 요구사항과 단계별 로드맵을 확정했습니다.</>}</dd></div>
+            <div><dt>{en ? <>Result</> : <>결과</>}</dt><dd>{en ? <>In phase 1, we are building an ERP with production, quality, project management, knowledge management and integrated analytics, and have completed the cloud infrastructure design.</> : <>1단계로 생산, 품질, 프로젝트 관리, 지식 관리, 통합 분석 기능을 갖춘 ERP를 구축하고 있고, 클라우드 인프라 설계를 마쳤습니다.</>}</dd></div>
           </dl>
         </div>
       </div>
@@ -347,7 +396,7 @@ const at = (n: number) => `--at:${n}`;
   <!-- 7. development work -->
   <section class="section mist">
     <div class="wrap">
-      <div class="head-left reveal"><h2 class="h2 sm">개발 수행 사례</h2></div>
+      <div class="head-left reveal"><h2 class="h2 sm">{en ? <>Development projects</> : <>개발 수행 사례</>}</h2></div>
       <ul class="cases">
         {cases.map((c) => (
           <li class="reveal">
@@ -367,7 +416,7 @@ const at = (n: number) => `--at:${n}`;
   <!-- 8. questions -->
   <section class="section">
     <div class="wrap faq-wrap">
-      <div class="head-left reveal"><h2 class="h2 sm">자주 묻는 질문</h2></div>
+      <div class="head-left reveal"><h2 class="h2 sm">{en ? <>Frequently asked questions</> : <>자주 묻는 질문</>}</h2></div>
       <div class="faq">
         {faq.map((f, i) => (
           <details class="reveal" open={i === 0}>
@@ -379,7 +428,7 @@ const at = (n: number) => `--at:${n}`;
     </div>
   </section>
 
-  <CtaBand title="만들고 싶은 것이 있다면, 업무 이야기부터 들려주세요" primary={{ href: '/contact?type=ai', label: 'IT 컨설팅·개발 문의' }} />
+  <CtaBand title={en ? 'If there is something you want to build, start by telling us about your work' : '만들고 싶은 것이 있다면, 업무 이야기부터 들려주세요'} primary={{ href: '/contact?type=ai', label: en ? 'Ask about IT consulting & development' : 'IT 컨설팅·개발 문의' }} />
 </Base>
 
 <style>

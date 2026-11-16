@@ -1,0 +1,50 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { sorted, kindLabel, fmt } from '../../../data/news';
+import { ownNewsEn, labelEn } from '../../../data/en';
+import { langOf, href, dateText } from '../../../lib/i18n';
+
+export function getStaticPaths() {
+  const own = sorted.filter((n) => !n.url);
+  const pages = own.map((n, i) => ({ params: { slug: n.slug }, props: { item: n, prev: own[i + 1], next: own[i - 1] } }));
+  // every page twice: Korean at /news/<slug>, English at /en/news/<slug>
+  return [undefined, 'en'].flatMap((locale) => pages.map((p) => ({ ...p, params: { ...p.params, locale } })));
+}
+const { item, prev, next } = Astro.props;
+const lang = langOf(Astro.url);
+const en = lang === 'en';
+const e = en ? ownNewsEn[item.slug] : undefined; // no English yet: the Korean text, marked
+const title = e?.title ?? item.title;
+const body: string[] | undefined = e?.body ?? item.body;
+const titleOf = (n: typeof item) => (en ? ownNewsEn[n.slug]?.title ?? `${n.title} (Korean)` : n.title);
+---
+<Base title={title} description={body?.[0] ?? title} tone="light" type="article" published={item.date} image={item.image}
+  ld={{ '@type': 'NewsArticle', headline: title, datePublished: item.date, inLanguage: lang, ...(item.image ? { image: new URL(item.image, Astro.site).href } : {}),
+    author: { '@id': new URL('/#org', Astro.site).href, '@type': 'Organization', name: en ? 'SYINNOVATION' : '신영이노베이션' },
+    publisher: { '@id': new URL('/#org', Astro.site).href, '@type': 'Organization', name: en ? 'SYINNOVATION' : '신영이노베이션', logo: { '@type': 'ImageObject', url: new URL('/images/og/logo-512.png', Astro.site).href } } }}>
+  <article class="page-hero">
+    <div class="wrap narrow">
+      <a class="crumb" href={href('/news', lang)}>{en ? 'News' : '소식'}</a>
+      <span class="kind">{en ? labelEn(kindLabel[item.kind]) : kindLabel[item.kind]}</span>
+      <h1 class="h2">{en && !e ? <><span lang="ko">{item.title}</span> <small>(Korean)</small></> : title}</h1>
+      <p class="small date">{en ? dateText(item.date, lang) : fmt(item.date)}</p>
+      {item.image && <img class="hero-img" src={item.image} alt="" />}
+      <div class="text">{body?.map((p) => <p>{p}</p>)}</div>
+      <nav class="pn" aria-label={en ? 'More news' : '다른 소식'}>
+        {prev ? <a href={href(`/news/${prev.slug}`, lang)}><span class="small">{en ? 'Previous' : '이전 소식'}</span>{titleOf(prev)}</a> : <span />}
+        <a class="list" href={href('/news', lang)}>{en ? 'Back to list' : '목록'}</a>
+        {next ? <a href={href(`/news/${next.slug}`, lang)} class="r"><span class="small">{en ? 'Next' : '다음 소식'}</span>{titleOf(next)}</a> : <span />}
+      </nav>
+    </div>
+  </article>
+</Base>
+<style>
+  .kind { display: block; font-size: 14px; font-weight: 700; color: var(--blue); margin-bottom: 10px; }
+  .date { margin-top: 12px; }
+  .hero-img { width: 100%; border-radius: var(--r-xl); margin-top: 36px; }
+  .text { margin-top: 36px; display: grid; gap: 18px; color: var(--ink-2); font-size: 18px; }
+  .pn { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; }
+  .pn a { display: grid; gap: 2px; font-weight: 600; }
+  .pn .r { text-align: right; }
+  .pn .list { border: 1px solid var(--line); border-radius: 999px; padding: 8px 20px; }
+</style>

@@ -1,9 +1,11 @@
 ---
 import ConsultBtn from './ConsultBtn.astro';
+import { langOf, href } from '../lib/i18n';
 // a line break in the title is written as \n
 // without a primary button the band asks for the 사전 컨설팅
 interface Props { title: string; lead?: string; primary?: { href: string; label: string }; secondary?: { href: string; label: string } }
 const { title, lead, primary, secondary } = Astro.props;
+const lang = langOf(Astro.url); // links to site pages follow the page's language
 ---
 <section class="cta-band">
   <svg class="lines" viewBox="0 0 1200 400" preserveAspectRatio="none" aria-hidden="true">
@@ -15,8 +17,8 @@ const { title, lead, primary, secondary } = Astro.props;
     <h2 class="h2">{title.split('\n').map((line, i) => <>{i > 0 && <br />}{line}</>)}</h2>
     {lead && <p class="lead">{lead}</p>}
     <div class="btn-row">
-      {primary ? <a class="btn primary" href={primary.href}>{primary.label}</a> : <ConsultBtn />}
-      {secondary && <a class="btn ghost" href={secondary.href}>{secondary.label}</a>}
+      {primary ? <a class="btn primary" href={href(primary.href, lang)}>{primary.label}</a> : <ConsultBtn />}
+      {secondary && <a class="btn ghost" href={href(secondary.href, lang)}>{secondary.label}</a>}
     </div>
   </div>
 </section>

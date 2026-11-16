@@ -1,53 +1,72 @@
 ---
-import Base from '../layouts/Base.astro';
-import PageTitle from '../components/PageTitle.astro';
-import Icon from '../components/Icon.astro';
-import ResourceTabs from '../components/ResourceTabs.astro';
+import { bothLangs } from '../../lib/i18n';
+export const getStaticPaths = bothLangs;
+import Base from '../../layouts/Base.astro';
+import PageTitle from '../../components/PageTitle.astro';
+import Icon from '../../components/Icon.astro';
+import ResourceTabs from '../../components/ResourceTabs.astro';
+import { langOf } from '../../lib/i18n';
+const lang = langOf(Astro.url);
+const en = lang === 'en';
 
 // 자료실 > 문서: our brochures to download, then the official zero trust documents. An empty href means
 // "not out yet": the button shows 준비 중 until the file is filled in here.
-// files: one download per language; both brochures come in Korean and English
+// files: one download per language; both brochures come in Korean and English (en: the button's English label)
+// en: the English page's text, put in place of the Korean below
 const docs = [
   { title: '회사 소개서', note: '신영이노베이션이 하는 일과 팀, 걸어온 길을 담았습니다.', tone: 'blue',
-    files: [{ label: '한국어', href: '' }, { label: 'English', href: '' }] },
+    en: { title: 'Company profile', note: 'What SYINNOVATION does, our team and our history.' },
+    files: [{ label: '한국어', en: 'Korean', href: '' }, { label: 'English', en: 'English', href: '' }] },
   { title: 'Trust Gateway 브로슈어', note: '다중 신호 교차 검증 솔루션인\n제로트러스트 기반 Trust Gateway를 소개합니다.', tone: 'navy',
-    files: [{ label: '한국어', href: '' }, { label: 'English', href: '' }] },
+    en: { title: 'Trust Gateway brochure', note: 'An introduction to Trust Gateway,\na Zero Trust-based Multi-Signal Cross Check solution.' },
+    files: [{ label: '한국어', en: 'Korean', href: '' }, { label: 'English', en: 'English', href: '' }] },
 ];
 
 // Official zero trust documents, linked to each publisher's own page or file in its original language: the publisher
 // keeps the latest version there, and reuse terms differ by publisher, so no copies or translations are hosted here.
 // Checked 2026-11-12. (국정원 N2SF 가이드라인: its official download page could not be confirmed, so it is left out.)
 // date: when the publisher released it (year.month); the list shows the newest first.
+// lang: the document's own language, shown on the row (the Korean ones stay Korean on the English page)
 const refs = [
   { org: '과학기술정보통신부·KISA', date: '2024.12', lang: '한국어', title: '제로트러스트 가이드라인 2.0',
     note: '국내 기업과 기관이 제로트러스트를 도입하는 절차와 단계별 성숙도 모델을 담았습니다.',
+    en: { org: 'Ministry of Science and ICT · KISA', lang: 'Korean', title: 'Zero Trust Guidelines 2.0',
+      note: 'The process for companies and institutions in Korea to adopt Zero Trust, with a stage-by-stage maturity model.' },
     href: 'https://www.kisa.or.kr/2060204/form?postSeq=18&page=1' },
   { org: 'KISA', date: '2025.12', lang: '한국어', title: '제로트러스트 성숙도 모델 해설서',
     note: '제로트러스트 성숙도 모델을 자세히 풀어 쓴 해설서입니다.',
+    en: { lang: 'Korean', title: 'Zero Trust Maturity Model Guide', note: 'A detailed explanation of the Zero Trust maturity model.' },
     href: 'https://www.kisa.or.kr/2060204/form?postSeq=21&page=1' },
   { org: '금융보안원', date: '2026.04', lang: '한국어', title: '금융분야 제로트러스트 보안 안내서',
     note: '금융회사가 먼저 도입할 구간별 구축 예시와 보안 진단 항목을 담았습니다.',
+    en: { org: 'Financial Security Institute', lang: 'Korean', title: 'Zero Trust Security Guide for the Financial Sector',
+      note: 'Build examples, segment by segment, of what financial companies should adopt first, plus security assessment items.' },
     href: 'https://www.fsec.or.kr/bbs/222' },
   { org: 'CISA', date: '2023.04', lang: 'English', title: 'Zero Trust Maturity Model 2.0',
     note: '신원, 기기, 네트워크, 애플리케이션, 데이터 다섯 영역의 수준을 네 단계로 나눠 설명합니다.',
+    en: { note: 'Describes the level of five areas (identity, devices, networks, applications and data) in four stages.' },
     href: 'https://www.cisa.gov/sites/default/files/2023-04/zero_trust_maturity_model_v2_508.pdf' },
   { org: 'NIST', date: '2020.08', lang: 'English', title: 'SP 800-207 Zero Trust Architecture',
     note: '제로트러스트 아키텍처의 개념과 핵심 구성 요소를 정의한 기준 문서입니다.',
+    en: { note: 'The reference document that defines the concept and core components of a Zero Trust architecture.' },
     href: 'https://csrc.nist.gov/pubs/sp/800/207/final' },
   { org: 'NIST', date: '2025.06', lang: 'English', title: 'SP 1800-35 Implementing a Zero Trust Architecture',
     note: 'SP 800-207의 원칙을 실제 제품 구성으로 구현한 예시를 담은 실무 안내서입니다.',
+    en: { note: 'A practical guide with example builds that put the principles of SP 800-207 into real product setups.' },
     href: 'https://csrc.nist.gov/pubs/sp/1800/35/final' },
   { org: 'CISA', date: '2025.07', lang: 'English', title: 'Microsegmentation in Zero Trust, Part One',
     note: '마이크로 세그멘테이션 도입을 위한 계획 수립과 단계별 접근을 다룹니다.',
+    en: { note: 'Covers planning and a step-by-step approach for adopting microsegmentation.' },
     href: 'https://www.cisa.gov/news-events/alerts/2025/07/29/cisa-releases-part-one-zero-trust-microsegmentation-guidance' },
 ].sort((a, b) => b.date.localeCompare(a.date));
+if (en) [...docs, ...refs].forEach((x) => Object.assign(x, x.en));
 ---
-<Base title="자료실 문서" description="신영이노베이션 회사 소개서, Trust Gateway 브로슈어와 제로트러스트 공식 문서." tone="light">
-  <PageTitle title="문서">회사 소개서와 Trust Gateway 브로슈어, 제로트러스트 공식 문서를 모았습니다.<ResourceTabs slot="after" /></PageTitle>
+<Base title={en ? 'Resources: Documents' : '자료실 문서'} description={en ? 'SYINNOVATION company profile, the Trust Gateway brochure and official Zero Trust documents.' : '신영이노베이션 회사 소개서, Trust Gateway 브로슈어와 제로트러스트 공식 문서.'} tone="light">
+  <PageTitle title={en ? 'Documents' : '문서'}>{en ? <>Our company profile, the Trust Gateway brochure and official Zero Trust documents.</> : <>회사 소개서와 Trust Gateway 브로슈어, 제로트러스트 공식 문서를 모았습니다.</>}<ResourceTabs slot="after" /></PageTitle>
 
   <section class="section lib">
     <div class="wrap">
-      <h2 class="grp reveal">소개 자료</h2>
+      <h2 class="grp reveal">{en ? <>Brochures</> : <>소개 자료</>}</h2>
       <!-- two large brochure cards: the brand colour fills each card, with one quiet graphic behind the text -->
       <ul class="docs reveal">
         {docs.map((d) => (
@@ -76,15 +95,15 @@ const refs = [
             </div>
             <div class="dls">
               {d.files.map((f) => f.href
-                ? <a class="dl" href={f.href} download>{f.label} <Icon name="download" size={18} /></a>
-                : <span class="soon">{f.label} 준비 중</span>)}
+                ? <a class="dl" href={f.href} download>{en ? f.en : f.label} <Icon name="download" size={18} /></a>
+                : <span class="soon">{en ? <>{f.en} (coming soon)</> : <>{f.label} 준비 중</>}</span>)}
             </div>
           </li>
         ))}
       </ul>
 
-      <h2 class="grp refs-h reveal">제로트러스트 공식 문서</h2>
-      <p class="grp-lead reveal">제로트러스트의 기준이 되는 국내외 공식 문서입니다. 발행 기관의 원문 페이지로 연결됩니다.</p>
+      <h2 class="grp refs-h reveal">{en ? <>Official Zero Trust documents</> : <>제로트러스트 공식 문서</>}</h2>
+      <p class="grp-lead reveal">{en ? <>Official documents from Korea and abroad that set the standard for Zero Trust. Each links to the publisher's original page.</> : <>제로트러스트의 기준이 되는 국내외 공식 문서입니다. 발행 기관의 원문 페이지로 연결됩니다.</>}</p>
       <ul class="refs reveal">
         {refs.map((r) => (
           <li>
@@ -95,7 +114,7 @@ const refs = [
                 <span class="ref-note">{r.note}</span>
               </span>
               <span class="ref-lang">{r.lang}</span>
-              <span class="ref-go">원문 보기 <Icon name="external" size={16} /></span>
+              <span class="ref-go">{en ? <>View original</> : <>원문 보기</>} <Icon name="external" size={16} /></span>
             </a>
           </li>
         ))}

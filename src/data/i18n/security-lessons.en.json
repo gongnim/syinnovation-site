@@ -1,0 +1,58 @@
+{
+  "해킹": {
+    "intro": "Admin screens and lookup functions that can be reached from outside are the first entry points attackers look for. Do not keep trusting a user just because they logged in once; check again each time they connect.",
+    "checks": [
+      "Do not leave admin and lookup screens open to the internet",
+      "Check both the user and the device each time they connect",
+      "Raise an alert right away on unusual bulk lookups or access"
+    ]
+  },
+  "개인정보 유출": {
+    "intro": "Data breaches often start with data kept for a long time and lookup permissions opened too widely. Let people see only what they need, as much as they need, and notice the moment large amounts of data start leaving.",
+    "checks": [
+      "Delete personal data you no longer use when its retention period ends",
+      "Split permissions so people see only the data their work requires",
+      "Detect bulk lookups and downloads and block them right away"
+    ]
+  },
+  "랜섬웨어": {
+    "intro": "Ransomware infects one machine, then spreads across the internal network and makes the damage worse. Allow only the connections truly needed between systems, and keep backups separately where attacks cannot reach them.",
+    "checks": [
+      "Allow only the connections truly needed between systems",
+      "Store backups apart from the production network and practice recovery in advance",
+      "Cut down remote access paths and check every connection"
+    ]
+  },
+  "공급망 공격": {
+    "intro": "Accounts and systems at partners and contractors are another door into your data. Check them by the same standard as your own staff, and open only what the outsourced work needs.",
+    "checks": [
+      "Apply the same authentication and device-check standards to partner accounts",
+      "Give contractors access only to the systems their assigned work needs",
+      "Log contractor access and review it regularly"
+    ]
+  },
+  "계정 탈취": {
+    "intro": "Accounts taken with leaked passwords or through phishing look like normal logins. Do not rely on a password alone; also watch what happens after login.",
+    "checks": [
+      "Use a device check or step-up authentication along with the password",
+      "Check again when a login comes from a new device or location",
+      "Keep detecting unusual behavior after login, too"
+    ]
+  },
+  "디도스": {
+    "intro": "DDoS attacks bring services down, which inconveniences customers and erodes trust. Filter out floods of traffic, and prepare in advance so core services can hold up.",
+    "checks": [
+      "Have a protection service that filters high-volume traffic",
+      "Make core services redundant so they keep running if one side goes down",
+      "Set the response steps for an attack in advance"
+    ]
+  },
+  "기타": {
+    "intro": "Security incidents start from small gaps and spread widely. The basic rule is to always check who is connecting, from which device, and to what.",
+    "checks": [
+      "Check the user and the device each time they connect",
+      "Grant only the permissions the work needs",
+      "Record signs of anomalies and report them right away"
+    ]
+  }
+}

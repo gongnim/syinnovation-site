@@ -4,12 +4,14 @@
 // each with a link to the original. No article text or photos are copied; the picture was made for this page, or
 // is a free Pexels photo (credited) for an article the collector found and we wrote up later.
 // The longer write-ups live in src/data/security-stories.json (keyed by slug); without one, the summary is shown.
-import Base from '../../../layouts/Base.astro';
-import Icon from '../../../components/Icon.astro';
-import CtaBand from '../../../components/CtaBand.astro';
-import { security, fmt, type Incident } from '../../../data/news';
-import { lessonFor } from '../../../data/security-lessons';
-import storiesJson from '../../../data/security-stories.json';
+import Base from '../../../../layouts/Base.astro';
+import Icon from '../../../../components/Icon.astro';
+import CtaBand from '../../../../components/CtaBand.astro';
+import { security, fmt, type Incident } from '../../../../data/news';
+import { lessonFor, type Lesson } from '../../../../data/security-lessons';
+import storiesJson from '../../../../data/security-stories.json';
+import { securityNewsEn, storiesEn, lessonsEn, labelEn } from '../../../../data/en';
+import { langOf, href, dateText } from '../../../../lib/i18n';
 
 interface Story {
   overview?: string[]; timeline?: { date: string; event: string }[]; impact?: string[];
@@ -19,87 +21,104 @@ const stories = storiesJson as Record<string, Story>;
 
 export function getStaticPaths() {
   const pages = security.filter((n) => n.slug);
-  return pages.map((n, i) => ({ params: { slug: n.slug }, props: { item: n, newer: pages[i - 1], older: pages[i + 1] } }));
+  const paths = pages.map((n, i) => ({ params: { slug: n.slug }, props: { item: n, newer: pages[i - 1], older: pages[i + 1] } }));
+  // every page twice: Korean at /news/press/<slug>, English at /en/news/press/<slug>
+  return [undefined, 'en'].flatMap((locale) => paths.map((p) => ({ ...p, params: { ...p.params, locale } })));
 }
 interface Props { item: Incident; newer?: Incident; older?: Incident }
 const { item: n, newer, older } = Astro.props;
-const s: Story = stories[n.slug!] ?? {};
-const lesson = lessonFor(n.type);
+const lang = langOf(Astro.url);
+const en = lang === 'en';
+const e = en ? securityNewsEn[n.url] : undefined; // no English yet: the Korean text, marked
+const title = e?.title ?? n.title;
+const summary: string | undefined = e?.summary ?? n.summary;
+const s: Story = (en ? storiesEn[n.slug!] : undefined) ?? stories[n.slug!] ?? {};
+const lesson: Lesson = (en ? lessonsEn[n.type] ?? lessonsEn['기타'] : undefined) ?? lessonFor(n.type);
+const day = (d: string) => (en ? dateText(d, lang) : fmt(d));
+const label = (ko: string) => (en ? labelEn(ko) : ko); // region, type and outlet names
+const titleOf = (x: Incident) => (en ? securityNewsEn[x.url]?.title ?? `${x.title} (Korean)` : x.title);
 const sources = s.sources?.length ? s.sources : [{ outlet: n.source, date: n.date, url: n.url }];
-const photoNote = n.credit
-  ? `사진은 Pexels의 자료 사진(${n.credit.name})으로, 실제 현장 사진이 아닙니다.`
-  : n.image ? '이미지는 이해를 돕기 위해 만든 것으로, 실제 현장 사진이 아닙니다.' : '';
+const photoNote = en
+  ? n.credit
+    ? `The photo is a Pexels stock photo (${n.credit.name}), not a photo of the actual scene.`
+    : n.image ? 'The image was made to help explain the story and is not a photo of the actual scene.' : ''
+  : n.credit
+    ? `사진은 Pexels의 자료 사진(${n.credit.name})으로, 실제 현장 사진이 아닙니다.`
+    : n.image ? '이미지는 이해를 돕기 위해 만든 것으로, 실제 현장 사진이 아닙니다.' : '';
 ---
-<Base title={n.title} description={n.summary ?? n.title} tone="light">
+<Base title={title} description={summary ?? title} tone="light" type="article" published={n.date} image={n.image}>
   <article class="inc">
     <div class="wrap narrow">
-      <nav class="crumb" aria-label="위치"><a href="/news">소식</a><span aria-hidden="true">/</span><a href="/news/press">언론보도</a></nav>
-      <div class="tags"><span class:list={['tag', n.region === '해외' ? 'abroad' : 'home']}>{n.region}</span><span class="tag">{n.type}</span></div>
-      <h1>{n.title}</h1>
-      <p class="meta">{fmt(n.date)}<span class="dot" aria-hidden="true"></span>{[...new Set(sources.map((x) => x.outlet))].join(', ')} 보도 정리</p>
-      {n.summary && <p class="lead-in">{n.summary}</p>}
+      <nav class="crumb" aria-label={en ? 'Breadcrumb' : '위치'}><a href={href('/news', lang)}>{en ? 'News' : '소식'}</a><span aria-hidden="true">/</span><a href={href('/news/press', lang)}>{en ? 'In the press' : '언론보도'}</a></nav>
+      <div class="tags"><span class:list={['tag', n.region === '해외' ? 'abroad' : 'home']}>{label(n.region)}</span><span class="tag">{label(n.type)}</span></div>
+      <h1>{en && !e ? <><span lang="ko">{n.title}</span> <small>(Korean)</small></> : title}</h1>
+      <p class="meta">{day(n.date)}<span class="dot" aria-hidden="true"></span>{en ? <>Compiled from reports by {[...new Set(sources.map((x) => label(x.outlet)))].join(', ')}</> : <>{[...new Set(sources.map((x) => x.outlet))].join(', ')} 보도 정리</>}</p>
+      {summary && <p class="lead-in">{summary}</p>}
       {n.image && <img class="hero" src={n.image} alt="" width="1536" height="1024" />}
 
       <section>
-        <h2>사고 개요</h2>
-        {(s.overview?.length ? s.overview : [n.summary]).map((p) => <p>{p}</p>)}
+        <h2>{en ? 'Overview' : '사고 개요'}</h2>
+        {(s.overview?.length ? s.overview : [summary]).map((p) => <p>{p}</p>)}
       </section>
 
       {s.timeline?.length ? (
         <section>
-          <h2>진행 경과</h2>
+          <h2>{en ? 'Timeline' : '진행 경과'}</h2>
           <ol class="timeline">
-            {s.timeline.map((t) => <li><span class="t-date">{fmt(t.date)}</span><span class="t-event">{t.event}</span></li>)}
+            {s.timeline.map((t) => <li><span class="t-date">{day(t.date)}</span><span class="t-event">{t.event}</span></li>)}
           </ol>
         </section>
       ) : null}
 
       {s.impact?.length ? (
         <section>
-          <h2>피해 규모</h2>
+          <h2>{en ? 'Impact' : '피해 규모'}</h2>
           <ul class="facts">{s.impact.map((x) => <li>{x}</li>)}</ul>
         </section>
       ) : null}
 
       {s.cause?.length ? (
         <section>
-          <h2>알려진 원인</h2>
+          <h2>{en ? 'Known cause' : '알려진 원인'}</h2>
           {s.cause.map((p) => <p>{p}</p>)}
         </section>
       ) : null}
 
       {s.response?.length ? (
         <section>
-          <h2>회사와 당국의 대응</h2>
+          <h2>{en ? 'Response from the company and authorities' : '회사와 당국의 대응'}</h2>
           {s.response.map((p) => <p>{p}</p>)}
         </section>
       ) : null}
 
       <section class="advice">
-        <h2>이런 사고를 줄이려면</h2>
+        <h2>{en ? 'How to reduce incidents like this' : '이런 사고를 줄이려면'}</h2>
         <p>{lesson.intro}</p>
         <ul class="checks">{lesson.checks.map((c) => <li><Icon name="check" size={18} />{c}</li>)}</ul>
       </section>
 
       <aside class="source">
-        <h2>참고한 보도</h2>
+        <h2>{en ? 'Reports we used' : '참고한 보도'}</h2>
         <ul>
           {sources.map((x) => (
-            <li><a href={x.url} target="_blank" rel="noopener">{x.outlet}{x.date && <span>{fmt(x.date)}</span>}<Icon name="external" size={14} label="새 창에서 원문 열기" /></a></li>
+            <li><a href={x.url} target="_blank" rel="noopener">{label(x.outlet)}{x.date && <span>{day(x.date)}</span>}<Icon name="external" size={14} label={en ? 'Open the original in a new window' : '새 창에서 원문 열기'} /></a></li>
           ))}
         </ul>
-        <p>이 글은 위 보도에 나온 사실을 바탕으로 신영이노베이션이 직접 정리했습니다. {photoNote}</p>
+        <p>{en ? <>SYINNOVATION wrote this summary itself, based on the facts in the reports above. {photoNote}</> : <>이 글은 위 보도에 나온 사실을 바탕으로 신영이노베이션이 직접 정리했습니다. {photoNote}</>}</p>
       </aside>
 
-      <nav class="pn" aria-label="다른 보안 소식">
-        {older ? <a href={`/news/press/${older.slug}`}><span>이전 소식</span>{older.title}</a> : <span />}
-        <a class="list" href="/news/press">목록</a>
-        {newer ? <a class="r" href={`/news/press/${newer.slug}`}><span>다음 소식</span>{newer.title}</a> : <span />}
+      <nav class="pn" aria-label={en ? 'More security news' : '다른 보안 소식'}>
+        {older ? <a href={href(`/news/press/${older.slug}`, lang)}><span>{en ? 'Previous' : '이전 소식'}</span>{titleOf(older)}</a> : <span />}
+        <a class="list" href={href('/news/press', lang)}>{en ? 'Back to list' : '목록'}</a>
+        {newer ? <a class="r" href={href(`/news/press/${newer.slug}`, lang)}><span>{en ? 'Next' : '다음 소식'}</span>{titleOf(newer)}</a> : <span />}
       </nav>
     </div>
   </article>
 
-  <CtaBand title="우리 회사의 업무 접속은 안전할까요?" lead="사전 컨설팅(무료)으로 지금 업무 접속의 보안 위험부터 확인해 보세요." />
+  <CtaBand
+    title={en ? "Is your company's work access secure?" : '우리 회사의 업무 접속은 안전할까요?'}
+    lead={en ? 'Start by checking the security risks in your current work access with a free initial consultation.' : '사전 컨설팅(무료)으로 지금 업무 접속의 보안 위험부터 확인해 보세요.'}
+  />
 </Base>
 
 <style>

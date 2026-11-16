@@ -3,19 +3,24 @@
 // External items open the original in a new tab; items without a picture get the brand-blue panel with the symbol.
 import Icon from './Icon.astro';
 import { fmt, type NewsItem } from '../data/news';
+import { ownNewsEn, labelEn } from '../data/en';
+import { langOf, href, dateText } from '../lib/i18n';
 interface Props { item: NewsItem }
 const { item: n } = Astro.props;
+const lang = langOf(Astro.url);
+const en = lang === 'en';
+const e = en ? ownNewsEn[n.slug] : undefined; // no English yet: the Korean title, marked
 const src = n.cardImage ?? n.image;
 const pos = !n.cardImage && n.imagePos ? `object-position: ${n.imagePos}` : undefined;
 ---
-<a class="card" href={n.url ?? `/news/${n.slug}`} {...(n.url ? { target: '_blank', rel: 'noopener' } : {})}>
+<a class="card" href={n.url ?? href(`/news/${n.slug}`, lang)} {...(n.url ? { target: '_blank', rel: 'noopener' } : {})}>
   <div class:list={['media', { plain: !src }]}>
     {src ? <img src={src} alt="" loading="lazy" style={pos} /> : <img class="mark" src="/images/brand/symbol-sy-white.svg" alt="" />}
   </div>
   <div class="over">
-    <span class="src">{n.source}</span>
-    <h3 class="card-title">{n.title}</h3>
-    <span class="date">{fmt(n.date)}{n.url && <Icon name="external" size={14} label="새 창에서 원문 열기" />}</span>
+    <span class="src">{en ? e?.source ?? labelEn(n.source) : n.source}</span>
+    <h3 class="card-title">{en ? e?.title ?? <><span lang="ko">{n.title}</span> <small>(Korean)</small></> : n.title}</h3>
+    <span class="date">{en ? dateText(n.date, lang) : fmt(n.date)}{n.url && <Icon name="external" size={14} label={en ? 'Open the original in a new window' : '새 창에서 원문 열기'} />}</span>
   </div>
 </a>
 

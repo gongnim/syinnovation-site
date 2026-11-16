@@ -1,0 +1,266 @@
+{
+  "_labels": {
+    "해킹": "Hacking",
+    "개인정보 유출": "Data breach",
+    "랜섬웨어": "Ransomware",
+    "공급망 공격": "Supply chain attack",
+    "계정 탈취": "Account takeover",
+    "디도스": "DDoS",
+    "기타": "Other",
+    "국내": "Korea",
+    "해외": "International",
+    "연합뉴스TV": "Yonhap News TV",
+    "강원일보": "Kangwon Ilbo",
+    "GMA News": "GMA News",
+    "Saam TV News": "Saam TV News",
+    "연합뉴스": "Yonhap News",
+    "한국일보": "The Hankook Ilbo",
+    "헤럴드경제": "Herald Business",
+    "Watch and Pray News": "Watch and Pray News",
+    "KNN NEWS": "KNN News",
+    "파이낸셜뉴스": "The Financial News",
+    "WIRED": "WIRED",
+    "전자신문": "Electronic Times",
+    "내외일보": "Naewoe Ilbo",
+    "Cleveland.com": "Cleveland.com",
+    "www.ebn.co.kr": "EBN",
+    "TechCrunch": "TechCrunch",
+    "Reuters": "Reuters",
+    "The Record from Recorded Future News": "The Record from Recorded Future News",
+    "KBS 뉴스": "KBS News",
+    "매일일보": "Maeil Ilbo",
+    "동아일보": "The Dong-A Ilbo",
+    "아시아타임즈": "Asia Times Korea",
+    "BeInCrypto": "BeInCrypto",
+    "Cybercrime Magazine": "Cybercrime Magazine",
+    "아시아경제": "The Asia Business Daily",
+    "서울경제": "Seoul Economic Daily",
+    "Industrial Cyber": "Industrial Cyber",
+    "WTVR.com": "WTVR.com",
+    "American Banker": "American Banker",
+    "9 News Australia": "9 News Australia",
+    "디지털데일리": "Digital Daily",
+    "BleepingComputer": "BleepingComputer",
+    "한국경제": "The Korea Economic Daily",
+    "머니투데이": "Money Today",
+    "SBS Biz": "SBS Biz",
+    "Al Jazeera": "Al Jazeera",
+    "Korea JoongAng Daily": "Korea JoongAng Daily",
+    "Jiji Press (nippon.com)": "Jiji Press (nippon.com)"
+  },
+  "https://www.youtube.com/watch?v=It6Ii4K8J9I": {
+    "title": "Open \"Come collect your honorarium\" and you may regret it: a new attack by North Korean hacking group Kimsuky"
+  },
+  "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBPVDZFX2lyNUxKaHBuZEJDc0RZTjF5alJtQmxpdEV1UVNqMXZmMXdsNDVUb3ZheW4yOFVNdGtKR0lpT09aeW4yNzVDRjN0NmxyZ1F6X1FUM3ItM2s?oc=5": {
+    "title": "Personal data leaked in hack of Kangwon National University's Industry-Academic Cooperation Foundation"
+  },
+  "https://www.youtube.com/watch?v=1h0QIEpOflQ": {
+    "title": "A closer look at oil price rollbacks, data breach, and SALN transparency | The Week Explained"
+  },
+  "https://www.youtube.com/watch?v=hRNi9pk78dA": {
+    "title": "SBI customers' data stolen | SBI cyber attack"
+  },
+  "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5rVXhBTDV5RzVyak5CSTlualM2TWdJek1LcmR3Q1NBUWtRU3BaYjR3Q1VhRjNBRHllcUtjNmVFUHRnMTNSc21Mdnd5WTJaS0QzaTNwQmY1OTViWWvSAWBBVV95cUxPOTVqaEgyV1lieGJ2U2hNajlnNDBCdkdYNUpnTk9ONDRGd21CTm4tQ0ttbkxUZWJncldkX1VGLXhxRHdiNmhfeEJTMGxlSzk4Z2llRW5PY1dNNXlrVDhhYmc?oc=5": {
+    "title": "Finance, universities, even public institutions breached one after another: alarm over personal data leaks"
+  },
+  "https://www.hankookilbo.com/news/article/A2026111510320003231": {
+    "title": "Coinone: customer support contractor hacked, leaking personal data of customers who contacted support",
+    "summary": "Servers of MetaM, the contractor that handles Coinone's customer support, were attacked from outside, and personal data that customers left during support conversations was leaked (according to Coinone's notice).",
+    "org": "Coinone"
+  },
+  "https://news.google.com/rss/articles/CBMibkFVX3lxTE9CeDFNaWIySDR5aE10S09TSEpkSnJyWkFYWjAzemJJano5ek82bTRTVnFpbnJYUUZCWmE2bE9vaDU1WjMxaTZraFdINHNlZlc0Z2Jpd09zczYtb1ZKQnBfS0xTanNMRFprSWs5QWdn0gFzQVVfeXFMTVNDZWhnano5WXk0Sk9vd2ZJaGxRdHZndm5EZ0RVVUlKNFlCS3Iya2h5NS1Ma2xjSkFwcTE2eVRqSmpzdU54YlpCMFJHVWNNS1pJVzJUV2wtYnB2Q0xLc1RfTHU2ckhTV1NacVNkTzdZVXV0VQ?oc=5": {
+    "title": "Personal data leak at KB Capital too: over 1,800 people affected, including customers and partners"
+  },
+  "https://biz.heraldcorp.com/article/10937112": {
+    "title": "Data of 3,083 users viewed on KOMSCO's local gift certificate app \"Chak\"",
+    "summary": "An unauthorized outsider accessed the mobile local gift certificate platform \"Chak\" and viewed some of the personal data of 3,083 users (according to KOMSCO's announcement).",
+    "org": "Korea Minting and Security Printing Corporation (KOMSCO)"
+  },
+  "https://www.youtube.com/watch?v=Xs8gSgH8aAU": {
+    "title": "Japan under cyberattack: millions of records potentially exposed"
+  },
+  "https://www.youtube.com/watch?v=W14zUNMenXE": {
+    "title": "Inje University in Gimhae: personal data of some 24,000 people leaked"
+  },
+  "https://biz.heraldcorp.com/article/10937288": {
+    "title": "30 Korean servers on the target list of an attacker suspected to be Lazarus",
+    "summary": "Threat intelligence firm CYFIRMA said 30 servers in Korea were on the target list of an attacker suspected to be linked to the North Korean hacking group Lazarus. Whether any were actually breached has not been confirmed.",
+    "org": "Lazarus"
+  },
+  "https://biz.heraldcorp.com/article/10937167": {
+    "title": "Inje University: over 24,000 records of student, faculty and staff data leaked in external attack",
+    "summary": "A server related to the university's course management site was attacked from outside, and 24,011 records containing the student ID numbers, names, email addresses and mobile phone numbers of students, faculty and staff were leaked (according to the university's announcement).",
+    "org": "Inje University"
+  },
+  "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9pX1JBSlcxUi12Z0ZMa2ExYmk2cDVrdi1hWkxINnh5SjhNcm1SU3ExOURYdUVjRFZwTmZPbUdsSUlRSDBwNnE4LXJpelEtTHNDbFFBbTNoTE0xZw?oc=5": {
+    "title": "KOMSCO local gift certificate \"Chak\": over 3,000 personal data records leaked in external attack"
+  },
+  "https://news.google.com/rss/articles/CBMieEFVX3lxTE1jVlEzblczTFcwZTFqalo2VDNtZzVOOTlQUkR1bW04eXpqRUJWckZJR3VrWU84X3NXZ2xUZ09YQTJoQmlzeXk5aDlQaThjVXRodWRoanlIVjZHMjNjLU1wbUFKTk9OVGxFOG16Rzczek5hVDFYS0R4aQ?oc=5": {
+    "title": "Beware the new AI-fueled ransomware boom"
+  },
+  "https://www.etnews.com/20261113000152": {
+    "title": "Work messenger Kakao Work: emails, messages and more leaked through outside access",
+    "summary": "An outside attacker gained unauthorized access to the system of the work messenger Kakao Work, and user information, email bodies and attachments, and encrypted messages were leaked. The extent of the damage is under investigation.",
+    "org": "Kakao Work"
+  },
+  "https://www.naewoeilbo.com/news/articleView.html?idxno=2454178": {
+    "title": "Suspected unauthorized viewing of personal data on the Korea Federation of SMEs' Yellow Umbrella website",
+    "summary": "An unauthorized outsider gained abnormal access to the Yellow Umbrella website, and it has been confirmed that some members' personal data may have been viewed. The actual scale of the leak is under investigation.",
+    "org": "Korea Federation of SMEs"
+  },
+  "https://news.google.com/rss/articles/CBMiYEFVX3lxTE5HVGV5eldkLUQyaW1QU3hYQkprTUdfMl9XMHFmQTdsVm9MZW9pcEtYUVBYRDVMSmlRQzI3MUxrN2UtT2tPU3p2QWlVNWpMYy1SaTNreGV6QlgtenRGWXJ3MdIBYEFVX3lxTE5HVGV5eldkLUQyaW1QU3hYQkprTUdfMl9XMHFmQTdsVm9MZW9pcEtYUVBYRDVMSmlRQzI3MUxrN2UtT2tPU3p2QWlVNWpMYy1SaTNreGV6QlgtenRGWXJ3MQ?oc=5": {
+    "title": "Security software sales rise in Japan as personal data leaks continue"
+  },
+  "https://news.google.com/rss/articles/CBMivAFBVV95cUxNZVA3S1RzQnl3QjRCaW1MMlJ4ejh0bEY2ZjdjVTZYS244OFdSNUN5UmdFQ2hVUFFSU2Z5Q2ZSVUpPbDVISUdGekJ3d0FQUXR4QzI4a2RsVHdVVzR5TWxjODNRY1ctdnRWZWt2VHVYSG1WR1QtX09mSFA5VGpwN1BxbE1sVFJkblhJYWtTQzBpbWhaN3czWDZsUjlUNGhhaUpZSGRvWEZlcEdFdXVBXzZPUVZGYnlNaTh6MksxRNIB0AFBVV95cUxPTTdBbDFCOXFrNm9nbXFBR3loZzN5M2ZNVUY2b2ZjaUdFWlBuWVdnLTNKVmk0SkNKWWFFMXFxVTB5aHIyYXhGNnJyS0t2OHZWM1VvZC1VLVExOTN5Y2xyTldGcHFDLTlPQjFrV3pBUHlwWVlfVWZ4WHhOdjV3RkFHNmY2d050RzVpR0Z6TUZEbHlTSExrWTNtdzFsNVBvWDV0ZjBJekpBencwaWRzd256eDhVa0RyclRjejJMZTUyQUZDcjR0WmZOeko3cHVBZTlz?oc=5": {
+    "title": "FAA ground stop sparks cyberattack questions. Here's what officials are saying"
+  },
+  "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBWdzVvN3JBcmhJVmlEUng1NTg5TWFJMnJwYTc5ajFoVWZRRHlYMzZyUTVKaXFXV0VzU0p4QzNJdHhSVllwekgzbDZVZXlPdWZhWk1fdmxfUkJ6MlJjRW9YcS02bzNzRnpG?oc=5": {
+    "title": "Kakao Work: personal data leaked in external hacking attack"
+  },
+  "https://biz.heraldcorp.com/article/10936795": {
+    "title": "AI solution supplier for \"Startup for All\" hacked, data of 20,028 users leaked",
+    "summary": "An AI solution supplier to the Ministry of SMEs and Startups' \"Startup for All\" program was hacked, and the names, phone numbers and email addresses of 20,028 users were leaked. Of these, 818 were program participants (according to the ministry's announcement).",
+    "org": "Startup for All"
+  },
+  "https://news.google.com/rss/articles/CBMiugFBVV95cUxQc1VrWGJ1SDZGWXZRT1VZZmpoSEV6a184dTd2WkpqeFNkNzdxbmxMcU1leVJnT2xXLTVhS2pxcWtPTkw0ZmN5OFgwel9NN3JaTnJyTFl0RHZSZVlIcVZxMDhjWE5IWUVfbVA4VFlUcVVQUVU1QUU4OTZiNGpJQmpIVVpfXzJzMFFFeVN2TjdDRjJkZEt1NTlBWTF3U1FidEVXRk9YTXhBbEZ6bXN2RUFlbVpDTzlDQy1FV2c?oc=5": {
+    "title": "Uber confirms hackers stole thousands of drivers' license information in data breach"
+  },
+  "https://news.google.com/rss/articles/CBMizwFBVV95cUxQc2Vkc3h1WU5hemtpajdWWFN4ZU1Eb3NMVS1aaUliem1Ja2lvem5ERDZMU0gtUU9adjUzRUxaZXJtNVlkTEpRcFQwamp2am9xRVc2UzFxQVNpWFdVY2c0RFZUX3diQTJ0c3E5X1FhZm5KYjUyVk8teFQxaU44LW5yVl9VUXl6YkRWd283RXd1N1huM3YxR3d0UkQ2ZzF1aWZWeEZJYTBwT0dmVWdKMGJaN2lOVU0wcDRDWFQ3ajNzZUx4RWZNalFYdWJBUS1SWkE?oc=5": {
+    "title": "Quantum Systems says grounded German military drones flying again after cyberattack"
+  },
+  "https://news.google.com/rss/articles/CBMiggFBVV95cUxQWUdEWS1FSTBNMnRWdFRWVWtNa3Fsc3U1N3JaZldSUXVfeW84Q1VBdkZITTJuT2N6dXlJa2YxMUxlMEROR2luTF8yWml2T3htZFJBVHhDbXBXbTladDVMalROTnYzbTVKSWZDR1dHTmFBaTZQcldQdFA1OXFlVFdHbXFB?oc=5": {
+    "title": "Ransomware attack on Belarusian cloud firm disrupts businesses for days"
+  },
+  "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5YdkxLN0hVLUdHeUVOYWE0VnRfYnNPeVlSLS1kMUt5RUlscmQzcW9YX192dUJuXzdkSGNicEtfcmwzZVY3RmhMcDQwVTlUOVlMNDNSNV9TV1hwQ3JLTG05ZnJGa0FQZw?oc=5": {
+    "title": "Kakao Work personal data leak: names, contact details and more exposed"
+  },
+  "https://news.google.com/rss/articles/CBMiZEFVX3lxTE5UZ0ozOFpaTEZFVGMzc0RjY1JQd1R3WU5WQmJzM25TOURFaERpYldlX21hYXZhQ2tqZXhBMktnX25KZnZCdzFRR2RiSlYxWFZ4WFA3RWdPd3M3TmY1Wm9qcmNZdXU?oc=5": {
+    "title": "Personal data of 818 \"Startup for All\" participants leaked: AI solution vendor hacked"
+  },
+  "https://news.google.com/rss/articles/CBMidkFVX3lxTE9EcmJQLTh4emJjS29sN0NlallzeUZpaERwZ2hnbHhxZ3JTY3VYUXlQektaUWIteXFVMXdyci1tcXRBanVoTmZrQkhnTGIySjFoanlHaEFTU0xsREx1MDlFQ29zRlptZ3FQQ3JlOExoUktKRUp0M0HSAWZBVV95cUxOWnVNWl9XUkZmQmxIVXBWd3gzaVJaV3h0eFRHZ3VwRWJDM3ZHZUVqUFI5NmMzWHN3Tkhuc01VTzFfRWRDWmZlUjFINEJGVlJCZXB1eVM3UWk0RmpHTzA3ZDJYYzN4TGc?oc=5": {
+    "title": "\"KB hacked again\": KB Capital announces leak of personal data of 1,800 people two days after hacking attack"
+  },
+  "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9pcERacTYxZkhGMDRGd21taXd2NzJxWDVVTjdxUkFLMl84ZWVVOEFKRXhFRzRibV9OcGlkX09pTjBxQXlOWUZVQllYcjl3VWFZUG81bHNFX1A1OTVqWVE?oc=5": {
+    "title": "Hacking attack on Kakao Work: some users' personal data leaked"
+  },
+  "https://news.google.com/rss/articles/CBMiZ0FVX3lxTE84R2l0Z3BmU1cweGloY2tPYzJjbWRxOGdSQ05DZUZzeUEtb3RCYTUwcnJGMVJHZkoyWDdINmdzMlFVbjIyOVpwVmlaVXZ1d01RckZxTHVGYXhVMmttbUUySXZvWElvdnc?oc=5": {
+    "title": "SafePal data breach victims are now getting scam letters at home"
+  },
+  "https://news.google.com/rss/articles/CBMijwFBVV95cUxNUU92MnpubWFTSkwtWjNyRTk5WGlZQ3RIOVRQUnFfcXd1a0lGVDBGNW1ONFI3V05UODJYUm9TY19CNURIczRMY3RQR1FZQVBTQWJhWVVVeWotVUVKNS1KaFlCalBDUTN0ckRuT2xxWFRKOFBNc1VoR0tiQXpoN3dkaC1oU2JVQ01vMnZRODRJTQ?oc=5": {
+    "title": "Lessons learned from the biggest ransomware attacks"
+  },
+  "https://www.fnnews.com/news/202611130929319866": {
+    "title": "KB Capital: data of 1,811 people, including customers and partner employees, leaked in external attack",
+    "summary": "A car rental asset management system used by employees and partners was attacked from outside, and the personal data of 1,811 customers, partner employees, executives and employees was leaked (according to the company's preliminary count).",
+    "org": "KB Capital"
+  },
+  "https://view.asiae.co.kr/article/2026111218415075630": {
+    "title": "MUJI: about 1.09 million card numbers may have been exposed through unauthorized system access",
+    "summary": "Systems of Ryohin Keikaku, the company that runs MUJI, were accessed without authorization, and it has been confirmed that about 1.09 million MUJI Card numbers that should have been deleted may have been exposed (according to announcements by the company and the card company).",
+    "org": "MUJI"
+  },
+  "https://m.sedaily.com/article/20113739": {
+    "title": "Flybit: personal data of 40 customers leaked through unauthorized groupware access",
+    "summary": "An outside attacker accessed the internal groupware of virtual asset exchange Flybit, and the personal data of 40 customers contained in email attachments was leaked (according to the company's announcement).",
+    "org": "Flybit"
+  },
+  "https://news.google.com/rss/articles/CBMi4AFBVV95cUxNenhHMndrelhHXzU2NG1hUE9HaTVjZktSZ05ZejZPZ1RQR1JiNXhCOVlkNHJwRkt5dkp4MldXT01pbFRHQTUyN0pQeEgxV3ZSNDAyWTNFOFpEaC1FTGF2eExNS2dIYXNpeTY5REt6ekc3ZTJfUE5yTTRlWlI0WVJhMVRBOU5qQVBKdnJWQ0RGelpNWWFZMGhwZE53ekdwaXFoREVvMnRMY2pyMjBUU0dkTDQyMXI3Q3ZyTUFWcmRXTUpWLVh5VzQ1dDlBaE5KZDRETzBaRWJYck1XSUZWSHN5dQ?oc=5": {
+    "title": "Maersk investigates legacy-system breach after WhiteArmor ransomware group claims 100GB logistics data theft"
+  },
+  "https://news.google.com/rss/articles/CBMilwFBVV95cUxPUmFDTUFuM2M4WGVEdmh1WFR0NUNFWGtNQk43QjV0OEtUOXJmNWNneUdPcFFEcUplQjFlZGI2Q01XOHJWcEpuMnEzT2I4TkdmZjBQMlhjcWVQYzByU1hua1VsVnJ6N2VIQzdYV0FSY1FUa3VqTnUyWWFhOWF2ZF9Dc1B5eGNVU0JGYzc5NEllNGZLVFhtWkRR?oc=5": {
+    "title": "Richmond schools respond as cyberattack data hits the dark web: \"Deeply disturbed\""
+  },
+  "https://news.google.com/rss/articles/CBMimgFBVV95cUxQQUlpQjF5V1dOMHNYRFlFeGdTUFczRVB6LURRTlZSOWxxLXNiRTgyY1R4N1hMVDExYnNVVEtVZUZRRWJNTDFwblBSUV84VVRaejlUWGFWTm8tRW5Pb0VLNHBpNVNvYUxyckJpb0RNYkxONHcwWXdMcVIxWnhfVGw3bF83YzIzNjV6WUFHNE9jS3BEV2Z0Q0VWRExB?oc=5": {
+    "title": "Ransomware crew claims 5 banks and a CU; 2 confirm breaches"
+  },
+  "https://www.youtube.com/watch?v=AhpzB_gEdb0": {
+    "title": "Victorian education authority website hacked during Year 12 final exams"
+  },
+  "https://biz.heraldcorp.com/article/10934778": {
+    "title": "Japan's Yasukuni Shrine online store: about 14,500 member records leaked",
+    "summary": "An online sales site run by Yasukuni Shrine in Tokyo, Japan, was accessed without authorization, and about 14,500 member records were leaked (according to the shrine's announcement).",
+    "org": "Yasukuni Shrine"
+  },
+  "https://www.ddaily.co.kr/page/view/2026111109031173651": {
+    "title": "Financial Security Institute: administrative forms and personal data leaked in external intrusion",
+    "summary": "The institute said an external intrusion into its system for evaluating financial companies leaked about 200 administrative forms and over 650 records of personal and user information, and that sensitive data such as resident registration numbers was not leaked.",
+    "org": "Financial Security Institute (FSI)"
+  },
+  "https://bleepingcomputer.com/news/security/vanderbilt-university-hit-in-byod-ransomware-attack-data-theft-claimed": {
+    "title": "Vanderbilt University in the US orders campus devices shut down after cyberattack",
+    "summary": "To respond to the breach, the university asked its members to shut down their devices and disconnect from campus Wi-Fi. A ransomware group claimed to have stolen more than 1 million records, but the university has not confirmed this."
+  },
+  "https://www.fnnews.com/news/202611070825226459": {
+    "title": "Mirae Asset Securities: customer and employee data leaked in external attack",
+    "summary": "Its mobile web login service and groupware were attacked, leaking the account numbers of about 3,800 customers and the data of about 35,000 executives and employees. The company said no financial losses have been confirmed.",
+    "org": "Mirae Asset Securities"
+  },
+  "https://www.hankyung.com/article/202610264998i": {
+    "title": "Ring arrested for using AI to hack over 90 organizations and steal 8.2 million personal data records",
+    "summary": "Police arrested a ring that used AI coding agents and autonomous penetration tools to steal about 8.2 million personal data records from over 90 organizations, including hospitals, universities and private academies, and demanded money.",
+    "org": "Over 90 companies and institutions in Korea"
+  },
+  "https://www.mt.co.kr/article/2026102321373246777": {
+    "title": "Korean Air and Asiana: data leaked through reservation system operator",
+    "summary": "Unauthorized access to an account at the overseas operator of a reservation and ticketing system that both airlines use leaked customer booking information. Payment information was not included, and the extent of the damage is under investigation.",
+    "org": "Korean Air, Asiana Airlines"
+  },
+  "https://bleepingcomputer.com/news/security/capcom-confirms-data-breach-affecting-117-million-accounts": {
+    "title": "Capcom confirms leak of about 11.77 million CAPCOM ID records",
+    "summary": "The company said a cyberattack exposed the email addresses, login histories and IP addresses in about 11.77 million CAPCOM ID records worldwide, and that the passwords of some accounts were changed without authorization."
+  },
+  "https://biz.sbs.co.kr/amp/article/20000340838": {
+    "title": "Hollys: about 2.76 million past membership records leaked",
+    "summary": "While an outside attacker was accessing its cloud without authorization, user IDs, passwords, addresses and other data in about 2.76 million membership records from 2009 to 2020 (including duplicates) were leaked.",
+    "org": "Hollys"
+  },
+  "https://bleepingcomputer.com/news/security/burger-king-japan-data-breach-exposes-11-million-customer-records": {
+    "title": "Burger King Japan: about 11.18 million app member records leaked",
+    "summary": "Unauthorized access to a server of the official app's membership system leaked about 11.18 million records containing names, email addresses, phone numbers, dates of birth and other data."
+  },
+  "https://aljazeera.com/news/2026/10/13/unprecedented-cyberattack-hits-french-supermarkets-causing-food-losses": {
+    "title": "Hundreds of French supermarkets throw away food after refrigeration systems hacked",
+    "summary": "Refrigeration controllers exposed to the internet were attacked, raising the temperature of refrigerators and freezers at hundreds of supermarkets, which threw away large amounts of food. Paris prosecutors have opened an investigation."
+  },
+  "https://www.koreajoongangdaily.com/korea/cyberattacks-expose-member-data-donation-records-at-two-seoul-megachurches-report-says/12908689": {
+    "title": "Servers of two Seoul megachurches breached, signs of member data leak",
+    "summary": "Signs emerged that the two churches' servers were breached. Yoido Full Gospel Church said the data of about 850,000 of its members may have been leaked, and a security firm said the data of about 89,000 SaRang Community Church members may have been leaked.",
+    "org": "Yoido Full Gospel Church, SaRang Community Church"
+  },
+  "https://www.bleepingcomputer.com/news/security/ransomware-attack-disrupts-japans-idcf-cloud-used-by-govt-clients/": {
+    "title": "Ransomware hits Japan's IDCF Cloud, services down for 495 organizations",
+    "summary": "A cloud region of IDC Frontier, a SoftBank group company, was hit by a ransomware attack that stopped the servers of about 495 companies and local governments, and backup recovery was also disrupted."
+  },
+  "https://biz.sbs.co.kr/amp/article/20000339565": {
+    "title": "E-learning contractor hacked, user data of over 20 institutions leaked",
+    "summary": "Servers of a company that ran training sites on behalf of several institutions were breached, and about 2.37 million user records from over 20 client institutions were leaked (according to the company's report).",
+    "org": "Malgeunsoft"
+  },
+  "https://biz.sbs.co.kr/amp/article/20000338255": {
+    "title": "KEPCO: data of over 24,000 employees exposed on an external web page",
+    "summary": "It was confirmed that the names, departments, contact details and other data of about 24,000 employees had been posted on an external web page. The company said customer data was not included.",
+    "org": "Korea Electric Power Corporation (KEPCO)"
+  },
+  "https://biz.sbs.co.kr/amp/article/20000338069": {
+    "title": "Shinhan Bank: data of about 25,000 customers leaked in hack",
+    "summary": "The identity verification step of a lookup service for loan brokers was bypassed, leaking the names, contact details, income and other data of about 25,000 customers.",
+    "org": "Shinhan Bank"
+  },
+  "https://www.nippon.com/en/news/yjj2026102300926/": {
+    "title": "Japan's Sagawa Express: fears of mass data leak after unauthorized access to delivery tracking",
+    "summary": "A third party gained unauthorized access to the delivery tracking service. The company said up to about 53.23 million records (including duplicates) with names, addresses, phone numbers and other data may have been leaked."
+  },
+  "https://bleepingcomputer.com/news/security/gyazo-server-flaw-exploited-to-steal-236-million-user-records": {
+    "title": "Image sharing service Gyazo: over 20 million user records leaked",
+    "summary": "A vulnerability in an upload server was exploited, leaking about 23.62 million user records containing email addresses, password hashes and other data."
+  },
+  "https://biz.sbs.co.kr/amp/article/20000333058": {
+    "title": "Weverse confirms leak of payment-related data from over 420,000 accounts",
+    "summary": "It was confirmed that internal identifiers and purchase and refund histories for about 422,000 accounts leaked out of the fan platform Weverse.",
+    "org": "Weverse Company"
+  },
+  "https://bleepingcomputer.com/news/security/idscan-confirms-breach-tied-to-153-million-stolen-drivers-licenses": {
+    "title": "ID verification company IDScan confirms mass leak of driver's license data",
+    "summary": "US ID verification company IDScan.net confirmed a breach, and more than 153 million scans of US and Canadian driver's licenses advertised for sale on the dark web (as claimed by the seller) have reportedly been linked to the incident."
+  }
+}

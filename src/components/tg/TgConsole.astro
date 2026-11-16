@@ -4,15 +4,29 @@
 // Facts from the product: reasons written as sentences, a hash-chained audit ledger kept 5 years under a delete lock,
 // admin and tenant consoles with phone approval for changes, office IP ranges.
 import Icon from '../Icon.astro';
+import { langOf } from '../../lib/i18n';
+const en = langOf(Astro.url) === 'en';
 
-const points = [
+const points = en ? [
+  { i: 'search', t: 'Reasons in sentences', d: 'For each decision, it records in sentences why it allowed or blocked access.' },
+  { i: 'lock', t: 'Tamper-evident certificate history', d: 'The history of certificate issuance and revocation is chained with hashes, so a verification tool finds records that were changed or removed. The retention period for records is agreed with you when you adopt Trust Gateway.' },
+  { i: 'user', t: 'Client admins manage directly', d: "Client admins manage their own company's employees, devices and policies directly, and each change goes through approval on the phone." },
+  { i: 'pin', t: 'Register office IP ranges', d: "Once the company's public IP ranges are registered, an IP change within them does not trigger repeated re-authentication." },
+] : [
   { i: 'search', t: '판단 근거를 문장으로', d: '판정마다 왜 허용하거나 막았는지 문장으로 남깁니다.' },
   { i: 'lock', t: '위변조가 드러나는 인증서 이력', d: '인증서 발급과 폐기 이력은 해시로 이어 두어, 바뀌거나 빠진 기록을 검증 도구로 찾아냅니다. 기록의 보존 기간은 도입할 때 함께 정합니다.' },
   { i: 'user', t: '고객사 관리자도 직접', d: '고객사 관리자는 자기 회사의 직원, 기기, 정책을 직접 관리하고, 변경할 때마다 휴대폰 승인을 거칩니다.' },
   { i: 'pin', t: '사무실 IP 대역 등록', d: '회사 공인 IP 대역을 등록하면, 그 안에서 IP가 바뀌어도 재인증을 반복하지 않습니다.' },
 ];
-// one example morning; the script keeps feeding these in a loop
-const log = [
+// one example morning; the script keeps feeding these in a loop (English pages get the English rows through data-log)
+const log = en ? [
+  { u: 'Jihoon Kim', app: 'Groupware', v: 'allow', vt: 'Allow', why: 'Office, same Wi-Fi, usual hours. The signals match.', zen: 'Opinion: pass', ai: 'Within usual range', opa: 'Allow' },
+  { u: 'Seoyeon Lee', app: 'HR system', v: 'allow', vt: 'Allow', why: 'Connected from within a registered office IP range.', zen: 'Opinion: pass', ai: 'Within usual range', opa: 'Allow' },
+  { u: 'Minsu Park', app: 'Work portal', v: 'step', vt: 'Step-up', why: 'The PC and phone are together, but the network is new. Allowed after phone approval.', zen: 'Opinion: pass', ai: 'Network change larger than usual', opa: 'Step-up' },
+  { u: 'Yuna Choi', app: 'Groupware', v: 'allow', vt: 'Allow', why: 'Connected from the home office during usual hours.', zen: 'Opinion: pass', ai: 'Within usual range', opa: 'Allow' },
+  { u: 'Daeun Jung', app: 'Accounting', v: 'deny', vt: 'Deny', why: 'The PC and phone locations do not match, and there was no phone approval.', zen: 'Opinion: step-up', ai: 'Several signals outside usual range', opa: 'No approval after step-up' },
+  { u: 'Partner account', app: 'Accounting', v: 'deny', vt: 'Deny', why: 'This app is not allowed for this account. The policy default is Deny.', zen: 'Opinion: pass', ai: 'Within usual range', opa: 'Path not allowed' },
+] : [
   { u: '김지훈', app: '그룹웨어', v: 'allow', vt: '허용', why: '사무실, 같은 Wi-Fi, 평소 시간대. 신호가 서로 맞습니다.', zen: '의견 통과', ai: '평소 범위 안', opa: '허용' },
   { u: '이서연', app: '인사 시스템', v: 'allow', vt: '허용', why: '등록된 사무실 IP 대역 안에서 접속했습니다.', zen: '의견 통과', ai: '평소 범위 안', opa: '허용' },
   { u: '박민수', app: '업무 포털', v: 'step', vt: '추가 인증', why: 'PC와 휴대폰은 함께 있지만, 처음 보는 네트워크입니다. 휴대폰 승인 뒤 허용했습니다.', zen: '의견 통과', ai: '네트워크 변화가 평소보다 큼', opa: '추가 인증' },
@@ -26,21 +40,21 @@ const shown = first.find((r) => r.v !== 'allow')!;
 <section class="section mist" id="console">
   <div class="wrap con">
     <div class="con-copy">
-      <h2 class="h2 sm reveal">관리자는 <br />이렇게 봅니다</h2>
-      <p class="lead reveal">막는 것만큼, 왜 막았는지 설명할 수 있어야 합니다.</p>
+      <h2 class="h2 sm reveal">{en ? <>What admins <br />see</> : <>관리자는 <br />이렇게 봅니다</>}</h2>
+      <p class="lead reveal">{en ? <>Explaining why it blocked matters as much as blocking.</> : <>막는 것만큼, 왜 막았는지 설명할 수 있어야 합니다.</>}</p>
       <ul class="pts">
         {points.map((p) => (<li class="reveal"><span class="pi"><Icon name={p.i} size={18} /></span><div><b>{p.t}</b><p class="body">{p.d}</p></div></li>))}
       </ul>
     </div>
 
     <div class="shot">
-    <div class="win reveal" aria-label="관리 콘솔 예시 화면" role="img">
-      <div class="bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>Trust Gateway 관리 콘솔</b><span class="live"><i></i>실시간</span></div>
+    <div class="win reveal" aria-label={en ? 'Example Admin Console screen' : '관리 콘솔 예시 화면'} role="img">
+      <div class="bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>{en ? <>Trust Gateway Admin Console</> : <>Trust Gateway 관리 콘솔</>}</b><span class="live"><i></i>{en ? <>Live</> : <>실시간</>}</span></div>
       <div class="body2">
-        <nav class="nav" aria-hidden="true"><span class="on">판정 기록</span><span>직원</span><span>기기</span><span>인증서</span><span>정책</span></nav>
+        <nav class="nav" aria-hidden="true">{en ? <><span class="on">Decisions</span><span>Employees</span><span>Devices</span><span>Certificates</span><span>Policies</span></> : <><span class="on">판정 기록</span><span>직원</span><span>기기</span><span>인증서</span><span>정책</span></>}</nav>
         <div class="main">
           <table class="log" aria-hidden="true" data-log={JSON.stringify(log)}>
-            <thead><tr><th>시간</th><th>사용자</th><th class="c-app">앱</th><th>결과</th></tr></thead>
+            <thead><tr>{en ? <><th>Time</th><th>User</th><th class="c-app">App</th><th>Result</th></> : <><th>시간</th><th>사용자</th><th class="c-app">앱</th><th>결과</th></>}</tr></thead>
             <tbody>
               {first.map((r) => (<tr><td class="t">{r.at}</td><td>{r.u}</td><td class="c-app">{r.app}</td><td><span class={`chip v-${r.v}`}>{r.vt}</span></td></tr>))}
             </tbody>
@@ -49,17 +63,17 @@ const shown = first.find((r) => r.v !== 'allow')!;
             <p class="why-h"><span class={`chip v-${shown.v}`} data-f="vt">{shown.vt}</span><b data-f="u">{shown.u}</b><span data-f="app">{shown.app}</span></p>
             <p class="why-s" data-f="why">{shown.why}</p>
             <dl>
-              <div><dt>이상 탐지</dt><dd data-f="ai">{shown.ai}</dd></div>
-              <div><dt>금지 사항 확인</dt><dd data-f="zen">{shown.zen}</dd></div>
-              <div><dt>최종 결정</dt><dd data-f="opa">{shown.opa}</dd></div>
+              <div><dt>{en ? <>Anomaly Detection</> : <>이상 탐지</>}</dt><dd data-f="ai">{shown.ai}</dd></div>
+              <div><dt>{en ? <>Prohibited Conditions</> : <>금지 사항 확인</>}</dt><dd data-f="zen">{shown.zen}</dd></div>
+              <div><dt>{en ? <>Final Decision</> : <>최종 결정</>}</dt><dd data-f="opa">{shown.opa}</dd></div>
             </dl>
-            <p class="chain"><Icon name="lock" size={14} />판정과 근거를 기록에 남김</p>
+            <p class="chain"><Icon name="lock" size={14} />{en ? <>Decision and reasons logged</> : <>판정과 근거를 기록에 남김</>}</p>
           </div>
         </div>
       </div>
     </div>
     <!-- a quiet caption under the screen, not a centred line under the section (user, 2026-11-16) -->
-    <p class="note">관리 콘솔을 알아보기 쉽게 다시 그린 예시 화면입니다. 이름과 시간은 예시입니다.</p>
+    <p class="note">{en ? <>An example screen of the Admin Console, redrawn to be easy to read. Names and times are examples.</> : <>관리 콘솔을 알아보기 쉽게 다시 그린 예시 화면입니다. 이름과 시간은 예시입니다.</>}</p>
     </div>
   </div>
 </section>

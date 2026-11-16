@@ -5,11 +5,13 @@
 // The blueprint film that was the hero before that (GatewayHero + SketchHero) played as the demo's 구조도 tab for a
 // while on 2026-11-16; it is not on the site now (the user has it as an MP4).
 import GatewayDemo from '../GatewayDemo.astro';
+import { langOf } from '../../lib/i18n';
+const en = langOf(Astro.url) === 'en';
 ---
 <section class="section night" id="demo">
   <div class="wrap">
     <div class="head-center reveal">
-      <h2 class="h2">제품 화면으로 보기</h2>
+      <h2 class="h2">{en ? <>See the product screens</> : <>제품 화면으로 보기</>}</h2>
     </div>
     <GatewayDemo />
   </div>

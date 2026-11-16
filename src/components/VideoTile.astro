@@ -1,9 +1,13 @@
 ---
 // One video on the 영상 page. size: big (the featured one), side (the column beside it) or card (the grid below).
-// With a YouTube id it is a button that opens the page's player; without one it shows 공개 준비 중.
+// With a YouTube id it is a button that opens the page's player; without one it shows only 공개 준비 중, no title
+// until the video is out (user, 2026-11-16).
 // The title sits on a dark band over the thumbnail; on a phone, side and card tiles turn into list rows
 // (thumbnail left, title right).
 import Icon from './Icon.astro';
+import { langOf } from '../lib/i18n';
+const lang = langOf(Astro.url);
+const en = lang === 'en';
 interface Props { title: string; youtube: string; length?: string; note?: string; size?: 'big' | 'side' | 'card' }
 const { title, youtube, length, note, size = 'card' } = Astro.props;
 const thumb = `https://i.ytimg.com/vi/${youtube}/${size === 'big' ? 'maxresdefault' : 'hqdefault'}.jpg`;
@@ -11,7 +15,7 @@ const Tag = youtube ? 'button' : 'div';
 ---
 <Tag
   class:list={['tile', size, { empty: !youtube }]}
-  {...(youtube ? { type: 'button', 'data-yt': youtube, 'data-title': title, 'aria-label': `${title} 재생` } : {})}
+  {...(youtube ? { type: 'button', 'data-yt': youtube, 'data-title': title, 'aria-label': en ? `Play ${title}` : `${title} 재생` } : {})}
 >
   <span class="thumb">
     {youtube && (size === 'big'
@@ -21,9 +25,9 @@ const Tag = youtube ? 'button' : 'div';
     <span class="play"><Icon name="play" size={size === 'big' ? 30 : 18} /></span>
   </span>
   <span class="cap">
-    <span class="t">{title}</span>
-    {size === 'big' && note && <span class="note">{note}</span>}
-    {youtube ? length && <span class="len">{length}</span> : <span class="soon">공개 준비 중</span>}
+    {youtube && <span class="t">{title}</span>}
+    {youtube && size === 'big' && note && <span class="note">{note}</span>}
+    {youtube ? length && <span class="len">{length}</span> : <span class="soon">{en ? <>Coming soon</> : <>공개 준비 중</>}</span>}
   </span>
 </Tag>
 

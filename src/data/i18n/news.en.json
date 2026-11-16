@@ -1,0 +1,35 @@
+{
+  "_labels": {
+    "신영 소식": "Company news",
+    "언론 보도": "In the press",
+    "SNS": "Social media",
+    "보안 이슈": "Security issues",
+    "영상": "Video"
+  },
+  "hankyung-fintechlab-interview": {
+    "source": "Hankyung Magazine",
+    "title": "SYINNOVATION, a developer of Zero Trust-based financial security, authentication and payment solutions"
+  },
+  "jobjoy-371-cover": {
+    "source": "Hankyung Job&Joy",
+    "title": "Hankyung Job&Joy issue 371 cover: 2026 Seoul Fintech Lab 2 startup CEOs"
+  },
+  "third-anniversary": {
+    "source": "SYINNOVATION",
+    "title": "SYINNOVATION's 3rd anniversary",
+    "body": [
+      "SYINNOVATION, which opened its doors on Oct 25, 2023, has marked its 3rd anniversary.",
+      "We will keep building solutions that protect work access for financial institutions and businesses, on the principle of Never Trust, Always Verify."
+    ]
+  },
+  "startup-package-selected": {
+    "source": "SYINNOVATION",
+    "title": "Selected for the 2026 Early-Stage Startup Package",
+    "body": ["SYINNOVATION has been selected as a beneficiary of the 2026 Early-Stage Startup Package."]
+  },
+  "seoul-fintech-lab": {
+    "source": "SYINNOVATION",
+    "title": "Moved into Seoul Fintech Lab 2",
+    "body": ["SYINNOVATION has moved into Seoul Fintech Lab 2 and opened a new office in Mapo."]
+  }
+}

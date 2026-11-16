@@ -1,0 +1,26 @@
+---
+// An address that does not exist (an old link, a typo). Hosts serve dist/404.html for it with status 404, so search
+// engines drop the address; visitors get a way back in Korean and English. Kept out of search results itself.
+import Base from '../layouts/Base.astro';
+---
+<Base title="페이지를 찾을 수 없습니다" description="요청하신 페이지를 찾을 수 없습니다. The page you asked for was not found." tone="light" alternates={false}>
+  <section class="page-hero">
+    <div class="wrap narrow nf">
+      <p class="code">404</p>
+      <h1 class="h2">페이지를 찾을 수 없습니다</h1>
+      <p class="lead">주소가 바뀌었거나 없어진 페이지입니다.<br /><span lang="en">The page you asked for was not found. Its address has changed, or it no longer exists.</span></p>
+      <p class="go">
+        <a class="btn primary" href="/">홈으로</a>
+        <a class="btn ghost" href="/en" lang="en">English home</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nf { text-align: center; }
+  .code { font-size: 15px; font-weight: 700; color: var(--blue); letter-spacing: .04em; }
+  .nf .h2 { margin-top: 12px; }
+  .nf .lead { margin-top: 18px; }
+  .go { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 36px; }
+</style>

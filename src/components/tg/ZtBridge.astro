@@ -7,9 +7,16 @@
 // then what it does. It shows all at once (user, 2026-11-16: no build-up needed).
 // first: it opens the page, so its heading is the page's h1 and it clears the fixed header
 interface Props { id?: string; tone?: 'white' | 'mist'; first?: boolean }
+import { langOf } from '../../lib/i18n';
+const en = langOf(Astro.url) === 'en';
 const { id, tone = 'white', first = false } = Astro.props;
 const H = first ? 'h1' : 'h2';
-const sum = {
+const sum = en ? {
+  p: [['Trust no one', 'Never Trust'], ['Verify each time', 'Always Verify'], ['Open only what is needed', 'Least Privilege']],
+  n: [['PEP · Policy Enforcement Point', 'Intercepts access requests and allows or blocks them'], ['PDP · Policy Decision Point', 'Decides Allow, Step-up or Deny'], ['PIP · Policy Information Point', 'Supplies the information the decision needs']],
+  t: [['Access Gateway', 'Checks the certificate each time and passes on only allowed connections'], ['Policy Engine', 'Checks Prohibited Conditions and makes the Final Decision'], ['Anomaly Detection', 'Passes on how far things differ from usual and any mismatch between PC and phone signals']],
+  c: ['Identity', 'Devices', 'Networks', 'Applications', 'Data', 'Visibility & Analytics', 'Automation', 'Governance'],
+} : {
   p: [['아무도 믿지 않는다', 'Never Trust'], ['매번 확인한다', 'Always Verify'], ['필요한 만큼만 연다', 'Least Privilege']],
   n: [['PEP · 정책 시행', '접근 요청을 가로채 허용하거나 막습니다'], ['PDP · 정책 결정', '허용, 추가 인증, 거부를 정합니다'], ['PIP · 정책 정보', '판단에 필요한 정보를 줍니다']],
   t: [['접속 관문', '매번 인증서를 확인하고 허용된 접속만 전달합니다'], ['정책 엔진', '금지 사항을 확인하고 최종 결정합니다'], ['이상 탐지', '평소와 다른 정도와 PC·휴대폰 신호의 불일치를 넘깁니다']],
@@ -19,34 +26,34 @@ const sum = {
 <section class:list={['section', { mist: tone === 'mist', first }]} id={id}>
   <div class="wrap">
     <div class="head-center reveal">
-      <H class="h2">제로트러스트는 무엇인가요?</H>
-      <p class="lead">아무도 믿지 않고, 매번 확인하고, 필요한 만큼만 여는 보안 원칙입니다. <br />Trust Gateway는 원칙마다 이렇게 지킵니다.</p>
+      <H class="h2">{en ? <>What is Zero Trust?</> : <>제로트러스트는 무엇인가요?</>}</H>
+      <p class="lead">{en ? <>A security principle: trust no one, verify each time, and open only what is needed. <br />Here is how Trust Gateway keeps each principle.</> : <>아무도 믿지 않고, 매번 확인하고, 필요한 만큼만 여는 보안 원칙입니다. <br />Trust Gateway는 원칙마다 이렇게 지킵니다.</>}</p>
     </div>
 
     <div class="sum reveal">
-      <h3 class="h3">원칙부터 성숙도 대응까지 한눈에</h3>
+      <h3 class="h3">{en ? <>From principles to maturity mapping, at a glance</> : <>원칙부터 성숙도 대응까지 한눈에</>}</h3>
       <div class="fm">
         <div class="fc c1">
-          <p class="fh"><small>01 원칙</small><b>제로트러스트</b></p>
+          <p class="fh"><small>{en ? <>01 Principle</> : <>01 원칙</>}</small><b>{en ? <>Zero Trust</> : <>제로트러스트</>}</b></p>
           {sum.p.map(([k, e], i) => <p class="it"><b>{k}</b><span>{e}</span></p>)}
         </div>
         <div class="fa a1"><i class="ar"></i></div>
         <div class="fc c2">
-          <p class="fh"><small>02 공개된 기준</small><b>NIST SP 800-207</b></p>
+          <p class="fh"><small>{en ? <>02 Public standard</> : <>02 공개된 기준</>}</small><b>NIST SP 800-207</b></p>
           {sum.n.map(([k, e], i) => <p class="it"><b>{k}</b><span>{e}</span></p>)}
         </div>
         <div class="fa a2">{sum.n.map((_, i) => <i class="ar"></i>)}</div>
         <div class="fc c3">
-          <p class="fh"><small>03 Trust Gateway에 적용</small><b>Trust Gateway</b></p>
+          <p class="fh"><small>{en ? <>03 Applied in Trust Gateway</> : <>03 Trust Gateway에 적용</>}</small><b>Trust Gateway</b></p>
           {sum.t.map(([k, e], i) => <p class="it"><b>{k}</b><span>{e}</span></p>)}
         </div>
         <div class="fa a3"><i class="ar"></i></div>
         <div class="fc c4">
-          <p class="fh"><small>04 성숙도 모델 대응</small><b>CISA 2.0</b></p>
+          <p class="fh"><small>{en ? <>04 Maturity model mapping</> : <>04 성숙도 모델 대응</>}</small><b>CISA 2.0</b></p>
           <ul class="chips">{sum.c.map((c, i) => <li>{c}</li>)}</ul>
         </div>
       </div>
-      <p class="line">그래서 Trust Gateway는 매 순간 사람과 기기, 네트워크를 다시 확인하고, 허락된 곳만 열고, 모든 판정을 근거와 함께 남깁니다.</p>
+      <p class="line">{en ? <>So Trust Gateway checks the person, the device and the network again at every moment, opens only what is allowed, and logs every decision with its reasons.</> : <>그래서 Trust Gateway는 매 순간 사람과 기기, 네트워크를 다시 확인하고, 허락된 곳만 열고, 모든 판정을 근거와 함께 남깁니다.</>}</p>
     </div>
   </div>
 </section>

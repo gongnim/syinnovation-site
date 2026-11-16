@@ -7,6 +7,8 @@
 // starts its timeline; without it (reduced motion) every scene shows its finished state.
 import Icon from './Icon.astro';
 import { appName } from '../data/site';
+import { langOf } from '../lib/i18n';
+const en = langOf(Astro.url) === 'en';
 
 // a QR-like 21x21 pattern (finder squares plus fixed pseudo-random modules; it encodes nothing)
 const qr = (() => {
@@ -25,71 +27,71 @@ const qr = (() => {
 })();
 
 const audit = [
-  { at: 0.4, t: '09:02:15', who: '직원 A', to: '그룹웨어', v: 'ok', l: '허용', why: '인증서 · 본인 확인 · 같은 Wi-Fi' },
-  { at: 1.3, t: '09:12:41', who: '직원 B', to: '인사 시스템', v: 'ok', l: '허용', why: '정책 일치' },
-  { at: 2.2, t: '13:05:20', who: '직원 A', to: '업무 포털', v: 'warn', l: '추가 인증', why: '본인 확인 때와 네트워크가 바뀜' },
-  { at: 3.1, t: '13:05:48', who: '직원 A', to: '업무 포털', v: 'ok', l: '허용', why: '휴대폰 승인 뒤 다시 판정' },
-  { at: 4.0, t: '18:20:11', who: '직원 A', to: '그룹웨어', v: 'stop', l: '거부', why: '분실 신고로 인증서 폐기됨' },
+  { at: 0.4, t: '09:02:15', who: en ? 'Staff A' : '직원 A', to: en ? 'Groupware' : '그룹웨어', v: 'ok', l: en ? 'Allow' : '허용', why: en ? 'Certificate · identity check · same Wi-Fi' : '인증서 · 본인 확인 · 같은 Wi-Fi' },
+  { at: 1.3, t: '09:12:41', who: en ? 'Staff B' : '직원 B', to: en ? 'HR system' : '인사 시스템', v: 'ok', l: en ? 'Allow' : '허용', why: en ? 'Matches policy' : '정책 일치' },
+  { at: 2.2, t: '13:05:20', who: en ? 'Staff A' : '직원 A', to: en ? 'Work portal' : '업무 포털', v: 'warn', l: en ? 'Step-up' : '추가 인증', why: en ? 'Network changed since identity check' : '본인 확인 때와 네트워크가 바뀜' },
+  { at: 3.1, t: '13:05:48', who: en ? 'Staff A' : '직원 A', to: en ? 'Work portal' : '업무 포털', v: 'ok', l: en ? 'Allow' : '허용', why: en ? 'Decided again after phone approval' : '휴대폰 승인 뒤 다시 판정' },
+  { at: 4.0, t: '18:20:11', who: en ? 'Staff A' : '직원 A', to: en ? 'Groupware' : '그룹웨어', v: 'stop', l: en ? 'Deny' : '거부', why: en ? 'Certificate revoked after loss report' : '분실 신고로 인증서 폐기됨' },
 ];
 
 // cross-check: the employee at the office, then at a cafe; PC and phone still agree, but the network changed since the
 // sign-in, so the phone is asked again (values are examples)
 const sigs = [
-  { n: '위치', a: ['사무실', '사무실'], b: ['카페', '카페'], chg: false },
-  { n: 'Wi-Fi', a: ['사내 Wi-Fi', '사내 Wi-Fi'], b: ['카페 Wi-Fi', '카페 Wi-Fi'], chg: false },
-  { n: '시간대', a: ['UTC+9', 'UTC+9'], b: ['UTC+9', 'UTC+9'], chg: false },
-  { n: '기기 상태', a: ['정상', '정상'], b: ['정상', '정상'], chg: false },
-  { n: '네트워크', a: ['회사 IP 대역', '회사 IP 대역'], b: ['처음 보는 IP', '처음 보는 IP'], chg: true },
+  { n: en ? 'Location' : '위치', a: en ? ['Office', 'Office'] : ['사무실', '사무실'], b: en ? ['Cafe', 'Cafe'] : ['카페', '카페'], chg: false },
+  { n: 'Wi-Fi', a: en ? ['Office Wi-Fi', 'Office Wi-Fi'] : ['사내 Wi-Fi', '사내 Wi-Fi'], b: en ? ['Cafe Wi-Fi', 'Cafe Wi-Fi'] : ['카페 Wi-Fi', '카페 Wi-Fi'], chg: false },
+  { n: en ? 'Time zone' : '시간대', a: ['UTC+9', 'UTC+9'], b: ['UTC+9', 'UTC+9'], chg: false },
+  { n: en ? 'Device status' : '기기 상태', a: en ? ['Normal', 'Normal'] : ['정상', '정상'], b: en ? ['Normal', 'Normal'] : ['정상', '정상'], chg: false },
+  { n: en ? 'Network' : '네트워크', a: en ? ['Company IP range', 'Company IP range'] : ['회사 IP 대역', '회사 IP 대역'], b: en ? ['New IP', 'New IP'] : ['처음 보는 IP', '처음 보는 IP'], chg: true },
 ];
-const devices = [{ n: '업무 PC', who: '직원 A' }, { n: '휴대폰', who: '직원 A' }, { n: '업무 PC', who: '직원 B' }];
+const devices = [{ n: en ? 'Work PC' : '업무 PC', who: en ? 'Staff A' : '직원 A' }, { n: en ? 'Phone' : '휴대폰', who: en ? 'Staff A' : '직원 A' }, { n: en ? 'Work PC' : '업무 PC', who: en ? 'Staff B' : '직원 B' }];
 
 // payment fraud detection (tech doc v0.4.2, ch.10): Trust Gateway detects and alerts with a recommendation and reasons;
 // the customer's FDS / payment system decides; afterwards a report flags approvals made despite a recommendation and
 // checks the customer's FDS rules. Who calls it, what it looks at, three cases, and the report.
 // Amounts, counts and rule names are examples.
 const paySignals = [
-  { i: 'chart', t: '결제 금액' }, { i: 'cycle', t: '짧은 시간 결제 횟수' }, { i: 'lock', t: '결제 실패 횟수' }, { i: 'phone', t: '처음 쓰는 기기' },
-  { i: 'pin', t: '처음 거래하는 가맹점' }, { i: 'shield', t: '가맹점 위험 등급' }, { i: 'plan', t: '결제 시간대' }, { i: 'search', t: '접속 위치와 결제 국가 불일치' },
+  { i: 'chart', t: en ? 'Payment amount' : '결제 금액' }, { i: 'cycle', t: en ? 'Payments in a short time' : '짧은 시간 결제 횟수' }, { i: 'lock', t: en ? 'Failed payments' : '결제 실패 횟수' }, { i: 'phone', t: en ? 'New device' : '처음 쓰는 기기' },
+  { i: 'pin', t: en ? 'New merchant' : '처음 거래하는 가맹점' }, { i: 'shield', t: en ? 'Merchant risk level' : '가맹점 위험 등급' }, { i: 'plan', t: en ? 'Time of payment' : '결제 시간대' }, { i: 'search', t: en ? 'Location and payment country mismatch' : '접속 위치와 결제 국가 불일치' },
 ];
 type Row = [string, string, boolean];
 const cases: Record<string, { rows: Row[]; tone: 'ok' | 'warn' | 'stop'; label: string; level: number; why: string[]; act: string }> = {
-  payok: { rows: [['기기', '평소 쓰는 기기', true], ['금액', '3만 원, 평소 수준', true], ['가맹점', '자주 가는 카페', true], ['시도', '한 번에 결제', true]],
-    tone: 'ok', label: '이상 없음', level: 0, why: ['모든 신호가 평소와 같습니다'], act: '이상 없음 결과 · 처리는 고객사가 평소대로' },
-  paybig: { rows: [['기기', '평소 쓰는 기기', true], ['금액', '250만 원, 평소보다 훨씬 큼', false], ['가맹점', '처음 거래하는 전자제품 매장', false], ['시도', '한 번에 결제', true]],
-    tone: 'warn', label: '주의 알림', level: 1, why: ['금액이 평소보다 크게 벗어남', '처음 거래하는 가맹점'], act: '추가 인증 권고와 근거' },
-  payrep: { rows: [['기기', '처음 쓰는 기기', false], ['금액', '5만 원씩', true], ['가맹점', '처음 거래하는 온라인몰', false], ['시도', '1분 사이 실패 6번 뒤 다시 시도', false]],
-    tone: 'stop', label: '위험 알림', level: 2, why: ['짧은 시간에 실패와 재시도가 몰림', '처음 쓰는 기기와 처음 거래하는 가맹점'], act: '거부 권고와 근거, 그래도 승인되면 리포트로 다시 알림' },
+  payok: { rows: en ? [['Device', 'Usual device', true], ['Amount', 'KRW 30,000, usual level', true], ['Merchant', 'Regular cafe', true], ['Tries', 'Paid on first try', true]] : [['기기', '평소 쓰는 기기', true], ['금액', '3만 원, 평소 수준', true], ['가맹점', '자주 가는 카페', true], ['시도', '한 번에 결제', true]],
+    tone: 'ok', label: en ? 'No anomaly' : '이상 없음', level: 0, why: en ? ['All signals match the usual pattern'] : ['모든 신호가 평소와 같습니다'], act: en ? 'No-anomaly result · the client processes it as usual' : '이상 없음 결과 · 처리는 고객사가 평소대로' },
+  paybig: { rows: en ? [['Device', 'Usual device', true], ['Amount', 'KRW 2.5 million, far above usual', false], ['Merchant', 'New electronics store', false], ['Tries', 'Paid on first try', true]] : [['기기', '평소 쓰는 기기', true], ['금액', '250만 원, 평소보다 훨씬 큼', false], ['가맹점', '처음 거래하는 전자제품 매장', false], ['시도', '한 번에 결제', true]],
+    tone: 'warn', label: en ? 'Caution alert' : '주의 알림', level: 1, why: en ? ['Amount far outside the usual range', 'First purchase at this merchant'] : ['금액이 평소보다 크게 벗어남', '처음 거래하는 가맹점'], act: en ? 'Step-up recommendation with reasons' : '추가 인증 권고와 근거' },
+  payrep: { rows: en ? [['Device', 'New device', false], ['Amount', 'KRW 50,000 each', true], ['Merchant', 'New online store', false], ['Tries', 'Retried after 6 failures in 1 minute', false]] : [['기기', '처음 쓰는 기기', false], ['금액', '5만 원씩', true], ['가맹점', '처음 거래하는 온라인몰', false], ['시도', '1분 사이 실패 6번 뒤 다시 시도', false]],
+    tone: 'stop', label: en ? 'Risk alert' : '위험 알림', level: 2, why: en ? ['Failures and retries bunched in a short time', 'New device and new merchant'] : ['짧은 시간에 실패와 재시도가 몰림', '처음 쓰는 기기와 처음 거래하는 가맹점'], act: en ? 'Deny recommendation with reasons; if approved anyway, flagged again in a report' : '거부 권고와 근거, 그래도 승인되면 리포트로 다시 알림' },
 };
 const fdsRules = [
-  { r: '해외 결제 차단', v: 'warn', l: '오탐 많음 · 정상 결제까지 걸림' },
-  { r: '고액 결제 추가 확인', v: 'ok', l: '효과 좋음' },
-  { r: '처음 쓰는 기기 결제 추가 확인', v: 'dim', l: '중복 · 다른 규칙과 겹침' },
-  { r: '심야 결제 추가 확인', v: 'warn', l: '성능 저하 · 최근 탐지가 줄어듦' },
+  { r: en ? 'Block overseas payments' : '해외 결제 차단', v: 'warn', l: en ? 'Many false positives · catches normal payments' : '오탐 많음 · 정상 결제까지 걸림' },
+  { r: en ? 'Extra check on large payments' : '고액 결제 추가 확인', v: 'ok', l: en ? 'Works well' : '효과 좋음' },
+  { r: en ? 'Extra check on new-device payments' : '처음 쓰는 기기 결제 추가 확인', v: 'dim', l: en ? 'Duplicate · overlaps another rule' : '중복 · 다른 규칙과 겹침' },
+  { r: en ? 'Extra check on late-night payments' : '심야 결제 추가 확인', v: 'warn', l: en ? 'Degrading · fewer detections lately' : '성능 저하 · 최근 탐지가 줄어듦' },
 ];
-const fdsTips = ['해외 결제 규칙은 기준을 조정', '겹치는 규칙은 하나로 정리', '소액 반복 결제 규칙 추가'];
+const fdsTips = en ? ['Adjust the threshold of the overseas rule', 'Merge overlapping rules into one', 'Add a rule for repeated small payments'] : ['해외 결제 규칙은 기준을 조정', '겹치는 규칙은 하나로 정리', '소액 반복 결제 규칙 추가'];
 
 const tracks = [
-  { id: 'access', t: '직원 업무 접속', shots: [
-    { k: 'bind', t: '휴대폰으로 본인 확인', dur: 7.5, q: '이 PC를 지금 누가 쓰는지 어떻게 알까요?', d: `출근해서 PC 화면의 QR을 ${appName} 앱으로 찍고 생체 인증으로 승인합니다. 이것으로 지금 이 PC를 쓰는 사람이 확인됩니다.` },
-    { k: 'portal', t: '업무 시스템 열림', dur: 6, q: '확인이 끝나면 무엇이 열릴까요?', d: '허락된 업무 시스템만 열립니다. 업무 시스템이 서명된 신원을 받도록 설정하면 다시 로그인하지 않아도 됩니다. 이후 요청도 계속 확인합니다.' },
-    { k: 'xcheck', t: '다중 신호 교차 검증', dur: 12, q: '자리를 옮겨 접속하면요?', d: 'PC와 휴대폰, 네트워크의 신호를 매 순간 대조합니다. 카페로 자리를 옮기면 PC와 휴대폰은 서로 맞지만 본인 확인 때와 네트워크가 바뀌어, 휴대폰으로 추가 인증을 요청합니다. 직원이 생체 인증으로 승인하면 하던 일을 그대로 이어 갑니다.' },
-    { k: 'lost', t: '분실 기기 차단', dur: 7.5, q: 'PC를 잃어버렸다면요?', d: '직원이 분실을 알리면 관리자가 관리 콘솔에서 그 PC의 인증서를 폐기합니다. 폐기 정보가 게이트웨이에 바로 전달되어 다음 요청부터 거부됩니다.' },
-    { k: 'audit', t: '감사 기록', dur: 7.5, q: '누가 언제 무엇을 했는지 남을까요?', d: '이 직원의 하루가 그대로 남습니다. 허용, 추가 인증, 거부마다 누가 어디에 접속했고 왜 그렇게 판단했는지 기록하고, 기록은 앞 기록과 이어져 있어 중간을 바꾸면 드러납니다.' },
+  { id: 'access', t: en ? 'Employee access' : '직원 업무 접속', shots: [
+    { k: 'bind', t: en ? 'Verify by phone' : '휴대폰으로 본인 확인', dur: 7.5, q: en ? 'How do we know who is using this PC right now?' : '이 PC를 지금 누가 쓰는지 어떻게 알까요?', d: en ? `On arriving at work, the employee scans the QR code on the PC screen with the ${appName} app and approves with biometric authentication. This confirms who is using this PC right now.` : `출근해서 PC 화면의 QR을 ${appName} 앱으로 찍고 생체 인증으로 승인합니다. 이것으로 지금 이 PC를 쓰는 사람이 확인됩니다.` },
+    { k: 'portal', t: en ? 'Work systems open' : '업무 시스템 열림', dur: 6, q: en ? 'What opens once verification is done?' : '확인이 끝나면 무엇이 열릴까요?', d: en ? 'Only the work systems the employee is allowed to use open. If a work system is set up to accept the signed identity, there is no need to log in again. Requests after that are checked continuously.' : '허락된 업무 시스템만 열립니다. 업무 시스템이 서명된 신원을 받도록 설정하면 다시 로그인하지 않아도 됩니다. 이후 요청도 계속 확인합니다.' },
+    { k: 'xcheck', t: en ? 'Multi-Signal Cross Check' : '다중 신호 교차 검증', dur: 12, q: en ? 'What if they connect from somewhere else?' : '자리를 옮겨 접속하면요?', d: en ? 'Signals from the PC, the phone and the network are compared at every moment. If the employee moves to a cafe, the PC and phone still agree, but the network has changed since the identity check, so step-up authentication is requested on the phone. Once the employee approves with biometric authentication, the work carries on as before.' : 'PC와 휴대폰, 네트워크의 신호를 매 순간 대조합니다. 카페로 자리를 옮기면 PC와 휴대폰은 서로 맞지만 본인 확인 때와 네트워크가 바뀌어, 휴대폰으로 추가 인증을 요청합니다. 직원이 생체 인증으로 승인하면 하던 일을 그대로 이어 갑니다.' },
+    { k: 'lost', t: en ? 'Lost device blocked' : '분실 기기 차단', dur: 7.5, q: en ? 'What if the PC is lost?' : 'PC를 잃어버렸다면요?', d: en ? "When the employee reports the loss, an administrator revokes that PC's certificate in the Admin Console. The revocation reaches the gateway right away, so requests are denied starting with the next one." : '직원이 분실을 알리면 관리자가 관리 콘솔에서 그 PC의 인증서를 폐기합니다. 폐기 정보가 게이트웨이에 바로 전달되어 다음 요청부터 거부됩니다.' },
+    { k: 'audit', t: en ? 'Audit log' : '감사 기록', dur: 7.5, q: en ? 'Is there a record of who did what, and when?' : '누가 언제 무엇을 했는지 남을까요?', d: en ? "The employee's day is kept just as it happened. For every Allow, Step-up and Deny, it records who accessed what and why that decision was made. Each record is chained to the one before, so any change in the middle shows." : '이 직원의 하루가 그대로 남습니다. 허용, 추가 인증, 거부마다 누가 어디에 접속했고 왜 그렇게 판단했는지 기록하고, 기록은 앞 기록과 이어져 있어 중간을 바꾸면 드러납니다.' },
   ] },
-  { id: 'payment', t: '결제 이상거래', shots: [
-    { k: 'payflow', t: '누가 쓰나요', dur: 8.5, q: '결제 이상거래 탐지는 누가, 언제 쓰나요?', d: '고객이 가맹점에서 카드로 결제하면, 거래 정보와 기기 신호가 PG나 카드사로 가는 사이에서 Trust Gateway가 이상거래를 탐지합니다. 알림과 권고는 근거와 함께 PG나 카드사의 FDS로 보냅니다. 결제를 승인할지 거절할지는 PG나 카드사가 정합니다.' },
-    { k: 'paysig', t: '무엇을 보나요', dur: 7.5, q: '무엇을 보고 수상하다고 판단하나요?', d: '금액, 기기, 가맹점, 실패와 재시도처럼 여러 신호를 함께 봅니다. 이 고객의 평소 결제에서 얼마나 벗어났는지를 통계와 기계학습으로 계산해 이상거래를 찾습니다.' },
-    { k: 'payok', t: '평범한 결제', dur: 6.5, q: '평소와 같은 결제라면요?', d: '모든 신호가 평소와 같으면 이상 없음으로 돌려줍니다. 결제는 고객사가 평소대로 처리합니다.' },
-    { k: 'paybig', t: '평소보다 큰 금액', dur: 6.5, q: '평소보다 훨씬 큰 결제라면요?', d: '금액과 가맹점이 평소와 다르면 고객사 FDS에 주의 알림과 추가 인증 권고를 근거와 함께 보냅니다. 추가 인증을 받을지는 고객사가 정합니다.' },
-    { k: 'payrep', t: '반복 시도', dur: 7, q: '카드 도용이 의심된다면요?', d: '처음 쓰는 기기에서 짧은 시간에 실패와 재시도가 몰리면 위험 알림과 거부 권고를 바로 보냅니다. 권고했는데도 승인된 거래는 리포트로 다시 알려 고객사가 확인할 수 있게 합니다.' },
-    { k: 'fds', t: '리포트 · FDS 점검', dur: 8, q: '알림 뒤에는 무엇을 받나요?', d: '실시간 거래와 따로, 권고했는데도 승인된 거래를 리포트로 다시 알립니다. 고객사가 운영하는 FDS 규칙의 오탐과 미탐, 겹치는 규칙, 시간에 따른 변화도 분석해 고칠 점을 추천합니다.' },
+  { id: 'payment', t: en ? 'Payment fraud' : '결제 이상거래', shots: [
+    { k: 'payflow', t: en ? 'Who uses it' : '누가 쓰나요', dur: 8.5, q: en ? 'Who uses payment fraud detection, and when?' : '결제 이상거래 탐지는 누가, 언제 쓰나요?', d: en ? 'When a customer pays by card at a merchant, Trust Gateway detects suspicious transactions while the transaction data and device signals travel to the PG or card company. Alerts and recommendations go to the FDS of the PG or card company, with the reasons. The PG or card company decides whether to approve or decline the payment.' : '고객이 가맹점에서 카드로 결제하면, 거래 정보와 기기 신호가 PG나 카드사로 가는 사이에서 Trust Gateway가 이상거래를 탐지합니다. 알림과 권고는 근거와 함께 PG나 카드사의 FDS로 보냅니다. 결제를 승인할지 거절할지는 PG나 카드사가 정합니다.' },
+    { k: 'paysig', t: en ? 'What it looks at' : '무엇을 보나요', dur: 7.5, q: en ? 'What does it look at to judge a payment suspicious?' : '무엇을 보고 수상하다고 판단하나요?', d: en ? "It looks at many signals together, such as the amount, device, merchant, failures and retries. It uses statistics and machine learning to calculate how far a payment departs from this customer's usual payments, and finds suspicious transactions." : '금액, 기기, 가맹점, 실패와 재시도처럼 여러 신호를 함께 봅니다. 이 고객의 평소 결제에서 얼마나 벗어났는지를 통계와 기계학습으로 계산해 이상거래를 찾습니다.' },
+    { k: 'payok', t: en ? 'Normal payment' : '평범한 결제', dur: 6.5, q: en ? 'What about a payment like any other?' : '평소와 같은 결제라면요?', d: en ? 'If every signal matches the usual pattern, it returns "no anomaly". The client processes the payment as usual.' : '모든 신호가 평소와 같으면 이상 없음으로 돌려줍니다. 결제는 고객사가 평소대로 처리합니다.' },
+    { k: 'paybig', t: en ? 'Unusually large amount' : '평소보다 큰 금액', dur: 6.5, q: en ? 'What about a payment much larger than usual?' : '평소보다 훨씬 큰 결제라면요?', d: en ? "If the amount and merchant differ from usual, it sends a caution alert and a step-up authentication recommendation, with the reasons, to the client's FDS. The client decides whether to require step-up authentication." : '금액과 가맹점이 평소와 다르면 고객사 FDS에 주의 알림과 추가 인증 권고를 근거와 함께 보냅니다. 추가 인증을 받을지는 고객사가 정합니다.' },
+    { k: 'payrep', t: en ? 'Repeated attempts' : '반복 시도', dur: 7, q: en ? 'What if unauthorized card use is suspected?' : '카드 도용이 의심된다면요?', d: en ? 'If failures and retries pile up in a short time on a new device, it immediately sends a risk alert and a Deny recommendation. Transactions approved despite the recommendation are flagged again in a report, so the client can check them.' : '처음 쓰는 기기에서 짧은 시간에 실패와 재시도가 몰리면 위험 알림과 거부 권고를 바로 보냅니다. 권고했는데도 승인된 거래는 리포트로 다시 알려 고객사가 확인할 수 있게 합니다.' },
+    { k: 'fds', t: en ? 'Report · FDS check' : '리포트 · FDS 점검', dur: 8, q: en ? 'What do you get after the alerts?' : '알림 뒤에는 무엇을 받나요?', d: en ? "Separately from real-time transactions, a report flags again the transactions approved despite a recommendation. It also analyzes the client's own FDS rules for false positives, missed fraud, overlapping rules and changes over time, and suggests fixes." : '실시간 거래와 따로, 권고했는데도 승인된 거래를 리포트로 다시 알립니다. 고객사가 운영하는 FDS 규칙의 오탐과 미탐, 겹치는 규칙, 시간에 따른 변화도 분석해 고칠 점을 추천합니다.' },
   ] },
 ];
 const at = (n: number) => `--at:${n}`;
 const win = (a: number, b: number) => `--at:${a};--out:${b}`;
 ---
 <div class="demo">
-  <div class="tabs" role="tablist" aria-label="제품 화면">
+  <div class="tabs" role="tablist" aria-label={en ? 'Product screens' : '제품 화면'}>
     {tracks.map((tr, ti) => <button type="button" role="tab" id={`demo-tab-${tr.id}`} aria-controls={`demo-${tr.id}`} aria-selected={ti === 0 ? 'true' : 'false'} tabindex={ti === 0 ? 0 : -1}>{tr.t}</button>)}
   </div>
   {tracks.map((tr, ti) => (
@@ -100,40 +102,40 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
             {s.k === 'bind' && (
               <div class="bind-stage">
                 <div class="win-frame pc">
-                  <div class="bar-top"><i></i><i></i><i></i><span>업무 PC · Trust Gateway</span></div>
+                  <div class="bar-top"><i></i><i></i><i></i><span>{en ? <>Work PC · Trust Gateway</> : <>업무 PC · Trust Gateway</>}</span></div>
                   <div class="pc-body">
                     <div class="layer win" style={win(0, 5.6)}>
-                      <p class="h">사용자 인증</p>
-                      <p class="sub">휴대폰으로 QR을 찍고 승인하세요</p>
+                      <p class="h">{en ? <>User authentication</> : <>사용자 인증</>}</p>
+                      <p class="sub">{en ? <>Scan the QR code with your phone and approve</> : <>휴대폰으로 QR을 찍고 승인하세요</>}</p>
                       <svg class="qr" viewBox="-1.5 -1.5 24 24" aria-hidden="true"><rect x="-1.5" y="-1.5" width="24" height="24" rx="1.5" fill="#fff" /><path d={qr} fill="#0f141c" /></svg>
-                      <p class="wait">승인 대기 중</p>
+                      <p class="wait">{en ? <>Waiting for approval</> : <>승인 대기 중</>}</p>
                     </div>
                     <div class="layer in final" style={at(5.6)}>
                       <span class="big-ok"><Icon name="check" size={28} /></span>
-                      <p class="h">업무 접속 준비 완료</p>
-                      <p class="sub">이 PC를 쓰는 사람이 확인됐습니다</p>
+                      <p class="h">{en ? <>Ready for work</> : <>업무 접속 준비 완료</>}</p>
+                      <p class="sub">{en ? <>The person using this PC is verified</> : <>이 PC를 쓰는 사람이 확인됐습니다</>}</p>
                     </div>
                   </div>
                 </div>
                 <div class="phone">
                   <span class="notch"></span>
                   <div class="layer win" style={win(0, 1.8)}>
-                    <p class="ph-t">QR 스캔</p>
+                    <p class="ph-t">{en ? <>Scan QR</> : <>QR 스캔</>}</p>
                     <div class="cam"><svg class="qr" viewBox="-1.5 -1.5 24 24" aria-hidden="true"><rect x="-1.5" y="-1.5" width="24" height="24" rx="1.5" fill="#fff" /><path d={qr} fill="#0f141c" /></svg><i class="scanline"></i></div>
                   </div>
                   <div class="layer win" style={win(1.8, 4.4)}>
-                    <p class="ph-t">본인 확인</p>
-                    <p class="ph-m">이 PC를 내 계정으로 사용합니다</p>
-                    <span class="ph-opt">생체 인증 사용</span>
-                    <span class="ph-btn in" style={at(3.4)}>승인</span>
+                    <p class="ph-t">{en ? <>Verify identity</> : <>본인 확인</>}</p>
+                    <p class="ph-m">{en ? <>Use this PC with my account</> : <>이 PC를 내 계정으로 사용합니다</>}</p>
+                    <span class="ph-opt">{en ? <>Use biometrics</> : <>생체 인증 사용</>}</span>
+                    <span class="ph-btn in" style={at(3.4)}>{en ? <>Approve</> : <>승인</>}</span>
                   </div>
                   <div class="layer win" style={win(4.4, 5.4)}>
                     <span class="ring"><Icon name="user" size={30} /></span>
-                    <p class="ph-m">생체 인증</p>
+                    <p class="ph-m">{en ? <>Biometrics</> : <>생체 인증</>}</p>
                   </div>
                   <div class="layer in final" style={at(5.4)}>
                     <span class="big-ok"><Icon name="check" size={30} /></span>
-                    <p class="ph-m">승인 완료</p>
+                    <p class="ph-m">{en ? <>Approved</> : <>승인 완료</>}</p>
                   </div>
                 </div>
               </div>
@@ -141,18 +143,18 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
 
             {s.k === 'portal' && (
               <div class="win-frame browser">
-                <div class="bar-top"><i></i><i></i><i></i><span class="addr"><Icon name="lock" size={12} />업무 포털</span></div>
+                <div class="bar-top"><i></i><i></i><i></i><span class="addr"><Icon name="lock" size={12} />{en ? <>Work portal</> : <>업무 포털</>}</span></div>
                 <div class="portal">
                   <aside class="side"><b></b><b></b><b></b><b></b></aside>
                   <div class="p-main">
                     <div class="layer win" style={win(0, 1.1)}><div class="skel"><b></b><b></b><b></b><b></b></div></div>
                     <div class="layer in final" style={at(1.1)}>
-                      <p class="p-h">오늘의 업무</p>
+                      <p class="p-h">{en ? <>Today's work</> : <>오늘의 업무</>}</p>
                       <ul class="cards">
-                        <li><span>결재 대기</span><b>3</b></li><li><span>새 메일</span><b>12</b></li><li><span>오늘 일정</span><b>2</b></li><li><span>공지</span><b>1</b></li>
+                        <li><span>{en ? <>To approve</> : <>결재 대기</>}</span><b>3</b></li><li><span>{en ? <>New mail</> : <>새 메일</>}</span><b>12</b></li><li><span>{en ? <>Events today</> : <>오늘 일정</>}</span><b>2</b></li><li><span>{en ? <>Notices</> : <>공지</>}</span><b>1</b></li>
                       </ul>
-                      <p class="chip ok in" style={at(1.9)}><Icon name="check" size={14} />다시 로그인 없이 연결됨</p>
-                      <p class="signals in" style={at(2.8)}>매 순간 확인 <i class="sig" style={at(3.2)}>PC</i><i class="sig" style={at(3.5)}>휴대폰</i><i class="sig" style={at(3.8)}>네트워크</i></p>
+                      <p class="chip ok in" style={at(1.9)}><Icon name="check" size={14} />{en ? <>Connected without logging in again</> : <>다시 로그인 없이 연결됨</>}</p>
+                      <p class="signals in" style={at(2.8)}>{en ? 'Checked at every moment ' : '매 순간 확인 '}<i class="sig" style={at(3.2)}>PC</i><i class="sig" style={at(3.5)}>{en ? <>Phone</> : <>휴대폰</>}</i><i class="sig" style={at(3.8)}>{en ? <>Network</> : <>네트워크</>}</i></p>
                     </div>
                   </div>
                 </div>
@@ -161,19 +163,19 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
 
             {s.k === 'xcheck' && (
               <div class="win-frame xc">
-                <div class="bar-top"><i></i><i></i><i></i><span>요청 판정 · 다중 신호 교차 검증</span></div>
+                <div class="bar-top"><i></i><i></i><i></i><span>{en ? <>Request decision · Multi-Signal Cross Check</> : <>요청 판정 · 다중 신호 교차 검증</>}</span></div>
                 <div class="xc-body">
                   {[0, 1].map((ph) => (
                     <div class={`layer ${ph ? 'in final' : 'win'}`} style={ph ? at(5.8) : win(0, 5.8)}>
-                      <p class={`case ${ph ? 'warn' : 'ok'}`}>{ph ? '카페로 자리를 옮겨 접속' : '사무실에서 평소 접속'}</p>
-                      <div class="xc-row head"><span>신호</span><span>업무 PC</span><span>휴대폰</span><span></span></div>
+                      <p class={`case ${ph ? 'warn' : 'ok'}`}>{ph ? (en ? 'Connecting from a cafe' : '카페로 자리를 옮겨 접속') : (en ? 'Usual access from the office' : '사무실에서 평소 접속')}</p>
+                      <div class="xc-row head"><span>{en ? <>Signal</> : <>신호</>}</span><span>{en ? <>Work PC</> : <>업무 PC</>}</span><span>{en ? <>Phone</> : <>휴대폰</>}</span><span></span></div>
                       {sigs.map((g, j) => {
                         const v = ph ? g.b : g.a, chg = ph && g.chg, t0 = (ph ? 6.2 : 0.4) + j * 0.3;
-                        return <div class="xc-row in" style={at(t0)}><span>{g.n}</span><span class={chg ? 'chg' : ''}>{v[0]}</span><span class={chg ? 'chg' : ''}>{v[1]}</span><em class={`mark in ${chg ? 'warn' : 'ok'}`} style={at(t0 + 0.9)}>{chg ? '바뀜' : '일치'}</em></div>;
+                        return <div class="xc-row in" style={at(t0)}><span>{g.n}</span><span class={chg ? 'chg' : ''}>{v[0]}</span><span class={chg ? 'chg' : ''}>{v[1]}</span><em class={`mark in ${chg ? 'warn' : 'ok'}`} style={at(t0 + 0.9)}>{chg ? (en ? 'Changed' : '바뀜') : (en ? 'Match' : '일치')}</em></div>;
                       })}
                       {ph
-                        ? <><p class="verdict warn in" style={at(8.4)}>본인 확인 때와 네트워크가 바뀜, 휴대폰으로 추가 인증 요청</p><p class="verdict ok in" style={at(10)}>직원이 생체 인증으로 승인해 다시 허용</p></>
-                        : <p class="verdict ok in" style={at(3.6)}>모든 신호가 맞아 허용</p>}
+                        ? <><p class="verdict warn in" style={at(8.4)}>{en ? <>Network changed since identity check, step-up requested on phone</> : <>본인 확인 때와 네트워크가 바뀜, 휴대폰으로 추가 인증 요청</>}</p><p class="verdict ok in" style={at(10)}>{en ? <>Employee approved with biometrics, allowed again</> : <>직원이 생체 인증으로 승인해 다시 허용</>}</p></>
+                        : <p class="verdict ok in" style={at(3.6)}>{en ? <>All signals match, allowed</> : <>모든 신호가 맞아 허용</>}</p>}
                     </div>
                   ))}
                 </div>
@@ -182,30 +184,30 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
 
             {s.k === 'lost' && (
               <div class="win-frame log lost">
-                <div class="bar-top"><i></i><i></i><i></i><span>관리 콘솔 · 기기와 인증서</span></div>
+                <div class="bar-top"><i></i><i></i><i></i><span>{en ? <>Admin Console · Devices and certificates</> : <>관리 콘솔 · 기기와 인증서</>}</span></div>
                 <div class="log-body">
-                  <div class="log-row dev head"><span>기기</span><span>사용자</span><span>인증서</span><span></span></div>
+                  <div class="log-row dev head"><span>{en ? <>Device</> : <>기기</>}</span><span>{en ? <>User</> : <>사용자</>}</span><span>{en ? <>Certificate</> : <>인증서</>}</span><span></span></div>
                   {devices.map((d, j) => (
                     <div class={`log-row dev ${j === 0 ? 'pick' : ''}`}>
                       <span>{d.n}</span><span>{d.who}</span>
-                      <span class="stack">{j === 0 ? <><em class="tag ok win" style={win(0, 2.2)}>유효</em><em class="tag stop in" style={at(2.2)}>폐기됨</em></> : <em class="tag ok">유효</em>}</span>
-                      <span>{j === 0 && <b class="revoke in" style={at(0.8)}>인증서 폐기</b>}</span>
+                      <span class="stack">{j === 0 ? <><em class="tag ok win" style={win(0, 2.2)}>{en ? <>Valid</> : <>유효</>}</em><em class="tag stop in" style={at(2.2)}>{en ? <>Revoked</> : <>폐기됨</>}</em></> : <em class="tag ok">{en ? <>Valid</> : <>유효</>}</em>}</span>
+                      <span>{j === 0 && <b class="revoke in" style={at(0.8)}>{en ? <>Revoke certificate</> : <>인증서 폐기</>}</b>}</span>
                     </div>
                   ))}
-                  <p class="sub-h in" style={at(3.2)}>다음 요청</p>
-                  <div class="log-row req in" style={at(3.6)}><span class="c-t">18:20:11</span><span>업무 PC · 직원 A → 그룹웨어</span><span><em class="tag stop">거부</em></span><span class="why">인증서 폐기됨</span></div>
-                  <p class="chain in" style={at(4.6)}><Icon name="shield" size={14} />폐기 정보는 게이트웨이에 바로 전달됩니다</p>
+                  <p class="sub-h in" style={at(3.2)}>{en ? <>Next request</> : <>다음 요청</>}</p>
+                  <div class="log-row req in" style={at(3.6)}><span class="c-t">18:20:11</span><span>{en ? <>Work PC · Staff A → Groupware</> : <>업무 PC · 직원 A → 그룹웨어</>}</span><span><em class="tag stop">{en ? <>Deny</> : <>거부</>}</em></span><span class="why">{en ? <>Certificate revoked</> : <>인증서 폐기됨</>}</span></div>
+                  <p class="chain in" style={at(4.6)}><Icon name="shield" size={14} />{en ? <>Revocation reaches the gateway right away</> : <>폐기 정보는 게이트웨이에 바로 전달됩니다</>}</p>
                 </div>
               </div>
             )}
 
             {s.k === 'audit' && (
               <div class="win-frame log">
-                <div class="bar-top"><i></i><i></i><i></i><span>감사 기록</span></div>
+                <div class="bar-top"><i></i><i></i><i></i><span>{en ? <>Audit log</> : <>감사 기록</>}</span></div>
                 <div class="log-body">
-                  <div class="log-row head"><span class="c-t">시각</span><span>사용자</span><span class="c-to">대상</span><span>판정</span><span>근거</span></div>
+                  <div class="log-row head"><span class="c-t">{en ? <>Time</> : <>시각</>}</span><span>{en ? <>User</> : <>사용자</>}</span><span class="c-to">{en ? <>Target</> : <>대상</>}</span><span>{en ? <>Decision</> : <>판정</>}</span><span>{en ? <>Reason</> : <>근거</>}</span></div>
                   {audit.map((r) => <div class="log-row in" style={at(r.at)}><span class="c-t">{r.t}</span><span>{r.who}</span><span class="c-to">{r.to}</span><span><em class={`tag ${r.v}`}>{r.l}</em></span><span class="why">{r.why}</span></div>)}
-                  <p class="chain in" style={at(5.2)}><Icon name="lock" size={14} />각 기록은 앞 기록과 이어져 저장됩니다</p>
+                  <p class="chain in" style={at(5.2)}><Icon name="lock" size={14} />{en ? <>Each record is stored chained to the one before</> : <>각 기록은 앞 기록과 이어져 저장됩니다</>}</p>
                 </div>
               </div>
             )}
@@ -214,61 +216,61 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
               // CEO, 2026-11-16: Trust Gateway sits between the merchant and the PG or card company; it detects and advises,
               // the PG or card company decides
               <div class="flow">
-                <div class="node in" style={at(0.2)}><span class="ico"><Icon name="phone" size={24} /></span><b>고객 · 가맹점</b><small>카드 결제</small></div>
+                <div class="node in" style={at(0.2)}><span class="ico"><Icon name="phone" size={24} /></span><b>{en ? <>Customer · merchant</> : <>고객 · 가맹점</>}</b><small>{en ? <>Card payment</> : <>카드 결제</>}</small></div>
                 <div class="link">
-                  <em class="in" style={at(0.6)}>거래 정보 + 기기 신호</em>
+                  <em class="in" style={at(0.6)}>{en ? <>Transaction data + device signals</> : <>거래 정보 + 기기 신호</>}</em>
                   <span class="lane fwd"><i class="dot" style={at(0.6)}></i></span>
                   <span class="lane back"><i class="dot" style={at(6.2)}></i></span>
-                  <em class="in" style={at(6.6)}>승인 또는 본인 확인</em>
+                  <em class="in" style={at(6.6)}>{en ? <>Approval or identity check</> : <>승인 또는 본인 확인</>}</em>
                 </div>
-                <div class="node tg in" style={at(0.4)}><span class="ico"><Icon name="shield" size={24} /></span><b>Trust Gateway</b><small>이상거래 탐지</small><span class="eval win" style={win(1.6, 2.8)}>탐지 중</span><span class="recs in" style={at(2.8)}><i class="ok">이상 없음</i><i class="warn">주의 알림</i><i class="stop">위험 알림</i></span></div>
+                <div class="node tg in" style={at(0.4)}><span class="ico"><Icon name="shield" size={24} /></span><b>Trust Gateway</b><small>{en ? <>Fraud detection</> : <>이상거래 탐지</>}</small><span class="eval win" style={win(1.6, 2.8)}>{en ? <>Detecting</> : <>탐지 중</>}</span><span class="recs in" style={at(2.8)}><i class="ok">{en ? <>No anomaly</> : <>이상 없음</>}</i><i class="warn">{en ? <>Caution alert</> : <>주의 알림</>}</i><i class="stop">{en ? <>Risk alert</> : <>위험 알림</>}</i></span></div>
                 <div class="link">
-                  <em class="in" style={at(3)}>알림 · 권고 + 근거</em>
+                  <em class="in" style={at(3)}>{en ? <>Alert · recommendation + reasons</> : <>알림 · 권고 + 근거</>}</em>
                   <span class="lane fwd"><i class="dot" style={at(3)}></i></span>
                   <span class="lane back"><i class="dot" style={at(5.2)}></i></span>
-                  <em class="in" style={at(5.6)}>결정 결과</em>
+                  <em class="in" style={at(5.6)}>{en ? <>Decision result</> : <>결정 결과</>}</em>
                 </div>
-                <div class="node in" style={at(0.6)}><span class="ico"><Icon name="server" size={24} /></span><b>PG · 카드사</b><small>결제 처리 · FDS</small><span class="decide in" style={at(4.2)}>최종 결정</span></div>
+                <div class="node in" style={at(0.6)}><span class="ico"><Icon name="server" size={24} /></span><b>{en ? <>PG · card company</> : <>PG · 카드사</>}</b><small>{en ? <>Payment processing · FDS</> : <>결제 처리 · FDS</>}</small><span class="decide in" style={at(4.2)}>{en ? <>Final decision</> : <>최종 결정</>}</span></div>
               </div>
             )}
 
             {s.k === 'paysig' && (
               <div class="sig-board">
-                <p class="sb-h in" style={at(0.2)}>이 고객의 평소 결제와 비교해 봅니다</p>
+                <p class="sb-h in" style={at(0.2)}>{en ? <>Compared with this customer's usual payments</> : <>이 고객의 평소 결제와 비교해 봅니다</>}</p>
                 <ul class="sig-grid">{paySignals.map((g, j) => <li class="in" style={at(0.6 + j * 0.25)}><Icon name={g.i} size={18} /><span>{g.t}</span></li>)}</ul>
-                <p class="sb-m in" style={at(3.4)}>신호를 하나씩 따로 보지 않고 함께 봅니다. 이 고객의 평소 결제에서 얼마나 벗어났는지 계산하고, 알려진 위험 조건에 걸리는지 함께 봐서 이상거래를 찾습니다.</p>
-                <p class="sb-r in" style={at(5)}><span class="badge ok">이상 없음</span><span class="badge warn">주의 알림</span><span class="badge stop">위험 알림</span><span>중 하나로 근거와 함께 알립니다</span></p>
+                <p class="sb-m in" style={at(3.4)}>{en ? <>Signals are looked at together, not one by one. It calculates how far a payment departs from this customer's usual payments, and also checks whether known risk conditions are met, to find suspicious transactions.</> : <>신호를 하나씩 따로 보지 않고 함께 봅니다. 이 고객의 평소 결제에서 얼마나 벗어났는지 계산하고, 알려진 위험 조건에 걸리는지 함께 봐서 이상거래를 찾습니다.</>}</p>
+                <p class="sb-r in" style={at(5)}><span class="badge ok">{en ? <>No anomaly</> : <>이상 없음</>}</span><span class="badge warn">{en ? <>Caution alert</> : <>주의 알림</>}</span><span class="badge stop">{en ? <>Risk alert</> : <>위험 알림</>}</span><span>{en ? <>One of these is sent, with the reasons</> : <>중 하나로 근거와 함께 알립니다</>}</span></p>
               </div>
             )}
 
             {Object.entries(cases).filter(([k]) => k === s.k).map(([, c]) => (
               <div class="case-stage">
                 <div class="card in" style={at(0.2)}>
-                  <p class="card-h">결제 상황</p>
-                  <ul class="sit">{c.rows.map(([k, v, same], j) => <li class="in" style={at(0.5 + j * 0.35)}><span class="rk">{k}</span><span class="rv">{v}</span><em class={`tag ${same ? 'ok' : c.tone}`}>{same ? '평소와 같음' : '평소와 다름'}</em></li>)}</ul>
+                  <p class="card-h">{en ? <>Payment details</> : <>결제 상황</>}</p>
+                  <ul class="sit">{c.rows.map(([k, v, same], j) => <li class="in" style={at(0.5 + j * 0.35)}><span class="rk">{k}</span><span class="rv">{v}</span><em class={`tag ${same ? 'ok' : c.tone}`}>{same ? (en ? 'Usual' : '평소와 같음') : (en ? 'Unusual' : '평소와 다름')}</em></li>)}</ul>
                 </div>
                 <span class="arrow in" style={at(2.2)} aria-hidden="true"></span>
                 <div class="card in" style={at(2.4)}>
-                  <p class="card-h">Trust Gateway 탐지 결과</p>
+                  <p class="card-h">{en ? <>Trust Gateway detection result</> : <>Trust Gateway 탐지 결과</>}</p>
                   <span class={`badge big ${c.tone}`}>{c.label}</span>
-                  <p class="k">위험도</p>
-                  <div class="level">{['낮음', '보통', '높음'].map((l, j) => <span class={j === c.level ? `on ${c.tone}` : ''}>{l}</span>)}</div>
-                  <p class="k">이유</p>
+                  <p class="k">{en ? <>Risk level</> : <>위험도</>}</p>
+                  <div class="level">{(en ? ['Low', 'Medium', 'High'] : ['낮음', '보통', '높음']).map((l, j) => <span class={j === c.level ? `on ${c.tone}` : ''}>{l}</span>)}</div>
+                  <p class="k">{en ? <>Reasons</> : <>이유</>}</p>
                   <ul class="why-list">{c.why.map((w, j) => <li class="in" style={at(3.2 + j * 0.3)}>{w}</li>)}</ul>
-                  <p class="act in" style={at(4.4)}><b>고객사 FDS에 전달</b>{c.act}</p>
+                  <p class="act in" style={at(4.4)}><b>{en ? <>Sent to the client's FDS</> : <>고객사 FDS에 전달</>}</b>{c.act}</p>
                 </div>
               </div>
             ))}
 
             {s.k === 'fds' && (
               <div class="win-frame log fds">
-                <div class="bar-top"><i></i><i></i><i></i><span>리포트 · FDS 점검</span></div>
+                <div class="bar-top"><i></i><i></i><i></i><span>{en ? <>Report · FDS check</> : <>리포트 · FDS 점검</>}</span></div>
                 <div class="log-body">
-                  <div class="log-row rule head"><span>고객사 FDS 규칙</span><span>분석 결과</span></div>
+                  <div class="log-row rule head"><span>{en ? <>Client FDS rule</> : <>고객사 FDS 규칙</>}</span><span>{en ? <>Analysis</> : <>분석 결과</>}</span></div>
                   {fdsRules.map((x, j) => <div class="log-row rule in" style={at(0.4 + j * 0.6)}><span>{x.r}</span><span><em class={`tag ${x.v}`}>{x.l}</em></span></div>)}
-                  <div class="log-row rule miss in" style={at(3.2)}><span>미탐 · 규칙이 없는 유형</span><span><em class="tag stop">소액 결제를 여러 번 나누는 수법</em></span></div>
-                  <div class="log-row rule miss in" style={at(3.8)}><span>권고 뒤 승인된 거래</span><span><em class="tag warn">리포트로 다시 알림</em></span></div>
-                  <p class="sub-h in" style={at(4.8)}>고칠 점 추천</p>
+                  <div class="log-row rule miss in" style={at(3.2)}><span>{en ? <>Missed · no rule for this pattern</> : <>미탐 · 규칙이 없는 유형</>}</span><span><em class="tag stop">{en ? <>Splitting into many small payments</> : <>소액 결제를 여러 번 나누는 수법</>}</em></span></div>
+                  <div class="log-row rule miss in" style={at(3.8)}><span>{en ? <>Approved after a recommendation</> : <>권고 뒤 승인된 거래</>}</span><span><em class="tag warn">{en ? <>Flagged again in a report</> : <>리포트로 다시 알림</>}</em></span></div>
+                  <p class="sub-h in" style={at(4.8)}>{en ? <>Suggested fixes</> : <>고칠 점 추천</>}</p>
                   <ul class="tips">{fdsTips.map((t, j) => <li class="in" style={at(5.2 + j * 0.4)}><Icon name="check" size={14} />{t}</li>)}</ul>
                 </div>
               </div>
@@ -284,7 +286,7 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
           {tr.shots.map((s, i) => <p class="now-d" hidden={i !== 0}><b class="q">{s.q}</b>{s.d}</p>)}
           <button class="pause" type="button" aria-pressed="false">
             <span class="i-pause"><Icon name="pause" size={18} /></span><span class="i-play"><Icon name="play" size={18} /></span>
-            <span class="pause-t">일시정지</span>
+            <span class="pause-t" data-play={en ? 'Play' : '재생'} data-pause={en ? 'Pause' : '일시정지'}>{en ? <>Pause</> : <>일시정지</>}</span>
           </button>
         </div>
       </div>
@@ -581,7 +583,7 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
     const reel = () => reels[r];
     const setPaused = (p: boolean) => {
       demo.classList.toggle('paused', p);
-      for (const x of reels) { x.pauseBtn.setAttribute('aria-pressed', String(p)); x.pauseT.textContent = p ? '재생' : '일시정지'; }
+      for (const x of reels) { x.pauseBtn.setAttribute('aria-pressed', String(p)); x.pauseT.textContent = (p ? x.pauseT.dataset.play : x.pauseT.dataset.pause)!; }
     };
     const progress = () => reel().chs.forEach((c, k) => c.style.setProperty('--p', String(k < i ? 1 : k === i ? Math.min(1, elapsed / reel().shots[i].dur) : 0)));
     const loop = (now: number) => {

@@ -1,37 +1,45 @@
 ---
-import { nav, cta } from '../data/site';
+import { nav as navAll, cta as ctaAll, menu } from '../data/site';
+import { langOf, twin, href } from '../lib/i18n';
 interface Props { tone?: 'night' | 'light' }
 const { tone = 'night' } = Astro.props;
+const lang = langOf(Astro.url);
+const en = lang === 'en';
+const nav = menu(navAll, lang);
+const [cta] = menu([ctaAll], lang);
+const home = href('/', lang);
+const other = twin(Astro.url); // this page in the other language
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
-const isOn = (href: string) => path === href || path.startsWith(href + '/');
-const KEY = '/trust-gateway'; // the main product turns brand orange only while you are on its page (user, 2026-11-13)
+const bare = (h: string) => h.replace(/\/$/, '') || '/';
+const isOn = (h: string) => { const x = bare(h); return path === x || (x !== '/' && x !== '/en' && path.startsWith(x + '/')); };
+const KEY = href('/trust-gateway', lang); // the main product turns brand orange only while you are on its page (user, 2026-11-13)
 ---
 <header class="hdr" data-tone={tone} data-scrolled="false" data-hidden="false">
   <div class="hdr-row">
     <div class="hdr-bar">
-      <a href="/" class="brand" aria-label="신영이노베이션 홈">
+      <a href={home} class="brand" aria-label={en ? 'SYINNOVATION home' : '신영이노베이션 홈'}>
         <img src="/images/brand/syinnovation-logo-web.svg" alt="SYINNOVATION RE:Think innovation" width="300" height="57" />
       </a>
-      <nav class="menu" aria-label="주요 메뉴">
+      <nav class="menu" aria-label={en ? 'Main menu' : '주요 메뉴'}>
         {nav.map((n) => n.children
           ? <div class="sub" data-open="false">
-              <button type="button" class="sub-top" aria-expanded="false" aria-controls={`sub-${n.href.slice(1)}`} data-on={isOn(n.href) ? 'true' : undefined}>
+              <button type="button" class="sub-top" aria-expanded="false" aria-controls={`sub-${n.en.toLowerCase()}`} data-on={isOn(n.href) ? 'true' : undefined}>
                 {n.label}<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
               </button>
-              <div class="sub-panel" id={`sub-${n.href.slice(1)}`}>
-                {n.children.map((c) => <a href={c.href} aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>)}
+              <div class="sub-panel" id={`sub-${n.en.toLowerCase()}`}>
+                {n.children.map((c) => <a href={c.href} aria-current={path === bare(c.href) ? 'page' : undefined}>{c.label}</a>)}
               </div>
             </div>
           : <a href={n.href} class:list={{ key: n.href === KEY && isOn(n.href) }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
       </nav>
-      <!-- Korean and English versions only; the English site is not built yet -->
-      <div class="lang" role="group" aria-label="언어">
-        <!-- the current language is a mark, not a link: clicking it did nothing useful (went home, then reloaded the page;
-             user 2026-11-16). When English pages come, EN becomes the link to this page's English twin. -->
-        <span lang="ko" aria-current="true" title="현재 언어: 한국어">KO</span>
-        <span lang="en" aria-disabled="true" title="영문 페이지 준비 중">EN</span>
+      <!-- Korean and English versions only. The current language is a mark, not a link (clicking it did nothing useful,
+           user 2026-11-16); the other one links to this page's twin. -->
+      <div class="lang" role="group" aria-label={en ? 'Language' : '언어'}>
+        {en
+          ? <><a lang="ko" href={other} hreflang="ko" title="한국어로 보기">KO</a><span lang="en" aria-current="true" title="Current language: English">EN</span></>
+          : <><span lang="ko" aria-current="true" title="현재 언어: 한국어">KO</span><a lang="en" href={other} hreflang="en" title="View in English">EN</a></>}
       </div>
-      <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기">
+      <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label={en ? 'Open menu' : '메뉴 열기'} data-open-label={en ? 'Open menu' : '메뉴 열기'} data-close-label={en ? 'Close menu' : '메뉴 닫기'}>
         <span></span><span></span>
       </button>
     </div>
@@ -41,10 +49,12 @@ const KEY = '/trust-gateway'; // the main product turns brand orange only while 
     {nav.map((n) => n.children
       ? <div class="mobile-group">
           <span class="mobile-head">{n.label}</span>
-          {n.children.map((c) => <a href={c.href} class="mobile-sub" aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>)}
+          {n.children.map((c) => <a href={c.href} class="mobile-sub" aria-current={path === bare(c.href) ? 'page' : undefined}>{c.label}</a>)}
         </div>
       : <a href={n.href} class:list={{ key: n.href === KEY && isOn(n.href) }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
-    <div class="mobile-lang"><span lang="ko" aria-current="true">KO</span><span lang="en" aria-disabled="true">EN 준비 중</span></div>
+    <div class="mobile-lang">{en
+      ? <><a lang="ko" href={other} hreflang="ko">한국어</a><span lang="en" aria-current="true">English</span></>
+      : <><span lang="ko" aria-current="true">한국어</span><a lang="en" href={other} hreflang="en">English</a></>}</div>
   </div>
 </header>
 
@@ -119,7 +129,11 @@ const KEY = '/trust-gateway'; // the main product turns brand orange only while 
 
   .lang { display: flex; align-items: center; gap: 2px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; }
   .lang > * { padding: 6px 8px; border-radius: 999px; }
-  .lang [aria-current='true'] { opacity: 1; cursor: default; }
+  /* the language you are reading is marked like the current menu item; the other one is dimmed until pointed at (user, 2026-11-16) */
+  .lang [aria-current='true'] { opacity: 1; cursor: default; background: rgba(255, 255, 255, .14); }
+  .lang a { opacity: .5; transition: opacity .2s; }
+  .lang a:hover, .lang a:focus-visible { opacity: 1; }
+  .hdr[data-tone='light'] .lang [aria-current='true'], .hdr[data-scrolled='true'] .lang [aria-current='true'] { color: var(--blue); background: var(--mist); }
   .lang [aria-disabled='true'] { opacity: .42; cursor: default; }
 
   /* same size as PacketGo's 접속하기 (136 x 46) */
@@ -142,7 +156,9 @@ const KEY = '/trust-gateway'; // the main product turns brand orange only while 
   .mobile a.mobile-sub { padding: 10px 16px 10px 32px; font-weight: 500; color: var(--ink-2); }
   .mobile a.mobile-sub[aria-current='page'] { color: var(--ink); }
   .mobile-lang { display: flex; gap: 8px; padding: 10px 16px 6px; border-top: 1px solid var(--line); margin-top: 6px; font-size: 14px; font-weight: 600; }
-  .mobile-lang a { padding: 0; }
+  .mobile-lang > * { padding: 4px 10px; border-radius: 999px; }
+  .mobile-lang [aria-current='true'] { color: var(--blue); background: var(--mist); }
+  .mobile-lang a { color: var(--ink-3); }
   .mobile-lang [aria-disabled='true'] { color: var(--ink-3); }
   @media (max-width: 1023px) {
     .hdr { --logo-w: 124px; }
@@ -185,7 +201,7 @@ const KEY = '/trust-gateway'; // the main product turns brand orange only while 
   burger?.addEventListener('click', () => {
     const open = burger.getAttribute('aria-expanded') === 'true';
     burger.setAttribute('aria-expanded', String(!open));
-    burger.setAttribute('aria-label', open ? '메뉴 열기' : '메뉴 닫기');
+    burger.setAttribute('aria-label', (open ? burger.dataset.openLabel : burger.dataset.closeLabel) ?? '');
     if (panel) panel.hidden = open;
     if (hdr) hdr.dataset.hidden = 'false';
   });

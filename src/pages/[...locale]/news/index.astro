@@ -1,33 +1,39 @@
 ---
+import { bothLangs, langOf, href, dateText } from '../../../lib/i18n';
+export const getStaticPaths = bothLangs;
 // 소식 > 사내소식: our own news and articles about us. Layout follows pribit.com/news: centred title, one featured story as a wide card, then a four-column
 // grid of image cards with the source and title laid over the picture. Items without a picture get a brand-blue panel.
-import Base from '../../layouts/Base.astro';
-import PageTitle from '../../components/PageTitle.astro';
-import Icon from '../../components/Icon.astro';
-import ResourceTabs from '../../components/ResourceTabs.astro';
-import NewsCard from '../../components/NewsCard.astro';
-import { sorted, kindLabel, fmt } from '../../data/news';
-import { newsNav } from '../../data/site';
+import Base from '../../../layouts/Base.astro';
+import PageTitle from '../../../components/PageTitle.astro';
+import Icon from '../../../components/Icon.astro';
+import ResourceTabs from '../../../components/ResourceTabs.astro';
+import NewsCard from '../../../components/NewsCard.astro';
+import { sorted, kindLabel, fmt } from '../../../data/news';
+import { newsNav, menu } from '../../../data/site';
+import { ownNewsEn, labelEn } from '../../../data/en';
 
+const lang = langOf(Astro.url);
+const en = lang === 'en';
 // company news and articles about us, newest first (security incidents live on 언론보도)
 const [featured, ...rest] = sorted;
-const href = (n: (typeof sorted)[number]) => n.url ?? `/news/${n.slug}`;
+const link = (n: (typeof sorted)[number]) => n.url ?? href(`/news/${n.slug}`, lang);
 const ext = (n: (typeof sorted)[number]) => (n.url ? { target: '_blank', rel: 'noopener' } : {});
+const fe = en && featured ? ownNewsEn[featured.slug] : undefined; // no English yet: the Korean title, marked
 ---
-<Base title="사내소식" description="신영이노베이션의 사내소식." tone="light">
-  <PageTitle title="소식">신영이노베이션의 소식과 언론 보도,<br />함께 볼 만한 보안 이슈를 놓치지 마세요.<ResourceTabs slot="after" items={newsNav} label="소식 메뉴" /></PageTitle>
+<Base title={en ? 'Company news' : '사내소식'} description={en ? 'Company news from SYINNOVATION, the Zero Trust security company behind Trust Gateway.' : 'Trust Gateway를 만든 제로트러스트 보안 기업, 신영이노베이션의 사내소식.'} tone="light">
+  <PageTitle title={en ? 'News' : '소식'}>{en ? <>Follow SYINNOVATION news and press coverage,<br />and security issues worth a look.</> : <>신영이노베이션의 소식과 언론 보도,<br />함께 볼 만한 보안 이슈를 놓치지 마세요.</>}<ResourceTabs slot="after" items={menu(newsNav, lang)} label={en ? 'News menu' : '소식 메뉴'} /></PageTitle>
 
   <section class="news">
     <div class="wrap">
       {featured && (
-        <a class="feat" href={href(featured)} {...ext(featured)}>
+        <a class="feat" href={link(featured)} {...ext(featured)}>
           <div class={`media ${featured.image ? '' : 'plain'}`}>
             {featured.image ? <img src={featured.image} alt="" style={featured.imagePos && `object-position: ${featured.imagePos}`} /> : <img class="mark" src="/images/brand/symbol-sy-white.svg" alt="" />}
           </div>
           <div class="feat-copy">
-            <span class="src">{kindLabel[featured.kind]} · {featured.source}</span>
-            <h2 class="feat-title">{featured.title}</h2>
-            <span class="date">{fmt(featured.date)}{featured.url && <Icon name="external" size={15} label="새 창에서 원문 열기" />}</span>
+            <span class="src">{en ? labelEn(kindLabel[featured.kind]) : kindLabel[featured.kind]} · {en ? fe?.source ?? labelEn(featured.source) : featured.source}</span>
+            <h2 class="feat-title">{en ? fe?.title ?? <><span lang="ko">{featured.title}</span> <small>(Korean)</small></> : featured.title}</h2>
+            <span class="date">{en ? dateText(featured.date, lang) : fmt(featured.date)}{featured.url && <Icon name="external" size={15} label={en ? 'Open the original in a new window' : '새 창에서 원문 열기'} />}</span>
           </div>
         </a>
       )}

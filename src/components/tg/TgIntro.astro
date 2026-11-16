@@ -21,6 +21,8 @@ import Icon from '../Icon.astro';
 import ConsultBtn from '../ConsultBtn.astro';
 import Person from './intro/Person.astro';
 import Car from './intro/Car.astro';
+import { langOf } from '../../lib/i18n';
+const en = langOf(Astro.url) === 'en';
 
 const T = 93; // seconds, one round
 const W = 4800, H = 400, AREAS = 8; // the street: eight 600 x 400 areas, the last one is the ending
@@ -51,16 +53,16 @@ const enter = (t0: number, t1: number, dx = 0): Step[] => [
 const fade = (t0: number, t1: number): Step[] => [[t0, { opacity: 0 }], [t0 + 0.5, { opacity: 1 }], [t1, { opacity: 1 }], [t1 + 0.5, { opacity: 0 }]];
 
 const chapters = [
-  { n: '출발', area: 0, hold: [0, 7], t: '사무실에서 등록된 PC로 일을 시작합니다. 본인 휴대폰으로 생체 확인을 하면 PC와 휴대폰이 서로 확인해, 이 PC를 지금 누가 쓰는지 알 수 있습니다.' },
-  { n: '밖에서도', area: 1, hold: [8.2, 15], t: '카페나 출장지에서도 같은 기준으로 확인합니다. PC와 휴대폰은 Wi-Fi, 위치, 시간대 같은 신호를 함께 보냅니다.' },
-  { n: '연결', area: 2, hold: [16.2, 22], t: '요청은 암호화된 상호 인증 연결로 Trust Gateway에 갑니다. 그 사이에 수상한 요청도 섞여 있습니다.' },
-  { n: '신호 대조', area: 3, hold: [23.2, 35], t: 'PC와 휴대폰의 신호를 서로 맞춰 봅니다. 같은 장소인지, 같은 Wi-Fi인지, 같은 시간대인지, 평소와 다른지 확인합니다.' },
-  { n: '판정', area: 3, hold: [35, 43], t: '인증서가 있어야 게이트를 지날 수 있고, 확인 결과에 따라 매번 허용, 추가 인증, 거부로 나눕니다.' },
-  { n: '평소와 다를 때', area: 3, hold: [43, 54], t: 'PC와 휴대폰이 서로 다른 곳을 가리키면 휴대폰으로 다시 묻습니다. 본인이 승인하지 않으면 그 요청은 거부됩니다.' },
-  { n: '회사 안으로', area: 4, hold: [55.2, 62], t: '회사 서버는 인터넷에 문을 열지 않습니다. 회사 안의 에이전트가 Trust Gateway에 먼저 연결해 두고, 요청은 그 연결로만 들어갑니다.' },
-  { n: '도착', area: 5, hold: [63.2, 70], t: '허락된 업무 시스템만 열리고, 확인된 신원이 함께 전달됩니다. 나머지는 닫혀 있습니다.' },
-  { n: '기록', area: 6, hold: [71.2, 79], t: '모든 판정은 근거와 함께 남고, 관리자는 관리 콘솔에서 봅니다.' },
-  { n: 'Trust Gateway', area: 7, hold: [80.2, 92], t: '출발부터 기록까지, 모든 요청을 PC와 휴대폰의 신호로 확인합니다. 비밀번호가 새어 나가도 회사 시스템은 열리지 않습니다.' },
+  { n: en ? 'Start' : '출발', area: 0, hold: [0, 7], t: en ? "Work starts on a registered PC in the office. After a biometric check on the user's own phone, the PC and phone check each other, so you can tell who is using this PC now." : '사무실에서 등록된 PC로 일을 시작합니다. 본인 휴대폰으로 생체 확인을 하면 PC와 휴대폰이 서로 확인해, 이 PC를 지금 누가 쓰는지 알 수 있습니다.' },
+  { n: en ? 'Outside too' : '밖에서도', area: 1, hold: [8.2, 15], t: en ? 'At a cafe or on a business trip, the same checks apply. The PC and phone both send signals such as Wi-Fi, location and time zone.' : '카페나 출장지에서도 같은 기준으로 확인합니다. PC와 휴대폰은 Wi-Fi, 위치, 시간대 같은 신호를 함께 보냅니다.' },
+  { n: en ? 'Connection' : '연결', area: 2, hold: [16.2, 22], t: en ? 'Requests reach Trust Gateway over an encrypted, mutually authenticated link. Suspicious ones are mixed in too.' : '요청은 암호화된 상호 인증 연결로 Trust Gateway에 갑니다. 그 사이에 수상한 요청도 섞여 있습니다.' },
+  { n: en ? 'Cross check' : '신호 대조', area: 3, hold: [23.2, 35], t: en ? "It matches the PC's signals against the phone's. It checks for the same place, the same Wi-Fi and the same time zone, and for anything unusual." : 'PC와 휴대폰의 신호를 서로 맞춰 봅니다. 같은 장소인지, 같은 Wi-Fi인지, 같은 시간대인지, 평소와 다른지 확인합니다.' },
+  { n: en ? 'Decision' : '판정', area: 3, hold: [35, 43], t: en ? 'A request needs a certificate to pass the gate. Each time, the check results sort it into Allow, Step-up or Deny.' : '인증서가 있어야 게이트를 지날 수 있고, 확인 결과에 따라 매번 허용, 추가 인증, 거부로 나눕니다.' },
+  { n: en ? 'When unusual' : '평소와 다를 때', area: 3, hold: [43, 54], t: en ? 'When the PC and the phone point to different places, it asks again on the phone. If the user does not approve, that request is denied.' : 'PC와 휴대폰이 서로 다른 곳을 가리키면 휴대폰으로 다시 묻습니다. 본인이 승인하지 않으면 그 요청은 거부됩니다.' },
+  { n: en ? 'Into the company' : '회사 안으로', area: 4, hold: [55.2, 62], t: en ? 'Company servers open no door to the internet. The Internal Agent connects to Trust Gateway from inside first, and requests come in only over that connection.' : '회사 서버는 인터넷에 문을 열지 않습니다. 회사 안의 에이전트가 Trust Gateway에 먼저 연결해 두고, 요청은 그 연결로만 들어갑니다.' },
+  { n: en ? 'Arrival' : '도착', area: 5, hold: [63.2, 70], t: en ? 'Only the permitted business systems open, and the verified identity is passed along. The rest stay closed.' : '허락된 업무 시스템만 열리고, 확인된 신원이 함께 전달됩니다. 나머지는 닫혀 있습니다.' },
+  { n: en ? 'Record' : '기록', area: 6, hold: [71.2, 79], t: en ? 'Every decision is logged with its reasons, and admins see it in the Admin Console.' : '모든 판정은 근거와 함께 남고, 관리자는 관리 콘솔에서 봅니다.' },
+  { n: 'Trust Gateway', area: 7, hold: [80.2, 92], t: en ? 'From start to record, every request is checked with signals from the PC and the phone. Even if a password leaks, company systems do not open.' : '출발부터 기록까지, 모든 요청을 PC와 휴대폰의 신호로 확인합니다. 비밀번호가 새어 나가도 회사 시스템은 열리지 않습니다.' },
 ];
 const still = 3; // 신호 대조: shown still with reduced motion or no JavaScript
 const shift = (a: number) => `translateX(${(-(a * 100) / AREAS).toFixed(4)}%)`;
@@ -87,8 +89,8 @@ const hero = path([
 // the ending: the story's steps gather into the shield
 const SX = 4500, SY = 170;
 const gather = [
-  { t: '등록된 PC', x: 4310, y: 100 }, { t: '본인 휴대폰', x: 4310, y: 180 }, { t: '다중 신호 교차 검증', x: 4310, y: 260 },
-  { t: '매 순간 판정', x: 4690, y: 100 }, { t: '열린 포트 없음', x: 4690, y: 180 }, { t: '판정과 근거 기록', x: 4690, y: 260 },
+  { t: en ? 'Registered PC' : '등록된 PC', x: 4310, y: 100 }, { t: en ? 'Own phone' : '본인 휴대폰', x: 4310, y: 180 }, { t: en ? 'Multi-Signal Cross Check' : '다중 신호 교차 검증', x: 4310, y: 260 },
+  { t: en ? 'Continuous decisions' : '매 순간 판정', x: 4690, y: 100 }, { t: en ? 'No open ports' : '열린 포트 없음', x: 4690, y: 180 }, { t: en ? 'Decision + reasons logged' : '판정과 근거 기록', x: 4690, y: 260 },
 ];
 const draw = (t0: number, t1: number, fillTo?: number): Step[] => [
   [t0, { strokeDashoffset: 1, fillOpacity: 0 }], [t1, { strokeDashoffset: 0, fillOpacity: 0 }], [t1 + 0.6, { strokeDashoffset: 0, fillOpacity: fillTo ?? 0 }],
@@ -116,61 +118,61 @@ const droneTl = (d: (typeof drones)[number]) => move([[d.t, 0, 0], [d.t + 0.5, d
 type Mark = { k: 'chip' | 'ring' | 'float'; tone: string; t?: string; x?: number; y?: number; tl: Step[] };
 const marks: Mark[] = [
   // 출발
-  { k: 'chip', tone: 'ok', t: '등록된 PC', x: 342, y: 145, tl: pop(1, 6.6) },
+  { k: 'chip', tone: 'ok', t: en ? 'Registered PC' : '등록된 PC', x: 342, y: 145, tl: pop(1, 6.6) },
   { k: 'ring', tone: 'ok', x: 415, y: 232, tl: ring(2.5) },
-  { k: 'chip', tone: 'ok', t: '본인 휴대폰 · 생체 확인', x: 500, y: 266, tl: pop(2.6, 6.6) },
+  { k: 'chip', tone: 'ok', t: en ? 'Own phone · biometrics' : '본인 휴대폰 · 생체 확인', x: 500, y: 266, tl: pop(2.6, 6.6) },
   // then the PC and the phone check each other (CEO, 2026-11-16): two dots swap ends along the arc drawn in the office
   { k: 'ring', tone: 'ok', x: 398, y: 170, tl: ring(4.3, 0.8) },
   { k: 'ring', tone: 'ok', x: 426, y: 222, tl: ring(4.3, 0.8) },
-  { k: 'chip', tone: 'ok', t: 'PC와 휴대폰이 서로 확인', x: 525, y: 186, tl: pop(4.2, 6.6) },
+  { k: 'chip', tone: 'ok', t: en ? 'PC-phone mutual check' : 'PC와 휴대폰이 서로 확인', x: 525, y: 186, tl: pop(4.2, 6.6) },
   // 밖에서도: the signals go up from the laptop and the phone
-  { k: 'chip', tone: 'info', t: '같은 기준으로 확인', x: 890, y: 74, tl: pop(9, 14.6) },
+  { k: 'chip', tone: 'info', t: en ? 'Same checks apply' : '같은 기준으로 확인', x: 890, y: 74, tl: pop(9, 14.6) },
   { k: 'float', tone: 'sig', t: 'Wi-Fi', tl: rise(9.2, 11.4, 918, 232, 870, 175) },
-  { k: 'float', tone: 'sig', t: '위치', tl: rise(9.6, 11.8, 938, 232, 950, 165) },
-  { k: 'float', tone: 'sig', t: '시간대', tl: rise(10, 12.2, 989, 262, 1030, 185) },
+  { k: 'float', tone: 'sig', t: en ? 'Location' : '위치', tl: rise(9.6, 11.8, 938, 232, 950, 165) },
+  { k: 'float', tone: 'sig', t: en ? 'Time zone' : '시간대', tl: rise(10, 12.2, 989, 262, 1030, 185) },
   // 연결: the labels ride above their cars
-  { k: 'float', tone: 'info', t: '암호화된 상호 인증 연결', tl: path([[17.2, 1359, 290, 0], [17.5, 1388, 290], [21.4, 1772, 290], [21.6, 1791, 290, 0]]) },
-  { k: 'float', tone: 'no', t: '수상한 요청', tl: path([[18.6, 1410, 326, 0], [18.8, 1421, 328], [19.6, 1531, 322], [20.4, 1641, 332], [21.4, 1762, 328], [21.6, 1780, 328, 0]]) },
+  { k: 'float', tone: 'info', t: en ? 'Encrypted mutual-auth link' : '암호화된 상호 인증 연결', tl: path([[17.2, 1359, 290, 0], [17.5, 1388, 290], [21.4, 1772, 290], [21.6, 1791, 290, 0]]) },
+  { k: 'float', tone: 'no', t: en ? 'Suspicious request' : '수상한 요청', tl: path([[18.6, 1410, 326, 0], [18.8, 1421, 328], [19.6, 1531, 322], [20.4, 1641, 332], [21.4, 1762, 328], [21.6, 1780, 328, 0]]) },
   // 판정
   { k: 'ring', tone: 'ok', x: 2100, y: 222, tl: ring(36.2, 0.8) },
   { k: 'ring', tone: 'ok', x: 2100, y: 282, tl: ring(36.5, 0.8) },
-  { k: 'chip', tone: 'ok', t: '허용', x: 2262, y: 222, tl: pop(36.6, 42.6) },
-  { k: 'chip', tone: 'more', t: '추가 인증 · 휴대폰으로 확인', x: 2262, y: 282, tl: pop(37.2, 38.9) },
+  { k: 'chip', tone: 'ok', t: en ? 'Allow' : '허용', x: 2262, y: 222, tl: pop(36.6, 42.6) },
+  { k: 'chip', tone: 'more', t: en ? 'Step-up · check on phone' : '추가 인증 · 휴대폰으로 확인', x: 2262, y: 282, tl: pop(37.2, 38.9) },
   { k: 'ring', tone: 'more', x: 2262, y: 300, tl: ring(38, 0.9) },
-  { k: 'chip', tone: 'ok', t: '휴대폰 승인 후 허용', x: 2262, y: 282, tl: pop(39, 42.6) },
-  { k: 'chip', tone: 'no', t: '인증서 없음 · 거부', x: 2262, y: 342, tl: pop(37.4, 42.6) },
+  { k: 'chip', tone: 'ok', t: en ? 'Phone approved · Allow' : '휴대폰 승인 후 허용', x: 2262, y: 282, tl: pop(39, 42.6) },
+  { k: 'chip', tone: 'no', t: en ? 'No certificate · Deny' : '인증서 없음 · 거부', x: 2262, y: 342, tl: pop(37.4, 42.6) },
   // 회사 안으로
-  { k: 'chip', tone: 'no', t: '열린 포트 없음', x: 2730, y: 98, tl: pop(56.2, 61.6) },
+  { k: 'chip', tone: 'no', t: en ? 'No open ports' : '열린 포트 없음', x: 2730, y: 98, tl: pop(56.2, 61.6) },
   ...drones.map((d) => ({ k: 'chip', tone: 'no', t: '✕', x: d.x + d.dx, y: d.y + d.dy, tl: pop(d.t + 0.5, 61.6) }) as Mark),
-  { k: 'chip', tone: 'info', t: '에이전트가 먼저 연결해 둔 길', x: 2560, y: 352, tl: pop(58.4, 61.6) },
+  { k: 'chip', tone: 'info', t: en ? 'Path the agent opened first' : '에이전트가 먼저 연결해 둔 길', x: 2560, y: 352, tl: pop(58.4, 61.6) },
   // 도착
-  { k: 'chip', tone: 'ok', t: '열림', x: 3140, y: 124, tl: pop(65, 69.6) },
-  { k: 'chip', tone: 'ok', t: '열림', x: 3300, y: 250, tl: pop(65.2, 69.6) },
-  { k: 'chip', tone: 'ok', t: '열림', x: 3460, y: 124, tl: pop(65.4, 69.6) },
-  { k: 'chip', tone: 'lock', t: '닫힘', x: 3300, y: 138, tl: pop(65.6, 69.6) },
-  { k: 'chip', tone: 'lock', t: '닫힘', x: 3140, y: 262, tl: pop(65.8, 69.6) },
-  { k: 'chip', tone: 'lock', t: '닫힘', x: 3460, y: 262, tl: pop(66, 69.6) },
-  { k: 'chip', tone: 'info', t: '확인된 신원 전달', x: 3300, y: 382, tl: pop(65.6, 69.6) },
+  { k: 'chip', tone: 'ok', t: en ? 'Open' : '열림', x: 3140, y: 124, tl: pop(65, 69.6) },
+  { k: 'chip', tone: 'ok', t: en ? 'Open' : '열림', x: 3300, y: 250, tl: pop(65.2, 69.6) },
+  { k: 'chip', tone: 'ok', t: en ? 'Open' : '열림', x: 3460, y: 124, tl: pop(65.4, 69.6) },
+  { k: 'chip', tone: 'lock', t: en ? 'Closed' : '닫힘', x: 3300, y: 138, tl: pop(65.6, 69.6) },
+  { k: 'chip', tone: 'lock', t: en ? 'Closed' : '닫힘', x: 3140, y: 262, tl: pop(65.8, 69.6) },
+  { k: 'chip', tone: 'lock', t: en ? 'Closed' : '닫힘', x: 3460, y: 262, tl: pop(66, 69.6) },
+  { k: 'chip', tone: 'info', t: en ? 'Verified identity passed on' : '확인된 신원 전달', x: 3300, y: 382, tl: pop(65.6, 69.6) },
   // 기록
   { k: 'ring', tone: 'ok', x: 3895, y: 125, tl: ring(72.4, 1.2) },
-  { k: 'chip', tone: 'info', t: '판정과 근거 기록', x: 3785, y: 104, tl: pop(72.4, 78.6) },
-  { k: 'chip', tone: 'info', t: '관리 콘솔', x: 4044, y: 178, tl: pop(74, 78.6) },
+  { k: 'chip', tone: 'info', t: en ? 'Decision + reasons logged' : '판정과 근거 기록', x: 3785, y: 104, tl: pop(72.4, 78.6) },
+  { k: 'chip', tone: 'info', t: en ? 'Admin Console' : '관리 콘솔', x: 4044, y: 178, tl: pop(74, 78.6) },
   // the ending
   ...gather.map((g, k) => ({ k: 'float', tone: 'info', t: g.t, tl: path([[81.8 + k * 0.5, g.x, g.y, 0], [82.1 + k * 0.5, g.x, g.y], [85.6, g.x, g.y], [86.3, SX, SY + 20, 0]]) }) as Mark),
   { k: 'ring', tone: 'ok', x: SX, y: SY, tl: ring(86.4, 1.2) },
 ];
 
 // panel A, 신호 대조 (tech doc 5.1, 5.2, 5.3)
-const pcSig = ['공인 IP · 위치', 'Wi-Fi', '시간대', '기기 지문 · 보안 상태'];
-const phSig = ['GPS 위치', 'Wi-Fi', '기지국 · 국가', '시간대'];
-const checks = ['같은 장소인가', '같은 Wi-Fi인가', '같은 시간대인가', '접속 국가가 맞는가', '평소 행동과 같은가'];
+const pcSig = en ? ['Public IP · location', 'Wi-Fi', 'Time zone', 'Device fingerprint · security state'] : ['공인 IP · 위치', 'Wi-Fi', '시간대', '기기 지문 · 보안 상태'];
+const phSig = en ? ['GPS location', 'Wi-Fi', 'Cell tower · country', 'Time zone'] : ['GPS 위치', 'Wi-Fi', '기지국 · 국가', '시간대'];
+const checks = en ? ['Same place?', 'Same Wi-Fi?', 'Same time zone?', 'Country matches?', 'Usual behavior?'] : ['같은 장소인가', '같은 Wi-Fi인가', '같은 시간대인가', '접속 국가가 맞는가', '평소 행동과 같은가'];
 // panel B, 평소와 다를 때 (tech doc 5.2 모순 유형, 5.4)
 const odd = [
-  { k: '위치', pc: '마닐라 (공인 IP)', ph: '서울 (GPS)' },
-  { k: '시간대', pc: 'GMT+8', ph: 'GMT+9' },
-  { k: 'Wi-Fi', pc: '처음 보는 AP', ph: '사무실 AP' },
+  { k: en ? 'Location' : '위치', pc: en ? 'Manila (public IP)' : '마닐라 (공인 IP)', ph: en ? 'Seoul (GPS)' : '서울 (GPS)' },
+  { k: en ? 'Time zone' : '시간대', pc: 'GMT+8', ph: 'GMT+9' },
+  { k: 'Wi-Fi', pc: en ? 'New AP' : '처음 보는 AP', ph: en ? 'Office AP' : '사무실 AP' },
 ];
-const after = ['위험 높음', '휴대폰으로 추가 인증', '본인이 승인하지 않음', '이 요청은 거부'];
+const after = en ? ['High risk', 'Step-up on the phone', 'User does not approve', 'This request is denied'] : ['위험 높음', '휴대폰으로 추가 인증', '본인이 승인하지 않음', '이 요청은 거부'];
 
 const capTl = (i: number): Step[] => {
   const [a, b] = chapters[i].hold;
@@ -189,15 +191,15 @@ const shelfYs = [140, 200, 260];
   <div class="wrap hero-grid">
     <div class="hero-copy">
       <p class="eyebrow">Trust Gateway</p>
-      <h1 class="title">Trust Gateway는 제로트러스트 <br />설계 원칙 기반 솔루션입니다</h1>
-      <p class="lead-d">다중 신호 교차 검증을 통해 로그인 접속 이후에도 실시간으로 검증합니다.</p>
+      <h1 class="title">{en ? <>Trust Gateway is a solution <br />built on Zero Trust design principles</> : <>Trust Gateway는 제로트러스트 <br />설계 원칙 기반 솔루션입니다</>}</h1>
+      <p class="lead-d">{en ? <>Through Multi-Signal Cross Check, it verifies in real time, even after login.</> : <>다중 신호 교차 검증을 통해 로그인 접속 이후에도 실시간으로 검증합니다.</>}</p>
       <div class="btn-row">
         <ConsultBtn />
       </div>
     </div>
 
     <div class="show">
-      <p class="sr-only">Trust Gateway가 시작되는 곳부터 끝나는 곳까지 한 요청의 여정입니다. {chapters.map((c) => `${c.n}: ${c.t}`).join(' ')}</p>
+      <p class="sr-only">{en ? <>The journey of one request through Trust Gateway, from start to finish. {chapters.map((c) => `${c.n}: ${c.t}`).join(' ')}</> : <>Trust Gateway가 시작되는 곳부터 끝나는 곳까지 한 요청의 여정입니다. {chapters.map((c) => `${c.n}: ${c.t}`).join(' ')}</>}</p>
       <div class="stage" aria-hidden="true">
         <div class="cam" data-tl={tl(zoom)}>
           <div class="world" data-tl={tl(camera)} style={`transform:${shift(chapters[still].area)}`}>
@@ -244,7 +246,7 @@ const shelfYs = [140, 200, 260];
               <rect x="636" y="172" width="6" height="158" fill="#2a3850" /><circle cx="639" cy="168" r="30" fill="#f6c66a" opacity=".1" /><circle cx="639" cy="168" r="8" fill="#f6c66a" />
               <rect x="690" y="110" width="400" height="220" fill="#1c2d4a" />
               {Array.from({ length: 10 }, (_, k) => <rect x={690 + k * 40} y="110" width="40" height="34" fill={k % 2 ? '#f3e2c4' : '#f6882a'} />)}
-              <rect x="820" y="80" width="140" height="26" rx="13" fill="#24365a" /><text x="890" y="98" text-anchor="middle" font-size="14" font-weight="800" fill="#f6c66a">카페</text>
+              <rect x="820" y="80" width="140" height="26" rx="13" fill="#24365a" /><text x="890" y="98" text-anchor="middle" font-size="14" font-weight="800" fill="#f6c66a">{en ? 'Cafe' : '카페'}</text>
               <rect x="720" y="165" width="340" height="110" rx="4" fill="#22406a" /><rect x="720" y="165" width="340" height="110" rx="4" fill="#f6c66a" opacity=".16" />
               <rect x="1080" y="182" width="30" height="14" rx="3" fill="#3a4d6b" /><circle cx="1088" cy="189" r="2" fill="#63d6b4" />
               {[10, 18, 26].map((r, k) => <path class={`arc d${k}`} d={`M${1095 - r * 0.7} ${178 - r * 0.7} A${r} ${r} 0 0 1 ${1095 + r * 0.7} ${178 - r * 0.7}`} fill="none" stroke="#6f9ee0" stroke-width="2.5" stroke-linecap="round" />)}
@@ -376,17 +378,17 @@ const shelfYs = [140, 200, 260];
               : <i class={`ring ${m.tone}`} style={pos(m.x!, m.y!)} data-tl={tl(m.tl)}></i>
             ))}
             <i class="mover hero" data-tl={tl(hero)}></i>
-            <p class="fin" style={pos(SX, 352)} data-tl={tl([[86.8, { opacity: 0, transform: 'translate(-50%, -20%)' }], [87.4, { opacity: 1, transform: 'translate(-50%, -50%)' }]])}>이것이 Trust Gateway입니다</p>
+            <p class="fin" style={pos(SX, 352)} data-tl={tl([[86.8, { opacity: 0, transform: 'translate(-50%, -20%)' }], [87.4, { opacity: 1, transform: 'translate(-50%, -50%)' }]])}>{en ? 'This is Trust Gateway' : '이것이 Trust Gateway입니다'}</p>
           </div>
         </div>
         <i class="dim" data-tl={tl(dim)}></i>
 
         <!-- panel A: 다중 신호 교차 검증 -->
         <div class="pane pa still" data-tl={tl(fade(23.7, 34.1))}>
-          <p class="pt">다중 신호 교차 검증</p>
+          <p class="pt">{en ? 'Multi-Signal Cross Check' : '다중 신호 교차 검증'}</p>
           <div class="pg">
             <div class="col">
-              <b><Icon name="laptop" size={14} />PC 신호</b>
+              <b><Icon name="laptop" size={14} />{en ? 'PC signals' : 'PC 신호'}</b>
               {pcSig.map((s, k) => <span class="sg" data-tl={tl(enter(24.6 + k * 0.3, 34.1, -14))}>{s}</span>)}
             </div>
             <div class="core">
@@ -396,32 +398,32 @@ const shelfYs = [140, 200, 260];
               </ul>
             </div>
             <div class="col">
-              <b><Icon name="phone" size={14} />휴대폰 신호</b>
+              <b><Icon name="phone" size={14} />{en ? 'Phone signals' : '휴대폰 신호'}</b>
               {phSig.map((s, k) => <span class="sg" data-tl={tl(enter(24.8 + k * 0.3, 34.1, 14))}>{s}</span>)}
             </div>
           </div>
-          <p class="vd ok" data-tl={tl(enter(32, 34.1))}>모두 일치 · 최종 판정 허용</p>
+          <p class="vd ok" data-tl={tl(enter(32, 34.1))}>{en ? 'All match · Final decision: Allow' : '모두 일치 · 최종 판정 허용'}</p>
         </div>
 
         <!-- panel B: 평소와 다를 때 -->
         <div class="pane pb" data-tl={tl(fade(43.2, 53.4))}>
-          <p class="pt">평소와 다른 신호</p>
+          <p class="pt">{en ? 'Unusual signals' : '평소와 다른 신호'}</p>
           <div class="tb">
-            <span class="th">신호</span><span class="th">PC</span><span class="th">휴대폰</span><span class="th">판정</span>
+            <span class="th">{en ? 'Signal' : '신호'}</span><span class="th">PC</span><span class="th">{en ? 'Phone' : '휴대폰'}</span><span class="th">{en ? 'Decision' : '판정'}</span>
             {odd.map((r, k) => (
               <>
                 <span data-tl={tl(enter(44.2 + k * 0.8, 53.4))}>{r.k}</span>
                 <span data-tl={tl(enter(44.2 + k * 0.8, 53.4))}>{r.pc}</span>
                 <span data-tl={tl(enter(44.2 + k * 0.8, 53.4))}>{r.ph}</span>
-                <span data-tl={tl(enter(44.6 + k * 0.8, 53.4))}><em class="bad">불일치</em></span>
+                <span data-tl={tl(enter(44.6 + k * 0.8, 53.4))}><em class="bad">{en ? 'Mismatch' : '불일치'}</em></span>
               </>
             ))}
           </div>
-          <p class="sum" data-tl={tl(enter(46.8, 53.4))}>PC와 휴대폰이 서로 다른 나라를 가리킵니다</p>
+          <p class="sum" data-tl={tl(enter(46.8, 53.4))}>{en ? 'The PC and the phone point to different countries' : 'PC와 휴대폰이 서로 다른 나라를 가리킵니다'}</p>
           <ol class="after">
             {after.map((a, k) => <li class={k === after.length - 1 ? 'end' : ''} data-tl={tl(enter(47.6 + k, 53.4))}>{a}</li>)}
           </ol>
-          <p class="note" data-tl={tl(enter(51.6, 53.4))}>위험이 가장 높은 구간이면 세션을 끝내고 인증서를 폐기합니다.</p>
+          <p class="note" data-tl={tl(enter(51.6, 53.4))}>{en ? 'In the highest risk band, it ends the session and revokes the certificate.' : '위험이 가장 높은 구간이면 세션을 끝내고 인증서를 폐기합니다.'}</p>
         </div>
 
         <i class="veil" data-tl={tl(veil)}></i>
@@ -438,7 +440,7 @@ const shelfYs = [140, 200, 260];
   </div>
 
   <div class="wrap">
-    <ol class="flow" aria-label="Trust Gateway가 시작되는 곳부터 끝나는 곳까지">
+    <ol class="flow" aria-label={en ? 'Trust Gateway from start to finish' : 'Trust Gateway가 시작되는 곳부터 끝나는 곳까지'}>
       {chapters.map((c, i) => (
         <li class={i === still ? 'on' : i < still ? 'done' : ''}>
           <button type="button" aria-pressed={i === still ? 'true' : 'false'}><span class="flow-n">{pad(i)}</span>{c.n}</button>

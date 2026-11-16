@@ -1,8 +1,10 @@
 ---
 // The 사전 컨설팅 button, wherever Trust Gateway asks for the first step (user, 2026-11-16): "사전 컨설팅 신청" with
 // "(무료)" on its own line under it, as tall as a one-line button. Only the 사전 컨설팅 is free; the PoC is not.
+import { langOf, href } from '../lib/i18n';
+const en = langOf(Astro.url) === 'en';
 ---
-<a class="btn primary cbtn" href="/contact?type=poc">사전 컨설팅 신청<small>(무료)</small></a>
+<a class="btn primary cbtn" href={href('/contact?type=poc', en ? 'en' : 'ko')}>{en ? 'Request an initial consultation' : '사전 컨설팅 신청'}<small>{en ? '(Free)' : '(무료)'}</small></a>
 
 <style>
   .btn.cbtn { flex-direction: column; gap: 0; padding-block: 6px; line-height: 1.2; }

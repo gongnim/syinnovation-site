@@ -9,6 +9,10 @@
 import { existsSync } from 'node:fs';
 import { security } from '../../data/news';
 import storiesJson from '../../data/security-stories.json';
+import { securityNewsEn, storiesEn, labelEn } from '../../data/en';
+import { langOf, href, dateText } from '../../lib/i18n';
+const lang = langOf(Astro.url);
+const en = lang === 'en';
 
 const SHOW = 8;
 // written for the card: how it came in (attributed, from the story's cause) and the point Trust Gateway checks
@@ -28,6 +32,29 @@ const lines: Record<string, { path: string; tg: string }> = {
   'kepco-2026-10': { path: '원인은 조사 중입니다. 직원 계정을 공유받아 접속한 사례가 지적됐고, 접속 기록이 남아 있지 않았습니다.', tg: '계정을 빌려도 그 사람의 휴대폰과 기기가 없으면 열리지 않습니다. 모든 판정은 근거와 함께 기록됩니다.' },
   'shinhan-bank-2026-10': { path: '대출모집인 전용 조회 서비스의 본인 확인 절차가 우회됐습니다.', tg: '외부 인력의 업무 접속도 등록된 기기와 휴대폰 확인을 거치고, 매 순간 다시 평가합니다.' },
 };
+// the same lines in English (docs/i18n-terms.md); same hedges, no stronger claim
+const linesEn: Record<string, { path: string; tg: string }> = {
+  'coinone-2026-11': { path: "An outside attacker broke into the server of the contractor that handles customer support. How they got in is under investigation.", tg: "When contractors connect to business systems, they also go through registered-device and phone checks, and are re-evaluated at every moment." },
+  'lazarus-targets-2026-11': { path: "They reportedly targeted a flaw in an unpatched PHP web server, planted a web shell, stole an admin account and moved inside.", tg: "Business systems open no inbound ports to the internet. Even with a stolen admin account, nothing opens without the registered device and the user's own phone." },
+  'chak-2026-11': { path: "An unauthorized outsider got in and viewed some user information. How they got in is under investigation.", tg: "Operator screens and internal lookups open only to requests that pass checks on both the registered device and the user's own phone." },
+  'inje-univ-2026-11': { path: "A server linked to the course website was breached in an outside attack. How they got in has not been disclosed.", tg: "The server's admin screens are not exposed to the internet and accept only requests that pass checks on both the registered device and the user's own phone." },
+  'yellow-umbrella-2026-11': { path: "Signs were found that an unauthorized outsider accessed the website abnormally. The method of access has not been disclosed.", tg: "Internal lookup systems re-check the person and the device at every moment and log every decision with its reasons." },
+  'kakaowork-2026-11': { path: "An outside attacker accessed the work messenger system without authorization. How they got in is under investigation.", tg: "Web-based business systems such as mail and messengers also open only to requests that pass checks on both the registered PC and the user's own phone." },
+  'modu-startup-2026-11': { path: "An attempt to extract data through SQL injection via the admin page was found (according to the company's report).", tg: "The admin page is not exposed to the internet. Only requests that pass checks on both the registered device and the user's own phone reach it." },
+  'kb-capital-2026-11': { path: "The company said lookups from Korean IP addresses came into an internal system used by staff and partners.", tg: "Partner accounts also go through registered-device and phone checks. Even from a Korean IP address, Trust Gateway asks again when something differs from usual." },
+  'fsec-2026-11': { path: "They exploited a system weakness to gain high viewing privileges and accessed it from several IP addresses.", tg: "Even with privileges, the device, the person and the network are re-checked at every moment. When something differs from usual, it asks again on the phone." },
+  'mirae-asset-2026-11': { path: "An unauthorized outsider went through the login service and the groupware and viewed internal data.", tg: "Business apps such as groupware open only to requests that pass checks on both the registered PC and the user's own phone." },
+  'ai-hacking-ring-2026-10': { path: "AI intrusion tools found weaknesses in systems exposed to the internet and broke in on their own.", tg: "Business systems are not exposed to the internet. There are no inbound ports, and only requests from registered devices are accepted." },
+  'korean-air-asiana-2026-10': { path: "Unauthorized access was made with the login details of an account at the reservation system's operator.", tg: "An ID and password alone open nothing. A device certificate and a biometric check on the phone are both required." },
+  'kepco-2026-10': { path: "The cause is under investigation. Cases of logging in with accounts shared by staff were pointed out, and no access logs were kept.", tg: "A borrowed account opens nothing without that person's phone and device. Every decision is logged with its reasons." },
+  'shinhan-bank-2026-10': { path: "The identity verification step of a lookup service for loan agents was bypassed.", tg: "Outside staff connecting for work also go through registered-device and phone checks, and are re-evaluated at every moment." },
+};
+const byKindEn: Record<string, string> = {
+  해킹: "Business systems are not exposed to the internet. Only requests that pass checks on both the registered device and the user's own phone are accepted.",
+  '개인정보 유출': "Internal lookups re-check the person, the device and the network signals at every moment, and ask again on the phone when something differs from usual.",
+  '공급망 공격': "Connections from partners and contractors also go through registered-device and phone checks, and are re-evaluated at every moment.",
+  '계정 탈취': "An ID and password alone open nothing. The registered device and a check on the user's own phone are both required.",
+};
 // for a story without its own lines: what Trust Gateway checks for that kind of incident (tech doc v0.4.3)
 const byKind: Record<string, string> = {
   해킹: '업무 시스템은 인터넷에 문을 열지 않습니다. 등록된 기기와 본인 휴대폰을 함께 확인한 요청만 받습니다.',
@@ -36,7 +63,7 @@ const byKind: Record<string, string> = {
   '계정 탈취': '아이디와 비밀번호만으로는 열리지 않습니다. 등록된 기기와 본인 휴대폰 확인이 함께 필요합니다.',
 };
 const stories = storiesJson as Record<string, { cause?: string[] }>;
-const first = (s: string) => s.match(/^.*?다\.(?=\s|$)/)?.[0] ?? s;
+const first = (s: string) => (en ? s.match(/^.*?\.(?=\s|$)/)?.[0] : s.match(/^.*?다\.(?=\s|$)/)?.[0]) ?? s;
 // labelledBy: the heading lives elsewhere (on home it sits inside the hero's sphere) and labels this section
 const { labelledBy } = Astro.props as { labelledBy?: string };
 const dot = (d: string) => d.slice(0, 10).replaceAll('-', '.');
@@ -48,17 +75,25 @@ const cards = [
       const slug = n.slug!;
       const small = `/images/trust-gateway/inc-${slug}.webp`;
       return {
-        slug, href: `/news/press/${slug}`, ext: false, title: n.title, meta: `${dot(n.date)} · ${n.source} 보도`,
+        slug, href: href(`/news/press/${slug}`, lang), ext: false,
+        title: en ? securityNewsEn[n.url]?.title ?? n.title : n.title,
+        meta: en ? `${dateText(n.date.slice(0, 10), 'en')} · reported by ${labelEn(n.source)}` : `${dot(n.date)} · ${n.source} 보도`,
         img: existsSync(`public${small}`) ? small : n.image,
-        path: lines[slug]?.path ?? first(stories[slug].cause![0]),
-        tg: lines[slug]?.tg ?? byKind[n.type] ?? byKind['해킹'],
+        path: en ? linesEn[slug]?.path ?? first(storiesEn[slug]?.cause?.[0] ?? stories[slug].cause![0]) : lines[slug]?.path ?? first(stories[slug].cause![0]),
+        tg: en ? linesEn[slug]?.tg ?? byKindEn[n.type] ?? byKindEn['해킹'] : lines[slug]?.tg ?? byKind[n.type] ?? byKind['해킹'],
       };
     }),
   {
     slug: 'coupang', href: 'https://v.daum.net/v/20260210170044700', ext: true, img: '/images/trust-gateway/inc-coupang.webp',
-    meta: '2026.02.10 · 과기정통부 조사 결과', title: '쿠팡, 고객 정보 3,367만여 건 유출',
-    path: '퇴사한 개발자가 재직 중 빼낸 인증 서명 키로 토큰을 위조해 접속했습니다. 키는 퇴사 뒤에도 바뀌지 않았습니다.',
-    tg: 'Trust Gateway의 기기 인증 키는 각 기기의 보안 칩 밖으로 나오지 않습니다. 퇴사가 반영되면 인증서가 폐기돼 다음 요청부터 거부됩니다.',
+    ...(en ? {
+      meta: 'Feb 10, 2026 · MSIT investigation findings', title: 'Coupang: more than 33.67 million customer records leaked',
+      path: "A developer who had left the company forged tokens with an authentication signing key taken while still employed, and used them to get in. The key was not changed after they left.",
+      tg: "Trust Gateway's device keys never leave each device's security chip. Once the departure is recorded, the certificate is revoked and requests are denied starting with the next one.",
+    } : {
+      meta: '2026.02.10 · 과기정통부 조사 결과', title: '쿠팡, 고객 정보 3,367만여 건 유출',
+      path: '퇴사한 개발자가 재직 중 빼낸 인증 서명 키로 토큰을 위조해 접속했습니다. 키는 퇴사 뒤에도 바뀌지 않았습니다.',
+      tg: 'Trust Gateway의 기기 인증 키는 각 기기의 보안 칩 밖으로 나오지 않습니다. 퇴사가 반영되면 인증서가 폐기돼 다음 요청부터 거부됩니다.',
+    }),
   },
 ];
 ---
@@ -66,7 +101,7 @@ const cards = [
   {!labelledBy && (
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">최근 심각한 보안 사고, 어디가 뚫렸을까요?</h2>
+        <h2 class="h2">{en ? 'Recent serious security incidents: where did they break in?' : '최근 심각한 보안 사고, 어디가 뚫렸을까요?'}</h2>
       </div>
     </div>
   )}
@@ -79,8 +114,8 @@ const cards = [
             <span class="inc-b">
               <span class="inc-m">{c.meta}</span>
               <b class="inc-t">{c.title}</b>
-              <span class="row in"><span class="k">들어온 길</span>{c.path}</span>
-              <span class="row tg"><span class="k">Trust Gateway가 확인하는 지점</span>{c.tg}</span>
+              <span class="row in"><span class="k">{en ? 'How they got in' : '들어온 길'}</span>{c.path}</span>
+              <span class="row tg"><span class="k">{en ? 'What Trust Gateway checks' : 'Trust Gateway가 확인하는 지점'}</span>{c.tg}</span>
             </span>
           </a>
         </li>
@@ -88,7 +123,7 @@ const cards = [
     </ul>
   </div>
   <div class="wrap">
-    <p class="note">사고 원인은 보도와 발표 기준이며, 조사 결과에 따라 달라질 수 있습니다. 카드를 누르면 사고 정리나 출처를 볼 수 있습니다.</p>
+    <p class="note">{en ? 'Causes follow reports and official announcements and may change as investigations go on. Click a card to see the write-up or the source.' : '사고 원인은 보도와 발표 기준이며, 조사 결과에 따라 달라질 수 있습니다. 카드를 누르면 사고 정리나 출처를 볼 수 있습니다.'}</p>
   </div>
 </section>
 
@@ -184,10 +219,11 @@ const cards = [
     strip.addEventListener('click', (e) => { if (moved > 6) { e.preventDefault(); e.stopPropagation(); moved = 0; } }, true);
     strip.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') hover = true; });
     strip.addEventListener('pointerleave', () => { hover = false; });
-    // keyboard: a focused card is brought into view and the drift waits
+    // keyboard: a focused card is brought into view and the drift waits. A mouse or finger press focuses the card too;
+    // moving the row then slid another card under the pointer and the first click did nothing (user, 2026-11-16)
     strip.addEventListener('focusin', (e) => {
       const card = (e.target as HTMLElement).closest('li');
-      if (!card) return;
+      if (!card || down) return;
       strip.scrollLeft = 0;
       x = card.offsetLeft - (track.firstElementChild as HTMLElement).offsetLeft - (strip.clientWidth - card.offsetWidth) / 2;
       v = 0; hover = true; paint();

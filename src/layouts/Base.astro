@@ -3,20 +3,80 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ScrollNav from '../components/ScrollNav.astro';
-interface Props { title: string; description: string; tone?: 'night' | 'light' }
-const { title, description, tone = 'night' } = Astro.props;
-const fullTitle = title === '신영이노베이션' ? '신영이노베이션 | 제로트러스트 기반 접근 제어 Trust Gateway' : `${title} | 신영이노베이션`;
+import { langOf, twin } from '../lib/i18n';
+import { company, launched, keywords, verify } from '../data/site';
+// SEO (user, 2026-11-16: "SEO 베스트로"): one canonical address per page, its Korean and English twins for search
+// engines, link previews (Open Graph) and, where it helps, schema.org data. Articles pass type 'article', their
+// date, image and the extra structured data.
+interface Props {
+  title: string; description: string; tone?: 'night' | 'light';
+  type?: 'website' | 'article'; published?: string; image?: string; ld?: Record<string, unknown> | Record<string, unknown>[];
+  alternates?: boolean;
+}
+const { title, description, tone = 'night', type = 'website', published, image, ld, alternates = true } = Astro.props;
+const lang = langOf(Astro.url);
+const en = lang === 'en';
+const home = title === (en ? 'SYINNOVATION' : '신영이노베이션');
+// the home page passes the company name as its title and gets the long one (user, 2026-11-16, word for word; the
+// Korean one also spells 제로트러스트 in Hangul so the search word itself is in the title, user OK the same day)
+const fullTitle = en
+  ? (home ? 'SYINNOVATION - Zero Trust · Trust Gateway Security & IT Consulting · Development' : `${title} | SYINNOVATION`)
+  : (home ? '신영이노베이션 - 제로트러스트(ZeroTrust)ㆍTrustGateway 보안 & IT 컨설팅ㆍ개발' : `${title} | 신영이노베이션`);
+const other = twin(Astro.url);
+const abs = (p: string) => new URL(p, Astro.site).href;
+const here = Astro.url.pathname.length > 1 ? Astro.url.pathname.replace(/\/$/, '') : '/';
+const canonical = abs(here);
+const ko = abs(en ? other : here), enUrl = abs(en ? here : other);
+const ogImage = abs(image ?? `/images/og/og-${lang}.png`);
+const siteName = en ? company.nameEn : company.name;
+// who we are, on the home page: the company and the site (one @id each, shared by both languages)
+const org = {
+  '@type': 'Organization', '@id': abs('/#org'), name: siteName, alternateName: en ? [company.name, company.en.legal] : [company.nameEn, '주식회사 신영이노베이션'],
+  legalName: en ? company.en.legal : '주식회사 신영이노베이션', url: abs(en ? '/en' : '/'), logo: abs('/images/og/logo-512.png'), email: company.email,
+  slogan: company.motto,
+  address: { '@type': 'PostalAddress', streetAddress: en ? '11F, 78 Mapo-daero' : '마포대로 78, 11층', addressLocality: en ? 'Mapo-gu' : '마포구', addressRegion: en ? 'Seoul' : '서울특별시', addressCountry: 'KR' },
+};
+const graph = [
+  ...(home ? [org, { '@type': 'WebSite', '@id': abs('/#site'), url: abs(en ? '/en' : '/'), name: siteName, inLanguage: en ? 'en' : 'ko', publisher: { '@id': abs('/#org') } }] : []),
+  ...(ld ? [ld].flat() : []),
+];
 ---
 <!doctype html>
-<html lang="ko">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{fullTitle}</title>
     <meta name="description" content={description} />
-    <meta name="robots" content="noindex, nofollow" />
+    <meta name="keywords" content={keywords[lang]} />
+    <meta name="author" content={en ? company.en.legal : '주식회사 신영이노베이션'} />
+    <!-- kept out of search results until this site replaces the old one at syinnovation.net (launched in src/data/site.ts) -->
+    <meta name="robots" content={launched && alternates ? 'index, follow, max-image-preview:large' : 'noindex, nofollow'} />
+    <link rel="canonical" href={canonical} />
+    {alternates && <>
+      <link rel="alternate" hreflang="ko" href={ko} />
+      <link rel="alternate" hreflang="en" href={enUrl} />
+      <link rel="alternate" hreflang="x-default" href={ko} />
+    </>}
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content={siteName} />
     <meta property="og:title" content={fullTitle} />
     <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content={en ? 'en_US' : 'ko_KR'} />
+    <meta property="og:locale:alternate" content={en ? 'ko_KR' : 'en_US'} />
+    <meta property="og:image" content={ogImage} />
+    {!image && <><meta property="og:image:width" content="1200" /><meta property="og:image:height" content="630" /></>}
+    <meta property="og:image:alt" content={siteName} />
+    {type === 'article' && published && <meta property="article:published_time" content={published} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    {graph.length > 0 && <script type="application/ld+json" set:html={JSON.stringify({ '@context': 'https://schema.org', '@graph': graph })} />}
+    {verify.google && <meta name="google-site-verification" content={verify.google} />}
+    {verify.naver && <meta name="naver-site-verification" content={verify.naver} />}
+    {verify.bing && <meta name="msvalidate.01" content={verify.bing} />}
     <meta name="theme-color" content="#0e1a2b" />
     <!-- the brand symbol as the tab icon (user, 2026-11-16: the tab showed a blank globe) -->
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -26,7 +86,7 @@ const fullTitle = title === '신영이노베이션' ? '신영이노베이션 | �
     <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body>
-    <a href="#main" class="skip">본문으로 건너뛰기</a>
+    <a href="#main" class="skip">{lang === 'en' ? 'Skip to content' : '본문으로 건너뛰기'}</a>
     <Header tone={tone} />
     <main id="main"><slot /></main>
     <Footer />

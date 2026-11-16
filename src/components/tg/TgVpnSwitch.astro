@@ -3,9 +3,17 @@
 // On first view the VPN case plays (the servers open one by one), then it switches to Trust Gateway once, unless the
 // visitor already picked a side. The table under it says the same thing in words.
 import Icon from '../Icon.astro';
+import { langOf } from '../../lib/i18n';
+const en = langOf(Astro.url) === 'en';
 
-const servers = ['그룹웨어', '인사 시스템', '회계', '고객 DB', '개발 서버', '파일 서버'];
-const compare = [
+const servers = en ? ['Groupware', 'HR system', 'Accounting', 'Customer DB', 'Dev server', 'File server'] : ['그룹웨어', '인사 시스템', '회계', '고객 DB', '개발 서버', '파일 서버'];
+const compare = en ? [
+  { k: 'When it checks', vpn: 'Once, at first connection', tg: 'At every moment (each time a work screen opens)' },
+  { k: 'What opens', vpn: 'The whole internal network', tg: 'Only allowed apps and paths' },
+  { k: 'Identity verification', vpn: 'ID and password', tg: 'Device certificate + biometric check on the phone' },
+  { k: 'Location check', vpn: 'None', tg: 'Multi-Signal Cross Check of PC · phone · network' },
+  { k: 'External exposure', vpn: 'The VPN appliance is open to the internet', tg: 'No inbound ports to the internal network are visible' },
+] : [
   { k: '확인 시점', vpn: '처음 접속할 때 한 번', tg: '매 순간 (업무 화면을 열 때마다)' },
   { k: '열리는 범위', vpn: '사내망 전체', tg: '허락된 앱과 경로만' },
   { k: '본인 확인', vpn: '아이디와 비밀번호', tg: '기기 인증서 + 휴대폰 생체 확인' },
@@ -16,39 +24,39 @@ const compare = [
 <section class="section mist" id="vpn">
   <div class="wrap">
     <div class="head-center reveal">
-      <h2 class="h2">계정 하나가 유출되면, <br />어디까지 열릴까요?</h2>
-      <p class="lead">도용된 직원 계정으로 들어온다고 해 봅시다. <br />기존 VPN과 Trust Gateway를 바꿔 가며 보세요.</p>
+      <h2 class="h2">{en ? <>If one account leaks, <br />how much opens up?</> : <>계정 하나가 유출되면, <br />어디까지 열릴까요?</>}</h2>
+      <p class="lead">{en ? <>Say someone gets in with a stolen employee account. <br />Switch between a classic VPN and Trust Gateway.</> : <>도용된 직원 계정으로 들어온다고 해 봅시다. <br />기존 VPN과 Trust Gateway를 바꿔 가며 보세요.</>}</p>
     </div>
 
     <div class="vs reveal" data-mode="vpn">
-      <div class="vs-tabs" role="group" aria-label="비교 대상">
-        <button type="button" data-m="vpn" aria-pressed="true">기존 VPN</button>
+      <div class="vs-tabs" role="group" aria-label={en ? 'Compare' : '비교 대상'}>
+        <button type="button" data-m="vpn" aria-pressed="true">{en ? <>Classic VPN</> : <>기존 VPN</>}</button>
         <button type="button" data-m="tg" aria-pressed="false">Trust Gateway</button>
       </div>
 
       <div class="stage">
         <div class="who">
           <span class="ico"><Icon name="user" size={22} /></span>
-          <b>도용된 직원 계정</b>
+          <b>{en ? <>Stolen employee account</> : <>도용된 직원 계정</>}</b>
           <ul>
-            <li class="ok"><Icon name="check" size={16} />아이디 · 비밀번호</li>
-            <li class="no only-tg">기기 인증서 없음</li>
-            <li class="no only-tg">휴대폰 생체 확인 없음</li>
+            <li class="ok"><Icon name="check" size={16} />{en ? <>ID · password</> : <>아이디 · 비밀번호</>}</li>
+            <li class="no only-tg">{en ? <>No device certificate</> : <>기기 인증서 없음</>}</li>
+            <li class="no only-tg">{en ? <>No biometric check on phone</> : <>휴대폰 생체 확인 없음</>}</li>
           </ul>
         </div>
         <div class="pipe in"><i></i><span class="blk only-tg" aria-hidden="true"></span></div>
         <div class="gate">
           <span class="ico"><Icon name="shield" size={22} /></span>
-          <b><span class="only-vpn">VPN 장비</span><span class="only-tg">Trust Gateway</span></b>
-          <span class="g-s only-vpn">로그인 한 번이면 통과</span>
-          <span class="g-s only-tg">확인 안 되면 여기서 차단</span>
+          <b><span class="only-vpn">{en ? <>VPN appliance</> : <>VPN 장비</>}</span><span class="only-tg">Trust Gateway</span></b>
+          <span class="g-s only-vpn">{en ? <>One login gets you through</> : <>로그인 한 번이면 통과</>}</span>
+          <span class="g-s only-tg">{en ? <>Blocked here if not verified</> : <>확인 안 되면 여기서 차단</>}</span>
         </div>
         <div class="pipe out"><i></i></div>
         <div class="net">
-          <p class="net-t">사내망</p>
+          <p class="net-t">{en ? <>Internal network</> : <>사내망</>}</p>
           <ul class="srv">
             {servers.map((s, i) => (
-              <li style={`--i:${i}`}><Icon name="server" size={18} /><span>{s}</span><em class="only-vpn">열림</em><em class="only-tg">보이지 않음</em></li>
+              <li style={`--i:${i}`}><Icon name="server" size={18} /><span>{s}</span><em class="only-vpn">{en ? <>Open</> : <>열림</>}</em><em class="only-tg">{en ? <>Not visible</> : <>보이지 않음</>}</em></li>
             ))}
           </ul>
         </div>
@@ -58,20 +66,20 @@ const compare = [
           <svg class="bp-svg"><path d="" /></svg>
           <i class="bp-dot"></i>
           <span class="bp-x"></span>
-          <span class="bp-t1">Trust Gateway를 건너뛰고 사내망으로 바로 가 보면</span>
-          <span class="bp-t2">바깥에서 포트가 보이지 않음</span>
+          <span class="bp-t1">{en ? <>Going around Trust Gateway to the internal network</> : <>Trust Gateway를 건너뛰고 사내망으로 바로 가 보면</>}</span>
+          <span class="bp-t2">{en ? <>No ports visible from outside</> : <>바깥에서 포트가 보이지 않음</>}</span>
         </div>
-        <p class="bp-m only-tg" aria-hidden="true"><span class="bp-mx"></span>Trust Gateway를 건너뛰고 바로 가 봐도 바깥에서 포트가 보이지 않습니다</p>
+        <p class="bp-m only-tg" aria-hidden="true"><span class="bp-mx"></span>{en ? <>Even if you skip Trust Gateway and go straight in, no ports are visible from outside</> : <>Trust Gateway를 건너뛰고 바로 가 봐도 바깥에서 포트가 보이지 않습니다</>}</p>
       </div>
 
       <p class="cap">
-        <span class="only-vpn">VPN은 한 번 들어오면 사내망 전체가 보입니다. 계정 하나로 옆 서버까지 넘어갈 수 있습니다.</span>
-        <span class="only-tg">기기 인증서와 휴대폰 확인이 없으면 게이트웨이에서 멈춥니다. 게이트웨이를 건너뛰고 사내망으로 바로 가 봐도 바깥에서 포트가 보이지 않습니다. 직원 본인이 접속해도 허락된 앱만 열립니다.</span>
+        <span class="only-vpn">{en ? <>With a VPN, once you are in, the whole internal network is visible. One account can move on to neighboring servers.</> : <>VPN은 한 번 들어오면 사내망 전체가 보입니다. 계정 하나로 옆 서버까지 넘어갈 수 있습니다.</>}</span>
+        <span class="only-tg">{en ? <>Without a device certificate and a phone check, the stolen account stops at the gateway. Even if you skip the gateway and go straight to the internal network, no ports are visible from outside. Even when the real employee connects, only allowed apps open.</> : <>기기 인증서와 휴대폰 확인이 없으면 게이트웨이에서 멈춥니다. 게이트웨이를 건너뛰고 사내망으로 바로 가 봐도 바깥에서 포트가 보이지 않습니다. 직원 본인이 접속해도 허락된 앱만 열립니다.</>}</span>
       </p>
 
       <div class="cmp-wrap">
         <table class="cmp">
-          <thead><tr><th scope="col">항목</th><th scope="col" class="c-vpn">기존 VPN</th><th scope="col" class="c-tg">Trust Gateway</th></tr></thead>
+          <thead><tr><th scope="col">{en ? <>Item</> : <>항목</>}</th><th scope="col" class="c-vpn">{en ? <>Classic VPN</> : <>기존 VPN</>}</th><th scope="col" class="c-tg">Trust Gateway</th></tr></thead>
           <tbody>{compare.map((c) => (<tr><th scope="row">{c.k}</th><td class="c-vpn">{c.vpn}</td><td class="c-tg">{c.tg}</td></tr>))}</tbody>
         </table>
       </div>
@@ -82,7 +90,9 @@ const compare = [
 <style>
   .vs { --coral: #d4553f; max-width: 1040px; margin: 0 auto; background: #fff; border-radius: var(--r-xl); padding: clamp(20px, 3vw, 36px); }
   .vs-tabs { display: flex; gap: 6px; padding: 6px; margin: 0 auto 28px; width: fit-content; background: var(--paper-2); border-radius: 999px; }
-  .vs-tabs button { border: 0; background: transparent; padding: 10px 22px; border-radius: 999px; font: inherit; font-weight: 600; color: var(--ink-2); cursor: pointer; transition: background-color .3s var(--ease), color .3s var(--ease); }
+  .vs-tabs button { border: 0; background: transparent; padding: 10px 22px; border-radius: 999px; font: inherit; font-weight: 600; color: var(--ink-2); white-space: nowrap; cursor: pointer; transition: background-color .3s var(--ease), color .3s var(--ease); }
+  /* on a phone "Classic VPN" broke onto two lines inside its pill */
+  @media (max-width: 400px) { .vs-tabs button { padding: 10px 16px; } }
   .vs-tabs button[aria-pressed='true'] { background: var(--ink); color: #fff; }
   .vs-tabs button:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; }
 

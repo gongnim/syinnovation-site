@@ -102,7 +102,7 @@ export const glossary: Term[] = [
   { id: 'two-device', cat: 'auth', t: 'PC·휴대폰 함께 확인', en: 'PC + Phone', s: 'PC와 휴대폰으로 함께 확인하는 방식',
     b: 'PC에서 접속을 요청하면 등록된 휴대폰으로 본인임을 다시 확인합니다. 한쪽 기기만 탈취되어서는 접속할 수 없습니다.',
     tg: 'Trust Gateway는 PC와 휴대폰, 네트워크의 신호를 다중 신호 교차 검증으로 대조해, 같은 사람이 같은 자리에 있는지 확인합니다.', rel: ['mfa', 'trust-auth', 'multi-signal'] },
-  { id: 'multi-signal', cat: 'auth', t: '다중 신호 교차 검증', en: 'Multi-signal Cross-verification', s: '출처가 다른 여러 신호를 서로 대조해 모순을 찾는 확인 방식',
+  { id: 'multi-signal', cat: 'auth', t: '다중 신호 교차 검증', en: 'Multi-Signal Cross Check', s: '출처가 다른 여러 신호를 서로 대조해 모순을 찾는 확인 방식',
     b: '위치, Wi-Fi, 시간대, 기기 상태, 네트워크 정보를 함께 봅니다. 신호 하나는 꾸밀 수 있어도 모든 신호를 동시에 맞추기는 어렵습니다.',
     tg: 'Trust Gateway는 PC와 휴대폰, 네트워크에서 모은 신호를 서로 대조해 앞뒤가 맞지 않는 조합을 찾습니다.', rel: ['two-device', 'risk-score', 'continuous-verification'] },
   { id: 'trust-auth', cat: 'auth', t: 'Trust Auth', s: 'Trust Gateway와 함께 쓰는 신영이노베이션의 휴대폰 인증 앱',

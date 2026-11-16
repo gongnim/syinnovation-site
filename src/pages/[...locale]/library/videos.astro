@@ -1,43 +1,53 @@
 ---
-import Base from '../../layouts/Base.astro';
-import PageTitle from '../../components/PageTitle.astro';
-import ResourceTabs from '../../components/ResourceTabs.astro';
-import VideoTile from '../../components/VideoTile.astro';
+import { bothLangs } from '../../../lib/i18n';
+export const getStaticPaths = bothLangs;
+import Base from '../../../layouts/Base.astro';
+import PageTitle from '../../../components/PageTitle.astro';
+import ResourceTabs from '../../../components/ResourceTabs.astro';
+import VideoTile from '../../../components/VideoTile.astro';
+import { langOf } from '../../../lib/i18n';
+const lang = langOf(Astro.url);
+const en = lang === 'en';
 
 // 자료실 > 영상. Adding a video is one line in `videos`:
 //   title, youtube (the id from youtube.com/watch?v=<id>; empty = 공개 준비 중), and optionally
 //   length ('12:30', as YouTube shows it), date ('2026.11', newest first), cat (one of CATS), note (featured only),
-//   featured: true (the large one; it stays put however many videos are added; without one, the first is used).
+//   featured: true (the large one; it stays put however many videos are added; without one, the first is used),
+//   en: { title, note } for the English page ("(Korean)" at the end of the title while the video itself is in Korean).
 // Layout: the featured video large on the left, the SIDE newest beside it, the rest below in a 3-column grid that
 // shows PAGE at first and PAGE more per 영상 더보기. From FILTER_FROM videos, category chips appear for the
 // categories holding at least CAT_MIN videos; once there are CHANNEL_FROM, a link to the YouTube channel follows.
 const CATS = ['회사 소개', '제품 시연', '발표·세미나', '인터뷰'];
+const CATS_EN = ['About us', 'Product demos', 'Talks and seminars', 'Interviews']; // same order as CATS
 const CHANNEL = ''; // the YouTube channel address, once there is one
 const PAGE = 6, SIDE = 3, FILTER_FROM = 20, CAT_MIN = 3, CHANNEL_FROM = 11;
 
-interface Video { title: string; youtube: string; length?: string; date?: string; cat?: string; note?: string; featured?: boolean }
+interface Video { title: string; youtube: string; length?: string; date?: string; cat?: string; note?: string; featured?: boolean; en?: { title: string; note?: string } }
 const videos: Video[] = [
-  { title: '신영이노베이션 소개', note: '신영이노베이션이 하는 일과 Trust Gateway를 소개합니다.', youtube: '', cat: '회사 소개', featured: true },
-  { title: '결제 이상거래 탐지 시연', youtube: '', cat: '제품 시연' },
-  { title: 'VPN 대체 업무 접속 시연', youtube: '', cat: '제품 시연' },
+  { title: '신영이노베이션 소개', note: '신영이노베이션이 하는 일과 Trust Gateway를 소개합니다.', youtube: '', cat: '회사 소개', featured: true,
+    en: { title: 'About SYINNOVATION (Korean)', note: 'An introduction to what SYINNOVATION does and to Trust Gateway.' } },
+  { title: '결제 이상거래 탐지 시연', youtube: '', cat: '제품 시연', en: { title: 'Payment fraud detection demo (Korean)' } },
+  { title: 'VPN 대체 업무 접속 시연', youtube: '', cat: '제품 시연', en: { title: 'Demo: work access without a VPN (Korean)' } },
 ];
+// English page: the English title, note and category in place of the Korean
+if (en) for (const v of videos) { Object.assign(v, v.en); if (v.cat) v.cat = CATS_EN[CATS.indexOf(v.cat)]; }
 
 const featured = videos.find((v) => v.featured) ?? videos[0];
 // newest first; videos without a date keep their order after the dated ones
 const rest = videos.filter((v) => v !== featured).sort((a, b) => (b.date ?? '').localeCompare(a.date ?? ''));
 const side = rest.slice(0, SIDE);
 const grid = rest.slice(SIDE);
-const cats = CATS.filter((c) => videos.filter((v) => v.cat === c).length >= CAT_MIN);
+const cats = (en ? CATS_EN : CATS).filter((c) => videos.filter((v) => v.cat === c).length >= CAT_MIN);
 const filters = videos.length >= FILTER_FROM && cats.length >= 2;
 ---
-<Base title="자료실 영상" description="신영이노베이션과 Trust Gateway를 소개하는 영상." tone="light">
-  <PageTitle title="영상">신영이노베이션과 Trust Gateway를 영상으로 소개합니다.<ResourceTabs slot="after" /></PageTitle>
+<Base title={en ? 'Resources: Videos' : '자료실 영상'} description={en ? 'Videos about SYINNOVATION and Trust Gateway.' : '신영이노베이션과 Trust Gateway를 소개하는 영상.'} tone="light">
+  <PageTitle title={en ? 'Videos' : '영상'}>{en ? <>SYINNOVATION and Trust Gateway on video.</> : <>신영이노베이션과 Trust Gateway를 영상으로 소개합니다.</>}<ResourceTabs slot="after" /></PageTitle>
 
   <section class="section lib">
     <div class="wrap">
       {filters && (
-        <div class="chips" role="group" aria-label="영상 분류">
-          <button type="button" class="chip" data-cat="" aria-pressed="true">전체</button>
+        <div class="chips" role="group" aria-label={en ? 'Video categories' : '영상 분류'}>
+          <button type="button" class="chip" data-cat="" aria-pressed="true">{en ? <>All</> : <>전체</>}</button>
           {cats.map((c) => <button type="button" class="chip" data-cat={c} aria-pressed="false">{c}</button>)}
         </div>
       )}
@@ -62,16 +72,16 @@ const filters = videos.length >= FILTER_FROM && cats.length >= 2;
           {[featured, ...rest].map((v) => <li data-cat={v.cat}><VideoTile title={v.title} youtube={v.youtube} length={v.length} /></li>)}
         </ul>
       )}
-      {(grid.length > PAGE || filters) && <button type="button" class="more" data-page={PAGE} hidden={grid.length <= PAGE}>영상 더보기</button>}
+      {(grid.length > PAGE || filters) && <button type="button" class="more" data-page={PAGE} hidden={grid.length <= PAGE}>{en ? <>More videos</> : <>영상 더보기</>}</button>}
       {CHANNEL && videos.length >= CHANNEL_FROM && (
-        <a class="channel" href={CHANNEL} target="_blank" rel="noopener">유튜브 채널에서 전체 보기</a>
+        <a class="channel" href={CHANNEL} target="_blank" rel="noopener">{en ? <>See all on YouTube</> : <>유튜브 채널에서 전체 보기</>}</a>
       )}
     </div>
   </section>
 
   <!-- one player for every video: a large YouTube player over the page, so long videos play big on this site -->
-  <dialog class="player" aria-label="영상 재생">
-    <button type="button" class="player-close" aria-label="닫기">
+  <dialog class="player" aria-label={en ? 'Video player' : '영상 재생'}>
+    <button type="button" class="player-close" aria-label={en ? 'Close' : '닫기'}>
       <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
     </button>
     <div class="player-box"><div class="player-frame"></div></div>

@@ -1,13 +1,17 @@
 ---
 // Tabs under a page title for a section split into pages: 자료실 (문서, 영상, 용어집) by default, or 소식
 // (사내소식, 언론보도). The 자료실 list is also the header's sub-menu.
-import { libraryNav } from '../data/site';
-interface Props { items?: { href: string; label: string }[]; label?: string }
-const { items = libraryNav, label = '자료실 메뉴' } = Astro.props;
+// items are menu items (site.ts); on English pages they show their English labels and /en/ links.
+import { libraryNav, menu, type MenuItem } from '../data/site';
+import { langOf } from '../lib/i18n';
+const lang = langOf(Astro.url);
+const en = lang === 'en';
+interface Props { items?: MenuItem[]; label?: string }
+const { items = libraryNav, label = en ? 'Resources menu' : '자료실 메뉴' } = Astro.props;
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
 <nav class="rtabs" aria-label={label}>
-  {items.map((t) => <a href={t.href} aria-current={path === t.href ? 'page' : undefined}>{t.label}</a>)}
+  {menu(items, lang).map((t) => <a href={t.href} aria-current={path === t.href ? 'page' : undefined}>{t.label}</a>)}
 </nav>
 
 <style>

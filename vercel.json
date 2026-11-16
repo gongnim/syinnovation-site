@@ -1,0 +1,10 @@
+{
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/index-ko.html", "destination": "/", "permanent": true },
+    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
+    { "source": "/terms.html", "destination": "/terms", "permanent": true },
+    { "source": "/ai-consulting", "destination": "/consulting", "permanent": true },
+    { "source": "/favicon.ico", "destination": "/favicon-48.png", "permanent": true }
+  ]
+}

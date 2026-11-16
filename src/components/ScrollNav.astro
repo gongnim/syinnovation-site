@@ -3,8 +3,11 @@
 // press glides to the hero's closing line, the next to the section after the hero. Past that, and on every other page once it has
 // scrolled a screen, it points up and goes back to the top. A page opts into the down stops with data-snav-down on its
 // tall hero.
+import { langOf } from '../lib/i18n';
+const lang = langOf(Astro.url);
+const en = lang === 'en'; // English pages hand the script their two labels; Korean pages keep the script's own
 ---
-<button class="snav" type="button" aria-label="맨 위로">
+<button class="snav" type="button" aria-label={en ? 'Back to top' : '맨 위로'} data-up={en ? 'Back to top' : undefined} data-down={en ? 'Scroll down' : undefined}>
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" /></svg>
 </button>
 
@@ -43,7 +46,7 @@
       btn.classList.toggle('on', !!dir);
       if (dir) {
         btn.dataset.dir = dir;
-        btn.setAttribute('aria-label', dir === 'down' ? '아래로 이동' : '맨 위로');
+        btn.setAttribute('aria-label', dir === 'down' ? (btn.dataset.down ?? '아래로 이동') : (btn.dataset.up ?? '맨 위로'));
       }
     };
     btn.addEventListener('click', () => window.scrollTo({ top: target, behavior: smooth ? 'smooth' : 'auto' }));

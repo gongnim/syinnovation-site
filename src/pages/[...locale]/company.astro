@@ -1,7 +1,11 @@
 ---
-import Base from '../layouts/Base.astro';
-import PageTitle from '../components/PageTitle.astro';
-import { company } from '../data/site';
+import { bothLangs, langOf } from '../../lib/i18n';
+export const getStaticPaths = bothLangs;
+import Base from '../../layouts/Base.astro';
+import PageTitle from '../../components/PageTitle.astro';
+import { company } from '../../data/site';
+const lang = langOf(Astro.url);
+const en = lang === 'en';
 
 // The team (user-provided, 2026-11-11). Careers follow the user's own prototype company page; client names and
 // year counts are left out on purpose. hi: greeting lines, still to be confirmed by each person.
@@ -11,32 +15,54 @@ import { company } from '../data/site';
 const people = [
   { n: '강형구', r: '대표이사', e: 'CEO', g: '', p: 'kang-hyungkoo',
     hi: '금융 현장에서 보안과 편리함이 늘 부딪히는 모습을 오래 지켜봤습니다. 둘 중 무엇도 포기하지 않는 보안, Trust Gateway로 증명하겠습니다.',
-    c: ['BANKBE 베트남 대표 · TMX코리아 창업자, 대표', 'GREY MOS · IBM GBS 비즈니스 · 정보기술 컨설팅', '삼성카드 데이터베이스 마케팅', '고려대학교 학사 · 석사'] },
+    c: ['BANKBE 베트남 대표 · TMX코리아 창업자, 대표', 'GREY MOS · IBM GBS 비즈니스 · 정보기술 컨설팅', '삼성카드 데이터베이스 마케팅', '고려대학교 학사 · 석사'],
+    nEn: 'Hyungku Kang', rEn: 'CEO',
+    hiEn: 'In finance, I spent years watching security and convenience clash. With Trust Gateway, I will prove that you do not have to give up either one.',
+    cEn: ['CEO, BANKBE Vietnam · founder and CEO, TMX Korea', 'Business and IT consulting at GREY MOS · IBM GBS', 'Database marketing, Samsung Card', 'Bachelor\'s and master\'s degrees, Korea University'] },
   { n: '박희준', r: '운영총괄', e: 'COO', g: '경영지원', p: 'park-heejun',
     hi: '창업과 보안 신사업을 거치며 회사가 단단해지는 과정을 직접 겪었습니다. 고객과 한 약속은 끝까지 지키는 회사, 제가 책임지고 만들겠습니다.',
-    c: ['BANKBE 재무총괄 · 큐바이노베이션 창업', 'KT · 소프트포럼 · 이글루시큐리티 신사업', '컴퓨터보안공학 학사 · 석사'] },
+    c: ['BANKBE 재무총괄 · 큐바이노베이션 창업', 'KT · 소프트포럼 · 이글루시큐리티 신사업', '컴퓨터보안공학 학사 · 석사'],
+    nEn: 'Heejun Park', rEn: 'COO',
+    hiEn: 'Through founding a company and building new security businesses, I saw firsthand how a company grows strong. I will personally make sure we are a company that keeps its promises to customers to the end.',
+    cEn: ['Head of finance, BANKBE · founder, Qby Innovation', 'New business development at KT · SoftForum · IGLOO Security', 'Bachelor\'s and master\'s degrees in computer security engineering'] },
   { n: '공동현', r: '기술총괄', e: 'CTO', g: '연구개발', p: 'gong-donghyun',
     hi: '전자여권부터 모바일 결제까지, 사용자들이 매일 쓰는 보안을 만들어 왔습니다. 사용자는 느끼지 못할 만큼 자연스럽고, 공격자에게는 빈틈이 없는 기술을 만들겠습니다.',
-    c: ['BANKBE · TMX코리아 연구소장', 'LG전자 · LG CNS 보안 분야', '전자여권 · 교통카드 · 모바일 결제 개발'] },
+    c: ['BANKBE · TMX코리아 연구소장', 'LG전자 · LG CNS 보안 분야', '전자여권 · 교통카드 · 모바일 결제 개발'],
+    nEn: 'Donghyun Gong', rEn: 'CTO',
+    hiEn: 'From e-passports to mobile payments, I have built security that people use every day. I will build technology that feels so natural users do not notice it, and leaves attackers no gaps.',
+    cEn: ['Head of research lab, BANKBE · TMX Korea', 'Security at LG Electronics · LG CNS', 'Development of e-passports · transit cards · mobile payments'] },
   { n: '임종세', r: '개발 엔지니어', g: '연구개발', p: 'lim-jongse', up: '공동현',
     hi: '화면부터 서버까지 직접 만들고 끝까지 책임집니다. 금융 시스템에서 익힌 꼼꼼함으로 Trust Gateway를 매일 더 단단하게 만들고 있습니다.',
-    c: ['풀스택 개발 엔지니어', '금융권 시스템 구축 · 개발'] },
+    c: ['풀스택 개발 엔지니어', '금융권 시스템 구축 · 개발'],
+    nEn: 'Jongse Lim', rEn: 'Software engineer',
+    hiEn: 'I build everything from the screens to the servers myself and take responsibility for it to the end. With the attention to detail I learned on financial systems, I make Trust Gateway more solid every day.',
+    cEn: ['Full-stack engineer', 'Financial system implementation · development'] },
   { n: '강민관', r: '연구원', g: '연구개발', p: 'kang-mingwan', up: '공동현',
     hi: '공격보다 한 걸음 먼저 움직이는 것이 연구소의 일입니다. 새로운 공격 기법을 먼저 파고들어, 막아 내는 기술로 만들겠습니다.',
-    c: ['기업부설연구소 연구원', '보안 개발자'] },
+    c: ['기업부설연구소 연구원', '보안 개발자'],
+    nEn: 'Minkwan Kang', rEn: 'Researcher',
+    hiEn: 'The job of our lab is to stay one step ahead of attacks. I will dig into new attack techniques first and turn what I learn into technology that stops them.',
+    cEn: ['Researcher, corporate R&D center', 'Security developer'] },
   { n: '박성수', r: '전략총괄', e: 'CSO', g: '비즈니스', p: 'park-sungsoo',
     hi: '좋은 보안은 일을 멈추게 하지 않습니다. 금융권 업무 혁신 현장에서 쌓은 경험으로, 고객의 업무에 꼭 맞는 보안을 설계하겠습니다.',
-    c: ['IBM · PwC · KPMG · AT Kearney 컨설팅', '금융권 업무혁신 · 정보기술 기획', '상담센터 · 고객관리 시스템 개발 총괄'] },
+    c: ['IBM · PwC · KPMG · AT Kearney 컨설팅', '금융권 업무혁신 · 정보기술 기획', '상담센터 · 고객관리 시스템 개발 총괄'],
+    nEn: 'Sungsoo Park', rEn: 'CSO',
+    hiEn: 'Good security does not stop work. Drawing on my experience in business innovation in the financial sector, I will design security that fits the way each customer works.',
+    cEn: ['Consulting at IBM · PwC · KPMG · AT Kearney', 'Business innovation · IT planning in the financial sector', 'Led development of contact center · customer management systems'] },
   { n: '김재원', r: '마케팅총괄', e: 'CMO', g: '비즈니스', p: 'kim-jaewon', up: '박성수',
     hi: '좋은 기술은 제대로 알려질 때 더 큰 힘을 냅니다. 어려운 보안을 누구나 이해할 수 있는 말로 전하고, Trust Gateway를 더 많은 곳에 알리겠습니다.',
-    c: ['KB증권 베트남 마케팅 총괄', '온라인 마케팅 · 콘텐츠 전략', '정보기술 기획 · 고객 커뮤니케이션'] },
+    c: ['KB증권 베트남 마케팅 총괄', '온라인 마케팅 · 콘텐츠 전략', '정보기술 기획 · 고객 커뮤니케이션'],
+    nEn: 'Jaewon Kim', rEn: 'CMO',
+    hiEn: 'Good technology has a bigger impact when it is properly made known. I will explain complex security in words anyone can understand and make Trust Gateway known in more places.',
+    cEn: ['Head of marketing, KB Securities Vietnam', 'Online marketing · content strategy', 'IT planning · customer communication'] },
 ];
 // dot: team colour (slides, org chart status lights); tint: the team hub's soft background
 const teams = [
-  { t: '경영지원', d: '운영 · 사업 관리', dot: '#d9772b', tint: '#fdf3ea' },
-  { t: '연구개발', d: '연구 · 개발', dot: '#3a78bd', tint: '#ecf3fb' },
-  { t: '비즈니스', d: '전략 · 컨설팅 · 마케팅', dot: '#3f8c69', tint: '#ebf5f0' },
+  { t: '경영지원', d: '운영 · 사업 관리', dot: '#d9772b', tint: '#fdf3ea', tEn: 'Management support', dEn: 'Operations · business management' },
+  { t: '연구개발', d: '연구 · 개발', dot: '#3a78bd', tint: '#ecf3fb', tEn: 'R&D', dEn: 'Research · development' },
+  { t: '비즈니스', d: '전략 · 컨설팅 · 마케팅', dot: '#3f8c69', tint: '#ebf5f0', tEn: 'Business', dEn: 'Strategy · consulting · marketing' },
 ];
+// English titles are the codes themselves (rEn = e), so the English org chart shows each title once.
 // The org chart as a network diagram: CEO -> team hubs -> people, joined by right-angle links. Points are box centres in a 1000x460 canvas on desktop and a 400x790 canvas on phones; each link
 // is [from, to, path] and runs centre to centre, so the boxes hide its ends.
 const net = {
@@ -86,20 +112,21 @@ const scribble = (() => {
 const dotOf =(g: string) => teams.find((t) => t.t === g)?.dot ?? '#366399';
 const naverLink = `https://map.naver.com/p/search/${encodeURIComponent('서울 마포구 마포대로 78')}`;
 const advisor = '퍼듀대학교 컴퓨터공학 · 아마존 프라임 서비스 근무 · 인공지능 프로그래밍 자문';
+const advisorEn = 'Computer engineering at Purdue University · worked at Amazon (Prime services) · advises on AI programming';
 
-const history: Record<string, { m: string; t: string }[]> = {
+const history: Record<string, { m: string; t: string; tEn: string }[]> = {
   '2026': [
-    { m: '10', t: '초기창업패키지 선정 · 한경매거진 인터뷰' },
-    { m: '08', t: '벤처기업 확인' },
-    { m: '07', t: '제2서울핀테크랩 입주 · 기업부설연구소 설립' },
-    { m: '02', t: 'Trust Gateway 출시' },
+    { m: '10', t: '초기창업패키지 선정 · 한경매거진 인터뷰', tEn: 'Selected for the Early-Stage Startup Package · interview with Hankyung Magazine' },
+    { m: '08', t: '벤처기업 확인', tEn: 'Certified as a venture business' },
+    { m: '07', t: '제2서울핀테크랩 입주 · 기업부설연구소 설립', tEn: 'Moved into Seoul Fintech Lab 2 · established a corporate R&D center' },
+    { m: '02', t: 'Trust Gateway 출시', tEn: 'Launched Trust Gateway' },
   ],
   '2025': [
-    { m: '', t: '카드사 외국인 전용 앱 인증 공급' },
-    { m: '', t: '여신금융협회 직승인 시스템 개발' },
+    { m: '', t: '카드사 외국인 전용 앱 인증 공급', tEn: 'Supplied authentication for a card company\'s app for foreign nationals' },
+    { m: '', t: '여신금융협회 직승인 시스템 개발', tEn: 'Developed a direct approval system for the Credit Finance Association of Korea (CREFIA)' },
   ],
-  '2024': [{ m: '', t: '카드사 · 저축은행 통합 인증 서비스 운영' }],
-  '2023': [{ m: '10', t: '㈜신영이노베이션 설립' }],
+  '2024': [{ m: '', t: '카드사 · 저축은행 통합 인증 서비스 운영', tEn: 'Ran integrated authentication services for card companies · savings banks' }],
+  '2023': [{ m: '10', t: '㈜신영이노베이션 설립', tEn: 'SYINNOVATION Co., Ltd. founded' }],
 };
 // number-like keys always come out ascending, so sort the newest year first explicitly
 const years = Object.keys(history).sort((a, b) => Number(b) - Number(a));
@@ -109,35 +136,45 @@ const yearPic: Record<string, string> = {
   '2024': '카페에서 휴대폰으로 인증하는 손과 카드, 참고 이미지',
   '2023': '창업 첫날 사무실 창가의 책상과 노트북, 참고 이미지',
 };
+const yearPicEn: Record<string, string> = {
+  '2026': 'The SYINNOVATION team together for the company\'s third anniversary',
+  '2025': 'A traveler\'s hands holding a passport, phone and card at an airport, illustrative image',
+  '2024': 'Hands authenticating on a phone, with a card, at a cafe, illustrative image',
+  '2023': 'A desk and laptop by the office window on the company\'s first day, illustrative image',
+};
 // CI versions: shown large from the vector file, downloaded as PNG
 const ciKinds = [
-  { id: 'white', label: '흰 배경 로고', svg: '/images/brand/syinnovation-logo-tagline.svg', png: '/downloads/ci/syinnovation-logo-on-white.png', alt: 'SYINNOVATION RE:Think innovation 로고, 흰 배경' },
-  { id: 'blue', label: '브랜드 컬러 배경 로고', svg: '/images/brand/syinnovation-logo-white.svg', png: '/downloads/ci/syinnovation-logo-on-blue.png', alt: 'SYINNOVATION RE:Think innovation 로고, 브랜드 컬러 배경' },
-  { id: 'symbol', label: '심볼', svg: '/images/brand/syinnovation-symbol.svg', png: '/downloads/ci/syinnovation-symbol.png', alt: 'SYINNOVATION 심볼' },
+  { id: 'white', label: '흰 배경 로고', svg: '/images/brand/syinnovation-logo-tagline.svg', png: '/downloads/ci/syinnovation-logo-on-white.png', alt: 'SYINNOVATION RE:Think innovation 로고, 흰 배경',
+    labelEn: 'Logo on white', altEn: 'SYINNOVATION RE:Think innovation logo, white background' },
+  { id: 'blue', label: '브랜드 컬러 배경 로고', svg: '/images/brand/syinnovation-logo-white.svg', png: '/downloads/ci/syinnovation-logo-on-blue.png', alt: 'SYINNOVATION RE:Think innovation 로고, 브랜드 컬러 배경',
+    labelEn: 'Logo on brand color', altEn: 'SYINNOVATION RE:Think innovation logo, brand color background' },
+  { id: 'symbol', label: '심볼', svg: '/images/brand/syinnovation-symbol.svg', png: '/downloads/ci/syinnovation-symbol.png', alt: 'SYINNOVATION 심볼',
+    labelEn: 'Symbol', altEn: 'SYINNOVATION symbol' },
 ];
 ---
-<Base title="회사소개" description="Never Trust, Always Verify. 신영이노베이션을 소개합니다." tone="light">
-  <PageTitle title="회사소개">RE:Think innovation</PageTitle>
+<Base title={en ? 'Company' : '회사소개'} description={en ? 'Never Trust, Always Verify. Meet SYINNOVATION, the Zero Trust security company behind Trust Gateway: our story, team, history and location.' : 'Never Trust, Always Verify. Trust Gateway를 만든 제로트러스트 보안 기업 신영이노베이션의 이야기, 팀, 연혁과 오시는 길을 소개합니다.'} tone="light">
+  <link slot="head" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap" />
+  <PageTitle title={en ? 'Company' : '회사소개'}>RE:Think innovation</PageTitle>
 
   <section class="section">
     <div class="wrap story">
       <div class="reveal">
-        <h2 class="h2 sm">금융 인증 현장에서 시작한 <br />Trust Gateway</h2>
+        <h2 class="h2 sm">{en ? <>Trust Gateway began <br />in financial authentication</> : <>금융 인증 현장에서 시작한 <br />Trust Gateway</>}</h2>
       </div>
       <div class="reveal">
-        <p class="lead">신영이노베이션은 카드사와 저축은행의 인증 서비스를 만들고 운영해 온 사람들이 2023년에 세운 회사입니다.</p>
-        <p class="lead">그 경험을 바탕으로, 로그인 이후에도 PC·태블릿과 휴대폰을 계속 확인하는 Trust Gateway를 만들었습니다.</p>
-        <p class="lead">인증, 결제, 보안 기술을 직접 만들기 때문에, 외부 제품에 기대지 않고 오래 지원할 수 있습니다.</p>
+        <p class="lead">{en ? <>SYINNOVATION was founded in 2023 by people who had built and run authentication services for card companies and savings banks.</> : <>신영이노베이션은 카드사와 저축은행의 인증 서비스를 만들고 운영해 온 사람들이 2023년에 세운 회사입니다.</>}</p>
+        <p class="lead">{en ? <>Building on that experience, we created Trust Gateway, which keeps checking the PC or tablet and the phone even after login.</> : <>그 경험을 바탕으로, 로그인 이후에도 PC·태블릿과 휴대폰을 계속 확인하는 Trust Gateway를 만들었습니다.</>}</p>
+        <p class="lead">{en ? <>Because we build our own authentication, payment and security technology, we can offer long-term support without relying on outside products.</> : <>인증, 결제, 보안 기술을 직접 만들기 때문에, 외부 제품에 기대지 않고 오래 지원할 수 있습니다.</>}</p>
       </div>
     </div>
     <!-- the second line of business: consulting, building and running business software for SMEs -->
     <div class="wrap story story-more">
       <div class="reveal">
-        <h2 class="h2 sm">컨설팅부터<br />개발·운영까지</h2>
+        <h2 class="h2 sm">{en ? <>From consulting<br />to development and operations</> : <>컨설팅부터<br />개발·운영까지</>}</h2>
       </div>
       <div class="reveal">
-        <p class="lead">중소·중견기업에 꼭 맞는 ERP와 업무 프로그램을 함께 만듭니다.</p>
-        <p class="lead">업무 흐름을 진단하는 컨설팅부터 개발, 도입 이후의 운영과 개선까지 신영이노베이션이 끝까지 책임집니다. 금융 시스템을 만들며 쌓은 꼼꼼함을 그대로 담습니다.</p>
+        <p class="lead">{en ? <>Together with small and mid-sized companies, we build ERP and business software that fits them.</> : <>중소·중견기업에 꼭 맞는 ERP와 업무 프로그램을 함께 만듭니다.</>}</p>
+        <p class="lead">{en ? <>From consulting that diagnoses your workflow to development, and on to operation and improvement after rollout, SYINNOVATION takes responsibility to the end. We apply the same attention to detail we developed building financial systems.</> : <>업무 흐름을 진단하는 컨설팅부터 개발, 도입 이후의 운영과 개선까지 신영이노베이션이 끝까지 책임집니다. 금융 시스템을 만들며 쌓은 꼼꼼함을 그대로 담습니다.</>}</p>
       </div>
     </div>
   </section>
@@ -147,15 +184,15 @@ const ciKinds = [
   <section class="section paper2">
     <div class="wrap">
       <div class="head-left reveal">
-        <h2 class="h2 sm">현장을 아는 팀</h2>
-        <p class="lead">인증 기술, 금융 시스템, 전략 컨설팅까지 각자의 현장에서 오래 일해 온 사람들이 모였습니다. 고객이 믿고 맡길 수 있는 보안을 함께 만들어 갑니다.</p>
+        <h2 class="h2 sm">{en ? <>A team that knows the field</> : <>현장을 아는 팀</>}</h2>
+        <p class="lead">{en ? <>We have each worked for years in our own fields, from authentication technology and financial systems to strategy consulting. Together, we build security that customers can rely on.</> : <>인증 기술, 금융 시스템, 전략 컨설팅까지 각자의 현장에서 오래 일해 온 사람들이 모였습니다. 고객이 믿고 맡길 수 있는 보안을 함께 만들어 갑니다.</>}</p>
       </div>
-      <div class="crew reveal" style={`--n:${people.length}`} aria-roledescription="carousel" aria-label="팀원 소개">
-        <div class="crew-track" tabindex="0" aria-label="팀원 소개, 좌우 화살표로 넘기기">
+      <div class="crew reveal" style={`--n:${people.length}`} aria-roledescription="carousel" aria-label={en ? 'Our team' : '팀원 소개'}>
+        <div class="crew-track" tabindex="0" aria-label={en ? 'Our team, use the left and right arrow keys to move' : '팀원 소개, 좌우 화살표로 넘기기'}>
           {people.map((m, i) => (
-            <article class="slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} / ${people.length}, ${m.n}`} style={`--dot:${dotOf(m.g)}`}>
+            <article class="slide" role="group" aria-roledescription="slide" aria-label={`${i + 1} / ${people.length}, ${en ? m.nEn : m.n}`} style={`--dot:${dotOf(m.g)}`}>
               <div class="ph">
-                <img class="photo" src={`/images/team/${m.p}.webp`} alt={`${m.n} ${m.r}`} width="640" height="640" loading={i ? 'lazy' : 'eager'} />
+                <img class="photo" src={`/images/team/${m.p}.webp`} alt={en ? `${m.nEn}, ${m.rEn}` : `${m.n} ${m.r}`} width="640" height="640" loading={i ? 'lazy' : 'eager'} />
                 <svg class="sketch" viewBox="0 0 100 100" aria-hidden="true">
                   <defs>
                     <filter id={`rough-${m.p}`} x="-10%" y="-10%" width="120%" height="120%">
@@ -170,29 +207,43 @@ const ciKinds = [
                 </svg>
               </div>
               <div class="txt">
-                <p class="who">{m.g ? `${m.g} · ${m.r}` : m.r}</p>
-                <h3 class="nm">{m.n}</h3>
-                <p class="hi">{m.hi}</p>
-                <ul class="career">{m.c.map((x) => <li>{x}</li>)}</ul>
+                {[false, true].map((drawn) => (
+                  <div class={drawn ? 'copy drawn' : 'copy typed'} aria-hidden={drawn ? 'true' : undefined}>
+                    <p class="who">{en ? (m.g ? `${teamOf(m.g)?.tEn} · ${m.rEn}` : m.rEn) : m.g ? `${m.g} · ${m.r}` : m.r}</p>
+                    {drawn ? <p class="nm">{en ? m.nEn : m.n}</p> : <h3 class="nm">{en ? m.nEn : m.n}</h3>}
+                    <p class="hi">{en ? m.hiEn : m.hi}</p>
+                    <ul class="career">{(en ? m.cEn : m.c).map((x) => <li>{x}</li>)}</ul>
+                  </div>
+                ))}
               </div>
             </article>
           ))}
         </div>
+        <!-- pencil on paper for the written-over words: a slight hand wobble, then the paper's tooth showing through -->
+        <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+          <filter id="pencil-hand" x="-2%" y="-6%" width="104%" height="112%" color-interpolation-filters="sRGB">
+            <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="wob" />
+            <feDisplacementMap in="SourceGraphic" in2="wob" scale="1.8" xChannelSelector="R" yChannelSelector="G" result="ink" />
+            <feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="1" seed="9" result="tooth" />
+            <feColorMatrix in="tooth" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -1 0 0 0 1.25" result="grain" />
+            <feComposite in="ink" in2="grain" operator="in" />
+          </filter>
+        </svg>
         <div class="crew-ctl">
           <p class="count"><b>1</b> / {people.length}</p>
           <div class="bar" aria-hidden="true"><i></i></div>
-          <button type="button" class="nav auto" aria-pressed="false" aria-label="자동 넘김 멈추기">
+          <button type="button" class="nav auto" aria-pressed="false" aria-label={en ? 'Pause autoplay' : '자동 넘김 멈추기'} data-on={en ? 'Turn on autoplay' : undefined} data-off={en ? 'Pause autoplay' : undefined}>
             <svg class="i-pause" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M9 6v12M15 6v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" /></svg>
             <svg class="i-play" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M8.5 5.5v13l10-6.5z" fill="currentColor" /></svg>
           </button>
-          <button type="button" class="nav prev" aria-label="이전 팀원"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
-          <button type="button" class="nav next" aria-label="다음 팀원"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+          <button type="button" class="nav prev" aria-label={en ? 'Previous team member' : '이전 팀원'}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+          <button type="button" class="nav next" aria-label={en ? 'Next team member' : '다음 팀원'}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
         </div>
       </div>
 
       <div class="org reveal">
         <div class="net">
-          <h3 class="org-h">조직</h3>
+          <h3 class="org-h">{en ? <>Organization</> : <>조직</>}</h3>
           {(['desk', 'mob'] as const).map((k) => (
             <svg class={`links ${k}`} viewBox={`0 0 ${net[k].w} ${net[k].h}`} aria-hidden="true">
               {net[k].links.map(([a, b, d], i) => (
@@ -201,15 +252,15 @@ const ciKinds = [
             </svg>
           ))}
           {teams.map((t) => (
-            <p class="hub" style={`${posStyle(t.t)};--c:${t.dot};--tint:${t.tint}`}><b>{t.t}</b><span>{t.d}</span></p>
+            <p class="hub" style={`${posStyle(t.t)};--c:${t.dot};--tint:${t.tint}`}><b>{en ? t.tEn : t.t}</b><span>{en ? t.dEn : t.d}</span></p>
           ))}
           {people.map((m, i) => (
             <div class={i ? 'node' : 'node ceo'} data-go={i} data-id={m.n} style={`${posStyle(m.n)};--c:${i ? dotOf(m.g) : 'var(--orange)'}`}>
-              {m.e ? <><span class="r">{m.r}</span><b>{m.e}</b></> : <b>{m.r}</b>}
+              {en ? <b>{m.e ?? m.rEn}</b> : m.e ? <><span class="r">{m.r}</span><b>{m.e}</b></> : <b>{m.r}</b>}
             </div>
           ))}
         </div>
-        <p class="adv"><b>기술 자문</b> {advisor}</p>
+        <p class="adv"><b>{en ? <>Technical advisor</> : <>기술 자문</>}</b> {en ? advisorEn : advisor}</p>
       </div>
     </div>
   </section>
@@ -219,11 +270,11 @@ const ciKinds = [
     <div class="wrap ci">
       <div class="ci-view reveal">
         <div class="ci-stage" data-k="white">
-          {ciKinds.map((k, i) => <img class={`ci-big ${k.id}`} src={k.svg} alt={k.alt} hidden={i !== 0} />)}
+          {ciKinds.map((k, i) => <img class={`ci-big ${k.id}`} src={k.svg} alt={en ? k.altEn : k.alt} hidden={i !== 0} />)}
         </div>
-        <div class="ci-thumbs" role="group" aria-label="CI 종류 선택">
+        <div class="ci-thumbs" role="group" aria-label={en ? 'Choose a CI version' : 'CI 종류 선택'}>
           {ciKinds.map((k, i) => (
-            <button type="button" class={`ci-thumb ${k.id}`} data-k={k.id} data-png={k.png} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={k.label}>
+            <button type="button" class={`ci-thumb ${k.id}`} data-k={k.id} data-png={k.png} aria-pressed={i === 0 ? 'true' : 'false'} aria-label={en ? k.labelEn : k.label}>
               <img src={k.svg} alt="" />
             </button>
           ))}
@@ -231,10 +282,10 @@ const ciKinds = [
       </div>
       <div class="ci-copy reveal">
         <h2 class="h2 sm">CI</h2>
-        <p class="lead">신영이노베이션의 CI에는 길을 잃지 않고 새로운 방향을 가리키는 별처럼 나아가겠다는 뜻을 담았습니다.</p>
-        <p class="lead">RE:Think innovation은 당연하게 여겨 온 것도 다시 생각해 더 나은 답을 찾겠다는 우리의 다짐입니다.</p>
+        <p class="lead">{en ? <>The SYINNOVATION CI stands for moving forward like a star that never loses its way and points in new directions.</> : <>신영이노베이션의 CI에는 길을 잃지 않고 새로운 방향을 가리키는 별처럼 나아가겠다는 뜻을 담았습니다.</>}</p>
+        <p class="lead">{en ? <>RE:Think innovation is our commitment to rethink even what has been taken for granted and find better answers.</> : <>RE:Think innovation은 당연하게 여겨 온 것도 다시 생각해 더 나은 답을 찾겠다는 우리의 다짐입니다.</>}</p>
         <a class="btn ci-dl" href={ciKinds[0].png} download>
-          PNG 다운로드
+          {en ? <>Download PNG</> : <>PNG 다운로드</>}
           <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 19h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg>
         </a>
       </div>
@@ -245,20 +296,20 @@ const ciKinds = [
   <section class="section mist">
     <div class="wrap">
       <div class="tl-head reveal">
-        <h2 class="h2 sm">연혁</h2>
+        <h2 class="h2 sm">{en ? <>History</> : <>연혁</>}</h2>
         <div class="tl-nav">
-          <button type="button" class="nav tl-prev" aria-label="최근 연도로"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
-          <button type="button" class="nav tl-next" aria-label="이전 연도로"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+          <button type="button" class="nav tl-prev" aria-label={en ? 'To more recent years' : '최근 연도로'}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
+          <button type="button" class="nav tl-next" aria-label={en ? 'To earlier years' : '이전 연도로'}><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" /></svg></button>
         </div>
       </div>
-      <ol class="tl reveal" tabindex="0" aria-label="연혁, 최근 연도부터">
+      <ol class="tl reveal" tabindex="0" aria-label={en ? 'History, newest year first' : '연혁, 최근 연도부터'}>
         {years.map((y) => (
           <li class="yr">
-            <div class="yr-pic"><img src={`/images/history/${y}.webp`} alt={yearPic[y]} width="1260" height="600" loading="lazy" /></div>
+            <div class="yr-pic"><img src={`/images/history/${y}.webp`} alt={en ? yearPicEn[y] : yearPic[y]} width="1260" height="600" loading="lazy" /></div>
             <p class="yr-n">{y}</p>
             <span class="yr-axis" aria-hidden="true"><i></i></span>
             <ul class="yr-list">
-              {history[y].map((h) => (<li>{h.m && <b>{Number(h.m)}월</b>}{h.t}</li>))}
+              {history[y].map((h) => (<li>{h.m && <b>{en ? new Date(2000, Number(h.m) - 1).toLocaleString('en-US', { month: 'short' }) : <>{Number(h.m)}월</>}</b>}{en ? h.tEn : h.t}</li>))}
             </ul>
           </li>
         ))}
@@ -268,22 +319,22 @@ const ciKinds = [
 
   <section class="section">
     <div class="wrap">
-      <h2 class="h2 sm reveal">오시는 길</h2>
+      <h2 class="h2 sm reveal">{en ? <>Location</> : <>오시는 길</>}</h2>
       <!-- Google map (needs no key; Naver blocks embedding without an API key); the address card underneath shows
            until the map loads, or if a browser blocks it -->
       <div class="map reveal">
         <div class="map-card">
           <svg viewBox="0 0 24 24" width="36" height="36" aria-hidden="true"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z" fill="currentColor" /><circle cx="12" cy="10" r="2.4" fill="#fff" /></svg>
-          <b>서울 마포구 마포대로 78</b>
-          <span>제2서울핀테크랩 · 경찰공제회 11층</span>
+          <b>{en ? <>78 Mapo-daero, Mapo-gu, Seoul</> : <>서울 마포구 마포대로 78</>}</b>
+          <span>{en ? <>Seoul Fintech Lab 2 · 11F, Police Mutual Aid Association Bldg.</> : <>제2서울핀테크랩 · 경찰공제회 11층</>}</span>
         </div>
-        <iframe class="nmap" title="신영이노베이션 위치 지도: 서울 마포구 마포대로 78" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
+        <iframe class="nmap" title={en ? 'Map of the SYINNOVATION location: 78 Mapo-daero, Mapo-gu, Seoul' : '신영이노베이션 위치 지도: 서울 마포구 마포대로 78'} loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen
           src="https://www.google.com/maps/embed?origin=mfe&pb=!1m3!2m1!1z7ISc7Jq47Yq567OE7IucIOuniO2PrOq1rCDrp4jtj6zrjIDroZwgNzg!6i16!3m1!1sko!5m1!1sko"></iframe>
-        <a class="map-open" href={naverLink} target="_blank" rel="noopener">네이버 지도에서 보기</a>
+        <a class="map-open" href={naverLink} target="_blank" rel="noopener">{en ? <>View on Naver Map</> : <>네이버 지도에서 보기</>}</a>
       </div>
       <dl class="info">
-        <div><dt>주소</dt><dd>{company.address}</dd></div>
-        <div><dt>이메일</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
+        <div><dt>{en ? <>Address</> : <>주소</>}</dt><dd>{en ? company.en.address : company.address}</dd></div>
+        <div><dt>{en ? <>Email</> : <>이메일</>}</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
       </dl>
     </div>
   </section>
@@ -311,11 +362,32 @@ const ciKinds = [
   .ph img { object-fit: cover; filter: grayscale(1); }
   /* colour-pencil strokes draw the sketch in on hover and rub it back out on leave */
   .ph .stroke { fill: none; stroke: #fff; stroke-width: 13; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; transition: stroke-dashoffset .6s ease-in; }
-  .slide:hover .ph .stroke, .ph.is-sketch .stroke { stroke-dashoffset: 0; transition: stroke-dashoffset 1.4s cubic-bezier(.45, .05, .35, 1); }
+  .slide:hover .ph .stroke, .slide.is-sketch .ph .stroke { stroke-dashoffset: 0; transition: stroke-dashoffset 1.4s cubic-bezier(.45, .05, .35, 1); }
+  /* the words beside it are written over in pencil at the same time, swept on the same diagonal (user, 2026-11-16):
+     both copies share one grid cell, and complementary masks hand one over to the other along the strokes' 45° line;
+     at 220% the edge crosses the words over the whole 1.4 s, in step with the strokes over the portrait */
+  .txt { display: grid; }
+  .copy { grid-area: 1 / 1; align-self: center; -webkit-mask-size: 220% 220%; mask-size: 220% 220%; -webkit-mask-repeat: no-repeat; mask-repeat: no-repeat;
+    -webkit-mask-position: 100% 100%; mask-position: 100% 100%; transition: -webkit-mask-position .6s ease-in, mask-position .6s ease-in; }
+  .typed { -webkit-mask-image: linear-gradient(135deg, transparent 48%, #000 52%); mask-image: linear-gradient(135deg, transparent 48%, #000 52%); }
+  .drawn { -webkit-mask-image: linear-gradient(135deg, #000 48%, transparent 52%); mask-image: linear-gradient(135deg, #000 48%, transparent 52%);
+    pointer-events: none; user-select: none; font-family: 'Nanum Pen Script', 'Pretendard Variable', cursive; filter: url(#pencil-hand); }
+  .slide:hover .copy, .slide.is-sketch .copy { -webkit-mask-position: 0 0; mask-position: 0 0;
+    transition: -webkit-mask-position 1.4s cubic-bezier(.45, .05, .35, 1), mask-position 1.4s cubic-bezier(.45, .05, .35, 1); }
+  /* sizes and line heights keep each line as tall as the typed one, so the slide does not change height */
+  .drawn .who { font-size: 20px; font-weight: 400; line-height: 1.27; color: #5a564e; }
+  .drawn .nm { font-size: clamp(50px, 3.7vw, 68px); font-weight: 400; line-height: 1.1; letter-spacing: 0; color: #2f2d29; -webkit-text-stroke: .6px currentColor; }
+  .drawn .hi { font-size: clamp(24px, 1.65vw, 28px); font-weight: 400; line-height: 1.24; color: #2f2d29; -webkit-text-stroke: .3px currentColor; }
+  .drawn .career { border-top-color: rgba(47, 45, 41, .4); }
+  .drawn .career li { font-size: 19px; line-height: 1.18; color: #57534b; }
+  .defs { position: absolute; width: 0; height: 0; }
   @media (prefers-reduced-motion: reduce) {
-    .ph .stroke, .slide:hover .ph .stroke, .ph.is-sketch .stroke { stroke-dashoffset: 0; transition: none; }
+    .ph .stroke, .slide:hover .ph .stroke, .slide.is-sketch .ph .stroke { stroke-dashoffset: 0; transition: none; }
     .ph .sketch { opacity: 0; transition: opacity .3s; }
-    .slide:hover .ph .sketch, .ph.is-sketch .sketch { opacity: 1; }
+    .slide:hover .ph .sketch, .slide.is-sketch .ph .sketch { opacity: 1; }
+    .copy, .slide:hover .copy, .slide.is-sketch .copy { -webkit-mask: none; mask: none; transition: opacity .3s; }
+    .drawn, .slide:hover .typed, .slide.is-sketch .typed { opacity: 0; }
+    .slide:hover .drawn, .slide.is-sketch .drawn { opacity: 1; }
   }
   @media (hover: none) { .ph { cursor: pointer; } }
   .who { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; color: var(--ink-2); }
@@ -525,7 +597,8 @@ const ciKinds = [
     };
     const syncAuto = () => {
       autoBtn.setAttribute('aria-pressed', String(stopped));
-      autoBtn.setAttribute('aria-label', stopped ? '자동 넘김 켜기' : '자동 넘김 멈추기');
+      // English pages carry their labels in data-on / data-off
+      autoBtn.setAttribute('aria-label', stopped ? (autoBtn.dataset.on ?? '자동 넘김 켜기') : (autoBtn.dataset.off ?? '자동 넘김 멈추기'));
     };
     const go = (i: number, behavior = smooth) => { track.scrollTo({ left: ((i + n) % n) * track.clientWidth, behavior }); arm(); };
     autoBtn.addEventListener('click', () => { stopped = !stopped; syncAuto(); arm(); });
@@ -550,8 +623,8 @@ const ciKinds = [
       const to = Math.abs(dx) > track.clientWidth * 0.12 ? from + (dx < 0 ? 1 : -1) : from;
       go(Math.max(0, Math.min(n - 1, to)));
     });
-    // touch screens have no hover: a tap on the portrait switches between the photo and the sketch
-    crew.querySelectorAll<HTMLElement>('.ph').forEach((ph) => ph.addEventListener('click', () => ph.classList.toggle('is-sketch')));
+    // touch screens have no hover: a tap on the portrait switches the photo and the words between typed and sketched
+    crew.querySelectorAll<HTMLElement>('.ph').forEach((ph) => ph.addEventListener('click', () => ph.closest('.slide')!.classList.toggle('is-sketch')));
     show(0);
   }
 

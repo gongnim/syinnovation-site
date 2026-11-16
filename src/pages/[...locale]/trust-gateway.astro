@@ -1,20 +1,26 @@
 ---
+import { bothLangs } from '../../lib/i18n';
+export const getStaticPaths = bothLangs;
 // Trust Gateway: the page walks a buyer from "why now" to "how we start". It opens with the night hero (TgIntro: the
 // same password, a thief stopped and the employee let in), then zero trust vs Trust Gateway on one sheet
 // (ZtBridge), then what a leaked account opens (VPN vs Trust Gateway), attacks
 // and how they stop, where it is used, the product screens, what an admin sees, how to start, then
 // questions. Facts follow tech doc v0.3 and the product's demo page; web access only (no SSH/RDP). The NIST, CISA
 // and 지원 환경 tables added on 2026-11-16 went the same day (user): the zero trust band became one summary sheet.
-import Base from '../layouts/Base.astro';
-import ConsultBtn from '../components/ConsultBtn.astro';
-import CtaBand from '../components/CtaBand.astro';
-import Icon from '../components/Icon.astro';
-import TgDemo from '../components/tg/TgDemo.astro';
-import TgVpnSwitch from '../components/tg/TgVpnSwitch.astro';
-import TgConsole from '../components/tg/TgConsole.astro';
-import TgIntro from '../components/tg/TgIntro.astro';
-import ZtBridge from '../components/tg/ZtBridge.astro';
-import { appName, tgUses as uses } from '../data/site';
+import Base from '../../layouts/Base.astro';
+import ConsultBtn from '../../components/ConsultBtn.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import Icon from '../../components/Icon.astro';
+import TgDemo from '../../components/tg/TgDemo.astro';
+import TgVpnSwitch from '../../components/tg/TgVpnSwitch.astro';
+import TgConsole from '../../components/tg/TgConsole.astro';
+import TgIntro from '../../components/tg/TgIntro.astro';
+import ZtBridge from '../../components/tg/ZtBridge.astro';
+import { appName, useCases } from '../../data/site';
+import { langOf } from '../../lib/i18n';
+const lang = langOf(Astro.url);
+const en = lang === 'en';
+const uses = useCases(lang);
 
 // from the tech doc v0.3 (ch. 2.2, 5.2, 5.4, 6.1, 6.5) and the demo page (signed identity per request)
 const attacks = [
@@ -46,6 +52,45 @@ const pocGroups = [
   { k: '컨설팅/PoC', items: ['회사에 맞는 적용 범위와 접근 정책 설계', '등록된 직원은 평소처럼 바로 접속되는지', '등록되지 않은 기기는 게이트웨이에서 막히는지', '정책을 바꾸면 다음 요청부터 반영되는지', '판단 근거와 감사 기록이 남는지', '직원이 쓰기에 번거롭지 않은지'] },
 ];
 
+// English (docs/i18n-terms.md): the same facts, hedges and limits as the Korean above
+const attacksEn = [
+  { k: 'If they steal the password', v: "A password alone opens nothing. The device certificate of a registered PC and a biometric check on the user's own phone are both required." },
+  { k: 'If they copy the PC certificate', v: 'Keys are created inside the security chips of the PC and the phone and never leave them. A copied file alone cannot connect.' },
+  { k: 'If they steal the whole work PC', v: "The PC's and the phone's locations do not match, so step-up authentication is requested. The request goes only to the phone, so the PC alone cannot pass." },
+  { k: 'If they intercept and replay traffic', v: 'Connections use TLS 1.3 mutual authentication and server public key pinning. The identity is signed anew each time, so replaying an intercepted value does not work.' },
+  { k: 'If a former employee uses old permissions', v: 'Departures are synced from the HR system and certificates are revoked. A PC certificate is valid for only 12 hours, and getting a new one needs approval every time.' },
+  { k: 'If a device is lost', v: 'Once its certificate is revoked in the Admin Console, requests are denied right away, starting with the next one.' },
+];
+const rulesEn = [
+  { t: 'Only what the policy allows passes', d: "Without the information needed to decide, nothing opens. The policy's default is also deny." },
+  { t: 'Risky devices are blocked from the start', d: "Jailbroken or rooted phones, emulators and apps with a debugger attached are blocked. Whether an app is genuine is checked with Apple's and Google's app integrity verification." },
+  { t: 'No inbound ports', d: "The customer's internal network opens no inbound ports. The Internal Agent connects to Trust Gateway first, and requests come in only through that connection." },
+];
+const rolloutEn = [
+  { t: 'Initial consultation (free)', d: 'Together we assess the security risks of how staff access work today and the state of account and permission management, and discuss what to change first.' },
+  { t: 'Consulting/PoC', d: 'We design the scope and policies that fit your company, and you try it yourself with one business service connected to an evaluation environment.' },
+  { t: 'Pilot', d: 'Expand department by department, compare results in observe mode, then apply it within limits.' },
+  { t: 'Company-wide rollout', d: 'The service list is finalized and all users move to Trust Gateway. Audit, record retention and disaster recovery procedures are run alongside.' },
+];
+const pocGroupsEn = [
+  { k: 'Initial consultation', items: ['What you want and which security concerns you want to solve', 'How you would like to apply Trust Gateway', 'Which work and users, and how far you want to go'] },
+  { k: 'Consulting/PoC', items: ['Scope and access policies designed for your company', 'Whether registered employees connect right away as usual', 'Whether unregistered devices are stopped at the gateway', 'Whether a policy change applies from the next request', 'Whether the reasons for decisions and audit records are kept', 'Whether it is easy for employees to use'] },
+];
+const faqEn = [
+  { q: 'Are Zero Trust and Trust Gateway the same thing?', a: 'No. Zero Trust is a security principle, "trust no one and verify each time", and US NIST and CISA, as well as Korea\'s Ministry of Science and ICT, have published standards for it. Trust Gateway is SYINNOVATION\'s solution, developed by applying that principle.' },
+  { q: 'Do we have to turn off our VPN right away?', a: 'No. Keep your existing VPN and connect one business service to Trust Gateway first. Expand services and users as you check the results; during the move, both ways of connecting can be used side by side.' },
+  { q: 'What needs to be installed?', a: `On the company side, the Internal Agent is installed on an in-house Linux server (RHEL family, Ubuntu). The firewall only needs to allow outbound connections, and no dedicated appliance is needed. Employees install the User Agent on their PC (Windows 10 · 11, macOS 12 or later) and the ${appName} app on their phone.` },
+  { q: 'Which business systems does it work with?', a: 'It works with business systems used in a web browser (HTTP · HTTPS), such as groupware, ERP and HR systems. On Windows PCs, access is through Chrome and Edge. Common actions such as logging in and uploading and downloading files are checked together, service by service, before rollout.' },
+  { q: 'Do we have to change our business systems?', a: 'No. Existing logins can stay as they are. The gateway signs the verified user identity and sends it along, so if you wish, a business system can recognize users by this identity and spare them a second login. Menus and data permissions inside each service stay managed by each business system, as now.' },
+  { q: 'Is a phone required?', a: `Yes. Trust Gateway verifies people with their phone. Employees without a phone registered with the ${appName} app (iOS 16 or later, Android 9 or later) cannot connect through Trust Gateway. Approval is by biometric authentication such as Face ID or fingerprint, or by the phone's PIN.` },
+  { q: "Does the company see employees' biometric data or location?", a: "Biometric data and the phone PIN never leave the phone. The server checks only signatures made with a key in the phone's secure area. Signals such as location and Wi-Fi are used to check that the PC and the phone are in the same place; what is collected, who may view it and how long it is kept are agreed with you when you adopt Trust Gateway." },
+  { q: 'What if a phone or PC is lost?', a: "Revoke the lost device's certificate and authentication methods in the Admin Console, and requests are denied right away, starting with the next one. The phone cannot approve anything without biometric authentication or the PIN. A new phone is registered again with a one-time code sent to the company email." },
+  { q: "Won't employees be locked out right after rollout?", a: 'New decision features run first in a "detect only" mode, so you can see what decisions normal work produces before switching them to enforcement. You start with some users and services, verify the whole flow from registration to revoking access, then expand. Essential checks such as certificate verification apply from the start.' },
+  { q: "Won't access get slower?", a: 'When a request arrives, it is decided at once from a risk state calculated in advance. Heavy analysis such as comparing PC and phone signals or anomaly detection runs separately from requests and applies from the next decision, so requests never wait for the analysis.' },
+  { q: 'What happens if Trust Gateway has a problem?', a: 'The principle is not to open when the information needed to decide cannot be confirmed. There is no bypass that lets traffic through unchecked. Internal Agents can be split into active and standby, so if one cannot be used, traffic moves to the other. Disaster recovery procedures are set together at rollout.' },
+  { q: 'Where are records kept, and for how long?', a: 'Every access decision is recorded with its result and reasons (which signals and rules applied), and can be viewed decision by decision in the Admin Console. Certificate issuance and revocation history is chained with hashes, so changed or missing records can be found with a verification tool. The retention period is agreed with you when you adopt Trust Gateway.' },
+];
+
 const faq = [
   { q: '제로트러스트와 Trust Gateway는 같은 건가요?', a: '아니요. 제로트러스트는 「아무도 믿지 않고 매번 확인한다」는 보안 원칙이고, 미국 NIST·CISA와 한국 과학기술정보통신부가 기준을 공개했습니다. Trust Gateway는 그 원칙을 적용하여 개발한 신영이노베이션의 솔루션입니다.' },
   { q: 'VPN을 바로 꺼야 하나요?', a: '아니요. 기존 VPN은 그대로 두고, 업무 서비스 하나부터 Trust Gateway로 연결합니다. 결과를 확인하며 서비스와 사용자를 넓히고, 옮기는 동안에는 기존 접속 방식과 함께 쓸 수 있습니다.' },
@@ -61,7 +106,13 @@ const faq = [
   { q: '기록은 어디에, 얼마나 남나요?', a: '모든 접근 판정은 결과와 근거(어떤 신호와 규칙이 작용했는지)를 함께 남겨, 관리 콘솔에서 판정별로 볼 수 있습니다. 인증서 발급과 폐기 이력은 해시로 이어 두어, 바뀌거나 빠진 기록을 검증 도구로 찾아낼 수 있습니다. 보존 기간은 도입할 때 회사와 함께 정합니다.' },
 ];
 ---
-<Base title="Trust Gateway" description="제로트러스트 원칙을 적용하여 개발한 신영이노베이션의 솔루션, Trust Gateway. PC는 기기를, 휴대폰은 사용자를 증명하고 매 순간 다시 확인합니다.">
+<Base title={en ? 'Trust Gateway: Zero Trust-based access control' : 'Trust Gateway - 제로트러스트 기반 접근 제어'}
+  ld={[
+    { '@type': 'SoftwareApplication', name: 'Trust Gateway', applicationCategory: 'SecurityApplication', operatingSystem: 'Windows, macOS, iOS, Android',
+      url: new URL(en ? '/en/trust-gateway' : '/trust-gateway', Astro.site).href, publisher: { '@id': new URL('/#org', Astro.site).href } },
+    { '@type': 'FAQPage', mainEntity: (en ? faqEn : faq).map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) },
+  ]}
+  description={en ? "Trust Gateway, SYINNOVATION's solution developed by applying Zero Trust principles. The PC proves the device, the phone proves the user, and it checks again at every moment." : '제로트러스트 원칙을 적용하여 개발한 신영이노베이션의 솔루션, Trust Gateway. PC는 기기를, 휴대폰은 사용자를 증명하고 매 순간 다시 확인합니다.'}>
   <TgIntro />
 
   <ZtBridge id="zt" />
@@ -71,20 +122,20 @@ const faq = [
   <section class="section mist" id="attacks">
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">공격자가 이렇게 시도한다면</h2>
-        <p class="lead">비밀번호 하나에 기대지 않고, 여러 증거를 동시에 요구합니다.</p>
+        <h2 class="h2">{en ? <>If an attacker tries this</> : <>공격자가 이렇게 시도한다면</>}</h2>
+        <p class="lead">{en ? <>It does not rely on a single password; it asks for several proofs at once.</> : <>비밀번호 하나에 기대지 않고, 여러 증거를 동시에 요구합니다.</>}</p>
       </div>
       <ul class="atk">
-        {attacks.map((a, i) => (
+        {(en ? attacksEn : attacks).map((a, i) => (
           <li class="reveal" style={`--i:${i % 3}`}>
-            <p class="a-try"><span class="a-k">시도</span>{a.k}</p>
+            <p class="a-try"><span class="a-k">{en ? <>Attempt</> : <>시도</>}</span>{a.k}</p>
             <p class="a-def"><span class="a-k">Trust Gateway</span>{a.v}</p>
-            <span class="stamp" aria-hidden="true">막힘</span>
+            <span class="stamp" aria-hidden="true">{en ? <>Blocked</> : <>막힘</>}</span>
           </li>
         ))}
       </ul>
       <ul class="rules reveal">
-        {rules.map((r) => (<li><b>{r.t}</b><p>{r.d}</p></li>))}
+        {(en ? rulesEn : rules).map((r) => (<li><b>{r.t}</b><p>{r.d}</p></li>))}
       </ul>
     </div>
   </section>
@@ -92,11 +143,11 @@ const faq = [
   <section class="section" id="uses">
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">어디에 쓰이나요?</h2>
-        <p class="lead">같은 판단 엔진이 세 자리에 들어갑니다. <br />직원의 업무 접속, 금융 앱의 본인 확인, 고객의 결제입니다.</p>
+        <h2 class="h2">{en ? <>Where is it used?</> : <>어디에 쓰이나요?</>}</h2>
+        <p class="lead">{en ? <>The same Decision Engine works in three places: <br />employees' work access, identity verification in financial apps, and customer payments.</> : <>같은 판단 엔진이 세 자리에 들어갑니다. <br />직원의 업무 접속, 금융 앱의 본인 확인, 고객의 결제입니다.</>}</p>
       </div>
       <div class="tabs reveal" id="use-cases">
-        <div class="tablist" role="tablist" aria-label="쓰임">
+        <div class="tablist" role="tablist" aria-label={en ? 'Uses' : '쓰임'}>
           {uses.map((c, i) => (<button role="tab" type="button" id={`tab-${c.id}`} aria-controls={`panel-${c.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}>{c.t}</button>))}
         </div>
         {uses.map((c, i) => (
@@ -116,17 +167,17 @@ const faq = [
   <section class="section" id="start">
     <div class="wrap">
       <div class="head-center reveal">
-        <h2 class="h2">작게 시작해서 넓힙니다</h2>
-        <p class="lead">사전 컨설팅에서 시작해, 결과를 확인하며 단계적으로 적용합니다.</p>
+        <h2 class="h2">{en ? <>Start small, then expand</> : <>작게 시작해서 넓힙니다</>}</h2>
+        <p class="lead">{en ? <>Start with an initial consultation, then roll out step by step as you check the results.</> : <>사전 컨설팅에서 시작해, 결과를 확인하며 단계적으로 적용합니다.</>}</p>
       </div>
       <ol class="roll reveal">
-        {rollout.map((r, i) => (<li style={`--i:${i}`}><span class="n">{i + 1}</span><h3 class="h4">{r.t}</h3><p class="body">{r.d}</p></li>))}
+        {(en ? rolloutEn : rollout).map((r, i) => (<li style={`--i:${i}`}><span class="n">{i + 1}</span><h3 class="h4">{r.t}</h3><p class="body">{r.d}</p></li>))}
       </ol>
       <div class="poc reveal">
         <div>
-          <h3 class="h4">사전 컨설팅과 컨설팅/PoC에서 함께 보는 것</h3>
+          <h3 class="h4">{en ? <>What we look at together in the initial consultation and the consulting/PoC</> : <>사전 컨설팅과 컨설팅/PoC에서 함께 보는 것</>}</h3>
           <div class="poc-groups">
-            {pocGroups.map((g) => (<div><p class="poc-k">{g.k}</p><ul>{g.items.map((c) => <li><Icon name="check" size={18} />{c}</li>)}</ul></div>))}
+            {(en ? pocGroupsEn : pocGroups).map((g) => (<div><p class="poc-k">{g.k}</p><ul>{g.items.map((c) => <li><Icon name="check" size={18} />{c}</li>)}</ul></div>))}
           </div>
         </div>
         <ConsultBtn />
@@ -136,9 +187,9 @@ const faq = [
 
   <section class="section paper2" id="faq">
     <div class="wrap narrow">
-      <div class="head-left reveal"><h2 class="h2 sm">자주 묻는 질문</h2></div>
+      <div class="head-left reveal"><h2 class="h2 sm">{en ? <>Frequently asked questions</> : <>자주 묻는 질문</>}</h2></div>
       <div class="faq reveal">
-        {faq.map((f) => (
+        {(en ? faqEn : faq).map((f) => (
           <details>
             <summary>{f.q}<Icon name="plus" size={20} class="faq-i" /></summary>
             <p class="body">{f.a}</p>
@@ -148,7 +199,7 @@ const faq = [
     </div>
   </section>
 
-  <CtaBand title={"Trust Gateway\n사전 컨설팅으로 먼저 시작하세요"} lead="지금 업무 접속의 보안 위험을 함께 진단하고, 공개된 제로트러스트 기준에 비춰 무엇부터 바꿀지 의논합니다." />
+  <CtaBand title={en ? "Trust Gateway\nStart with an initial consultation" : "Trust Gateway\n사전 컨설팅으로 먼저 시작하세요"} lead={en ? "Together we assess the security risks of how staff access work today, and discuss what to change first in light of published Zero Trust standards." : "지금 업무 접속의 보안 위험을 함께 진단하고, 공개된 제로트러스트 기준에 비춰 무엇부터 바꿀지 의논합니다."} />
 </Base>
 
 <style>

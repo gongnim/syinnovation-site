@@ -1,0 +1,1805 @@
+{
+  "fsec-2026-11": {
+    "overview": [
+      "Information was taken in an outside intrusion into the \"continuous assessment system\" of the Financial Security Institute (FSI), which handles information security assessments for the financial sector. The system is an online channel where financial companies submit the administrative documents needed for the continuous information security assessment. The FSI said it confirmed abnormal outside access and signs of a leak around 3 p.m. on Nov 9, 2026.",
+      "The incident first became known through a Dailysecu report on the evening of Nov 10. The same day, the FSI issued a press release confirming the leak. According to the FSI, about 200 administrative forms, more than 300 items of personal information and more than 350 items of system user information were leaked.",
+      "The Financial Services Commission (FSC) and the Financial Supervisory Service (FSS) began an on-site inspection of the FSI. The head of the FSI apologized at a public event on Nov 12. The intrusion path and whether more data was leaked are still under investigation."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-09",
+        "event": "Around 3 p.m., the FSI confirmed abnormal outside access to the continuous assessment system and signs of a leak, and blocked access."
+      },
+      {
+        "date": "2026-11-09",
+        "event": "A notice appeared on the system saying the service was suspended for a website redesign (according to Dailysecu)."
+      },
+      {
+        "date": "2026-11-10",
+        "event": "Dailysecu first reported signs of the incident, and the FSI confirmed the leak in a press release."
+      },
+      {
+        "date": "2026-11-11",
+        "event": "It was reported that the FSC and the FSS had begun an on-site inspection of the FSI."
+      },
+      {
+        "date": "2026-11-12",
+        "event": "The head of the FSI publicly apologized for the incident in the opening address at FISCON 2026."
+      }
+    ],
+    "impact": [
+      "About 200 administrative forms were leaked. They include forms such as consent forms for personal credit information (according to the FSI).",
+      "More than 300 items of personal information in the forms, such as names and dates of birth, were leaked.",
+      "More than 350 items of system user information were leaked. These are partly masked names, mobile phone numbers and email addresses, mostly of financial company staff in charge of the assessment work.",
+      "The FSI said security information such as the system architecture, resident registration numbers and personal credit information has not been leaked so far.",
+      "The FSI explained that this system is separate from the systems for customers' financial transactions."
+    ],
+    "cause": [
+      "The FSI explained that the attacker used system vulnerabilities and other means to obtain FSS-level viewing rights. With these rights, one can see the materials submitted by many financial companies. The FSI said the attacker did not get in by impersonating the FSS. The specific vulnerability and the time of the first intrusion have not been disclosed.",
+      "According to reports, 236 IP addresses were used in the attack. An FSI official said they were all IP addresses in Korea. However, the IP locations alone do not confirm the attacker's real location or nationality. The attacker's identity and motive have not been revealed, and the exact cause is still under investigation."
+    ],
+    "response": [
+      "The FSI blocked access to the system as soon as it confirmed the incident. It then reported the incident to the FSC and the Korea Internet & Security Agency (KISA). It notified the affected financial companies individually. It said it would also tell the data subjects about the leak and how to prevent harm. It also stated that it would actively compensate for any secondary damage.",
+      "The FSC and the FSS began an on-site inspection of the FSI. The FSI reportedly asked the police to trace the attack IP addresses. The head of the FSI apologized in the opening address at FISCON 2026 on Nov 12. The FSI head said the institute would check its entire system and prepare fundamental measures to prevent a recurrence."
+    ],
+    "sources": [
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-12",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209448"
+      },
+      {
+        "outlet": "Digital Daily",
+        "date": "2026-11-11",
+        "url": "https://www.ddaily.co.kr/page/view/2026111109031173651"
+      },
+      {
+        "outlet": "Weekly Hankook",
+        "date": "2026-11-11",
+        "url": "https://weekly.hankooki.com/news/articleView.html?idxno=7193383"
+      },
+      {
+        "outlet": "Boannews",
+        "date": "2026-11-12",
+        "url": "https://boannews.com/news/articleView.html?idxno=147209"
+      }
+    ]
+  },
+  "mirae-asset-2026-11": {
+    "overview": [
+      "Mirae Asset Securities said on Nov 7 that it had been attacked from outside on Nov 4 and 5, 2026. The targets were the phone-verification login service on its mobile web and its internal groupware \"mi-global\". The company said it detected abnormal access from outside IP addresses and then blocked those paths.",
+      "According to the company, the securities account numbers of about 3,800 customers were taken. The personal information of 35,255 people, including employees, former employees and contract workers, was also leaked. The company said no financial loss has been confirmed so far.",
+      "Around the same time, other Mirae Asset Group affiliates also had breaches and intrusion attempts. The Financial Supervisory Service (FSS) began an on-site inspection of Mirae Asset Securities on Nov 9. The cause and path of the leak are still under investigation."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-26",
+        "event": "A leak of customer personal information was confirmed at affiliate Mirae Asset Life Insurance (as reported)."
+      },
+      {
+        "date": "2026-11-04",
+        "event": "Abnormal outside access hit the phone-verification login service on the mobile web, and customer account numbers were leaked."
+      },
+      {
+        "date": "2026-11-05",
+        "event": "The internal groupware mi-global was attacked, and personal information of employees and others was leaked."
+      },
+      {
+        "date": "2026-11-07",
+        "event": "Mirae Asset Securities disclosed the incident and apologized in the name of its co-CEOs."
+      },
+      {
+        "date": "2026-11-09",
+        "event": "The FSS sent an on-site inspection team to Mirae Asset Securities."
+      }
+    ],
+    "impact": [
+      "The securities account numbers of about 3,800 customers were leaked (according to the company). The company said other customer information, such as account holder names, was not leaked.",
+      "Information on 35,255 employees, former employees and contract workers was leaked. Most of it is names and employee numbers. Some records also include email addresses, mobile phone numbers and encrypted passwords.",
+      "The company explained that unique identifiers such as resident registration numbers and passport numbers, and sensitive information, were not leaked.",
+      "The company said there was no malware infection or service outage. The website and main services ran normally."
+    ],
+    "cause": [
+      "The company described it as an incident in which an unauthorized outsider viewed internal data. How the phone-verification login service and the groupware were breached has not been disclosed. The cause and the leak path are still under investigation.",
+      "Mirae Asset Life Insurance detected a system anomaly on Oct 25 and confirmed a leak of customer information on Oct 26. Outside intrusion attempts were also confirmed at Mirae Asset Global Investments (Oct 28) and Energy Infra Asset Management (Nov 2) (as reported). Whether these incidents came from the same attacker or the same vulnerability has not been confirmed."
+    ],
+    "response": [
+      "Mirae Asset Securities cut the outside connections of the affected service and servers right after it learned of the incident. It is checking the groupware and related mobile services for vulnerabilities. It widened the check to all internal systems that can be reached from outside. It reported the incident to the Financial Services Commission (FSC), the FSS and the Personal Information Protection Commission (PIPC). The company asked people to watch out for phishing and smishing that impersonate the company or its employees.",
+      "The FSS began its on-site inspection on Nov 9. The inspection team is looking at the scale of the damage, how the incident happened and the security management system. The FSS also plans to look into links between the incidents at the group affiliates. Before this, on Nov 5, the financial authorities announced measures telling about 580 financial companies to check all of their externally exposed systems."
+    ],
+    "sources": [
+      {
+        "outlet": "The Financial News",
+        "date": "2026-11-07",
+        "url": "https://www.fnnews.com/news/202611070825226459"
+      },
+      {
+        "outlet": "Business Watch",
+        "date": "2026-11-07",
+        "url": "https://news.bizwatch.co.kr/article/market/2026/11/07/0002"
+      },
+      {
+        "outlet": "Digital Times",
+        "date": "2026-11-09",
+        "url": "https://www.dt.co.kr/article/12093968"
+      },
+      {
+        "outlet": "Etoday",
+        "date": "2026-11-09",
+        "url": "https://www.etoday.co.kr/news/view/2645851"
+      }
+    ]
+  },
+  "ai-hacking-ring-2026-10": {
+    "overview": [
+      "The Cyber Investigation Division of the Seoul Metropolitan Police Agency announced on Oct 26, 2026 that it had arrested a ring of 7 people who hacked more than 90 Korean companies and stole personal information. Police believe the personal information they took exceeds 8.2 million records. The victims included private academies, hospitals, golf courses, universities, funeral service companies and affiliates of large conglomerates.",
+      "According to police, the crimes began around September 2025. At first, the ringleader used automated tools that look for web vulnerabilities. From late August 2026, the ringleader greatly expanded the targets by using generative AI and autonomous AI penetration tools.",
+      "The ring showed companies part of the stolen data and demanded money. The investigation began in June 2026 after a report from one victim company. Police said it is the first case in Korea of arresting suspects in large-scale hacking that used generative AI."
+    ],
+    "timeline": [
+      {
+        "date": "2025-09",
+        "event": "Police believe the ring's intrusions began around this time."
+      },
+      {
+        "date": "2026-06",
+        "event": "Police began an investigation after a report from a victim company."
+      },
+      {
+        "date": "2026-08",
+        "event": "As damage from the same method kept appearing, the Cyber Investigation Division of the Seoul Metropolitan Police Agency took over the cases and handled them together."
+      },
+      {
+        "date": "2026-10-15",
+        "event": "Police arrested the ringleader, who was identified by analyzing the hacking access logs."
+      },
+      {
+        "date": "2026-10-23",
+        "event": "The ringleader was first sent to prosecutors under arrest on charges of stealing about 900,000 personal records from 15 companies."
+      },
+      {
+        "date": "2026-10-26",
+        "event": "The Seoul Metropolitan Police Agency announced the results of the investigation."
+      }
+    ],
+    "impact": [
+      "About 90 companies were victims. Of these, about 60 were breached by AI-assisted attacks in the 40 or so days after late August 2026 (according to police).",
+      "More than 8.2 million personal records and internal business data were taken. They included names, resident registration numbers, phone numbers and addresses, as well as information on minors and some hospitals' treatment and counseling records.",
+      "By sector, these include 3.22 million records from 3 insurance sales companies, 1.43 million from 3 funeral service companies, 1.2 million from 21 golf courses and 990,000 from 12 private academies (as reported).",
+      "Threats were made against 38 companies, and the total amount demanded was about KRW 360 million. One company actually sent money, and the amount was found to be KRW 300,000.",
+      "Police received damage reports from 15 companies. The remaining 75 or so did not report the damage."
+    ],
+    "cause": [
+      "Investigators found that the ringleader was not an IT major and taught himself hacking from blogs and videos. He did penetration testing work at a security company from 2019 to 2022. According to reports, he used an autonomous AI penetration testing tool together with a coding agent. Once given a target, the tool found ways to break in on its own.",
+      "The specific vulnerabilities used have not been disclosed. The ring threatened companies by email, phone and text message, saying in effect that it would release the data unless paid. Investigators found it applied pressure by citing fines, reputational damage and possible class actions. It tried to receive the money in Tether, a crypto asset."
+    ],
+    "response": [
+      "From July to September 2026, police arrested, one after another, 5 accomplices who made the threatening calls. In early October, police caught an accomplice in their 20s who recruited them via Telegram and directed the crimes. The ringleader was arrested on Oct 15 and detained. The 6 accomplices are being investigated without detention. The charges include violating the Information and Communications Network Act, extortion and attempted extortion.",
+      "Police identified the ring by analyzing about 530,000 investigation records and 1.3 TB of access logs with a generative AI analysis system they built themselves. They searched the ringleader's home, secured computers and storage devices, and recovered the stolen data. Police checked with the Personal Information Protection Commission (PIPC) and KISA whether the victim companies had reported. They plan to keep investigating the victim companies that did not report and other possible crimes by the ringleader. Police urged companies that receive threats to report them right away."
+    ],
+    "sources": [
+      {
+        "outlet": "The Korea Economic Daily",
+        "date": "2026-10-26",
+        "url": "https://www.hankyung.com/article/202610264998i"
+      },
+      {
+        "outlet": "Kyunghyang Shinmun",
+        "date": "2026-10-26",
+        "url": "https://www.khan.co.kr/article/202610261200001/"
+      },
+      {
+        "outlet": "ZDNet Korea",
+        "date": "2026-10-27",
+        "url": "https://zdnet.co.kr/view/?no=20261027074733"
+      },
+      {
+        "outlet": "YTN",
+        "date": "2026-10-26",
+        "url": "https://www.ytn.co.kr/_ln/0103_202610261227157320"
+      }
+    ]
+  },
+  "korean-air-asiana-2026-10": {
+    "overview": [
+      "Reservation-related information of Korean Air and Asiana Airlines customers was leaked through the systems of Amadeus (Amadeus IT Group), an outside IT partner. Amadeus is a global company that supplies reservation and ticketing software to airlines and travel agencies. Both airlines use its systems, so both were affected.",
+      "Amadeus informed the two airlines of signs of the leak on the night of Oct 20, 2026. The two airlines disclosed the leak on Oct 23. Korean Air said customer reservation numbers were leaked, and Asiana Airlines said reservation-related information was leaked.",
+      "The two airlines said there were no signs that their own systems or internal databases were directly breached. The exact time of the leak and the full scale of the damage are still under investigation."
+    ],
+    "timeline": [
+      {
+        "date": "2023-08",
+        "event": "Start of the period in which unauthorized access to Amadeus systems is believed to have occurred."
+      },
+      {
+        "date": "2026-09-23",
+        "event": "Amadeus blocked the account used in the hack (according to News1)."
+      },
+      {
+        "date": "2026-10-20",
+        "event": "At 10:44 p.m., Amadeus notified Korean Air of signs of a leak."
+      },
+      {
+        "date": "2026-10-23",
+        "event": "The two airlines disclosed the leak, and Korean Air sent customers an apology email."
+      },
+      {
+        "date": "2026-11-11",
+        "event": "It was reported that 106,661 Korean Air customer reservation numbers were leaked."
+      }
+    ],
+    "impact": [
+      "Korean Air confirmed the leak of customer reservation numbers. The reported scale is 106,661 (about 107,000).",
+      "Asiana Airlines confirmed the leak of reservation-related information. The number has not been disclosed.",
+      "Payment information such as card numbers was reportedly not included. Asiana Airlines explained that it processes payments in a separate system.",
+      "Leaked items other than reservation numbers and the total number of people affected are still being checked.",
+      "The two airlines said no secondary damage has been confirmed so far."
+    ],
+    "cause": [
+      "Korean Air said the incident was caused by unauthorized access using the login credentials of an account on the Amadeus system. How the attacker obtained the credentials has not been disclosed. Which account and which privileges were used has not been confirmed either.",
+      "The estimated leak period is set broadly, from August 2023 to September 2026. This does not mean the leak continued throughout this period, and the exact timing is under investigation. News1 reported that Amadeus notified Korean Air only 27 days after blocking the account."
+    ],
+    "response": [
+      "Right after the notice, Korean Air took safety measures and checked its own database. It asked Amadeus to strengthen protection and prevent a recurrence. Asiana Airlines has strengthened security and is checking the exact scale of the leak. Amadeus has reportedly blocked the unauthorized access and is monitoring the dark web.",
+      "The two airlines told customers not to open links or attachments from unknown sources. They also advised customers not to respond to requests for personal information. In the National Assembly, there were calls for a thorough investigation of the damage and stronger management and oversight of partner companies. Whether the Personal Information Protection Commission (PIPC) has opened an investigation has not yet been confirmed."
+    ],
+    "sources": [
+      {
+        "outlet": "Money Today",
+        "date": "2026-10-23",
+        "url": "https://www.mt.co.kr/article/2026102321373246777"
+      },
+      {
+        "outlet": "Etoday",
+        "date": "2026-10-23",
+        "url": "https://www.etoday.co.kr/news/view/2639621"
+      },
+      {
+        "outlet": "ZDNet Korea",
+        "date": "2026-10-24",
+        "url": "https://zdnet.co.kr/view?no=20261024111553"
+      },
+      {
+        "outlet": "News1",
+        "date": "2026-11-11",
+        "url": "https://news1.kr/industry/general-industry/6350193"
+      }
+    ]
+  },
+  "hollys-2026-10": {
+    "overview": [
+      "About 2.76 million membership customer records of coffee chain Hollys were leaked in an outside attack. Hollys confirmed unauthorized access on Oct 16, 2026 and posted a notice on its website that night. It then issued an official statement on Oct 19 giving the scale and the items leaked.",
+      "According to the company, an outside attacker accessed its cloud service abnormally to mine cryptocurrency. In the process, a temporary data file provided during a past membership revamp was taken. The company said the customer database currently in operation was not part of the leak.",
+      "The leaked data is believed to be customer information collected from 2009 to Feb 11, 2020. Because it includes duplicate members, the actual number of people affected is still being checked. Customers were notified by text message only on Oct 18, two days after the notice, which drew criticism that it came late."
+    ],
+    "timeline": [
+      {
+        "date": "2026-09-03",
+        "event": "By the company's estimate, the leak of customer information began on this day."
+      },
+      {
+        "date": "2026-10-07",
+        "event": "The leak period estimated by the company ends on this day."
+      },
+      {
+        "date": "2026-10-16",
+        "event": "Hollys confirmed unauthorized access and posted a notice on its website around 9:36 p.m."
+      },
+      {
+        "date": "2026-10-18",
+        "event": "Hollys notified customers of the leak by text message."
+      },
+      {
+        "date": "2026-10-19",
+        "event": "Hollys issued an official statement and said it had reported about 2.76 million records to KISA."
+      }
+    ],
+    "impact": [
+      "About 2.76 million records, according to the report to KISA. The figure includes duplicate members.",
+      "The 9 leaked items are ID, password, name, date of birth, phone number, address, email, duplicate registration check information (DI) and other service usage information.",
+      "The data is believed to be membership customer data collected from 2009 to Feb 11, 2020 (company estimate).",
+      "The company is still checking the exact scale of the damage."
+    ],
+    "cause": [
+      "Hollys explained that an outside attacker abnormally accessed the cloud service the company uses, aiming to mine cryptocurrency. A temporary file for a past membership revamp that was left in that cloud was leaked along with it. How the attacker got into the cloud has not been disclosed. The company is conducting an internal investigation into the cause.",
+      "Claims were reported that members who had already closed their accounts also received leak notice texts. Whether the company kept the information of former members instead of destroying it has not yet been confirmed."
+    ],
+    "response": [
+      "Hollys blocked the unauthorized access path and strengthened its authentication process. It also increased monitoring of abnormal login attempts. It said it reported the incident to KISA and other relevant agencies. It said it would soon stop the membership service that uses the affected cloud.",
+      "The company advised customers to change their membership password right away. It also told them to change their passwords on other services that use the same ID and password. It asked customers not to click links in calls, texts or emails from unknown sources. Reports have not yet said whether the Personal Information Protection Commission (PIPC) has investigated or taken action."
+    ],
+    "sources": [
+      {
+        "outlet": "SBS Biz",
+        "date": "2026-10-19",
+        "url": "https://biz.sbs.co.kr/amp/article/20000340838"
+      },
+      {
+        "outlet": "Electronic Times",
+        "date": "2026-10-19",
+        "url": "https://www.etnews.com/20261019000322"
+      },
+      {
+        "outlet": "SBS Biz",
+        "date": "2026-10-20",
+        "url": "https://biz.sbs.co.kr/amp/article/20000341017"
+      }
+    ]
+  },
+  "seoul-churches-2026-10": {
+    "overview": [
+      "Signs emerged that two large Seoul churches, Yoido Full Gospel Church and SaRang Church, were hacked. Security firm Oasis Security announced on Oct 6, 2026 that it found breach records and stolen data from both churches on an overseas attacker's server. The firm said the server held church member information, offering records, internal documents and more.",
+      "Yoido Full Gospel Church received a notice of a suspected leak from the Korea Internet & Security Agency (KISA) and began an emergency security check. SaRang Church also confirmed signs of a personal information leak and reported it to the relevant agencies.",
+      "The figures given by the security firm differ from those the churches confirmed themselves. Both churches are still investigating the exact scope of the leak and how it happened."
+    ],
+    "timeline": [
+      {
+        "date": "2026-08",
+        "event": "According to the security firm's analysis, Yoido Full Gospel Church's offering records are logged as stolen at this time."
+      },
+      {
+        "date": "2026-09",
+        "event": "Oasis Security obtained attack tools and records from an overseas attacker's server."
+      },
+      {
+        "date": "2026-10-06",
+        "event": "Around 3 p.m., KISA notified Yoido Full Gospel Church of a suspected breach."
+      },
+      {
+        "date": "2026-10-06",
+        "event": "Oasis Security announced the results of its analysis of the two churches."
+      },
+      {
+        "date": "2026-10-07",
+        "event": "At 1 a.m., Yoido Full Gospel Church blocked outside access and disclosed the results of its own check."
+      }
+    ],
+    "impact": [
+      "Yoido Full Gospel Church (security firm's analysis): about 960,000 member records updated in the past 2 years, about 330,000 offering records, about 68,000 electronic approval documents and 14,706 internal messenger conversations were found.",
+      "Yoido Full Gospel Church (church's own check): of 7 files suspected of being leaked, 1 file, the \"member information change history\", held the names, dates of birth and changes of about 850,000 people. It included 2,629 resident registration number change records, 3,964 phone numbers and 7,202 addresses.",
+      "Yoido Full Gospel Church said the offering data holds only slip numbers, amounts and descriptions, with no personal information such as names.",
+      "SaRang Church (security firm's analysis): names, addresses, phone numbers and other details of about 89,000 members, and 286 records on staff including the senior pastor, were found."
+    ],
+    "cause": [
+      "According to Oasis Security's analysis, the attacker at Yoido Full Gospel Church got into the enterprise resource planning (ERP) server with a malicious program called a web shell. The analysis found that the attacker then gained database administrator privileges. At SaRang Church, the attacker logged in to the groupware server with an account that appears to have been obtained in advance. The attacker then used a vulnerability to extend access to the ERP through single sign-on (SSO).",
+      "The attacker's server records contained terms referring to AI agents and attack handover reports, which raised the possibility that AI was used. This is not a confirmed fact. The security firm judged it unlikely that this was the same attacker as in the attacks on the financial sector around the same time. The attacker's identity has not been revealed."
+    ],
+    "response": [
+      "Yoido Full Gospel Church blocked outside access early on Oct 7 and changed server passwords. It replaced its existing firewall and decided to analyze system vulnerabilities with a security firm. It said it is notifying affected members of the leak in line with the relevant laws and procedures. The senior pastor apologized, and the church said it would cooperate with investigations by the relevant agencies.",
+      "SaRang Church set up an emergency task force and reported to the relevant agencies. It is investigating the cause while taking steps to prevent further damage. Whether the Personal Information Protection Commission (PIPC) has opened an investigation or police have started one has not yet been confirmed in reports."
+    ],
+    "sources": [
+      {
+        "outlet": "The Financial News",
+        "date": "2026-10-06",
+        "url": "https://www.fnnews.com/news/202610062216108512"
+      },
+      {
+        "outlet": "Korea JoongAng Daily",
+        "date": "2026-10-07",
+        "url": "https://www.koreajoongangdaily.com/korea/cyberattacks-expose-member-data-donation-records-at-two-seoul-megachurches-report-says/12908689"
+      },
+      {
+        "outlet": "iNews24",
+        "date": "2026-10-07",
+        "url": "https://inews24.com/view/2012738"
+      },
+      {
+        "outlet": "YTN",
+        "date": "2026-10-07",
+        "url": "https://www.ytn.co.kr/_ln/0134_202610071010213636"
+      }
+    ]
+  },
+  "malgeunsoft-2026-10": {
+    "overview": [
+      "In September 2026, the server for the training sites of e-learning company Malgnsoft was attacked from outside. Malgnsoft supplies learning management systems (LMS) to companies and public institutions. It has also been entrusted with running client training sites and managing their personal information. When this one contractor was attacked, information on users of many client organizations was taken at once.",
+      "The company learned of the attack on Sep 22 when its text messaging vendor alerted it to abnormal sending. The attacker also used the company's sender number to send spam texts to random numbers (according to the company's notice). On Sep 25, the company posted an apology in its CEO's name and opened a page for checking whether one's data was leaked.",
+      "On Oct 6, it became known that information on about 100,000 users of \"Cheongnyeom Gwonik Baeumteo\", an integrity training site managed by the Anti-Corruption and Civil Rights Commission (ACRC), was leaked. The same day, damage at other organizations, such as the Korean Commercial Arbitration Board, was reported one after another. On Oct 13, the office of a member of the National Assembly's National Policy Committee released materials from the Personal Information Protection Commission (PIPC). These materials showed that the company reported a leak of about 2.37 million records, with more than 20 organizations affected."
+    ],
+    "timeline": [
+      {
+        "date": "2026-09-19",
+        "event": "An outside attacker broke into the training site server and took personal information the next morning (according to the company's notice)."
+      },
+      {
+        "date": "2026-09-22",
+        "event": "Malgnsoft learned of the attack from an abnormal text sending alert and reported it to the Personal Information Protection Commission (PIPC) and the Korea Internet & Security Agency (KISA)."
+      },
+      {
+        "date": "2026-09-25",
+        "event": "Malgnsoft posted an apology in its CEO's name and pointed users to a page for checking whether their data was leaked."
+      },
+      {
+        "date": "2026-09-30",
+        "event": "The PIPC opened an investigation after receiving three reports, on Sep 22, 24 and 29."
+      },
+      {
+        "date": "2026-10-06",
+        "event": "The Anti-Corruption and Civil Rights Commission said information on about 100,000 users of Cheongnyeom Gwonik Baeumteo was leaked."
+      },
+      {
+        "date": "2026-10-13",
+        "event": "PIPC materials submitted to the National Assembly revealed a reported leak of about 2.37 million records and more than 20 affected organizations."
+      }
+    ],
+    "impact": [
+      "The reported leak is about 2.37 million records (according to the company's report). The PIPC is checking the actual scale.",
+      "More than 20 organizations were affected, including the Anti-Corruption and Civil Rights Commission, the Ministry of National Defense, the Korea Institute of Educational Facility Safety, the Korean Commercial Arbitration Board and the Kia labor union (as reported).",
+      "The reported items are ID, encrypted password, mobile phone number, email, address, gender and date of birth. Connecting information (CI) and duplicate registration check information (DI), which are used for identity verification, and guardian information were also included.",
+      "By organization, about 100,000 people from Cheongnyeom Gwonik Baeumteo, about 40,000 from the Korea Institute of Educational Facility Safety and about 5,000 union members at Kia's Gwangmyeong plant were identified (as reported).",
+      "On some training sites, qualification information such as attorney registration numbers and medical license numbers was also taken (as reported)."
+    ],
+    "cause": [
+      "According to the company's notice, an outside attacker got into the training site server by abnormal means. The company deleted a backdoor left on the server during its response. It said it also fixed source code vulnerabilities. How the attacker first got in has not been disclosed. The PIPC is investigating exactly what happened.",
+      "The ACRC case also revealed a data management problem. The ACRC explained that past user data that should have been destroyed after it changed systems in April 2025 remained with the vendor. This past data was also leaked in the attack (as reported)."
+    ],
+    "response": [
+      "Malgnsoft blocked the attacker's IP addresses and deleted the backdoor. It changed its server access keys and external integration keys. It applied two-step authentication to all administrator access. It told users to change their passwords, and to change them on other sites that use the same password as well.",
+      "The PIPC opened an investigation on Sep 30. The commission has reportedly classified the case internally as a \"major case\". The ACRC is reviewing whether personal information was destroyed in every one of its outsourced projects from the past 3 years. In the National Assembly, there were calls for a government-wide fact-finding survey, on the grounds that other organizations that outsourced work to Malgnsoft may also have been affected."
+    ],
+    "sources": [
+      {
+        "outlet": "SBS Biz",
+        "date": "2026-10-13",
+        "url": "https://biz.sbs.co.kr/amp/article/20000339565"
+      },
+      {
+        "outlet": "The Financial News",
+        "date": "2026-10-06",
+        "url": "https://www.fnnews.com/news/202610062331193253"
+      },
+      {
+        "outlet": "SBS Biz",
+        "date": "2026-10-06",
+        "url": "https://biz.sbs.co.kr/amp/article/20000338409"
+      },
+      {
+        "outlet": "Malgnsoft customer center notice",
+        "date": "2026-09-25",
+        "url": "https://help.malgnsoft.com/main/post_view.jsp?id=1016"
+      }
+    ]
+  },
+  "kepco-2026-10": {
+    "overview": [
+      "On Oct 1, 2026, it was confirmed that personal information of Korea Electric Power Corporation (KEPCO) employees had been posted on an outside web page. KEPCO learned of the exposure around 3:59 p.m. that day through a notice from the National Intelligence Service (NIS) (as reported). The information was posted on a web page of an overseas cloud service (as reported). It was reportedly not a public site that ordinary people would visit.",
+      "KEPCO issued a statement on Oct 4. It said the names, departments, phone numbers and other details of about 24,000 employees had been exposed. It explained that unique identifiers such as resident registration numbers, and customer information, were not included. The exposed information was deleted around midnight on Oct 2, about 32 hours after KEPCO learned of it.",
+      "Later, during the National Assembly audit, it emerged that the exposure was wider than first announced. Facial authentication data used to enter the headquarters and CCTV access information were also found to have been exposed. With former employees and partner company staff added, the number of people affected rose to 35,528 (according to materials submitted to the National Assembly)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-01",
+        "event": "Around 3:59 p.m., KEPCO learned through a notice from the NIS that employee information was exposed on an outside web page, and blocked access to the related internal systems."
+      },
+      {
+        "date": "2026-10-02",
+        "event": "The deletion KEPCO requested from the web page operator was completed around midnight (about 32 hours after KEPCO learned of the exposure)."
+      },
+      {
+        "date": "2026-10-04",
+        "event": "KEPCO officially announced that information on about 24,000 employees had been exposed."
+      },
+      {
+        "date": "2026-10-19",
+        "event": "At the National Assembly audit, it was revealed that facial authentication data of 408 employees and access information for 14,957 CCTV cameras were also exposed."
+      },
+      {
+        "date": "2026-10-23",
+        "event": "Materials were released showing that more than 10,000 former employees and 68 partner company staff had also been identified, raising the number of people affected to 35,528."
+      }
+    ],
+    "impact": [
+      "The exposed data covers 7 items for about 24,000 employees, including name, department, employee number, phone number, email and job title (as reported).",
+      "With more than 10,000 former employees and 68 partner company staff added, the total number of people affected is 35,528 (according to materials submitted to the National Assembly).",
+      "Facial authentication data of 408 employees, used in the headquarters entry system, was included (as reported). Whether this data can be turned back into face images has not been confirmed.",
+      "The IP addresses, IDs and passwords of 14,957 CCTV cameras were exposed (as reported).",
+      "KEPCO said resident registration numbers and customer information were not exposed."
+    ],
+    "cause": [
+      "The cause of the exposure is still under investigation. The NIS, the Ministry of Climate, Energy and Environment, the Personal Information Protection Commission (PIPC) and the Jeonnam Provincial Police Agency are taking part in the investigation. Investigators are looking at both a leak through a partner company and an outside hack (as reported). In its initial announcement, KEPCO said it did not see a link to the AI-based hacking reported in the financial sector around the same time.",
+      "The web page kept no access logs or download logs. So it is not known who viewed the information or how many times. At the National Assembly audit, it was also pointed out that KEPCO's own audit had found cases where partner company staff accessed internal systems with KEPCO employee accounts shared with them. Whether this problem is directly connected to this exposure has not yet been confirmed."
+    ],
+    "response": [
+      "Right after learning of the exposure, KEPCO blocked access to the internal systems related to employee information. It asked the web page operator to delete the information. It set up an emergency response situation room and arranged cooperation with related agencies. It told affected employees by text and email what happened and how to prevent secondary damage. It said that if damage is reported, it would investigate and follow relief procedures such as compensation.",
+      "KEPCO reported the incident to the PIPC. After confirming that facial authentication data was exposed, it filed an additional report. It asked the Jeonnam Provincial Police Agency to investigate. It changed all CCTV IDs and passwords. At the National Assembly audit on Oct 19, the KEPCO president apologized and said the company would fundamentally improve its information security work as a whole. The president also said the company would completely overhaul its partner management system."
+    ],
+    "sources": [
+      {
+        "outlet": "SBS Biz",
+        "date": "2026-10-04",
+        "url": "https://biz.sbs.co.kr/amp/article/20000338255"
+      },
+      {
+        "outlet": "The Financial News",
+        "date": "2026-10-19",
+        "url": "https://www.fnnews.com/news/202610191323546773"
+      },
+      {
+        "outlet": "SBS Biz",
+        "date": "2026-10-19",
+        "url": "https://biz.sbs.co.kr/amp/article/20000340759"
+      },
+      {
+        "outlet": "Seoul Finance",
+        "date": "2026-10-23",
+        "url": "https://www.seoulfn.com/news/articleView.html?idxno=640816"
+      }
+    ]
+  },
+  "shinhan-bank-2026-10": {
+    "overview": [
+      "Personal information of about 25,000 customers was taken from \"M Shinhan\", Shinhan Bank's mobile website for loan agents only (according to the bank). The service was for loan agents to check the progress of loans for the customers whose applications they had taken. The bank explained that its banking app for customers was not related to this incident.",
+      "According to reports, the bank detected abnormal access attempts on Sep 29. The next day, Sep 30, it confirmed signs of a leak and reported it to the financial authorities. The bank disclosed the incident on Oct 1 and apologized in its CEO's name.",
+      "Speculation that AI tools may have been used in the attack raised alarm across the financial sector (as reported). The Financial Supervisory Service (FSS) turned its on-site inspection into a formal examination on Oct 6. The CEO appeared as a witness at the National Assembly audit on Oct 19."
+    ],
+    "timeline": [
+      {
+        "date": "2026-09-29",
+        "event": "The bank detected abnormal access attempts on the loan agent inquiry service (as reported)."
+      },
+      {
+        "date": "2026-09-30",
+        "event": "The bank confirmed signs of a leak and reported it to the FSS, and the FSS and the Financial Security Institute (FSI) began an investigation."
+      },
+      {
+        "date": "2026-10-01",
+        "event": "Shinhan Bank disclosed the leak of information on about 25,000 customers and issued an apology in its CEO's name."
+      },
+      {
+        "date": "2026-10-06",
+        "event": "The FSS turned its on-site inspection into an on-site examination that looks at whether laws were violated."
+      },
+      {
+        "date": "2026-10-19",
+        "event": "The CEO appeared as a witness at the audit by the National Assembly's National Policy Committee, apologized and promised full compensation for the damage."
+      },
+      {
+        "date": "2026-11-10",
+        "event": "The bank announced support measures for affected customers, including paying the full insurance premium and waiving fees (as reported)."
+      }
+    ],
+    "impact": [
+      "About 25,000 people were affected (according to the bank). At the National Assembly audit, a figure of about 25,700 was given.",
+      "Loan application information such as customer names, phone numbers, annual income and calculated loan limits was included.",
+      "Also leaked were 66 resident registration numbers and 97 connecting information (CI) records.",
+      "The affected service is the inquiry service of \"M Shinhan\", the mobile website for loan agents only."
+    ],
+    "cause": [
+      "According to the bank, an unauthorized outsider bypassed the normal authentication process and got into the service for loan agents. The attacker pulled up customer records by entering random query values. The attacker then used the customer numbers obtained this way to look up more information such as contact details. Credential stuffing, which tries account information obtained elsewhere, is also being investigated as a possibility (as reported).",
+      "The possibility that an AI agent was used in the attack was also raised. At the National Assembly audit, the CEO said it appeared to be an AI-assisted attack (as reported). Some in the security industry claimed that traces of an AI penetration tool were found on the attack server. This claim has not been confirmed by the authorities or the bank. The final investigation results have not yet come out."
+    ],
+    "response": [
+      "Shinhan Bank blocked the outside IP addresses and shut down the service. It applied a new security policy and activated its emergency response system. It opened a menu on its website for checking whether one's data was leaked. It said it would fully compensate for damage caused by the leak. In November, the bank decided to pay the full premium so that affected customers can join an insurance plan covering electronic financial fraud losses of up to KRW 10 million. It also announced support measures such as waiving fees for transfers to other banks for 1 year.",
+      "The Financial Services Commission (FSC) and the FSS began an emergency response right after the incident. The FSI investigated on site the attack path, the scope of the leak and whether the security system worked properly. The FSS turned its inspection into an on-site examination on Oct 6. The examination is looking at whether laws were violated and who is responsible for internal controls. Whether to impose sanctions will be decided based on the results."
+    ],
+    "sources": [
+      {
+        "outlet": "SBS Biz",
+        "date": "2026-10-02",
+        "url": "https://biz.sbs.co.kr/amp/article/20000338069"
+      },
+      {
+        "outlet": "Money Today",
+        "date": "2026-10-02",
+        "url": "https://www.mt.co.kr/article/2026100216055965103"
+      },
+      {
+        "outlet": "Aju Business Daily",
+        "date": "2026-10-06",
+        "url": "https://www.ajunews.com/view/20261006173608806"
+      },
+      {
+        "outlet": "Sisaon",
+        "date": "2026-11-10",
+        "url": "https://sisaon.co.kr/news/articleView.html?idxno=205943"
+      }
+    ]
+  },
+  "weverse-2026-09": {
+    "overview": [
+      "User information leaked from Weverse, a fan platform run by HYBE affiliate Weverse Company. The company announced this in a notice in its CEO's name on the night of Sep 6, 2026. The leak covers 422,584 records by account ID (according to the company).",
+      "The company did not find the incident on its own. On Sep 3, the Korea Internet & Security Agency (KISA) passed on a security vulnerability report from an outside tipster to the company. The company confirmed the leak after checking. The next day, Sep 4, it reported the breach to KISA.",
+      "The company explained that the leaked information does not include direct identifiers such as names or contact details. Weverse also had a personal information incident involving an employee in January 2026. As this was the second incident in the same year, its management system drew criticism (as reported)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-01",
+        "event": "A separate incident became known in which a Weverse employee mishandled personal information related to a fan signing event (as reported)."
+      },
+      {
+        "date": "2026-09-03",
+        "event": "KISA passed on an outside tipster's security vulnerability report to Weverse Company."
+      },
+      {
+        "date": "2026-09-04",
+        "event": "Weverse Company reported the breach to KISA with its check results and response status."
+      },
+      {
+        "date": "2026-09-06",
+        "event": "Weverse Company announced the leak of 422,584 records in a notice in its CEO's name and apologized."
+      },
+      {
+        "date": "2026-09-07",
+        "event": "It was reported that an API that processes payment information was hit by a bypass attack."
+      }
+    ],
+    "impact": [
+      "The leak covers 422,584 records by account ID (according to the company).",
+      "They included an internal identification number created at sign-up.",
+      "Payment-related information was also included, such as purchase type, payment gateway (PG) company name, currency, purchase amount and time, canceled amount, purchase status and refund time.",
+      "The company said names and contact details were not included. It explained that this information alone makes it hard to forge payments or make fraudulent transfers.",
+      "The company's position is that the payment-related items are general information, not personal information. Some pointed out that purchase history can reveal usage patterns (as reported)."
+    ],
+    "cause": [
+      "According to reports, the attacker targeted an externally exposed API that processes payment information and carried out a bypass attack. The company explained that an outside actor gained abnormal access through a security vulnerability in the service. Who the attacker is and the exact method of intrusion have not been disclosed.",
+      "The company learned of the vulnerability only after receiving the outside report. This raised questions about whether its own checks and security monitoring worked properly (as reported). Around the same time, leaks through APIs at other online platforms were also reported one after another."
+    ],
+    "response": [
+      "Weverse Company strengthened access control on the API. It removed internal identifiers so they are not exposed outside. It sent individual notices to affected users as required by law. It said it would check all externally exposed APIs and strengthen security monitoring. It asked the outside actor who took the information to return it and said it would pursue legal liability.",
+      "The company reported the breach to KISA on Sep 4. Some criticized the disclosure as late, since it took about 3 days from the day the tip arrived to the notice (as reported). Whether the Personal Information Protection Commission (PIPC) has opened an investigation, and any results, have not yet been confirmed in reports."
+    ],
+    "sources": [
+      {
+        "outlet": "SBS Biz",
+        "date": "2026-09-07",
+        "url": "https://biz.sbs.co.kr/amp/article/20000333058"
+      },
+      {
+        "outlet": "Boannews",
+        "date": "2026-09-07",
+        "url": "https://www.boannews.com/news/articleView.html?idxno=145683"
+      },
+      {
+        "outlet": "Korea Stock News",
+        "date": "2026-09-07",
+        "url": "https://www.koreastocknews.com/news/articleView.html?idxno=121032"
+      },
+      {
+        "outlet": "Newsis",
+        "date": "2026-09-08",
+        "url": "https://www.newsis.com/view/NISX20260907_0003779752"
+      }
+    ]
+  },
+  "vanderbilt-2026-11": {
+    "overview": [
+      "Vanderbilt University in Nashville, Tennessee, US, announced on Nov 9, 2026 that it was responding to a cybersecurity incident. The university said the incident could affect university devices, internal systems and cloud services. It told students, faculty and staff to turn off university devices and disconnect from campus Wi-Fi.",
+      "The same day, a ransomware group called BYOD listed the university on its leak site. The group claimed it stole student and employee information, but the university has not confirmed this claim. According to reports, Vanderbilt University has about 14,000 students and more than 6,000 employees.",
+      "By Nov 10, the university had reopened some services such as Wi-Fi and email. Other systems remain restricted. The university said it could take several weeks for all systems to return to normal."
+    ],
+    "timeline": [
+      {
+        "date": "2026-09-29",
+        "event": "This was reported as the time when ransomware group BYOD's first victim was made public."
+      },
+      {
+        "date": "2026-11-09",
+        "event": "The university announced a cybersecurity incident and told people to turn off devices and disconnect from Wi-Fi."
+      },
+      {
+        "date": "2026-11-09",
+        "event": "BYOD listed the university on its leak site and claimed to have stolen data."
+      },
+      {
+        "date": "2026-11-09",
+        "event": "Campus Wi-Fi was restored in the evening, and most systems remained restricted."
+      },
+      {
+        "date": "2026-11-10",
+        "event": "Some services reopened, including Okta login, Outlook email, Brightspace, Zoom and the academic system YES."
+      },
+      {
+        "date": "2026-11-11",
+        "event": "The university said it could take several weeks for all systems to return to normal."
+      }
+    ],
+    "impact": [
+      "According to the university, university devices, internal systems and cloud services could be affected.",
+      "As of the evening of Nov 10, only Wi-Fi, Okta (multi-factor authentication), Outlook, CampusPrint, Brightspace, Zoom and YES were available, and other systems were restricted.",
+      "The university made payroll, payment, admissions, course registration and public safety systems the priority for recovery.",
+      "BYOD claims it took more than 1 million Social Security numbers, along with names, emails, phone numbers, student and employee records and research data. This is an unverified claim by the attacker.",
+      "Vanderbilt Health, a legally separate institution from the university, said its IT systems have not been affected so far and patient care is continuing."
+    ],
+    "cause": [
+      "The university has not disclosed the nature of the attack or the intrusion path. It has not confirmed whether data was actually taken or whether files were encrypted. The university said it is working to determine what data was accessed.",
+      "BleepingComputer reported that it obtained a photo of an infected screen showing a ransom note named \"README_BYOD_31.txt\". BYOD claims it encrypted university databases and took control of part of the network, but this has not been confirmed either. The group emerged in 2026 and has also claimed responsibility for an attack on the University of New Mexico Health Sciences Center."
+    ],
+    "response": [
+      "The university's IT organization is investigating the incident and working to stop the damage from spreading. The university said it is responding together with government agencies, law enforcement and outside partners. It is reopening systems in stages as it confirms they are safe.",
+      "The university told people who see signs of trouble not to try to fix it themselves, but to turn off the device and notify the IT help desk. Classes went ahead as scheduled. The university did not respond to media questions about BYOD and the data theft claims."
+    ],
+    "sources": [
+      {
+        "outlet": "BleepingComputer",
+        "date": "2026-11-09",
+        "url": "https://bleepingcomputer.com/news/security/vanderbilt-university-hit-in-byod-ransomware-attack-data-theft-claimed"
+      },
+      {
+        "outlet": "The Record (Recorded Future News)",
+        "date": "2026-11-09",
+        "url": "https://therecord.media/vanderbilt-cyberattack-ransomware-alert"
+      },
+      {
+        "outlet": "WSMV",
+        "date": "2026-11-10",
+        "url": "https://www.wsmv.com/2026/11/09/vanderbilt-urges-university-community-shut-down-devices-amid-cybersecurity-incident-heres-what-we-know/"
+      },
+      {
+        "outlet": "Vanderbilt University News (official university notice)",
+        "date": "2026-11-11",
+        "url": "https://news.vanderbilt.edu/2026/11/09/nov-9-active-cybersecurity-incident-updates/"
+      }
+    ]
+  },
+  "capcom-2026-10": {
+    "overview": [
+      "Japanese game company Capcom announced on Oct 22, 2026 that there had been unauthorized outside access to CAPCOM ID, its member account service. CAPCOM ID is an account shared across Capcom's web services and some online games. According to the company, 11,774,247 records were leaked worldwide.",
+      "Capcom found traces of suspicious access on Oct 19 and blocked it. The investigation that followed confirmed that some customer information had gone outside and that the passwords of some accounts had been changed without permission. In a second notice on Oct 23, the company said some online store member information was also leaked.",
+      "Capcom is the maker of games such as \"Monster Hunter\" and \"Street Fighter\". The scale of the leak was announced as a count of accounts. Capcom's games and online services continue to run normally after the incident."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-19",
+        "event": "Capcom found traces suspected of unauthorized access to CAPCOM ID and blocked access."
+      },
+      {
+        "date": "2026-10-20",
+        "event": "The investigation confirmed a leak of some customer information and unauthorized password changes on some accounts."
+      },
+      {
+        "date": "2026-10-21",
+        "event": "Capcom reported the incident to the Osaka Prefectural Police and Japan's Personal Information Protection Commission."
+      },
+      {
+        "date": "2026-10-22",
+        "event": "In its first notice, Capcom disclosed the leak of about 11.77 million records."
+      },
+      {
+        "date": "2026-10-23",
+        "event": "In a second notice, Capcom added the leak of 19 online store member records and said it had finished investigating the scope of the impact."
+      }
+    ],
+    "impact": [
+      "According to the company, the email addresses, account creation times, last login times, login counts and last login IP addresses for 11,774,247 records were leaked.",
+      "For 43 of these, date of birth, gender, country or region, and nickname were also leaked.",
+      "For 196 accounts, a third party changed the login password without permission, and Capcom reset them.",
+      "Of these, 19 accounts in Japan had their My Page on the e-CAPCOM online store viewed, leaking names, addresses, phone numbers, dates of birth, purchase history, inquiry history, address books and more.",
+      "Credit card information was not part of the leak, and no leak of passwords set by customers has been confirmed."
+    ],
+    "cause": [
+      "Capcom said it identified the intrusion method and completed its response. However, it did not disclose how the attacker first got in. As of the reports, no hacking group had claimed responsibility for this incident.",
+      "Capcom was also hit by a ransomware attack in November 2020. The following year, the company said the attacker got in through an old VPN device. There are no reports that the two incidents are related."
+    ],
+    "response": [
+      "Capcom set up an internal response headquarters and completed emergency measures such as blocking access. It reported to the Osaka Prefectural Police and Japan's Personal Information Protection Commission. It continues to monitor CAPCOM ID and related services.",
+      "It is contacting affected customers individually in turn. It set up a dedicated toll-free phone line in Japan and online inquiry channels for the Americas and for Europe, the Middle East and Africa. The company urged people to watch out for emails, texts and calls impersonating Capcom and not to open suspicious links or attachments."
+    ],
+    "sources": [
+      {
+        "outlet": "BleepingComputer",
+        "date": "2026-10-22",
+        "url": "https://bleepingcomputer.com/news/security/capcom-confirms-data-breach-affecting-117-million-accounts"
+      },
+      {
+        "outlet": "Help Net Security",
+        "date": "2026-10-23",
+        "url": "https://www.helpnetsecurity.com/2026/10/23/capcom-id-data-breach-11-million-records-exposed/"
+      },
+      {
+        "outlet": "GameBusiness.jp",
+        "date": "2026-10-24",
+        "url": "https://www.gamebusiness.jp/article/2026/10/24/28433.html"
+      },
+      {
+        "outlet": "INCIBE-CERT",
+        "date": "2026-10-27",
+        "url": "https://www.incibe.es/en/incibe-cert/publications/cybersecurity-highlights/unauthorised-access-capcom-id-has-been-detected-affecting-117-million"
+      }
+    ]
+  },
+  "burger-king-japan-2026-10": {
+    "overview": [
+      "BK Japan, which runs Burger King in Japan, announced on Oct 15, 2026 that member information from its official app was leaked. A third party gained unauthorized access to the system that manages app member information. According to the company, the leak covers about 11.18 million records.",
+      "The unauthorized access continued from Oct 2 to Oct 7. The company confirmed the leak on Oct 13 and blocked the source of the access. At the time of the announcement, no secondary damage from misuse of the leaked information had been confirmed.",
+      "According to reports, BK Japan runs about 350 stores in Japan. It was reported that Japan has seen a series of personal information leaks targeting companies in 2026. The intrusion path in this incident is still under investigation."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-02",
+        "event": "A third party began unauthorized access to the app member information management system."
+      },
+      {
+        "date": "2026-10-07",
+        "event": "The unauthorized access period identified by the company continued until this day."
+      },
+      {
+        "date": "2026-10-13",
+        "event": "The company confirmed the leak of member information and blocked the source of the access."
+      },
+      {
+        "date": "2026-10-15",
+        "event": "The company issued an apology and disclosed the leak of about 11.18 million records."
+      }
+    ],
+    "impact": [
+      "About 11.18 million records, according to the company. It did not separately disclose the actual number of people affected.",
+      "The leaked items are member ID, email address, registration type, area of residence (prefecture), gender, date of birth, name (in kanji and kana) and phone number.",
+      "Information on whether the member used mobile ordering and whether their email was verified was also included.",
+      "The company said credit card numbers were not leaked because it does not store them. No leak of login passwords has been confirmed.",
+      "As of the announcement, no secondary damage such as fraudulent use had been confirmed."
+    ],
+    "cause": [
+      "The company confirmed the unauthorized access but has not disclosed the intrusion method or cause. It is investigating what happened with outside security experts. As of the reports, no group had been found claiming the attack."
+    ],
+    "response": [
+      "After blocking the source of the access, the company set up an incident response headquarters and applied temporary measures. It plans to prepare further permanent measures. It also reported to Japan's Personal Information Protection Commission.",
+      "It is notifying affected customers by email. The company urged people to watch out for emails, texts and calls impersonating Burger King. It also advised them not to open links or attachments and not to enter member information or passwords."
+    ],
+    "sources": [
+      {
+        "outlet": "Kyodo News (via Kumamoto Nichinichi Shimbun)",
+        "date": "2026-10-15",
+        "url": "https://kumanichi.com/articles/2046926"
+      },
+      {
+        "outlet": "Impress Watch",
+        "date": "2026-10-15",
+        "url": "https://www.watch.impress.co.jp/docs/news/2148486.html"
+      },
+      {
+        "outlet": "BleepingComputer",
+        "date": "2026-10-16",
+        "url": "https://bleepingcomputer.com/news/security/burger-king-japan-data-breach-exposes-11-million-customer-records"
+      },
+      {
+        "outlet": "CyberInsider",
+        "date": "2026-10-16",
+        "url": "https://cyberinsider.com/burger-king-japan-data-breach/"
+      }
+    ]
+  },
+  "france-supermarkets-2026-10": {
+    "overview": [
+      "From the night of Oct 11 to the early hours of Oct 12, 2026, refrigeration equipment at supermarkets across France was attacked remotely. The attackers forced the defrost function of refrigerated and frozen display cases to run, pushing up the temperature inside. According to reports, temperatures rose as high as 50 degrees Celsius.",
+      "Major retailers such as Intermarché, Coopérative U and E.Leclerc confirmed the damage on Oct 12. Affected stores had to throw away all of their fresh and frozen food, and some stores had fires. According to French authorities, about 700 stores were affected.",
+      "Investigators found that the attack targeted refrigeration management devices from Danish company Danfoss. On Nov 9, the French government named a group linked to Iran's Islamic Revolutionary Guard Corps (IRGC) as being behind it. No response from the Iranian side has been reported."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-11",
+        "event": "Overnight, attackers remotely manipulated the defrost settings of supermarket refrigeration equipment."
+      },
+      {
+        "date": "2026-10-12",
+        "event": "Intermarché, Coopérative U, E.Leclerc and others officially confirmed the damage."
+      },
+      {
+        "date": "2026-10-13",
+        "event": "It was reported that the French prime minister ordered the National Cybersecurity Agency (ANSSI) to investigate."
+      },
+      {
+        "date": "2026-11",
+        "event": "Refrigeration failures were also reported at stores in other European countries such as Sweden and Belgium, but French authorities did not attribute them to the same group."
+      },
+      {
+        "date": "2026-11-09",
+        "event": "The French government named Shahid Kaveh, a group linked to Iran's Revolutionary Guards, as being behind the October attacks."
+      },
+      {
+        "date": "2026-11-09",
+        "event": "The Paris prosecutor's office opened a formal judicial investigation, and the French government summoned the Iranian ambassador to protest."
+      }
+    ],
+    "impact": [
+      "About 700 stores were affected, according to French authorities. France has about 10,000 supermarkets in total.",
+      "Early reports named at least 300 Intermarché and Netto stores and 80 Carrefour stores as affected.",
+      "Affected stores threw away fresh and frozen food. Intermarché executives estimated losses of tens of millions of euros nationwide in a single day.",
+      "At least 15 fires occurred, according to reports citing French authorities.",
+      "According to CERT-FR, butcher shops, slaughterhouses and food processing facilities were also affected, in addition to large supermarkets."
+    ],
+    "cause": [
+      "Supermarket refrigerated display cases are controlled by management devices that can be reached over the internet. This lets maintenance companies change settings remotely. The attackers accessed these devices and raised the defrost temperature settings. Danfoss said the affected devices were running old firmware and that it had long recommended updates to customers. CERT-FR later added Dixell and Copeland brand devices to the affected list.",
+      "On Nov 9, the French government named Shahid Kaveh as being behind the attack in a foreign ministry announcement. The French side described the group as a cyber unit linked to Iran's Revolutionary Guards. French authorities said they found traces of Persian and IP addresses connected to devices located in Iran in the attack infrastructure. This attribution comes from the French government, and Iran's position has not been reported."
+    ],
+    "response": [
+      "The French prime minister ordered ANSSI to investigate, and the Paris prosecutor's office also opened an investigation. CERT-FR recommended disconnecting refrigeration control systems exposed to the internet with public IP addresses. It advised reconnecting them only through a secure VPN after checking the settings. It also recommended firmware updates, stronger security and changing default passwords.",
+      "On Nov 9, the Paris prosecutor's office opened a formal judicial investigation on charges of organized cybercrime for the benefit of a foreign power. Prosecutors are seeking international arrest warrants for the group's leader and 2 deputies. France summoned the Iranian ambassador to protest and said it would push for sanctions at the European Union level."
+    ],
+    "sources": [
+      {
+        "outlet": "Al Jazeera",
+        "date": "2026-10-13",
+        "url": "https://aljazeera.com/news/2026/10/13/unprecedented-cyberattack-hits-french-supermarkets-causing-food-losses"
+      },
+      {
+        "outlet": "CSO Online",
+        "date": "2026-10-14",
+        "url": "https://www.csoonline.com/article/4235107/unplug-your-smart-fridges-french-supermarkets-warned-after-cyberattack.html"
+      },
+      {
+        "outlet": "AP (via PBS NewsHour)",
+        "date": "2026-11-09",
+        "url": "https://www.pbs.org/newshour/world/france-blames-iran-for-last-months-cyberattack-on-supermarket-fridges"
+      },
+      {
+        "outlet": "BleepingComputer",
+        "date": "2026-11-09",
+        "url": "https://www.bleepingcomputer.com/news/security/france-blames-iranian-hackers-for-supermarket-attacks-that-sparked-fires/"
+      }
+    ]
+  },
+  "idcf-cloud-2026-10": {
+    "overview": [
+      "IDCF Cloud, the cloud service of Japan's IDC Frontier, was hit by a ransomware attack early on Oct 7, 2026. IDC Frontier is a data center and cloud provider in the SoftBank group. The outage began around 3:40 a.m. Japan time in East Japan Region 1.",
+      "In a second notice the same day, the company said the outage was caused by a ransomware attack by a third party. The attack affected 495 companies and local governments that used the region's 4 zones (according to the company). Some customers' virtual servers were stopped and then encrypted.",
+      "On Oct 27, the company released its investigation results. The attacker got in through a vulnerability in open source software used in the authentication system of the customer management portal. The company concluded that data inside customer virtual servers was not sent outside."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-07",
+        "event": "Around 3:40 a.m., an outage began in East Japan Region 1, and the company announced the same day that a ransomware attack was the cause."
+      },
+      {
+        "date": "2026-10-08",
+        "event": "The company began guiding affected customers on how to move to an alternative environment."
+      },
+      {
+        "date": "2026-10-14",
+        "event": "The company said backup data could be recovered for 194 customers who used the snapshot feature."
+      },
+      {
+        "date": "2026-10-18",
+        "event": "The suspended \"IDCF Cloud Backup\" service reopened."
+      },
+      {
+        "date": "2026-10-27",
+        "event": "In its 7th notice, the company disclosed the intrusion path and the results of its leak investigation."
+      },
+      {
+        "date": "2026-11-09",
+        "event": "The president of parent company SoftBank apologized for the incident at an earnings briefing."
+      }
+    ],
+    "impact": [
+      "The attack affected 495 companies and local governments that used the 4 zones of East Japan Region 1 (tesla, henry, pascal, joule) (according to the company).",
+      "Some customers' virtual servers were stopped and encrypted. The number of customers whose backup data could be recovered rose from 194 at first to 206 (according to the company).",
+      "The company concluded that data inside customer virtual servers was not leaked outside. It also said no secondary damage had been confirmed.",
+      "The registration information of up to 71 customers was viewed without authorization. The information of up to 31 of them may have contained personal names or email addresses. The login passwords of up to 4 accounts were also changed without permission (according to the company).",
+      "The customer management portal was stopped in all regions. The company issued a 3-stage restart plan, but the Oct 27 notice gave no restart date."
+    ],
+    "cause": [
+      "According to the company's investigation, the attacker broke into the authentication system of the \"IDCF Cloud Portal\". A vulnerability in the open source software used in this authentication system was exploited. Through the management console, the attacker gained unauthorized administrator privileges over the virtualization platform. The attacker then stopped and encrypted customer virtual servers. Which vulnerability in which software, and when the intrusion began, have not been disclosed.",
+      "SoftBank explained that it had finished vulnerability assessments and patches for its in-house applications, but had not assessed the open source software used in the intrusion (according to ITmedia). The name of the attack group is not known. Screenshots of an attacker message that customers said they saw spread on social media. The message claimed the attacker got in within 7 minutes and encrypted 225 databases (3.6 PB). This is an unverified claim by the attacker, not a figure confirmed by the company."
+    ],
+    "response": [
+      "IDC Frontier set up an emergency response headquarters at 9 a.m. on the day of the outage. It isolated the storage equipment of the 4 affected zones. It cut the connection between the customer portal and outside networks in all regions. The company said it did not contact the attacker or pay a ransom. It continues to report to and consult with the supervising ministry and the police.",
+      "To prevent a recurrence, the company created a new independent security organization. It decided to include open source software in regular vulnerability checks. It plans to rebuild the portal in a new environment and switch authentication to an outside IdP provider. Portal access will be limited to customer IP addresses, and multi-factor authentication will be required. SoftBank said it widened its group checks to cover open source software and is urgently checking a wider range than the existing roughly 1,800 systems."
+    ],
+    "sources": [
+      {
+        "outlet": "BleepingComputer",
+        "date": "2026-10-08",
+        "url": "https://www.bleepingcomputer.com/news/security/ransomware-attack-disrupts-japans-idcf-cloud-used-by-govt-clients/"
+      },
+      {
+        "outlet": "IDC Frontier notice (7th update)",
+        "date": "2026-10-27",
+        "url": "https://www.idcf.jp/news/topics/20261027001"
+      },
+      {
+        "outlet": "INTERNET Watch",
+        "date": "2026-10-29",
+        "url": "https://internet.watch.impress.co.jp/docs/news/2151956.html"
+      },
+      {
+        "outlet": "ITmedia NEWS",
+        "date": "2026-11-10",
+        "url": "https://www.itmedia.co.jp/news/article/2611/10/2000003069/"
+      }
+    ]
+  },
+  "sagawa-2026-09": {
+    "overview": [
+      "Japanese parcel delivery giant Sagawa Express announced on Sep 30, 2026 that a third party had gained unauthorized access to its web \"package tracking service\". The company partly restricted access to the service that day. On Oct 1, it said customers' personal information may have leaked outside.",
+      "The information that may have leaked is mainly waybill information for packages handled in the roughly 100 days up to Sep 30. On Oct 23, the company put the scale at up to about 53.23 million records. This figure is a maximum that has not been fully deduplicated and does not represent the number of people affected (according to the company).",
+      "The company reopened the web package tracking service the same day. Several other web services remain suspended. The intrusion path and cause have not yet been disclosed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-09-30",
+        "event": "Sagawa Express confirmed unauthorized access by a third party to the package tracking service and partly restricted access."
+      },
+      {
+        "date": "2026-10-01",
+        "event": "Sagawa Express announced that personal information may have leaked and suspended 9 web services."
+      },
+      {
+        "date": "2026-10-23",
+        "event": "Sagawa Express put the possible leak at up to about 53.23 million records (including duplicates) and reopened web package tracking."
+      },
+      {
+        "date": "2026-11-06",
+        "event": "The City of Kyoto announced that information on 253 people covered by a city program, for which Sagawa Express handled shipping, may have leaked."
+      }
+    ],
+    "impact": [
+      "The data covers sender and recipient names, addresses and phone numbers on waybills for packages handled from Jun 21 to Sep 30, 2026. For businesses, company names and contact person names are included.",
+      "Names, addresses and phone numbers of corporate and individual customers with shipping rate contracts are also covered.",
+      "Names, addresses, phone numbers, email addresses and member IDs of people registered with the member service \"Smart Club\" are also included.",
+      "The scale is up to about 53.23 million records (according to the company, including duplicates, not a count of people). Information from handwritten waybills is not included.",
+      "The company said credit card information and passwords were not included. As of Oct 23, no secondary damage from misuse of the information had been confirmed."
+    ],
+    "cause": [
+      "The company has only said the cause was unauthorized access by a third party to the package tracking service. How the attacker got in has not been disclosed. When the unauthorized access began has not been disclosed either.",
+      "The exposure of member service information that became known in July 2026 is a separate incident. At that time, information on about 70,000 people was reported to have been exposed due to a system configuration error."
+    ],
+    "response": [
+      "Sagawa Express restricted access to the package tracking service on Sep 30. On Oct 1, it suspended 9 web services, including web package tracking, the tracking API, web pickup requests and the product return and refund service. Package pickup and delivery continued as usual. The company urged people to watch out for emails, texts and calls impersonating it.",
+      "On Oct 23, the company finished system checks and security measures and reopened web package tracking. The tracking API, web pickup requests, delivery address changes, the product return and refund service and others remain suspended. The company apologized and said it would review its information security system again, including stronger access management and monitoring. Organizations that use Sagawa Express for deliveries, such as the City of Kyoto, are also notifying their own customers of the possible leak."
+    ],
+    "sources": [
+      {
+        "outlet": "ITmedia NEWS",
+        "date": "2026-10-01",
+        "url": "https://www.itmedia.co.jp/news/article/2610/01/2000001933/"
+      },
+      {
+        "outlet": "Nikkei",
+        "date": "2026-10-23",
+        "url": "https://www.nikkei.com/article/DGXZQOUC236SI0T21C26A0000000/"
+      },
+      {
+        "outlet": "Impress Watch",
+        "date": "2026-10-23",
+        "url": "https://www.watch.impress.co.jp/docs/news/2150818.html"
+      },
+      {
+        "outlet": "Kyoto Shimbun",
+        "date": "2026-11-06",
+        "url": "https://www.kyoto-np.co.jp/articles/-/1821867"
+      }
+    ]
+  },
+  "gyazo-2026-09": {
+    "overview": [
+      "Japanese software company Helpfeel announced on Sep 16, 2026 that its screen capture sharing service Gyazo had suffered unauthorized access. On Sep 11, the attacker used a vulnerability in the image upload server to run arbitrary commands on the company's systems. The company detected suspicious activity that evening and blocked the intrusion path early on Sep 12.",
+      "According to the company, about 23.62 million user records and about 490 million image metadata records are subject to the leak. A second notice on Sep 25 revealed about 174 million more metadata records for deleted images. The user records include anonymous accounts, so they differ from the actual number of people.",
+      "The service was suspended and then resumed on Sep 27. In a third notice on Oct 21, the company released the results of an outside forensic investigation. This also confirmed that the attacker viewed or took 432 image files belonging to 133 users."
+    ],
+    "timeline": [
+      {
+        "date": "2026-09-11",
+        "event": "The attacker broke in by exploiting a vulnerability in the image upload server, and the company detected signs of trouble that evening."
+      },
+      {
+        "date": "2026-09-12",
+        "event": "The company blocked the intrusion path early in the morning and fixed the vulnerability the same day."
+      },
+      {
+        "date": "2026-09-16",
+        "event": "Helpfeel first disclosed the incident and asked all users to change their passwords."
+      },
+      {
+        "date": "2026-09-25",
+        "event": "A second notice added the leak of about 174 million metadata records for deleted images."
+      },
+      {
+        "date": "2026-09-27",
+        "event": "After completing security measures and verification, the company resumed the Gyazo service."
+      },
+      {
+        "date": "2026-10-21",
+        "event": "A third notice disclosed the cause of the intrusion and the results of the forensic investigation."
+      }
+    ],
+    "impact": [
+      "About 23.62 million user records are affected (according to the company; these are accounts, not people). Of these, about 18.01 million are anonymous accounts with no email, and about 5.62 million are accounts with a registered email.",
+      "User information items include name or nickname, email address, password hash, user and device IDs, login session IDs, X integration tokens, Google SSO email, and subscription and payment status. The items differ by user. Payment information such as credit card details was not included.",
+      "About 490 million image metadata records are subject to the leak, mainly for images uploaded before January 2019. About 2.4 million records that were separately extracted under specific conditions contained upload IP addresses, EXIF location data, text read by OCR, hashes of passwords for private images and more (as reported).",
+      "About 174 million metadata records for deleted images are also affected. In a Nov 5 correction, the company said this data is linked to about 1.12 million accounts.",
+      "A total of 432 image files belonging to 133 users were viewed or taken. No record of image files being taken in bulk was found."
+    ],
+    "cause": [
+      "According to the company's third notice, the cause was a vulnerability in the process that converts uploaded videos and other files. Input from outside was not handled properly and could be interpreted as commands. The attacker ran commands on the content conversion server and explored the internal environment. The attacker then read a large amount of data from the database and sent it to an outside server.",
+      "Outside experts could not see the transmitted content itself, so they could not pin down exactly which items left and how many. However, they judged that a leak was highly likely. The company said there were no traces of the intrusion spreading to other systems or of malware left behind. It also explained that it was not a supply chain attack."
+    ],
+    "response": [
+      "Helpfeel stopped image delivery and suspended the service, then resumed it on Sep 27. After resuming, it made all images uploaded before the incident viewable only by their owners. Users were asked to check the content and decide again for themselves whether to make it public. The company advised all users to change their passwords, and to change them on other services that use the same password. It invalidated OAuth-related credentials, including X integration tokens.",
+      "The company made a first report to Japan's Personal Information Protection Commission on Sep 15 and also reported to the Ministry of Internal Affairs and Communications. It notified supervisory authorities in about 30 countries and regions under GDPR and other rules. It also consulted the Kyoto Prefectural Police. It has been emailing affected users in turn since Sep 20. As measures to prevent a recurrence, it announced a full source code review, a new security operations center and a policy to automatically delete metadata of deleted images after 60 days."
+    ],
+    "sources": [
+      {
+        "outlet": "BleepingComputer",
+        "date": "2026-09-18",
+        "url": "https://www.bleepingcomputer.com/news/security/gyazo-server-flaw-exploited-to-steal-236-million-user-records/"
+      },
+      {
+        "outlet": "Help Net Security",
+        "date": "2026-09-21",
+        "url": "https://www.helpnetsecurity.com/2026/09/21/helpfeel-gyazo-data-breach/"
+      },
+      {
+        "outlet": "INTERNET Watch",
+        "date": "2026-09-29",
+        "url": "https://internet.watch.impress.co.jp/docs/news/2143888.html"
+      },
+      {
+        "outlet": "Helpfeel notice (Update 3)",
+        "date": "2026-10-21",
+        "url": "https://corp.helpfeel.com/en/news/news-20261021-2"
+      }
+    ]
+  },
+  "idscan-2026-09": {
+    "overview": [
+      "IDScan.net, an identity verification company in Louisiana, US, confirmed a breach of its cloud environment in September 2026. The company supplies technology that retailers, hospitality businesses and others use to scan and check customers' IDs. According to the company, it handles more than 21 million checks a month at more than 20,000 locations.",
+      "The incident became known through a Sep 1 report by US security outlet KrebsOnSecurity. A dark web service called \"Nexus\" advertised that it was selling more than 153 million scans of US and Canadian driver's licenses. After checking samples, the outlet traced the source of the data to IDScan.net. The 153 million figure is the seller's claim and has not been independently verified.",
+      "On Sep 4, IDScan.net posted a notice saying an outsider may have accessed or copied customer information. According to an updated notice on Sep 29, the access lasted from Apr 4 to Sep 2 and was limited to the VeriScan platform. The company did not disclose how many people were affected. However, it was reported that the Texas breach notification list in the US shows a total of 13 million people."
+    ],
+    "timeline": [
+      {
+        "date": "2026-04-04",
+        "event": "According to investigation results the company later disclosed, an outsider began accessing part of the cloud environment on this day."
+      },
+      {
+        "date": "2026-09-01",
+        "event": "KrebsOnSecurity reported on Nexus's ads selling driver's licenses, and the FBI's New Orleans field office began an investigation."
+      },
+      {
+        "date": "2026-09-04",
+        "event": "IDScan.net posted a data security incident notice on its website."
+      },
+      {
+        "date": "2026-09-21",
+        "event": "The Office of the Privacy Commissioner of Canada began a formal investigation into IDScan.net."
+      },
+      {
+        "date": "2026-09-29",
+        "event": "The company updated its notice to disclose the unauthorized access period and the affected platform."
+      }
+    ],
+    "impact": [
+      "Nexus claimed it held more than 153 million US and Canadian driver's license scans, more than 10 million ID cards, more than 3 million travel documents and more than 579,000 medical cards (seller's claim, not verified).",
+      "According to the company's notice, information that may have been exposed includes names, contact details, dates of birth and government-issued ID numbers such as driver's license and passport numbers. The items differ by client and by person.",
+      "The company's notice does not say whether scan images were included. KrebsOnSecurity said each record had up to 6 image files attached, some of them infrared and ultraviolet scans.",
+      "The company has not disclosed the number of people affected. The Texas breach notification list shows a total of 13 million people (according to eSecurity Planet).",
+      "The company said the breach was limited to the VeriScan platform and that its other products and services were not involved."
+    ],
+    "cause": [
+      "The company has only said an outsider accessed part of its cloud environment. It has not disclosed how the outsider got in. The investigation continues with outside experts.",
+      "Nexus claimed it had kept taking new data for more than a year, but this is an unverified claim. The unauthorized access period the company disclosed is about 5 months, from Apr 4 to Sep 2. The company said it is not aware of any misuse of personal information so far."
+    ],
+    "response": [
+      "IDScan.net said it took steps to protect its systems right after learning of the incident. It hired outside experts to investigate. It is notifying people who may have been affected and offering free credit monitoring and identity protection services. The company is cooperating with the relevant regulators and law enforcement. Right after the first report, the Nexus site changed to a message saying the service was no longer available.",
+      "The Office of the Privacy Commissioner of Canada began a formal investigation on Sep 21. It is examining whether the company's security measures and victim notifications complied with Canada's federal private sector privacy law. The Canadian authority's findings have not yet been released. In the US, several class actions have been filed against the company (as reported)."
+    ],
+    "sources": [
+      {
+        "outlet": "KrebsOnSecurity",
+        "date": "2026-09-01",
+        "url": "https://krebsonsecurity.com/2026/09/fbi-probes-service-selling-153m-drivers-licenses/"
+      },
+      {
+        "outlet": "The Record (Recorded Future News)",
+        "date": "2026-09-22",
+        "url": "https://therecord.media/canadian-regulator-opens-probe-of-idscan-following-data-breach"
+      },
+      {
+        "outlet": "eSecurity Planet",
+        "date": "2026-09-28",
+        "url": "https://www.esecurityplanet.com/news/news-idscan-data-breach-13-million-people/"
+      },
+      {
+        "outlet": "IDScan.net notice (updated Sep 29)",
+        "date": "2026-09-29",
+        "url": "https://idscan.net/notification-data-security-incident/"
+      }
+    ]
+  },
+  "inje-univ-2026-11": {
+    "overview": [
+      "At Inje University in Gimhae, South Gyeongsang Province, a server related to its class site \"Flipped Learning Class\" was attacked from outside. A total of 24,011 personal records of students and staff were taken (according to the university). The university learned of the incident through a notice from the Ministry of Education.",
+      "The leaked items are student or employee ID number, name, email and mobile phone number. The university said passwords, unique identifiers such as resident registration numbers, and sensitive information were not leaked. It also explained that information on admissions applicants, such as incoming freshmen, was not part of the leak (according to Gyeongnam Shinmun).",
+      "On Nov 13, the university posted a notice of the leak and an apology on its website. It disconnected the server from the network and is investigating the scope of the leak. The attacker and the intrusion method have not been disclosed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-12",
+        "event": "The Ministry of Education notified the university of the breach, and the university became aware of the incident."
+      },
+      {
+        "date": "2026-11-13",
+        "event": "The university posted a notice of the personal information leak and an apology on its website (according to Herald Economy and Gyeongnam Shinmun)."
+      },
+      {
+        "date": "2026-11-14",
+        "event": "Media reports made the incident widely known."
+      }
+    ],
+    "impact": [
+      "A total of 24,011 personal records were leaked (according to the university). This is a count of records, not people.",
+      "The leaked items are student or employee ID number, name, email and mobile phone number.",
+      "The university said passwords, unique identifiers such as resident registration numbers, and sensitive information were not leaked."
+    ],
+    "cause": [
+      "Only the fact that the server was breached in an outside attack has been disclosed. The attacker, the intrusion method and the time of the first intrusion have not been revealed. The university investigated traces of the breach and the scope of the leak and submitted materials to the Ministry of Education."
+    ],
+    "response": [
+      "The university disconnected the server from the network. It formed a rapid response team and decided to check the flipped learning system and then shut it down. It also set up a lookup service where people can check whether their data was leaked.",
+      "The university asked people to watch out for secondary damage such as smishing that targets the leaked contact details (according to Gyeongnam Shinmun)."
+    ],
+    "sources": [
+      {
+        "outlet": "Herald Economy",
+        "date": "2026-11-14",
+        "url": "https://biz.heraldcorp.com/article/10937167"
+      },
+      {
+        "outlet": "Gyeongnam Shinmun",
+        "date": "2026-11-15",
+        "url": "http://www.knnews.co.kr/news/articleView.php?idxno=1555076"
+      },
+      {
+        "outlet": "Boannews",
+        "date": "2026-11-15",
+        "url": "https://www.boannews.com/news/articleView.html?idxno=147269"
+      },
+      {
+        "outlet": "News1",
+        "date": "2026-11-15",
+        "url": "https://www.news1.kr/local/busan-gyeongnam/6354189"
+      }
+    ]
+  },
+  "yellow-umbrella-2026-11": {
+    "overview": [
+      "Signs were found that an unauthorized outsider abnormally accessed the Yellow Umbrella website run by the Korea Federation of SMEs (KBIZ). Yellow Umbrella is a mutual aid program for small businesses and small merchants. The federation announced that some customers' personal information may have been viewed.",
+      "Items that may have been viewed are name, the first 7 digits of the resident registration number, mobile phone number, home address and phone number, email, and consent to receive texts and emails. The items may differ by customer. The federation explained that the remaining digits of the resident registration number are encrypted so that they cannot be decrypted.",
+      "The figure of 1.92 million people in some reports is the total number of Yellow Umbrella members. The number of people whose information was actually viewed has not yet been disclosed (as reported)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-11",
+        "event": "Abnormal access to the website and signs of suspected personal information lookups were confirmed."
+      },
+      {
+        "date": "2026-11-14",
+        "event": "The federation posted a notice on its website and sent individual texts to customers suspected of being affected."
+      },
+      {
+        "date": "2026-11-15",
+        "event": "The customer center opened temporarily on Sunday to handle inquiries."
+      }
+    ],
+    "impact": [
+      "The number of people affected has not been disclosed. The federation said it is assessing the scale of the damage (according to SBS).",
+      "Items that may have been viewed include name, the first 7 digits of the resident registration number, contact details, address and email.",
+      "The federation explained that customers who did not receive an individual text are not among the suspected cases identified so far (according to Naewoe Ilbo)."
+    ],
+    "cause": [
+      "Only the fact that an unauthorized outsider accessed the website is known. The attacker and the access method have not been disclosed. Whether data was actually leaked, and how much, is under investigation."
+    ],
+    "response": [
+      "The federation blocked the IP addresses used in the attack and strengthened access control and security policies for the personal information lookup screen. It reported the breach to the Korea Internet & Security Agency (KISA) and is cooperating with the investigation.",
+      "The federation apologized to customers and said that if damage is confirmed, it would follow relief procedures in line with the law. It urged people to watch out for calls and texts impersonating the federation or Yellow Umbrella."
+    ],
+    "sources": [
+      {
+        "outlet": "Naewoe Ilbo",
+        "date": "2026-11-14",
+        "url": "https://www.naewoeilbo.com/news/articleView.html?idxno=2454178"
+      },
+      {
+        "outlet": "EBN",
+        "date": "2026-11-14",
+        "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1731672"
+      },
+      {
+        "outlet": "SBS",
+        "date": "2026-11-15",
+        "url": "https://news.sbs.co.kr/news/endPage.do?news_id=N1008846135"
+      }
+    ]
+  },
+  "coinone-2026-11": {
+    "overview": [
+      "An outside attacker broke into the server of MetaM, the contractor that handles customer support for crypto exchange Coinone. Personal information that customers left during support conversations was leaked (according to Coinone's notice). Customers with no support history are not affected.",
+      "The information that may have been leaked differs by person, depending on the content of the support conversation. It may include name, phone number, email, date of birth, account number, password, resident registration number, ID issue date, home address, wallet address and transaction ID (TXID).",
+      "Coinone said its member account, trading and wallet systems are separate from the contractor's server, and there are no signs of a direct intrusion. It also explained that all logins require two-factor authentication, so the leaked information alone cannot be used to log in or withdraw (according to Coinone)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-12",
+        "event": "Around 4 a.m., an outside intrusion occurred on the MetaM server (according to Coinone's notice)."
+      },
+      {
+        "date": "2026-11-12",
+        "event": "Around 9:20 a.m., MetaM informed Coinone of the incident."
+      },
+      {
+        "date": "2026-11-15",
+        "event": "Coinone notified customers of the leak and apologized."
+      }
+    ],
+    "impact": [
+      "The number of people and records affected has not been disclosed and is under investigation.",
+      "Only information that customers left during support conversations is affected, and customers with no support history are not affected (according to Coinone's notice).",
+      "Coinone said there are no signs of intrusion into its member account, trading and wallet systems."
+    ],
+    "cause": [
+      "Only the fact that an outside attacker broke into the contractor's server without authorization is known. The attacker and the intrusion method have not been disclosed, and the investigation is ongoing."
+    ],
+    "response": [
+      "Coinone blocked the IP addresses and access paths used in the attack. It switched customer center support to email and strengthened monitoring of abnormal access and transactions. It reported to the Korea Internet & Security Agency (KISA), the Personal Information Protection Commission (PIPC) and the Financial Supervisory Service (FSS) (according to Hankook Ilbo and The Financial News).",
+      "Coinone apologized to customers and recommended that they change their passwords. It said it also plans to run a security check on the contractor."
+    ],
+    "sources": [
+      {
+        "outlet": "Hankook Ilbo",
+        "date": "2026-11-15",
+        "url": "https://www.hankookilbo.com/news/article/A2026111510320003231"
+      },
+      {
+        "outlet": "The Financial News",
+        "date": "2026-11-15",
+        "url": "https://www.fnnews.com/news/202611151506217040"
+      },
+      {
+        "outlet": "The Fact",
+        "date": "2026-11-15",
+        "url": "https://news.tf.co.kr/read/economy/2388899.htm"
+      }
+    ]
+  },
+  "lazarus-targets-2026-11": {
+    "overview": [
+      "Global threat intelligence company CYFIRMA updated a report on the exploitation of PHP web server vulnerabilities. According to the report, the attacker's target list includes 216 servers in 10 countries, 30 of which are in Korea. CYFIRMA judged it highly likely that the attacker is linked to the North Korean hacking group Lazarus (as reported).",
+      "The Korean targets span 7 industries: government, banking and finance, telecommunications, critical infrastructure, logistics and aviation, manufacturing, and online trading platforms. In hacker conversations on the dark web, some IP ranges, including Korea's, were mentioned as good targets.",
+      "CYFIRMA analyzed the goals of the attacks as stealing financial assets and gathering intelligence. However, it said it has not been confirmed whether the Korean servers on the list were actually breached (according to Jaekyung Ilbo and Seoul Economic Daily)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-28",
+        "event": "Hacker conversations on the dark web named Korea and other countries as targets (according to Herald Economy)."
+      },
+      {
+        "date": "2026-11",
+        "event": "CYFIRMA updated its report on the exploitation of PHP vulnerabilities."
+      },
+      {
+        "date": "2026-11-14",
+        "event": "Korean media, starting with Yonhap News, reported on the contents of the report."
+      }
+    ],
+    "impact": [
+      "Of the 216 servers on the target list, 49 are in the US, 47 in Japan, 31 in India and 30 in Korea (according to CYFIRMA's list).",
+      "The Korean targets span 7 industries, including government, finance and telecommunications.",
+      "Whether any servers were actually breached, and any damage to individual Korean organizations, have not been disclosed."
+    ],
+    "cause": [
+      "According to reports, the attacker targeted a remote code execution vulnerability in PHP running on Windows. The method reportedly used infected servers as footholds to plant web shells, steal administrator account information and move further inside. Web servers without security patches are the main targets.",
+      "CYFIRMA's assessment only goes as far as saying a link to Lazarus is highly likely. The attacker has not been officially identified."
+    ],
+    "response": [
+      "CYFIRMA recommended updating PHP with the latest security patches, restarting web server worker processes and checking for signs of an existing breach. It published the Korean target IP addresses with parts masked. The PHP developers released an emergency security patch (according to Jaekyung Ilbo)."
+    ],
+    "sources": [
+      {
+        "outlet": "Yonhap News (via The Korea Times US edition)",
+        "date": "2026-11-14",
+        "url": "https://www.koreatimes.com/article/11631544"
+      },
+      {
+        "outlet": "Herald Economy",
+        "date": "2026-11-15",
+        "url": "https://biz.heraldcorp.com/article/10937288"
+      },
+      {
+        "outlet": "Jaekyung Ilbo",
+        "date": "2026-11-15",
+        "url": "https://news.jkn.co.kr/post/1095917"
+      },
+      {
+        "outlet": "Seoul Economic Daily",
+        "date": "2026-11-15",
+        "url": "https://m.sedaily.com/article/20114478"
+      }
+    ]
+  },
+  "muji-2026-11": {
+    "overview": [
+      "On Oct 29, a third party gained unauthorized access to the systems of Ryohin Keikaku, which runs Japan's MUJI. At first, only app member information was reported. A later investigation found that about 1.09 million MUJI Card numbers may have been exposed (according to the company and the card company).",
+      "These card numbers were received from card company Credit Saison from October 2000 to July 2021 for collecting points. They were due to be deleted in 2021 but were not, and remained unmasked (according to Japanese media reports).",
+      "The president of Ryohin Keikaku held a press conference in Tokyo on Nov 12 and apologized. The president admitted that part of the system had a vulnerability and that card information that should have been destroyed had remained."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-29",
+        "event": "Around 1 a.m., unauthorized access to Ryohin Keikaku's systems occurred (according to Credit Saison's notice)."
+      },
+      {
+        "date": "2026-10-30",
+        "event": "Ryohin Keikaku first announced that the emails, dates of birth and genders of up to about 27.26 million app member records may have been exposed."
+      },
+      {
+        "date": "2026-11-04",
+        "event": "It was announced that about 1.09 million card numbers may have been exposed (according to NHK and Credit Saison)."
+      },
+      {
+        "date": "2026-11-09",
+        "event": "About 440,000 more records of names and postal codes were announced."
+      },
+      {
+        "date": "2026-11-12",
+        "event": "The president of Ryohin Keikaku apologized at a press conference in Tokyo."
+      }
+    ],
+    "impact": [
+      "Of the roughly 1.09 million card numbers, about 345,000 are cards that can still be used, and about 745,000 are canceled or expired cards (according to Credit Saison's notice).",
+      "Items that may have been exposed are the full 16-digit card number, date of birth and MUJI member ID. Some records also include name, address and phone number.",
+      "Cardholder name, expiration date and security code were not included.",
+      "It was also announced that the emails, dates of birth and genders of up to about 27.26 million app member records may have been exposed."
+    ],
+    "cause": [
+      "The president of Ryohin Keikaku admitted vulnerabilities in part of the system. The president also admitted that card information that should have been destroyed in 2021 had remained. The specific vulnerability and intrusion method have not been disclosed.",
+      "So-called list-based attacks, which try account information leaked elsewhere, were also mentioned. However, reports differ on how such an attack connects to the card number exposure, so it is not yet clear."
+    ],
+    "response": [
+      "Ryohin Keikaku said it would cover all card reissue fees and discuss individual compensation if actual damage is confirmed. It stopped sales at its online store, and no date has been set for reopening.",
+      "Credit Saison has strengthened fraud monitoring and is reissuing cards free of charge. It said no traces of a breach of Credit Saison's own systems had been found."
+    ],
+    "sources": [
+      {
+        "outlet": "The Asia Business Daily",
+        "date": "2026-11-12",
+        "url": "https://view.asiae.co.kr/article/2026111218415075630"
+      },
+      {
+        "outlet": "Seoul Shinmun",
+        "date": "2026-11-05",
+        "url": "https://www.seoul.co.kr/news/international/japan/2026/11/05/20261105500126"
+      },
+      {
+        "outlet": "NHK",
+        "date": "2026-11-04",
+        "url": "https://news.web.nhk/newsweb/na/nd-20261104de70494"
+      },
+      {
+        "outlet": "Credit Saison notice",
+        "date": "2026-11-04",
+        "url": "https://www.saisoncard.co.jp/customer-support/information/20261104/"
+      }
+    ]
+  },
+  "flybit-2026-11": {
+    "overview": [
+      "An outside attacker gained unauthorized access to the internal groupware of Flybit, a coin-market crypto exchange (operator: Korea Digital Exchange). Personal information of 40 customers was leaked (according to the company). The groupware is a service run by an outside vendor.",
+      "The leaked information was in attachments to emails from tax-related agencies requesting data. For individual customers, it included name, resident registration number and contact details. For corporate customers, it included company name and corporate registration number. Some records also contained tax-related data.",
+      "Flybit confirmed the leak on Nov 5 and posted an apology on its website. The attacker and the intrusion method have not been disclosed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-01",
+        "event": "Unauthorized access to the internal groupware occurred (as reported)."
+      },
+      {
+        "date": "2026-11-05",
+        "event": "Flybit confirmed the leak and posted an apology (according to Seoul Economic Daily and Newsway)."
+      },
+      {
+        "date": "2026-11-12",
+        "event": "Media reports made the incident public."
+      }
+    ],
+    "impact": [
+      "Personal information of 40 customers was leaked (according to the company).",
+      "For individual customers, it included name, resident registration number and contact details. For corporate customers, it included company name and corporate registration number.",
+      "No crypto asset losses have been reported."
+    ],
+    "cause": [
+      "It was reported that the outside attacker gained access by way of the groupware operator. The attack method, how the operator was breached and whether other client companies were affected have not been disclosed."
+    ],
+    "response": [
+      "Flybit blocked the access path and temporarily blocked all access from overseas IP addresses. It asked the police to investigate and is working with the Korea Internet & Security Agency (KISA) and others. It notified affected customers separately by email and text."
+    ],
+    "sources": [
+      {
+        "outlet": "Seoul Economic Daily",
+        "date": "2026-11-12",
+        "url": "https://m.sedaily.com/article/20113739"
+      },
+      {
+        "outlet": "Newsway",
+        "date": "2026-11-12",
+        "url": "https://newsway.co.kr/news/view?ud=2026111219564317964"
+      },
+      {
+        "outlet": "The Asia Business Daily",
+        "date": "2026-11-12",
+        "url": "https://view.asiae.co.kr/article/2026111218204422125"
+      },
+      {
+        "outlet": "Maeil Ilbo",
+        "date": "2026-11-12",
+        "url": "https://www.m-i.kr/news/articleView.html?idxno=2018035"
+      }
+    ]
+  },
+  "yasukuni-2026-11": {
+    "overview": [
+      "An online site where Yasukuni Shrine in Tokyo, Japan, sells charms and other souvenirs was accessed without authorization. About 14,500 member records were leaked (according to the shrine). The sales site, not the entire official website, was affected.",
+      "The shrine confirmed the unauthorized access on Oct 28 and closed the site that day. It posted a notice of the leak on its website on Nov 11. Korean media reported it on Nov 12.",
+      "The leaked information is names, emails, passwords stored as converted values (hash values) and account registration information. The shrine said card information was processed through a payment service provider and there are no traces of it being leaked."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-28",
+        "event": "Unauthorized access was confirmed, and the shrine closed the sales site."
+      },
+      {
+        "date": "2026-11-11",
+        "event": "The shrine posted a notice of the personal information leak on its website."
+      },
+      {
+        "date": "2026-11-12",
+        "event": "Korean media reported the incident."
+      }
+    ],
+    "impact": [
+      "About 14,500 member records were leaked (according to the shrine). This may change depending on the investigation results.",
+      "Names, emails, password hash values, account registration times and account status were included.",
+      "No leak of card information, addresses, phone numbers, dates of birth or purchase history has been confirmed."
+    ],
+    "cause": [
+      "The intrusion method has not been disclosed. The shrine is investigating the cause with the company that manages the site."
+    ],
+    "response": [
+      "The shrine notified members individually by email. It asked them to change their passwords on other services that use the same password and to watch out for messages impersonating the shrine. No date has been set for reopening the site."
+    ],
+    "sources": [
+      {
+        "outlet": "Herald Economy (citing Yonhap News)",
+        "date": "2026-11-12",
+        "url": "https://biz.heraldcorp.com/article/10934778"
+      },
+      {
+        "outlet": "Kangwon Domin Ilbo",
+        "date": "2026-11-12",
+        "url": "https://www.kado.net/news/articleView.html?idxno=2084357"
+      },
+      {
+        "outlet": "OBC The One Broadcasting",
+        "date": "2026-11-14",
+        "url": "https://www.theonetv.kr/news/articleView.html?idxno=255187"
+      },
+      {
+        "outlet": "Yasukuni Shrine notice",
+        "date": "2026-11-11",
+        "url": "https://www.yasukuni.or.jp/news_detail.html?id=734"
+      }
+    ]
+  },
+  "kb-capital-2026-11": {
+    "overview": [
+      "KB Capital's car rental asset management system was attacked from outside, and personal information was leaked. The system is an internal system used by employees and partner companies. The company said it is not related to its financial transaction systems.",
+      "While checking server load, the company found several suspicious lookup attempts coming from IP addresses in Korea (according to Dealsite). On Nov 10, it confirmed the leak, stopped the system and reported to the Financial Supervisory Service (FSS).",
+      "The leak affects 20 customers and 1,791 partner company staff and employees, 1,811 people in total (company's provisional count). The company explained that the number may fall slightly during final checks."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-10",
+        "event": "The company confirmed the leak, stopped the system and servers, and reported to the FSS (according to Dealsite and Sisa Journal)."
+      },
+      {
+        "date": "2026-11-12",
+        "event": "The company posted a notice of the leak on its website. Media reported the notice date as either Nov 12 or Nov 13."
+      },
+      {
+        "date": "2026-11-13",
+        "event": "Media reports made the incident widely known."
+      }
+    ],
+    "impact": [
+      "The leak affects 20 customers and 1,791 partner company staff and employees, 1,811 people in total (company's provisional count).",
+      "Customer information includes name, date of birth, mobile phone number, address and vehicle number.",
+      "Partner company staff and employee information includes account, name, phone number, department, company name and job title."
+    ],
+    "cause": [
+      "The company explained that lookups came from IP addresses in Korea in a malicious outside attack. The intrusion path and method have not been disclosed."
+    ],
+    "response": [
+      "The company blocked the access path and strengthened monitoring. It set up a lookup on its website where individuals can check whether their data was leaked, and apologized. It said it would fully compensate for any damage and is running a dedicated support center (according to Dealsite)."
+    ],
+    "sources": [
+      {
+        "outlet": "The Financial News",
+        "date": "2026-11-13",
+        "url": "https://www.fnnews.com/news/202611130929319866"
+      },
+      {
+        "outlet": "Newspim",
+        "date": "2026-11-13",
+        "url": "https://www.newspim.com/news/view/20261113000303"
+      },
+      {
+        "outlet": "Sisa Journal",
+        "date": "2026-11-13",
+        "url": "https://www.sisajournal.com/news/articleView.html?idxno=393889"
+      },
+      {
+        "outlet": "Dealsite",
+        "date": "2026-11-13",
+        "url": "https://dealsite.co.kr/articles/172729"
+      }
+    ]
+  },
+  "kakaowork-2026-11": {
+    "overview": [
+      "An outside attacker gained unauthorized access to the systems of KakaoWork, a messenger for work. User information, email bodies and attachments, and encrypted messages were leaked (according to the company's notice). The victims are current and former Kakao Enterprise employees, outside people using company accounts and some email recipients.",
+      "On Nov 1, the provider of KakaoWork changed from DK Techin to Kakao. The incident was confirmed 8 days later, on Nov 9. In practice, DK Techin still runs the service as Kakao's contractor (according to News Tomato).",
+      "On Nov 12, the company reported to the Korea Internet & Security Agency (KISA) and the Personal Information Protection Commission (PIPC) and issued a notice. The scale of the leak has not yet been finalized."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-01",
+        "event": "The provider of KakaoWork changed from DK Techin to Kakao."
+      },
+      {
+        "date": "2026-11-09",
+        "event": "Abnormal access and a leak were confirmed."
+      },
+      {
+        "date": "2026-11-12",
+        "event": "The company reported to KISA and the PIPC and notified users (according to Electronic Times)."
+      },
+      {
+        "date": "2026-11-13",
+        "event": "Media reports made the incident widely known."
+      }
+    ],
+    "impact": [
+      "The leaked items are name, nickname, department, mobile phone number, email address, email subject and body, attachment names and original files, and encrypted messages (according to the company's notice).",
+      "There was a report of 44 client companies and more than 5,000 users, but the company said these are not figures it has confirmed and announced, and that it is still investigating (according to Maeil Ilbo).",
+      "No password leak has been confirmed. Whether the encrypted messages were decrypted has not been confirmed either."
+    ],
+    "cause": [
+      "Only the fact of abnormal access by an outside attacker is known. The intrusion path and method have not been disclosed and are under investigation."
+    ],
+    "response": [
+      "The company blocked the access path and opened a page for checking whether one's data was leaked. It recommended that users change their passwords, told them to watch out for messages impersonating the company, and apologized.",
+      "The PIPC is looking into what happened and plans to examine the management and oversight of both DK Techin, which runs the service, and Kakao, which outsourced the work to it (according to News Tomato)."
+    ],
+    "sources": [
+      {
+        "outlet": "Electronic Times",
+        "date": "2026-11-13",
+        "url": "https://www.etnews.com/20261113000152"
+      },
+      {
+        "outlet": "The Asia Business Daily",
+        "date": "2026-11-13",
+        "url": "https://view.asiae.co.kr/article/2026111309090565452"
+      },
+      {
+        "outlet": "Maeil Ilbo",
+        "date": "2026-11-13",
+        "url": "https://www.m-i.kr/news/articleView.html?idxno=2018255"
+      },
+      {
+        "outlet": "News Tomato",
+        "date": "2026-11-13",
+        "url": "http://www.newstomato.com/ReadNews.aspx?no=1320408"
+      }
+    ]
+  },
+  "chak-2026-11": {
+    "overview": [
+      "An unauthorized outsider accessed \"chak\", the mobile local gift certificate platform run by Korea Minting and Security Printing Corporation (KOMSCO). Part of the personal information of 3,083 users was viewed (KOMSCO announcement, as of 6 a.m. on Nov 14). After confirming signs of access, KOMSCO briefly stopped the server service, then reopened it after emergency security measures.",
+      "The information viewed is some of the following: name, date of birth, mobile phone number, account number, connecting information (CI), email and encrypted card number. For 3,072 people, 2 or fewer items were exposed, and for 11 people, 3 to 4 items were exposed (according to KOMSCO).",
+      "Whether the information left the system and whether there were further leaks have not yet been confirmed. KOMSCO is investigating the intrusion path and method (according to Dailysecu)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-13",
+        "event": "Around 9:30 a.m., signs of abnormal access were confirmed. KOMSCO blocked the suspicious IP addresses and blocked all access from overseas IP addresses."
+      },
+      {
+        "date": "2026-11-14",
+        "event": "KOMSCO announced the incident and ran a temporary customer center from 4 p.m. to 8 p.m."
+      }
+    ],
+    "impact": [
+      "Part of the personal information of 3,083 users was viewed (according to KOMSCO).",
+      "For 3,072 people, 2 or fewer items were exposed, and for 11 people, 3 to 4 items were exposed.",
+      "The items are name, date of birth, mobile phone number, account number, connecting information (CI), email and encrypted card number."
+    ],
+    "cause": [
+      "The intrusion path and method, and whether there were further leaks, are under investigation. Whether the information was taken outside has not been confirmed either (according to Dailysecu)."
+    ],
+    "response": [
+      "KOMSCO reported to the Korea Internet & Security Agency (KISA) and others and started 24-hour monitoring. It notified affected users individually and is running a dedicated customer center.",
+      "KOMSCO said it would analyze vulnerabilities with outside experts and improve access control, and apologized."
+    ],
+    "sources": [
+      {
+        "outlet": "Herald Economy",
+        "date": "2026-11-14",
+        "url": "https://biz.heraldcorp.com/article/10937112"
+      },
+      {
+        "outlet": "The Financial News",
+        "date": "2026-11-14",
+        "url": "https://www.fnnews.com/news/202611142243219138"
+      },
+      {
+        "outlet": "Economy Science",
+        "date": "2026-11-14",
+        "url": "https://www.e-science.co.kr/news/articleView.html?idxno=139806"
+      },
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-15",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209533"
+      }
+    ]
+  },
+  "modu-startup-2026-11": {
+    "overview": [
+      "AmicusLex, a company that supplies an AI solution to \"Startup for All\", a startup support program of the Ministry of SMEs and Startups (MSS), was hacked. Information on 20,028 users of the company's legal document AI service was leaked. Of these, 818 are \"Startup for All\" participants (according to the MSS).",
+      "AmicusLex is one of 50 supplier companies selected by the MSS. The MSS explained that this system is run by the company itself and is separate from the program's official platform.",
+      "This is the second time information has leaked from \"Startup for All\". This incident was disclosed about 60 hours after it happened, which drew criticism that the disclosure was late (as reported)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-11",
+        "event": "The attack occurred at 5:38 a.m., and the company noticed it at 8:30 a.m. It reported to KISA at 3:45 p.m."
+      },
+      {
+        "date": "2026-11-12",
+        "event": "At 6:10 p.m., the company informed the Korea Institute of Startup & Entrepreneurship Development and the MSS of the incident."
+      },
+      {
+        "date": "2026-11-13",
+        "event": "Victims were notified individually at 3 p.m., and the MSS made an official announcement around 5 p.m."
+      },
+      {
+        "date": "2026-11-15",
+        "event": "It was reported that the MSS is considering canceling the company's selection and restricting its participation (according to Maeil Ilbo)."
+      }
+    ],
+    "impact": [
+      "Information on 20,028 users was leaked, and 818 of them are \"Startup for All\" participants (according to the MSS).",
+      "The leaked items are name, phone number and email."
+    ],
+    "cause": [
+      "According to the company's leak report, attempts to extract information through SQL injection via the admin page were confirmed. The company deleted the vulnerable API code (as reported). Other details have not been disclosed."
+    ],
+    "response": [
+      "The company blocked access from overseas IP addresses. The MSS is considering canceling the company's selection and restricting its participation for 1 year. The remaining 49 supplier companies are to be checked by Nov 20.",
+      "The MSS is guiding victims on remedies through its legal advisory group and has formed a dedicated security team led by the First Vice Minister."
+    ],
+    "sources": [
+      {
+        "outlet": "The Financial News (Yonhap News)",
+        "date": "2026-11-13",
+        "url": "https://www.fnnews.com/news/202611132125594748"
+      },
+      {
+        "outlet": "Herald Economy",
+        "date": "2026-11-13",
+        "url": "https://biz.heraldcorp.com/article/10936795"
+      },
+      {
+        "outlet": "Maeil Ilbo",
+        "date": "2026-11-13",
+        "url": "https://www.m-i.kr/news/articleView.html?idxno=2018486"
+      },
+      {
+        "outlet": "Maeil Ilbo",
+        "date": "2026-11-15",
+        "url": "https://www.m-i.kr/news/articleView.html?idxno=2018648"
+      }
+    ]
+  }
+}

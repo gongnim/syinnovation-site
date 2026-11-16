@@ -1,5 +1,10 @@
 ---
-import { company, nav, cta } from '../data/site';
+import { company, nav as navAll, cta as ctaAll, menu } from '../data/site';
+import { langOf, href } from '../lib/i18n';
+const lang = langOf(Astro.url);
+const en = lang === 'en';
+const nav = menu(navAll, lang);
+const [cta] = menu([ctaAll], lang);
 ---
 <footer class="ft">
   <div class="wrap ft-grid">
@@ -7,21 +12,21 @@ import { company, nav, cta } from '../data/site';
       <img src="/images/brand/syinnovation-logo-web.svg" alt="SYINNOVATION RE:Think innovation" width="300" height="57" class="ft-logo" />
       <p class="ft-motto">{company.motto}</p>
     </div>
-    <nav aria-label="사이트 메뉴" class="ft-links">
+    <nav aria-label={en ? 'Site menu' : '사이트 메뉴'} class="ft-links">
       {[nav.slice(0, 3), [...nav.slice(3), cta]].map((col) => <div>{col.map((n) => <a href={n.href}>{n.label}</a>)}</div>)}
     </nav>
     <address class="ft-info">
-      <span>{company.legal}</span>
-      <span>대표이사 {company.ceo}</span>
-      <span>사업자등록번호 {company.bizNo}</span>
-      <span>{company.address}</span>
+      <span>{en ? company.en.legal : company.legal}</span>
+      <span>{en ? `CEO ${company.en.ceo}` : `대표이사 ${company.ceo}`}</span>
+      <span>{en ? 'Business registration no.' : '사업자등록번호'} {company.bizNo}</span>
+      <span>{en ? company.en.address : company.address}</span>
       <a href={`mailto:${company.email}`}>{company.email}</a>
     </address>
   </div>
   <div class="wrap ft-bottom">
     <span>© 2026 SYINNOVATION. All rights reserved.</span>
     <!-- the privacy policy link is set apart in bold, as Korean privacy guidance asks -->
-    <span class="ft-legal"><a href="/privacy" class="ft-privacy">개인정보처리방침</a><a href="/terms">이용약관</a></span>
+    <span class="ft-legal"><a href={href('/privacy', lang)} class="ft-privacy">{en ? 'Privacy Policy' : '개인정보처리방침'}</a><a href={href('/terms', lang)}>{en ? 'Terms of Use' : '이용약관'}</a></span>
   </div>
 </footer>
 

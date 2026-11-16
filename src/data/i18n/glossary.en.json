@@ -1,0 +1,1147 @@
+{
+  "cats": {
+    "zt": "Zero Trust",
+    "access": "Access control",
+    "auth": "Authentication and identity",
+    "pki": "Certificates and cryptography",
+    "net": "Networking and communication",
+    "detect": "Risk detection and operations",
+    "threat": "Threats and attacks",
+    "ai": "AI security",
+    "fin": "Finance and public sector security"
+  },
+  "terms": {
+    "zero-trust": {
+      "t": "Zero Trust",
+      "s": "A security principle that trusts nothing from the start and checks every time someone connects",
+      "b": "Zero Trust checks the person, the device and the situation each time, whether or not the connection comes from inside the company. Only then does it allow as much access as is needed. It is summed up in the phrase \"Never Trust, Always Verify.\"",
+      "tg": "Zero Trust is a principle, not a product name. Trust Gateway is SYINNOVATION's solution, developed by applying this principle."
+    },
+    "zta": {
+      "t": "Zero Trust Architecture (ZTA)",
+      "s": "A structure that puts the Zero Trust principle into a real system",
+      "b": "It has two parts: a policy decision part that judges who is trying to access what, and an enforcement part that opens and closes connections according to that decision. The US NIST SP 800-207 document is the best-known reference."
+    },
+    "implicit-trust": {
+      "t": "Implicit Trust",
+      "s": "Trusting someone just because they are inside the corporate network",
+      "b": "Traditional security treated everything inside the firewall as safe and allowed internal access easily. Zero Trust starts by removing this implicit trust."
+    },
+    "least-privilege": {
+      "t": "Least Privilege",
+      "s": "The principle of giving only as much access as the work truly needs",
+      "b": "Instead of opening every system, it allows only the systems and functions needed for each person's job. If an account is stolen, this can limit the scope of the damage.",
+      "aka": ["Principle of Least Privilege"]
+    },
+    "assume-breach": {
+      "t": "Assume Breach",
+      "s": "A principle of designing as if you may already have been breached",
+      "b": "It assumes an attacker may already be inside. Each segment is checked separately and every connection is logged, so that if one place is breached, the damage does not spread."
+    },
+    "continuous-verification": {
+      "t": "Continuous Verification",
+      "s": "Checking continuously while someone is connected, not just once at login",
+      "b": "If the device status, location or behavior changes during a connection, the access decision is made again. This is needed to catch takeover or misuse that happens after login.",
+      "tg": "Trust Gateway checks access again with every request, even after login."
+    },
+    "micro-segmentation": {
+      "t": "Micro-segmentation",
+      "s": "Dividing networks and systems into small pieces so that traffic cannot move freely between them",
+      "b": "If one zone is breached, it keeps the problem from spreading to other zones. It is a common way to reduce lateral movement.",
+      "aka": ["Microsegmentation"]
+    },
+    "ztna": {
+      "t": "Zero Trust Network Access (ZTNA)",
+      "s": "An access method that opens only permitted applications, not the whole network",
+      "b": "Unlike a VPN, it does not let users into the whole internal network. It connects users who pass the checks only to the systems they need. It is the approach the financial sector considers first when adopting Zero Trust.",
+      "tg": "Trust Gateway's access control for employees works this way."
+    },
+    "sdp": {
+      "t": "Software-Defined Perimeter (SDP)",
+      "s": "A design that hides a service so it cannot even be seen until the checks are passed",
+      "b": "From outside, no one can see that the server exists or which ports are open, which makes targets hard to find. It is one of the common ways to implement ZTNA."
+    },
+    "pdp": {
+      "t": "Policy Decision Point (PDP)",
+      "s": "The \"brain\" that decides whether to allow a connection",
+      "b": "It gathers information about the user, the device and the situation, and decides by policy whether to allow, deny or ask for an extra check. The decision is passed to the Policy Enforcement Point.",
+      "tg": "Trust Gateway's policy engine is made up of the Prohibited Conditions check and the Final Decision step. The Prohibited Conditions check gives its opinion, the Final Decision step decides whether to allow access, and the Control Center carries out that decision."
+    },
+    "pep": {
+      "t": "Policy Enforcement Point (PEP)",
+      "s": "The gate that opens and closes connections according to the decision",
+      "b": "It sits between users and business systems and lets through only the requests the Policy Decision Point has allowed. A gateway or proxy plays this role.",
+      "tg": "Trust Gateway's Access Gateway is the Policy Enforcement Point. Every request is checked at this point, and step-up authentication is done through approval in the phone app. The PC agent keeps access on hold until the approval is complete."
+    },
+    "pip": {
+      "t": "Policy Information Point (PIP)",
+      "s": "The source that provides the data and attributes needed for a decision",
+      "b": "It provides data and attributes about users, devices and behavior so that the Policy Decision Point can decide correctly.",
+      "tg": "Trust Gateway's machine learning Anomaly Detection calculates how much this request differs from the usual pattern. It passes the result to the Policy Decision Point, together with other inputs for the decision such as the Risk Score, location and device security status."
+    },
+    "policy-engine": {
+      "t": "Policy Engine",
+      "s": "The component that turns access rules into actual decisions",
+      "b": "It applies rules such as \"this department gets only this system\" or \"deny if there is no phone check\" to every request. It must be able to apply rule changes right away."
+    },
+    "ztmm": {
+      "t": "Zero Trust Maturity Model",
+      "s": "A framework that measures, in stages, how far an organization has implemented Zero Trust",
+      "b": "The model published by the US CISA is the best-known example. It assesses identity, devices, networks, applications and data stage by stage. It is used to plan adoption and track progress."
+    },
+    "attack-surface": {
+      "t": "Attack Surface",
+      "s": "All the points an attacker could target",
+      "b": "Ports open to the outside, public services, accounts and devices are all part of the attack surface. The smaller it is, the harder an attack becomes."
+    },
+    "lateral-movement": {
+      "t": "Lateral Movement",
+      "s": "An attacker who got into one place moving on to other internal systems",
+      "b": "If systems inside the corporate network can reach each other easily, a small intrusion can grow into a major incident. Least privilege and segmentation are used to stop it."
+    },
+    "insider-threat": {
+      "t": "Insider Threat",
+      "s": "Risk caused by internal users who have access rights",
+      "b": "It includes not only intentional acts but also mistakes and stolen accounts. This is why internal access must also be checked each time."
+    },
+    "authentication": {
+      "t": "Authentication",
+      "s": "Checking that the person connecting is really who they claim to be",
+      "b": "Identity is proven with means such as a password, a phone or biometric data. What the person can do after that is decided by authorization."
+    },
+    "authorization": {
+      "t": "Authorization",
+      "s": "Deciding what a verified user is allowed to do",
+      "b": "Even within the same company, the systems and functions an employee can see depend on their job. It is the step after authentication."
+    },
+    "idp": {
+      "t": "Identity Provider (IdP)",
+      "s": "A service that manages user accounts and logins in one place",
+      "b": "Instead of each system managing passwords itself, systems trust and use the identity provider's verification result. A company account system is a typical example."
+    },
+    "mfa": {
+      "t": "Multi-Factor Authentication (MFA)",
+      "s": "Authentication that uses two or more different kinds of methods",
+      "b": "It combines two or more of these: something you know (a password), something you have (a phone or a certificate) and something you are (a fingerprint or face). It can protect the account even if the password leaks."
+    },
+    "2fa": {
+      "t": "Two-Factor Authentication (2FA)",
+      "s": "Authentication that adds one more check after the password",
+      "b": "It is multi-factor authentication that uses two steps. Text messages, app notifications and one-time passwords are common."
+    },
+    "step-up": {
+      "t": "Step-up Authentication",
+      "s": "Asking for an extra check only when something looks risky",
+      "b": "Most of the time it lets users through easily. It asks for one more check only when risk is high, such as an unfamiliar device or a sensitive task. It is a way to keep both convenience and security.",
+      "tg": "Trust Gateway asks for one more check on the phone when risk rises."
+    },
+    "biometric": {
+      "t": "Biometric Authentication",
+      "s": "Authentication that uses physical traits such as fingerprints or the face",
+      "b": "It is convenient because it cannot be forgotten or lent to someone. Keeping the biometric data on the device and never sending it to a server is the safer approach.",
+      "aka": ["Biometrics"]
+    },
+    "passkey": {
+      "t": "Passkey (FIDO2)",
+      "s": "Logging in with a cryptographic key on the device instead of a password",
+      "b": "At login, the device creates a signature and sends it, so no password is stored on the server. It is based on the FIDO2 standard and is resistant to phishing."
+    },
+    "otp": {
+      "t": "One-Time Password (OTP)",
+      "s": "A short numeric password that can be used only once",
+      "b": "It becomes invalid after a set time or after one use. Codes received by text message are vulnerable to interception, so an app or a dedicated device is safer."
+    },
+    "sso": {
+      "t": "Single Sign-On (SSO)",
+      "s": "Using several systems with a single login",
+      "b": "It is convenient for users, and administrators can manage accounts in one place. In return, that single login must be protected more strongly."
+    },
+    "oauth": {
+      "t": "OAuth 2.0",
+      "s": "A standard for delegating access to another service without handing over a password",
+      "b": "It issues an access token limited to the scope the user agreed to, so another service can access resources on the user's behalf. It is widely used for social login and external integrations.",
+      "aka": ["OAuth"]
+    },
+    "oidc": {
+      "t": "OpenID Connect (OIDC)",
+      "s": "A standard built on OAuth 2.0 that tells services who has logged in",
+      "b": "It delivers the login result as an ID token, so several services can use the same account. It is often used to set up single sign-on."
+    },
+    "saml": {
+      "t": "Security Assertion Markup Language (SAML)",
+      "s": "A standard for exchanging authentication information, long used for enterprise single sign-on",
+      "b": "The identity provider sends its verification result to each service as a signed document. It is still widely used to connect internal business systems."
+    },
+    "jwt": {
+      "t": "JSON Web Token (JWT)",
+      "s": "A token format that carries user information in a short signed string",
+      "b": "A server can check that it is genuine from its signature, without looking up a database each time. If it is stolen, it can be used until it expires, so its validity period is kept short."
+    },
+    "session": {
+      "t": "Session",
+      "s": "The state kept while a user stays connected after login",
+      "b": "The server and browser remember the state so the user does not have to log in again for every request. If session information leaks, someone else can pick it up and keep using it."
+    },
+    "device-binding": {
+      "t": "Device Binding",
+      "s": "Tying an account or certificate to a specific device",
+      "b": "Login or access works only from the registered device. Authentication data moved to another device can no longer be used.",
+      "tg": "Trust Gateway binds each certificate to the device it was issued to, so it cannot be used if it is moved to another device."
+    },
+    "passwordless": {
+      "t": "Passwordless Authentication",
+      "s": "Logging in with a device or biometric data instead of a password",
+      "b": "It reduces the risks of password leaks, password reuse and phishing. Passkeys and app approval are typical examples.",
+      "aka": ["Passwordless"]
+    },
+    "two-device": {
+      "t": "PC + Phone Verification",
+      "s": "Verifying with a PC and a phone together",
+      "b": "When an access request comes from a PC, the registered phone is used to confirm again that it is really you. Stealing only one of the two devices is not enough to get in.",
+      "tg": "Trust Gateway uses Multi-Signal Cross Check to compare signals from the PC, the phone and the network, and checks whether the same person is in the same place."
+    },
+    "multi-signal": {
+      "t": "Multi-Signal Cross Check",
+      "s": "A way of checking that compares several signals from different sources to find contradictions",
+      "b": "It looks at location, Wi-Fi, time of day, device status and network information together. One signal can be faked, but it is hard to make all of the signals match at the same time.",
+      "tg": "Trust Gateway compares the signals collected from the PC, the phone and the network against each other to find combinations that do not add up."
+    },
+    "trust-auth": {
+      "t": "Trust Auth",
+      "s": "SYINNOVATION's phone authentication app, used together with Trust Gateway",
+      "b": "On iOS and Android, it handles access approval and identity verification. It is also provided as an SDK that customers can build into their own apps."
+    },
+    "integrated-auth": {
+      "t": "Integrated Authentication",
+      "s": "Bringing identity verification for several services under one authentication technology",
+      "b": "Instead of each app building its own authentication, they all use the same common authentication. This makes management easier and keeps the security level even across services.",
+      "tg": "Trust Gateway's integrated authentication is a mobile authentication technology that is in operation in the authentication services of card companies and savings banks."
+    },
+    "encryption": {
+      "t": "Encryption",
+      "s": "Transforming data so it cannot be read without the right key",
+      "b": "It is used both for data in transit and for stored data. Managing the keys safely is the core of encryption."
+    },
+    "public-key": {
+      "t": "Public-key Cryptography",
+      "s": "Encryption and signing with a pair of keys: a public key and a private key",
+      "b": "What is locked with a public key can be opened only with its matching private key. It is the technology behind certificates and TLS."
+    },
+    "private-key": {
+      "t": "Private Key",
+      "s": "A secret key that only its owner should hold",
+      "b": "It is used to create signatures and to decrypt data. If it leaks, anyone can pose as that identity, so it is kept in secure storage on the device."
+    },
+    "hash": {
+      "t": "Hash",
+      "s": "Turning data into a fixed-length value that works like a fingerprint",
+      "b": "If the original changes even slightly, the value changes completely, so tampering can be detected. The original cannot be worked out backward from the hash value."
+    },
+    "digital-signature": {
+      "t": "Digital Signature",
+      "s": "A signature made with a private key that proves who wrote something and whether it was changed",
+      "b": "The receiver checks the signature with the public key to learn who sent it and whether it was changed on the way. It is used in certificates and in software distribution."
+    },
+    "pki": {
+      "t": "Public Key Infrastructure (PKI)",
+      "s": "A system that issues and manages certificates so that public keys can be trusted",
+      "b": "It consists of certificate authorities, certificates, revocation lists and management policies. It is the basis for verifying the identity of devices and people with certificates."
+    },
+    "ca": {
+      "t": "Certificate Authority (CA)",
+      "s": "The party that issues certificates and vouches for the identity in them",
+      "b": "Only certificates signed by a certificate authority can be trusted. Some organizations run their own internal certificate authority."
+    },
+    "root-cert": {
+      "t": "Root Certificate",
+      "s": "The top-level certificate where trust begins",
+      "b": "Every other certificate must chain back to it to be trusted. The root's private key is stored under the strictest protection."
+    },
+    "intermediate-cert": {
+      "t": "Intermediate Certificate",
+      "s": "A certificate that links the root certificate to the certificates actually in use",
+      "b": "Certificates are issued at an intermediate level so that the root key is not used every day. If a problem occurs, only the intermediate certificate needs to be replaced."
+    },
+    "x509": {
+      "t": "Digital Certificate (X.509)",
+      "s": "An electronic document, signed by a certificate authority, that contains a public key and information about its owner",
+      "b": "It contains a name, a public key, a validity period and the issuer's signature. It is the standard used to verify the identity of websites and devices."
+    },
+    "csr": {
+      "t": "Certificate Signing Request (CSR)",
+      "s": "A request sent to a certificate authority asking it to issue a certificate",
+      "b": "The device creates its own key pair and sends only the public key, so the private key never leaves the device.",
+      "tg": "Trust Gateway issues the certificate bound to the device that sent this request."
+    },
+    "revocation": {
+      "t": "Certificate Revocation",
+      "s": "Making a certificate unusable while it is still within its validity period",
+      "b": "When a device is lost or has become risky, trust is withdrawn right away. The revocation is announced through a revocation list or a status check.",
+      "tg": "Trust Gateway revokes the certificate of a phone that has become risky.",
+      "aka": ["Revocation"]
+    },
+    "crl": {
+      "t": "Certificate Revocation List (CRL)",
+      "s": "A list of revoked certificates",
+      "b": "The certificate authority publishes it regularly, and the checking side rejects any certificate on the list. As the list grows, a status check method is used alongside it."
+    },
+    "ocsp": {
+      "t": "Online Certificate Status Protocol (OCSP)",
+      "s": "A way to ask right away whether a single certificate is currently valid",
+      "b": "Instead of downloading the whole revocation list, it looks up only the certificate needed. Responses are fast, so it suits real-time checks."
+    },
+    "cert-lifecycle": {
+      "t": "Certificate Lifecycle",
+      "s": "The whole process of issuing, renewing and revoking a certificate",
+      "b": "Missing an expiry date stops a service, and revoking too late leaves risk behind. This is why systematic management matters.",
+      "tg": "Trust Gateway's PC certificates are valid only for a short time, and each time a new one is issued, it goes through approval again."
+    },
+    "device-cert": {
+      "t": "Device Certificate",
+      "s": "A certificate that proves the identity of a device, not a person",
+      "b": "It is used to check whether a device is a registered company device. The private key is kept in secure storage on the device, which makes it hard to copy."
+    },
+    "tls": {
+      "t": "Transport Layer Security (TLS)",
+      "s": "A standard that encrypts internet traffic and verifies the server on the other end",
+      "b": "The https in a web address means TLS is in use. It keeps others from snooping on or changing what is sent."
+    },
+    "mtls": {
+      "t": "Mutual TLS (mTLS)",
+      "s": "TLS in which not only the server but also the connecting side proves itself with a certificate",
+      "b": "Regular TLS proves only the server. With mutual TLS, the user's device must also present a certificate to connect, so unregistered devices are filtered out right at the connection stage.",
+      "tg": "Trust Gateway sets up mutual TLS connections with device certificates."
+    },
+    "key-store": {
+      "t": "Key Store",
+      "s": "Storage in the operating system that keeps private keys and certificates safe",
+      "b": "The Windows certificate store, the macOS Keychain and a phone's secure storage are typical examples. They keep apps from freely taking keys out."
+    },
+    "key-attestation": {
+      "t": "Key Attestation",
+      "s": "Proving that a cryptographic key was created inside the security hardware of a real device",
+      "b": "It can filter out keys created on emulators or in cloned environments. Android and iOS each provide this kind of feature.",
+      "tg": "Trust Gateway checks key attestation on Android devices."
+    },
+    "hsm": {
+      "t": "Hardware Security Module (HSM)",
+      "s": "A dedicated device that creates and stores cryptographic keys safely",
+      "b": "It handles signing and encryption without the keys ever leaving the device. It is used to store the most important keys of certificate authorities and financial systems."
+    },
+    "secure-enclave": {
+      "t": "Secure Enclave and Trusted Execution Environment (TEE)",
+      "s": "A secure execution area on a device, separated from ordinary apps",
+      "b": "Biometric data and cryptographic keys are processed here, so they can stay protected even if the operating system is compromised.",
+      "aka": ["Secure Enclave", "TEE"]
+    },
+    "ip-address": {
+      "t": "IP Address",
+      "s": "The address used to find a device on a network",
+      "b": "Even for the same person, the address changes between home, the office and a mobile network. That is why trusting a person based on the IP address alone is risky."
+    },
+    "port": {
+      "t": "Port",
+      "s": "A number that identifies a service within a single device",
+      "b": "Each service uses a set number. The web, for example, usually uses 443. The more ports are open to the outside, the larger the attack surface."
+    },
+    "tcp": {
+      "t": "Transmission Control Protocol (TCP)",
+      "s": "A way of communicating that ensures all data arrives complete and in order",
+      "b": "Most internet services, such as the web and email, use it. It sets up and confirms the connection, which makes it highly reliable."
+    },
+    "udp": {
+      "t": "User Datagram Protocol (UDP)",
+      "s": "A way of communicating that cuts confirmation steps to send data quickly",
+      "b": "It is used where speed matters, such as video calls, games and some VPNs. It does not resend missing data, but in return it has less delay."
+    },
+    "http2": {
+      "t": "HTTP/2",
+      "s": "A web protocol that sends and receives many requests at the same time over a single connection",
+      "b": "It does not need to open many connections, so it is fast and efficient. Most web services today use it.",
+      "tg": "Trust Gateway's access to web-based work systems runs over HTTP/2 connections."
+    },
+    "https": {
+      "t": "HTTPS",
+      "s": "Web traffic encrypted with TLS",
+      "b": "The padlock in the address bar means HTTPS is in use. Sensitive data such as logins and payments must always be sent over HTTPS."
+    },
+    "dns": {
+      "t": "Domain Name System (DNS)",
+      "s": "The internet's address book that turns domain names into IP addresses",
+      "b": "People find things by name, and devices by numeric address. If DNS is tampered with, users can be led to fake sites."
+    },
+    "proxy": {
+      "t": "Proxy",
+      "s": "An intermediate server that passes requests between users and servers on their behalf",
+      "b": "It is used to log or filter access. Placed on the user side, it is called a forward proxy. Placed on the server side, it is called a reverse proxy."
+    },
+    "reverse-proxy": {
+      "t": "Reverse Proxy",
+      "s": "A relay server in front of servers that receives requests and passes them to the servers inside",
+      "b": "It handles authentication, encryption and load balancing in one place, without exposing the servers inside directly."
+    },
+    "reverse-connection": {
+      "t": "Reverse Connection",
+      "s": "A setup in which the server inside connects outward first and keeps that connection open",
+      "b": "The company can receive outside requests without opening inbound ports in its firewall. This removes the entry point that attackers would target.",
+      "tg": "Trust Gateway's Internal Agent only connects outward, so there is no need to open inbound ports.",
+      "aka": ["Reverse Tunnel"]
+    },
+    "gateway": {
+      "t": "Gateway",
+      "s": "A gate that controls traffic between different networks",
+      "b": "It checks incoming and outgoing requests and sends them to the right place. In Zero Trust, it acts as the Policy Enforcement Point."
+    },
+    "firewall": {
+      "t": "Firewall",
+      "s": "A device that allows or blocks network traffic according to set rules",
+      "b": "It filters traffic based on addresses and ports. Because it cannot tell people and devices apart, Zero Trust uses it together with other ways of checking."
+    },
+    "waf": {
+      "t": "Web Application Firewall (WAF)",
+      "s": "A firewall that inspects the content of web requests and filters out attacks",
+      "b": "It looks for web attack patterns such as SQL injection and cross-site scripting (XSS). It checks even the content of requests, which a regular firewall cannot see."
+    },
+    "vpn": {
+      "t": "Virtual Private Network (VPN)",
+      "s": "A way to connect to the internal network through an encrypted tunnel over the internet",
+      "b": "Once connected, users can reach a wide range of systems, as if they were inside the internal network. So if a single account is stolen, the damage can be large.",
+      "tg": "Trust Gateway connects users only to the work systems they need, instead of using a VPN."
+    },
+    "ipsec": {
+      "t": "IPsec",
+      "s": "A standard that encrypts traffic at the network layer",
+      "b": "It is often used for VPNs that link company branch offices. It tends to be complex to set up."
+    },
+    "ssl-vpn": {
+      "t": "SSL VPN",
+      "s": "A remote access VPN that uses TLS encryption",
+      "b": "Users connect to the internal network through a browser or a dedicated app. Because the access appliance is exposed to the internet, its vulnerabilities are a frequent target of attacks."
+    },
+    "wireguard": {
+      "t": "WireGuard",
+      "s": "A VPN tunnel technology built with compact code and modern cryptography",
+      "b": "It is simple to set up, fast, and has less code to review."
+    },
+    "tunneling": {
+      "t": "Tunneling",
+      "s": "A technique that wraps one kind of traffic inside another to send it",
+      "b": "It creates an encrypted tunnel so that no one in between can see the contents. A VPN is a typical example."
+    },
+    "relay": {
+      "t": "Relay",
+      "s": "Passing traffic through an intermediate server when a direct connection is hard",
+      "b": "When a firewall or the network environment blocks a direct connection, a relay is used to get around it. It is a fallback that keeps the connection from dropping."
+    },
+    "nat": {
+      "t": "Network Address Translation (NAT)",
+      "s": "A technology that lets many devices share one public IP address",
+      "b": "Most home and office routers use it. It also makes it hard to connect directly from outside to a device inside."
+    },
+    "inbound-outbound": {
+      "t": "Inbound and Outbound",
+      "s": "Traffic coming in and traffic going out",
+      "b": "In security, blocking incoming traffic is the baseline. Allowing outgoing traffic only to set destinations is also becoming common."
+    },
+    "latency": {
+      "t": "Latency",
+      "s": "The time it takes from sending a request to getting a response",
+      "b": "More security checks can mean more delay, so a design that handles the checks quickly is important."
+    },
+    "load-balancer": {
+      "t": "Load Balancer",
+      "s": "A device that spreads requests across multiple servers",
+      "b": "It keeps the service running even if one server is overloaded or stops.",
+      "aka": ["Load Balancing"]
+    },
+    "api": {
+      "t": "Application Programming Interface (API)",
+      "s": "A channel through which programs exchange functions and data in an agreed way",
+      "b": "Apps and servers, and one company's systems and another's, are connected through APIs. Unauthenticated API calls are a common cause of data leaks."
+    },
+    "api-gateway": {
+      "t": "API Gateway",
+      "s": "A gate in front of many APIs that manages authentication, permissions and call volume",
+      "b": "Instead of each service checking on its own, it handles these checks consistently in one place."
+    },
+    "sdk": {
+      "t": "Software Development Kit (SDK)",
+      "s": "A bundle of development tools that lets a feature be added to another company's app",
+      "b": "Common features such as authentication can be added instead of being built again for each app.",
+      "tg": "Trust Auth's authentication features are also provided as an SDK that can be built into customers' apps."
+    },
+    "ssh": {
+      "t": "Secure Shell (SSH)",
+      "s": "Encrypted communication for connecting to a server remotely and running commands",
+      "b": "Because it is an essential tool for managing servers, it is also a frequent target of attacks. Who can connect, and from which devices, should be strictly limited."
+    },
+    "rdp": {
+      "t": "Remote Desktop Protocol (RDP)",
+      "s": "A feature for using another computer's screen remotely",
+      "b": "It is widely used for remote work and remote support. But if it is left directly open to the internet, it becomes a major entry path for ransomware.",
+      "aka": ["Remote Desktop"]
+    },
+    "risk-score": {
+      "t": "Risk Score",
+      "s": "A number that shows how risky an access attempt or a transaction is",
+      "b": "It is calculated from signals such as the device, location, time and behavior. Depending on the score, the result is to allow, ask for an extra check, or deny.",
+      "tg": "Trust Gateway records the score and the reasons with each decision, so it can explain why it decided as it did."
+    },
+    "context": {
+      "t": "Access Context",
+      "s": "Information about who is connecting, with which device, from where and when",
+      "b": "Even for the same account, a context that differs from usual draws more suspicion. It is an input to Zero Trust decisions.",
+      "aka": ["Context"]
+    },
+    "device-posture": {
+      "t": "Device Posture",
+      "s": "Checking whether the connecting device is in a safe state",
+      "b": "It checks items such as jailbreaking or rooting, emulator use and security settings. It filters out infected or tampered devices.",
+      "tg": "Trust Gateway checks for jailbreaking or rooting, emulators and debugger use.",
+      "aka": ["Device Posture Check"]
+    },
+    "jailbreak": {
+      "t": "Jailbreaking and Rooting",
+      "s": "A state in which the security restrictions of a phone's operating system have been removed",
+      "b": "Apps can then reach each other's data, which puts financial apps and authentication data at risk. Many financial apps refuse to run on such devices.",
+      "aka": ["Jailbreak", "Root"]
+    },
+    "emulator": {
+      "t": "Emulator",
+      "s": "A program that imitates a phone on a computer",
+      "b": "It is useful for development, but attackers also use it to analyze apps or run automated attacks. That is why checks are made to confirm that it is a real device."
+    },
+    "ueba": {
+      "t": "User and Entity Behavior Analytics (UEBA)",
+      "s": "Analysis that learns the usual behavior of users and devices to spot behavior that differs",
+      "b": "Access at an unusual time, or to a system the user does not normally use, is treated as a warning sign. It is used to find stolen accounts."
+    },
+    "anomaly": {
+      "t": "Anomaly Detection",
+      "s": "Finding patterns that differ from the usual",
+      "b": "It sets a normal baseline and flags access or transactions that stray far from it. If the baseline is set wrong, false positives increase."
+    },
+    "fds": {
+      "t": "Fraud Detection System (FDS)",
+      "s": "A system that finds unusual transactions in payments and financial transactions",
+      "b": "It looks at the device, location, amount and transaction pattern to pick out risky transactions. It is a core tool that card companies and banks use to stop fraudulent use.",
+      "tg": "Trust Gateway detects payment fraud and sends alerts and recommendations (approve, step-up authentication or deny) with the reasons to the client's FDS. It also diagnoses the FDS rules through after-the-fact reports. The customer decides whether to approve or decline a payment."
+    },
+    "false-positive": {
+      "t": "False Positives and False Negatives",
+      "s": "Wrongly treating something normal as risky, and missing something that is risky",
+      "b": "Too many false positives inconvenience users, and too many false negatives lead to incidents. Striking a balance between the two is the core of detection design."
+    },
+    "audit-log": {
+      "t": "Audit Log",
+      "s": "A record of who did what and when",
+      "b": "When an incident happens, it is the basis for tracing the cause and determining responsibility. It can serve as evidence only if it is stored so that it cannot be altered.",
+      "tg": "Trust Gateway records the reasons for every access decision. It links the history of certificate issuance and revocation with hashes, so that any later changes become visible.",
+      "aka": ["Audit Trail"]
+    },
+    "hash-chain": {
+      "t": "Hash Chain",
+      "s": "A structure that links records like a chain by putting the hash of each record into the next one",
+      "b": "Changing even one record in the middle breaks every hash after it, so forgery can be detected."
+    },
+    "siem": {
+      "t": "Security Information and Event Management (SIEM)",
+      "s": "A system that collects and analyzes security logs from many systems",
+      "b": "It connects scattered records in one place, finds risky patterns and raises alerts."
+    },
+    "soc": {
+      "t": "Security Operations Center (SOC)",
+      "s": "A team or center that constantly watches the security situation and responds",
+      "b": "It reviews alerts, decides whether they are real incidents and directs the response.",
+      "aka": ["Security Monitoring"]
+    },
+    "incident-response": {
+      "t": "Incident Response",
+      "s": "The process of reducing damage and recovering when a security incident occurs",
+      "b": "It goes in this order: detection, containment, root cause analysis, recovery and prevention of recurrence. A procedure set in advance makes it possible to move quickly."
+    },
+    "explainability": {
+      "t": "Explainability",
+      "s": "Showing the reasons why something was allowed or denied",
+      "b": "Staff can review decisions and correct false positives. In the financial sector, it is also needed to respond to regulators.",
+      "tg": "Trust Gateway shows the reasons and the score with each decision."
+    },
+    "phishing": {
+      "t": "Phishing",
+      "s": "An attack that pretends to be a trusted party to steal information or money",
+      "b": "Fake emails, text messages and websites trick people into entering passwords or authentication data. Authentication that relies only on passwords is weak against phishing."
+    },
+    "smishing": {
+      "t": "Smishing",
+      "s": "Phishing that uses text messages",
+      "b": "Text messages pretending to be from a delivery company or a public agency contain links that lure people into installing malicious apps or entering information."
+    },
+    "ato": {
+      "t": "Account Takeover (ATO)",
+      "s": "Taking over someone else's account and using it as if you were that person",
+      "b": "It happens through leaked passwords, phishing or session hijacking. To stop it, checks must continue even after login."
+    },
+    "credential-stuffing": {
+      "t": "Credential Stuffing",
+      "s": "An attack that tries account details leaked elsewhere, in large volumes",
+      "b": "People who reuse the same password in many places become victims. Multi-factor authentication and device checks stop it."
+    },
+    "brute-force": {
+      "t": "Brute-Force Attack",
+      "s": "An attack that tries every possible password one by one",
+      "b": "The shorter and simpler the password, the faster it is cracked. Limiting the number of attempts and multi-factor authentication are the basic defenses.",
+      "aka": ["Brute Force"]
+    },
+    "mitm": {
+      "t": "Man-in-the-Middle Attack (MITM)",
+      "s": "An attack that gets in the middle of a communication to snoop on it or change it",
+      "b": "It happens through public Wi-Fi or fake certificates. TLS and certificate checks are the basic defense."
+    },
+    "session-hijacking": {
+      "t": "Session Hijacking",
+      "s": "An attack that steals the information of a logged-in session to connect as that user",
+      "b": "It targets the session after the password and multi-factor authentication have been passed, so it is hard to stop with login security alone. The device and context must be checked continuously."
+    },
+    "replay": {
+      "t": "Replay Attack",
+      "s": "An attack that resends an intercepted authentication request as is",
+      "b": "It is stopped with values that can be used only once and with time limits."
+    },
+    "ransomware": {
+      "t": "Ransomware",
+      "s": "Malware that encrypts data so it cannot be used, then demands money",
+      "b": "Remote access appliances and stolen accounts are the main ways in. Blocking lateral movement and keeping backups separate reduce the damage."
+    },
+    "malware": {
+      "t": "Malware",
+      "s": "A program secretly installed on a device to cause harm",
+      "b": "It takes many forms, such as stealing information, controlling the device remotely and encrypting data."
+    },
+    "ddos": {
+      "t": "Distributed Denial of Service (DDoS)",
+      "s": "An attack that floods a service with requests from many devices at once to bring it down",
+      "b": "It makes the service slow down or stop. Defenses that filter out large-scale traffic are needed."
+    },
+    "social-engineering": {
+      "t": "Social Engineering",
+      "s": "An attack that tricks people, not technology, by playing on their psychology to obtain information",
+      "b": "Attackers pretend to be in a hurry or to be a boss to get passwords or approvals. Checks done by people need to be backed up with technology."
+    },
+    "zero-day": {
+      "t": "Zero-day Vulnerability",
+      "s": "A vulnerability that is not yet known or has no fix available",
+      "b": "It is hard to block because no patch exists yet. The way to prepare is to reduce exposure and detect abnormal behavior.",
+      "aka": ["Zero-day"]
+    },
+    "supply-chain": {
+      "t": "Supply Chain Attack",
+      "s": "An attack that reaches its target through software or an outside vendor",
+      "b": "It comes in through trusted updates or partner accounts. This is why outside access must be checked just like internal access.",
+      "aka": ["Supply Chain Security"]
+    },
+    "network-separation": {
+      "t": "Network Separation",
+      "s": "Separating the work network from the internet network to shut out outside threats",
+      "b": "Korea's financial sector has long followed strict network separation. As cloud use and remote work grow, ways to complement it with Zero Trust are being discussed.",
+      "aka": ["Network Segregation"]
+    },
+    "fin-zt-guide": {
+      "t": "Zero Trust Security Guide for the Financial Sector",
+      "s": "A Korean guide that helps financial companies adopt Zero Trust and check their implementation",
+      "b": "First published in February 2026, it includes examples of ZTNA adoption in the financial sector and items for security assessment."
+    },
+    "zt-guideline": {
+      "t": "Zero Trust Guideline 2.0",
+      "s": "Korea's guide to adopting Zero Trust, published by the Ministry of Science and ICT (MSIT)",
+      "b": "Version 2.0 was released in 2024. It explains the core principles and the stages of adoption."
+    },
+    "nist-800-207": {
+      "t": "NIST SP 800-207",
+      "s": "The Zero Trust Architecture standard document from the US National Institute of Standards and Technology (NIST)",
+      "b": "It is the leading reference that sets out the concept and components of Zero Trust, and guidelines in many countries are based on it."
+    },
+    "efta": {
+      "t": "Electronic Financial Transactions Act",
+      "s": "Korean law that sets rules for the safety of electronic financial transactions and the protection of their users",
+      "b": "It sets the security duties that financial companies and electronic financial business operators must meet, and their liability for incidents."
+    },
+    "efsr": {
+      "t": "Electronic Financial Supervisory Regulations",
+      "s": "Detailed supervisory rules for applying Korea's Electronic Financial Transactions Act in practice",
+      "b": "They contain security requirements for the financial sector, such as network separation, authentication and the outsourcing of information processing."
+    },
+    "pipa": {
+      "t": "Personal Information Protection Act (PIPA)",
+      "s": "Korean law that sets the rules for collecting, using, storing and destroying personal information",
+      "b": "It requires organizations to collect only the information they need, manage it safely and delete it once it is no longer needed.",
+      "aka": ["Privacy Protection"]
+    },
+    "isms-p": {
+      "t": "Personal Information & Information Security Management System (ISMS-P)",
+      "s": "A Korean scheme that certifies information security and personal information protection management systems together",
+      "b": "It audits whether an organization has a security management system in place and runs it properly, and then certifies it."
+    },
+    "identity-verification": {
+      "t": "Identity Verification",
+      "s": "Confirming through official means that a service user is really that person",
+      "b": "Methods such as phone-based identity verification and ID card checks are used. It is the starting point for opening accounts and for remote (non-face-to-face) financial transactions."
+    },
+    "black-cloud": {
+      "t": "Black Cloud",
+      "s": "A design that hides even the server's address until the checks are complete",
+      "b": "Until authentication and authorization are passed, no DNS information or IP address is revealed, so attackers cannot find the target. It is a design approach used in software-defined perimeters."
+    },
+    "auth-before-connect": {
+      "t": "Authenticate-Before-Connect",
+      "s": "Opening a connection only after the checks are finished",
+      "b": "The order is the reverse of the traditional way, which accepts the connection first and checks the login afterward. Unverified connections never even reach the server."
+    },
+    "identity-centric": {
+      "t": "Identity-Centric Security",
+      "s": "Security based on the identity of people and devices, not on network location",
+      "b": "It looks first at who is connecting and with which device, rather than from where. With the growth of remote work and the cloud, it has become a central idea of Zero Trust."
+    },
+    "visibility": {
+      "t": "Visibility",
+      "s": "The ability to see at a glance the state and flow of networks, systems and data",
+      "b": "You cannot protect what you cannot see, so you first need to see who connects to what, across every segment. It is the starting point for adopting Zero Trust."
+    },
+    "segmentation": {
+      "t": "Segmentation and Isolation",
+      "s": "Dividing networks and systems so that attacks do not spread",
+      "b": "Dividing them logically or separating them physically keeps other areas safe even if one is breached. Micro-segmentation applies this at a finer level."
+    },
+    "multi-layered": {
+      "t": "Multi-Level Security (MLS)",
+      "s": "A system that applies different levels of security according to how important the information is (its grade)",
+      "b": "Instead of keeping all information behind the same wall, it uses networks and controls that match each grade. Korea's National Network Security Framework (N2SF) for the public sector also builds on this concept."
+    },
+    "sase": {
+      "t": "Secure Access Service Edge (SASE)",
+      "s": "An architecture that delivers network and security functions together from the cloud",
+      "b": "It handles functions such as ZTNA, web security and cloud access control together at cloud locations close to users. It suits organizations with many branch offices and remote workers."
+    },
+    "remote-work": {
+      "t": "Remote Work Security",
+      "s": "Protecting work systems and data when people work from home or elsewhere",
+      "b": "Because people use networks outside the company and personal devices, security built around the internal network does not hold. An approach that checks people and devices directly is needed."
+    },
+    "legacy-system": {
+      "t": "Legacy System",
+      "s": "An older existing system that is hard to add modern security features to",
+      "b": "It is essential to the business but hard to change, so it easily becomes a weak link in security. It is protected by placing a gateway in front of it that checks access on its behalf."
+    },
+    "access-control": {
+      "t": "Access Control",
+      "s": "Deciding who can access what, and making sure that is followed",
+      "b": "It includes authentication, authorization and the mechanisms that actually apply the result. It is divided into several models, depending on the criteria used."
+    },
+    "rbac": {
+      "t": "Role-Based Access Control (RBAC)",
+      "s": "Granting permissions based on job or role",
+      "b": "Permissions are tied to roles such as \"sales team\" or \"administrator\", and people are assigned to roles. It is easy to manage and widely used, but it has trouble handling detailed conditions."
+    },
+    "abac": {
+      "t": "Attribute-Based Access Control (ABAC)",
+      "s": "Deciding case by case by combining attributes of the user, the resource and the environment",
+      "b": "It looks at conditions such as department, job level, time, location and device status together. It can express more detailed rules than role-based access control."
+    },
+    "pbac": {
+      "t": "Policy-Based Access Control (PBAC)",
+      "s": "Deciding access according to policy rules set in advance",
+      "b": "The organization's security policy is written down as rules and applied to every request. When the policy changes, the same standard applies to all systems right away."
+    },
+    "mac": {
+      "t": "Mandatory Access Control (MAC)",
+      "s": "A method in which the system enforces access decisions based on security levels",
+      "b": "Users cannot pass on permissions as they like. Access is decided by comparing the level of the information with the level of the person. It is used where levels are strictly managed, such as the military and public agencies."
+    },
+    "privilege": {
+      "t": "Privilege",
+      "s": "The right to access and work with a specific resource or function",
+      "b": "The broader the privilege, the greater the damage when an incident happens. It should be granted only as much as is needed and managed together with identity verification."
+    },
+    "pam": {
+      "t": "Privileged Access Management (PAM)",
+      "s": "A system that separately controls and records accounts with high privileges, such as administrator accounts",
+      "b": "Because a leaked privileged account can do great damage, each use needs approval and the work is recorded. Sessions are often recorded on video as well.",
+      "aka": ["Privileged Account Management"]
+    },
+    "iam": {
+      "t": "Identity and Access Management (IAM)",
+      "s": "A system that manages user identities and access rights in one place",
+      "b": "It creates, changes and removes accounts and permissions as people join, move between departments and leave. It is the foundation that Zero Trust is built on."
+    },
+    "entity-id": {
+      "t": "App-ID, User-ID and Device-ID",
+      "s": "Identifying applications, users and devices separately",
+      "b": "Detailed policies can be applied only if you can tell who is using which device and which app. This is what sets it apart from a firewall that looks only at addresses."
+    },
+    "execution-control": {
+      "t": "Execution Control",
+      "s": "Allowing only approved programs to run",
+      "b": "Programs or scripts that are not on the list are not allowed to run. It is effective against unknown malware.",
+      "aka": ["Application Allowlisting"]
+    },
+    "risk-based-auth": {
+      "t": "Risk-Based Authentication",
+      "s": "Changing the strength of authentication based on how risky the situation is",
+      "b": "The check is simple when the device and place are the usual ones, and stricter in unfamiliar situations. It is used together with step-up authentication.",
+      "aka": ["Adaptive Authentication"]
+    },
+    "edr": {
+      "t": "Endpoint Detection and Response (EDR)",
+      "s": "A security tool that finds and responds to threat activity on PCs and servers",
+      "b": "It watches processes, files and network activity on the device, and blocks and records suspicious behavior."
+    },
+    "soar": {
+      "t": "Security Orchestration, Automation and Response (SOAR)",
+      "s": "A tool that automatically runs security response procedures one step after another",
+      "b": "When an alert comes in, it automatically carries out information gathering, blocking and notification in a set order. It speeds up response and reduces repetitive work for staff."
+    },
+    "log-management": {
+      "t": "Log Management",
+      "s": "Collecting logs from many systems in one place to store and search them",
+      "b": "Scattered records must be gathered in one place so you can follow what happened when an incident occurs. Retention periods and protection against forgery are important."
+    },
+    "threat-intelligence": {
+      "t": "Threat Intelligence",
+      "s": "Collecting information about attackers and their methods to use for defense",
+      "b": "Known malicious addresses, attack techniques and vulnerability information are fed into detection rules. This helps prepare for similar attacks in advance."
+    },
+    "vulnerability": {
+      "t": "Vulnerability",
+      "s": "A weakness in software or settings that can be exploited in an attack",
+      "b": "Causes include code defects, wrong settings and outdated versions. Finding them, prioritizing them and fixing them must be done continuously."
+    },
+    "cve": {
+      "t": "Common Vulnerabilities and Exposures (CVE)",
+      "s": "A standard ID number given to each publicly disclosed vulnerability",
+      "b": "It lets everyone in the world call the same vulnerability by the same name. It serves as a reference when deciding which patch to apply first."
+    },
+    "patch-management": {
+      "t": "Patch Management",
+      "s": "Checking for security updates and applying them without missing any",
+      "b": "Most known vulnerabilities can be fixed with patches, but if patching is delayed, systems stay exposed to attacks."
+    },
+    "configuration-management": {
+      "t": "Configuration Management",
+      "s": "Recording system settings and versions and managing changes to them",
+      "b": "You need to know who changed what and when to find wrong settings and roll them back. It is basic material for security reviews."
+    },
+    "dlp": {
+      "t": "Data Loss Prevention (DLP)",
+      "s": "Technology that finds sensitive data and stops it from leaking out",
+      "b": "It monitors important information leaving through email, messaging apps, file transfers, inputs to generative AI and other channels."
+    },
+    "casb": {
+      "t": "Cloud Access Security Broker (CASB)",
+      "s": "A security broker that applies policies between users and cloud services",
+      "b": "It shows who uses which cloud services and how, and blocks unauthorized use and data leaks."
+    },
+    "sbom": {
+      "t": "Software Bill of Materials (SBOM)",
+      "s": "A list of the components and libraries inside a piece of software",
+      "b": "You need to know which open source components and versions are inside to check right away whether a newly found vulnerability affects you."
+    },
+    "api-security": {
+      "t": "API Security",
+      "s": "Authenticating and inspecting API calls to prevent misuse and leaks",
+      "b": "As connections between services grow, APIs have become a major attack path. Verifying the identity of the caller and limiting the scope of permissions are the basics."
+    },
+    "cia-triad": {
+      "t": "CIA Triad",
+      "s": "Confidentiality, integrity and availability: the three basic goals of information security",
+      "b": "Most security measures can be explained by which of these three they aim to protect."
+    },
+    "confidentiality": {
+      "t": "Confidentiality",
+      "s": "Keeping information from being revealed to anyone who is not authorized",
+      "b": "Encryption and access control are the main ways to protect confidentiality."
+    },
+    "integrity": {
+      "t": "Integrity",
+      "s": "Ensuring that information has not been changed without permission",
+      "b": "Hashes and digital signatures are used to check for tampering. It is the basis of trust in financial transactions and records."
+    },
+    "availability": {
+      "t": "Availability",
+      "s": "The state in which authorized users can use a system without interruption whenever they need it",
+      "b": "DDoS attacks and outages harm availability. It is protected with redundancy and load balancing."
+    },
+    "data-classification": {
+      "t": "Data Classification",
+      "s": "Sorting information into grades by importance and sensitivity",
+      "b": "Each grade gets a different level of protection, so security efforts focus on the most important information."
+    },
+    "data-flow-id": {
+      "t": "Data Flow Identification (Data Flow ID)",
+      "s": "Attaching identifying information to each data flow to track it",
+      "b": "Knowing which data moved from where to where makes it possible to apply policies per flow and to trace incidents."
+    },
+    "apt": {
+      "t": "Advanced Persistent Threat (APT)",
+      "s": "A sophisticated attack that persistently goes after a specific target over a long period",
+      "b": "After getting in, attackers stay hidden for a long time to steal information or prepare a larger attack. Blocking lateral movement and finding abnormal behavior are important."
+    },
+    "ax": {
+      "t": "AI Transformation (AX)",
+      "s": "Reshaping existing work and systems around AI",
+      "b": "It automates repetitive work and uses data to change how people work. Along the way, handling data and permissions safely becomes just as important."
+    },
+    "prompt-injection": {
+      "t": "Prompt Injection",
+      "s": "An attack that uses malicious input to make an AI break its original instructions",
+      "b": "It can be done by entering commands directly, or by hiding commands in documents or web pages for the AI to read. It is a leading threat to AI services."
+    },
+    "model-jailbreak": {
+      "t": "Model Jailbreak",
+      "s": "An attack that gets around an AI model's safeguards to draw out forbidden answers",
+      "b": "It slips past policies through role-play or indirect wording. It is a different concept from jailbreaking or rooting a phone.",
+      "aka": ["Jailbreak", "AI Jailbreak"]
+    },
+    "llm-guardrail": {
+      "t": "LLM Guardrail",
+      "s": "A safeguard that filters the input and output of a large language model to prevent risks",
+      "b": "It filters out problems such as harmful answers, exposure of sensitive information and bypassing of instructions at the input and output stages."
+    },
+    "model-extraction": {
+      "t": "Model Extraction Attack",
+      "s": "An attack that copies an AI model or infers its internals by repeatedly asking questions and collecting the answers",
+      "b": "It can infringe intellectual property and serve as a stepping stone for other attacks. Limits on call volume and detection of abnormal use help stop it."
+    },
+    "adversarial-attack": {
+      "t": "Adversarial Attack",
+      "s": "An attack that changes input in ways people cannot notice so that an AI makes wrong decisions",
+      "b": "Small changes to images or data fool classification and detection. When AI is used for security decisions, this must be prepared for as well."
+    },
+    "excessive-agency": {
+      "t": "Excessive Agency",
+      "s": "The risk that comes from giving an AI agent more permissions and autonomy than it needs",
+      "b": "A manipulated AI could freely carry out actions such as sending emails or deleting files. The principle of least privilege must apply to AI too."
+    },
+    "agentic-ai-risk": {
+      "t": "Agentic AI Risk",
+      "s": "New risks created by AI agents that decide and act on their own",
+      "b": "Because they work directly with tools and systems, wrong decisions or manipulation can lead to real damage. Limits on permissions and records of actions are needed."
+    },
+    "unbounded-consumption": {
+      "t": "Unbounded Consumption",
+      "s": "The risk of an AI service's resources being used without limit, causing costs and outages",
+      "b": "Excessive requests can slow the service down or drive up costs sharply. Limits on call volume and usage monitoring help stop it."
+    },
+    "sensitive-disclosure": {
+      "t": "Sensitive Information Disclosure",
+      "s": "The risk of personal or confidential information leaking through an AI's answers",
+      "b": "Information in training data or connected documents can end up mixed into answers. Input and output checks and access rights management are needed."
+    },
+    "system-prompt-leakage": {
+      "t": "System Prompt Leakage",
+      "s": "The risk that instructions hidden in an AI are revealed to users",
+      "b": "If internal rules or secrets are put in the instructions, they can leak as is. The rule is to keep sensitive information out of the instructions."
+    },
+    "vector-weakness": {
+      "t": "Vector and Embedding Weaknesses",
+      "s": "Security weaknesses in the vector stores and embeddings that an AI refers to",
+      "b": "Poisoned documents can get mixed in, or documents the user has no right to see can appear in search results. Access rights need to be managed for each document."
+    },
+    "hallucination": {
+      "t": "Hallucination",
+      "s": "An AI producing convincing content that is not true",
+      "b": "Using such content as is for business decisions can lead to wrong decisions. Showing the source documents alongside the answer and having a person review it are needed."
+    },
+    "sovereign-ai": {
+      "t": "Sovereign AI",
+      "s": "Keeping data and AI models under the control of one's own country or organization",
+      "b": "It is a movement to keep sensitive data from going to overseas or outside services. Interest is especially high in the financial and public sectors."
+    },
+    "on-device-ai": {
+      "t": "On-device AI Threat Detection",
+      "s": "Using AI to find threats on the device itself rather than on a server",
+      "b": "It decides right on the device without sending data out, so it is fast and raises fewer privacy concerns."
+    },
+    "n2sf": {
+      "t": "National Network Security Framework (N2SF)",
+      "s": "Korea's public sector security framework that applies different security according to how important the information is",
+      "b": "The National Intelligence Service (NIS) released it in 2025. Instead of uniform network separation, it sorts information into Classified, Sensitive and Open, and applies security measures that match each grade. It is based on the Zero Trust concept."
+    },
+    "security-grade": {
+      "t": "Security Levels (C/S/O)",
+      "s": "Grades that classify information as Classified (C), Sensitive (S) or Open (O)",
+      "b": "This classification is used in the National Network Security Framework (N2SF), and the level of security measures to apply differs by grade."
+    },
+    "security-controls": {
+      "t": "Security Controls",
+      "s": "A list of security measures set out to be applied according to each grade",
+      "b": "The National Network Security Framework presents measures grouped by area, such as permissions, authentication, and separation and isolation. Each agency chooses and applies them to fit the nature of its work."
+    },
+    "adequacy-assessment": {
+      "t": "Adequacy Assessment and Adjustment",
+      "s": "The step of assessing whether the security measures applied are enough, and fixing them",
+      "b": "This is the last step of the National Network Security Framework process. After the measures are applied, it checks whether risk has been reduced enough and adds more where it falls short."
+    },
+    "info-service-model": {
+      "t": "Information Service Model",
+      "s": "A reference model that bundles security measures in advance for common types of work",
+      "b": "So that agencies do not have to choose every measure from scratch, it presents example security setups that fit each type of work."
+    },
+    "risk-tiered": {
+      "t": "Risk-Tiered Security",
+      "s": "Setting different security levels according to the risk of the information and the work",
+      "b": "Instead of locking everything down the same way, it protects important areas more strongly and less important areas more flexibly."
+    },
+    "osi": {
+      "t": "OSI Model",
+      "s": "A reference model that explains network communication in seven layers",
+      "b": "It divides roles layer by layer, from physical signals up to applications. It is often used to explain which layer a security device looks at.",
+      "aka": ["OSI 7-Layer Model"]
+    },
+    "packet": {
+      "t": "Packet",
+      "s": "A small bundle of data, split up to be sent over a network",
+      "b": "Each one carries the sender and receiver addresses and order information. Packets travel separately and are put back together at the end."
+    },
+    "packet-loss": {
+      "t": "Packet Loss",
+      "s": "Some data bundles disappearing during transmission",
+      "b": "It happens on unstable wireless networks or congested lines, and causes choppy screens and slow responses."
+    },
+    "bandwidth": {
+      "t": "Bandwidth",
+      "s": "The amount of data that can be sent in a given time",
+      "b": "It is often compared to the number of lanes on a road. Even with wide bandwidth, the connection can feel slow if latency is high."
+    },
+    "jitter": {
+      "t": "Jitter",
+      "s": "How uneven the gaps between arriving data are",
+      "b": "In real-time communication such as video calls or remote screens, it causes stuttering and delay."
+    },
+    "qos": {
+      "t": "Quality of Service (QoS)",
+      "s": "A technology that gives priority to important traffic to guarantee its quality",
+      "b": "When lines are busy, it sends important traffic, such as business calls or payments, first."
+    },
+    "router": {
+      "t": "Router",
+      "s": "Equipment that decides the path data takes between different networks",
+      "b": "It looks at the destination address and sends packets along the most suitable path."
+    },
+    "switch": {
+      "t": "Switch",
+      "s": "Equipment that connects devices within the same network",
+      "b": "It connects the PCs, printers and servers in an office, and delivers data only to the device that should receive it."
+    },
+    "lan-wan": {
+      "t": "Local Area Network (LAN) and Wide Area Network (WAN)",
+      "s": "A network covering a small area such as an office, and a network covering a wide area that links regions",
+      "b": "A LAN is a network within one building or floor. A WAN links places far apart, such as a head office and its branches."
+    },
+    "vlan": {
+      "t": "Virtual LAN (VLAN)",
+      "s": "A technology that splits one physical network into several logical networks",
+      "b": "Networks can be divided by department or purpose while using the same equipment. It is a basic way to divide internal segments."
+    },
+    "subnet": {
+      "t": "Subnet",
+      "s": "A smaller unit of a large network, divided by address range",
+      "b": "It groups addresses for management and makes it possible to apply different rules to each segment."
+    },
+    "public-private-ip": {
+      "t": "Public and Private IP Addresses",
+      "s": "Addresses used on the internet, and addresses used only inside an internal network",
+      "b": "A public IP is unique on the internet, while a private IP works only inside a company or home. NAT translates between them."
+    },
+    "ipv6": {
+      "t": "IPv4 and IPv6",
+      "s": "The existing and the new internet address systems",
+      "b": "As IPv4 addresses run short, IPv6, which offers far more addresses, is being used alongside it."
+    },
+    "dhcp": {
+      "t": "Dynamic Host Configuration Protocol (DHCP)",
+      "s": "A way to automatically hand out IP addresses to devices that connect",
+      "b": "It means no one has to set the address of each device by hand."
+    },
+    "mac-address": {
+      "t": "MAC Address",
+      "s": "A unique hardware address given to each network device",
+      "b": "It is used to tell devices apart within the same network. Because it can be changed, it is not enough on its own to trust a device."
+    },
+    "cdn": {
+      "t": "Content Delivery Network (CDN)",
+      "s": "A network that sends content from servers close to the user",
+      "b": "It delivers web pages and images quickly, and is also used to absorb large-scale traffic attacks."
+    },
+    "sd-wan": {
+      "t": "Software-Defined WAN (SD-WAN)",
+      "s": "A technology that bundles several lines with software to manage connections between sites",
+      "b": "It uses dedicated lines and regular internet lines together, and switches paths depending on conditions."
+    },
+    "mpls": {
+      "t": "Leased Line and Multiprotocol Label Switching (MPLS)",
+      "s": "A communication line used only to connect specific points",
+      "b": "Its quality and security are stable, so it is widely used in the financial sector to connect head offices, branches and outside institutions. It tends to be expensive.",
+      "aka": ["Leased Line", "MPLS"]
+    },
+    "redundancy": {
+      "t": "Redundancy",
+      "s": "Having two or more sets of equipment or lines so that service continues if one stops",
+      "b": "It is a basic design for financial systems, whose services must not stop."
+    },
+    "high-availability": {
+      "t": "High Availability",
+      "s": "A design that keeps a service running almost without stopping, even when failures occur",
+      "b": "It combines redundancy, automatic failover and load balancing to keep downtime to a minimum."
+    },
+    "wifi": {
+      "t": "Wi-Fi",
+      "s": "Wireless LAN that connects devices to a network over radio waves",
+      "b": "With public Wi-Fi, you cannot know who runs it, so there is a risk that traffic is snooped on or intercepted."
+    },
+    "mobile-network": {
+      "t": "LTE and 5G",
+      "s": "The mobile networks that phones use",
+      "b": "The connection continues while on the move, but the IP address changes every time the network changes. That is why checking the device and the person, not the address, is the right approach."
+    },
+    "handshake": {
+      "t": "Handshake",
+      "s": "The process in which both sides check each other and agree on terms before communication starts",
+      "b": "In a TLS handshake, the encryption method is agreed on and the certificate is checked. In mutual TLS, the device certificate is also checked at this point."
+    },
+    "cert-pinning": {
+      "t": "Certificate Pinning",
+      "s": "A way for an app to trust only a server certificate it has set in advance",
+      "b": "It is effective against man-in-the-middle attacks that use fake certificates. Financial apps use it widely."
+    },
+    "quic": {
+      "t": "QUIC and HTTP/3",
+      "s": "A new transport method that connects quickly and securely over UDP",
+      "b": "Connections take less time to set up, and they rarely drop when the network changes."
+    },
+    "websocket": {
+      "t": "WebSocket",
+      "s": "A way of communicating in which the server and browser keep exchanging data after connecting once",
+      "b": "It is used where the server needs to send data first, such as notifications, chat and live screens."
+    },
+    "rest-api": {
+      "t": "REST API",
+      "s": "A way of designing APIs that exchange resources using web addresses and HTTP methods",
+      "b": "It is simple and easy to understand, so most web service integrations use it."
+    },
+    "cloud": {
+      "t": "Cloud",
+      "s": "Renting servers and software over the internet",
+      "b": "You can quickly use as much as you need. But because it lies outside the internal network boundary, access and data must be protected separately.",
+      "aka": ["Cloud Computing"]
+    },
+    "hybrid-cloud": {
+      "t": "Hybrid Cloud",
+      "s": "A setup that uses the company's own servers and the cloud together",
+      "b": "Important systems stay in-house and the rest use the cloud. The challenge is applying the same security standards to both environments."
+    },
+    "edge": {
+      "t": "Edge Computing",
+      "s": "Processing data close to the user or device",
+      "b": "It responds quickly because data does not have to travel to a distant central server."
+    }
+  }
+}

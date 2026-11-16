@@ -2,7 +2,7 @@
 import Base from './Base.astro';
 // Legal pages (개인정보처리방침, 이용약관). The text is the company's published policy, kept word for word;
 // this layout only sets the reading column: title and dates, then numbered articles, lists, tables and notes.
-interface Props { title: string; description: string }
+interface Props { title: string; description: string; lang?: 'ko' | 'en' }
 const { title, description } = Astro.props;
 ---
 <Base title={title} description={description} tone="light">
