@@ -26,8 +26,9 @@ const KEY = '/trust-gateway'; // the main product turns brand orange only while 
       </nav>
       <!-- Korean and English versions only; the English site is not built yet -->
       <div class="lang" role="group" aria-label="언어">
-        <!-- KO keeps you on this page (it went to the home page; user 2026-11-16); EN will point to its English twin -->
-        <a href={path} lang="ko" aria-current="true">KO</a>
+        <!-- the current language is a mark, not a link: clicking it did nothing useful (went home, then reloaded the page;
+             user 2026-11-16). When English pages come, EN becomes the link to this page's English twin. -->
+        <span lang="ko" aria-current="true" title="현재 언어: 한국어">KO</span>
         <span lang="en" aria-disabled="true" title="영문 페이지 준비 중">EN</span>
       </div>
       <button class="burger" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="메뉴 열기">
@@ -43,7 +44,7 @@ const KEY = '/trust-gateway'; // the main product turns brand orange only while 
           {n.children.map((c) => <a href={c.href} class="mobile-sub" aria-current={path === c.href ? 'page' : undefined}>{c.label}</a>)}
         </div>
       : <a href={n.href} class:list={{ key: n.href === KEY && isOn(n.href) }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
-    <div class="mobile-lang"><a href={path} lang="ko" aria-current="true">KO</a><span lang="en" aria-disabled="true">EN 준비 중</span></div>
+    <div class="mobile-lang"><span lang="ko" aria-current="true">KO</span><span lang="en" aria-disabled="true">EN 준비 중</span></div>
   </div>
 </header>
 
@@ -118,7 +119,7 @@ const KEY = '/trust-gateway'; // the main product turns brand orange only while 
 
   .lang { display: flex; align-items: center; gap: 2px; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; }
   .lang > * { padding: 6px 8px; border-radius: 999px; }
-  .lang a[aria-current='true'] { opacity: 1; }
+  .lang [aria-current='true'] { opacity: 1; cursor: default; }
   .lang [aria-disabled='true'] { opacity: .42; cursor: default; }
 
   /* same size as PacketGo's 접속하기 (136 x 46) */
