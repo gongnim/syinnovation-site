@@ -1,7 +1,7 @@
 ---
 import { bothLangs, langOf, href } from '../../lib/i18n';
 export const getStaticPaths = bothLangs;
-// IT 컨설팅·개발: custom consulting and development. The page tells one story: the visitor's worries, the change they
+// AI 프로세스 혁신 (PI by AI; was IT 컨설팅·개발 until 2026-11-17): custom consulting and development. The page tells one story: the visitor's worries, the change they
 // can drag to compare, what we do (with small live screens), how a project runs (scroll-driven), how AI is used, and
 // proof from past work, then answers common questions. 에어레인 (AIRRANE) may be named (ERP case, owner approved
 // 2026-11-13); other client names and project figures stay off the page. Hero pictures: colour-pencil scenes of the
@@ -121,15 +121,15 @@ const faq = en ? [
 ];
 const at = (n: number) => `--at:${n}`;
 ---
-<Base title={en ? 'IT consulting & development' : 'IT 컨설팅·개발'} description={en ? 'SYINNOVATION\'s IT consulting & development, with you from business analysis (PI) to custom development and operations. Together, we diagnose everything from the programs you need to the security risks.' : '업무 분석(PI)부터 맞춤 개발과 운영까지 함께하는 신영이노베이션의 IT 컨설팅·개발. 필요한 프로그램부터 보안의 위험까지 함께 진단합니다.'}>
+<Base title={en ? 'PI by AI' : 'AI 프로세스 혁신'} description={en ? 'PI by AI from SYINNOVATION: process innovation with AI, with you from business analysis (PI) to custom development and operations. Together, we diagnose everything from the programs you need to the security risks.' : '업무 분석(PI)부터 맞춤 개발과 운영까지 함께하는 신영이노베이션의 AI 프로세스 혁신. 필요한 프로그램부터 보안의 위험까지 함께 진단합니다.'}>
   <section class="hero">
     <div class="wrap hero-grid">
       <div class="hero-copy">
-        <p class="eyebrow">{en ? <>IT consulting &amp; development</> : <>IT 컨설팅·개발</>}</p>
+        <p class="eyebrow">{en ? <>PI by AI</> : <>AI 프로세스 혁신</>}</p>
         <h1 class="title">{en ? <>From strategy to systems, <br />we consult and develop <br />to fit your company</> : <>전략부터 시스템까지, <br />회사에 맞춰 컨설팅하고 <br />개발합니다</>}</h1>
         <p class="lead-d">{en ? <>Before writing a single line of code, we look at how you work. <br />From process innovation (PI) consulting to custom development and operations, we handle it all in one place.</> : <>코드 한 줄 쓰기 전에 일하는 방식부터 봅니다. <br />PI 컨설팅부터 맞춤 개발과 운영까지 한곳에서 맡습니다.</>}</p>
         <div class="btn-row">
-          <a class="btn primary" href={href('/contact?type=ai', lang)}>{en ? <>Ask about IT consulting &amp; development</> : <>IT 컨설팅·개발 문의</>}</a>
+          <a class="btn primary" href={href('/contact?type=ai', lang)}>{en ? <>Ask about PI by AI</> : <>AI 프로세스 혁신 문의</>}</a>
         </div>
       </div>
       <div class="show">
@@ -428,7 +428,7 @@ const at = (n: number) => `--at:${n}`;
     </div>
   </section>
 
-  <CtaBand title={en ? 'If there is something you want to build, start by telling us about your work' : '만들고 싶은 것이 있다면, 업무 이야기부터 들려주세요'} primary={{ href: '/contact?type=ai', label: en ? 'Ask about IT consulting & development' : 'IT 컨설팅·개발 문의' }} />
+  <CtaBand title={en ? 'If there is something you want to build, start by telling us about your work' : '만들고 싶은 것이 있다면, 업무 이야기부터 들려주세요'} primary={{ href: '/contact?type=ai', label: en ? 'Ask about PI by AI' : 'AI 프로세스 혁신 문의' }} />
 </Base>
 
 <style>

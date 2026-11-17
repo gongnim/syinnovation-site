@@ -20,8 +20,8 @@ const home = title === (en ? 'SYINNOVATION' : '신영이노베이션');
 // the home page passes the company name as its title and gets the long one (user, 2026-11-16, word for word; the
 // Korean one also spells 제로트러스트 in Hangul so the search word itself is in the title, user OK the same day)
 const fullTitle = en
-  ? (home ? 'SYINNOVATION - Zero Trust · Trust Gateway Security & IT Consulting · Development' : `${title} | SYINNOVATION`)
-  : (home ? '신영이노베이션 - 제로트러스트(ZeroTrust)ㆍTrustGateway 보안 & IT 컨설팅ㆍ개발' : `${title} | 신영이노베이션`);
+  ? (home ? 'SYINNOVATION - Zero Trust · Trust Gateway Security & PI by AI' : `${title} | SYINNOVATION`)
+  : (home ? '신영이노베이션 - 제로트러스트(ZeroTrust)ㆍTrustGateway 보안 & AI 프로세스 혁신' : `${title} | 신영이노베이션`);
 const other = twin(Astro.url);
 const abs = (p: string) => new URL(p, Astro.site).href;
 const here = Astro.url.pathname.length > 1 ? Astro.url.pathname.replace(/\/$/, '') : '/';
@@ -36,7 +36,7 @@ const org = {
   slogan: company.motto,
   // founding date as the site's own news states it (2023-10-25); the old site's JSON-LD had the same
   foundingDate: '2023-10-25',
-  description: en ? 'SYINNOVATION builds Trust Gateway, a security solution developed on Zero Trust principles, and offers IT consulting & development.' : '제로트러스트 원칙을 적용한 보안 솔루션 Trust Gateway를 만들고, IT 컨설팅·개발을 함께하는 기업입니다.',
+  description: en ? 'SYINNOVATION builds Trust Gateway, a security solution developed on Zero Trust principles, and offers PI by AI, process innovation with AI.' : '제로트러스트 원칙을 적용한 보안 솔루션 Trust Gateway를 만들고, AI 프로세스 혁신을 함께하는 기업입니다.',
   address: { '@type': 'PostalAddress', streetAddress: en ? '11F, 78 Mapo-daero' : '마포대로 78, 11층', addressLocality: en ? 'Mapo-gu' : '마포구', addressRegion: en ? 'Seoul' : '서울특별시', addressCountry: 'KR' },
 };
 const graph = [

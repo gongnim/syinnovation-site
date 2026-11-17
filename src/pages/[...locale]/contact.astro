@@ -15,7 +15,7 @@ const en = lang === 'en';
 const types = [
   { v: 'poc', l: en ? 'Initial consultation (free)' : '사전 컨설팅(무료)' },
   { v: 'consult', l: en ? 'Adoption inquiry' : '도입 상담' },
-  { v: 'ai', l: en ? 'Consulting & development' : '컨설팅·개발' },
+  { v: 'ai', l: en ? 'PI by AI' : 'AI 프로세스 혁신' },
   { v: 'partner', l: en ? 'Partnership' : '파트너십' },
   { v: 'etc', l: en ? 'Other' : '기타' },
 ];
@@ -24,12 +24,12 @@ const contacts = [
   { icon: 'pin', k: en ? 'Address' : '오시는 길', v: en ? company.en.address : company.address },
 ];
 ---
-<Base title={en ? 'Contact us' : '문의하기'} description={en ? 'Contact SYINNOVATION: an initial consultation (free), inquiries about adopting Trust Gateway for Zero Trust security, IT consulting & development, and partnerships. The person in charge will contact you.' : '신영이노베이션 문의: 사전 컨설팅(무료), 제로트러스트 보안 Trust Gateway 도입 상담, IT 컨설팅·개발, 파트너십 문의를 받습니다. 남겨 주시면 담당자가 연락드립니다.'} tone="light">
+<Base title={en ? 'Contact us' : '문의하기'} description={en ? 'Contact SYINNOVATION: an initial consultation (free), inquiries about adopting Trust Gateway for Zero Trust security, PI by AI, and partnerships. The person in charge will contact you.' : '신영이노베이션 문의: 사전 컨설팅(무료), 제로트러스트 보안 Trust Gateway 도입 상담, AI 프로세스 혁신, 파트너십 문의를 받습니다. 남겨 주시면 담당자가 연락드립니다.'} tone="light">
   <section class="contact">
     <div class="wrap grid">
       <div class="intro">
         <h1 class="title">{en ? <>From security concerns to new systems,<br />the person in charge answers you&nbsp;directly</> : <>보안 고민부터 새 시스템까지,<br />담당자가 직접 답해&nbsp;드립니다</>}</h1>
-        <p class="lead-s">{en ? <>We take requests for an initial consultation (free), adoption inquiries, IT consulting & development, and partnership inquiries.<br />Leave a message and the person in charge will contact you.</> : <>사전 컨설팅(무료) 신청, 도입 상담, IT 컨설팅·개발, 파트너십 문의를 받습니다.<br />남겨 주시면 담당자가 연락드립니다.</>}</p>
+        <p class="lead-s">{en ? <>We take requests for an initial consultation (free), adoption inquiries, PI by AI projects, and partnership inquiries.<br />Leave a message and the person in charge will contact you.</> : <>사전 컨설팅(무료) 신청, 도입 상담, AI 프로세스 혁신, 파트너십 문의를 받습니다.<br />남겨 주시면 담당자가 연락드립니다.</>}</p>
       </div>
 
       <ul class="contacts">

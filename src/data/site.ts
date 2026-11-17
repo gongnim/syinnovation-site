@@ -33,8 +33,8 @@ export const launched = false;
 export const verify = { google: '', naver: '', bing: '' };
 // meta keywords: Google and Naver mostly ignore them, but they cost nothing; only words the site itself uses
 export const keywords = {
-  ko: '신영이노베이션, SYINNOVATION, 제로트러스트, Zero Trust, ZTNA, Trust Gateway, 트러스트 게이트웨이, 다중 신호 교차 검증, 접근 제어, 보안 솔루션, 결제 이상거래 탐지, FDS, IT 컨설팅, PI 컨설팅, IT 개발',
-  en: 'SYINNOVATION, Zero Trust, ZTNA, Trust Gateway, Multi-Signal Cross Check, access control, security solution, payment fraud detection, FDS, IT consulting, PI consulting, software development, Korea',
+  ko: '신영이노베이션, SYINNOVATION, 제로트러스트, Zero Trust, ZTNA, Trust Gateway, 트러스트 게이트웨이, 다중 신호 교차 검증, 접근 제어, 보안 솔루션, 결제 이상거래 탐지, FDS, AI 프로세스 혁신, PI 컨설팅, 공정 자동화, 업무 지원 프로그램',
+  en: 'SYINNOVATION, Zero Trust, ZTNA, Trust Gateway, Multi-Signal Cross Check, access control, security solution, payment fraud detection, FDS, PI by AI, process innovation, PI consulting, process automation, Korea',
 };
 
 // Brand is now "Trust ..." only; the old "TrustIn" prefix (still in SDS/code) is not used publicly.
@@ -92,7 +92,8 @@ export const nav: MenuItem[] = [
   // CEO, 2026-11-16: not everyone knows the logo goes home
   { href: '/', label: '홈', en: 'Home' },
   { href: '/trust-gateway', label: 'Trust Gateway', en: 'Trust Gateway' },
-  { href: '/consulting', label: 'IT 컨설팅·개발', en: 'IT consulting' },
+  // CEO, 2026-11-17: was IT 컨설팅·개발
+  { href: '/consulting', label: 'AI 프로세스 혁신', en: 'PI by AI' },
   { href: '/news', label: '소식', en: 'News', children: newsNav },
   { href: '/library', label: '자료실', en: 'Resources', children: libraryNav },
   { href: '/company', label: '회사소개', en: 'Company' },

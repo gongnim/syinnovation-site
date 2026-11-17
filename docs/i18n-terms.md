@@ -86,7 +86,8 @@ the Trust Gateway brochure (사내문서/브로슈어, 261116), whose English na
 | 망분리 완화 대응 | Ready for Korea's eased network separation rules |
 | 대내외 업무 시스템 | internal and external business systems |
 | 통합 인증 | Integrated authentication |
-| IT 컨설팅·개발 | IT consulting & development |
+| AI 프로세스 혁신 (was IT 컨설팅·개발; CEO, 2026-11-17) | PI by AI |
+| 공정 자동화 및 업무 지원 프로그램 (not "ERP": we don't build ERP) | process automation and business support software |
 | 용어집 / 자료실 / 소식 / 사내소식 / 언론보도 | Glossary / Resources / News / Company news / In the press |
 
 ## Korean institutions and companies
@@ -116,5 +117,5 @@ the Trust Gateway brochure (사내문서/브로슈어, 261116), whose English na
 | 도입할 때 (고객사와) 함께 정합니다 | agreed with you when you adopt Trust Gateway |
 | 하드웨어 보안 영역 | hardware secure area |
 | 도입 상담 (문의 유형) | Adoption inquiry |
-| 컨설팅·개발 (문의 유형) | Consulting & development |
+| AI 프로세스 혁신 (문의 유형) | PI by AI |
 | 해외 (지역 표시) | International |

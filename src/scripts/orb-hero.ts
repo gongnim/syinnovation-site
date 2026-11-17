@@ -574,8 +574,14 @@ export function orbHero(root: HTMLElement) {
     // night, like PacketGo's main visual: a large planet rising from the bottom edge, its top a clear gap under the
     // opening copy and its lower part out of view (user, 2026-11-13)
     // sizes follow the first screen (Hs), not the taller canvas (H)
-    const r0 = Math.max(250, Math.min(W * 0.37, Hs * 0.56));
-    let cy0 = Math.max(Hs * (mobile ? 0.45 : 0.59), copyBottom + (mobile ? 56 : Math.max(72, Hs * 0.09))) + r0;
+    // portrait screens (phones, upright tablets; user, 2026-11-17): the core's top comes up to a fixed gap under the
+    // copy. It grows rather than moves, so its centre stays where the night rule below puts it.
+    const portrait = Hs > W, gapP = Math.max(72, Hs * 0.1);
+    const rBase = Math.max(250, Math.min(W * 0.37, Hs * 0.56));
+    const r0 = portrait ? Math.max(rBase, (Hs - 24 - copyBottom - gapP) / 0.8) : rBase;
+    let cy0 = portrait
+      ? copyBottom + gapP + r0
+      : Math.max(Hs * (mobile ? 0.45 : 0.59), copyBottom + (mobile ? 56 : Math.max(72, Hs * 0.09))) + r0;
     // the first screen is all night scene on every screen: the fade, and the incidents heading below it, start under
     // its bottom edge, so on tall phones and tablets the core sits lower (user, 2026-11-13)
     cy0 = Math.max(cy0, Hs - 24 + r0 * 0.2);
