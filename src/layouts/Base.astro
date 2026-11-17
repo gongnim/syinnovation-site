@@ -3,7 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ScrollNav from '../components/ScrollNav.astro';
-import { langOf, twin } from '../lib/i18n';
+import { langOf, twin, pagePath } from '../lib/i18n';
 import { company, launched, keywords, verify, gaId } from '../data/site';
 // SEO (user, 2026-11-16: "SEO 베스트로"): one canonical address per page, its Korean and English twins for search
 // engines, link previews (Open Graph) and, where it helps, schema.org data. Articles pass type 'article', their
@@ -24,7 +24,7 @@ const fullTitle = en
   : (home ? '신영이노베이션 - 제로트러스트(ZeroTrust)ㆍTrustGateway 보안 & AI 프로세스 혁신' : `${title} | 신영이노베이션`);
 const other = twin(Astro.url);
 const abs = (p: string) => new URL(p, Astro.site).href;
-const here = Astro.url.pathname.length > 1 ? Astro.url.pathname.replace(/\/$/, '') : '/';
+const here = pagePath(Astro.url);
 const canonical = abs(here);
 const ko = abs(en ? other : here), enUrl = abs(en ? here : other);
 const ogImage = abs(image ?? `/images/og/og-${lang}.png`);

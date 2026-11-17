@@ -1,5 +1,6 @@
 {
   "trailingSlash": false,
+  "cleanUrls": true,
   "redirects": [
     { "source": "/index-ko.html", "destination": "/", "permanent": true },
     { "source": "/privacy.html", "destination": "/en/privacy", "permanent": true },

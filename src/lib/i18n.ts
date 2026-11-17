@@ -3,7 +3,14 @@
 // 'en' = English); they read the language from the URL. Words follow docs/i18n-terms.md.
 export type Lang = 'ko' | 'en';
 
-export const langOf = (url: URL): Lang => (url.pathname === '/en' || url.pathname.startsWith('/en/') ? 'en' : 'ko');
+/** the page's address as the site writes it: no trailing slash and no .html ('/en.html' and '/index.html' come from the
+ *  build, which writes en.html, see astro.config; the dev server gives '/en') */
+export const pagePath = (url: URL): string => url.pathname.replace(/(\/index)?\.html$|\/$/, '') || '/';
+
+export const langOf = (url: URL): Lang => {
+  const p = pagePath(url);
+  return p === '/en' || p.startsWith('/en/') ? 'en' : 'ko';
+};
 
 /** a site path in the given language: '/trust-gateway' → '/en/trust-gateway' (links outside the site stay as they are) */
 export const href = (path: string, lang: Lang): string => {
@@ -13,7 +20,7 @@ export const href = (path: string, lang: Lang): string => {
 
 /** the same page in the other language (no trailing slash: the site's one address per page, see astro.config) */
 export const twin = (url: URL): string => {
-  const p = url.pathname.length > 1 ? url.pathname.replace(/\/$/, '') : url.pathname;
+  const p = pagePath(url);
   if (langOf(url) === 'en') return p.replace(/^\/en(?=\/|$)/, '') || '/';
   return p === '/' ? '/en' : `/en${p}`;
 };

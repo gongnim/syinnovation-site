@@ -3,8 +3,6 @@
 # (see scripts/collect-security-news.mjs). Everything it uses is free. Run it by hand from the Actions tab too.
 # Repository secrets (all free, all optional; without one that part is skipped): PEXELS_API_KEY (photos),
 # YOUTUBE_API_KEY (news videos), NAVER_CLIENT_ID / NAVER_CLIENT_SECRET (Naver news search),
-# VERCEL_DEPLOY_HOOK (Vercel > Project > Settings > Git > Deploy Hooks, branch main): Vercel did not deploy this
-# bot's commits (seen 2026-11-16), so after new stories are pushed the hook asks Vercel to rebuild the site.
 # OPENAI_API_KEY is used only if the config is switched to "pictures": "openai" (paid).
 # To take a story off the site, set "hidden": true on its row in the data file; it is then never added again.
 name: Security news
@@ -50,6 +48,4 @@ jobs:
           if git diff --cached --quiet; then echo "no new stories"; exit 0; fi
           git commit -m "Update security news"
           git push
-          if [ -n "$VERCEL_DEPLOY_HOOK" ]; then curl -fsS -X POST "$VERCEL_DEPLOY_HOOK" > /dev/null && echo "Vercel rebuild requested"; fi
-        env:
-          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+          # the site is rebuilt by deploy-pages.yml, which runs after this workflow

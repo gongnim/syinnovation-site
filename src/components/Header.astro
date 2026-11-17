@@ -1,6 +1,6 @@
 ---
 import { nav as navAll, cta as ctaAll, menu } from '../data/site';
-import { langOf, twin, href } from '../lib/i18n';
+import { langOf, twin, href, pagePath } from '../lib/i18n';
 interface Props { tone?: 'night' | 'light' }
 const { tone = 'night' } = Astro.props;
 const lang = langOf(Astro.url);
@@ -9,7 +9,7 @@ const nav = menu(navAll, lang);
 const [cta] = menu([ctaAll], lang);
 const home = href('/', lang);
 const other = twin(Astro.url); // this page in the other language
-const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const path = pagePath(Astro.url);
 const bare = (h: string) => h.replace(/\/$/, '') || '/';
 const isOn = (h: string) => { const x = bare(h); return path === x || (x !== '/' && x !== '/en' && path.startsWith(x + '/')); };
 const KEY = href('/trust-gateway', lang); // the main product turns brand orange only while you are on its page (user, 2026-11-13)

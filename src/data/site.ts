@@ -26,8 +26,8 @@ export const web3formsKey = '5a19d582-3059-4997-926c-9178f09bf02d';
 export const gaId = 'G-9J9KG3CLLY';
 
 // Search engines (Base.astro): false keeps every page out of search results (noindex) while this site is not yet the one
-// at syinnovation.net. Set to true on launch day, when syinnovation.net points here.
-export const launched = false;
+// at syinnovation.net. True since 2026-11-17, when this site went to syinnovation.net (.github/workflows/deploy-pages.yml).
+export const launched = true;
 // site ownership codes from Google Search Console, Naver Search Advisor and Bing Webmaster Tools (the content="" part of
 // the meta tag each one gives you); empty ones are left out of the page
 export const verify = { google: '', naver: '', bing: '' };

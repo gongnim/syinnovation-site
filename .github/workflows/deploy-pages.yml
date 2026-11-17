@@ -1,0 +1,51 @@
+# Publishes the site at syinnovation.net (user, 2026-11-17). The domain's DNS (Gabia) points at GitHub Pages of this
+# repo, gongnim/syinnovation-site (Settings > Pages: Source "GitHub Actions", custom domain syinnovation.net). The old
+# site is on the old-site branch, for going back. Runs on every push to main and after the Security news bot, whose
+# commits do not start other workflows by themselves.
+name: Deploy syinnovation.net
+
+on:
+  push:
+    branches: [main]
+  workflow_run:
+    workflows: [Security news]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main # after the bot: main with its new stories, not the commit the bot started from
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+      - run: npm ci
+      - run: npm run build
+      - name: Old addresses and folders
+        run: |
+          cp dist/sitemap-index.xml dist/sitemap.xml # the old site's sitemap address, still on file at search engines
+          # /en, /news, /library are a page (en.html) and a folder (en/) at once: whichever one Pages picks, the page opens
+          for d in $(cd dist && find . -mindepth 1 -type d); do
+            if [ -f "dist/$d.html" ] && [ ! -e "dist/$d/index.html" ]; then cp "dist/$d.html" "dist/$d/index.html"; fi
+          done
+      - uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+      - id: deployment
+        uses: actions/deploy-pages@v5
