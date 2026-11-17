@@ -15,7 +15,9 @@ const en = lang === 'en';
 const types = [
   { v: 'poc', l: en ? 'Initial consultation (free)' : '사전 컨설팅(무료)' },
   { v: 'consult', l: en ? 'Adoption inquiry' : '도입 상담' },
-  { v: 'ai', l: en ? 'PI by AI' : 'AI 프로세스 혁신' },
+  // the no-break space keeps "AI 프로세스" together but lets a narrow chip put 혁신 on a second line (the plain name would
+  // be glued whole by sentence-breaks.js and spill out of the chip; user, 2026-11-17)
+  { v: 'ai', l: en ? 'PI by AI' : 'AI 프로세스 혁신' },
   { v: 'partner', l: en ? 'Partnership' : '파트너십' },
   { v: 'etc', l: en ? 'Other' : '기타' },
 ];
@@ -102,8 +104,11 @@ const contacts = [
   .types { border: 0; margin: 0; padding: 0; min-width: 0; }
   .label { display: block; font-weight: 600; font-size: 15px; margin-bottom: 8px; color: var(--ink); }
   .opt { font-weight: 500; color: var(--ink-3); font-size: 13px; }
-  /* the first option is the longest (사전 컨설팅(무료)): a wider column, and if it still does not fit "(무료)" goes to a second line */
-  .type-row { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(4, minmax(0, 1fr)); gap: 8px; }
+  /* three chips, then two wider ones (6 columns): five in a row left 75px a chip, too narrow for AI 프로세스 혁신
+     (user, 2026-11-17). A label that still does not fit wraps: "(무료)" and "혁신" go to a second line */
+  .type-row { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 8px; }
+  .type-row:not(.en) .type { grid-column: span 2; }
+  .type-row:not(.en) .type:nth-child(n + 4) { grid-column: span 3; }
   /* English labels are longer: three columns, the first option across two (user, 2026-11-16: chips spilled over) */
   .type-row.en { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .type-row.en .type:first-child { grid-column: span 2; }
@@ -144,7 +149,6 @@ const contacts = [
     .contacts { margin-top: 0; }
   }
   @media (max-width: 559px) {
-    .type-row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .type-row.en { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
 </style>

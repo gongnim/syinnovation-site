@@ -389,12 +389,20 @@ export function orbHero(root: HTMLElement) {
 
   let renderer: THREE.WebGLRenderer;
   try {
-    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
+    // no antialias here: the scene is drawn into the composer's multisampled target, the canvas only gets the result
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: false, powerPreference: 'high-performance' });
   } catch {
     root.classList.add('is-fallback');
     return;
   }
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+  // Quality steps for slower computers (user, 2026-11-17: the sphere lagged on a weak PC). The scene is drawn at up to
+  // 1.75x the CSS pixels, with bloom; when frames take too long tick() draws fewer pixels, step by step, and the last
+  // step also draws at 30 frames a second. Machines that report few cores or little memory start one step down.
+  const QUALITY = [1, 0.75, 0.6, 0.5], LOWEST = QUALITY.length - 1; // of the screen's own ratio (at most 1.75)
+  const hw = navigator as Navigator & { deviceMemory?: number };
+  let tier = (hw.hardwareConcurrency || 8) <= 4 || (hw.deviceMemory || 8) <= 4 ? 1 : 0;
+  const ratio = () => Math.min(window.devicePixelRatio || 1, 1.75) * QUALITY[tier];
+  renderer.setPixelRatio(ratio());
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.NeutralToneMapping;
   canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); root.classList.add('is-fallback'); root.classList.remove('has-orb'); });
@@ -655,9 +663,20 @@ export function orbHero(root: HTMLElement) {
   });
 
   let clock = 0, last = 0, raf = 0, visible = true, pS = stateOf(), lastLap = -1;
+  let warm = false, slowSum = 0, slowN = 0; // frame times, measured once the shaders are compiled
   function tick(nowMs: number) {
     raf = 0;
-    const dt = last ? Math.min(0.05, (nowMs - last) / 1000) : 0.016; last = nowMs;
+    // the lowest quality step draws every other frame of a 60 Hz screen
+    if (tier === LOWEST && last && nowMs - last < 30) { if (visible) raf = requestAnimationFrame(tick); return; }
+    const real = last ? nowMs - last : 16.7; // pauses (hidden tab, scrolled away) restart through wake(), which resets last
+    if (warm) { // judged once a second of frames has gone by: slower than about 36 frames a second steps down
+      slowSum += real; slowN++;
+      if (slowSum >= 1000) {
+        if (slowSum / slowN > 28 && tier < LOWEST) { tier++; renderer.setPixelRatio(ratio()); composer.setPixelRatio(ratio()); layout(); }
+        slowSum = slowN = 0;
+      }
+    }
+    const dt = last ? Math.min(0.05, real / 1000) : 0.016; last = nowMs;
     if (!reduce) clock += dt;
     const target = stateOf();
     // night or day: a short eased change (about half a second) when the scroll crosses the point
@@ -807,5 +826,8 @@ export function orbHero(root: HTMLElement) {
   }).observe(root.querySelector<HTMLElement>('.hero-pin') ?? root); // render only while the sphere's screen is in view
   document.addEventListener('visibilitychange', () => { visible = !document.hidden && inView; if (visible) wake(); });
   layout();
-  renderer.compileAsync(scene, camera).finally(() => { root.classList.add('is-ready'); wake(); });
+  renderer.compileAsync(scene, camera).finally(() => {
+    root.classList.add('is-ready'); wake();
+    setTimeout(() => { warm = true; }, 1500); // the first frames after compiling are slow on every machine
+  });
 }
