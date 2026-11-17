@@ -1,48 +1,74 @@
 ---
-import { bothLangs, langOf, href, dateText } from '../../../lib/i18n';
-export const getStaticPaths = bothLangs;
+import { langOf, href, dateText } from '../../../../lib/i18n';
+import { pageNumbers } from '../../../../lib/pager.js';
 // 소식 > 언론보도: major security incidents at home and abroad, as photo cards. Every card has a picture: hand-picked
 // incidents and collected articles use pictures made for us (never news photos), news videos use their YouTube
 // thumbnail. Every article opens our own page (/news/press/<slug>), collected ones too, and videos play here in a
 // large player. Rows come from src/data/security-news.json.
-import Base from '../../../layouts/Base.astro';
-import PageTitle from '../../../components/PageTitle.astro';
-import Icon from '../../../components/Icon.astro';
-import ResourceTabs from '../../../components/ResourceTabs.astro';
-import { security, fmt } from '../../../data/news';
-import { newsNav, menu } from '../../../data/site';
-import { securityNewsEn, labelEn } from '../../../data/en';
+// Numbered pages of pressPage cards (user, 2026-11-17, instead of 더보기): /news/press, /news/press/page/2, … Each page
+// has its own address, so going back from an article lands on the same page. 국내 and 해외 are lists of their own
+// (/news/press/domestic, /news/press/overseas, each with /page/2 …), so 해외 page 2 is the next 해외 cards.
+import Base from '../../../../layouts/Base.astro';
+import PageTitle from '../../../../components/PageTitle.astro';
+import Icon from '../../../../components/Icon.astro';
+import ResourceTabs from '../../../../components/ResourceTabs.astro';
+import { security, fmt, pressPage } from '../../../../data/news';
+import { newsNav, menu } from '../../../../data/site';
+import { securityNewsEn, labelEn } from '../../../../data/en';
+
+export function getStaticPaths() {
+  const lists = [{ region: '', slug: '' }, { region: '국내', slug: 'domestic' }, { region: '해외', slug: 'overseas' }]
+    .map((l) => ({ ...l, rows: l.region ? security.filter((n) => n.region === l.region) : security }))
+    .filter((l) => !l.region || l.rows.length > 0);
+  const regions = lists.filter((l) => l.region).map(({ region, slug }) => ({ region, slug }));
+  const paths = lists.flatMap((l) => {
+    const pages = Math.max(1, Math.ceil(l.rows.length / pressPage));
+    return Array.from({ length: pages }, (_, i) => ({
+      params: { list: [l.slug, i > 0 ? `page/${i + 1}` : ''].filter(Boolean).join('/') || undefined },
+      props: { region: l.region, page: i + 1, pages, rows: l.rows.slice(i * pressPage, (i + 1) * pressPage), regions },
+    }));
+  });
+  return [undefined, 'en'].flatMap((locale) => paths.map((p) => ({ ...p, params: { ...p.params, locale } })));
+}
+interface Props { region: string; page: number; pages: number; rows: typeof security; regions: { region: string; slug: string }[] }
+const { region, page, pages, rows, regions } = Astro.props;
 
 const lang = langOf(Astro.url);
 const en = lang === 'en';
-const PAGE = 12;
+// a list page's address; #list keeps the reader at the cards instead of the page title
+const listHref = (r: string, p: number) => {
+  const slug = regions.find((x) => x.region === r)?.slug;
+  return href(`/news/press${slug ? `/${slug}` : ''}${p > 1 ? `/page/${p}` : ''}`, lang) + '#list';
+};
+const numbers: (number | '…')[] = pageNumbers(page, pages);
+const pageTitle = [en ? 'In the press' : '언론보도', region && (en ? labelEn(region) : region), page > 1 && (en ? `page ${page}` : `${page}페이지`)]
+  .filter(Boolean).join(' - ');
 // free Pexels photos: the photographer shows on hover. The "일부 사진 제공: Pexels" line under the list was removed at the
 // user's request (2026-11-17), knowing the Pexels API guidelines ask for a visible link to Pexels
-const regions = ['국내', '해외'].filter((r) => security.some((n) => n.region === r));
 // a collected article whose picture is missing borrows one made for the same kind of incident
 const byType = new Map<string, string>();
 for (const n of security) if (!n.auto && n.image && !byType.has(n.type)) byType.set(n.type, n.image);
 const picture = (n: (typeof security)[number]) =>
   n.youtube ? `https://i.ytimg.com/vi/${n.youtube}/hqdefault.jpg` : n.image ?? byType.get(n.type) ?? [...byType.values()][0];
 ---
-<Base title={en ? 'In the press' : '언론보도'} description={en ? 'Major hacking and data breach incidents and security news reported in Korea and abroad. For each incident, we note where the attackers got in.' : '국내외에서 보도된 주요 해킹·정보 유출 사고와 보안 뉴스. 사고마다 어디로 들어왔는지 정리합니다.'} tone="light">
+<Base title={pageTitle} description={en ? 'Major hacking and data breach incidents and security news reported in Korea and abroad. For each incident, we note where the attackers got in.' : '국내외에서 보도된 주요 해킹·정보 유출 사고와 보안 뉴스. 사고마다 어디로 들어왔는지 정리합니다.'} tone="light">
   <PageTitle title={en ? 'News' : '소식'}>{en ? <>Follow SYINNOVATION news and press coverage,<br />and security issues worth a look.</> : <>신영이노베이션의 소식과 언론 보도,<br />함께 볼 만한 보안 이슈를 놓치지 마세요.</>}<ResourceTabs slot="after" items={menu(newsNav, lang)} label={en ? 'News menu' : '소식 메뉴'} /></PageTitle>
 
-  <section class="news">
+  <section class="news" id="list">
     <div class="wrap">
       <div class="head">
         <p class="lead-s">{en ? <>Major hacking and data breach incidents and security news reported in Korea and abroad.</> : <>국내외에서 보도된 주요 해킹·정보 유출 사고와 보안 뉴스입니다.</>}</p>
         {regions.length > 1 && (
-          <div class="chips" role="group" aria-label={en ? 'Region' : '지역'}>
-            <button type="button" class="chip" data-region="" aria-pressed="true">{en ? 'All' : '전체'}</button>
-            {regions.map((r) => <button type="button" class="chip" data-region={r} aria-pressed="false">{en ? labelEn(r) : r}</button>)}
-          </div>
+          <nav class="chips" aria-label={en ? 'Region' : '지역'}>
+            <a class="chip" href={listHref('', 1)} aria-current={region ? undefined : 'page'}>{en ? 'All' : '전체'}</a>
+            {regions.map((r) => <a class="chip" href={listHref(r.region, 1)} aria-current={region === r.region ? 'page' : undefined}>{en ? labelEn(r.region) : r.region}</a>)}
+          </nav>
         )}
       </div>
 
-      {security.length > 0
+      {rows.length > 0
         ? <ul class="cards">
-            {security.map((n, i) => {
+            {rows.map((n) => {
               const e = en ? securityNewsEn[n.url] : undefined; // no English yet: the Korean title, marked
               const title = e?.title ?? n.title;
               const inner = (
@@ -56,7 +82,7 @@ const picture = (n: (typeof security)[number]) =>
                 </>
               );
               return (
-                <li data-region={n.region} hidden={i >= PAGE}>
+                <li>
                   {n.youtube
                     ? <button type="button" class="pcard" data-yt={n.youtube} data-title={title} aria-label={en ? `Play video: ${title}` : `${n.title} 영상 재생`}>{inner}</button>
                     : n.slug
@@ -67,7 +93,19 @@ const picture = (n: (typeof security)[number]) =>
             })}
           </ul>
         : <p class="empty">{en ? <>No security news has been written up yet.</> : <>아직 정리된 보안 소식이 없습니다.</>}</p>}
-      {security.length > PAGE && <button type="button" class="more" data-page={PAGE}>{en ? 'Show more' : '더보기'}</button>}
+      {pages > 1 && (
+        <nav class="pager" aria-label={en ? 'Pages' : '페이지'}>
+          {page > 1
+            ? <a class="pg step" href={listHref(region, page - 1)} aria-label={en ? 'Previous page' : '이전 페이지'}><Icon name="prev" size={18} /></a>
+            : <span class="pg step off" aria-hidden="true"><Icon name="prev" size={18} /></span>}
+          {numbers.map((p) => p === '…'
+            ? <span class="gap" aria-hidden="true">…</span>
+            : <a class="pg" href={listHref(region, p)} aria-current={p === page ? 'page' : undefined}>{p}</a>)}
+          {page < pages
+            ? <a class="pg step" href={listHref(region, page + 1)} aria-label={en ? 'Next page' : '다음 페이지'}><Icon name="next" size={18} /></a>
+            : <span class="pg step off" aria-hidden="true"><Icon name="next" size={18} /></span>}
+        </nav>
+      )}
     </div>
   </section>
 
@@ -85,9 +123,9 @@ const picture = (n: (typeof security)[number]) =>
   .head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; margin-bottom: 24px; }
   .lead-s { font-size: 15px; line-height: 1.6; color: var(--ink-2); }
   .chips { display: flex; gap: 8px; }
-  .chip { flex: none; white-space: nowrap; height: 36px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 14px; font-weight: 600; color: var(--ink-2); cursor: pointer; }
+  .chip { flex: none; display: inline-flex; align-items: center; white-space: nowrap; height: 36px; padding: 0 16px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font-size: 14px; font-weight: 600; color: var(--ink-2); text-decoration: none; }
   .chip:hover { border-color: var(--ink-3); }
-  .chip[aria-pressed='true'] { border-color: var(--ink); background: var(--ink); color: #fff; }
+  .chip[aria-current] { border-color: var(--ink); background: var(--ink); color: #fff; }
 
   /* photo cards, the same family as 사내소식: the picture fills the card, the words sit on a dark band */
   .cards { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 20px; }
@@ -106,8 +144,12 @@ const picture = (n: (typeof security)[number]) =>
   .meta { display: inline-flex; align-items: center; gap: 7px; font-size: 13px; color: rgb(255 255 255 / .75); }
   .dot { width: 3px; height: 3px; border-radius: 50%; background: rgb(255 255 255 / .5); }
   .empty { padding: 32px 0; color: var(--ink-3); }
-  .more { display: block; margin: 32px auto 0; padding: 0 26px; height: 46px; border: 1px solid var(--line); border-radius: 999px; background: #fff; font: inherit; font-size: 15px; font-weight: 700; color: var(--ink); cursor: pointer; }
-  .more:hover { border-color: var(--ink); }
+  .pager { display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 40px; }
+  .pg { display: grid; place-items: center; min-width: 40px; height: 40px; padding: 0 6px; border-radius: 999px; font-size: 15px; font-weight: 600; color: var(--ink-2); text-decoration: none; font-variant-numeric: tabular-nums; }
+  a.pg:hover { background: rgb(15 23 42 / .06); color: var(--ink); }
+  .pg[aria-current] { background: var(--ink); color: #fff; }
+  .pg.off { color: var(--line); }
+  .gap { min-width: 20px; text-align: center; color: var(--ink-3); }
 
   .player { width: min(1120px, 92vw); max-width: none; max-height: none; padding: 56px 0 0; border: 0; background: transparent; overflow: visible; }
   .player::backdrop { background: rgb(8 14 26 / .84); }
@@ -119,6 +161,9 @@ const picture = (n: (typeof security)[number]) =>
   @media (max-width: 1023px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   @media (max-width: 559px) {
     .cards { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+    /* 1 … 4 5 6 … 9 with both arrows still fits a 360px phone */
+    .pager { gap: 2px; }
+    .pg { min-width: 34px; height: 34px; padding: 0 4px; }
     .player { width: 100vw; }
     .player-box { border-radius: 0; }
     .player-close { right: 12px; }
@@ -126,28 +171,6 @@ const picture = (n: (typeof security)[number]) =>
 </style>
 
 <script>
-  // 국내 / 해외 filter and 더보기: PAGE cards at first, PAGE more per click
-  const list = document.querySelector<HTMLElement>('.cards');
-  const more = document.querySelector<HTMLButtonElement>('.more');
-  const chips = Array.from(document.querySelectorAll<HTMLButtonElement>('.chip'));
-  const PAGE = Number(more?.dataset.page ?? 12);
-  let region = '', limit = PAGE;
-  const render = () => {
-    if (!list) return;
-    const rows = Array.from(list.children) as HTMLElement[];
-    const shown = rows.filter((li) => !region || li.dataset.region === region);
-    rows.forEach((li) => { li.hidden = true; });
-    shown.forEach((li, i) => { li.hidden = i >= limit; });
-    if (more) more.hidden = shown.length <= limit;
-  };
-  more?.addEventListener('click', () => { limit += PAGE; render(); });
-  chips.forEach((c) => c.addEventListener('click', () => {
-    region = c.dataset.region ?? '';
-    limit = PAGE;
-    chips.forEach((x) => x.setAttribute('aria-pressed', String(x === c)));
-    render();
-  }));
-
   // news videos: open the large player and load YouTube only when asked; closing it removes the player
   const player = document.querySelector<HTMLDialogElement>('.player')!;
   const frame = player.querySelector<HTMLElement>('.player-frame')!;

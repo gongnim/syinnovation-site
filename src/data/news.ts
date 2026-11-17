@@ -111,4 +111,6 @@ export interface Incident {
 export const security = (incidents as Incident[])
   .filter((n) => !n.hidden && (!n.auto || n.youtube))
   .sort((a, b) => b.date.localeCompare(a.date));
+/** cards per page of 언론보도 (/news/press, /news/press/page/2, …) */
+export const pressPage = 12;
 export const fmt = (d: string) => d.replaceAll('-', '.');

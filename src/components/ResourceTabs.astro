@@ -9,9 +9,12 @@ const en = lang === 'en';
 interface Props { items?: MenuItem[]; label?: string }
 const { items = libraryNav, label = en ? 'Resources menu' : '자료실 메뉴' } = Astro.props;
 const path = pagePath(Astro.url);
+const tabs = menu(items, lang);
+// the tab whose address is the longest start of this page's: /news/press/page/2 → 언론보도, not 사내소식 (/news)
+const on = tabs.filter((t) => path === t.href || path.startsWith(t.href + '/')).sort((a, b) => b.href.length - a.href.length)[0];
 ---
 <nav class="rtabs" aria-label={label}>
-  {menu(items, lang).map((t) => <a href={t.href} aria-current={path === t.href ? 'page' : undefined}>{t.label}</a>)}
+  {tabs.map((t) => <a href={t.href} aria-current={t === on ? 'page' : undefined}>{t.label}</a>)}
 </nav>
 
 <style>

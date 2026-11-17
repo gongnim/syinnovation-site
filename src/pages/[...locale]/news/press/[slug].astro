@@ -7,7 +7,7 @@
 import Base from '../../../../layouts/Base.astro';
 import Icon from '../../../../components/Icon.astro';
 import CtaBand from '../../../../components/CtaBand.astro';
-import { security, fmt, type Incident } from '../../../../data/news';
+import { security, fmt, pressPage, type Incident } from '../../../../data/news';
 import { lessonFor, type Lesson } from '../../../../data/security-lessons';
 import storiesJson from '../../../../data/security-stories.json';
 import { securityNewsEn, storiesEn, lessonsEn, labelEn } from '../../../../data/en';
@@ -29,6 +29,9 @@ interface Props { item: Incident; newer?: Incident; older?: Incident }
 const { item: n, newer, older } = Astro.props;
 const lang = langOf(Astro.url);
 const en = lang === 'en';
+// 목록 goes back to the page of the full list this article is on
+const listPage = Math.floor(Math.max(0, security.findIndex((x) => x.slug === n.slug)) / pressPage) + 1;
+const listUrl = href(`/news/press${listPage > 1 ? `/page/${listPage}` : ''}`, lang);
 const e = en ? securityNewsEn[n.url] : undefined; // no English yet: the Korean text, marked
 const title = e?.title ?? n.title;
 const summary: string | undefined = e?.summary ?? n.summary;
@@ -109,7 +112,7 @@ const photoNote = en
 
       <nav class="pn" aria-label={en ? 'More security news' : '다른 보안 소식'}>
         {older ? <a href={href(`/news/press/${older.slug}`, lang)}><span>{en ? 'Previous' : '이전 소식'}</span>{titleOf(older)}</a> : <span />}
-        <a class="list" href={href('/news/press', lang)}>{en ? 'Back to list' : '목록'}</a>
+        <a class="list" href={listUrl}>{en ? 'Back to list' : '목록'}</a>
         {newer ? <a class="r" href={href(`/news/press/${newer.slug}`, lang)}><span>{en ? 'Next' : '다음 소식'}</span>{titleOf(newer)}</a> : <span />}
       </nav>
     </div>
