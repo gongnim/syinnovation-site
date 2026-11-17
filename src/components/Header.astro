@@ -160,6 +160,12 @@ const KEY = href('/trust-gateway', lang); // the main product turns brand orange
   .mobile-lang [aria-current='true'] { color: var(--blue); background: var(--mist); }
   .mobile-lang a { color: var(--ink-3); }
   .mobile-lang [aria-disabled='true'] { color: var(--ink-3); }
+  /* the English menu is longer than the Korean one: just above the burger width it ran into the logo and the
+     language switch (user, 2026-11-17), so it sits tighter there */
+  @media (min-width: 1024px) and (max-width: 1199px) {
+    :global(html[lang='en']) .menu { gap: 2px; }
+    :global(html[lang='en']) .menu a, :global(html[lang='en']) .sub-top { padding-inline: 8px; font-size: 15px; }
+  }
   @media (max-width: 1023px) {
     .hdr { --logo-w: 124px; }
     .hdr-bar { grid-template-columns: var(--logo-w) 1fr auto; column-gap: 8px; }

@@ -37,7 +37,8 @@ const [cta] = menu([ctaAll], lang);
   .ft-logo { height: 38px; width: auto; }
   .ft-motto { margin-top: 14px; font-weight: 600; color: var(--ink); }
   /* the menu in order down two columns (user, 2026-11-16): 홈 · Trust Gateway · IT 컨설팅·개발, then 소식 · 자료실 · 회사소개 · 문의하기 */
-  .ft-links { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; align-content: start; }
+  /* each column as wide as its longest link, so "Trust Gateway" never runs into the next column (user, 2026-11-17) */
+  .ft-links { display: grid; grid-template-columns: repeat(2, max-content); gap: 0 24px; align-content: start; }
   .ft-links div { display: grid; gap: 8px; align-content: start; }
   .ft-links a:hover { color: var(--blue); }
   .ft-info { font-style: normal; display: grid; gap: 4px; align-content: start; }

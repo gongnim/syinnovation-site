@@ -21,6 +21,10 @@ export const company = {
 // inbox set on the Web3Forms account (mkt@syinnovation.net). Made by the user on 2026-11-16.
 export const web3formsKey = '5a19d582-3059-4997-926c-9178f09bf02d';
 
+// Google Analytics 4 property of the old site, kept so visit statistics continue (user, 2026-11-17). Base.astro loads it
+// only on syinnovation.net; the privacy policy's Art. 9 says so.
+export const gaId = 'G-9J9KG3CLLY';
+
 // Search engines (Base.astro): false keeps every page out of search results (noindex) while this site is not yet the one
 // at syinnovation.net. Set to true on launch day, when syinnovation.net points here.
 export const launched = false;

@@ -51,6 +51,8 @@ p { text-wrap: balance; }
 p > .sb, li > .sb, dd > .sb { display: block; } /* one sentence per block (added by src/middleware.ts) */
 p .cl { display: inline-block; } /* a comma clause stays on one line, so a sentence wraps after its comma */
 li, dd { text-wrap: pretty; }
+/* English: no lone word on the last line anywhere (table cells, labels, cards), as the Korean already reads (user, 2026-11-17) */
+:root:lang(en) body { text-wrap: pretty; }
 /* the hidden attribute must win over any display rule (e.g. tab panels styled as grid) */
 [hidden] { display: none !important; }
 h1, h2, h3, h4 { text-wrap: balance; }

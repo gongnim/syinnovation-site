@@ -40,7 +40,7 @@ const shown = first.find((r) => r.v !== 'allow')!;
 <section class="section mist" id="console">
   <div class="wrap con">
     <div class="con-copy">
-      <h2 class="h2 sm reveal">{en ? <>What admins <br />see</> : <>관리자는 <br />이렇게 봅니다</>}</h2>
+      <h2 class="h2 sm reveal">{en ? <>What admins see</> : <>관리자는 <br />이렇게 봅니다</>}</h2>
       <p class="lead reveal">{en ? <>Explaining why it blocked matters as much as blocking.</> : <>막는 것만큼, 왜 막았는지 설명할 수 있어야 합니다.</>}</p>
       <ul class="pts">
         {points.map((p) => (<li class="reveal"><span class="pi"><Icon name={p.i} size={18} /></span><div><b>{p.t}</b><p class="body">{p.d}</p></div></li>))}
@@ -94,11 +94,14 @@ const shown = first.find((r) => r.v !== 'allow')!;
   .bar b { font-size: 14px; }
   .live { margin-left: auto; display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600; color: #2e9a7a; }
   .live i { width: 7px; height: 7px; border-radius: 50%; background: #2e9a7a; }
-  .body2 { display: grid; grid-template-columns: 112px minmax(0, 1fr); }
+  .body2 { display: grid; grid-template-columns: 112px minmax(0, 1fr); container-type: inline-size; }
   .nav { display: grid; align-content: start; gap: 2px; padding: 12px 8px; border-right: 1px solid var(--line); font-size: 13px; color: var(--ink-3); }
   .nav span { padding: 8px 10px; border-radius: 8px; }
   .nav .on { background: var(--mist); color: var(--ink); font-weight: 700; }
-  .main { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 12px; padding: 14px; align-items: start; }
+  /* the log never gets narrower than its rows ("Step-up" ran under the panel, user 2026-11-17); when that leaves the
+     reasons panel too little room, the panel goes under the log */
+  .main { display: grid; grid-template-columns: minmax(min-content, 1.1fr) minmax(0, 1fr); gap: 12px; padding: 14px; align-items: start; }
+  @container (max-width: 680px) { .main { grid-template-columns: minmax(0, 1fr); } }
 
   .log { width: 100%; border-collapse: collapse; font-size: 13px; }
   .log th { text-align: left; font-weight: 600; color: var(--ink-3); padding: 6px 8px; border-bottom: 1px solid var(--line); }

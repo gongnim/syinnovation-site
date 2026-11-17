@@ -8,7 +8,7 @@ const en = langOf(Astro.url) === 'en';
 
 const servers = en ? ['Groupware', 'HR system', 'Accounting', 'Customer DB', 'Dev server', 'File server'] : ['그룹웨어', '인사 시스템', '회계', '고객 DB', '개발 서버', '파일 서버'];
 const compare = en ? [
-  { k: 'When it checks', vpn: 'Once, at first connection', tg: 'At every moment (each time a work screen opens)' },
+  { k: 'When it checks', vpn: 'Once, at first connection', tg: 'At every moment\n(each time a work screen opens)' }, // the aside on its own line (user, 2026-11-17)
   { k: 'What opens', vpn: 'The whole internal network', tg: 'Only allowed apps and paths' },
   { k: 'Identity verification', vpn: 'ID and password', tg: 'Device certificate + biometric check on the phone' },
   { k: 'Location check', vpn: 'None', tg: 'Multi-Signal Cross Check of PC · phone · network' },
@@ -163,7 +163,7 @@ const compare = en ? [
   .cmp th, .cmp td { text-align: left; padding: 16px; border-bottom: 1px solid var(--line); vertical-align: top; transition: background-color .4s var(--ease), color .4s var(--ease); }
   .cmp thead th { font-size: 14px; color: var(--ink-3); font-weight: 600; }
   .cmp tbody th { font-weight: 700; width: 22%; }
-  .cmp td { color: var(--ink-3); }
+  .cmp td { color: var(--ink-3); white-space: pre-line; }
   .vs[data-mode='vpn'] td.c-vpn { color: #8e2f22; font-weight: 600; background: #fdf0ee; }
   .vs[data-mode='vpn'] th.c-vpn { color: #8e2f22; }
   .vs[data-mode='tg'] td.c-tg { color: var(--ink); font-weight: 600; background: var(--orange-soft); }

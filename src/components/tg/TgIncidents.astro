@@ -130,17 +130,20 @@ const cards = [
 <style>
   .inc-sec { overflow: hidden; }
   .strip { --gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 4px var(--gutter) 12px; scrollbar-width: thin; }
-  .track { list-style: none; margin: 0 auto; padding: 0; display: flex; gap: var(--gap); width: max-content; }
-  .track li { scroll-snap-align: center; }
+  /* every card shares the track's rows (picture, date, title, how they got in, what Trust Gateway checks), so the
+     boxes line up across cards and each row is as tall as its tallest card (user, 2026-11-17) */
+  .track { --card: 340px; list-style: none; margin: 0 auto; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: var(--card); grid-template-rows: repeat(5, auto); column-gap: var(--gap); row-gap: 0; width: max-content; }
+  .track li { scroll-snap-align: center; grid-row: 1 / -1; display: grid; grid-template-rows: subgrid; }
   .track .dup { display: none; }
-  .inc { display: flex; flex-direction: column; width: 340px; height: 100%; border-radius: var(--r-xl); overflow: hidden; background: #fff; border: 1px solid var(--line); color: var(--ink); text-decoration: none; transition: border-color .3s var(--ease), translate .3s var(--ease); }
+  .inc { grid-row: 1 / -1; display: grid; grid-template-rows: subgrid; border-radius: var(--r-xl); overflow: hidden; background: #fff; border: 1px solid var(--line); color: var(--ink); text-decoration: none; transition: border-color .3s var(--ease), translate .3s var(--ease); }
   .inc:hover { border-color: var(--ink-3); translate: 0 -4px; }
   .inc:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
   .inc img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; display: block; }
-  .inc-b { display: grid; gap: 10px; padding: 18px 20px 22px; align-content: start; }
+  .inc-b { grid-row: 2 / -1; display: grid; grid-template-rows: subgrid; padding: 18px 20px 22px; }
+  .inc-t, .row { margin-top: 10px; }
   .inc-m { font-size: 13px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
   .inc-t { font-size: 17px; line-height: 1.45; letter-spacing: -0.01em; }
-  .row { display: grid; gap: 4px; font-size: 14px; line-height: 1.6; color: var(--ink-2); padding: 10px 12px; border-radius: var(--r-md); }
+  .row { display: grid; gap: 4px; align-content: start; font-size: 14px; line-height: 1.6; color: var(--ink-2); padding: 10px 12px; border-radius: var(--r-md); }
   .row .k { font-size: 12px; font-weight: 700; }
   .row.in { background: #fdf0ee; }
   .row.in .k { color: #b4443a; }
@@ -154,12 +157,12 @@ const cards = [
   :global(html.js) .strip.dragging { cursor: grabbing; }
   :global(html.js) .strip.dragging .inc { pointer-events: none; }
   :global(html.js) .track { margin: 0; will-change: transform; }
-  :global(html.js) .track .dup { display: block; }
+  :global(html.js) .track .dup { display: grid; }
   @media (min-width: 768px) {
     :global(html.js) .strip { mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
   }
   @media (max-width: 767px) {
-    .inc { width: 284px; }
+    .track { --card: 284px; }
     .head-center .lead br { display: none; }
   }
 </style>

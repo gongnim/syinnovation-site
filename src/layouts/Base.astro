@@ -4,7 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import ScrollNav from '../components/ScrollNav.astro';
 import { langOf, twin } from '../lib/i18n';
-import { company, launched, keywords, verify } from '../data/site';
+import { company, launched, keywords, verify, gaId } from '../data/site';
 // SEO (user, 2026-11-16: "SEO 베스트로"): one canonical address per page, its Korean and English twins for search
 // engines, link previews (Open Graph) and, where it helps, schema.org data. Articles pass type 'article', their
 // date, image and the extra structured data.
@@ -34,6 +34,9 @@ const org = {
   '@type': 'Organization', '@id': abs('/#org'), name: siteName, alternateName: en ? [company.name, company.en.legal] : [company.nameEn, '주식회사 신영이노베이션'],
   legalName: en ? company.en.legal : '주식회사 신영이노베이션', url: abs(en ? '/en' : '/'), logo: abs('/images/og/logo-512.png'), email: company.email,
   slogan: company.motto,
+  // founding date as the site's own news states it (2023-10-25); the old site's JSON-LD had the same
+  foundingDate: '2023-10-25',
+  description: en ? 'SYINNOVATION builds Trust Gateway, a security solution developed on Zero Trust principles, and offers IT consulting & development.' : '제로트러스트 원칙을 적용한 보안 솔루션 Trust Gateway를 만들고, IT 컨설팅·개발을 함께하는 기업입니다.',
   address: { '@type': 'PostalAddress', streetAddress: en ? '11F, 78 Mapo-daero' : '마포대로 78, 11층', addressLocality: en ? 'Mapo-gu' : '마포구', addressRegion: en ? 'Seoul' : '서울특별시', addressCountry: 'KR' },
 };
 const graph = [
@@ -84,6 +87,19 @@ const graph = [
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <slot name="head" />
     <script is:inline>document.documentElement.classList.add('js');</script>
+    <!-- visit statistics (Google Analytics), only on the live domain: local builds and previews are not counted -->
+    <script is:inline define:vars={{ gaId }}>
+      if (/^(www\.)?syinnovation\.net$/.test(location.hostname)) {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', gaId);
+        const s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://www.googletagmanager.com/gtag/js?id=' + gaId;
+        document.head.appendChild(s);
+      }
+    </script>
   </head>
   <body>
     <a href="#main" class="skip">{lang === 'en' ? 'Skip to content' : '본문으로 건너뛰기'}</a>
