@@ -2,8 +2,11 @@
   "trailingSlash": false,
   "redirects": [
     { "source": "/index-ko.html", "destination": "/", "permanent": true },
-    { "source": "/privacy.html", "destination": "/privacy", "permanent": true },
-    { "source": "/terms.html", "destination": "/terms", "permanent": true },
+    { "source": "/privacy.html", "destination": "/en/privacy", "permanent": true },
+    { "source": "/terms.html", "destination": "/en/terms", "permanent": true },
+    { "source": "/privacy-ko.html", "destination": "/privacy", "permanent": true },
+    { "source": "/terms-ko.html", "destination": "/terms", "permanent": true },
+    { "source": "/sitemap.xml", "destination": "/sitemap-index.xml", "permanent": true },
     { "source": "/ai-consulting", "destination": "/consulting", "permanent": true },
     { "source": "/favicon.ico", "destination": "/favicon-48.png", "permanent": true }
   ]
