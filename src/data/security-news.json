@@ -1,5 +1,45 @@
 [
   {
+    "date": "2026-11-17",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "콜스 사이버 공격 발생…“고객 정보 유출 증거 없어, 의심스러운 문자 주의”",
+    "source": "SBS Korean",
+    "url": "https://www.youtube.com/watch?v=NX8NEQr0JNI",
+    "youtube": "NX8NEQr0JNI",
+    "auto": true
+  },
+  {
+    "date": "2026-11-17",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "메가MGC커피 고객센터 위탁업체 해킹…고객 30명 휴대전화번호 유출",
+    "source": "뉴시스",
+    "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE9UdjE1aFBfMzVGWG1DRFBqY3Zfamo0ZDBsQXhsRUZTQ3FXM0lTbmNRREVNYWdMOU8tVFFYUDI5YUZzSmZ5THZ2cjJpdXhSdDRWcHFJRGwtRDFjMmNZXzg0cC1uT0hnZFIzcDBZSTMxZEhVTC1CakQ4MNIBeEFVX3lxTE9UdjE1aFBfMzVGWG1DRFBqY3Zfamo0ZDBsQXhsRUZTQ3FXM0lTbmNRREVNYWdMOU8tVFFYUDI5YUZzSmZ5THZ2cjJpdXhSdDRWcHFJRGwtRDFjMmNZXzg0cC1uT0hnZFIzcDBZSTMxZEhVTC1CakQ4MA?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-17-71cb8c15.jpg",
+    "credit": {
+      "name": "RDNE Stock project",
+      "url": "https://www.pexels.com/photo/person-using-black-and-gray-laptop-7947999/",
+      "id": 7947999
+    }
+  },
+  {
+    "date": "2026-11-16",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "일본 슈퍼컴퓨터 ‘후가쿠’ 해킹…도요타 등 기밀 유출 우려",
+    "source": "이데일리",
+    "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQZFdNbjFwME5WLXBfU1hwc2hyMm9xWEFLd3RTSWJZcnVsVlZ1bkQtNWtKZHlnVlVNTHl0eVEyNTlCVjNKZVpwbm52MDJjYzVKc1lReEpTZXJkRjhoTk9TOTQ1YlNfWkEzdHR5c1VaaFU5QlhZMktxVHQ0cUtmenhaSw?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-16-334014c6.jpg",
+    "credit": {
+      "name": "Rafael Minguet Delgado",
+      "url": "https://www.pexels.com/photo/close-up-of-data-transfer-screen-with-keyboard-38117126/",
+      "id": 38117126
+    }
+  },
+  {
     "date": "2026-11-16",
     "region": "국내",
     "type": "해킹",
