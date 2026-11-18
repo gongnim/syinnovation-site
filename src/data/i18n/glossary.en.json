@@ -71,7 +71,7 @@
       "t": "Policy Enforcement Point (PEP)",
       "s": "The gate that opens and closes connections according to the decision",
       "b": "It sits between users and business systems and lets through only the requests the Policy Decision Point has allowed. A gateway or proxy plays this role.",
-      "tg": "Trust Gateway's Access Gateway is the Policy Enforcement Point. Every request is checked at this point, and step-up authentication is done through approval in the phone app. The PC agent keeps access on hold until the approval is complete."
+      "tg": "Trust Gateway's Access Gateway is the Policy Enforcement Point. Access is checked at this point at every moment, and step-up authentication is done through approval in the phone app. The PC agent keeps access on hold until the approval is complete."
     },
     "pip": {
       "t": "Policy Information Point (PIP)",
