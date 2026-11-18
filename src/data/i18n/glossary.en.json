@@ -42,7 +42,7 @@
       "t": "Continuous Verification",
       "s": "Checking continuously while someone is connected, not just once at login",
       "b": "If the device status, location or behavior changes during a connection, the access decision is made again. This is needed to catch takeover or misuse that happens after login.",
-      "tg": "Trust Gateway checks access again with every request, even after login."
+      "tg": "Trust Gateway checks access again at every moment, even after authentication."
     },
     "micro-segmentation": {
       "t": "Micro-segmentation",

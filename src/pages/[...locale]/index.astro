@@ -29,7 +29,7 @@ const ops = en
   ? [['Input screen improved', 'Deployed'], ['Report field added', 'Deployed'], ['Login error reported', 'Resolved']]
   : [['입력 화면 개선', '배포 완료'], ['보고서 항목 추가', '배포 완료'], ['로그인 오류 신고', '대응 완료']];
 ---
-<Base title={en ? 'SYINNOVATION' : '신영이노베이션'} description={en ? 'SYINNOVATION builds Trust Gateway, a security solution developed on Zero Trust principles, and offers PI by AI, process innovation with AI. It checks signals from the phone and the PC together, and verifies again at every moment, even after login.' : '신영이노베이션은 제로트러스트 원칙을 적용한 보안 솔루션 Trust Gateway를 만들고, AI 프로세스 혁신을 함께합니다. 휴대폰과 PC의 신호를 함께 확인하고, 로그인 이후에도 매 순간 다시 검증합니다.'}>
+<Base title={en ? 'SYINNOVATION' : '신영이노베이션'} description={en ? 'SYINNOVATION builds Trust Gateway, a security solution developed on Zero Trust principles, and offers PI by AI, process innovation with AI. It checks signals from the phone and the PC together, and verifies again at every moment, even after authentication.' : '신영이노베이션은 제로트러스트 원칙을 적용한 보안 솔루션 Trust Gateway를 만들고, AI 프로세스 혁신을 함께합니다. 휴대폰과 PC의 신호를 함께 확인하고, 인증 이후에도 매 순간 다시 검증합니다.'}>
 
   <!-- 1. hero -->
   <section class="hero" data-snav-down>
@@ -40,7 +40,7 @@ const ops = en
     <div class="hero-ring" aria-hidden="true"></div>
     <div class="wrap hero-copy" data-hero-layer="a">
       <h1 class="hero-title">Never Trust, <br />Always Verify</h1>
-      <p class="hero-lead">{en ? <>Trust Gateway is a Zero Trust-based solution <br />that verifies it is really you in real time, from login to session out</> : <>Trust Gateway는 로그인 이후에도 본인인지 <br />실시간 검증하는 제로트러스트 기반 솔루션입니다</>}</p>
+      <p class="hero-lead">{en ? <>Trust Gateway is a Zero Trust-based solution <br />that verifies it is really you in real time, even after authentication</> : <>Trust Gateway는 인증 이후에도 본인인지 <br />실시간 검증하는 제로트러스트 기반 솔루션입니다</>}</p>
     </div>
     <!-- the incidents heading sits inside the sphere's lower half (user, 2026-11-13) -->
     <div class="wrap hero-next">
