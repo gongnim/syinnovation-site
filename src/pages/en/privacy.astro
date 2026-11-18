@@ -1,13 +1,20 @@
 ---
 import Legal from '../../layouts/Legal.astro';
-// The company's privacy policy in English (in force 2026-08-24), translated from src/pages/privacy.astro.
-// The text follows the Korean page of the same date; where they differ, the Korean page prevails.
+// The company's privacy policy in English, word for word from the user's final text (2026-11-18 request, section 6),
+// posted 2026-11-18, in force from 2026-11-25. Where it differs from the Korean page, the Korean page prevails.
+const showNotice = Date.now() < Date.parse('2026-11-25T00:00:00+09:00');
 ---
 <Legal title="Privacy Policy" description="SYINNOVATION Co., Ltd. Privacy Policy" lang="en">
   <Fragment slot="meta">
     <p><strong>SYINNOVATION Co., Ltd.</strong> (the "Company") complies with the Personal Information Protection Act (PIPA) and other related laws, and keeps the personal information of data subjects safely protected.</p>
-    <p class="dates">Effective date: August 24, 2026 · Last revised: August 24, 2026</p>
+    <p class="dates">Effective date: November 25, 2026 · Last revised: November 25, 2026</p>
   </Fragment>
+    {showNotice && (
+      <div class="notice" id="revision-notice" data-until="2026-11-25T00:00:00+09:00">
+        <p><strong>Notice of revision</strong> This Privacy Policy takes effect on November 25, 2026. Until then, the previous policy (effective August 24, 2026) applies.</p>
+        <p><strong>Main changes</strong> added an article on personal information processing in the apps (Trust Auth, Trust User-Agent); reorganized outsourcing and overseas transfers (including Web3Forms for the inquiry form and Google Analytics for visit statistics); added items preserved under law and other standards; changed the Chief Privacy Officer.</p>
+      </div>
+    )}
     <p class="intro">To protect the freedoms and rights of data subjects, SYINNOVATION Co., Ltd. complies with PIPA and related laws, processes personal information lawfully and manages it safely. Through this Privacy Policy, the Company informs you what personal information it collects and uses, for what purposes, and what measures it takes to protect personal information.</p>
     <div class="note">This English text is a translation provided for convenience. If it differs from the Korean version, the Korean version prevails.</div>
     <nav class="toc" aria-label="Contents">
@@ -17,7 +24,7 @@ import Legal from '../../layouts/Legal.astro';
         <li><a href="#a2">Items of personal information collected</a></li>
         <li><a href="#a3">Processing and retention periods of personal information</a></li>
         <li><a href="#a4">Provision of personal information to third parties</a></li>
-        <li><a href="#a5">Outsourcing of personal information processing</a></li>
+        <li><a href="#a5">Outsourcing of personal information processing and overseas transfer</a></li>
         <li><a href="#a6">Rights and obligations of data subjects and how to exercise them</a></li>
         <li><a href="#a7">Procedure and method for destroying personal information</a></li>
         <li><a href="#a8">Measures to ensure the security of personal information</a></li>
@@ -33,25 +40,28 @@ import Legal from '../../layouts/Legal.astro';
       <p>The Company processes personal information for the following purposes and does not use the personal information it processes for any purpose other than those below. If a purpose of use changes, the Company will take the necessary measures, such as obtaining separate consent under Article 18 of PIPA.</p>
       <ul>
         <li><strong>Consultations and responses to inquiries:</strong> receiving inquiries (consultation requests) through the website, identity verification, and replies and guidance regarding the inquiry</li>
-        <li><strong>Service provision and contract performance:</strong> proposing, concluding and performing contracts for the security solution (Trust Gateway) and IT services (PI consulting, full-stack development, global outsourcing), and settling payments</li>
+        <li><strong>Service provision and contract performance:</strong> proposing, concluding and performing contracts for the security solution (Trust Gateway) and IT services (PI consulting, full-stack development), and settling payments</li>
+        <li><strong>Providing app services:</strong> as entrusted by customers (the companies that use the apps), verifying the identity of users of the Trust Auth and Trust User-Agent apps, checking devices, controlling access to internal services, detecting abnormal access, and security audits (Article 11)</li>
         <li><strong>Customer management:</strong> maintaining business relationships, follow-up management, delivering notices, and handling complaints</li>
+        <li><strong>Improving the website:</strong> analyzing visit statistics (Article 9)</li>
         <li><strong>Marketing and related use (optional, with consent):</strong> information on new services, information on promotions and events, etc.</li>
       </ul>
     </section>
     <section id="a2">
       <h2><span class="num">02</span>Items of personal information collected</h2>
-      <p>The Company collects the following personal information through the <strong>inquiry (consultation request)</strong> feature of its website.</p>
+      <p>The Company collects the following personal information through the inquiry (consultation request) feature of its website, while you use the website, and through its apps.</p>
       <div class="tbl">
         <table>
           <thead><tr><th>Category</th><th>Items collected</th><th>Collection method</th></tr></thead>
           <tbody>
-            <tr><td>Website inquiries</td><td>Company name, name of the person in charge, email or contact number (phone number), inquiry type, inquiry details</td><td>Website inquiry form</td></tr>
+            <tr><td>Website inquiries</td><td>Inquiry type, name, company name, email, phone (optional), message</td><td>Website inquiry form (forwarded to the Company's email by way of Web3Forms; the IP address at the time of sending is passed along with it)</td></tr>
             <tr><td>Contracts and transactions (if applicable)</td><td>Name and job title of the person in charge, contact number, email, business information (for issuing tax invoices, etc.)</td><td>Provided by email, in writing, or during the contracting process</td></tr>
-            <tr><td>Automatically generated information</td><td>Access IP address, cookies, service usage records, browser and device information</td><td>Collected automatically while using the service</td></tr>
+            <tr><td>App usage information</td><td>Email address, device identifier, device security status, location information, push notification token, access IP address and access time, etc. (Article 11-2)</td><td>Collected while using the apps</td></tr>
+            <tr><td>Automatically generated information (website)</td><td>Access IP address, cookies, visit records (pages visited and time), browser and device information</td><td>Collected automatically while using the website (including Google Analytics, Article 9)</td></tr>
           </tbody>
         </table>
       </div>
-      <div class="note">As a rule, the Company does not collect sensitive information under Article 23 of PIPA, such as ideology and beliefs, health or political opinions, or unique identification information such as resident registration numbers.</div>
+      <p>As a rule, the Company does not collect sensitive information under Article 23 of PIPA, such as ideology and beliefs, health or political opinions, or unique identification information such as resident registration numbers.</p>
     </section>
     <section id="a3">
       <h2><span class="num">03</span>Processing and retention periods of personal information</h2>
@@ -65,38 +75,66 @@ import Legal from '../../layouts/Legal.astro';
           <li>Tax invoices and other national tax documents: 5 years</li>
         </ul>
         </li>
+        <li><strong>Website visit statistics (Google Analytics):</strong> up to 14 months (Article 9)</li>
+        <li><strong>Personal information processed in the apps:</strong> as set out in Article 11-3</li>
       </ul>
       <p>Personal information whose retention period has expired or whose processing purpose has been achieved is destroyed without delay.</p>
     </section>
     <section id="a4">
       <h2><span class="num">04</span>Provision of personal information to third parties</h2>
       <p>The Company processes the personal information of data subjects only within the scope specified in Article 1 (Purposes of processing), and provides personal information to third parties only in cases that fall under Articles 17 and 18 of PIPA, such as with the data subject's consent or under a special provision of law. The Company currently does not provide the personal information of data subjects to any third party.</p>
-      <div class="note">If provision to a third party becomes necessary in the future, the Company will notify you in advance of the recipient, the purpose of provision, the items provided and the retention period, and will provide the information only after obtaining consent.</div>
+      <p>If provision to a third party becomes necessary in the future, the Company will notify you in advance of the recipient, the purpose of provision, the items provided and the retention period, and will provide the information only after obtaining consent.</p>
     </section>
     <section id="a5">
-      <h2><span class="num">05</span>Outsourcing of personal information processing</h2>
-      <p>For smooth service provision, the Company may outsource personal information processing work to outside parties as shown below. When outsourcing, the Company sets out the necessary matters, through an outsourcing contract or other means under Article 26 of PIPA, so that personal information is managed safely, and supervises the processor.</p>
+      <h2><span class="num">05</span>Outsourcing of personal information processing and overseas transfer</h2>
+      <h3>5-1. Outsourcing</h3>
+      <p>For smooth service provision, the Company outsources personal information processing work to outside parties as shown below. When outsourcing, the Company sets out the necessary matters, through an outsourcing contract or other means under Article 26 of PIPA, so that personal information is managed safely, and supervises the processor.</p>
       <div class="tbl">
         <table>
-          <thead><tr><th>Processor</th><th>Outsourced work</th></tr></thead>
+          <thead><tr><th>Processor</th><th>Outsourced work</th><th>Information entrusted</th><th>Country</th></tr></thead>
           <tbody>
-            <tr><td>GitHub, Inc. (GitHub Pages)</td><td>Hosting and operating the website server</td></tr>
-            <tr><td>Gabia Inc. (Hiworks)</td><td>Transmitting website inquiries and processing email replies</td></tr>
-            <tr><td>Web3Creative (Web3Forms)</td><td>Receiving submissions from the website inquiry form and forwarding them to the Company's email</td></tr>
+            <tr><td>GitHub, Inc. (GitHub Pages)</td><td>Hosting and operating the website server</td><td>Website access information (IP address, browser information, etc.)</td><td>United States</td></tr>
+            <tr><td>Web3Creative (Web3Forms)</td><td>Receiving submissions from the website inquiry form and forwarding them to the Company's email</td><td>Information entered in the inquiry form, IP address</td><td>India</td></tr>
+            <tr><td>Google LLC (Google Analytics)</td><td>Analyzing website visit statistics</td><td>Cookie identifier, visit records, browser and device information, IP address</td><td>United States</td></tr>
+            <tr><td>Gabia Inc. (Hiworks)</td><td>Receiving and storing email (website inquiries), sending verification code emails (apps)</td><td>Information in inquiry emails, email address, verification code</td><td>Republic of Korea</td></tr>
+            <tr><td>NHN Cloud</td><td>Operating the app servers and database</td><td>All items listed in Article 11-2</td><td>Republic of Korea</td></tr>
+            <tr><td>Google LLC</td><td>Push notification delivery (Firebase Cloud Messaging), app integrity checks (Play Integrity), location measurement (Google Play services), providing app fonts</td><td>Push tokens and notification content, integrity check tokens, device location measurement requests, IP address of the device downloading fonts</td><td>United States</td></tr>
+            <tr><td>Apple Inc.</td><td>Push notification delivery (APNs), app integrity checks (App Attest)</td><td>Push tokens and notification content, integrity check values</td><td>United States</td></tr>
           </tbody>
         </table>
       </div>
-      <p>What you send through the website inquiry form reaches the Company's email by way of Web3Forms, and in the process personal information is transferred overseas as shown below (Article 28-8 of PIPA).</p>
-      <div class="tbl">
-        <table>
-          <thead><tr><th>Recipient (contact)</th><th>Country</th><th>Items transferred</th><th>When and how</th><th>Purpose and retention</th></tr></thead>
-          <tbody>
-            <tr><td>Web3Creative (Web3Forms)<br />support@web3forms.com</td><td>India (country of operation) and the countries where Amazon Web Services, Cloudflare and Hetzner process the data</td><td>Inquiry type, name, company name, email, phone (optional), message, IP address</td><td>Sent over an encrypted connection (HTTPS) when you click Send inquiry</td><td>Forwarding your inquiry to the Company's email. Kept by Web3Forms for at most 3 years and then deleted automatically; the Company can delete it earlier.</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p>To block spam, Web3Forms may send the sender's IP address and email to spam filtering services. If you do not want your information transferred overseas, email mkt@syinnovation.net directly instead of using the inquiry form; no transfer through the form takes place in that case.</p>
       <p>If the outsourced work or the processor changes, the Company will disclose it without delay through this Privacy Policy.</p>
+      <h3>5-2. Overseas transfer</h3>
+      <p>Under Article 28-8 of PIPA, the Company transfers personal information overseas as follows.</p>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Recipient</th><th>Items transferred</th><th>Country</th><th>Purpose</th><th>When and how</th><th>Retention and use period</th></tr></thead>
+          <tbody>
+            <tr><td>GitHub, Inc.</td><td>Website access information (IP address, browser information, etc.)</td><td>United States</td><td>Website hosting</td><td>Sent over the network whenever you access the website</td><td>In accordance with GitHub's privacy policy</td></tr>
+            <tr><td>Web3Creative (Web3Forms)</td><td>Inquiry type, name, company name, email, phone (optional), message, IP address</td><td>India (country of operation) and the countries where Amazon Web Services, Cloudflare and Hetzner process the data</td><td>Forwarding your inquiry to the Company's email</td><td>Sent over an encrypted connection (HTTPS) when you click Send inquiry</td><td>Kept by Web3Forms for at most 3 years and then deleted automatically; the Company can delete it earlier</td></tr>
+            <tr><td>Google LLC (Google Analytics)</td><td>Cookie identifier, pages visited and time, browser and device information, IP address (used to estimate approximate location)</td><td>United States and other countries</td><td>Analyzing website visit statistics</td><td>Sent from your browser over the network whenever you access the website</td><td>Kept for up to 14 months under the Google Analytics settings, then deleted</td></tr>
+            <tr><td>Google LLC</td><td>Push tokens and notification content, integrity check tokens, device location measurement requests, IP address of the device downloading fonts</td><td>United States</td><td>Push notification delivery, app integrity checks, location measurement, providing app fonts</td><td>Sent over the network whenever the app is installed, run or used</td><td>In accordance with Google's privacy policy</td></tr>
+            <tr><td>Apple Inc.</td><td>Push tokens and notification content, integrity check values</td><td>United States</td><td>Push notification delivery, app integrity checks</td><td>Sent over the network whenever the app is installed, run or used</td><td>In accordance with Apple's privacy policy</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Privacy contacts of the recipients</strong></p>
+      <ul>
+        <li>GitHub, Inc.: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement</a></li>
+        <li>Web3Creative (Web3Forms): <a href="mailto:support@web3forms.com">support@web3forms.com</a></li>
+        <li>Google LLC: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">https://policies.google.com/privacy</a></li>
+        <li>Apple Inc.: <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener">https://www.apple.com/legal/privacy/</a></li>
+      </ul>
+      <p><strong>How to refuse and what happens if you refuse</strong></p>
+      <ul>
+        <li>Website access information is not transferred if you stop using the website.</li>
+        <li>If you do not want your information transferred through the inquiry form, email <a href="mailto:mkt@syinnovation.net">mkt@syinnovation.net</a> directly instead of using the form; no transfer through the form takes place in that case.</li>
+        <li>Visit statistics (Google Analytics) are not collected if you block cookies in your browser or install the opt-out browser add-on provided by Google (<a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">tools.google.com/dlpage/gaoptout</a>); this does not affect your use of the website.</li>
+        <li>You can turn off app notifications in the device settings; if you do, you will not receive notifications of access approval requests.</li>
+        <li>You can turn off the app's location permission in the device settings; if you do, additional authentication may be required depending on the customer's policy, or some features that need a location check cannot be used.</li>
+        <li>App integrity checks and font downloads are needed for the apps to work, so if you do not want these transfers, please stop using and delete the app.</li>
+      </ul>
+      <p>To block spam, Web3Forms may send the sender's IP address and email to spam filtering services.</p>
     </section>
     <section id="a6">
       <h2><span class="num">06</span>Rights and obligations of data subjects and how to exercise them</h2>
@@ -107,15 +145,28 @@ import Legal from '../../layouts/Legal.astro';
         <li>Request for deletion</li>
         <li>Request to suspend processing</li>
       </ul>
-      <p>You may exercise these rights against the Company in writing, by email or by other means, and the Company will take action without delay. If a data subject requests correction or deletion of errors, etc. in personal information, the Company will not use or provide the personal information concerned until the correction or deletion is completed. You may also exercise your rights through a representative, such as the data subject's legal representative or a person delegated by the data subject.</p>
+      <p>You may exercise these rights against the Company in writing, by email or by other means; the Chief Privacy Officer in Article 10 will receive your request and the Company will take action without delay. If a data subject requests correction or deletion of errors, etc. in personal information, the Company will not use or provide the personal information concerned until the correction or deletion is completed. You may also exercise your rights through a representative, such as the data subject's legal representative or a person delegated by the data subject. How app users can exercise their rights is also described in Article 11-6.</p>
     </section>
     <section id="a7">
       <h2><span class="num">07</span>Procedure and method for destroying personal information</h2>
       <p>When personal information becomes unnecessary, such as when its retention period has expired or the purpose of processing has been achieved, the Company destroys it without delay.</p>
-      <h3>Destruction procedure</h3>
+      <h3>7-1. Destruction procedure</h3>
       <p>After the purpose is achieved, information entered by users is destroyed either immediately or after being stored for a certain period in accordance with internal policy and related laws. Where the information must be preserved under other laws, it is moved to a separate database (DB) or a separate location and kept there.</p>
-      <h3>Destruction method</h3>
+      <h3>7-2. Destruction method</h3>
       <p>Information in electronic file form is deleted using technical methods that make recovery impossible, and personal information recorded or stored in paper documents is destroyed by shredding or incineration.</p>
+      <h3>7-3. Personal information preserved under law and other standards</h3>
+      <div class="tbl">
+        <table>
+          <thead><tr><th>Item preserved</th><th>Basis</th><th>Period</th></tr></thead>
+          <tbody>
+            <tr><td>Records on contracts or withdrawal of offers, etc.</td><td>Act on the Consumer Protection in Electronic Commerce</td><td>5 years</td></tr>
+            <tr><td>Records on payment and the supply of goods, etc.</td><td>Act on the Consumer Protection in Electronic Commerce</td><td>5 years</td></tr>
+            <tr><td>Tax invoices and other national tax documents</td><td>Framework Act on National Taxes</td><td>5 years</td></tr>
+            <tr><td>App access records (history of allow or deny decisions)</td><td>The Company's security audit standards</td><td>1 year</td></tr>
+            <tr><td>Records related to security incidents</td><td>The Company's security audit standards</td><td>5 years</td></tr>
+          </tbody>
+        </table>
+      </div>
     </section>
     <section id="a8">
       <h2><span class="num">08</span>Measures to ensure the security of personal information</h2>
@@ -128,20 +179,21 @@ import Legal from '../../layouts/Legal.astro';
     </section>
     <section id="a9">
       <h2><span class="num">09</span>Installation, operation and refusal of cookies and other automatic collection tools</h2>
-      <p>To provide users with individually customized services, the Company may use "cookies", which store usage information and retrieve it from time to time. A cookie is a small amount of information that a website's server sends to the user's browser, and it is stored on the user's device.</p>
-      <p>The Company uses Google Analytics, provided by Google LLC, to analyze how the website is used. Through cookies, Google Analytics collects usage records such as the pages visited, the time of the visit, the type of browser and device, and the approximate location of access; this information is processed on Google's servers (overseas, including the United States). The Company looks at this information only as statistics and does not link it to information that directly identifies a person, such as a name or contact details.</p>
-      <p>Users can refuse the storage of cookies through their web browser settings. However, if you refuse the storage of cookies, you may have difficulty using some services. To block only Google Analytics, install the opt-out browser add-on provided by Google (tools.google.com/dlpage/gaoptout).</p>
-      <div class="note">How to refuse cookies (e.g., Chrome): you can set this under Settings &gt; Privacy and security &gt; Cookies and other site data.</div>
+      <p>The Company uses cookies to analyze how the website is used. A cookie is a small amount of information that a website's server sends to the user's browser, and it is stored on the user's device.</p>
+      <p>The Company uses Google Analytics, provided by Google LLC. Through cookies, Google Analytics collects usage records such as the pages visited, the time of the visit, the type of browser and device, and the approximate location of access; this information is processed on Google's servers (overseas, including the United States) and is kept for up to 14 months under the Google Analytics settings, then deleted. The Company looks at this information only as statistics and does not link it to information that directly identifies a person, such as a name or contact details.</p>
+      <p>Users can refuse the storage of cookies through their web browser settings. To block only Google Analytics, install the opt-out browser add-on provided by Google (<a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">tools.google.com/dlpage/gaoptout</a>).</p>
+      <p>How to refuse cookies (e.g., Chrome): you can set this under Settings &gt; Privacy and security &gt; Cookies and other site data.</p>
     </section>
     <section id="a10">
       <h2><span class="num">10</span>Chief Privacy Officer</h2>
       <p>The Company has designated a Chief Privacy Officer, as shown below, to take overall responsibility for work related to the processing of personal information, and to handle data subjects' complaints, provide remedies for damage and the like in relation to the processing of personal information.</p>
       <div class="tbl">
         <table>
+          <thead><tr><th>Category</th><th>Details</th></tr></thead>
           <tbody>
-            <tr><th>Name / Title</th><td>Hyungku Kang / CEO</td></tr>
-            <tr><th>Contact</th><td>Email jamesgong@syinnovation.net</td></tr>
-            <tr><th>Address</th><td>11F, Police Mutual Aid Association Bldg. (Seoul Fintech Lab 2), 78 Mapo-daero, Mapo-gu, Seoul</td></tr>
+            <tr><td>Name</td><td>Donghyun Gong</td></tr>
+            <tr><td>Contact</td><td>Phone +82-70-4236-9504 / Email <a href="mailto:development@syinnovation.net">development@syinnovation.net</a></td></tr>
+            <tr><td>Address</td><td>11F, Police Mutual Aid Association Bldg. (Seoul Fintech Lab 2), 78 Mapo-daero, Mapo-gu, Seoul</td></tr>
           </tbody>
         </table>
       </div>
@@ -149,7 +201,7 @@ import Legal from '../../layouts/Legal.astro';
     </section>
     <section id="a11">
       <h2><span class="num">11</span>Processing of personal information in mobile, tablet and PC apps</h2>
-      <h3>Scope and processing entity</h3>
+      <h3>11-1. Scope and processing entity</h3>
       <p>This article applies to the following apps provided by the Company.</p>
       <div class="tbl">
         <table>
@@ -162,15 +214,14 @@ import Legal from '../../layouts/Legal.astro';
         </table>
       </div>
       <p>Customers (the companies that use these apps) use them to allow their employees to access internal services. The customer sets the scope and policies of access, and the Company processes the personal information below as entrusted by the customer. For processing specific to each customer, please also check that customer's privacy policy.</p>
-
-      <h3>Items of personal information processed and purposes</h3>
+      <h3>11-2. Items of personal information processed and purposes</h3>
       <p><strong>Trust Auth</strong></p>
       <div class="tbl">
         <table>
           <thead><tr><th>Item</th><th>Purpose</th><th>When collected</th></tr></thead>
           <tbody>
             <tr><td>Email address</td><td>Identity verification (sending one-time verification codes), account identification</td><td>At registration and re-authentication</td></tr>
-            <tr><td>Device identifier (a hash of a random identifier created by the app combined with the device model)</td><td>Checking whether the device is registered</td><td>At registration and authentication</td></tr>
+            <tr><td>Device identifier</td><td>Checking whether the device is registered</td><td>At registration and authentication</td></tr>
             <tr><td>Device security status (OS version, security patch date, whether rooted or jailbroken, whether screen lock and biometric authentication are available, whether in debug mode or on an emulator)</td><td>Blocking access from insecure devices</td><td>At authentication</td></tr>
             <tr><td>App and device integrity check results (Google Play Integrity, Apple App Attest, hardware key attestation)</td><td>Blocking forged or tampered apps and devices</td><td>At registration and authentication</td></tr>
             <tr><td>Location information (GPS coordinates and accuracy, names, identifiers and signal strength of nearby Wi-Fi networks, cell tower identifiers. Wi-Fi information applies to Android only)</td><td>Detecting access from an unusual location, checking whether the device is in the same place as the PC or tablet</td><td>Only if location permission is granted, at authentication and approval</td></tr>
@@ -180,17 +231,16 @@ import Legal from '../../layouts/Legal.astro';
         </table>
       </div>
       <ul>
-        <li><strong>Biometric information (fingerprint or face) is not collected.</strong> Biometric authentication takes place only on the device, and the Company confirms whether authentication succeeded only through a signature made with the device's security key.</li>
-        <li>The <strong>camera</strong> is used only to read QR codes, and captured images are not stored or transmitted.</li>
+        <li>Biometric information (fingerprint or face) is not collected. Biometric authentication and device PIN or pattern checks take place only on the device, and the Company confirms whether authentication succeeded only through a signature made with the device's security key.</li>
+        <li>The camera is used only to read QR codes, and captured images are not stored or transmitted.</li>
         <li>You can use the app without granting location permission. However, additional authentication may be required depending on the customer's policy, or some features that need a location check, such as approving the addition of another device, cannot be used.</li>
       </ul>
-
       <p><strong>Trust User-Agent (tablet)</strong></p>
       <div class="tbl">
         <table>
           <thead><tr><th>Item</th><th>Purpose</th><th>When collected</th></tr></thead>
           <tbody>
-            <tr><td>Device identifier (a hash of a random identifier created by the app combined with the device model and OS version)</td><td>Checking whether the tablet is registered</td><td>At registration</td></tr>
+            <tr><td>Device identifier</td><td>Checking whether the tablet is registered</td><td>At registration</td></tr>
             <tr><td>Device certificate (public key, serial number)</td><td>Secure access (mutual authentication)</td><td>At registration</td></tr>
             <tr><td>Linked user email (linked on the server when approved through Trust Auth)</td><td>Identifying the person who accessed</td><td>At user approval</td></tr>
             <tr><td>Location information (coordinates and accuracy, time of measurement)</td><td>Checking whether the tablet is near the phone that approved the access</td><td>Only if location permission is granted. Measured on the device while the app is in use, and sent to the Company only while the secure connection is active</td></tr>
@@ -198,13 +248,12 @@ import Legal from '../../layouts/Legal.astro';
           </tbody>
         </table>
       </div>
-
       <p><strong>Trust User-Agent (PC)</strong></p>
       <div class="tbl">
         <table>
           <thead><tr><th>Item</th><th>Purpose</th><th>When collected</th></tr></thead>
           <tbody>
-            <tr><td>Device identifier (a hash of the PC's hardware identifier combined with a random identifier created for each installation)</td><td>Checking whether the PC is registered</td><td>At registration and access</td></tr>
+            <tr><td>Device identifier</td><td>Checking whether the PC is registered</td><td>At registration and access</td></tr>
             <tr><td>Device certificate (public key, serial number)</td><td>Secure access (mutual authentication)</td><td>At registration</td></tr>
             <tr><td>Device security status (OS version, whether antivirus software is running and its product name, whether OS updates, disk encryption, screen lock and the firewall are in use)</td><td>Blocking access from insecure PCs</td><td>When the secure connection is established</td></tr>
             <tr><td>Linked user email (linked on the server when approved through Trust Auth)</td><td>Identifying the person who accessed</td><td>At user approval</td></tr>
@@ -216,64 +265,53 @@ import Legal from '../../layouts/Legal.astro';
       <ul>
         <li>For location information, Trust User-Agent sends only coordinates and accuracy, and does not send lists of nearby Wi-Fi networks or cell towers. The tablet measures its location on the device while the app is in use (while it is on screen), and sends it to the Company only while the secure connection is active. When the app leaves the screen and the secure connection is also closed, it stops measuring and discards the measured location. You can use the app without granting location permission, but the customer's policy may require re-authentication on your phone.</li>
         <li>Trust User-Agent does not use the camera, contacts or photos. The Company does not store the content (screens and input values) of internal services used through the browser, and keeps only the access records needed to decide whether to allow access.</li>
-        <li><strong>Error and crash information:</strong> None of the three apps sends app error or crash information to the Company. If the user has allowed the sharing of diagnostic information in the device settings, the operating system provider (Google or Apple) may collect it and provide it to the Company in the form of anonymous statistics, and this collection is subject to each provider's terms for processing personal information. You can turn this off in the device settings (Android "Send diagnostic data" or "Usage &amp; diagnostics", iOS "Settings &gt; Privacy &amp; Security &gt; Analytics &amp; Improvements").</li>
+        <li>Error and crash information: None of the three apps sends app error or crash information to the Company.</li>
       </ul>
-
-      <h3>Retention periods</h3>
+      <h3>11-3. Retention periods</h3>
       <div class="tbl">
         <table>
           <thead><tr><th>Item</th><th>Retention period</th></tr></thead>
           <tbody>
             <tr><td>Raw location coordinates, Wi-Fi and cell tower data (all three apps)</td><td>Automatically deleted 30 days after collection (only the distance values used for security decisions are kept, together with the access records)</td></tr>
-            <tr><td>Authentication context records, such as device security status</td><td>90 days</td></tr>
+            <tr><td>Authentication context records, such as device security status, and authentication approval history</td><td>90 days</td></tr>
             <tr><td>Access records (history of allow or deny decisions, with IP addresses partly masked)</td><td>1 year (kept in tamper-proof storage)</td></tr>
             <tr><td>Records related to security incidents (certificate revocation, threat detection, etc.)</td><td>5 years</td></tr>
             <tr><td>System operation logs</td><td>90 days</td></tr>
             <tr><td>Device certificates</td><td>Trust User-Agent (tablet and PC): 12 hours; Trust Auth: up to 3 years (no longer valid once expired or revoked)</td></tr>
-            <tr><td>One-time verification codes</td><td>Valid for 5 minutes after issue</td></tr>
-            <tr><td>Email, device registration information, push tokens</td><td>Until the service contract with the customer ends or deletion is requested</td></tr>
+            <tr><td>Verification code sending records (email, sending IP address, browser information)</td><td>Deleted 30 days after sending</td></tr>
+            <tr><td>QR waiting records for PC registration and user linking (requesting IP address, approval token)</td><td>Deleted 7 days after expiry</td></tr>
+            <tr><td>Push tokens of revoked devices</td><td>Deleted 1 day after revocation</td></tr>
+            <tr><td>Email, device registration information, push tokens (devices in use)</td><td>Until the service contract with the customer ends or deletion is requested</td></tr>
           </tbody>
         </table>
       </div>
-
-      <h3>Outsourcing of processing and overseas transfer</h3>
-      <div class="tbl">
-        <table>
-          <thead><tr><th>Recipient</th><th>Outsourced work</th><th>Items transferred</th><th>Country</th></tr></thead>
-          <tbody>
-            <tr><td>NHN Cloud</td><td>Server and database operation</td><td>All items in this article</td><td>Republic of Korea</td></tr>
-            <tr><td>Gabia Inc. (Hiworks)</td><td>Sending verification code emails</td><td>Email address, verification code</td><td>Republic of Korea</td></tr>
-            <tr><td>Google LLC</td><td>Push notification delivery (Firebase Cloud Messaging), app integrity checks (Play Integrity), location measurement (Google Play services)</td><td>Push tokens and notification content, integrity check tokens, device location measurement requests</td><td>United States</td></tr>
-            <tr><td>Apple Inc.</td><td>Push notification delivery (APNs), app integrity checks (App Attest)</td><td>Push tokens and notification content, integrity check values</td><td>United States</td></tr>
-          </tbody>
-        </table>
-      </div>
+      <h3>11-4. Outsourcing of processing and overseas transfer</h3>
+      <p>The processors that handle personal information in the apps and the details of overseas transfers are set out in Article 5. Additional notes on the apps:</p>
       <ul>
         <li>Overseas transfer takes place over the network when the app is installed and run, and the data is stored in accordance with each provider's privacy policy.</li>
         <li>The country and region of an access IP address are determined using a database within the Company's servers, and are not sent outside.</li>
-        <li>The location of a PC is measured by the device's operating system (macOS Location Services, Windows location service). Information exchanged with the operating system provider (Apple, Microsoft) during measurement is subject to each operating system's terms for processing personal information, and the Company receives only the result (coordinates and accuracy).</li>
+        <li>The location of a PC is measured by its operating system, and the Company receives only the result (coordinates and accuracy).</li>
+        <li>Trust Auth and Trust User-Agent (tablet) download their screen fonts from Google's servers, and the access IP address is passed to Google when they do.</li>
       </ul>
-
-      <h3>Information stored on the device</h3>
+      <h3>11-5. Information stored on the device</h3>
       <ul>
         <li>The private key used for authentication is stored in the device's secure hardware (Android Keystore, iOS Secure Enclave) and cannot be extracted.</li>
         <li>The device identifier, certificate, registered email and the address of the user's organization are kept in the app's storage. This information is excluded from device backups and device-to-device transfers.</li>
         <li>Location coordinates are not stored on the device. They are held only in memory while the app is running, and are discarded immediately when the permission is turned off.</li>
-        <li>Trust User-Agent (PC) keeps the device certificate and key (in the macOS security chip or Windows TPM where possible, or, on PCs that do not support this, in a protected file in the user account folder), the installation identifier and the connection settings in the user account folder. It keeps log files for troubleshooting (on macOS, ~/Library/Logs/TrustGateway/); the logs record email addresses only in partly masked form (e.g., a***e@example.com) and do not record location coordinates.</li>
+        <li>Trust User-Agent (PC) keeps the device certificate and key, the installation identifier and the connection settings on the PC in protected form.</li>
+        <li>Trust User-Agent (PC) keeps log files for troubleshooting in the user account folder. The logs record email addresses only in partly masked form (e.g., a***e@example.com), do not record location coordinates, and can be read only by the user.</li>
         <li>The app activity records (logs) of Trust User-Agent (tablet) exist only in memory and disappear when the app is closed.</li>
         <li>Deleting the app erases all information stored on the device.</li>
       </ul>
-
-      <h3>Exercising the rights of data subjects</h3>
+      <h3>11-6. Exercising the rights of data subjects</h3>
       <ul>
         <li><strong>Unregistering this device:</strong> in the "Reset" menu of Trust Auth, after verifying your identity, you can revoke this device's certificate and delete the information on the device.</li>
         <li><strong>Requests for access, correction, deletion or suspension of processing:</strong> you can make these requests to the administrator of the customer you belong to, or to the Chief Privacy Officer in Article 10 (in the same way as in Article 6). Access records that must be kept under law are deleted after the relevant period has passed.</li>
         <li><strong>Stopping the provision of location information:</strong> it stops immediately when you turn off the app's location permission in the device settings (for PCs, macOS "System Settings &gt; Privacy &amp; Security &gt; Location Services", Windows "Settings &gt; Privacy &gt; Location").</li>
         <li><strong>Stopping notifications:</strong> you can turn off app notifications in the device settings.</li>
       </ul>
-
-      <h3>Contact</h3>
-      <p>Inquiries about the processing of personal information in the apps can be made to the Chief Privacy Officer in Article 10 (email jamesgong@syinnovation.net).</p>
+      <h3>11-7. Contact</h3>
+      <p>Inquiries about the processing of personal information in the apps can be made to the Chief Privacy Officer in Article 10 (phone +82-70-4236-9504, email <a href="mailto:development@syinnovation.net">development@syinnovation.net</a>).</p>
     </section>
     <section id="a12">
       <h2><span class="num">12</span>Remedies for infringement of rights</h2>
@@ -287,10 +325,24 @@ import Legal from '../../layouts/Legal.astro';
     </section>
     <section id="a13">
       <h2><span class="num">13</span>Changes to this Privacy Policy</h2>
-      <p>This Privacy Policy applies from its effective date. If there are additions, deletions or corrections to its content due to changes in laws or policy, the Company will give notice through announcements on the website starting 7 days before the changes take effect.</p>
+      <p>This Privacy Policy applies from its effective date. If there are additions, deletions or corrections to its content due to changes in laws or policy, the Company will give notice on the website (on this Privacy Policy page) starting 7 days before the changes take effect.</p>
+      <p><strong>Revision history</strong></p>
       <ul>
-        <li>Date of announcement: August 17, 2026</li>
-        <li>Effective date: August 24, 2026</li>
+        <li>Effective August 24, 2026: first version</li>
+        <li>Effective November 25, 2026: added an article on personal information processing in the apps (Trust Auth, Trust User-Agent) (Article 11); reorganized outsourcing and overseas transfers (Article 5), including Web3Forms for the inquiry form, Google Analytics for visit statistics and the processors for the apps; added items preserved under law and other standards (Article 7); changed the Chief Privacy Officer (Article 10)</li>
+      </ul>
+      <ul>
+        <li>Date of announcement: November 18, 2026</li>
+        <li>Effective date: November 25, 2026</li>
       </ul>
     </section>
 </Legal>
+<script is:inline>
+  // the revision notice is for the days before the effective date only
+  (function () { var n = document.getElementById('revision-notice'); if (n && Date.now() >= Date.parse(n.dataset.until)) n.remove(); })();
+</script>
+<style>
+  .notice { margin: 0 0 28px; padding: 18px 22px; border-radius: 12px; border: 1px solid rgba(246, 136, 42, .45); background: rgba(246, 136, 42, .08); }
+  .notice p { margin: 0; }
+  .notice p + p { margin-top: 8px; }
+</style>
