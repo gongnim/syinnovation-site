@@ -10,7 +10,9 @@ name: Security news
 on:
   schedule:
     # off the hour: GitHub delays or drops scheduled runs that start on the hour; the second run is a
-    # fallback and adds nothing when the first one already collected the day's stories
+    # fallback and adds nothing when the first one already collected the day's stories.
+    # After the move to gongnim (2026-11-17) neither schedule fired on 11-18; this file was committed again to
+    # register them (GitHub registers a workflow's cron when the file changes on the default branch).
     - cron: '17 22 * * *'
     - cron: '17 3 * * *'
   workflow_dispatch:
