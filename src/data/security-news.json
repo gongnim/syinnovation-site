@@ -3,10 +3,18 @@
     "date": "2026-11-16",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "[단독] 대학 산학협력단 연쇄 해킹 확산…한림대·숙명여대·한경국립대·한남대·한국외대 등 개인정보 유출과 연구행정시스템 해킹",
+    "title": "대학 산학협력단 연구행정 시스템 연쇄 해킹…한림대·숙명여대·한경국립대 등 개인정보 유출",
     "source": "데일리시큐",
-    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1ManBCODN1clR4aHdUSjVLcFUwVE9lMWhfeldjY3JLVFlDakZyZ3FHdGtKdW1iQnBLTGcwMDNQS1ZVeXNlX1phdGR0VjdUN25mS01wSkkyV0ZfaHZzVDNDQXV1bjJvdTNWVjg0Nw?oc=5",
-    "auto": true
+    "url": "https://www.dailysecu.com/news/articleView.html?idxno=209552",
+    "slug": "univ-research-systems-2026-11",
+    "org": "대학 산학협력단",
+    "aka": [
+      "rERP",
+      "연구행정통합시스템",
+      "KimJEN",
+      "산학협력단 연쇄 해킹"
+    ],
+    "summary": "11월 14일 한림대, 숙명여대, 한경국립대, 대구한의대 등 여러 대학 산학협력단의 연구행정 시스템이 잇따라 외부 공격을 받아 이용자 개인정보가 유출됐습니다(각 대학 공지, 데일리시큐 보도 기준). 같은 공격자나 같은 공급사를 거친 공격인지는 확인되지 않았습니다."
   },
   {
     "date": "2026-11-17",

@@ -2032,7 +2032,7 @@
     ],
     "cause": [
       "Only the fact that an unauthorized outsider illegally accessed the system server has been disclosed. The intrusion path and method have not been revealed.",
-      "A breach of the research administration system at Daegu Haany University's Industry-Academic Cooperation Foundation was also announced, at the same time on the same day, 6:22 a.m. Whether the two incidents are linked has not been confirmed (according to Dailysecu)."
+      "Around the same time on the same day, 6:22 a.m., several other universities, including Hankyong National University, Daegu Haany University and Korea Maritime and Ocean University, announced breaches of their research administration systems. That chain of incidents has its own story. Whether it is the same attack as Kangwon's has not been confirmed (according to Dailysecu and Boannews)."
     ],
     "response": [
       "The foundation blocked the outside access path and checked for vulnerabilities. It is re-checking access rights and strengthening reviews of access logs. It said it would also prepare measures to prevent a recurrence, including training for staff who handle personal information (according to Kyunghyang Shinmun and Kangwon Ilbo).",
@@ -2192,6 +2192,98 @@
         "outlet": "ScanNetSecurity",
         "date": "2026-11-12",
         "url": "https://scan.netsecurity.ne.jp/article/2026/11/12/56759.html"
+      }
+    ]
+  },
+  "univ-research-systems-2026-11": {
+    "overview": [
+      "Around Nov 14, the research administration systems of several universities' industry-academic cooperation foundations were attacked one after another. Hallym University, Sookmyung Women's University, Hankyong National University, Daegu Haany University and Korea Maritime and Ocean University announced that users' personal data had been leaked. Hankuk University of Foreign Studies found signs of a data leak and shut its system down, and Hannam University announced a security breach and suspended the service. Incheon National University blocked access to its system as a precaution (according to Dailysecu). Kangwon National University also announced that user information had been leaked from its integrated research management system on the same day.",
+      "The affected systems are research administration systems used for research fund management, accounting, budgeting and settlement. Hallym, Hannam, Hankuk University of Foreign Studies, Daegu Haany and Korea Maritime and Ocean University named the affected system as rERP. rERP is a system shared by many universities' industry-academic cooperation foundations (according to Boannews). Kangwon, Daegu Haany, Hankyong and Korea Maritime and Ocean University all gave the same first breach time, 6:22 a.m. on Nov 14 (according to Dailysecu).",
+      "The leaked items differ by university but mainly include student and employee ID numbers, names, affiliation, position, sign-up date and date of birth. Hallym, Sookmyung, Daegu Haany and Korea Maritime and Ocean University said resident registration numbers and passwords were not leaked. Whether the attacks were the work of the same attacker, or came through a common supplier or maintenance environment, has not been confirmed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-14",
+        "event": "Around 4 a.m., an unauthorized outsider accessed the server of the company that manages Hallym University's integrated research administration system and took information (according to the university's notice and Kangwon Domin Ilbo)."
+      },
+      {
+        "date": "2026-11-14",
+        "event": "Kangwon, Daegu Haany, Hankyong and Korea Maritime and Ocean University each said the breach of their system happened around 6:22 a.m. (according to Dailysecu)."
+      },
+      {
+        "date": "2026-11-14",
+        "event": "Around 10:30 a.m., the system maker Webcash detected the attack and notified Daegu Haany University. Hankuk University of Foreign Studies suspended its research fund management system from 1 p.m. (according to Dailysecu)."
+      },
+      {
+        "date": "2026-11-14",
+        "event": "Around 10 p.m., Hankyong National University learned of the incident through its maintenance company. Sookmyung Women's University was notified of the breach by the system maker around 10:12 p.m. (according to Dailysecu)."
+      },
+      {
+        "date": "2026-11-14",
+        "event": "A hacker using the name 'KimJEN' posted on a hacking forum claiming to have obtained data from Korean universities (according to Dailysecu)."
+      },
+      {
+        "date": "2026-11-15",
+        "event": "Around 11:14 a.m., Hallym University was notified of the incident after the managing company confirmed it. Daegu Haany University and Kangwon National University announced the leak on their websites."
+      },
+      {
+        "date": "2026-11-15",
+        "event": "Incheon National University fully blocked access to its research administration ERP, citing signs that a maintenance company's server had been hacked (according to Dailysecu)."
+      },
+      {
+        "date": "2026-11-16",
+        "event": "Hallym, Sookmyung, Hankyong, Hannam and Korea Maritime and Ocean University announced the breach or the leak on their websites (according to Dailysecu)."
+      },
+      {
+        "date": "2026-11-17",
+        "event": "Boannews reported an analysis of the files the attacker posted. The names of 28 universities were found in the files, and the folders for 17 of them contained information taken from rERP."
+      }
+    ],
+    "impact": [
+      "Hallym University said 947 records were leaked, 83 of which included a date of birth (according to Kangwon Domin Ilbo and Dailysecu).",
+      "Sookmyung Women's University and Korea Maritime and Ocean University also announced that user data was leaked (according to Dailysecu).",
+      "Hankyong National University said 772 records of research fund management system users were leaked (according to Dailysecu).",
+      "Daegu Haany University said 1,281 records were leaked, 30 of which included a date of birth (according to Dailysecu).",
+      "Kangwon National University confirmed 27 victims whose data included a date of birth and did not disclose the total scale of the leak.",
+      "Hannam University and Hankuk University of Foreign Studies did not disclose the leaked items or the scale of the damage.",
+      "The counts are per user record, so the same person may appear more than once and the actual number of people affected may differ (according to the Hallym and Korea Maritime and Ocean University notices).",
+      "With the systems shut down, research administration work such as research fund applications, spending and settlements may be disrupted (according to Dailysecu)."
+    ],
+    "cause": [
+      "The universities have disclosed only that an unauthorized outsider accessed their servers. Hallym University said the server of the company that manages the system was breached. Hankyong National University said the attacker got into the server through a web vulnerability, altered some files and created unauthorized files (according to Dailysecu).",
+      "Daegu Haany University learned of the incident when the system maker, Webcash, detected it and notified the university. Incheon National University blocked access citing signs that a maintenance company's server had been hacked. Whether a supplier's central server was taken over or a maintenance account was stolen has not been confirmed (according to Dailysecu and Boannews).",
+      "The hacker 'KimJEN' posted compressed files on a hacking forum, claiming to have stolen data from Korean universities. The files contain the names of 28 universities, including all of the universities that have reported incidents in this case (according to Boannews). Boannews reported that the attacker is believed to have collected the information by repeatedly calling query functions with authentication sessions and accounts obtained in advance. However, whether the data is genuine, and whether these incidents were KimJEN's work, has not been confirmed."
+    ],
+    "response": [
+      "Hallym University shut down its web application server and deleted unauthorized files and abnormal schedulers. It removed the vulnerable web application and changed its database encryption and decryption keys. Hankuk University of Foreign Studies also deleted files related to the breach and abnormal schedulers, and urgently blocked the affected servers (according to Dailysecu).",
+      "Sookmyung Women's University and Daegu Haany University physically disconnected the affected servers from the network and stopped the service. Hankyong National University deleted abnormal files, temporarily stopped running a secondary server and strengthened its authentication process. Korea Maritime and Ocean University restricted access to the system and formed an emergency response team (according to Dailysecu).",
+      "Hallym, Hankyong and Daegu Haany said they reported the incident to the Korea Internet & Security Agency (KISA) and the Ministry of Education. Daegu Haany, Korea Maritime and Ocean University and others asked users not to respond to calls, text messages or emails impersonating the university or its foundation. They also asked users to change their passwords on other sites where they use the same password."
+    ],
+    "sources": [
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-16",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209552"
+      },
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-16",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209540"
+      },
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-17",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209559"
+      },
+      {
+        "outlet": "Boannews",
+        "date": "2026-11-17",
+        "url": "https://www.boannews.com/news/articleView.html?idxno=147326"
+      },
+      {
+        "outlet": "Kangwon Domin Ilbo",
+        "date": "2026-11-18",
+        "url": "https://www.kado.net/news/articleView.html?idxno=2085530"
       }
     ]
   }

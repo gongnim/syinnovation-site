@@ -289,5 +289,10 @@
     "title": "City of Osaka: about 1.08 million email addresses leaked through a hacked outside email service",
     "summary": "An outside email delivery service, Arara Message, used by the City of Osaka's Administrative Online System was accessed without authorization, and 1,078,713 user email addresses were leaked (according to the City of Osaka).",
     "org": "City of Osaka"
+  },
+  "https://www.dailysecu.com/news/articleView.html?idxno=209552": {
+    "title": "Chain of hacks on university research administration systems: Hallym, Sookmyung, Hankyong and others leak personal data",
+    "summary": "On Nov 14, research administration systems at the industry-academic cooperation foundations of several universities, including Hallym, Sookmyung Women's, Hankyong National and Daegu Haany, were attacked one after another and users' personal data was leaked (according to the universities' notices and Dailysecu). Whether the same attacker or the same supplier was involved has not been confirmed.",
+    "org": "University industry-academic cooperation foundations"
   }
 }
