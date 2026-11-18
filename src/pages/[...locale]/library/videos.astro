@@ -13,21 +13,24 @@ const en = lang === 'en';
 //   title, youtube (the id from youtube.com/watch?v=<id>; empty = 공개 준비 중), and optionally
 //   length ('12:30', as YouTube shows it), date ('2026.11', newest first), cat (one of CATS), note (featured only),
 //   featured: true (the large one; it stays put however many videos are added; without one, the first is used),
-//   en: { title, note } for the English page ("(Korean)" at the end of the title while the video itself is in Korean).
+//   en: { title, note, youtube } for the English page (youtube: the English cut's id; without one the Korean video
+//   plays there, so end the title with "(Korean)").
 // Layout: the featured video large on the left, the SIDE newest beside it, the rest below in a 3-column grid that
 // shows PAGE at first and PAGE more per 영상 더보기. From FILTER_FROM videos, category chips appear for the
 // categories holding at least CAT_MIN videos; once there are CHANNEL_FROM, a link to the YouTube channel follows.
 const CATS = ['회사 소개', '제품 시연', '발표·세미나', '인터뷰'];
 const CATS_EN = ['About us', 'Product demos', 'Talks and seminars', 'Interviews']; // same order as CATS
-const CHANNEL = ''; // the YouTube channel address, once there is one
+const CHANNEL = 'https://www.youtube.com/@SYINNOVATION';
 const PAGE = 6, SIDE = 3, FILTER_FROM = 20, CAT_MIN = 3, CHANNEL_FROM = 11;
 
-interface Video { title: string; youtube: string; length?: string; date?: string; cat?: string; note?: string; featured?: boolean; en?: { title: string; note?: string } }
+interface Video { title: string; youtube: string; length?: string; date?: string; cat?: string; note?: string; featured?: boolean; en?: { title: string; note?: string; youtube?: string } }
 const videos: Video[] = [
   { title: '신영이노베이션 소개', note: '신영이노베이션이 하는 일과 Trust Gateway를 소개합니다.', youtube: '', cat: '회사 소개', featured: true,
     en: { title: 'About SYINNOVATION (Korean)', note: 'An introduction to what SYINNOVATION does and to Trust Gateway.' } },
-  { title: '결제 이상거래 탐지 시연', youtube: '', cat: '제품 시연', en: { title: 'Payment fraud detection demo (Korean)' } },
-  { title: 'VPN 대체 업무 접속 시연', youtube: '', cat: '제품 시연', en: { title: 'Demo: work access without a VPN (Korean)' } },
+  { title: '결제 이상거래 탐지 시연', youtube: 'pFHPBdYVce0', length: '0:43', date: '2026.11', cat: '제품 시연',
+    en: { title: 'Payment fraud detection demo', youtube: '98huDt6B5Q0' } },
+  { title: '직원 업무 접속 시연', youtube: 'KhKz7Gh8ehU', length: '0:59', date: '2026.11', cat: '제품 시연',
+    en: { title: 'Employee work access demo', youtube: '0EYy5nCT380' } },
 ];
 // English page: the English title, note and category in place of the Korean
 if (en) for (const v of videos) { Object.assign(v, v.en); if (v.cat) v.cat = CATS_EN[CATS.indexOf(v.cat)]; }
