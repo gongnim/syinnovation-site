@@ -7,7 +7,7 @@ const showNotice = Date.now() < Date.parse('2026-11-25T00:00:00+09:00');
 <Legal title="Privacy Policy" description="SYINNOVATION Co., Ltd. Privacy Policy" lang="en">
   <Fragment slot="meta">
     <p><strong>SYINNOVATION Co., Ltd.</strong> (the "Company") complies with the Personal Information Protection Act (PIPA) and other related laws, and keeps the personal information of data subjects safely protected.</p>
-    <p class="dates">Effective date: November 25, 2026 · Last revised: November 25, 2026</p>
+    <p class="dates">Effective date: November 25, 2026 · Last revised: November 18, 2026</p>
   </Fragment>
     {showNotice && (
       <div class="notice" id="revision-notice" data-until="2026-11-25T00:00:00+09:00">
@@ -342,7 +342,7 @@ const showNotice = Date.now() < Date.parse('2026-11-25T00:00:00+09:00');
   (function () { var n = document.getElementById('revision-notice'); if (n && Date.now() >= Date.parse(n.dataset.until)) n.remove(); })();
 </script>
 <style>
-  .notice { margin: 0 0 28px; padding: 18px 22px; border-radius: 12px; border: 1px solid rgba(246, 136, 42, .45); background: rgba(246, 136, 42, .08); }
+  .notice { margin: 32px 0 28px; padding: 18px 22px; border-radius: 12px; border: 1px solid rgba(246, 136, 42, .45); background: rgba(246, 136, 42, .08); }
   .notice p { margin: 0; }
   .notice p + p { margin-top: 8px; }
 </style>

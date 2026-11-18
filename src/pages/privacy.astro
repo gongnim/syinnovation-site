@@ -10,7 +10,7 @@ const showNotice = Date.now() < Date.parse('2026-11-25T00:00:00+09:00');
 <Legal title="개인정보처리방침" description="주식회사 신영이노베이션 개인정보처리방침">
   <Fragment slot="meta">
     <p><strong>주식회사 신영이노베이션</strong>(이하 "회사")은 「개인정보 보호법」 등 관련 법령을 준수하며, 정보주체의 개인정보를 안전하게 보호합니다.</p>
-    <p class="dates">시행일자: 2026년 11월 25일 · 최종 개정일: 2026년 11월 25일</p>
+    <p class="dates">시행일자: 2026년 11월 25일 · 최종 개정일: 2026년 11월 18일</p>
   </Fragment>
     {showNotice && (
       <div class="notice" id="revision-notice" data-until="2026-11-25T00:00:00+09:00">
@@ -337,7 +337,6 @@ const showNotice = Date.now() < Date.parse('2026-11-25T00:00:00+09:00');
         <li>공고일자: 2026년 11월 18일</li>
         <li>시행일자: 2026년 11월 25일</li>
       </ul>
-      <p>---</p>
     </section>
 </Legal>
 <script is:inline>
@@ -345,7 +344,7 @@ const showNotice = Date.now() < Date.parse('2026-11-25T00:00:00+09:00');
   (function () { var n = document.getElementById('revision-notice'); if (n && Date.now() >= Date.parse(n.dataset.until)) n.remove(); })();
 </script>
 <style>
-  .notice { margin: 0 0 28px; padding: 18px 22px; border-radius: 12px; border: 1px solid rgba(246, 136, 42, .45); background: rgba(246, 136, 42, .08); }
+  .notice { margin: 32px 0 28px; padding: 18px 22px; border-radius: 12px; border: 1px solid rgba(246, 136, 42, .45); background: rgba(246, 136, 42, .08); }
   .notice p { margin: 0; }
   .notice p + p { margin-top: 8px; }
 </style>
