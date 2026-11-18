@@ -1,6 +1,51 @@
 [
   {
     "date": "2026-11-17",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "AI 해커에 개인정보 100만건 노출…대만 기업들, 사이버 공격 비상",
+    "source": "디지털투데이",
+    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE9LMVBPeTUxLV9hVVA4OTZuRWY3SFRaTFRHVEtLZXgzeDdyOEhfRU5jdXZkYUdrd2l6dllMUV9CbXhVNWlseVR2MDdYaVl1RlZlQU5MZk5ONlVFY2kxeXhCVjRFQXBpR1hYNHhOU05aZU9mVmc?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-17-12d9b684.jpg",
+    "credit": {
+      "name": "Christina Morillo",
+      "url": "https://www.pexels.com/photo/closeup-photo-of-silver-macbook-pro-on-table-1181269/",
+      "id": 1181269
+    }
+  },
+  {
+    "date": "2026-11-17",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "[속보] 글로벌 178개 기관 사이버 공격 노출…CNN·BBC·HSBC·레저까지",
+    "source": "CBC뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBoUVNpX0RuNmZQYlY0OWZTQWYxMWZLanFWcGpVS2RYcGtsMzhtYmhnRGtVTzhvTW9GOVRUdmpMXzBla3dwMExtdkFXWDgyYWt0c0QtdXBVTGN3Q1ZJS2RwMHVyZUV1WFVm?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-17-c79d05f8.jpg",
+    "credit": {
+      "name": "Sora Shimazaki",
+      "url": "https://www.pexels.com/photo/crop-unrecognizable-developer-using-laptop-and-smartphone-5926389/",
+      "id": 5926389
+    }
+  },
+  {
+    "date": "2026-11-16",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "일본 오사카시, 외부 업체 해킹으로 이메일 주소 100만건 유출",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFAzYUNhNTZheHA3c25GRy1FcnRMUWpQQi1oTTBoaVp5Q2dQazhfM29UV0NkVkFKWTV4QmdMVDNhTWZwbkZrV0FkY01wWEpRSzdDWE9BdHdldFRhbk5VZXJsTjdVcllPVGltVmhV?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-16-97eb4081.jpg",
+    "credit": {
+      "name": "Sora Shimazaki",
+      "url": "https://www.pexels.com/photo/crop-faceless-person-using-laptop-in-darkness-5926378/",
+      "id": 5926378
+    }
+  },
+  {
+    "date": "2026-11-17",
     "region": "국내",
     "type": "개인정보 유출",
     "title": "콜스 사이버 공격 발생…“고객 정보 유출 증거 없어, 의심스러운 문자 주의”",
