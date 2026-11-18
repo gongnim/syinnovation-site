@@ -51,9 +51,6 @@
   "https://www.youtube.com/watch?v=It6Ii4K8J9I": {
     "title": "Open \"Come collect your honorarium\" and you may regret it: a new attack by North Korean hacking group Kimsuky"
   },
-  "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBPVDZFX2lyNUxKaHBuZEJDc0RZTjF5alJtQmxpdEV1UVNqMXZmMXdsNDVUb3ZheW4yOFVNdGtKR0lpT09aeW4yNzVDRjN0NmxyZ1F6X1FUM3ItM2s?oc=5": {
-    "title": "Personal data leaked in hack of Kangwon National University's Industry-Academic Cooperation Foundation"
-  },
   "https://www.youtube.com/watch?v=1h0QIEpOflQ": {
     "title": "A closer look at oil price rollbacks, data breach, and SALN transparency | The Week Explained"
   },
@@ -262,5 +259,35 @@
   "https://bleepingcomputer.com/news/security/idscan-confirms-breach-tied-to-153-million-stolen-drivers-licenses": {
     "title": "ID verification company IDScan confirms mass leak of driver's license data",
     "summary": "US ID verification company IDScan.net confirmed a breach, and more than 153 million scans of US and Canadian driver's licenses advertised for sale on the dark web (as claimed by the seller) have reportedly been linked to the incident."
+  },
+  "https://www.hankyung.com/article/202611170706i": {
+    "title": "RIKEN's Fugaku supercomputer hacked; information of up to 4,597 users may have leaked",
+    "summary": "An outsider broke into the operations system of RIKEN's supercomputer Fugaku and tampered with servers, and information on up to 4,597 users, some credentials and research data were taken or may have been taken (according to RIKEN).",
+    "org": "RIKEN"
+  },
+  "https://www.cbci.co.kr/news/articleView.html?idxno=627874": {
+    "title": "Optimizely hack plants malicious script on websites of 178 organizations, including CNN and the BBC",
+    "summary": "An attacker exploited a flaw in website experimentation platform Optimizely to add malicious JavaScript to customer projects. The code was found on the websites of 178 organizations, including CNN and the BBC (according to security firm Report URI's analysis).",
+    "org": "Optimizely"
+  },
+  "https://www.khan.co.kr/article/202611161539001/": {
+    "title": "Government work email hacked, abnormal access on about 300 accounts",
+    "summary": "An outside attacker got into the government's work email system through some local government networks and a flaw in single sign-on (SSO), and abnormal access was found on about 300 accounts (according to the Ministry of the Interior and Safety).",
+    "org": "Ministry of the Interior and Safety (MOIS)"
+  },
+  "https://www.kwnews.co.kr/article/20261116500090": {
+    "title": "Kangwon National University: research management system hacked, user data leaked",
+    "summary": "An unauthorized outsider accessed the server of the integrated research management system of Kangwon National University's Industry-Academic Cooperation Foundation and took user information. Victims whose data included a birth date number 27, and the total number of people affected has not been disclosed (according to the university's notice).",
+    "org": "Kangwon National University"
+  },
+  "https://www.segye.com/newsView/20261117509489": {
+    "title": "Mega MGC Coffee: customer center contractor hacked, leaking phone numbers of 30 customers",
+    "summary": "An outside attacker went through the servers of MetaM, the contractor that runs Mega MGC Coffee's customer center, into the customer center system, and the mobile phone numbers of 30 customers were leaked (according to the company).",
+    "org": "Mega MGC Coffee"
+  },
+  "https://www.boannews.com/news/articleView.html?idxno=147279": {
+    "title": "City of Osaka: about 1.08 million email addresses leaked through a hacked outside email service",
+    "summary": "An outside email delivery service, Arara Message, used by the City of Osaka's Administrative Online System was accessed without authorization, and 1,078,713 user email addresses were leaked (according to the City of Osaka).",
+    "org": "City of Osaka"
   }
 }

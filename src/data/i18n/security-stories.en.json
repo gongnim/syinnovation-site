@@ -1705,6 +1705,10 @@
         "event": "Around 9:30 a.m., signs of abnormal access were confirmed. KOMSCO blocked the suspicious IP addresses and blocked all access from overseas IP addresses."
       },
       {
+        "date": "2026-11-13",
+        "event": "Around noon, KOMSCO shut down the targeted communication log management system for linked agencies, and it finished its emergency security measures around 10:38 p.m. (according to Edaily)."
+      },
+      {
         "date": "2026-11-14",
         "event": "KOMSCO announced the incident and ran a temporary customer center from 4 p.m. to 8 p.m."
       }
@@ -1712,14 +1716,18 @@
     "impact": [
       "Part of the personal information of 3,083 users was viewed (according to KOMSCO).",
       "For 3,072 people, 2 or fewer items were exposed, and for 11 people, 3 to 4 items were exposed.",
-      "The items are name, date of birth, mobile phone number, account number, connecting information (CI), email and encrypted card number."
+      "The items are name, date of birth, mobile phone number, account number, connecting information (CI), email and encrypted card number.",
+      "Chak is used by 84 local governments across Korea and has about 4.3 million users (according to Edaily).",
+      "No theft of gift certificate balances or fraudulent payments has been confirmed so far (according to Edaily)."
     ],
     "cause": [
+      "The attacker did not take over the servers directly. The attack targeted a weakness in the authentication of the APIs that servers use to talk to each other (according to Edaily).",
       "The intrusion path and method, and whether there were further leaks, are under investigation. Whether the information was taken outside has not been confirmed either (according to Dailysecu)."
     ],
     "response": [
       "KOMSCO reported to the Korea Internet & Security Agency (KISA) and others and started 24-hour monitoring. It notified affected users individually and is running a dedicated customer center.",
-      "KOMSCO said it would analyze vulnerabilities with outside experts and improve access control, and apologized."
+      "KOMSCO said it would analyze vulnerabilities with outside experts and improve access control, and apologized.",
+      "The president of KOMSCO apologized and promised to prevent a repeat. A dedicated call center explains how to claim damages and apply for personal information dispute mediation (according to Edaily)."
     ],
     "sources": [
       {
@@ -1741,6 +1749,11 @@
         "outlet": "Dailysecu",
         "date": "2026-11-15",
         "url": "https://www.dailysecu.com/news/articleView.html?idxno=209533"
+      },
+      {
+        "outlet": "Edaily",
+        "date": "2026-11-16",
+        "url": "https://www.edaily.co.kr/News/Read?mediaCodeNo=257&newsId=02332086645646376"
       }
     ]
   },
@@ -1799,6 +1812,386 @@
         "outlet": "Maeil Ilbo",
         "date": "2026-11-15",
         "url": "https://www.m-i.kr/news/articleView.html?idxno=2018648"
+      }
+    ]
+  },
+  "riken-2026-11": {
+    "overview": [
+      "An outsider broke into the operations system of Fugaku, the supercomputer that Japan's RIKEN runs in Kobe. The intrusion took place between Nov 10 and Nov 13, 2026 (according to RIKEN). Early on Nov 14, RIKEN stopped Fugaku and cut off outside access.",
+      "According to RIKEN, names, email addresses and other information of up to 4,597 users of Fugaku and of RIKYU, an AI research supercomputer, were taken or may have been taken. Credentials that users had stored for outside access and some research data files were also affected. RIKEN said there is no specific evidence so far that research results have leaked outside.",
+      "Companies such as Toyota, Nippon Steel, Honda and Mitsubishi Heavy Industries also use Fugaku for research, which raised concerns about leaks of corporate technology (according to The Korea Economic Daily, citing Nikkei). It has not been confirmed whether these companies' data actually leaked. How the intruder got in and whether there was secondary damage are under investigation."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-10",
+        "event": "From this day to Nov 13, an outsider was inside Fugaku's operations network (according to RIKEN's investigation)."
+      },
+      {
+        "date": "2026-11-12",
+        "event": "RIKEN detected suspicious communications and began an investigation with its outsourced maintenance contractor."
+      },
+      {
+        "date": "2026-11-13",
+        "event": "Unauthorized access was confirmed at 4:33 p.m. RIKEN reported to the Ministry of Education, Culture, Sports, Science and Technology (MEXT) at 8:59 p.m. and isolated the system used for the intrusion at 10:07 p.m."
+      },
+      {
+        "date": "2026-11-14",
+        "event": "At 4:30 a.m., Fugaku was stopped and outside access was cut off. Administrative keys were replaced at 8:20 p.m."
+      },
+      {
+        "date": "2026-11-15",
+        "event": "All running and queued jobs were stopped, and all users' login public keys were disabled. The same day, Toyota was told of the unauthorized access by RIKEN (according to The Korea Economic Daily)."
+      },
+      {
+        "date": "2026-11-16",
+        "event": "RIKEN announced the incident and reported it to the Personal Information Protection Commission."
+      }
+    ],
+    "impact": [
+      "Names, email addresses and IDs of up to 4,222 Fugaku users were taken or may have been taken (according to RIKEN).",
+      "Names and email addresses of up to 375 users of RIKYU, an AI research supercomputer, are also affected.",
+      "Some credentials for outside access (SSH private keys, access keys) stored in users' home directories are also affected.",
+      "Some research data files are also affected; their number has not been disclosed.",
+      "RIKEN said there is no specific evidence so far that research results have leaked outside.",
+      "It has not been confirmed whether research data of corporate users such as Toyota and Nippon Steel has leaked (according to The Korea Economic Daily and The Financial News).",
+      "Sumitomo Rubber Industries' computations were halted because Fugaku stopped (according to Nikkei xTECH)."
+    ],
+    "cause": [
+      "The intruder used a public web dashboard showing Fugaku's operating status as a foothold to enter the internal operations network (according to RIKEN). RIKEN said it will fix the software vulnerability that was exploited. The specific intrusion method is under investigation.",
+      "The intruder manipulated several internal servers and installed unauthorized programs on some of them. The intruder also tried to use some of the stolen credentials to connect to other systems. Whether this caused secondary damage is being investigated with outside organizations. The attacker's identity and purpose have not been revealed."
+    ],
+    "response": [
+      "RIKEN stopped Fugaku and cut off outside access. It isolated the system used for the intrusion, replaced administrative keys and disabled all users' login public keys. It reported the incident to MEXT, HPCI-related organizations and the Personal Information Protection Commission, in that order (according to RIKEN).",
+      "RIKEN asked users to revoke SSH private keys and other credentials stored on Fugaku at the services they connect to, and to reissue them. It warned users about emails impersonating Fugaku or RIKEN. RIKEN said it never asks for passwords by email.",
+      "RIKEN said that before resuming operations it will fix the vulnerability, rebuild the compromised servers and review the network configuration. It also plans to introduce AI-based security measures. No date for resuming operations has been set. Japan's education minister said the government will quickly strengthen the security of research infrastructure (according to The Financial News)."
+    ],
+    "sources": [
+      {
+        "outlet": "The Korea Economic Daily",
+        "date": "2026-11-17",
+        "url": "https://www.hankyung.com/article/202611170706i"
+      },
+      {
+        "outlet": "RIKEN notice",
+        "date": "2026-11-16",
+        "url": "https://www.riken.jp/pr/news/2026/20261116_2/index.html"
+      },
+      {
+        "outlet": "The Financial News",
+        "date": "2026-11-17",
+        "url": "https://www.fnnews.com/news/202611171518357967"
+      },
+      {
+        "outlet": "Nikkei xTECH",
+        "date": "2026-11-17",
+        "url": "https://xtech.nikkei.com/atcl/nxt/column/18/00001/12182/"
+      }
+    ]
+  },
+  "optimizely-2026-11": {
+    "overview": [
+      "An outside attacker added malicious JavaScript to customer projects at Optimizely, a website experimentation and optimization platform. Optimizely said a vulnerability in its Web Experimentation product was exploited (according to the company's status page). Customer websites that load this script could pass the malicious code to their visitors' browsers.",
+      "Security firm Report URI reviewed 1,611 Optimizely script files and found malicious code in 188 of them. These files belong to 178 organizations. They include Zoom, the BBC, CNN, Salesforce, GitLab and an HSBC insurance site (according to Report URI's analysis and BleepingComputer). Report URI said the real number may be higher.",
+      "This does not mean the internal systems of all 178 organizations were breached. The malicious code reached visitors through an outside script that each website loads. The number of affected visitors and the amount of card data taken have not been disclosed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-16",
+        "event": "Around 4:21 a.m. UTC, Report URI first saw malicious code in an Optimizely script (according to Search Engine Journal)."
+      },
+      {
+        "date": "2026-11-16",
+        "event": "From around 1:43 p.m. UTC, the injected script began targeting card details in payment forms (according to Search Engine Journal)."
+      },
+      {
+        "date": "2026-11-16",
+        "event": "Optimizely identified the incident and blocked the vulnerable path. By around 11:11 p.m. UTC, all infected files were clean (according to Report URI's analysis)."
+      },
+      {
+        "date": "2026-11-17",
+        "event": "At 1:02 a.m. UTC, Optimizely posted a security incident notice on its status page."
+      }
+    ],
+    "impact": [
+      "Malicious code was found in 188 of 1,611 Optimizely script files (according to Report URI's analysis).",
+      "The infected files belong to 178 organizations, and the real number may be higher (according to Report URI's analysis).",
+      "By sector, they include 32 in banking and finance, 23 in technology and software, and 20 in retail (according to CBC News).",
+      "About USD 7,000 in crypto assets reached the attacker's wallets, but the amount actually stolen has not been confirmed (according to BleepingComputer).",
+      "The number of affected visitors and the amount of card data leaked have not been disclosed."
+    ],
+    "cause": [
+      "Optimizely said a vulnerability in the account signup flow of its Web Experimentation product was exploited (according to the company's statement to BleepingComputer). The attacker used it to add malicious JavaScript to some customer projects. How a signup flaw allowed changes to existing customer projects has not been disclosed.",
+      "The malicious code was delivered through Optimizely's normal delivery network, so customer websites loaded it as usual. The code was built to replace crypto wallet addresses shown on the page with the attacker's addresses and to collect card details from payment forms. It could also collect browser cookies and screenshots and load attack tools aimed at iPhones and iPads (according to Report URI's analysis and BleepingComputer). The attacker has not been identified."
+    ],
+    "response": [
+      "Optimizely blocked the vulnerable path and deployed a fix. It removed the injected code, ended active sessions, revoked tokens and reset access for affected accounts. It also used Cloudflare to block delivery of the malicious code (according to BleepingComputer).",
+      "Optimizely said it notified all affected customers and is continuing its investigation. Salesforce turned off Optimizely scripts in its preview and production environments. Salesforce said it will notify customers if it finds unauthorized data access (according to BleepingComputer)."
+    ],
+    "sources": [
+      {
+        "outlet": "CBC News",
+        "date": "2026-11-17",
+        "url": "https://www.cbci.co.kr/news/articleView.html?idxno=627874"
+      },
+      {
+        "outlet": "BleepingComputer",
+        "date": "2026-11-16",
+        "url": "https://www.bleepingcomputer.com/news/security/optimizely-supply-chain-attack-delivers-malware-to-cnn-fox-news-bbc-salesforce-sites/"
+      },
+      {
+        "outlet": "Search Engine Journal",
+        "date": "2026-11-17",
+        "url": "https://www.searchenginejournal.com/optimizely-signup-flaw-malware/597839/"
+      },
+      {
+        "outlet": "Pinpoint News",
+        "date": "2026-11-18",
+        "url": "https://pinpointnews.co.kr/news/articleView.html?idxno=505261"
+      }
+    ]
+  },
+  "gov-email-2026-11": {
+    "overview": [
+      "The work email system used by Korean government agencies was attacked from outside. Abnormal access was found on about 300 accounts (according to the Ministry of the Interior and Safety). The email system is run by the National Information Resources Service (NIRS).",
+      "The ministry believes the attacker came in through the poorly secured networks of some local governments. The investigation found that a flaw in single sign-on (SSO) was exploited along the way. SSO lets a user reach several work systems with one login.",
+      "The ministry reported the personal data leak to the Personal Information Protection Commission (PIPC) and notified the people affected. The types and amount of information leaked have not been disclosed. Whether email bodies or attachments were taken out has not been confirmed either (according to Dailysecu)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-09",
+        "event": "A partner agency notified the Ministry of the Interior and Safety that government work email and other systems had been hacked from outside."
+      },
+      {
+        "date": "2026-11-16",
+        "event": "The ministry announced the incident. It said it was running a joint inspection with the National Intelligence Service (NIS) and the Korea Internet & Security Agency (KISA)."
+      }
+    ],
+    "impact": [
+      "Abnormal access was found on about 300 work email accounts (according to the Ministry of the Interior and Safety).",
+      "The ministry confirmed a personal data leak and reported it to the PIPC.",
+      "The types and amount of personal data leaked have not been disclosed.",
+      "Whether email bodies, attachments or internal documents were taken out has not been confirmed (according to Dailysecu)."
+    ],
+    "cause": [
+      "The attacker first got in through the poorly secured networks of some local governments. The investigation found the attacker then used a flaw in single sign-on (SSO) to reach the work email system run by NIRS (according to the Ministry of the Interior and Safety).",
+      "Which local government's network was used and the exact flaw have not been disclosed. The date of the first intrusion and the attacker's identity are also unknown. The exact cause is being investigated in the joint inspection."
+    ],
+    "response": [
+      "The ministry cut unnecessary connections between local government servers and the work email system. It applied emergency security measures to the email system and stepped up security monitoring. It notified the people whose information was leaked.",
+      "The ministry is running a joint inspection with the NIS and KISA. They plan to check the first intrusion path, how the SSO flaw was exploited, further traces of hacking and any malware left behind. The ministry said it would find the cause and prepare measures to prevent a repeat, including improving SSO, by the end of the year."
+    ],
+    "sources": [
+      {
+        "outlet": "Kyunghyang Shinmun",
+        "date": "2026-11-16",
+        "url": "https://www.khan.co.kr/article/202611161539001/"
+      },
+      {
+        "outlet": "Boannews",
+        "date": "2026-11-16",
+        "url": "https://www.boannews.com/news/articleView.html?idxno=147304"
+      },
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-16",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209553"
+      },
+      {
+        "outlet": "The Korea Economic Daily",
+        "date": "2026-11-16",
+        "url": "https://www.hankyung.com/article/2026111601251"
+      }
+    ]
+  },
+  "kangwon-univ-2026-11": {
+    "overview": [
+      "An unauthorized outsider illegally accessed the server of the integrated research management system of Kangwon National University's Industry-Academic Cooperation Foundation. User information stored on the server was taken outside (according to the university's notice). The foundation announced the leak on its website on Nov 15 and apologized.",
+      "The leaked information includes student and employee ID numbers, names, affiliation, position, employment and registration status, and date of birth. System management information such as user type codes, affiliation codes and last login times was also leaked (according to Kangwon Ilbo). The university said unique identifiers such as resident registration numbers, and sensitive information such as passwords, were not leaked.",
+      "As of Nov 15, 27 victims whose data included a birth date had been confirmed. The total number of people affected has not been disclosed (according to Kangwon Ilbo and Dailysecu). Some outlets reported the number of affected users as 27 (according to Kyunghyang Shinmun)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-14",
+        "event": "Around 6:22 a.m., an unauthorized outsider accessed the integrated research management system server and took user information (according to the university's notice)."
+      },
+      {
+        "date": "2026-11-15",
+        "event": "The foundation announced the leak on its website and apologized."
+      },
+      {
+        "date": "2026-11-16",
+        "event": "Around 2:16 p.m., the foundation announced that it was suspending access to the integrated research management system for an emergency inspection (according to Dailysecu)."
+      }
+    ],
+    "impact": [
+      "As of Nov 15, 27 victims whose data included a birth date had been confirmed (according to Kangwon Ilbo).",
+      "The total number of people affected has not been disclosed.",
+      "The leaked items are student and employee ID numbers, names, affiliation, position, employment and registration status, date of birth, and system management information.",
+      "The university said resident registration numbers and passwords were not leaked.",
+      "With access to the system suspended, research fund applications, spending and settlements may be disrupted (according to Dailysecu)."
+    ],
+    "cause": [
+      "Only the fact that an unauthorized outsider illegally accessed the system server has been disclosed. The intrusion path and method have not been revealed.",
+      "A breach of the research administration system at Daegu Haany University's Industry-Academic Cooperation Foundation was also announced, at the same time on the same day, 6:22 a.m. Whether the two incidents are linked has not been confirmed (according to Dailysecu)."
+    ],
+    "response": [
+      "The foundation blocked the outside access path and checked for vulnerabilities. It is re-checking access rights and strengthening reviews of access logs. It said it would also prepare measures to prevent a recurrence, including training for staff who handle personal information (according to Kyunghyang Shinmun and Kangwon Ilbo).",
+      "It reported the incident to the Korea Internet & Security Agency (KISA), the Ministry of Education and other relevant agencies. It said it would ask investigative authorities to investigate if necessary (according to Kyunghyang Shinmun).",
+      "The head of the foundation apologized and said the foundation would review its personal information protection system from the ground up. The foundation asked users not to respond to calls, text messages or emails impersonating it, and to change their passwords on other sites where they use the same password."
+    ],
+    "sources": [
+      {
+        "outlet": "Kangwon Ilbo",
+        "date": "2026-11-16",
+        "url": "https://www.kwnews.co.kr/article/20261116500090"
+      },
+      {
+        "outlet": "Kyunghyang Shinmun",
+        "date": "2026-11-16",
+        "url": "https://www.khan.co.kr/article/202611161346001/"
+      },
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-16",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209539"
+      },
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-16",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209551"
+      }
+    ]
+  },
+  "megacoffee-2026-11": {
+    "overview": [
+      "MetaM, the contractor that runs the customer center system for coffee franchise Mega MGC Coffee, was attacked from outside. The attacker went through MetaM's servers into the management functions of the customer center system. In the process, the mobile phone numbers of 30 customers who had called the customer center were leaked (according to the company).",
+      "The company said customer names, consultation content, call recordings and payment information were not leaked. However, numbers kept in customer center call records, and mobile numbers and email addresses entered in franchise inquiries on its website, may also have been leaked. The company is still investigating this (according to Newstomato and Segye Ilbo).",
+      "Mega MGC Coffee learned of the incident from the contractor on Nov 15, three days after the intrusion. The company announced it on its website on Nov 17 and apologized."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-12",
+        "event": "From 2:18 a.m. to 3:50 a.m., an outside attacker went through MetaM's servers into the management functions of the customer center system (according to the company). MetaM blocked the attack path the same day (according to Alphabiz)."
+      },
+      {
+        "date": "2026-11-15",
+        "event": "MetaM informed Mega MGC Coffee of the incident."
+      },
+      {
+        "date": "2026-11-16",
+        "event": "Bunjang, which also used the same contractor for customer support, announced that customer phone numbers had been leaked (according to Alphabiz)."
+      },
+      {
+        "date": "2026-11-17",
+        "event": "Mega MGC Coffee announced the incident on its website and apologized."
+      }
+    ],
+    "impact": [
+      "The mobile phone numbers of 30 customers were leaked (according to the company).",
+      "All of the leaked numbers belong to customers who called the customer center.",
+      "The company said names, consultation content, call recordings and payment information were not leaked.",
+      "Whether numbers in call records, and mobile numbers and email addresses left in franchise inquiries, were leaked is under investigation."
+    ],
+    "cause": [
+      "An outside attacker reportedly went through the servers of the contractor MetaM into the management functions of the customer center system (according to Segye Ilbo and Alphabiz). The attacker and the intrusion method have not been disclosed.",
+      "MetaM also handles customer support for other companies. Bunjang said customer phone numbers were also leaked in the same server intrusion (according to Alphabiz)."
+    ],
+    "response": [
+      "The attack path was blocked, server and database passwords were changed, and access was restricted. Access control on the management functions of the customer center phone system was also strengthened. Mega MGC Coffee said it checked the PCs connected to its own systems and found no signs of intrusion (according to Newstomato and Alphabiz).",
+      "The incident was reported to the Korea Internet & Security Agency (KISA) and the Personal Information Protection Commission (PIPC) (according to Segye Ilbo and Newstomato). The company said it would notify customers whose data was confirmed or possibly leaked individually, by text message and other means, by Nov 18. It is also running a 24-hour damage consultation line (according to Alphabiz).",
+      "The company apologized to customers and said it would greatly strengthen security checks and oversight of its contractors. It asked customers to watch out for calls and text messages impersonating the company or its customer center."
+    ],
+    "sources": [
+      {
+        "outlet": "Segye Ilbo",
+        "date": "2026-11-17",
+        "url": "https://www.segye.com/newsView/20261117509489"
+      },
+      {
+        "outlet": "Newstomato",
+        "date": "2026-11-17",
+        "url": "http://www.newstomato.com/ReadNews.aspx?no=1320719"
+      },
+      {
+        "outlet": "Asia Economy",
+        "date": "2026-11-17",
+        "url": "https://view.asiae.co.kr/article/2026111715373571458"
+      },
+      {
+        "outlet": "Alphabiz",
+        "date": "2026-11-17",
+        "url": "https://www.alphabiz.co.kr/news/articleView.html?idxno=198602"
+      }
+    ]
+  },
+  "osaka-city-2026-11": {
+    "overview": [
+      "An outside service that the City of Osaka's \"Administrative Online System\" used to send email was accessed without authorization. The system is provided by TKC, and its email was sent through an email delivery service run by Arara (according to the City of Osaka). The city said no unauthorized access to its own system or to TKC's data center has been confirmed.",
+      "In its final report on Nov 13, the city said 1,078,713 user email addresses were leaked. The addresses are those that received email from the system between Jul 1 and Oct 31, 2026. It was confirmed that email bodies, My Number information and application information were not leaked (according to the City of Osaka).",
+      "Arara said about 77 million email addresses from nearly 400 customers were taken in the breach. The attacker used Arara's email delivery service to send millions of emails impersonating card companies and financial institutions (according to Boannews). The attacker's identity has not been revealed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-28",
+        "event": "Arara confirmed unauthorized access to part of the servers of its email delivery service \"Arara Message\" (according to ScanNetSecurity)."
+      },
+      {
+        "date": "2026-10-31",
+        "event": "Around 5:40 p.m., emergency maintenance began to stop the damage from spreading. From then on, the city's system could not send email (according to the City of Osaka)."
+      },
+      {
+        "date": "2026-11-02",
+        "event": "TKC reported to the city that user information may have been leaked."
+      },
+      {
+        "date": "2026-11-03",
+        "event": "In its first report, the city said email addresses, names and other information may have been leaked."
+      },
+      {
+        "date": "2026-11-04",
+        "event": "In its second report, the city said the only information that may have leaked was email addresses. It said email bodies, My Number information and application information were not leaked."
+      },
+      {
+        "date": "2026-11-13",
+        "event": "In its final report, the city said 1,078,713 email addresses were leaked."
+      }
+    ],
+    "impact": [
+      "1,078,713 email addresses of users of the city's Administrative Online System were leaked (according to the City of Osaka).",
+      "The affected people are those who received email from the system between Jul 1 and Oct 31, 2026.",
+      "The city explained that the count is large because a notice was emailed to all registered users on Sep 16.",
+      "It was confirmed that email bodies, My Number information and application information were not leaked (according to the City of Osaka).",
+      "Because email sending stopped, users could not register, change their email address or reset their password in the system (according to the city's second report).",
+      "The city's premium gift voucher program, which used the same service, also had email addresses leaked: about 34,000 of users and about 15,000 of participating stores (according to Kyodo News).",
+      "The number of email addresses taken from the whole Arara service rose to 81,329,467 (according to ScanNetSecurity)."
+    ],
+    "cause": [
+      "The intrusion happened not at the city or TKC but at Arara, the outside service that sent the email. Arara explained that a third party exploited a web server vulnerability and problems in part of its system environment (according to ScanNetSecurity). The specific vulnerability and the attacker's identity have not been disclosed."
+    ],
+    "response": [
+      "The city said it will keep requiring TKC to report the cause, the scope of the damage and measures to prevent a recurrence in detail. It will also review how the outside service handles personal information, its safety management measures and how the city works with the provider. How to notify the affected users directly is under consideration (according to the City of Osaka).",
+      "The city urged people to be careful of suspicious emails impersonating the city or the system. It told them not to open links or attachments in such emails and not to enter IDs, passwords or card information. The city said it will not tell people individually whether their address is affected."
+    ],
+    "sources": [
+      {
+        "outlet": "Boannews",
+        "date": "2026-11-16",
+        "url": "https://www.boannews.com/news/articleView.html?idxno=147279"
+      },
+      {
+        "outlet": "City of Osaka notice (final report)",
+        "date": "2026-11-13",
+        "url": "https://www.city.osaka.lg.jp/hodoshiryo/ictsenryakushitsu/0000691472.html"
+      },
+      {
+        "outlet": "Kyodo News (via Kumamoto Nichinichi Shimbun)",
+        "date": "2026-11-13",
+        "url": "https://kumanichi.com/articles/2057408"
+      },
+      {
+        "outlet": "ScanNetSecurity",
+        "date": "2026-11-12",
+        "url": "https://scan.netsecurity.ne.jp/article/2026/11/12/56759.html"
       }
     ]
   }
