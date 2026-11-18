@@ -12,6 +12,7 @@ const en = lang === 'en';
 // 자료실 > 영상. Adding a video is one line in `videos`:
 //   title, youtube (the id from youtube.com/watch?v=<id>; empty = 공개 준비 중), and optionally
 //   length ('12:30', as YouTube shows it), date ('2026.11', newest first), cat (one of CATS), note (featured only),
+//   poster ('/images/videos/<name>.jpg', the same image as the YouTube thumbnail; without one YouTube's is used),
 //   featured: true (the large one; it stays put however many videos are added; without one, the first is used),
 //   en: { title, note, youtube } for the English page (youtube: the English cut's id; without one the Korean video
 //   plays there, so end the title with "(Korean)").
@@ -23,14 +24,14 @@ const CATS_EN = ['About us', 'Product demos', 'Talks and seminars', 'Interviews'
 const CHANNEL = 'https://www.youtube.com/@SYINNOVATION';
 const PAGE = 6, SIDE = 3, FILTER_FROM = 20, CAT_MIN = 3, CHANNEL_FROM = 11;
 
-interface Video { title: string; youtube: string; length?: string; date?: string; cat?: string; note?: string; featured?: boolean; en?: { title: string; note?: string; youtube?: string } }
+interface Video { title: string; youtube: string; poster?: string; length?: string; date?: string; cat?: string; note?: string; featured?: boolean; en?: { title: string; note?: string; youtube?: string; poster?: string } }
 const videos: Video[] = [
   { title: '신영이노베이션 소개', note: '신영이노베이션이 하는 일과 Trust Gateway를 소개합니다.', youtube: '', cat: '회사 소개', featured: true,
     en: { title: 'About SYINNOVATION (Korean)', note: 'An introduction to what SYINNOVATION does and to Trust Gateway.' } },
-  { title: '결제 이상거래 탐지 시연', youtube: 'pFHPBdYVce0', length: '0:43', date: '2026.11', cat: '제품 시연',
-    en: { title: 'Payment fraud detection demo', youtube: '98huDt6B5Q0' } },
-  { title: '직원 업무 접속 시연', youtube: 'KhKz7Gh8ehU', length: '0:59', date: '2026.11', cat: '제품 시연',
-    en: { title: 'Employee work access demo', youtube: '0EYy5nCT380' } },
+  { title: '결제 이상거래 탐지 시연', youtube: 'pFHPBdYVce0', poster: '/images/videos/payment-fds-ko.jpg', length: '0:43', date: '2026.11', cat: '제품 시연',
+    en: { title: 'Payment fraud detection demo', youtube: '98huDt6B5Q0', poster: '/images/videos/payment-fds-en.jpg' } },
+  { title: '직원 업무 접속 시연', youtube: 'KhKz7Gh8ehU', poster: '/images/videos/employee-access-ko.jpg', length: '0:59', date: '2026.11', cat: '제품 시연',
+    en: { title: 'Employee work access demo', youtube: '0EYy5nCT380', poster: '/images/videos/employee-access-en.jpg' } },
 ];
 // English page: the English title, note and category in place of the Korean
 if (en) for (const v of videos) { Object.assign(v, v.en); if (v.cat) v.cat = CATS_EN[CATS.indexOf(v.cat)]; }
@@ -56,23 +57,23 @@ const filters = videos.length >= FILTER_FROM && cats.length >= 2;
       )}
 
       <div class="top reveal" data-side={side.length}>
-        <VideoTile size="big" title={featured.title} youtube={featured.youtube} length={featured.length} note={featured.note} />
+        <VideoTile size="big" title={featured.title} youtube={featured.youtube} poster={featured.poster} length={featured.length} note={featured.note} />
         {side.length > 0 && (
           <ul class="side" style={`--n: ${side.length}`}>
-            {side.map((v) => <li><VideoTile size="side" title={v.title} youtube={v.youtube} length={v.length} /></li>)}
+            {side.map((v) => <li><VideoTile size="side" title={v.title} youtube={v.youtube} poster={v.poster} length={v.length} /></li>)}
           </ul>
         )}
       </div>
 
       {grid.length > 0 && (
         <ul class="vgrid reveal" data-list="latest">
-          {grid.map((v, i) => <li data-cat={v.cat} hidden={i >= PAGE}><VideoTile title={v.title} youtube={v.youtube} length={v.length} /></li>)}
+          {grid.map((v, i) => <li data-cat={v.cat} hidden={i >= PAGE}><VideoTile title={v.title} youtube={v.youtube} poster={v.poster} length={v.length} /></li>)}
         </ul>
       )}
       {/* a chosen category lists all its videos here (newest first), in place of the layout above */}
       {filters && (
         <ul class="vgrid" data-list="all" hidden>
-          {[featured, ...rest].map((v) => <li data-cat={v.cat}><VideoTile title={v.title} youtube={v.youtube} length={v.length} /></li>)}
+          {[featured, ...rest].map((v) => <li data-cat={v.cat}><VideoTile title={v.title} youtube={v.youtube} poster={v.poster} length={v.length} /></li>)}
         </ul>
       )}
       {(grid.length > PAGE || filters) && <button type="button" class="more" data-page={PAGE} hidden={grid.length <= PAGE}>{en ? <>More videos</> : <>영상 더보기</>}</button>}
