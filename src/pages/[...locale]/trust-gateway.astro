@@ -24,7 +24,8 @@ const uses = useCases(lang);
 
 // from the tech doc v0.3 (ch. 2.2, 5.2, 5.4, 6.1, 6.5) and the demo page (signed identity per request)
 const attacks = [
-  { k: '비밀번호를 훔쳤다면', v: '비밀번호만으로는 열리지 않습니다. 등록된 PC의 기기 인증서와 본인 휴대폰의 생체 확인이 함께 필요합니다.' },
+  // Trust Gateway has no passwords at all (user, 2026-11-18)
+  { k: '비밀번호를 노린다면', v: '노릴 비밀번호가 없습니다. 등록된 PC의 기기 인증서와 본인 휴대폰의 생체 확인으로만 들어옵니다.' },
   { k: 'PC 인증서를 복사해 간다면', v: '키는 PC와 휴대폰의 보안 칩 안에서 만들어지고 밖으로 나오지 않습니다. 복사한 파일만으로는 접속할 수 없습니다.' },
   { k: '업무 PC를 통째로 훔쳤다면', v: 'PC와 휴대폰의 위치가 어긋나 추가 인증을 요청합니다. 확인 요청은 휴대폰으로만 가므로 PC만으로는 통과할 수 없습니다.' },
   { k: '통신을 가로채 다시 보낸다면', v: 'TLS 1.3 상호 인증과 서버 공개키 고정으로 연결합니다. 신원은 매번 새로 서명해, 가로챈 값을 다시 보내도 통하지 않습니다.' },
@@ -54,7 +55,7 @@ const pocGroups = [
 
 // English (docs/i18n-terms.md): the same facts, hedges and limits as the Korean above
 const attacksEn = [
-  { k: 'If they steal the password', v: "A password alone opens nothing. The device certificate of a registered PC and a biometric check on the user's own phone are both required." },
+  { k: 'If they go after the password', v: "There is no password to go after. Access takes the device certificate of a registered PC and a biometric check on the user's own phone." },
   { k: 'If they copy the PC certificate', v: 'Keys are created inside the security chips of the PC and the phone and never leave them. A copied file alone cannot connect.' },
   { k: 'If they steal the whole work PC', v: "The PC's and the phone's locations do not match, so step-up authentication is requested. The request goes only to the phone, so the PC alone cannot pass." },
   { k: 'If they intercept and replay traffic', v: 'Connections use TLS 1.3 mutual authentication and server public key pinning. The identity is signed anew each time, so replaying an intercepted value does not work.' },
@@ -123,7 +124,7 @@ const faq = [
     <div class="wrap">
       <div class="head-center reveal">
         <h2 class="h2">{en ? <>If an attacker tries this</> : <>공격자가 이렇게 시도한다면</>}</h2>
-        <p class="lead">{en ? <>It does not rely on a single password; it asks for several proofs at once.</> : <>비밀번호 하나에 기대지 않고, 여러 증거를 동시에 요구합니다.</>}</p>
+        <p class="lead">{en ? <>No passwords: it asks for several proofs at once.</> : <>비밀번호 없이, 여러 증거를 동시에 요구합니다.</>}</p>
       </div>
       <ul class="atk">
         {(en ? attacksEn : attacks).map((a, i) => (

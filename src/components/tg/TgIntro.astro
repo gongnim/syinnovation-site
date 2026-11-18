@@ -62,7 +62,7 @@ const chapters = [
   { n: en ? 'Into the company' : '회사 안으로', area: 4, hold: [55.2, 62], t: en ? 'Company servers open no door to the internet. The Internal Agent connects to Trust Gateway from inside first, and requests come in only over that connection.' : '회사 서버는 인터넷에 문을 열지 않습니다. 회사 안의 에이전트가 Trust Gateway에 먼저 연결해 두고, 요청은 그 연결로만 들어갑니다.' },
   { n: en ? 'Arrival' : '도착', area: 5, hold: [63.2, 70], t: en ? 'Only the permitted business systems open, and the verified identity is passed along. The rest stay closed.' : '허락된 업무 시스템만 열리고, 확인된 신원이 함께 전달됩니다. 나머지는 닫혀 있습니다.' },
   { n: en ? 'Record' : '기록', area: 6, hold: [71.2, 79], t: en ? 'Every decision is logged with its reasons, and admins see it in the Admin Console.' : '모든 판정은 근거와 함께 남고, 관리자는 관리 콘솔에서 봅니다.' },
-  { n: 'Trust Gateway', area: 7, hold: [80.2, 92], t: en ? 'From start to record, every request is checked with signals from the PC and the phone. Even if a password leaks, company systems do not open.' : '출발부터 기록까지, 모든 요청을 PC와 휴대폰의 신호로 확인합니다. 비밀번호가 새어 나가도 회사 시스템은 열리지 않습니다.' },
+  { n: 'Trust Gateway', area: 7, hold: [80.2, 92], t: en ? 'From start to record, every request is checked with signals from the PC and the phone. There are no passwords to leak.' : '출발부터 기록까지, 모든 요청을 PC와 휴대폰의 신호로 확인합니다. 새어 나갈 비밀번호가 없습니다.' },
 ];
 const still = 3; // 신호 대조: shown still with reduced motion or no JavaScript
 const shift = (a: number) => `translateX(${(-(a * 100) / AREAS).toFixed(4)}%)`;
