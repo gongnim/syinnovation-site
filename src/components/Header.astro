@@ -63,8 +63,9 @@ const KEY = href('/trust-gateway', lang); // the main product turns brand orange
      The contact button sits outside the bar, on its right. */
   .hdr {
     /* the web logo (smaller symbol, larger text than the CI lockup) with its "RE:Think innovation" tagline. At 150px
-       the tagline was about 5px tall and looked broken on 100%-scale monitors (user, 2026-11-17), so it is larger */
-    --logo-w: clamp(140px, 6vw + 92px, 188px);
+       the tagline was about 5px tall and looked broken on 100%-scale monitors (user, 2026-11-17); at 188px the logo
+       was too big for the bar (user, 2026-11-18), so it sits between */
+    --logo-w: clamp(136px, 2vw + 128px, 160px);
     --bar-h: clamp(60px, 0.78vw + 57px, 72px);
     position: fixed; top: 24px; left: 50%; z-index: 50; width: min(100% - 40px, 1236px);
     transform: translate3d(-50%, 0, 0); transition: transform 520ms cubic-bezier(0.22, 0.65, 0.3, 1); will-change: transform;
