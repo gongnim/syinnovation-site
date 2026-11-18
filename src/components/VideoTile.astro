@@ -57,8 +57,15 @@ const Tag = youtube ? 'button' : 'div';
   .soon { flex: none; padding: 4px 10px; border-radius: 999px; background: rgb(255 255 255 / .14); font-size: 12px; font-weight: 600; color: rgb(255 255 255 / .82); }
 
   @media (max-width: 767px) {
-    .tile.big .cap { left: 18px; right: 18px; bottom: 16px; }
-    .tile.big .note { display: none; }
+    /* the featured tile: its title moves under the picture (over it, it covered the poster's own title) */
+    .tile.big { aspect-ratio: auto; border-radius: 0; overflow: visible; background: none; color: var(--ink); }
+    .tile.big .thumb { position: relative; inset: auto; aspect-ratio: 16 / 9; border-radius: 14px; overflow: hidden; background: #111a2b; }
+    .tile.big .shade { display: none; }
+    .tile.big .play { width: 54px; height: 54px; }
+    .tile.big .cap { position: static; margin-top: 12px; align-items: baseline; }
+    .tile.big .t { font-size: 19px; }
+    .tile.big .note { font-size: 14px; color: var(--ink-2); }
+    .tile.big .len { padding: 0; background: none; color: var(--ink-3); }
     /* side and card tiles become list rows: thumbnail on the left, dark title on the right */
     .tile.side, .tile.card { display: grid; grid-template-columns: 42% minmax(0, 1fr); align-items: center; gap: 14px; height: auto; min-height: 0; aspect-ratio: auto; border-radius: 0; overflow: visible; background: none; color: var(--ink); }
     .tile.side .thumb, .tile.card .thumb { position: relative; inset: auto; aspect-ratio: 16 / 9; border-radius: 10px; overflow: hidden; background: #111a2b; }

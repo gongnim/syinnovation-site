@@ -127,8 +127,9 @@ const filters = videos.length >= FILTER_FROM && cats.length >= 2;
   :global(html:has(.player[open])) { overflow: hidden; }
 
   @media (max-width: 1023px) {
-    .top { grid-template-columns: minmax(0, 1fr); }
-    .side { grid-template-rows: none; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    /* [data-side] too: those column rules are more specific and kept the 2 : 1 split on phones */
+    .top, .top[data-side] { grid-template-columns: minmax(0, 1fr); }
+    .side { grid-template-rows: none; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); } /* as many columns as side videos, no empty slot */
     .side :global(.tile.side) { height: auto; aspect-ratio: 16 / 9; }
     .vgrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
