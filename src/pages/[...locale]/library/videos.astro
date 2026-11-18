@@ -96,7 +96,11 @@ const filters = videos.length >= FILTER_FROM && cats.length >= 2;
   .lib { padding-top: 0; }
 
   /* first row: the featured video and, beside it, up to three newest stacked to the same height */
-  .top { display: grid; grid-template-columns: minmax(0, 2.6fr) minmax(0, 1fr); gap: 16px; }
+  /* n side tiles stacked beside the 16:9 featured one stay close to 16:9 (no cropped thumbnails) when the columns
+     are about n : 1 */
+  .top { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 1fr); gap: 16px; }
+  .top[data-side='2'] { grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); }
+  .top[data-side='1'] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
   .top[data-side='0'] { grid-template-columns: minmax(0, 1fr); }
   .side { list-style: none; margin: 0; padding: 0; display: grid; grid-template-rows: repeat(var(--n), minmax(0, 1fr)); gap: 16px; }
   .side li { min-height: 0; }
