@@ -1,7 +1,7 @@
 ---
 import { langOf, href, dateText } from '../../../../lib/i18n';
 import { pageNumbers } from '../../../../lib/pager.js';
-// 소식 > 취약점 소식: vulnerabilities reported in the Korean press, newest first, each with what to do about it.
+// 소식 > 보안뉴스 (was 취약점 소식, renamed by the user 2026-11-19): vulnerabilities reported in the Korean press, newest first, each with what to do about it.
 // A row shows the date, the product, the severity and status as reported, and the headline (linking to the article);
 // 할 일 opens who is affected, how to check and update (src/data/vuln-howto.json, from the vendors' support pages), the
 // fixed version and temporary measure when the article or notice names them, and the official notices.
@@ -53,7 +53,7 @@ const SEVERITY_EN: Record<string, string> = { 치명적: 'Critical', 고위험: 
 const sev = (s: string) => (en ? SEVERITY_EN[s] ?? s : s);
 const step = (s: string | Step) => (typeof s === 'string' ? { t: s } : s);
 ---
-<Base title={en ? (page > 1 ? `Vulnerabilities - page ${page}` : 'Vulnerabilities') : (page > 1 ? `취약점 소식 - ${page}페이지` : '취약점 소식')} description={en ? 'Software and device vulnerabilities reported in the Korean press, with who is affected and what to do: how to check your version, how to update, and the official notices.' : '국내 언론에 보도된 소프트웨어·기기 취약점과, 누가 해당되는지, 무엇을 하면 되는지. 버전 확인, 업데이트 방법, 공식 공지까지 정리합니다.'} tone="light">
+<Base title={en ? (page > 1 ? `Security News - page ${page}` : 'Security News') : (page > 1 ? `보안뉴스 - ${page}페이지` : '보안뉴스')} description={en ? 'Software and device vulnerabilities reported in the Korean press, with who is affected and what to do: how to check your version, how to update, and the official notices.' : '국내 언론에 보도된 소프트웨어·기기 취약점과, 누가 해당되는지, 무엇을 하면 되는지. 버전 확인, 업데이트 방법, 공식 공지까지 정리합니다.'} tone="light">
   <PageTitle title={en ? 'News' : '소식'}>{en ? <>Follow SYINNOVATION news and press coverage,<br />and security issues worth a look.</> : <>신영이노베이션의 소식과 언론 보도,<br />함께 볼 만한 보안 이슈를 놓치지 마세요.</>}<ResourceTabs slot="after" items={menu(newsNav, lang)} label={en ? 'News menu' : '소식 메뉴'} /></PageTitle>
 
   <section class="vuln" id="list">
@@ -134,7 +134,7 @@ const step = (s: string | Step) => (typeof s === 'string' ? { t: s } : s);
               );
             })}
           </ul>
-        : <p class="empty">{en ? <>No vulnerability news yet.</> : <>아직 정리된 취약점 소식이 없습니다.</>}</p>}
+        : <p class="empty">{en ? <>No security news yet.</> : <>아직 정리된 보안뉴스가 없습니다.</>}</p>}
       {pages > 1 && (
         <nav class="pager" aria-label={en ? 'Pages' : '페이지'}>
           {page > 1

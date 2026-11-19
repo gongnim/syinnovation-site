@@ -115,7 +115,7 @@ export const security = (incidents as Incident[])
 export const pressPage = 12;
 export const fmt = (d: string) => d.replaceAll('-', '.');
 
-// 취약점 소식 (/news/vulnerabilities): vulnerability news with what to do about it. Rows come from the collector
+// 보안뉴스 (/news/vulnerabilities, renamed from 취약점 소식 on 2026-11-19): vulnerability news with what to do about it. Rows come from the collector
 // (scripts/collect-vuln-news.mjs, auto: true) or are written by hand (no auto: the collector only adds outlets to
 // them); hidden: true takes a row off the site and keeps its flaw from being added again. The steps under 할 일 come
 // from src/data/vuln-howto.json by product key.
@@ -140,5 +140,5 @@ export interface Vuln {
   hidden?: boolean;
 }
 export const vulns = (vulnRows as Vuln[]).filter((v) => !v.hidden).sort((a, b) => b.date.localeCompare(a.date));
-/** rows per page of 취약점 소식 (/news/vulnerabilities, /news/vulnerabilities/page/2, …) */
+/** rows per page of 보안뉴스 (/news/vulnerabilities, /news/vulnerabilities/page/2, …) */
 export const vulnPage = 20;

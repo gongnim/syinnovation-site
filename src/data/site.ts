@@ -86,7 +86,7 @@ export const libraryNav: MenuItem[] = [
 export const newsNav: MenuItem[] = [
   { href: '/news', label: '사내소식', en: 'Company news' },
   { href: '/news/press', label: '언론보도', en: 'In the press' },
-  { href: '/news/vulnerabilities', label: '취약점 소식', en: 'Vulnerabilities' },
+  { href: '/news/vulnerabilities', label: '보안뉴스', en: 'Security News' },
 ];
 
 export const nav: MenuItem[] = [
