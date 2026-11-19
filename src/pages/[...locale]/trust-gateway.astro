@@ -25,16 +25,16 @@ const uses = useCases(lang);
 // from the tech doc v0.3 (ch. 2.2, 5.2, 5.4, 6.1, 6.5) and the demo page (signed identity per request)
 const attacks = [
   // Trust Gateway has no passwords at all (user, 2026-11-18)
-  { k: '비밀번호를 노린다면', v: '노릴 비밀번호가 없습니다. 등록된 PC의 기기 인증서와 본인 휴대폰의 생체 확인으로만 들어옵니다.' },
-  { k: 'PC 인증서를 복사해 간다면', v: '키는 PC와 휴대폰의 보안 칩 안에서 만들어지고 밖으로 나오지 않습니다. 복사한 파일만으로는 접속할 수 없습니다.' },
-  { k: '업무 PC를 통째로 훔쳤다면', v: 'PC와 휴대폰의 위치가 어긋나 추가 인증을 요청합니다. 확인 요청은 휴대폰으로만 가므로 PC만으로는 통과할 수 없습니다.' },
+  { k: '비밀번호를 노린다면', v: '노릴 비밀번호가 없습니다. 등록된 PC의 기기 인증서와 본인 휴대폰의 승인(생체 인증 또는 PIN)으로만 들어옵니다.' },
+  { k: 'PC 인증서를 복사해 간다면', v: '키는 PC와 휴대폰의 보안 칩을 우선 사용해 만들고, 보안 칩에서 만든 키는 밖으로 꺼낼 수 없습니다. 보안 칩 없이 만든 키는 위험을 더 높게 반영합니다.' },
+  { k: '업무 PC를 통째로 훔쳤다면', v: 'PC와 휴대폰의 위치가 어긋나면, 회사 정책에 따라 추가 인증을 요청합니다. 확인 요청은 휴대폰으로만 가므로 PC만으로는 통과할 수 없습니다.' },
   { k: '통신을 가로채 다시 보낸다면', v: 'TLS 1.3 상호 인증과 서버 공개키 고정으로 연결합니다. 신원은 매번 새로 서명해, 가로챈 값을 다시 보내도 통하지 않습니다.' },
-  { k: '퇴사자가 예전 권한을 쓴다면', v: '인사 시스템과 연동해 퇴사를 반영하고 인증서를 폐기합니다. PC 인증서는 12시간만 유효하고, 다시 받으려면 매번 승인을 거쳐야 합니다.' },
-  { k: '기기를 잃어버렸다면', v: '관리 콘솔에서 인증서를 폐기하면 다음 요청부터 바로 거부됩니다.' },
+  { k: '퇴사자가 예전 권한을 쓴다면', v: '퇴사 처리에서 사용자와 PC의 연결을 해제하고, 개인 휴대폰 인증 수단을 회수합니다. PC 인증서는 12시간만 유효하고, 다시 받으려면 매번 휴대폰 승인을 거쳐야 합니다.' },
+  { k: '기기를 잃어버렸다면', v: '관리 콘솔에서 인증서를 폐기하면, 폐기 정보가 반영된 뒤 들어오는 요청부터 거부됩니다.' },
 ];
 const rules = [
-  { t: '정책에 정한 것만 통과', d: '판단할 정보가 없으면 열지 않습니다. 정책의 기본값도 거부입니다.' },
-  { t: '위험한 기기는 처음부터 차단', d: '탈옥되거나 루팅된 휴대폰, 에뮬레이터, 디버거가 붙은 앱은 막습니다. 정품 앱인지는 Apple과 Google의 앱 무결성 검증으로 확인합니다.' },
+  { t: '정책에 정한 것만 통과', d: '판단할 정보가 없으면 거부를 기본으로 합니다. 정책 판정이 실패할 때의 기본값도 거부입니다.' },
+  { t: '기기 상태도 확인', d: '휴대폰의 루팅과 디버그 신호, OS와 보안 패치, 화면 잠금을 판정에 씁니다. 정품 앱과 기기인지는 Apple App Attest와 Google Play Integrity로 확인하고, 기기 보안 상태가 확인된 상태에서 벗어나면 세션을 끝내고 인증서를 폐기합니다.' },
   { t: '들어오는 포트 없음', d: '고객 사내망은 들어오는 포트를 열지 않습니다. 내부 에이전트가 Trust Gateway에 먼저 연결하고, 요청은 그 연결로만 들어옵니다.' },
 ];
 
@@ -55,16 +55,16 @@ const pocGroups = [
 
 // English (docs/i18n-terms.md): the same facts, hedges and limits as the Korean above
 const attacksEn = [
-  { k: 'If they go after the password', v: "There is no password to go after. Access takes the device certificate of a registered PC and a biometric check on the user's own phone." },
-  { k: 'If they copy the PC certificate', v: 'Keys are created inside the security chips of the PC and the phone and never leave them. A copied file alone cannot connect.' },
-  { k: 'If they steal the whole work PC', v: "The PC's and the phone's locations do not match, so step-up authentication is requested. The request goes only to the phone, so the PC alone cannot pass." },
+  { k: 'If they go after the password', v: "There is no password to go after. Access takes the device certificate of a registered PC and approval on the user's own phone (biometrics or PIN)." },
+  { k: 'If they copy the PC certificate', v: "Keys are made in the PC's and the phone's security chips wherever possible, and a key made in a chip can't be taken out. A key made without a chip is treated as higher risk." },
+  { k: 'If they steal the whole work PC', v: "If the PC's and the phone's locations do not match, step-up authentication is requested, depending on company policy. The request goes only to the phone, so the PC alone cannot pass." },
   { k: 'If they intercept and replay traffic', v: 'Connections use TLS 1.3 mutual authentication and server public key pinning. The identity is signed anew each time, so replaying an intercepted value does not work.' },
-  { k: 'If a former employee uses old permissions', v: 'Departures are synced from the HR system and certificates are revoked. A PC certificate is valid for only 12 hours, and getting a new one needs approval every time.' },
-  { k: 'If a device is lost', v: 'Once its certificate is revoked in the Admin Console, requests are denied right away, starting with the next one.' },
+  { k: 'If a former employee uses old permissions', v: "On departure, the user's binding to the PC is released and their personal phone credentials are revoked. A PC certificate is valid for only 12 hours, and getting a new one needs phone approval every time." },
+  { k: 'If a device is lost', v: 'Revoke its certificate in the Admin Console, and requests that arrive after the revocation takes effect are denied.' },
 ];
 const rulesEn = [
-  { t: 'Only what the policy allows passes', d: "Without the information needed to decide, nothing opens. The policy's default is also deny." },
-  { t: 'Risky devices are blocked from the start', d: "Jailbroken or rooted phones, emulators and apps with a debugger attached are blocked. Whether an app is genuine is checked with Apple's and Google's app integrity verification." },
+  { t: 'Only what the policy allows passes', d: 'Without the information needed to decide, the default is to deny. When a policy decision fails, the default is also deny.' },
+  { t: 'Device state is checked too', d: "The phone's rooting and debug signals, OS and patch level and screen lock feed into decisions. Apple App Attest and Google Play Integrity check that the app and device are genuine, and if a device's security state moves away from its verified state, the session is ended and the certificate revoked." },
   { t: 'No inbound ports', d: "The customer's internal network opens no inbound ports. The Internal Agent connects to Trust Gateway first, and requests come in only through that connection." },
 ];
 const rolloutEn = [
@@ -79,31 +79,31 @@ const pocGroupsEn = [
 ];
 const faqEn = [
   { q: 'Are Zero Trust and Trust Gateway the same thing?', a: 'No. Zero Trust is a security principle, "trust no one and verify each time", and US NIST and CISA, as well as Korea\'s Ministry of Science and ICT, have published standards for it. Trust Gateway is SYINNOVATION\'s solution, developed by applying that principle.' },
-  { q: 'Do we have to turn off our VPN right away?', a: 'No. Keep your existing VPN and connect one business service to Trust Gateway first. Expand services and users as you check the results; during the move, both ways of connecting can be used side by side.' },
-  { q: 'What needs to be installed?', a: `On the company side, the Internal Agent is installed on an in-house Linux server (RHEL family, Ubuntu). The firewall only needs to allow outbound connections, and no dedicated appliance is needed. Employees install the User Agent on their PC (Windows 10 · 11, macOS 12 or later) and the ${appName} app on their phone.` },
+  { q: 'Do we have to turn off our VPN right away?', a: 'No. Keep your existing VPN and connect one business service to Trust Gateway first. Expand services and users as you check the results. Requests that Trust Gateway does not protect keep their existing route.' },
+  { q: 'What needs to be installed?', a: `On the company side, the Internal Agent is installed on an in-house Linux server (RHEL family, Ubuntu). No inbound firewall rules from the internet are needed; only the outbound path to Trust Gateway and the path to internal services are set up. Employees install the User Agent on their PC (Windows 10 · 11, macOS 12 or later) and the ${appName} app on their phone.` },
   { q: 'Which business systems does it work with?', a: 'It works with business systems used in a web browser (HTTP · HTTPS), such as groupware, ERP and HR systems. On Windows PCs, access is through Chrome and Edge. Common actions such as logging in and uploading and downloading files are checked together, service by service, before rollout.' },
-  { q: 'Do we have to change our business systems?', a: 'No. Existing logins can stay as they are. The gateway signs the verified user identity and sends it along, so if you wish, a business system can recognize users by this identity and spare them a second login. Menus and data permissions inside each service stay managed by each business system, as now.' },
+  { q: 'Do we have to change our business systems?', a: "If existing logins stay, the business system's own authentication and permission checks carry on after the gateway allows a request. The gateway signs the verified user identity and sends it along, so with per-service setup such as account mapping, users can skip a second login. Login redirects, cookies and file upload and download are checked service by service before rollout. Menus and data permissions inside each service stay managed by each business system, as now." },
   { q: 'Is a phone required?', a: `Yes. Trust Gateway verifies people with their phone. Employees without a phone registered with the ${appName} app (iOS 16 or later, Android 9 or later) cannot connect through Trust Gateway. Approval is by biometric authentication such as Face ID or fingerprint, or by the phone's PIN.` },
   { q: "Does the company see employees' biometric data or location?", a: "Biometric data and the phone PIN never leave the phone. The server checks only signatures made with a key in the phone's secure area. Signals such as location and Wi-Fi are used to check that the PC and the phone are in the same place; what is collected, who may view it and how long it is kept are agreed with you when you adopt Trust Gateway." },
-  { q: 'What if a phone or PC is lost?', a: "Revoke the lost device's certificate and authentication methods in the Admin Console, and requests are denied right away, starting with the next one. The phone cannot approve anything without biometric authentication or the PIN. A new phone is registered again with a one-time code sent to the company email." },
+  { q: 'What if a phone or PC is lost?', a: "Revoke the lost device's certificate and authentication methods in the Admin Console, and requests that arrive after the revocation takes effect are denied. The phone cannot approve anything without biometric authentication or the PIN. A new phone is registered again through the recovery procedure." },
   { q: "Won't employees be locked out right after rollout?", a: 'New decision features run first in a "detect only" mode, so you can see what decisions normal work produces before switching them to enforcement. You start with some users and services, verify the whole flow from registration to revoking access, then expand. Essential checks such as certificate verification apply from the start.' },
   { q: "Won't access get slower?", a: 'When a request arrives, it is decided at once from a risk state calculated in advance. Heavy analysis such as comparing PC and phone signals or anomaly detection runs separately from requests and applies from the next decision, so requests never wait for the analysis.' },
-  { q: 'What happens if Trust Gateway has a problem?', a: 'The principle is not to open when the information needed to decide cannot be confirmed. There is no bypass that lets traffic through unchecked. Internal Agents can be split into active and standby, so if one cannot be used, traffic moves to the other. Disaster recovery procedures are set together at rollout.' },
+  { q: 'What happens if Trust Gateway has a problem?', a: "When the information needed to decide is missing, the default is to deny. If revocation data or the user's binding can't be confirmed, the request is denied. If a configuration uses allow exceptions, where they apply and whether required checks stay in place are confirmed at rollout. Internal Agents can be split into active and standby, so if the active one can't be used, traffic moves to the standby." },
   { q: 'Where are records kept, and for how long?', a: 'Every access decision is recorded with its result and reasons (which signals and rules applied), and can be viewed decision by decision in the Admin Console. Certificate issuance and revocation history is chained with hashes, so changed or missing records can be found with a verification tool. The retention period is agreed with you when you adopt Trust Gateway.' },
 ];
 
 const faq = [
   { q: '제로트러스트와 Trust Gateway는 같은 건가요?', a: '아니요. 제로트러스트는 「아무도 믿지 않고 매번 확인한다」는 보안 원칙이고, 미국 NIST·CISA와 한국 과학기술정보통신부가 기준을 공개했습니다. Trust Gateway는 그 원칙을 적용하여 개발한 신영이노베이션의 솔루션입니다.' },
-  { q: 'VPN을 바로 꺼야 하나요?', a: '아니요. 기존 VPN은 그대로 두고, 업무 서비스 하나부터 Trust Gateway로 연결합니다. 결과를 확인하며 서비스와 사용자를 넓히고, 옮기는 동안에는 기존 접속 방식과 함께 쓸 수 있습니다.' },
-  { q: '무엇을 설치해야 하나요?', a: `회사 쪽에는 사내 Linux 서버(RHEL 계열, Ubuntu)에 내부 에이전트를 설치합니다. 방화벽은 바깥 방향 연결만 허용하면 되고, 전용 장비는 필요 없습니다. 직원은 PC에 사용자 에이전트(Windows 10 · 11, macOS 12 이상)를, 휴대폰에 ${appName} 앱을 설치합니다.` },
+  { q: 'VPN을 바로 꺼야 하나요?', a: '아니요. 기존 VPN은 그대로 두고, 업무 서비스 하나부터 Trust Gateway로 연결합니다. 결과를 확인하며 서비스와 사용자를 넓힙니다. Trust Gateway로 보호하지 않는 요청은 기존 경로를 그대로 씁니다.' },
+  { q: '무엇을 설치해야 하나요?', a: `회사 쪽에는 사내 Linux 서버(RHEL 계열, Ubuntu)에 내부 에이전트를 설치합니다. 인터넷에서 들어오는 방화벽 규칙은 필요 없고, Trust Gateway로 나가는 경로와 내부 서비스로 가는 경로만 설정합니다. 직원은 PC에 사용자 에이전트(Windows 10 · 11, macOS 12 이상)를, 휴대폰에 ${appName} 앱을 설치합니다.` },
   { q: '어떤 업무 시스템에 쓸 수 있나요?', a: '그룹웨어, ERP, 인사 시스템처럼 웹 브라우저로 쓰는 업무 시스템(HTTP · HTTPS)에 씁니다. Windows PC에서는 Chrome과 Edge로 접속합니다. 로그인, 파일 올리기와 내려받기처럼 자주 쓰는 동작은 도입 전에 서비스별로 함께 확인합니다.' },
-  { q: '업무 시스템을 고쳐야 하나요?', a: '아니요. 기존 로그인은 그대로 둘 수 있습니다. 게이트웨이는 확인한 사용자 신원에 서명해 함께 보내므로, 원하면 업무 시스템이 이 신원으로 사용자를 알아보게 해 다시 로그인하지 않게 할 수 있습니다. 서비스 안의 메뉴와 데이터 권한은 지금처럼 각 업무 시스템이 관리합니다.' },
+  { q: '업무 시스템을 고쳐야 하나요?', a: '기존 로그인 방식을 유지하면, 게이트웨이가 허용한 뒤에도 업무 시스템의 인증과 권한 검사가 그대로 이어집니다. 게이트웨이는 확인한 사용자 신원에 서명해 함께 보내므로, 계정 연결 같은 서비스별 설정을 하면 다시 로그인하지 않게 할 수 있습니다. 로그인 이동, 쿠키, 파일 올리기와 내려받기는 도입 전에 서비스별로 점검합니다. 서비스 안의 메뉴와 데이터 권한은 지금처럼 각 업무 시스템이 관리합니다.' },
   { q: '휴대폰이 꼭 있어야 하나요?', a: `네. Trust Gateway는 휴대폰으로 사람을 확인합니다. ${appName} 앱을 등록한 휴대폰(iOS 16 이상, Android 9 이상)이 없는 직원은 Trust Gateway로 접속할 수 없습니다. 승인은 Face ID나 지문 같은 생체 인증, 또는 휴대폰 PIN으로 합니다.` },
   { q: '직원의 생체 정보나 위치를 회사가 보나요?', a: '생체 정보와 휴대폰 PIN은 휴대폰 밖으로 나가지 않습니다. 서버는 휴대폰 보안 영역의 키로 만든 서명만 확인합니다. 위치와 Wi-Fi 같은 신호는 PC와 휴대폰이 같은 자리에 있는지 확인하는 데 쓰며, 수집 범위와 조회 권한, 보존 기간은 도입할 때 회사와 함께 정합니다.' },
-  { q: '휴대폰이나 PC를 잃어버리면 어떻게 하나요?', a: '관리 콘솔에서 잃어버린 기기의 인증서와 인증 수단을 폐기하면, 다음 요청부터 바로 거부됩니다. 휴대폰은 생체 인증이나 PIN 없이는 승인할 수 없습니다. 새 휴대폰은 회사 이메일로 받은 일회용 코드로 다시 등록합니다.' },
+  { q: '휴대폰이나 PC를 잃어버리면 어떻게 하나요?', a: '관리 콘솔에서 잃어버린 기기의 인증서와 인증 수단을 폐기하면, 폐기 정보가 반영된 뒤 들어오는 요청부터 거부됩니다. 휴대폰은 생체 인증이나 PIN 없이는 승인할 수 없습니다. 새 휴대폰은 복구 절차를 거쳐 다시 등록합니다.' },
   { q: '도입하자마자 직원 접속이 막히지 않을까요?', a: '새 판정 기능은 먼저 「탐지만」 하는 모드로 운영해, 정상 업무에서 어떤 판정이 나오는지 확인한 뒤 적용으로 바꿉니다. 처음에는 일부 사용자와 서비스로 시작해 등록부터 권한 회수까지 전체 흐름을 검증하고 넓힙니다. 인증서 확인처럼 꼭 필요한 검사는 처음부터 적용됩니다.' },
   { q: '접속이 느려지지 않나요?', a: '요청이 올 때는 미리 계산해 둔 위험 상태로 바로 판정합니다. PC와 휴대폰 신호 대조나 이상 탐지처럼 무거운 분석은 요청과 따로 진행해 다음 판정부터 반영하므로, 매 요청이 분석을 기다리지 않습니다.' },
-  { q: 'Trust Gateway에 문제가 생기면 어떻게 되나요?', a: '판단에 필요한 정보를 확인할 수 없으면 열지 않는 것이 원칙입니다. 확인 없이 통과시키는 우회 경로는 없습니다. 내부 에이전트는 운영용과 대기용으로 나눠 둘 수 있어, 한쪽을 쓸 수 없으면 다른 쪽으로 넘어갑니다. 장애 복구 절차는 도입 단계에서 함께 정합니다.' },
+  { q: 'Trust Gateway에 문제가 생기면 어떻게 되나요?', a: '판단에 필요한 정보가 없으면 거부를 기본으로 합니다. 인증서 폐기 정보나 사용자 연결을 확인할 수 없으면 요청을 거부합니다. 허용 예외를 쓰는 구성이라면, 적용 범위와 필수 인증 검사가 유지되는지 도입 때 함께 확인합니다. 내부 에이전트는 운영용과 대기용으로 나눠 둘 수 있어, 운영용을 쓸 수 없으면 대기용으로 넘어갑니다.' },
   { q: '기록은 어디에, 얼마나 남나요?', a: '모든 접근 판정은 결과와 근거(어떤 신호와 규칙이 작용했는지)를 함께 남겨, 관리 콘솔에서 판정별로 볼 수 있습니다. 인증서 발급과 폐기 이력은 해시로 이어 두어, 바뀌거나 빠진 기록을 검증 도구로 찾아낼 수 있습니다. 보존 기간은 도입할 때 회사와 함께 정합니다.' },
 ];
 ---
@@ -145,7 +145,7 @@ const faq = [
     <div class="wrap">
       <div class="head-center reveal">
         <h2 class="h2">{en ? <>Where is it used?</> : <>어디에 쓰이나요?</>}</h2>
-        <p class="lead">{en ? <>The same Decision Engine works in three places: <br />employees' work access, identity verification in financial apps, and customer payments.</> : <>같은 판단 엔진이 세 자리에 들어갑니다. <br />직원의 업무 접속, 금융 앱의 본인 확인, 고객의 결제입니다.</>}</p>
+        <p class="lead">{en ? <>Employees' work access and customer payments share the same Decision Engine, <br />and identity checks in financial apps use the same authentication technology.</> : <>직원의 업무 접속과 고객의 결제는 같은 판단 엔진을 씁니다. <br />금융 앱의 본인 확인에는 같은 인증 기술을 넣습니다.</>}</p>
       </div>
       <div class="tabs reveal" id="use-cases">
         <div class="tablist" role="tablist" aria-label={en ? 'Uses' : '쓰임'}>

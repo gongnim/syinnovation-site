@@ -9,14 +9,14 @@ const en = langOf(Astro.url) === 'en';
 const servers = en ? ['Groupware', 'HR system', 'Accounting', 'Customer DB', 'Dev server', 'File server'] : ['그룹웨어', '인사 시스템', '회계', '고객 DB', '개발 서버', '파일 서버'];
 const compare = en ? [
   { k: 'When it checks', vpn: 'Once, at first connection', tg: 'At every moment\n(each time a work screen opens)' }, // the aside on its own line (user, 2026-11-17)
-  { k: 'What opens', vpn: 'The whole internal network', tg: 'Only allowed apps and paths' },
-  { k: 'Identity verification', vpn: 'ID and password', tg: 'Device certificate + biometric check on the phone' },
+  { k: 'What opens', vpn: 'The whole internal network', tg: 'Only allowed apps' },
+  { k: 'Identity verification', vpn: 'ID and password', tg: 'Device certificate + approval on the phone' },
   { k: 'Location check', vpn: 'None', tg: 'Multi-Signal Cross Check of PC · phone · network' },
   { k: 'External exposure', vpn: 'The VPN appliance is open to the internet', tg: 'No inbound ports to the internal network are visible' },
 ] : [
   { k: '확인 시점', vpn: '처음 접속할 때 한 번', tg: '매 순간 (업무 화면을 열 때마다)' },
-  { k: '열리는 범위', vpn: '사내망 전체', tg: '허락된 앱과 경로만' },
-  { k: '본인 확인', vpn: '아이디와 비밀번호', tg: '기기 인증서 + 휴대폰 생체 확인' },
+  { k: '열리는 범위', vpn: '사내망 전체', tg: '허락된 앱만' },
+  { k: '본인 확인', vpn: '아이디와 비밀번호', tg: '기기 인증서 + 휴대폰 승인' },
   { k: '위치 확인', vpn: '없음', tg: 'PC · 휴대폰 · 네트워크 다중 신호 교차 검증' },
   { k: '외부 노출', vpn: 'VPN 장비가 인터넷에 열려 있음', tg: '사내망으로 들어오는 포트가 보이지 않음' },
 ];

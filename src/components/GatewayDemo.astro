@@ -41,13 +41,14 @@ const sigs = [
   { n: 'Wi-Fi', a: en ? ['Office Wi-Fi', 'Office Wi-Fi'] : ['사내 Wi-Fi', '사내 Wi-Fi'], b: en ? ['Cafe Wi-Fi', 'Cafe Wi-Fi'] : ['카페 Wi-Fi', '카페 Wi-Fi'], chg: false },
   { n: en ? 'Time zone' : '시간대', a: ['UTC+9', 'UTC+9'], b: ['UTC+9', 'UTC+9'], chg: false },
   { n: en ? 'Device status' : '기기 상태', a: en ? ['Normal', 'Normal'] : ['정상', '정상'], b: en ? ['Normal', 'Normal'] : ['정상', '정상'], chg: false },
-  { n: en ? 'Network' : '네트워크', a: en ? ['Company IP range', 'Company IP range'] : ['회사 IP 대역', '회사 IP 대역'], b: en ? ['New IP', 'New IP'] : ['처음 보는 IP', '처음 보는 IP'], chg: true },
+  { n: en ? 'Network' : '네트워크', a: en ? ['Company network', 'Company network'] : ['회사 네트워크', '회사 네트워크'], b: en ? ['New network', 'New network'] : ['처음 보는 네트워크', '처음 보는 네트워크'], chg: true },
 ];
 const devices = [{ n: en ? 'Work PC' : '업무 PC', who: en ? 'Staff A' : '직원 A' }, { n: en ? 'Phone' : '휴대폰', who: en ? 'Staff A' : '직원 A' }, { n: en ? 'Work PC' : '업무 PC', who: en ? 'Staff B' : '직원 B' }];
 
-// payment fraud detection (tech doc v0.4.2, ch.10): Trust Gateway detects and alerts with a recommendation and reasons;
-// the customer's FDS / payment system decides; afterwards a report flags approvals made despite a recommendation and
-// checks the customer's FDS rules. Who calls it, what it looks at, three cases, and the report.
+// payment fraud detection (대외용 tech doc v0.4.3, ch.10; user 2026-11-19: only what it states plainly): before approving,
+// the PG or card company's system asks Trust Gateway to evaluate a transaction and gets back a risk score and a
+// recommendation with reasons; that system decides. FDS 진단 checks the customer's FDS rules afterwards and compares
+// whether Trust Gateway caught fraud the FDS missed. Who calls it, what it looks at, three cases, and the FDS check.
 // Amounts, counts and rule names are examples.
 const paySignals = [
   { i: 'chart', t: en ? 'Payment amount' : '결제 금액' }, { i: 'cycle', t: en ? 'Payments in a short time' : '짧은 시간 결제 횟수' }, { i: 'lock', t: en ? 'Failed payments' : '결제 실패 횟수' }, { i: 'phone', t: en ? 'New device' : '처음 쓰는 기기' },
@@ -60,7 +61,7 @@ const cases: Record<string, { rows: Row[]; tone: 'ok' | 'warn' | 'stop'; label: 
   paybig: { rows: en ? [['Device', 'Usual device', true], ['Amount', 'KRW 2.5 million, far above usual', false], ['Merchant', 'New electronics store', false], ['Tries', 'Paid on first try', true]] : [['기기', '평소 쓰는 기기', true], ['금액', '250만 원, 평소보다 훨씬 큼', false], ['가맹점', '처음 거래하는 전자제품 매장', false], ['시도', '한 번에 결제', true]],
     tone: 'warn', label: en ? 'Caution alert' : '주의 알림', level: 1, why: en ? ['Amount far outside the usual range', 'First purchase at this merchant'] : ['금액이 평소보다 크게 벗어남', '처음 거래하는 가맹점'], act: en ? 'Step-up recommendation with reasons' : '추가 인증 권고와 근거' },
   payrep: { rows: en ? [['Device', 'New device', false], ['Amount', 'KRW 50,000 each', true], ['Merchant', 'New online store', false], ['Tries', 'Retried after 6 failures in 1 minute', false]] : [['기기', '처음 쓰는 기기', false], ['금액', '5만 원씩', true], ['가맹점', '처음 거래하는 온라인몰', false], ['시도', '1분 사이 실패 6번 뒤 다시 시도', false]],
-    tone: 'stop', label: en ? 'Risk alert' : '위험 알림', level: 2, why: en ? ['Failures and retries bunched in a short time', 'New device and new merchant'] : ['짧은 시간에 실패와 재시도가 몰림', '처음 쓰는 기기와 처음 거래하는 가맹점'], act: en ? 'Deny recommendation with reasons; if approved anyway, flagged again in a report' : '거부 권고와 근거, 그래도 승인되면 리포트로 다시 알림' },
+    tone: 'stop', label: en ? 'Risk alert' : '위험 알림', level: 2, why: en ? ['Failures and retries bunched in a short time', 'New device and new merchant'] : ['짧은 시간에 실패와 재시도가 몰림', '처음 쓰는 기기와 처음 거래하는 가맹점'], act: en ? 'Deny recommendation with reasons' : '거부 권고와 근거' },
 };
 const fdsRules = [
   { r: en ? 'Block overseas payments' : '해외 결제 차단', v: 'warn', l: en ? 'Many false positives · catches normal payments' : '오탐 많음 · 정상 결제까지 걸림' },
@@ -75,16 +76,16 @@ const tracks = [
     { k: 'bind', t: en ? 'Verify by phone' : '휴대폰으로 본인 확인', dur: 7.5, q: en ? 'How do we know who is using this PC right now?' : '이 PC를 지금 누가 쓰는지 어떻게 알까요?', d: en ? `On arriving at work, the employee scans the QR code on the PC screen with the ${appName} app and approves with biometric authentication. This confirms who is using this PC right now.` : `출근해서 PC 화면의 QR을 ${appName} 앱으로 찍고 생체 인증으로 승인합니다. 이것으로 지금 이 PC를 쓰는 사람이 확인됩니다.` },
     { k: 'portal', t: en ? 'Work systems open' : '업무 시스템 열림', dur: 6, q: en ? 'What opens once verification is done?' : '확인이 끝나면 무엇이 열릴까요?', d: en ? 'Only the work systems the employee is allowed to use open. If a work system is set up to accept the signed identity, there is no need to log in again. Requests after that are checked continuously.' : '허락된 업무 시스템만 열립니다. 업무 시스템이 서명된 신원을 받도록 설정하면 다시 로그인하지 않아도 됩니다. 이후 요청도 계속 확인합니다.' },
     { k: 'xcheck', t: en ? 'Multi-Signal Cross Check' : '다중 신호 교차 검증', dur: 12, q: en ? 'What if they connect from somewhere else?' : '자리를 옮겨 접속하면요?', d: en ? 'Signals from the PC, the phone and the network are compared at every moment. If the employee moves to a cafe, the PC and phone still agree, but the network has changed since the identity check, so step-up authentication is requested on the phone. Once the employee approves with biometric authentication, the work carries on as before.' : 'PC와 휴대폰, 네트워크의 신호를 매 순간 대조합니다. 카페로 자리를 옮기면 PC와 휴대폰은 서로 맞지만 본인 확인 때와 네트워크가 바뀌어, 휴대폰으로 추가 인증을 요청합니다. 직원이 생체 인증으로 승인하면 하던 일을 그대로 이어 갑니다.' },
-    { k: 'lost', t: en ? 'Lost device blocked' : '분실 기기 차단', dur: 7.5, q: en ? 'What if the PC is lost?' : 'PC를 잃어버렸다면요?', d: en ? "When the employee reports the loss, an administrator revokes that PC's certificate in the Admin Console. The revocation reaches the gateway right away, so requests are denied starting with the next one." : '직원이 분실을 알리면 관리자가 관리 콘솔에서 그 PC의 인증서를 폐기합니다. 폐기 정보가 게이트웨이에 바로 전달되어 다음 요청부터 거부됩니다.' },
-    { k: 'audit', t: en ? 'Audit log' : '감사 기록', dur: 7.5, q: en ? 'Is there a record of who did what, and when?' : '누가 언제 무엇을 했는지 남을까요?', d: en ? "The employee's day is kept just as it happened. For every Allow, Step-up and Deny, it records who accessed what and why that decision was made. Each record is chained to the one before, so any change in the middle shows." : '이 직원의 하루가 그대로 남습니다. 허용, 추가 인증, 거부마다 누가 어디에 접속했고 왜 그렇게 판단했는지 기록하고, 기록은 앞 기록과 이어져 있어 중간을 바꾸면 드러납니다.' },
+    { k: 'lost', t: en ? 'Lost device blocked' : '분실 기기 차단', dur: 7.5, q: en ? 'What if the PC is lost?' : 'PC를 잃어버렸다면요?', d: en ? "When the employee reports the loss, an administrator revokes that PC's certificate in the Admin Console. The revocation is passed to the gateway, and requests that arrive after it takes effect are denied." : '직원이 분실을 알리면 관리자가 관리 콘솔에서 그 PC의 인증서를 폐기합니다. 폐기 정보가 게이트웨이에 전달되고, 반영된 뒤 들어오는 요청부터 거부됩니다.' },
+    { k: 'audit', t: en ? 'Audit log' : '감사 기록', dur: 7.5, q: en ? 'Is there a record of who did what, and when?' : '누가 언제 무엇을 했는지 남을까요?', d: en ? "The employee's day is kept just as it happened. For every Allow, Step-up and Deny, it records who accessed what and the signals and rules behind the decision, and each decision can be viewed with its reasons in the Admin Console." : '이 직원의 하루가 그대로 남습니다. 허용, 추가 인증, 거부마다 누가 어디에 접속했고 어떤 신호와 규칙으로 판정했는지 기록해, 관리 콘솔에서 판정별로 근거와 함께 볼 수 있습니다.' },
   ] },
   { id: 'payment', t: en ? 'Payment fraud' : '결제 이상거래', shots: [
-    { k: 'payflow', t: en ? 'Who uses it' : '누가 쓰나요', dur: 8.5, q: en ? 'Who uses payment fraud detection, and when?' : '결제 이상거래 탐지는 누가, 언제 쓰나요?', d: en ? 'When a customer pays by card at a merchant, Trust Gateway detects suspicious transactions while the transaction data and device signals travel to the PG or card company. Alerts and recommendations go to the FDS of the PG or card company, with the reasons. The PG or card company decides whether to approve or decline the payment.' : '고객이 가맹점에서 카드로 결제하면, 거래 정보와 기기 신호가 PG나 카드사로 가는 사이에서 Trust Gateway가 이상거래를 탐지합니다. 알림과 권고는 근거와 함께 PG나 카드사의 FDS로 보냅니다. 결제를 승인할지 거절할지는 PG나 카드사가 정합니다.' },
+    { k: 'payflow', t: en ? 'Who uses it' : '누가 쓰나요', dur: 8.5, q: en ? 'Who uses payment fraud detection, and when?' : '결제 이상거래 탐지는 누가, 언제 쓰나요?', d: en ? "When a card payment comes in at a merchant, the PG or card company's system sends the transaction data and device signals to Trust Gateway before approving, and asks for an evaluation. Trust Gateway returns a risk score and a recommendation, with the reasons. The PG or card company decides whether to approve or decline the payment." : '가맹점에서 카드 결제가 들어오면, PG나 카드사 시스템이 승인 전에 거래 정보와 기기 신호를 Trust Gateway로 보내 평가를 요청합니다. Trust Gateway는 위험 점수와 권고 판정을 근거와 함께 돌려줍니다. 결제를 승인할지 거절할지는 PG나 카드사가 정합니다.' },
     { k: 'paysig', t: en ? 'What it looks at' : '무엇을 보나요', dur: 7.5, q: en ? 'What does it look at to judge a payment suspicious?' : '무엇을 보고 수상하다고 판단하나요?', d: en ? "It looks at many signals together, such as the amount, device, merchant, failures and retries. It uses statistics and machine learning to calculate how far a payment departs from this customer's usual payments, and finds suspicious transactions." : '금액, 기기, 가맹점, 실패와 재시도처럼 여러 신호를 함께 봅니다. 이 고객의 평소 결제에서 얼마나 벗어났는지를 통계와 기계학습으로 계산해 이상거래를 찾습니다.' },
     { k: 'payok', t: en ? 'Normal payment' : '평범한 결제', dur: 6.5, q: en ? 'What about a payment like any other?' : '평소와 같은 결제라면요?', d: en ? 'If every signal matches the usual pattern, it returns "no anomaly". The client processes the payment as usual.' : '모든 신호가 평소와 같으면 이상 없음으로 돌려줍니다. 결제는 고객사가 평소대로 처리합니다.' },
-    { k: 'paybig', t: en ? 'Unusually large amount' : '평소보다 큰 금액', dur: 6.5, q: en ? 'What about a payment much larger than usual?' : '평소보다 훨씬 큰 결제라면요?', d: en ? "If the amount and merchant differ from usual, it sends a caution alert and a step-up authentication recommendation, with the reasons, to the client's FDS. The client decides whether to require step-up authentication." : '금액과 가맹점이 평소와 다르면 고객사 FDS에 주의 알림과 추가 인증 권고를 근거와 함께 보냅니다. 추가 인증을 받을지는 고객사가 정합니다.' },
-    { k: 'payrep', t: en ? 'Repeated attempts' : '반복 시도', dur: 7, q: en ? 'What if unauthorized card use is suspected?' : '카드 도용이 의심된다면요?', d: en ? 'If failures and retries pile up in a short time on a new device, it immediately sends a risk alert and a Deny recommendation. Transactions approved despite the recommendation are flagged again in a report, so the client can check them.' : '처음 쓰는 기기에서 짧은 시간에 실패와 재시도가 몰리면 위험 알림과 거부 권고를 바로 보냅니다. 권고했는데도 승인된 거래는 리포트로 다시 알려 고객사가 확인할 수 있게 합니다.' },
-    { k: 'fds', t: en ? 'Report · FDS check' : '리포트 · FDS 점검', dur: 8, q: en ? 'What do you get after the alerts?' : '알림 뒤에는 무엇을 받나요?', d: en ? "Separately from real-time transactions, a report flags again the transactions approved despite a recommendation. It also analyzes the client's own FDS rules for false positives, missed fraud, overlapping rules and changes over time, and suggests fixes." : '실시간 거래와 따로, 권고했는데도 승인된 거래를 리포트로 다시 알립니다. 고객사가 운영하는 FDS 규칙의 오탐과 미탐, 겹치는 규칙, 시간에 따른 변화도 분석해 고칠 점을 추천합니다.' },
+    { k: 'paybig', t: en ? 'Unusually large amount' : '평소보다 큰 금액', dur: 6.5, q: en ? 'What about a payment much larger than usual?' : '평소보다 훨씬 큰 결제라면요?', d: en ? "If the amount and merchant differ from usual, it returns a caution alert and a step-up authentication recommendation, with the reasons, to the client system that asked. The client decides whether to require step-up authentication." : '금액과 가맹점이 평소와 다르면, 요청한 고객사 시스템에 주의 알림과 추가 인증 권고를 근거와 함께 돌려줍니다. 추가 인증을 받을지는 고객사가 정합니다.' },
+    { k: 'payrep', t: en ? 'Repeated attempts' : '반복 시도', dur: 7, q: en ? 'What if unauthorized card use is suspected?' : '카드 도용이 의심된다면요?', d: en ? 'If failures and retries pile up in a short time on a new device, it returns a risk alert and a Deny recommendation, with the reasons. The client system decides what to do.' : '처음 쓰는 기기에서 짧은 시간에 실패와 재시도가 몰리면, 위험 알림과 거부 권고를 근거와 함께 돌려줍니다. 어떻게 처리할지는 고객사 시스템이 정합니다.' },
+    { k: 'fds', t: en ? 'FDS check' : 'FDS 점검', dur: 8, q: en ? 'What else do you get?' : '그 밖에 무엇을 받나요?', d: en ? "Separately from live transactions, it analyzes the client's own FDS rules for false positives, missed fraud, overlapping rules and changes over time, and suggests fixes. It also compares, transaction by transaction, whether Trust Gateway caught fraud the FDS missed." : '실시간 거래와 따로, 고객사가 운영하는 FDS 규칙의 오탐과 미탐, 겹치는 규칙, 시간에 따른 변화를 분석해 고칠 점을 추천합니다. FDS가 놓친 사기를 Trust Gateway가 잡았는지도 같은 거래끼리 비교합니다.' },
   ] },
 ];
 const at = (n: number) => `--at:${n}`;
@@ -196,7 +197,7 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
                   ))}
                   <p class="sub-h in" style={at(3.2)}>{en ? <>Next request</> : <>다음 요청</>}</p>
                   <div class="log-row req in" style={at(3.6)}><span class="c-t">18:20:11</span><span>{en ? <>Work PC · Staff A → Groupware</> : <>업무 PC · 직원 A → 그룹웨어</>}</span><span><em class="tag stop">{en ? <>Deny</> : <>거부</>}</em></span><span class="why">{en ? <>Certificate revoked</> : <>인증서 폐기됨</>}</span></div>
-                  <p class="chain in" style={at(4.6)}><Icon name="shield" size={14} />{en ? <>Revocation reaches the gateway right away</> : <>폐기 정보는 게이트웨이에 바로 전달됩니다</>}</p>
+                  <p class="chain in" style={at(4.6)}><Icon name="shield" size={14} />{en ? <>Requests after the revocation takes effect are denied</> : <>폐기가 반영된 뒤 들어오는 요청부터 거부됩니다</>}</p>
                 </div>
               </div>
             )}
@@ -207,30 +208,31 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
                 <div class="log-body">
                   <div class="log-row head"><span class="c-t">{en ? <>Time</> : <>시각</>}</span><span>{en ? <>User</> : <>사용자</>}</span><span class="c-to">{en ? <>Target</> : <>대상</>}</span><span>{en ? <>Decision</> : <>판정</>}</span><span>{en ? <>Reason</> : <>근거</>}</span></div>
                   {audit.map((r) => <div class="log-row in" style={at(r.at)}><span class="c-t">{r.t}</span><span>{r.who}</span><span class="c-to">{r.to}</span><span><em class={`tag ${r.v}`}>{r.l}</em></span><span class="why">{r.why}</span></div>)}
-                  <p class="chain in" style={at(5.2)}><Icon name="lock" size={14} />{en ? <>Each record is stored chained to the one before</> : <>각 기록은 앞 기록과 이어져 저장됩니다</>}</p>
+                  <p class="chain in" style={at(5.2)}><Icon name="lock" size={14} />{en ? <>Each decision is kept with its reasons</> : <>각 판정은 근거와 함께 남습니다</>}</p>
                 </div>
               </div>
             )}
 
             {s.k === 'payflow' && (
-              // CEO, 2026-11-16: Trust Gateway sits between the merchant and the PG or card company; it detects and advises,
-              // the PG or card company decides
+              // 대외용 tech doc v0.4.3 10.1 / 12.4: the PG or card company's system calls Trust Gateway before approving and
+              // gets back a recommendation with reasons; it decides (this replaced the 2026-11-16 drawing with Trust Gateway
+              // in the middle of the payment path, user 2026-11-19)
               <div class="flow">
                 <div class="node in" style={at(0.2)}><span class="ico"><Icon name="phone" size={24} /></span><b>{en ? <>Customer · merchant</> : <>고객 · 가맹점</>}</b><small>{en ? <>Card payment</> : <>카드 결제</>}</small></div>
                 <div class="link">
-                  <em class="in" style={at(0.6)}>{en ? <>Transaction data + device signals</> : <>거래 정보 + 기기 신호</>}</em>
+                  <em class="in" style={at(0.6)}>{en ? <>Transaction</> : <>거래</>}</em>
                   <span class="lane fwd"><i class="dot" style={at(0.6)}></i></span>
                   <span class="lane back"><i class="dot" style={at(6.2)}></i></span>
                   <em class="in" style={at(6.6)}>{en ? <>Approval or identity check</> : <>승인 또는 본인 확인</>}</em>
                 </div>
-                <div class="node tg in" style={at(0.4)}><span class="ico"><Icon name="shield" size={24} /></span><b>Trust Gateway</b><small>{en ? <>Fraud detection</> : <>이상거래 탐지</>}</small><span class="eval win" style={win(1.6, 2.8)}>{en ? <>Detecting</> : <>탐지 중</>}</span><span class="recs in" style={at(2.8)}><i class="ok">{en ? <>No anomaly</> : <>이상 없음</>}</i><i class="warn">{en ? <>Caution alert</> : <>주의 알림</>}</i><i class="stop">{en ? <>Risk alert</> : <>위험 알림</>}</i></span></div>
+                <div class="node in" style={at(0.4)}><span class="ico"><Icon name="server" size={24} /></span><b>{en ? <>PG · card company</> : <>PG · 카드사</>}</b><small>{en ? <>Payment processing · FDS</> : <>결제 처리 · FDS</>}</small><span class="decide in" style={at(4.2)}>{en ? <>Final decision</> : <>최종 결정</>}</span></div>
                 <div class="link">
-                  <em class="in" style={at(3)}>{en ? <>Alert · recommendation + reasons</> : <>알림 · 권고 + 근거</>}</em>
-                  <span class="lane fwd"><i class="dot" style={at(3)}></i></span>
-                  <span class="lane back"><i class="dot" style={at(5.2)}></i></span>
-                  <em class="in" style={at(5.6)}>{en ? <>Decision result</> : <>결정 결과</>}</em>
+                  <em class="in" style={at(1)}>{en ? <>Evaluation request: transaction + device signals</> : <>평가 요청: 거래 정보 + 기기 신호</>}</em>
+                  <span class="lane fwd"><i class="dot" style={at(1)}></i></span>
+                  <span class="lane back"><i class="dot" style={at(3)}></i></span>
+                  <em class="in" style={at(3.4)}>{en ? <>Recommendation + reasons</> : <>권고 판정 + 근거</>}</em>
                 </div>
-                <div class="node in" style={at(0.6)}><span class="ico"><Icon name="server" size={24} /></span><b>{en ? <>PG · card company</> : <>PG · 카드사</>}</b><small>{en ? <>Payment processing · FDS</> : <>결제 처리 · FDS</>}</small><span class="decide in" style={at(4.2)}>{en ? <>Final decision</> : <>최종 결정</>}</span></div>
+                <div class="node tg in" style={at(0.6)}><span class="ico"><Icon name="shield" size={24} /></span><b>Trust Gateway</b><small>{en ? <>Fraud detection</> : <>이상거래 탐지</>}</small><span class="eval win" style={win(1.6, 2.8)}>{en ? <>Evaluating</> : <>평가 중</>}</span><span class="recs in" style={at(2.8)}><i class="ok">{en ? <>No anomaly</> : <>이상 없음</>}</i><i class="warn">{en ? <>Caution alert</> : <>주의 알림</>}</i><i class="stop">{en ? <>Risk alert</> : <>위험 알림</>}</i></span></div>
               </div>
             )}
 
@@ -239,7 +241,7 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
                 <p class="sb-h in" style={at(0.2)}>{en ? <>Compared with this customer's usual payments</> : <>이 고객의 평소 결제와 비교해 봅니다</>}</p>
                 <ul class="sig-grid">{paySignals.map((g, j) => <li class="in" style={at(0.6 + j * 0.25)}><Icon name={g.i} size={18} /><span>{g.t}</span></li>)}</ul>
                 <p class="sb-m in" style={at(3.4)}>{en ? <>Signals are looked at together, not one by one. It calculates how far a payment departs from this customer's usual payments, and also checks whether known risk conditions are met, to find suspicious transactions.</> : <>신호를 하나씩 따로 보지 않고 함께 봅니다. 이 고객의 평소 결제에서 얼마나 벗어났는지 계산하고, 알려진 위험 조건에 걸리는지 함께 봐서 이상거래를 찾습니다.</>}</p>
-                <p class="sb-r in" style={at(5)}><span class="badge ok">{en ? <>No anomaly</> : <>이상 없음</>}</span><span class="badge warn">{en ? <>Caution alert</> : <>주의 알림</>}</span><span class="badge stop">{en ? <>Risk alert</> : <>위험 알림</>}</span><span>{en ? <>One of these is sent, with the reasons</> : <>중 하나로 근거와 함께 알립니다</>}</span></p>
+                <p class="sb-r in" style={at(5)}><span class="badge ok">{en ? <>No anomaly</> : <>이상 없음</>}</span><span class="badge warn">{en ? <>Caution alert</> : <>주의 알림</>}</span><span class="badge stop">{en ? <>Risk alert</> : <>위험 알림</>}</span><span>{en ? <>One of these is returned, with the reasons</> : <>중 하나를 근거와 함께 돌려줍니다</>}</span></p>
               </div>
             )}
 
@@ -257,19 +259,19 @@ const win = (a: number, b: number) => `--at:${a};--out:${b}`;
                   <div class="level">{(en ? ['Low', 'Medium', 'High'] : ['낮음', '보통', '높음']).map((l, j) => <span class={j === c.level ? `on ${c.tone}` : ''}>{l}</span>)}</div>
                   <p class="k">{en ? <>Reasons</> : <>이유</>}</p>
                   <ul class="why-list">{c.why.map((w, j) => <li class="in" style={at(3.2 + j * 0.3)}>{w}</li>)}</ul>
-                  <p class="act in" style={at(4.4)}><b>{en ? <>Sent to the client's FDS</> : <>고객사 FDS에 전달</>}</b>{c.act}</p>
+                  <p class="act in" style={at(4.4)}><b>{en ? <>Returned to the client system that asked</> : <>요청한 고객사 시스템에 돌려줌</>}</b>{c.act}</p>
                 </div>
               </div>
             ))}
 
             {s.k === 'fds' && (
               <div class="win-frame log fds">
-                <div class="bar-top"><i></i><i></i><i></i><span>{en ? <>Report · FDS check</> : <>리포트 · FDS 점검</>}</span></div>
+                <div class="bar-top"><i></i><i></i><i></i><span>{en ? <>FDS check</> : <>FDS 점검</>}</span></div>
                 <div class="log-body">
                   <div class="log-row rule head"><span>{en ? <>Client FDS rule</> : <>고객사 FDS 규칙</>}</span><span>{en ? <>Analysis</> : <>분석 결과</>}</span></div>
                   {fdsRules.map((x, j) => <div class="log-row rule in" style={at(0.4 + j * 0.6)}><span>{x.r}</span><span><em class={`tag ${x.v}`}>{x.l}</em></span></div>)}
                   <div class="log-row rule miss in" style={at(3.2)}><span>{en ? <>Missed · no rule for this pattern</> : <>미탐 · 규칙이 없는 유형</>}</span><span><em class="tag stop">{en ? <>Splitting into many small payments</> : <>소액 결제를 여러 번 나누는 수법</>}</em></span></div>
-                  <div class="log-row rule miss in" style={at(3.8)}><span>{en ? <>Approved after a recommendation</> : <>권고 뒤 승인된 거래</>}</span><span><em class="tag warn">{en ? <>Flagged again in a report</> : <>리포트로 다시 알림</>}</em></span></div>
+                  <div class="log-row rule miss in" style={at(3.8)}><span>{en ? <>Fraud the FDS missed</> : <>FDS가 놓친 사기</>}</span><span><em class="tag warn">{en ? <>Compared with Trust Gateway's decisions</> : <>Trust Gateway 판정과 비교</>}</em></span></div>
                   <p class="sub-h in" style={at(4.8)}>{en ? <>Suggested fixes</> : <>고칠 점 추천</>}</p>
                   <ul class="tips">{fdsTips.map((t, j) => <li class="in" style={at(5.2 + j * 0.4)}><Icon name="check" size={14} />{t}</li>)}</ul>
                 </div>

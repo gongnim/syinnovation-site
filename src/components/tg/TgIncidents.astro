@@ -28,7 +28,7 @@ const lines: Record<string, { path: string; tg: string }> = {
   'fsec-2026-11': { path: '시스템 약점을 이용해 높은 열람 권한을 얻었고, 여러 IP에서 접근했습니다.', tg: '권한이 있어도 매 순간 기기와 사람, 네트워크를 다시 확인합니다. 평소와 다르면 휴대폰으로 다시 묻습니다.' },
   'mirae-asset-2026-11': { path: '로그인 서비스와 그룹웨어를 거쳐, 권한 없는 외부인이 내부 데이터를 조회했습니다.', tg: '그룹웨어 같은 업무 앱은 등록된 PC와 본인 휴대폰 확인을 함께 통과한 요청에만 열립니다.' },
   'ai-hacking-ring-2026-10': { path: 'AI 침투 도구가 인터넷에 열린 시스템의 약점을 스스로 찾아 들어갔습니다.', tg: '업무 시스템은 인터넷에 문을 열지 않습니다. 들어오는 포트가 없고, 등록된 기기의 요청만 받습니다.' },
-  'korean-air-asiana-2026-10': { path: '예약 시스템 운영사 계정의 로그인 정보로 비인가 접근이 일어났습니다.', tg: '훔쳐 쓸 비밀번호가 없습니다. 기기 인증서와 휴대폰 생체 확인이 함께 있어야 들어옵니다.' },
+  'korean-air-asiana-2026-10': { path: '예약 시스템 운영사 계정의 로그인 정보로 비인가 접근이 일어났습니다.', tg: '훔쳐 쓸 비밀번호가 없습니다. 기기 인증서와 휴대폰 승인(생체 인증 또는 PIN)이 함께 있어야 들어옵니다.' },
   'kepco-2026-10': { path: '원인은 조사 중입니다. 직원 계정을 공유받아 접속한 사례가 지적됐고, 접속 기록이 남아 있지 않았습니다.', tg: '계정을 빌려도 그 사람의 휴대폰과 기기가 없으면 열리지 않습니다. 모든 판정은 근거와 함께 기록됩니다.' },
   'shinhan-bank-2026-10': { path: '대출모집인 전용 조회 서비스의 본인 확인 절차가 우회됐습니다.', tg: '외부 인력의 업무 접속도 등록된 기기와 휴대폰 확인을 거치고, 매 순간 다시 평가합니다.' },
 };
@@ -45,7 +45,7 @@ const linesEn: Record<string, { path: string; tg: string }> = {
   'fsec-2026-11': { path: "They exploited a system weakness to gain high viewing privileges and accessed it from several IP addresses.", tg: "Even with privileges, the device, the person and the network are re-checked at every moment. When something differs from usual, it asks again on the phone." },
   'mirae-asset-2026-11': { path: "An unauthorized outsider went through the login service and the groupware and viewed internal data.", tg: "Business apps such as groupware open only to requests that pass checks on both the registered PC and the user's own phone." },
   'ai-hacking-ring-2026-10': { path: "AI intrusion tools found weaknesses in systems exposed to the internet and broke in on their own.", tg: "Business systems are not exposed to the internet. There are no inbound ports, and only requests from registered devices are accepted." },
-  'korean-air-asiana-2026-10': { path: "Unauthorized access was made with the login details of an account at the reservation system's operator.", tg: "There is no password to steal. Access takes a device certificate and a biometric check on the phone." },
+  'korean-air-asiana-2026-10': { path: "Unauthorized access was made with the login details of an account at the reservation system's operator.", tg: "There is no password to steal. Access takes a device certificate and approval on the phone (biometrics or PIN)." },
   'kepco-2026-10': { path: "The cause is under investigation. Cases of logging in with accounts shared by staff were pointed out, and no access logs were kept.", tg: "A borrowed account opens nothing without that person's phone and device. Every decision is logged with its reasons." },
   'shinhan-bank-2026-10': { path: "The identity verification step of a lookup service for loan agents was bypassed.", tg: "Outside staff connecting for work also go through registered-device and phone checks, and are re-evaluated at every moment." },
 };
@@ -89,11 +89,11 @@ const cards = [
     ...(en ? {
       meta: 'Feb 10, 2026 · MSIT investigation findings', title: 'Coupang: more than 33.67 million customer records leaked',
       path: "A developer who had left the company forged tokens with an authentication signing key taken while still employed, and used them to get in. The key was not changed after they left.",
-      tg: "Trust Gateway's device keys never leave each device's security chip. Once the departure is recorded, the certificate is revoked and requests are denied starting with the next one.",
+      tg: "Trust Gateway's device keys are made in each device's security chip wherever possible, and a key made in a chip can't be taken out. On departure, the user's binding and personal phone credentials are revoked.",
     } : {
       meta: '2026.02.10 · 과기정통부 조사 결과', title: '쿠팡, 고객 정보 3,367만여 건 유출',
       path: '퇴사한 개발자가 재직 중 빼낸 인증 서명 키로 토큰을 위조해 접속했습니다. 키는 퇴사 뒤에도 바뀌지 않았습니다.',
-      tg: 'Trust Gateway의 기기 인증 키는 각 기기의 보안 칩 밖으로 나오지 않습니다. 퇴사가 반영되면 인증서가 폐기돼 다음 요청부터 거부됩니다.',
+      tg: 'Trust Gateway의 기기 키는 각 기기의 보안 칩을 우선 사용해 만들고, 보안 칩에서 만든 키는 꺼낼 수 없습니다. 퇴사 처리에서는 사용자 연결과 개인 휴대폰 인증 수단을 회수합니다.',
     }),
   },
 ];

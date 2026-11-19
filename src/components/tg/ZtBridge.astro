@@ -14,12 +14,12 @@ const H = first ? 'h1' : 'h2';
 const sum = en ? {
   p: [['Trust no one', 'Never Trust'], ['Verify each time', 'Always Verify'], ['Open only what is needed', 'Least Privilege']],
   n: [['PEP · Policy Enforcement Point', 'Intercepts access requests and allows or blocks them'], ['PDP · Policy Decision Point', 'Decides Allow, Step-up or Deny'], ['PIP · Policy Information Point', 'Supplies the information the decision needs']],
-  t: [['Access Gateway', 'Checks the certificate each time and passes on only allowed connections'], ['Policy Engine', 'Checks Prohibited Conditions and makes the Final Decision'], ['Anomaly Detection', 'Passes on how far things differ from usual and any mismatch between PC and phone signals']],
+  t: [['Access Gateway', 'Checks the certificate each time and passes on only allowed connections'], ['Policy Engine', 'Combines the Cross Check, Rule Engine and Anomaly Detection results with policy and makes the Final Decision'], ['Cross Check · Anomaly Detection', 'Pass on contradictions between PC and phone signals and how far things differ from usual']],
   c: ['Identity', 'Devices', 'Networks', 'Applications', 'Data', 'Visibility & Analytics', 'Automation', 'Governance'],
 } : {
   p: [['아무도 믿지 않는다', 'Never Trust'], ['매번 확인한다', 'Always Verify'], ['필요한 만큼만 연다', 'Least Privilege']],
   n: [['PEP · 정책 시행', '접근 요청을 가로채 허용하거나 막습니다'], ['PDP · 정책 결정', '허용, 추가 인증, 거부를 정합니다'], ['PIP · 정책 정보', '판단에 필요한 정보를 줍니다']],
-  t: [['접속 관문', '매번 인증서를 확인하고 허용된 접속만 전달합니다'], ['정책 엔진', '금지 사항을 확인하고 최종 결정합니다'], ['이상 탐지', '평소와 다른 정도와 PC·휴대폰 신호의 불일치를 넘깁니다']],
+  t: [['접속 관문', '매번 인증서를 확인하고 허용된 접속만 전달합니다'], ['정책 엔진', '교차 검증, 규칙 엔진, 이상 탐지 결과와 정책을 종합해 최종 결정합니다'], ['교차 검증 · 이상 탐지', 'PC·휴대폰 신호의 모순과 평소와 다른 정도를 넘깁니다']],
   c: ['신원', '기기', '네트워크', '애플리케이션', '데이터', '가시성 · 분석', '자동화', '거버넌스'],
 };
 ---
