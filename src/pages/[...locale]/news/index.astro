@@ -15,7 +15,7 @@ import { ownNewsEn, labelEn } from '../../../data/en';
 
 const lang = langOf(Astro.url);
 const en = lang === 'en';
-// company news and articles about us, newest first (security incidents live on 언론보도)
+// company news and articles about us, newest first (security incidents live on 보안 사고, /news/press)
 const [featured, ...rest] = sorted;
 const link = (n: (typeof sorted)[number]) => n.url ?? href(`/news/${n.slug}`, lang);
 const ext = (n: (typeof sorted)[number]) => (n.url ? { target: '_blank', rel: 'noopener' } : {});

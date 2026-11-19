@@ -1,7 +1,7 @@
 ---
 import { langOf, href, dateText } from '../../../../lib/i18n';
 import { pageNumbers } from '../../../../lib/pager.js';
-// 소식 > 언론보도: major security incidents at home and abroad, as photo cards. Every card has a picture: hand-picked
+// 소식 > 보안 사고 (was 언론보도, renamed by the user 2026-11-19): major security incidents at home and abroad, as photo cards. Every card has a picture: hand-picked
 // incidents and collected articles use pictures made for us (never news photos), news videos use their YouTube
 // thumbnail. Every article opens our own page (/news/press/<slug>), collected ones too, and videos play here in a
 // large player. Rows come from src/data/security-news.json.
@@ -42,7 +42,7 @@ const listHref = (r: string, p: number) => {
   return href(`/news/press${slug ? `/${slug}` : ''}${p > 1 ? `/page/${p}` : ''}`, lang) + '#list';
 };
 const numbers: (number | '…')[] = pageNumbers(page, pages);
-const pageTitle = [en ? 'In the press' : '언론보도', region && (en ? labelEn(region) : region), page > 1 && (en ? `page ${page}` : `${page}페이지`)]
+const pageTitle = [en ? 'Security incidents' : '보안 사고', region && (en ? labelEn(region) : region), page > 1 && (en ? `page ${page}` : `${page}페이지`)]
   .filter(Boolean).join(' - ');
 // free Pexels photos: the photographer shows on hover. The "일부 사진 제공: Pexels" line under the list was removed at the
 // user's request (2026-11-17), knowing the Pexels API guidelines ask for a visible link to Pexels
