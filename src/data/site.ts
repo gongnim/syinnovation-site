@@ -85,7 +85,7 @@ export const libraryNav: MenuItem[] = [
 // 소식 has two pages: the header shows them as its sub-menu and each page shows them as tabs
 export const newsNav: MenuItem[] = [
   { href: '/news', label: '사내소식', en: 'Company news' },
-  { href: '/news/press', label: '보안 사고', en: 'Security incidents' },
+  { href: '/news/press', label: '보안사고', en: 'Security incidents' },
   { href: '/news/vulnerabilities', label: '보안뉴스', en: 'Security News' },
 ];
 

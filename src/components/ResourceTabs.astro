@@ -1,6 +1,6 @@
 ---
 // Tabs under a page title for a section split into pages: 자료실 (문서, 영상, 용어집) by default, or 소식
-// (사내소식, 보안 사고, 보안뉴스). The 자료실 list is also the header's sub-menu.
+// (사내소식, 보안사고, 보안뉴스). The 자료실 list is also the header's sub-menu.
 // items are menu items (site.ts); on English pages they show their English labels and /en/ links.
 import { libraryNav, menu, type MenuItem } from '../data/site';
 import { newMark } from '../data/news';
@@ -11,7 +11,7 @@ interface Props { items?: MenuItem[]; label?: string }
 const { items = libraryNav, label = en ? 'Resources menu' : '자료실 메뉴' } = Astro.props;
 const path = pagePath(Astro.url);
 const tabs = menu(items, lang);
-// the tab whose address is the longest start of this page's: /news/press/page/2 → 보안 사고, not 사내소식 (/news)
+// the tab whose address is the longest start of this page's: /news/press/page/2 → 보안사고, not 사내소식 (/news)
 const on = tabs.filter((t) => path === t.href || path.startsWith(t.href + '/')).sort((a, b) => b.href.length - a.href.length)[0];
 ---
 <nav class="rtabs" aria-label={label}>
