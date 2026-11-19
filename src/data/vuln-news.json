@@ -45,7 +45,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72314",
       "date": "2026-11-19"
     },
-    "note": "AI 보안 플랫폼으로 찾은 원격 코드 실행 취약점 5건입니다. 별도의 리눅스 커널 취약점과 엮으면 서버의 루트 권한까지 넘어갈 수 있고, 아직 실제 피해 사례는 보고되지 않았습니다(전자신문 보도). 고쳐진 버전은 nginx 공식 보안 공지 기준입니다."
+    "note": "AI 보안 플랫폼으로 찾은 원격 코드 실행 취약점 5건입니다. 별도의 리눅스 커널 취약점과 엮으면 서버의 루트 권한까지 넘어갈 수 있고, 아직 실제 피해 사례는 보고되지 않았습니다(전자신문 보도). 고쳐진 버전은 nginx 공식 보안 공지 기준입니다.",
+    "slug": "2026-11-19-nginx-rce"
   },
   {
     "date": "2026-11-18",
@@ -92,7 +93,8 @@
       "title": "Oracle 제품 보안 업데이트 권고",
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72313",
       "date": "2026-11-18"
-    }
+    },
+    "slug": "2026-11-18-java-vulnerability"
   },
   {
     "date": "2026-11-17",
@@ -110,7 +112,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "오라클",
+    "nameEn": "Oracle",
+    "slug": "2026-11-17-oracle-vulnerability"
   },
   {
     "date": "2026-11-17",
@@ -124,7 +129,10 @@
     "status": "악용 중",
     "fixed": [],
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "name": "구글 멀티 에이전트·보안",
+    "nameEn": "Google",
+    "slug": "2026-11-17-google-vulnerability"
   },
   {
     "date": "2026-11-17",
@@ -141,7 +149,8 @@
     "severity": "CVSS 7.5",
     "status": "조치 권고",
     "fixed": [],
-    "note": "리눅스 커널의 TCP 처리에서 원격으로, 인증 없이 서버를 멈추게 할 수 있는 서비스 거부(DoS) 취약점입니다(Red Hat 등급 중요). 기사에는 고쳐진 커널 버전이 나오지 않았습니다. 쓰는 배포판의 보안 공지에서 CVE-2026-99288을 찾아 고친 커널이 나왔는지 확인하세요."
+    "note": "리눅스 커널의 TCP 처리에서 원격으로, 인증 없이 서버를 멈추게 할 수 있는 서비스 거부(DoS) 취약점입니다(Red Hat 등급 중요). 기사에는 고쳐진 커널 버전이 나오지 않았습니다. 쓰는 배포판의 보안 공지에서 CVE-2026-99288을 찾아 고친 커널이 나왔는지 확인하세요.",
+    "slug": "2026-11-17-linux-vulnerability"
   },
   {
     "date": "2026-11-15",
@@ -169,7 +178,8 @@
     "severity": "치명적",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-11-15-php-vulnerability"
   },
   {
     "date": "2026-11-14",
@@ -207,7 +217,8 @@
         "t": "설정을 검사한 뒤 다시 시작합니다.",
         "code": "sudo apachectl -t && sudo apachectl graceful"
       }
-    ]
+    ],
+    "slug": "2026-11-14-apache-httpd-rce"
   },
   {
     "date": "2026-11-14",
@@ -227,7 +238,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72299",
       "date": "2026-11-12"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-11-14-windows-privilege-escalation"
   },
   {
     "date": "2026-11-12",
@@ -253,7 +265,8 @@
     "severity": "긴급",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-11-12-chrome-zero-day"
   },
   {
     "date": "2026-11-12",
@@ -268,7 +281,10 @@
     "fixed": [
       "157.19.4.39"
     ],
-    "auto": true
+    "auto": true,
+    "name": "팔로알토네트웍스 프리즈마 브라우저",
+    "nameEn": "Palo Alto Networks Prisma Browser",
+    "slug": "2026-11-12-palo-alto-networks-prisma-vulnerability"
   },
   {
     "date": "2026-11-12",
@@ -281,7 +297,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "파이어폭스",
+    "nameEn": "Firefox",
+    "slug": "2026-11-12-firefox-vulnerability"
   },
   {
     "date": "2026-11-12",
@@ -294,7 +313,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "시스코 브로드웍스",
+    "nameEn": "Cisco BroadWorks",
+    "slug": "2026-11-12-cisco-broadworks-vulnerability"
   },
   {
     "date": "2026-11-12",
@@ -307,7 +329,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "이반티 엔드포인트 매니저",
+    "nameEn": "Ivanti Endpoint Manager",
+    "slug": "2026-11-12-ivanti-endpoint-manager-sql-injection"
   },
   {
     "date": "2026-11-11",
@@ -328,7 +353,8 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-11-11-ms-office-zero-day"
   },
   {
     "date": "2026-11-11",
@@ -350,7 +376,8 @@
     "status": "패치 나옴",
     "fixed": [],
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "slug": "2026-11-11-iphone-vulnerability"
   },
   {
     "date": "2026-11-09",
@@ -363,7 +390,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "소닉월 SSL-VPN",
+    "nameEn": "SonicWall SSL-VPN",
+    "slug": "2026-11-09-sonicwall-ssl-vpn-auth-bypass"
   },
   {
     "date": "2026-11-09",
@@ -387,7 +417,8 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-11-09-galaxy-vulnerability"
   },
   {
     "date": "2026-11-08",
@@ -407,7 +438,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72288",
       "date": "2026-11-07"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-11-08-openssh-auth-bypass"
   },
   {
     "date": "2026-11-07",
@@ -425,7 +457,10 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "큐냅 NAS",
+    "nameEn": "QNAP NAS",
+    "slug": "2026-11-07-qnap-nas-vulnerability"
   },
   {
     "date": "2026-11-07",
@@ -444,7 +479,10 @@
       "date": "2026-11-12"
     },
     "auto": true,
-    "note": "기사에 따르면 이 패치는 Windows 업데이트가 아니라 Microsoft Store에서 그림판 앱을 업데이트해야 받을 수 있습니다."
+    "note": "기사에 따르면 이 패치는 Windows 업데이트가 아니라 Microsoft Store에서 그림판 앱을 업데이트해야 받을 수 있습니다.",
+    "name": "마이크로소프트 그림판",
+    "nameEn": "Microsoft Paint",
+    "slug": "2026-11-07-microsoft-paint-vulnerability"
   },
   {
     "date": "2026-11-04",
@@ -467,7 +505,9 @@
     "status": "조치 권고",
     "fixed": [],
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "name": "바코드 스캐너가 해킹",
+    "slug": "2026-11-04-vulnerability"
   },
   {
     "date": "2026-11-03",
@@ -480,7 +520,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "이반티 VPN",
+    "nameEn": "Ivanti VPN",
+    "slug": "2026-11-03-ivanti-vpn-zero-day"
   },
   {
     "date": "2026-11-02",
@@ -506,7 +549,8 @@
     "severity": "치명적",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-11-02-linux-vulnerability"
   },
   {
     "date": "2026-11-02",
@@ -530,7 +574,8 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-11-02-php-vulnerability"
   },
   {
     "date": "2026-10-30",
@@ -548,7 +593,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "시놀로지",
+    "nameEn": "Synology",
+    "slug": "2026-10-30-synology-vulnerability"
   },
   {
     "date": "2026-10-30",
@@ -561,7 +609,10 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "레디스",
+    "nameEn": "Redis",
+    "slug": "2026-10-30-redis-rce"
   },
   {
     "date": "2026-10-29",
@@ -576,7 +627,8 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-10-29-chrome-vulnerability"
   },
   {
     "date": "2026-10-29",
@@ -589,7 +641,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "Node2Shell",
+    "nameEn": "Node2Shell",
+    "slug": "2026-10-29-node2shell-vulnerability"
   },
   {
     "date": "2026-10-29",
@@ -611,7 +666,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72278",
       "date": "2026-11-04"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-10-29-wordpress-sql-injection"
   },
   {
     "date": "2026-10-26",
@@ -629,7 +685,10 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72236",
       "date": "2026-10-23"
     },
-    "auto": true
+    "auto": true,
+    "name": "Node.js",
+    "nameEn": "Node.js",
+    "slug": "2026-10-26-node-js-vulnerability"
   },
   {
     "date": "2026-10-23",
@@ -642,7 +701,10 @@
     "severity": "치명적",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "오라클",
+    "nameEn": "Oracle",
+    "slug": "2026-10-23-oracle-vulnerability"
   },
   {
     "date": "2026-10-22",
@@ -687,7 +749,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72230",
       "date": "2026-10-22"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-10-22-php-vulnerability"
   },
   {
     "date": "2026-10-22",
@@ -700,7 +763,10 @@
     "severity": "치명적",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "깃랩",
+    "nameEn": "GitLab",
+    "slug": "2026-10-22-gitlab-vulnerability"
   },
   {
     "date": "2026-10-22",
@@ -722,7 +788,8 @@
       "date": "2026-10-22"
     },
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "slug": "2026-10-22-wordpress-rce"
   },
   {
     "date": "2026-10-15",
@@ -735,7 +802,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "팔로알토 PAN-OS",
+    "nameEn": "Palo Alto PAN-OS",
+    "slug": "2026-10-15-palo-alto-pan-os-privilege-escalation"
   },
   {
     "date": "2026-10-14",
@@ -760,7 +830,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72216",
       "date": "2026-10-15"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-10-14-windows-vulnerability"
   },
   {
     "date": "2026-10-08",
@@ -775,7 +846,8 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-10-08-chrome-vulnerability"
   },
   {
     "date": "2026-10-08",
@@ -788,7 +860,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "소닉월 SMA1000",
+    "nameEn": "SonicWall SMA1000",
+    "slug": "2026-10-08-sonicwall-sma1000-vulnerability"
   },
   {
     "date": "2026-10-04",
@@ -801,7 +876,9 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "자마드",
+    "slug": "2026-10-04-rce-zero-day"
   },
   {
     "date": "2026-10-03",
@@ -815,7 +892,8 @@
     "status": "패치 나옴",
     "fixed": [],
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "slug": "2026-10-03-vulnerability"
   },
   {
     "date": "2026-09-29",
@@ -842,7 +920,8 @@
     "fixed": [
       "26.7.1"
     ],
-    "auto": true
+    "auto": true,
+    "slug": "2026-09-29-iphone-vulnerability"
   },
   {
     "date": "2026-09-27",
@@ -855,7 +934,10 @@
     "severity": "긴급",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "셰어포인트·마이크로틱",
+    "nameEn": "SharePoint·MikroTik",
+    "slug": "2026-09-27-sharepoint-mikrotik-vulnerability"
   },
   {
     "date": "2026-09-25",
@@ -875,7 +957,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72197",
       "date": "2026-09-23"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-09-25-wordpress-vulnerability"
   },
   {
     "date": "2026-09-25",
@@ -888,7 +971,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "팀시티",
+    "nameEn": "TeamCity",
+    "slug": "2026-09-25-teamcity-vulnerability"
   },
   {
     "date": "2026-09-24",
@@ -901,7 +987,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "F5 BIG-IP APM",
+    "nameEn": "F5 BIG-IP APM",
+    "slug": "2026-09-24-f5-big-ip-apm-rce-zero-day"
   },
   {
     "date": "2026-09-16",
@@ -917,7 +1006,8 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-09-16-iphone-vulnerability"
   },
   {
     "date": "2026-09-10",
@@ -937,7 +1027,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72180",
       "date": "2026-09-09"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-09-10-windows-zero-day"
   },
   {
     "date": "2026-09-06",
@@ -963,7 +1054,8 @@
     "severity": "긴급",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-09-06-chrome-rce-zero-day"
   },
   {
     "date": "2026-08-30",
@@ -978,7 +1070,8 @@
     "severity": "치명적",
     "status": "",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-08-30-wordpress-rce"
   },
   {
     "date": "2026-08-25",
@@ -991,7 +1084,10 @@
     "severity": "긴급",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "오라클 웹로직",
+    "nameEn": "Oracle WebLogic",
+    "slug": "2026-08-25-oracle-weblogic-vulnerability"
   },
   {
     "date": "2026-08-22",
@@ -1004,7 +1100,10 @@
     "severity": "치명적",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "시스코 크로스워크·시큐어 워크로드",
+    "nameEn": "Cisco Crosswork·Secure Workload",
+    "slug": "2026-08-22-cisco-crosswork-secure-workload-vulnerability"
   },
   {
     "date": "2026-08-21",
@@ -1017,7 +1116,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "시트릭스 넷스케일러",
+    "nameEn": "Citrix NetScaler",
+    "slug": "2026-08-21-citrix-netscaler-auth-bypass"
   },
   {
     "date": "2026-08-21",
@@ -1032,7 +1134,8 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-08-21-wordpress-rce"
   },
   {
     "date": "2026-08-20",
@@ -1048,7 +1151,8 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-08-20-iphone-vulnerability"
   },
   {
     "date": "2026-08-19",
@@ -1066,7 +1170,10 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72166",
       "date": "2026-08-21"
     },
-    "auto": true
+    "auto": true,
+    "name": "MLflow",
+    "nameEn": "MLflow",
+    "slug": "2026-08-19-mlflow-ssrf"
   },
   {
     "date": "2026-08-15",
@@ -1079,7 +1186,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "지오서버",
+    "nameEn": "GeoServer",
+    "slug": "2026-08-15-geoserver-zero-day"
   },
   {
     "date": "2026-08-14",
@@ -1108,7 +1218,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72160",
       "date": "2026-08-19"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-08-14-windows-zero-day"
   },
   {
     "date": "2026-08-14",
@@ -1121,7 +1232,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "마이크로소프트 셰어포인트",
+    "nameEn": "Microsoft SharePoint",
+    "slug": "2026-08-14-microsoft-sharepoint-auth-bypass"
   },
   {
     "date": "2026-08-12",
@@ -1136,7 +1250,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "시스코 방화벽",
+    "nameEn": "Cisco firewall",
+    "slug": "2026-08-12-cisco-firewall-dos"
   },
   {
     "date": "2026-08-02",
@@ -1149,7 +1266,10 @@
     "severity": "CVSS 10.0",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "어도비",
+    "nameEn": "Adobe",
+    "slug": "2026-08-02-adobe-rce"
   },
   {
     "date": "2026-08-02",
@@ -1162,7 +1282,10 @@
     "severity": "치명적",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "레일스",
+    "nameEn": "Rails",
+    "slug": "2026-08-02-rails-rce"
   },
   {
     "date": "2026-07-30",
@@ -1180,7 +1303,10 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72152",
       "date": "2026-08-06"
     },
-    "auto": true
+    "auto": true,
+    "name": "VMware ESXi",
+    "nameEn": "VMware ESXi",
+    "slug": "2026-07-30-vmware-esxi-vulnerability"
   },
   {
     "date": "2026-07-29",
@@ -1193,7 +1319,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "포티넷 FortiOS",
+    "nameEn": "Fortinet FortiOS",
+    "slug": "2026-07-29-fortinet-fortios-vulnerability"
   },
   {
     "date": "2026-07-28",
@@ -1206,7 +1335,10 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "깃랩",
+    "nameEn": "GitLab",
+    "slug": "2026-07-28-gitlab-rce"
   },
   {
     "date": "2026-07-25",
@@ -1226,7 +1358,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72140",
       "date": "2026-07-27"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-07-25-linux-privilege-escalation"
   },
   {
     "date": "2026-07-24",
@@ -1239,7 +1372,10 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "체크포인트",
+    "nameEn": "Check Point",
+    "slug": "2026-07-24-check-point-auth-bypass"
   },
   {
     "date": "2026-07-22",
@@ -1252,7 +1388,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "오라클",
+    "nameEn": "Oracle",
+    "slug": "2026-07-22-oracle-vulnerability"
   },
   {
     "date": "2026-07-22",
@@ -1265,7 +1404,10 @@
     "severity": "치명적",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "마이크로소프트 셰어포인트",
+    "nameEn": "Microsoft SharePoint",
+    "slug": "2026-07-22-microsoft-sharepoint-rce"
   },
   {
     "date": "2026-07-22",
@@ -1279,7 +1421,10 @@
     "status": "패치 나옴",
     "fixed": [],
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "name": "구글",
+    "nameEn": "Google",
+    "slug": "2026-07-22-google-vulnerability"
   },
   {
     "date": "2026-07-19",
@@ -1297,7 +1442,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "줌 윈도 클라이언트",
+    "nameEn": "Zoom for Windows",
+    "slug": "2026-07-19-zoom-windows-vulnerability"
   },
   {
     "date": "2026-07-19",
@@ -1312,7 +1460,8 @@
     "severity": "",
     "status": "",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-07-19-openssl-dos"
   },
   {
     "date": "2026-07-18",
@@ -1332,7 +1481,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72136",
       "date": "2026-07-20"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-07-18-wordpress-rce"
   },
   {
     "date": "2026-07-17",
@@ -1352,7 +1502,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72135",
       "date": "2026-07-20"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-07-17-nginx-rce"
   },
   {
     "date": "2026-07-16",
@@ -1365,7 +1516,10 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "모질라·구글·어도비·브로드컴",
+    "nameEn": "Mozilla·Google·Adobe·Broadcom",
+    "slug": "2026-07-16-mozilla-google-adobe-broadcom-vulnerability"
   },
   {
     "date": "2026-07-16",
@@ -1378,7 +1532,10 @@
     "severity": "",
     "status": "",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "클로드 크롬 확장 프로그램",
+    "nameEn": "Claude Chrome extension",
+    "slug": "2026-07-16-claude-chrome-extension-privilege-escalation"
   },
   {
     "date": "2026-07-16",
@@ -1391,7 +1548,10 @@
     "severity": "긴급",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "포티샌드박스·셰어포인트",
+    "nameEn": "FortiSandbox and SharePoint",
+    "slug": "2026-07-16-fortisandbox-sharepoint-vulnerability"
   },
   {
     "date": "2026-07-14",
@@ -1409,7 +1569,10 @@
     "severity": "",
     "status": "조치 권고",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "전자정부 프레임워크",
+    "nameEn": "eGovFrame",
+    "slug": "2026-07-14-egovframe-vulnerability"
   },
   {
     "date": "2026-07-08",
@@ -1429,7 +1592,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72130",
       "date": "2026-07-15"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-07-08-windows-dos"
   },
   {
     "date": "2026-07-07",
@@ -1444,7 +1608,10 @@
     "severity": "치명적",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "어도비 콜드퓨전",
+    "nameEn": "Adobe ColdFusion",
+    "slug": "2026-07-07-adobe-coldfusion-vulnerability"
   },
   {
     "date": "2026-07-07",
@@ -1464,7 +1631,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72127",
       "date": "2026-07-08"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-07-07-linux-vulnerability"
   },
   {
     "date": "2026-07-01",
@@ -1477,7 +1645,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "마이크로소프트 디펜더",
+    "nameEn": "Microsoft Defender",
+    "slug": "2026-07-01-microsoft-defender-vulnerability"
   },
   {
     "date": "2026-06-30",
@@ -1500,7 +1671,8 @@
     "fixed": [
       "26.5.2"
     ],
-    "auto": true
+    "auto": true,
+    "slug": "2026-06-30-iphone-vulnerability"
   },
   {
     "date": "2026-06-26",
@@ -1520,7 +1692,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72113",
       "date": "2026-06-29"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-06-26-linux-privilege-escalation"
   },
   {
     "date": "2026-06-25",
@@ -1535,7 +1708,8 @@
     "severity": "",
     "status": "",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-06-25-galaxy-vulnerability"
   },
   {
     "date": "2026-06-19",
@@ -1552,7 +1726,8 @@
     "status": "조치 권고",
     "fixed": [],
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "slug": "2026-06-19-iphone-vulnerability"
   },
   {
     "date": "2026-06-18",
@@ -1570,7 +1745,10 @@
     "severity": "",
     "status": "조치 권고",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "마이크로소프트 디펜더",
+    "nameEn": "Microsoft Defender",
+    "slug": "2026-06-18-microsoft-defender-zero-day"
   },
   {
     "date": "2026-06-14",
@@ -1583,7 +1761,10 @@
     "severity": "CVSS 9.8",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "스플렁크",
+    "nameEn": "Splunk",
+    "slug": "2026-06-14-splunk-vulnerability"
   },
   {
     "date": "2026-06-11",
@@ -1598,7 +1779,8 @@
     "severity": "긴급",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-06-11-windows-zero-day"
   },
   {
     "date": "2026-06-10",
@@ -1613,7 +1795,8 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-06-10-chrome-zero-day"
   },
   {
     "date": "2026-06-10",
@@ -1626,7 +1809,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "체크포인트 VPN",
+    "nameEn": "Check Point VPN",
+    "slug": "2026-06-10-check-point-vpn-zero-day"
   },
   {
     "date": "2026-06-08",
@@ -1639,7 +1825,10 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "솔라윈즈 서브유",
+    "nameEn": "SolarWinds Serv-U",
+    "slug": "2026-06-08-solarwinds-serv-u-vulnerability"
   },
   {
     "date": "2026-06-03",
@@ -1659,7 +1848,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72080",
       "date": "2026-06-05"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-06-03-android-privilege-escalation"
   },
   {
     "date": "2026-06-02",
@@ -1674,7 +1864,8 @@
     "severity": "치명적",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-06-02-windows-vulnerability"
   },
   {
     "date": "2026-06-02",
@@ -1687,7 +1878,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "HP 폴리 VoIP 전화기",
+    "nameEn": "HP Poly VoIP phones",
+    "slug": "2026-06-02-hp-poly-voip-phones-vulnerability"
   },
   {
     "date": "2026-05-24",
@@ -1710,7 +1904,9 @@
     "status": "패치 나옴",
     "fixed": [],
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "name": "미토스",
+    "slug": "2026-05-24-zero-day"
   },
   {
     "date": "2026-05-23",
@@ -1723,7 +1919,10 @@
     "severity": "긴급",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "트렌드마이크로 에이펙스 원",
+    "nameEn": "Trend Micro Apex One",
+    "slug": "2026-05-23-trend-micro-apex-one-zero-day"
   },
   {
     "date": "2026-05-22",
@@ -1736,7 +1935,10 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "드루팔",
+    "nameEn": "Drupal",
+    "slug": "2026-05-22-drupal-vulnerability"
   },
   {
     "date": "2026-05-22",
@@ -1749,7 +1951,10 @@
     "severity": "고위험",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "시스코",
+    "nameEn": "Cisco",
+    "slug": "2026-05-22-cisco-vulnerability"
   },
   {
     "date": "2026-05-22",
@@ -1762,7 +1967,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "마이크로소프트 디펜더",
+    "nameEn": "Microsoft Defender",
+    "slug": "2026-05-22-microsoft-defender-privilege-escalation"
   },
   {
     "date": "2026-05-21",
@@ -1775,7 +1983,10 @@
     "severity": "치명적",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "유니버설 로봇",
+    "nameEn": "Universal Robots",
+    "slug": "2026-05-21-universal-robots-vulnerability"
   },
   {
     "date": "2026-05-19",
@@ -1793,7 +2004,10 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72064",
       "date": "2026-05-22"
     },
-    "auto": true
+    "auto": true,
+    "name": "이반티·포티넷·SAP·n8n·VMware",
+    "nameEn": "Ivanti·Fortinet·SAP·n8n·VMware",
+    "slug": "2026-05-19-ivanti-fortinet-sap-n8n-rce"
   },
   {
     "date": "2026-05-18",
@@ -1813,7 +2027,8 @@
     "severity": "",
     "status": "조치 권고",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-05-18-windows-zero-day"
   },
   {
     "date": "2026-05-08",
@@ -1833,7 +2048,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72050",
       "date": "2026-05-14"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-05-08-linux-vulnerability"
   },
   {
     "date": "2026-05-08",
@@ -1848,7 +2064,8 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-05-08-apache-httpd-rce"
   },
   {
     "date": "2026-05-06",
@@ -1861,7 +2078,10 @@
     "severity": "긴급",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "팔로알토 PAN-OS",
+    "nameEn": "Palo Alto PAN-OS",
+    "slug": "2026-05-06-palo-alto-pan-os-zero-day"
   },
   {
     "date": "2026-05-01",
@@ -1904,7 +2124,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72039",
       "date": "2026-04-30"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-05-01-linux-vulnerability"
   },
   {
     "date": "2026-04-28",
@@ -1922,7 +2143,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "Nessus 윈도우 에이전트",
+    "nameEn": "Nessus Agent for Windows",
+    "slug": "2026-04-28-nessus-agent-windows-vulnerability"
   },
   {
     "date": "2026-04-24",
@@ -1947,7 +2171,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72039",
       "date": "2026-04-30"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-04-24-linux-vulnerability"
   },
   {
     "date": "2026-04-23",
@@ -1962,7 +2187,8 @@
     "severity": "",
     "status": "조치 권고",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-04-23-router-vulnerability"
   },
   {
     "date": "2026-04-02",
@@ -1982,7 +2208,8 @@
     "severity": "긴급",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-04-02-chrome-zero-day"
   },
   {
     "date": "2026-04-02",
@@ -1998,7 +2225,8 @@
     "severity": "",
     "status": "조치 권고",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-04-02-iphone-vulnerability"
   },
   {
     "date": "2026-03-30",
@@ -2011,7 +2239,10 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "F5 BIG-IP",
+    "nameEn": "F5 BIG-IP",
+    "slug": "2026-03-30-f5-big-ip-vulnerability"
   },
   {
     "date": "2026-03-22",
@@ -2024,7 +2255,10 @@
     "severity": "치명적",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "오라클 아이덴티티 관리자",
+    "nameEn": "Oracle Identity Manager",
+    "slug": "2026-03-22-oracle-identity-manager-rce"
   },
   {
     "date": "2026-03-22",
@@ -2049,7 +2283,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72003",
       "date": "2026-03-19"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-03-22-linux-privilege-escalation"
   },
   {
     "date": "2026-03-16",
@@ -2069,7 +2304,8 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-03-16-chrome-vulnerability"
   },
   {
     "date": "2026-03-14",
@@ -2082,7 +2318,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "Node.js ORM",
+    "nameEn": "Node.js ORM",
+    "slug": "2026-03-14-node-js-orm-vulnerability"
   },
   {
     "date": "2026-03-12",
@@ -2103,7 +2342,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72004",
       "date": "2026-03-19"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-03-12-iphone-vulnerability"
   },
   {
     "date": "2026-03-11",
@@ -2123,7 +2363,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71997",
       "date": "2026-03-11"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-03-11-windows-zero-day"
   },
   {
     "date": "2026-03-11",
@@ -2136,7 +2377,10 @@
     "severity": "치명적",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "HPE 아루바 AOS-CX",
+    "nameEn": "HPE Aruba AOS-CX",
+    "slug": "2026-03-11-hpe-aruba-aos-cx-vulnerability"
   },
   {
     "date": "2026-03-09",
@@ -2156,7 +2400,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71996",
       "date": "2026-03-09"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-03-09-nginx-vulnerability"
   },
   {
     "date": "2026-03-05",
@@ -2176,7 +2421,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71992",
       "date": "2026-03-06"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-03-05-java-vulnerability"
   },
   {
     "date": "2026-03-05",
@@ -2189,7 +2435,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "시스코 Secure FMC",
+    "nameEn": "Cisco Secure FMC",
+    "slug": "2026-03-05-cisco-secure-fmc-vulnerability"
   },
   {
     "date": "2026-03-05",
@@ -2205,7 +2454,8 @@
     "status": "",
     "fixed": [],
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "slug": "2026-03-05-iphone-vulnerability"
   },
   {
     "date": "2026-03-03",
@@ -2220,7 +2470,8 @@
     "severity": "",
     "status": "조치 권고",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-03-03-windows-vulnerability"
   },
   {
     "date": "2026-02-22",
@@ -2233,7 +2484,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "비욘드트러스트",
+    "nameEn": "BeyondTrust",
+    "slug": "2026-02-22-beyondtrust-vulnerability"
   },
   {
     "date": "2026-02-21",
@@ -2247,7 +2501,9 @@
     "status": "패치 나옴",
     "fixed": [],
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "name": "AI가",
+    "slug": "2026-02-21-vulnerability"
   },
   {
     "date": "2026-02-18",
@@ -2260,7 +2516,10 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "노트패드++",
+    "nameEn": "Notepad++",
+    "slug": "2026-02-18-notepadplusplus-vulnerability"
   },
   {
     "date": "2026-02-12",
@@ -2285,7 +2544,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71965",
       "date": "2026-02-11"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-02-12-windows-zero-day"
   },
   {
     "date": "2026-02-12",
@@ -2308,7 +2568,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71969",
       "date": "2026-02-13"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-02-12-iphone-rce-zero-day"
   },
   {
     "date": "2026-02-01",
@@ -2321,7 +2582,10 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "아이반티 EPMM",
+    "nameEn": "Ivanti EPMM",
+    "slug": "2026-02-01-ivanti-epmm-rce-zero-day"
   },
   {
     "date": "2026-01-29",
@@ -2334,7 +2598,10 @@
     "severity": "긴급",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "포티넷 FortiOS",
+    "nameEn": "Fortinet FortiOS",
+    "slug": "2026-01-29-fortinet-fortios-auth-bypass"
   },
   {
     "date": "2026-01-21",
@@ -2348,7 +2615,8 @@
     "status": "패치 나옴",
     "fixed": [],
     "auto": true,
-    "hidden": true
+    "hidden": true,
+    "slug": "2026-01-21-vulnerability"
   },
   {
     "date": "2026-01-15",
@@ -2368,7 +2636,8 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71944",
       "date": "2026-01-14"
     },
-    "auto": true
+    "auto": true,
+    "slug": "2026-01-15-windows-vulnerability"
   },
   {
     "date": "2026-01-11",
@@ -2383,7 +2652,8 @@
     "severity": "",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-01-11-ms-office-vulnerability"
   },
   {
     "date": "2026-01-09",
@@ -2396,7 +2666,10 @@
     "severity": "",
     "status": "패치 나옴",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "name": "시스코 ISE",
+    "nameEn": "Cisco ISE",
+    "slug": "2026-01-09-cisco-ise-vulnerability"
   },
   {
     "date": "2026-01-09",
@@ -2414,7 +2687,10 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71938",
       "date": "2026-01-13"
     },
-    "auto": true
+    "auto": true,
+    "name": "HPE 원뷰",
+    "nameEn": "HPE OneView",
+    "slug": "2026-01-09-hpe-oneview-vulnerability"
   },
   {
     "date": "2026-01-07",
@@ -2429,6 +2705,7 @@
     "severity": "치명적",
     "status": "악용 중",
     "fixed": [],
-    "auto": true
+    "auto": true,
+    "slug": "2026-01-07-router-vulnerability"
   }
 ]

@@ -1,4 +1,5 @@
-// Collect vulnerability news for 소식 > 취약점 소식 and add it to src/data/vuln-news.json.
+// Collect vulnerability news for 소식 > 보안뉴스 and add it to src/data/vuln-news.json; each row gets its own page at
+// /news/vulnerabilities/<slug> (the slug, and a product name when the headline names none we have steps for, are stored).
 // Runs with the security news job (.github/workflows/security-news.yml) or by hand:
 //   node scripts/collect-vuln-news.mjs                      add new stories from the last three days
 //   node scripts/collect-vuln-news.mjs --dry                only print what would be added
@@ -11,7 +12,7 @@
 import fs from 'node:fs';
 import { hangul } from './security-news-lib.mjs';
 import { googleNews, naverNews, kisaNotices } from './news-sources.mjs';
-import { isVulnStory, mergeVulns, windows } from './vuln-news-lib.mjs';
+import { isVulnStory, mergeVulns, windows, addPageFields } from './vuln-news-lib.mjs';
 
 const DATA = new URL('../src/data/vuln-news.json', import.meta.url);
 const cfg = JSON.parse(fs.readFileSync(new URL('./vuln-news.config.json', import.meta.url), 'utf8'));
@@ -48,6 +49,7 @@ for (const it of found) {
 const vulns = found.filter((i) => i.date && (!from || i.date >= from) && isVulnStory(i.title, cfg, i.source));
 const stored = fs.existsSync(DATA) ? JSON.parse(fs.readFileSync(DATA, 'utf8')) : [];
 const { rows, added } = mergeVulns(stored, vulns, from ? { ...cfg, maxNewPerRun: 0 } : cfg, howto, notices);
+addPageFields(rows); // every row gets its own page: /news/vulnerabilities/<slug>
 console.log(`fetched ${found.length} headlines (${vulns.length} about a vulnerability) and ${notices.length} KISA notices; ${added.length} new stories`);
-for (const r of added) console.log(`  + ${r.date} [${r.products[0] ?? '-'}${r.status ? ` · ${r.status}` : ''}] ${r.title} (${r.source}${r.sources.length ? ` +${r.sources.length}` : ''})`);
+for (const r of added) console.log(`  + ${r.date} [${r.products[0] ?? r.name ?? '-'}${r.status ? ` · ${r.status}` : ''}] ${r.title} (${r.source}${r.sources.length ? ` +${r.sources.length}` : ''}) → /news/vulnerabilities/${r.slug}`);
 if (!dry && JSON.stringify(rows) !== JSON.stringify(stored)) fs.writeFileSync(DATA, JSON.stringify(rows, null, 2) + '\n');

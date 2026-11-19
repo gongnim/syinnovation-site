@@ -1,0 +1,77 @@
+---
+// 보안뉴스: how to fix one flaw, used inside a list card's "해결 방법 보기" and, open, on the flaw's own page. Who is
+// affected and the steps per product (src/data/vuln-howto.json), the fixed version and temporary measure when the
+// article or notice names them, the official notices, and the other outlets (on the list; the page lists them itself).
+import Icon from './Icon.astro';
+import { howFor, howKeys, stepOf, type Vuln, type Step } from '../data/news';
+import { vulnNewsEn, labelEn } from '../data/en';
+import { langOf } from '../lib/i18n';
+interface Props { v: Vuln; note?: boolean; others?: boolean }
+const { v, note = true, others = true } = Astro.props;
+const lang = langOf(Astro.url);
+const en = lang === 'en';
+const e = en ? vulnNewsEn[v.url] : undefined;
+const keys = howKeys(v);
+const workaround = (e?.workaround ?? v.workaround ?? []) as (string | Step)[];
+const more = v.sources ?? [];
+const text = note ? e?.note ?? v.note : undefined;
+---
+<div class="body">
+  {text && <p class="note">{text}</p>}
+  {v.fixed && v.fixed.length > 0 && (
+    <p class="fixed">{en ? 'Fixed version (as reported): ' : '고쳐진 버전(보도·공지 기준): '}<b>{v.fixed.join(', ')}</b>{en ? '. Update if yours is older.' : '. 이보다 낮으면 업데이트하세요.'}</p>
+  )}
+  {keys.map((k) => {
+    const h = howFor(k, lang);
+    return (
+      <section class="how">
+        {(keys.length > 1 || k !== '_default') && <h3>{h.label}</h3>}
+        <p class="who"><span>{en ? 'Who: ' : '해당: '}</span>{h.who}</p>
+        <ol>
+          {h.steps.map((s) => { const x = stepOf(s); return <li>{x.t}{x.code && <pre><code>{x.code}</code></pre>}</li>; })}
+        </ol>
+        {h.note && <p class="hnote">{h.note}</p>}
+        <p class="links">{h.links.map((l) => <a href={l.url} target="_blank" rel="noopener">{l.label}<Icon name="external" size={12} /></a>)}</p>
+      </section>
+    );
+  })}
+  {workaround.length > 0 && (
+    <section class="how">
+      <h3>{en ? 'If you cannot update right away' : '바로 업데이트할 수 없을 때'}</h3>
+      <ol>{workaround.map((s) => { const x = stepOf(s); return <li>{x.t}{x.code && <pre><code>{x.code}</code></pre>}</li>; })}</ol>
+    </section>
+  )}
+  {(v.notice || v.cves.length > 0) && (
+    <p class="links official">
+      <span>{en ? 'Official notices' : '공식 공지'}</span>
+      {v.notice && <a href={v.notice.url} target="_blank" rel="noopener">{en ? 'KISA: ' : 'KISA 보안공지: '}{v.notice.title}<Icon name="external" size={12} /></a>}
+      {v.cves.map((c) => <a href={`https://www.cve.org/CVERecord?id=${c}`} target="_blank" rel="noopener">{c}<Icon name="external" size={12} /></a>)}
+    </p>
+  )}
+  {others && more.length > 0 && (
+    <p class="links others">
+      <span>{en ? 'Also reported by' : '같은 소식'}</span>
+      {more.map((m) => <a href={m.url} target="_blank" rel="noopener">{en ? labelEn(m.source) : m.source}</a>)}
+    </p>
+  )}
+</div>
+
+<style>
+  .body { display: grid; gap: 16px; padding-bottom: 18px; font-size: 15px; line-height: 1.65; color: var(--ink-2); }
+  .note, .fixed { padding: 12px 14px; border-radius: var(--r-md); background: var(--paper-2); }
+  .fixed b { color: var(--ink); }
+  .how { display: grid; gap: 8px; min-width: 0; }
+  .how h3 { font-size: 15px; font-weight: 700; color: var(--ink); }
+  .who span { font-weight: 600; color: var(--ink); }
+  .how ol { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
+  .how li { min-width: 0; }
+  .how pre { margin: 6px 0 2px; padding: 10px 12px; border-radius: var(--r-sm); background: var(--night); color: var(--on-night); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; max-width: 100%; }
+  .how pre code { font: inherit; }
+  .hnote { font-size: 14px; color: var(--ink-3); }
+  .links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-size: 14px; }
+  .links span { font-weight: 600; color: var(--ink); }
+  .links a { color: var(--blue); text-decoration: none; overflow-wrap: anywhere; }
+  .links a :global(svg) { display: inline; margin-left: 4px; vertical-align: -1px; }
+  .links a:hover { text-decoration: underline; }
+  .others a { color: var(--ink-2); }
+</style>

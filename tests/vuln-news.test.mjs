@@ -1,7 +1,8 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import { cvesOf, severityOf, statusOf, productsOf, fixedVersions, isVulnStory, stories, mergeVulns, noticeFor, windows } from '../scripts/vuln-news-lib.mjs';
+import { cvesOf, severityOf, statusOf, productsOf, fixedVersions, isVulnStory, stories, mergeVulns, noticeFor, windows, addPageFields } from '../scripts/vuln-news-lib.mjs';
+import { flawOf, nameFromTitle, nameEn, titleFor, uniqueTitles, summaryFor, describe, slugFor, termsFor } from '../src/lib/vuln-text.js';
 
 const howto = JSON.parse(fs.readFileSync(new URL('../src/data/vuln-howto.json', import.meta.url), 'utf8'));
 const howtoEn = JSON.parse(fs.readFileSync(new URL('../src/data/i18n/vuln-howto.en.json', import.meta.url), 'utf8'));
@@ -128,5 +129,65 @@ test('stored rows have the fields the page reads', () => {
     assert.ok(r.title && r.source && /^https?:\/\//.test(r.url), r.title);
     assert.ok(Array.isArray(r.products) && Array.isArray(r.cves), r.title);
     for (const p of r.products) assert.ok(howto[p], `${p} in vuln-howto.json`);
+    // every row has its own page; a slug starts with the date, so it never meets the list's page/N
+    assert.match(r.slug ?? '', /^\d{4}-\d{2}-\d{2}-[a-z0-9-]+$/, r.title);
   }
+  assert.equal(new Set(rows.map((r) => r.slug)).size, rows.length, 'slugs are unique');
+  const shown = rows.filter((r) => !r.hidden);
+  for (const lang of ['ko', 'en']) assert.equal(new Set(uniqueTitles(shown, lang, howto, howtoEn).values()).size, shown.length, `${lang} titles are unique`);
+});
+
+const chrome = { date: '2026-11-12', title: '비운 메모리 다시 건드리는 결함... 구글, 올해 8번째 크롬 제로데이 긴급 패치', source: '보안뉴스', url: 'https://x/1',
+  sources: [{ source: '데일리시큐', url: 'https://x/2' }, { source: '전자신문', url: 'https://x/3' }], products: ['chrome'], cves: ['CVE-2026-125350'], severity: '긴급', status: '악용 중', fixed: [] };
+
+test('our title: product, flaw words, CVE and status, never the headline', () => {
+  assert.deepEqual(flawOf('인증 없이 원격 코드 실행 가능'), { ko: '원격 코드 실행 취약점', en: 'remote code execution flaw', slug: 'rce' });
+  assert.equal(flawOf('크롬 제로데이 긴급 패치').ko, '제로데이');
+  assert.equal(flawOf('윈도우 넷로그온 결함').ko, '보안 취약점');
+  assert.equal(titleFor(chrome, 'ko', howto, howtoEn), '크롬 제로데이(CVE-2026-125350) 악용 중, 업데이트 방법');
+  assert.equal(titleFor(chrome, 'en', howto, howtoEn), 'Chrome zero-day (CVE-2026-125350) exploited: how to update');
+  const ngx = { ...chrome, title: '엔진엑스 취약점 5건 공개', products: ['nginx'], cves: [], status: '패치 나옴' };
+  assert.equal(titleFor(ngx, 'en', howto, howtoEn), 'nginx vulnerability patched: how to update'); // the name keeps its case
+  const two = uniqueTitles([{ ...chrome, slug: 'a' }, { ...chrome, slug: 'b', date: '2026-06-10' }], 'ko', howto, howtoEn);
+  assert.deepEqual([...two.values()], ['크롬 제로데이(CVE-2026-125350) 악용 중, 업데이트 방법 (2026년 11월)', '크롬 제로데이(CVE-2026-125350) 악용 중, 업데이트 방법 (2026년 6월)']);
+});
+
+test('a product we have no steps for is named from the headline, in English where known', () => {
+  assert.equal(nameFromTitle('시스코 브로드웍스 취약점, 패치 공개 약 석 달 만에 실제 공격에 악용'), '시스코 브로드웍스');
+  assert.equal(nameFromTitle('[긴급] 레디스서 원격코드실행 취약점 5건 발견'), '레디스');
+  assert.equal(nameFromTitle('“로그인 없이 개발 서버 뚫린다” 깃랩, CVSS 10점 치명적 결함 긴급 패치'), '깃랩');
+  assert.equal(nameEn('시스코 브로드웍스'), 'Cisco BroadWorks');
+  assert.equal(nameEn('자마드'), '');
+  const row = { date: '2026-11-12', title: '시스코 브로드웍스 취약점, 패치 공개 약 석 달 만에 실제 공격에 악용', products: [], cves: [], status: '악용 중' };
+  assert.equal(titleFor({ ...row, name: '시스코 브로드웍스' }, 'ko', howto, howtoEn), '시스코 브로드웍스 보안 취약점 악용 중, 업데이트 방법');
+});
+
+test('our summary is built from the fields: date, outlets, status, severity, fixed version, notice, who', () => {
+  const ko = summaryFor({ ...chrome, fixed: ['142.0.1'], notice: { title: 'Google 제품 보안 업데이트 권고', url: 'u' } }, 'ko', howto, howtoEn);
+  assert.equal(ko[0], '2026년 11월 12일, 국내 언론 3곳이 크롬의 제로데이(CVE-2026-125350)를 보도했습니다.');
+  assert.ok(ko.some((x) => x.includes('실제 공격에 쓰이고')));
+  assert.ok(ko.some((x) => x.includes("'긴급'")));
+  assert.ok(ko.some((x) => x.includes('142.0.1')));
+  assert.ok(ko.some((x) => x.startsWith('KISA 보호나라')));
+  assert.ok(ko.at(-1).startsWith('PC에서 Chrome 브라우저를 쓰는 사람이라면'));
+  assert.ok(!ko.join(' ').includes('비운 메모리'), 'no words of the headline');
+  const en = summaryFor(chrome, 'en', howto, howtoEn);
+  assert.equal(en[0], 'On November 12, 2026, 3 Korean news outlets reported a zero-day in Chrome (CVE-2026-125350).');
+  const many = summaryFor({ ...chrome, sources: Array(6).fill({ source: 'x', url: 'y' }) }, 'ko', howto, howtoEn);
+  assert.match(many[0], /국내 언론 7곳 이상이/);
+  assert.equal(describe(['짧은 문장입니다.', '두 번째 문장입니다.'], 15), '짧은 문장입니다.');
+});
+
+test('slugs: date, product, flaw; the CVE when no English name; -2 when taken', () => {
+  const taken = new Set();
+  assert.equal(slugFor(chrome, taken), '2026-11-12-chrome-zero-day');
+  assert.equal(slugFor(chrome, taken), '2026-11-12-chrome-zero-day-2');
+  assert.equal(slugFor({ date: '2026-08-12', title: '해커가 원격에서 방화벽 멈춘다…CVE-2026-20349 공격 확인', products: [], name: '해커가', cves: ['CVE-2026-20349'] }), '2026-08-12-cve-2026-20349-dos');
+  assert.equal(slugFor({ date: '2026-11-12', title: '이반티 엔드포인트 매니저, SQL 삽입 취약점 수정', products: [], cves: [] }), '2026-11-12-ivanti-endpoint-manager-sql-injection');
+  const rows = [{ ...chrome, slug: '2026-11-12-chrome-zero-day' }, { ...chrome, date: '2026-11-13', title: '깃랩 원격 코드 실행 취약점', products: [], cves: [] }];
+  const given = addPageFields(rows);
+  assert.equal(given.length, 1);
+  assert.deepEqual([rows[1].name, rows[1].nameEn, rows[1].slug], ['깃랩', 'GitLab', '2026-11-13-gitlab-rce']);
+  assert.equal(rows[0].slug, '2026-11-12-chrome-zero-day'); // a given slug never changes
+  assert.deepEqual(termsFor(chrome), ['vulnerability', 'cve', 'zero-day', 'patch-management']);
 });

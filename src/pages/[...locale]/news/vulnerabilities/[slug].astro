@@ -1,0 +1,158 @@
+---
+// 소식 > 보안뉴스 > one flaw, on its own page for search (coordinator, 2026-11-19): our own title and summary (made from
+// the row's fields by src/lib/vuln-text.js, never the article's sentences), the fix shown open, the official notices,
+// every outlet's article as a link, our Short when there is one, and links to glossary terms and other news about the
+// same product. schema.org: NewsArticle, HowTo for the fix, VideoObject for a Short, BreadcrumbList.
+// Addresses: /news/vulnerabilities/<slug> and /en/…; slugs start with a date, so they never meet the list's page/N.
+import Base from '../../../../layouts/Base.astro';
+import Icon from '../../../../components/Icon.astro';
+import VulnFix from '../../../../components/VulnFix.astro';
+import CtaBand from '../../../../components/CtaBand.astro';
+import { vulns, fmt, vulnPage, vulnTitle, vulnSummary, vulnDescription, vulnHref, vulnTerms, howFor, howKeys, stepOf, vulnStatus, sevText, type Vuln, type Step } from '../../../../data/news';
+import { glossary } from '../../../../data/glossary';
+import { glossaryEn, vulnNewsEn, labelEn } from '../../../../data/en';
+import { langOf, href, dateText } from '../../../../lib/i18n';
+import { org, breadcrumb, newsArticle, howTo, video } from '../../../../lib/ld.js';
+
+export function getStaticPaths() {
+  const paths = vulns.map((v) => ({ params: { slug: v.slug }, props: { v } }));
+  return [undefined, 'en'].flatMap((locale) => paths.map((p) => ({ ...p, params: { ...p.params, locale } })));
+}
+interface Props { v: Vuln }
+const { v } = Astro.props;
+const lang = langOf(Astro.url);
+const en = lang === 'en';
+const abs = (p: string) => new URL(p, Astro.site).href;
+const title = vulnTitle(v, lang);
+const summary = vulnSummary(v, lang);
+const description = vulnDescription(v, lang);
+const st = v.status ? vulnStatus[v.status] : undefined;
+const productLabel = v.products.length ? howFor(howKeys(v)[0], lang).label : (en ? v.nameEn : v.name) ?? howFor('_default', lang).label;
+const outlets = [{ source: v.source, url: v.url }, ...(v.sources ?? [])];
+const day = (d: string) => (en ? dateText(d, lang) : fmt(d));
+// 목록 goes back to the list page this flaw is on
+const listPage = Math.floor(Math.max(0, vulns.findIndex((x) => x.slug === v.slug)) / vulnPage) + 1;
+const listUrl = href(`/news/vulnerabilities${listPage > 1 ? `/page/${listPage}` : ''}`, lang);
+// other news about the same product (or product name), nearest in time; else the newest news
+const near = (x: Vuln) => Math.abs(Date.parse(x.date) - Date.parse(v.date));
+const same = vulns.filter((x) => x.slug !== v.slug && (v.products[0] ? x.products[0] === v.products[0] : !!v.name && x.name === v.name));
+const related = (same.length ? [...same].sort((a, b) => near(a) - near(b)) : vulns.filter((x) => x.slug !== v.slug)).slice(0, 3);
+const terms = vulnTerms(v).map((id) => glossary.find((t) => t.id === id)).filter((t) => !!t)
+  .map((t) => ({ id: t!.id, label: (en ? glossaryEn.terms?.[t!.id]?.t : undefined) ?? t!.t }));
+
+// structured data
+const url = abs(vulnHref(v, lang));
+const publisher = org(Astro.site!, en);
+const howSteps = [...howKeys(v).flatMap((k) => howFor(k, lang).steps), ...((en ? vulnNewsEn[v.url]?.workaround : undefined) ?? v.workaround ?? [])]
+  .map((s) => stepOf(s as string | Step)).map((s) => ({ name: s.t, text: s.code ? `${s.t}: ${s.code}` : s.t }));
+const ld = [
+  newsArticle({ url, headline: title, description, date: v.date, lang, publisher, image: v.youtube ? `https://i.ytimg.com/vi/${v.youtube}/hqdefault.jpg` : abs(`/images/og/og-${lang}.png`), basedOn: outlets.map((o) => o.url) }),
+  howTo({ url, name: en ? `How to fix: ${title}` : `해결 방법: ${title}`, description, lang, steps: howSteps }),
+  ...(v.youtube ? [video({ id: v.youtube, name: title, description, uploadDate: v.youtubeDate })] : []),
+  breadcrumb([
+    { name: en ? 'News' : '소식', url: abs(href('/news', lang)) },
+    { name: en ? 'Security News' : '보안뉴스', url: abs(href('/news/vulnerabilities', lang)) },
+    { name: title, url },
+  ]),
+];
+---
+<Base title={title} description={description} tone="light" type="article" published={v.date} ld={ld}>
+  <article class="vul">
+    <div class="wrap narrow">
+      <nav class="crumb" aria-label={en ? 'Breadcrumb' : '위치'}><a href={href('/news', lang)}>{en ? 'News' : '소식'}</a><span aria-hidden="true">/</span><a href={href('/news/vulnerabilities', lang)}>{en ? 'Security News' : '보안뉴스'}</a></nav>
+      <div class="chips">
+        <span class="chip prod">{productLabel}</span>
+        {v.severity && <span class="chip sev">{sevText(v.severity, lang)}</span>}
+        {st && <span class={`chip st ${st.cls}`}>{en ? st.en : v.status}</span>}
+      </div>
+      <h1>{title.split(/(CVE-\d{4}-\d+)/).map((p, i) => (i % 2 ? <span class="nw">{p}</span> : p))}</h1>
+      <p class="meta"><time datetime={v.date}>{day(v.date)}</time><span class="dot" aria-hidden="true"></span>{en ? `Reported by ${outlets.length} outlet${outlets.length > 1 ? 's' : ''}` : `국내 언론 ${outlets.length}곳 보도`}</p>
+      <div class="lead-in">{summary.map((s) => <p>{s}</p>)}</div>
+
+      {v.youtube && (
+        <div class="short">
+          <iframe src={`https://www.youtube-nocookie.com/embed/${v.youtube}`} title={en ? `Video: ${title}` : `영상: ${title}`} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+      )}
+
+      <section class="fix">
+        <h2>{en ? 'How to fix it' : '해결 방법'}</h2>
+        <VulnFix v={v} note={false} others={false} />
+      </section>
+
+      <section class="src">
+        <h2>{en ? 'Original articles' : '원문 기사'}</h2>
+        <ul>
+          {outlets.map((o, i) => (
+            <li><a href={o.url} target="_blank" rel="noopener">{en ? labelEn(o.source) : o.source}{i === 0 && <span lang="ko">{v.title}</span>}<Icon name="external" size={14} label={en ? 'Open in a new window' : '새 창에서 열기'} /></a></li>
+          ))}
+        </ul>
+        <p class="fine">{en ? 'SYINNOVATION wrote this summary itself from the reports above and the official notices. The steps follow the vendors\' official support pages; for company systems, check with your IT team or supplier first.' : '이 글은 위 보도와 공식 공지를 바탕으로 신영이노베이션이 직접 정리했습니다. 업데이트 방법은 각 제조사의 공식 안내를 따르며, 회사 업무 시스템은 담당자나 공급사와 먼저 확인하세요.'}</p>
+      </section>
+
+      {terms.length > 0 && (
+        <section class="rel">
+          <h2>{en ? 'Terms on this page' : '함께 보면 좋은 용어'}</h2>
+          <p class="terms">{terms.map((t) => <a href={href(`/library/glossary#${t.id}`, lang)}>{t.label}</a>)}</p>
+        </section>
+      )}
+
+      {related.length > 0 && (
+        <section class="rel">
+          <h2>{same.length ? (en ? `More news on ${productLabel}` : `${productLabel} 관련 다른 소식`) : (en ? 'Latest security news' : '최근 보안뉴스')}</h2>
+          <ul class="more">
+            {related.map((x) => <li><a href={vulnHref(x, lang)}><span>{day(x.date)}</span>{vulnTitle(x, lang)}</a></li>)}
+          </ul>
+        </section>
+      )}
+
+      <nav class="back"><a href={listUrl}>{en ? 'Back to Security News' : '보안뉴스 목록'}</a></nav>
+    </div>
+  </article>
+
+  <CtaBand
+    title={en ? "Is your company's work access secure?" : '우리 회사의 업무 접속은 안전할까요?'}
+    lead={en ? 'Start by checking the security risks in your current work access with a free initial consultation.' : '사전 컨설팅(무료)으로 지금 업무 접속의 보안 위험부터 확인해 보세요.'}
+  />
+</Base>
+
+<style>
+  .vul { padding: calc(var(--header-h) + clamp(88px, 8vw, 120px)) 0 var(--section-y); }
+  .vul .wrap { max-width: calc(800px + var(--gutter) * 2); }
+  .crumb { display: flex; gap: 8px; font-size: 14px; color: var(--ink-3); }
+  .crumb a:hover { color: var(--blue); }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 22px; }
+  .chip { padding: 4px 10px; border-radius: 999px; font-size: 13px; font-weight: 700; white-space: nowrap; background: var(--paper-2); color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line); }
+  .chip.prod { background: var(--mist); color: var(--blue-deep); box-shadow: none; }
+  .chip.st.hot { background: #fdecec; color: #b42318; box-shadow: none; }
+  .chip.st.ok { background: #e8f3ee; color: #1d6b48; box-shadow: none; }
+  .chip.st.warn { background: var(--orange-soft); color: var(--orange-ink); box-shadow: none; }
+  h1 { margin-top: 14px; font-size: clamp(26px, 1.6vw + 17px, 38px); font-weight: 700; line-height: 1.32; letter-spacing: -0.03em; color: var(--ink); }
+  .nw { white-space: nowrap; } /* a CVE id never breaks at its hyphens */
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; font-size: 15px; color: var(--ink-3); }
+  .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-3); }
+  .lead-in { display: grid; gap: 10px; margin-top: 22px; padding-left: 16px; border-left: 3px solid var(--blue); font-size: 17px; line-height: 1.75; color: var(--ink); }
+  .short { position: relative; width: min(100%, 300px); aspect-ratio: 9 / 16; margin: 32px auto 0; border-radius: var(--r-md); overflow: hidden; background: #0B1628; }
+  .short iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  section { margin-top: 44px; }
+  h2 { margin-bottom: 14px; font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+  .fix { padding: 24px 24px 8px; border: 1px solid var(--line); border-radius: var(--r-lg); background: #fff; }
+  .src ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  .src a { display: inline; font-size: 15px; font-weight: 700; color: var(--blue); overflow-wrap: anywhere; }
+  .src a span { margin-left: 8px; font-weight: 500; color: var(--ink-2); }
+  .src a :global(svg) { display: inline; margin-left: 6px; vertical-align: -2px; }
+  .fine { margin-top: 14px; font-size: 13px; line-height: 1.7; color: var(--ink-3); }
+  .terms { display: flex; flex-wrap: wrap; gap: 8px; }
+  .terms a { padding: 6px 14px; border: 1px solid var(--line); border-radius: 999px; font-size: 14px; font-weight: 600; color: var(--ink-2); }
+  .terms a:hover { border-color: var(--blue); color: var(--blue); }
+  .more { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+  .more a { display: grid; gap: 2px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 16px; font-weight: 600; line-height: 1.5; color: var(--ink); }
+  .more a:hover { color: var(--blue); }
+  .more span { font-size: 13px; font-weight: 500; color: var(--ink-3); }
+  .back { margin-top: 48px; text-align: center; }
+  .back a { display: inline-block; padding: 10px 22px; border: 1px solid var(--line); border-radius: 999px; font-size: 15px; font-weight: 600; color: var(--ink); }
+  @media (max-width: 559px) {
+    .fix { padding: 18px 16px 4px; }
+    .lead-in { font-size: 16px; }
+  }
+</style>

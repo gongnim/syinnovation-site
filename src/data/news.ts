@@ -120,6 +120,10 @@ export const fmt = (d: string) => d.replaceAll('-', '.');
 // them); hidden: true takes a row off the site and keeps its flaw from being added again. The steps under 할 일 come
 // from src/data/vuln-howto.json by product key.
 import vulnRows from './vuln-news.json';
+import howtoKo from './vuln-howto.json';
+import { vulnHowtoEn, vulnNewsEn } from './en';
+import { href, type Lang } from '../lib/i18n';
+import { uniqueTitles, summaryFor, describe, termsFor } from '../lib/vuln-text.js';
 export interface Step { t: string; code?: string }
 export interface Vuln {
   date: string;
@@ -134,7 +138,11 @@ export interface Vuln {
   fixed?: string[]; // fixed versions named by the article or the vendor notice (never guessed)
   workaround?: (string | Step)[]; // a temporary measure from the vendor notice or the article (hand-written rows)
   youtube?: string; // our 보안 속보 Short about this flaw (YouTube id); shown at the top of the card (user, 2026-11-19)
+  youtubeDate?: string; // the Short's upload date (YYYY-MM-DD), for its VideoObject; left out of the data when unknown
   note?: string; // a hand-written line about this flaw
+  slug: string; // our page: /news/vulnerabilities/<slug>, given once by the collector and never changed
+  name?: string; // the product as the headline names it, when it is none of vuln-howto.json's (for our title)
+  nameEn?: string; // the same in English, when known
   notice?: { title: string; url: string; date?: string }; // the KISA 보호나라 보안공지 about it
   auto?: boolean;
   hidden?: boolean;
@@ -142,6 +150,41 @@ export interface Vuln {
 export const vulns = (vulnRows as Vuln[]).filter((v) => !v.hidden).sort((a, b) => b.date.localeCompare(a.date));
 /** rows per page of 보안뉴스 (/news/vulnerabilities, /news/vulnerabilities/page/2, …) */
 export const vulnPage = 20;
+
+// Each row also has its own page (/news/vulnerabilities/<slug>, for search; coordinator, 2026-11-19) with our own
+// title and summary, made from the row's fields by src/lib/vuln-text.js (no sentence of an article is copied).
+type HowStep = string | Step;
+export interface How { label: string; who: string; steps: HowStep[]; note?: string; links: { label: string; url: string }[] }
+const howto = howtoKo as unknown as Record<string, How>;
+const titles = { ko: uniqueTitles(vulns, 'ko', howto, vulnHowtoEn), en: uniqueTitles(vulns, 'en', howto, vulnHowtoEn) };
+/** our title for a row: "크롬 제로데이(CVE-…) 악용 중, 업데이트 방법" */
+export const vulnTitle = (v: Vuln, lang: Lang): string => titles[lang].get(v.slug) ?? v.title;
+/** our summary, sentence by sentence (the hand-written note last) */
+export const vulnSummary = (v: Vuln, lang: Lang): string[] => summaryFor(v, lang, howto, vulnHowtoEn, lang === 'en' ? vulnNewsEn[v.url]?.note : undefined);
+export const vulnDescription = (v: Vuln, lang: Lang): string => describe(vulnSummary(v, lang), lang === 'en' ? 160 : 110);
+export const vulnHref = (v: Vuln, lang: Lang): string => href(`/news/vulnerabilities/${v.slug}`, lang);
+export const vulnTerms = (v: Vuln): string[] => termsFor(v);
+/** one product's steps in a language: English text over the Korean list, commands and links kept */
+export const howFor = (key: string, lang: Lang): How => {
+  const ko = howto[key] ?? howto._default;
+  const e = lang === 'en' ? vulnHowtoEn[howto[key] ? key : '_default'] : undefined;
+  if (!e) return ko;
+  return {
+    label: e.label ?? ko.label, who: e.who ?? ko.who, note: ko.note && (e.note ?? ko.note),
+    steps: ko.steps.map((s, i) => (typeof s === 'string' ? e.steps?.[i] ?? s : { ...s, t: e.steps?.[i] ?? s.t })),
+    links: ko.links.map((l, i) => ({ ...l, label: e.links?.[i] ?? l.label })),
+  };
+};
+/** the products whose steps a row shows (the default steps when it names none we know) */
+export const howKeys = (v: Vuln): string[] => (v.products.length ? v.products.slice(0, 3) : ['_default']);
+export const stepOf = (s: HowStep): Step => (typeof s === 'string' ? { t: s } : s);
+export const vulnStatus: Record<string, { en: string; cls: string }> = {
+  '악용 중': { en: 'Exploited', cls: 'hot' },
+  '패치 나옴': { en: 'Patch out', cls: 'ok' },
+  '조치 권고': { en: 'Action advised', cls: 'warn' },
+};
+const SEVERITY_EN: Record<string, string> = { 치명적: 'Critical', 고위험: 'High risk', 긴급: 'Urgent' };
+export const sevText = (s: string, lang: Lang): string => (lang === 'en' ? SEVERITY_EN[s] ?? s : s);
 
 // New posts get noticed (user, 2026-11-19: "업데이트 되면 New 이런 게 있으면"): an item younger than its tab's window shows
 // a NEW chip, and the 소식 menu and tab show a dot while the tab's newest item is that young and the visitor hasn't

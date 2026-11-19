@@ -4,6 +4,7 @@
 // each with a link to the original. No article text or photos are copied; the picture was made for this page, or
 // is a free Pexels photo (credited) for an article the collector found and we wrote up later.
 // The longer write-ups live in src/data/security-stories.json (keyed by slug); without one, the summary is shown.
+// schema.org: NewsArticle (based on the reports listed) and BreadcrumbList, through the graph in Base.astro.
 import Base from '../../../../layouts/Base.astro';
 import Icon from '../../../../components/Icon.astro';
 import CtaBand from '../../../../components/CtaBand.astro';
@@ -12,6 +13,7 @@ import { lessonFor, type Lesson } from '../../../../data/security-lessons';
 import storiesJson from '../../../../data/security-stories.json';
 import { securityNewsEn, storiesEn, lessonsEn, labelEn } from '../../../../data/en';
 import { langOf, href, dateText } from '../../../../lib/i18n';
+import { org, breadcrumb, newsArticle } from '../../../../lib/ld.js';
 
 interface Story {
   overview?: string[]; timeline?: { date: string; event: string }[]; impact?: string[];
@@ -48,8 +50,19 @@ const photoNote = en
   : n.credit
     ? `사진은 Pexels의 자료 사진(${n.credit.name})으로, 실제 현장 사진이 아닙니다.`
     : n.image ? '이미지는 이해를 돕기 위해 만든 것으로, 실제 현장 사진이 아닙니다.' : '';
+const abs = (p: string) => new URL(p, Astro.site).href;
+const url = abs(href(`/news/press/${n.slug}`, lang));
+const ld = [
+  newsArticle({ url, headline: title, description: summary ?? title, date: n.date, lang: en && !e ? 'ko' : lang, publisher: org(Astro.site!, en), // untranslated: the text is Korean
+    image: abs(n.image ?? `/images/og/og-${lang}.png`), basedOn: sources.map((x) => x.url) }),
+  breadcrumb([
+    { name: en ? 'News' : '소식', url: abs(href('/news', lang)) },
+    { name: en ? 'Security incidents' : '보안사고', url: abs(href('/news/press', lang)) },
+    { name: title, url },
+  ]),
+];
 ---
-<Base title={title} description={summary ?? title} tone="light" type="article" published={n.date} image={n.image}>
+<Base title={title} description={summary ?? title} tone="light" type="article" published={n.date} image={n.image} ld={ld}>
   <article class="inc">
     <div class="wrap narrow">
       <nav class="crumb" aria-label={en ? 'Breadcrumb' : '위치'}><a href={href('/news', lang)}>{en ? 'News' : '소식'}</a><span aria-hidden="true">/</span><a href={href('/news/press', lang)}>{en ? 'Security incidents' : '보안사고'}</a></nav>

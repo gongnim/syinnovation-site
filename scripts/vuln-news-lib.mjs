@@ -3,6 +3,7 @@
 // description): the product (a key of src/data/vuln-howto.json), CVE ids, the severity and status as stated, and the
 // fixed versions the text names. No article text is stored.
 import { tokens, isUnwanted, isoDate } from './security-news-lib.mjs';
+import { slugFor, nameFromTitle, nameEn } from '../src/lib/vuln-text.js';
 
 /** CVE ids in a text, upper case, each once. */
 export const cvesOf = (text) => [...new Set((text.match(/CVE-\d{4}-\d{4,7}/gi) ?? []).map((c) => c.toUpperCase()))];
@@ -177,4 +178,23 @@ export function windows(from, to = isoDate(new Date()), step = 7) {
     out.push([t.toISOString().slice(0, 10), new Date(t.getTime() + step * 864e5).toISOString().slice(0, 10)]);
   }
   return out;
+}
+
+/**
+ * Give every row without one a page address (slug, /news/vulnerabilities/<slug>), oldest first so a "-2" goes to the
+ * later row; a row naming no product we have steps for also stores the product name read off its headline (name, and
+ * nameEn when we know the English), for its title on our page. Slugs never change once given. Returns the rows given one.
+ */
+export function addPageFields(rows) {
+  const taken = new Set(rows.map((r) => r.slug).filter(Boolean));
+  const todo = rows.filter((r) => !r.slug).sort((a, b) => a.date.localeCompare(b.date));
+  for (const r of todo) {
+    if (!r.products?.length && !r.name) {
+      const n = nameFromTitle(r.title), e = n && nameEn(n);
+      if (n) r.name = n;
+      if (e) r.nameEn = e;
+    }
+    r.slug = slugFor(r, taken);
+  }
+  return todo;
 }

@@ -2,19 +2,19 @@
 import { langOf, href, dateText } from '../../../../lib/i18n';
 import { pageNumbers } from '../../../../lib/pager.js';
 // 소식 > 보안뉴스 (was 취약점 소식, renamed by the user 2026-11-19): vulnerabilities reported in the Korean press, newest first, each with what to do about it.
-// A row shows the date, the product, the severity and status as reported, and the headline (linking to the article);
-// 할 일 opens who is affected, how to check and update (src/data/vuln-howto.json, from the vendors' support pages), the
-// fixed version and temporary measure when the article or notice names them, and the official notices.
+// A row shows the date, the product, the severity and status as reported, and our own title, linking to the flaw's
+// own page (/news/vulnerabilities/<slug>, [slug].astro; the small icon opens the article); 해결 방법 보기 opens the fix
+// (src/components/VulnFix.astro): who is affected, how to check and update, fixed version, workaround, notices.
 // Numbered pages like 보안사고: /news/vulnerabilities, /news/vulnerabilities/page/2, …
 import Base from '../../../../layouts/Base.astro';
 import PageTitle from '../../../../components/PageTitle.astro';
 import Icon from '../../../../components/Icon.astro';
 import NewChip from '../../../../components/NewChip.astro';
 import ResourceTabs from '../../../../components/ResourceTabs.astro';
-import { vulns, fmt, vulnPage, newDays, type Step } from '../../../../data/news';
+import VulnFix from '../../../../components/VulnFix.astro';
+import { vulns, fmt, vulnPage, newDays, vulnTitle, vulnHref, howFor, howKeys, vulnStatus, sevText } from '../../../../data/news';
 import { newsNav, menu } from '../../../../data/site';
-import howtoKo from '../../../../data/vuln-howto.json';
-import { vulnHowtoEn, vulnNewsEn, labelEn } from '../../../../data/en';
+import { labelEn } from '../../../../data/en';
 
 export function getStaticPaths() {
   const pages = Math.max(1, Math.ceil(vulns.length / vulnPage));
@@ -32,27 +32,6 @@ const en = lang === 'en';
 const listHref = (p: number) => href(`/news/vulnerabilities${p > 1 ? `/page/${p}` : ''}`, lang) + '#list';
 const numbers: (number | '…')[] = pageNumbers(page, pages);
 
-type How = { label: string; who: string; steps: (string | Step)[]; note?: string; links: { label: string; url: string }[] };
-const howto = howtoKo as unknown as Record<string, How>;
-// one product's steps in the page's language: English text over the Korean list, commands and links kept
-const how = (key: string): How => {
-  const ko = howto[key] ?? howto._default;
-  const e = en ? vulnHowtoEn[howto[key] ? key : '_default'] : undefined;
-  if (!e) return ko;
-  return {
-    label: e.label ?? ko.label, who: e.who ?? ko.who, note: ko.note && (e.note ?? ko.note),
-    steps: ko.steps.map((s, i) => (typeof s === 'string' ? e.steps?.[i] ?? s : { ...s, t: e.steps?.[i] ?? s.t })),
-    links: ko.links.map((l, i) => ({ ...l, label: e.links?.[i] ?? l.label })),
-  };
-};
-const STATUS: Record<string, { en: string; cls: string }> = {
-  '악용 중': { en: 'Exploited', cls: 'hot' },
-  '패치 나옴': { en: 'Patch out', cls: 'ok' },
-  '조치 권고': { en: 'Action advised', cls: 'warn' },
-};
-const SEVERITY_EN: Record<string, string> = { 치명적: 'Critical', 고위험: 'High risk', 긴급: 'Urgent' };
-const sev = (s: string) => (en ? SEVERITY_EN[s] ?? s : s);
-const step = (s: string | Step) => (typeof s === 'string' ? { t: s } : s);
 ---
 <Base title={en ? (page > 1 ? `Security News - page ${page}` : 'Security News') : (page > 1 ? `보안뉴스 - ${page}페이지` : '보안뉴스')} description={en ? 'Software and device vulnerabilities reported in the Korean press, with who is affected and what to do: how to check your version, how to update, and the official notices.' : '국내 언론에 보도된 소프트웨어·기기 취약점과, 누가 해당되는지, 무엇을 하면 되는지. 버전 확인, 업데이트 방법, 공식 공지까지 정리합니다.'} tone="light">
   <PageTitle title={en ? 'News' : '소식'}>{en ? <>Follow SYINNOVATION news and press coverage,<br />and security issues worth a look.</> : <>신영이노베이션의 소식과 언론 보도,<br />함께 볼 만한 보안 이슈를 놓치지 마세요.</>}<ResourceTabs slot="after" items={menu(newsNav, lang)} label={en ? 'News menu' : '소식 메뉴'} /></PageTitle>
@@ -67,69 +46,29 @@ const step = (s: string | Step) => (typeof s === 'string' ? { t: s } : s);
       {rows.length > 0
         ? <ul class="items">
             {rows.map((v) => {
-              const e = en ? vulnNewsEn[v.url] : undefined; // no English yet: the Korean headline, marked
-              const keys = v.products.length ? v.products.slice(0, 3) : ['_default'];
-              const st = v.status ? STATUS[v.status] : undefined;
+              const st = v.status ? vulnStatus[v.status] : undefined;
               const more = v.sources ?? [];
-              const workaround = (e?.workaround ?? v.workaround ?? []) as (string | Step)[];
+              const title = vulnTitle(v, lang);
               return (
                 <li class={`item${v.youtube ? ' has-short' : ''}`}>
                   {v.youtube && (
                     <div class="short">
-                      <iframe src={`https://www.youtube-nocookie.com/embed/${v.youtube}`} title={en ? `Video: ${e?.title ?? v.title}` : `영상: ${v.title}`} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                      <iframe src={`https://www.youtube-nocookie.com/embed/${v.youtube}`} title={en ? `Video: ${title}` : `영상: ${title}`} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
                     </div>
                   )}
                   <div class="row">
                     <span class="date">{en ? dateText(v.date, lang) : fmt(v.date)}<NewChip date={v.date} days={newDays['/news/vulnerabilities']} /></span>
                     <span class="chips">
-                      <span class="chip prod">{how(keys[0]).label}</span>
-                      {v.severity && <span class="chip sev">{sev(v.severity)}</span>}
+                      <span class="chip prod">{v.products.length ? howFor(howKeys(v)[0], lang).label : (en ? v.nameEn : v.name) ?? howFor('_default', lang).label}</span>
+                      {v.severity && <span class="chip sev">{sevText(v.severity, lang)}</span>}
                       {st && <span class={`chip st ${st.cls}`}>{en ? st.en : v.status}</span>}
                     </span>
                   </div>
-                  <h2 class="title"><a href={v.url} target="_blank" rel="noopener">{en && !e ? <><span lang="ko">{v.title}</span> <small>(Korean)</small></> : e?.title ?? v.title}<Icon name="external" size={14} label={en ? 'Open the article in a new window' : '새 창에서 기사 열기'} /></a></h2>
+                  <h2 class="title"><a href={vulnHref(v, lang)}>{title.split(/(CVE-\d{4}-\d+)/).map((p, i) => (i % 2 ? <span class="nw">{p}</span> : p))}</a><a class="ext" href={v.url} target="_blank" rel="noopener"><Icon name="external" size={14} label={en ? 'Open the original article in a new window' : '원문 기사를 새 창에서 열기'} /></a></h2>
                   <p class="meta">{en ? labelEn(v.source) : v.source}{more.length > 0 && <span>{en ? ` and ${more.length} more` : ` 외 ${more.length}곳 보도`}</span>}</p>
                   <details class="todo">
                     <summary><span class="todo-t">{en ? 'How to fix it' : '해결 방법 보기'}</span><span class="todo-hint"><span class="open">{en ? 'Click to open' : '눌러서 보기'}</span><span class="close">{en ? 'Close' : '접기'}</span><Icon name="plus" size={16} class="todo-i" /></span></summary>
-                    <div class="body">
-                      {(e?.note ?? v.note) && <p class="note">{e?.note ?? v.note}</p>}
-                      {v.fixed && v.fixed.length > 0 && (
-                        <p class="fixed">{en ? 'Fixed version (as reported): ' : '고쳐진 버전(보도·공지 기준): '}<b>{v.fixed.join(', ')}</b>{en ? '. Update if yours is older.' : '. 이보다 낮으면 업데이트하세요.'}</p>
-                      )}
-                      {keys.map((k) => {
-                        const h = how(k);
-                        return (
-                          <section class="how">
-                            {(keys.length > 1 || k !== '_default') && <h3>{h.label}</h3>}
-                            <p class="who"><span>{en ? 'Who: ' : '해당: '}</span>{h.who}</p>
-                            <ol>
-                              {h.steps.map((s) => { const x = step(s); return <li>{x.t}{x.code && <pre><code>{x.code}</code></pre>}</li>; })}
-                            </ol>
-                            {h.note && <p class="hnote">{h.note}</p>}
-                            <p class="links">{h.links.map((l) => <a href={l.url} target="_blank" rel="noopener">{l.label}<Icon name="external" size={12} /></a>)}</p>
-                          </section>
-                        );
-                      })}
-                      {workaround.length > 0 && (
-                        <section class="how">
-                          <h3>{en ? 'If you cannot update right away' : '바로 업데이트할 수 없을 때'}</h3>
-                          <ol>{workaround.map((s) => { const x = step(s); return <li>{x.t}{x.code && <pre><code>{x.code}</code></pre>}</li>; })}</ol>
-                        </section>
-                      )}
-                      {(v.notice || v.cves.length > 0) && (
-                        <p class="links official">
-                          <span>{en ? 'Official notices' : '공식 공지'}</span>
-                          {v.notice && <a href={v.notice.url} target="_blank" rel="noopener">{en ? 'KISA: ' : 'KISA 보안공지: '}{v.notice.title}<Icon name="external" size={12} /></a>}
-                          {v.cves.map((c) => <a href={`https://www.cve.org/CVERecord?id=${c}`} target="_blank" rel="noopener">{c}<Icon name="external" size={12} /></a>)}
-                        </p>
-                      )}
-                      {more.length > 0 && (
-                        <p class="links others">
-                          <span>{en ? 'Also reported by' : '같은 소식'}</span>
-                          {more.map((m) => <a href={m.url} target="_blank" rel="noopener">{en ? labelEn(m.source) : m.source}</a>)}
-                        </p>
-                      )}
-                    </div>
+                    <VulnFix v={v} />
                   </details>
                 </li>
               );
@@ -174,11 +113,13 @@ const step = (s: string | Step) => (typeof s === 'string' ? { t: s } : s);
   .chip.st.hot { background: #fdecec; color: #b42318; box-shadow: none; }
   .chip.st.ok { background: #e8f3ee; color: #1d6b48; box-shadow: none; }
   .chip.st.warn { background: var(--orange-soft); color: var(--orange-ink); box-shadow: none; }
-  .title { margin-top: 10px; font-size: 18px; font-weight: 700; line-height: 1.5; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+  .title { margin-top: 10px; font-size: 18px; font-weight: 700; line-height: 1.5; letter-spacing: -0.01em; }
   .title a { color: var(--ink); text-decoration: none; }
   .title a:hover { color: var(--blue); }
-  .title :global(svg) { display: inline; margin-left: 6px; vertical-align: -1px; color: var(--ink-3); }
-  .title small { font-size: 13px; font-weight: 500; color: var(--ink-3); }
+  .nw { white-space: nowrap; } /* a CVE id never breaks at its hyphens */
+  .title .ext { margin-left: 6px; color: var(--ink-3); }
+  .title .ext:hover { color: var(--blue); }
+  .title :global(svg) { display: inline; vertical-align: -1px; }
   .meta { margin-top: 4px; font-size: 13px; color: var(--ink-3); }
 
   .todo { margin-top: 10px; border-top: 1px solid var(--line); }
@@ -192,23 +133,6 @@ const step = (s: string | Step) => (typeof s === 'string' ? { t: s } : s);
   .todo summary :global(.todo-i) { flex: none; color: var(--blue); transition: rotate .25s var(--ease); }
   .todo[open] summary :global(.todo-i) { rotate: 45deg; }
   .todo summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: var(--r-sm); }
-  .body { display: grid; gap: 16px; padding-bottom: 18px; font-size: 15px; line-height: 1.65; color: var(--ink-2); }
-  .note, .fixed { padding: 12px 14px; border-radius: var(--r-md); background: var(--paper-2); }
-  .fixed b { color: var(--ink); }
-  .how { display: grid; gap: 8px; min-width: 0; }
-  .how h3 { font-size: 15px; font-weight: 700; color: var(--ink); }
-  .who span { font-weight: 600; color: var(--ink); }
-  .how ol { margin: 0; padding-left: 1.4em; display: grid; gap: 6px; }
-  .how li { min-width: 0; }
-  .how pre { margin: 6px 0 2px; padding: 10px 12px; border-radius: var(--r-sm); background: var(--night); color: var(--on-night); font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; line-height: 1.5; white-space: pre-wrap; overflow-wrap: anywhere; max-width: 100%; }
-  .how pre code { font: inherit; }
-  .hnote { font-size: 14px; color: var(--ink-3); }
-  .links { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; font-size: 14px; }
-  .links span { font-weight: 600; color: var(--ink); }
-  .links a { color: var(--blue); text-decoration: none; overflow-wrap: anywhere; }
-  .links a :global(svg) { display: inline; margin-left: 4px; vertical-align: -1px; }
-  .links a:hover { text-decoration: underline; }
-  .others a { color: var(--ink-2); }
   .empty { padding: 32px 0; color: var(--ink-3); }
 
   .pager { display: flex; justify-content: center; align-items: center; gap: 6px; margin-top: 40px; }
