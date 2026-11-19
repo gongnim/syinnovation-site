@@ -1,5 +1,64 @@
 [
   {
+    "date": "2026-11-19",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "부산대·동의대 해킹 공격에 개인정보 500여 건 유출 (2026-11-19,목/뉴스투데이/부산MBC)",
+    "source": "부산MBC뉴스",
+    "url": "https://www.youtube.com/watch?v=mQ1f12T7yGk",
+    "youtube": "mQ1f12T7yGk",
+    "auto": true
+  },
+  {
+    "date": "2026-11-18",
+    "region": "해외",
+    "type": "해킹",
+    "title": "미국국무 \"AI 해킹 증거는 없다\"…사이버공격설 진화에도 커지는 의구심｜미국 은행·비행기·이메일 줄줄이 먹통 된 진짜 속사정 [뉴스쏙]",
+    "source": "연합뉴스TV",
+    "url": "https://www.youtube.com/watch?v=vm-p8CS-MuM",
+    "youtube": "vm-p8CS-MuM",
+    "auto": true
+  },
+  {
+    "date": "2026-11-19",
+    "region": "국내",
+    "type": "계정 탈취",
+    "title": "[단독]저축은행 또 털렸다...직원정보 유출에 피싱 경보",
+    "source": "서울경제",
+    "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBYcjZEaWVtVlBQdU9XYXBMeTRobjNFS1pGX3ZpcXFzVHF3VmZMSEgwdVl1LVZQQngzUjhkN2s4cFd3UVZkdHRVVHJmTGg3cmE0blHSAVNBVV95cUxNbC14S3lsWWtQdFpxVWVuNFBLZFJYR1R1OUZQYUx5VFZTSHVRMkpzZDcyYXlETlZjV2NTdE51REtJNENvbUQ3UEpzdlVEbl9xMld5bw?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-19-fc0275e6.jpg",
+    "credit": {
+      "name": "Calvin Seng",
+      "url": "https://www.pexels.com/photo/night-view-of-skyscrapers-in-singapore-s-financial-district-32229751/",
+      "id": 32229751
+    }
+  },
+  {
+    "date": "2026-11-17",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "영남대학교 도서관·취업 홈페이지 해킹…학생 개인정보 유출",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE55RXZ6LXF5MnFTczN3UW1GUmlQdDZlTEdtTTBYcTM3TldIYUZpWm5naWZoa19fTlhaR3BDUllGX0dwSWtkSVJ0bFp0dFdlMi1LM1BOdENGUzhpR0FyN2VJR2xTV1dUejdySGctZA?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-16",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "지역상품권 ’착’ 3,083명 정보 유출…“인증 허점 노린 공격“",
+    "source": "연합뉴스TV",
+    "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBYZmVieHBtNGV5ZV9qbzZVRWRodi0wTkpSbk83cHd5UXU0Vmh3NXZvb2M1MmVIU0FiXzNjTElfcXdTWk94Z21PeVN6XzNoNHNOeUhjMmtYX1p6N0Nwb1loVHUtUFF1QmM?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-16-607823db.jpg",
+    "credit": {
+      "name": "Federico Orlandi",
+      "url": "https://www.pexels.com/photo/macbook-pro-3260626/",
+      "id": 3260626
+    }
+  },
+  {
     "date": "2026-11-18",
     "region": "국내",
     "type": "개인정보 유출",
