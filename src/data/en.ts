@@ -13,6 +13,10 @@ export const storiesEn = get('security-stories');
 export const ownNewsEn = get('news');
 /** keyed by incident type (해킹, 개인정보 유출, ...) */
 export const lessonsEn = get('security-lessons');
+/** keyed by product key, like vuln-howto.json: { label, who, steps (text only), note?, links (labels) } */
+export const vulnHowtoEn = get('vuln-howto');
+/** keyed by the row's url: { title, note?, workaround? } */
+export const vulnNewsEn = get('vuln-news');
 /** { cats, terms: { id: { t, s, b, tg?, aka? } } } */
 export const glossaryEn = get('glossary');
 

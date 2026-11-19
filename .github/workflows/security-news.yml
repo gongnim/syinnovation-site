@@ -1,6 +1,8 @@
 # Twice a day (about 07:17 and 12:17 Korea time), collect security incident news and news videos for 소식 > 언론보도 and commit them
 # to src/data/security-news.json, with a free Pexels photo for each new article in public/images/security/auto/
-# (see scripts/collect-security-news.mjs). Everything it uses is free. Run it by hand from the Actions tab too.
+# (see scripts/collect-security-news.mjs), and vulnerability news for 소식 > 취약점 소식 to src/data/vuln-news.json
+# (scripts/collect-vuln-news.mjs: Google News, Naver, KISA 보호나라 보안공지; the 할 일 steps come from
+# src/data/vuln-howto.json). Everything it uses is free. Run it by hand from the Actions tab too.
 # Repository secrets (all free, all optional; without one that part is skipped): PEXELS_API_KEY (photos),
 # YOUTUBE_API_KEY (news videos), NAVER_CLIENT_ID / NAVER_CLIENT_SECRET (Naver news search),
 # OPENAI_API_KEY is used only if the config is switched to "pictures": "openai" (paid).
@@ -32,8 +34,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - name: Test the collector
-        run: node --test tests/security-news.test.mjs
+      - name: Test the collectors
+        run: node --test tests/security-news.test.mjs tests/vuln-news.test.mjs
       - name: Collect
         run: node scripts/collect-security-news.mjs
         env:
@@ -42,11 +44,16 @@ jobs:
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
           NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
           NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
+      - name: Collect vulnerabilities
+        run: node scripts/collect-vuln-news.mjs
+        env:
+          NAVER_CLIENT_ID: ${{ secrets.NAVER_CLIENT_ID }}
+          NAVER_CLIENT_SECRET: ${{ secrets.NAVER_CLIENT_SECRET }}
       - name: Commit new stories
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add src/data/security-news.json public/images/security/auto
+          git add src/data/security-news.json src/data/vuln-news.json public/images/security/auto
           if git diff --cached --quiet; then echo "no new stories"; exit 0; fi
           git commit -m "Update security news"
           git push

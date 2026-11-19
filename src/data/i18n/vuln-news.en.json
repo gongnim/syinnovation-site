@@ -1,0 +1,24 @@
+{
+  "https://www.boannews.com/news/articleView.html?idxno=147236": {
+    "title": "Only servers with HTTP/2 on are exposed: a remote code execution flaw in the Apache web server, found by Anthropic and Google",
+    "note": "Apache HTTP Server 2.4.55 to 2.4.70 with HTTP/2 (mod_http2) turned on is affected; servers without HTTP/2 are not (Boan News). On RHEL 9, mod_http2 is a separate package: update it with sudo dnf upgrade mod_http2 (fixed package: mod_http2-2.0.26-7.el9_9.1).",
+    "workaround": [
+      {
+        "t": "Turn HTTP/2 off: in the server configuration and in every VirtualHost, remove h2 and h2c from the Protocols directive and keep only http/1.1. The Apache notice gives no workaround; this is Wiz's advice as reported.",
+        "code": "Protocols http/1.1"
+      },
+      {
+        "t": "Test the configuration, then restart.",
+        "code": "sudo apachectl -t && sudo apachectl graceful"
+      }
+    ]
+  },
+  "https://www.thelec.kr/news/articleView.html?idxno=65549": {
+    "title": "'NoisyTCP': a high-risk flaw hidden in the Linux kernel for 11 years",
+    "note": "A denial-of-service flaw in the Linux kernel's TCP handling that lets an attacker crash a server remotely without logging in (rated Important by Red Hat). The article names no fixed kernel version. Look up CVE-2026-99288 in your distribution's security notices to see whether a fixed kernel is out."
+  },
+  "https://news.google.com/rss/articles/CBMibEFVX3lxTFBxZzVPS09XUDhlbDdIZDI1YmNUbzFkaTR2OTlDWmZSOWdBVWpsNHFaazFKWlNNMnBuMXRXSzRwQy1ZRWVjTWdkcFFkV05VclRWeExGZjVjOWIwVGpKa3BSdzFDclM0YTdZcXh1MA?oc=5": {
+    "title": "\"Code runs on the server without logging in\": Theori and Xint disclose five nginx vulnerabilities",
+    "note": "Five remote code execution flaws found with an AI security platform. Combined with a separate Linux kernel flaw they can hand over root on the server; no real attacks have been reported yet (Electronic Times). The fixed versions are from the official nginx security advisories."
+  }
+}

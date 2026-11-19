@@ -1,0 +1,21 @@
+{
+  "_about": "Settings for scripts/collect-vuln-news.mjs (소식 > 취약점 소식; runs with the security news job, free sources only). Korean media only. A story is added when minOutlets outlets reported it, when a KISA 보안공지 about the same product came out within a week, or when one outlet in trustedSources (security trade press) reported it and it names a product, a CVE id, a patch or an attack. Headlines and links come from the first report by an outlet in preferSources when there is one. The how-to steps live in src/data/vuln-howto.json.",
+  "queries": [
+    { "lang": "ko", "q": "취약점 패치 OR 취약점 보안 업데이트 OR 보안 업데이트 권고 OR 긴급 패치 OR 긴급 보안 업데이트" },
+    { "lang": "ko", "q": "원격 코드 실행 취약점 OR 제로데이 취약점 OR CVE 취약점 OR 취약점 악용 OR 치명적 취약점" },
+    { "lang": "ko", "q": "KISA 보안공지 OR KISA 보안 권고 OR KISA 업데이트 권고 OR 보호나라 취약점" }
+  ],
+  "minOutlets": 2,
+  "maxNewPerRun": 8,
+  "preferSources": ["보안뉴스", "데일리시큐", "전자신문", "디지털데일리", "지디넷코리아", "연합뉴스", "뉴스1", "뉴시스", "아이뉴스24", "디일렉", "IT조선", "블로터"],
+  "trustedSources": ["보안뉴스", "데일리시큐", "전자신문", "디지털데일리", "지디넷코리아", "디일렉", "바이라인네트워크", "아이티데일리", "데이터넷"],
+  "excludeSources": ["GeekNews", "SOC Prime", "LinkedIn", "Google Cloud", "Logpresso", "로그프레소", "Vietnam.vn", "Mezha", "PR Newswire", "Business Wire", "GlobeNewswire"],
+  "exclude": [],
+  "noise": [
+    "모의해킹", "화이트해커", "해킹방어", "해킹 방어", "대회", "교육", "채용", "특징주", "주가", "칼럼", "기고", "사설", "인터뷰",
+    "세미나", "웨비나", "포럼", "컨퍼런스", "출시", "MOU", "협약", "맞손", "수상", "캠페인", "버그바운티", "버그 바운티",
+    "진단 솔루션", "점검 솔루션", "솔루션 공급", "플랫폼 공개", "신제품", "인증 획득", "기술 개발", "투자 유치", "선정",
+    "취약점 분석·평가", "취약점 분석평가", "분석·평가", "보고서", "동향", "전망", "결산", "순위",
+    "포상", "면책", "책임 면제", "급증", "통계", "유예", "지원 연장", "적극행정", "시대", "어떻게", "?", "？", "할까", "될까", "을까", "까요"
+  ]
+}

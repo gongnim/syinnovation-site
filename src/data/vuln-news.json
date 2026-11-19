@@ -1,0 +1,2434 @@
+[
+  {
+    "date": "2026-11-19",
+    "title": "[긴급] “로그인 없이 서버에서 코드 실행”…티오리·Xint, 엔진엑스 취약점 5건 공개",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBxZzVPS09XUDhlbDdIZDI1YmNUbzFkaTR2OTlDWmZSOWdBVWpsNHFaazFKWlNNMnBuMXRXSzRwQy1ZRWVjTWdkcFFkV05VclRWeExGZjVjOWIwVGpKa3BSdzFDclM0YTdZcXh1MA?oc=5",
+    "sources": [
+      {
+        "source": "전자신문",
+        "url": "https://www.etnews.com/20261119000034"
+      },
+      {
+        "source": "연합뉴스",
+        "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1aenFvNFY2NlRsYTkzTmN4eWpoQ29WeFlPV01RVW5LZ2tHNUxIRUZiUUZRNVhzQ0xBbmpXQWtBa0VLR1NUYVQ2YU1yekplakZBUnRCMVRLb0tibnpQQ2d6WtIBYEFVX3lxTE1aenFvNFY2NlRsYTkzTmN4eWpoQ29WeFlPV01RVW5LZ2tHNUxIRUZiUUZRNVhzQ0xBbmpXQWtBa0VLR1NUYVQ2YU1yekplakZBUnRCMVRLb0tibnpQQ2d6Wg?oc=5"
+      },
+      {
+        "source": "IT조선",
+        "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE1Cc29VdnpmVmJlazZpVzJmai1tSDF2Wk1IMFZZSVk1WHdXSjBaRjNLWC1abFpySWhqSUNNMk9xLTZ3clMxS1JGUUxLZ3NmbWJlQkU0azhPUmdobEFzQVB4RnJrUUthblczVjloeU1uZ3DSAXRBVV95cUxNVGVBRkpyVS0wZlRSS2d1cW9BRS1PTl9PRjUyem5PQnNuMHQyZHJIWFpmcng0TEp5TjBpcE1hMWpvZTNUU0hpM0d5ekdxZXNkQlVYMjNJSFFmaWtKTTRVMEdBQU9VZGk4Y0FRTjBWcFNpZWV2Qw?oc=5"
+      },
+      {
+        "source": "한스경제",
+        "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1MS1FXSkZkQnlMODFkM3FDQUE3dVkwaDNEUG03VXA2elRHY2FSN3l4QjJhUkJmdU5RVEladTFRYjBzLVRnSlZFM1hORTVxVEViWjdZM0wtNW5VMHU1SDZWc0pxNGcyeWlNUmYw0gFvQVVfeXFMTkNnTHM5eHhmSW9IQ3VaakhyaUNRRWdKXzJkNUd5N3N6eVRSUWNfMlBQMVBpbURuazdCLTNEZ1ZZQ051Yi1HbG9oMkpPU2ROTGJnTU5mODU1TENWQW5fWTZCaGRhOHF0MlNWUnlVY25j?oc=5"
+      },
+      {
+        "source": "재경일보",
+        "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE5waG95YkhwTndtVkdJUGZHOVJyd0p4dEIyaVdsZmJPMTBSV1ZKSVlRenZhQTE0NFNSYlFsb0xxbFJnaHdVWk1GdTFTUQ?oc=5"
+      },
+      {
+        "source": "천지일보",
+        "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9VemNFb2IwYVdSUDc4cmw2LTViRGNVcDFxMUtSWm1YT1hkQzM4c2lEd0VXQmRGblRBeEVIbmdqTG44QmpWOHhYNk9Vb1pzdm5BcDJrZWtYa3VhZ0xyMjlMTU5sckhoTllEc1E?oc=5"
+      }
+    ],
+    "products": [
+      "nginx"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [
+      "1.30.7 (stable)",
+      "1.31.9 (mainline)"
+    ],
+    "notice": {
+      "title": "NGINX 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72314",
+      "date": "2026-11-19"
+    },
+    "note": "AI 보안 플랫폼으로 찾은 원격 코드 실행 취약점 5건입니다. 별도의 리눅스 커널 취약점과 엮으면 서버의 루트 권한까지 넘어갈 수 있고, 아직 실제 피해 사례는 보고되지 않았습니다(전자신문 보도). 고쳐진 버전은 nginx 공식 보안 공지 기준입니다."
+  },
+  {
+    "date": "2026-11-18",
+    "title": "[자바 취약점 비상] 중앙부처 시스템 89%가 쓰는데… ‘자바’ 긴급 보안 패치 배포에 공공·민간 점검 비상",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5yY2h2bGxlZS1nSjRxYTlvRHpMNEJxNDJnNnRzdlR3LWgxSVJuendWWHY5aDczQWJndnMxTEt5ZTJCbnd1N1FIVTQyZ0pHZ0gtbElfNGVmU0E4Q3Uzd2N0ODZpaGhuTEZSX0dR?oc=5",
+    "sources": [
+      {
+        "source": "헤럴드경제 미주판",
+        "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1NcUJoTEJCWEtPR1UxTEgyeW5ONVFld3ZZVmo3YjU4cVR5MTNUVGRpZnNKUjB3Rl9QUlhRSElKZFUyRklrTzRNdlNMb18taEI5NDNFby1JRGdFQ1dpV0RXcw?oc=5"
+      },
+      {
+        "source": "한국경제",
+        "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTFBWcnpzTVVodGFCRGpVeWdwa1hROFJpc2xHc0NrZ3R4YmNvekh0M1pSYVhhbmhLbmp4VS1hb1VRLTBEV1lyUXJ5ODZzV01ab0RPZGZNekRSVktqUQ?oc=5"
+      },
+      {
+        "source": "연합뉴스",
+        "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFByenQzZE9VVGlfQlFncF82WHZaQklRTkpPMWxBQ2JUOTZxaXBZeUZ2YXpxOXhTaHVBZkZBRzFsUHRkNFJkZlE4VHJNSnNVZTJrZjBkbGd5VWliRjk3QTMwV9IBYEFVX3lxTFByenQzZE9VVGlfQlFncF82WHZaQklRTkpPMWxBQ2JUOTZxaXBZeUZ2YXpxOXhTaHVBZkZBRzFsUHRkNFJkZlE4VHJNSnNVZTJrZjBkbGd5VWliRjk3QTMwVw?oc=5"
+      },
+      {
+        "source": "서울경제",
+        "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE1Cdmdmc21yTHdoVDlVQzQ3NkNLNHpZRWh3aHFjSjhTRUVtTnBwdXZwV1ZrRl8zbWxMS1VQNmtKbXRhbXd1VVg4X1JaLS16eDNvVUHSAVNBVV95cUxPcmxpdmhRWHhGRjE2XzRSOXRMSTJKTy1iQ0lESjI4RkhWbVRHWThBZmFHZkJYSEd0NzdRdTFKWHpmSUtqWGttQk5QRHZqZERpR0FCSQ?oc=5"
+      },
+      {
+        "source": "뉴시스",
+        "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE85T1NwcDE0N21JRWZpczJKb1RTZi1tWUE3d09WblJxMzRlWUdXNWc4dXc1TFpYME0yc195TFhpNUltMXBfckVyUi1NR29Nc0FKNXVZczJxbmFIcm5qT0o1ZNIBeEFVX3lxTFAxMmV2OVFpU2tDSE52d1MwUU5SYVFIaEkwTnJSTERhOWZwTnptdFYya3BWcVR6eXBpb0VwZ3lYUm91VUpkeldtNFRzdWNKNXR1NEVJX3FDYnpZTW1BczhMMy1hbUVLYzU1UVIxX0hRYnlkbVFZbXRlLQ?oc=5"
+      },
+      {
+        "source": "인더스트리뉴스",
+        "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFB0ZmxDMEJzdUpJXzF4NkxkTldzbUpZWlFZR0steHMxRUFLT3E5R1dfN1k5aUMxZkVZV0J3Q0tjNUs0aFJiand1Sll1Y2lEeTZ4a29KN2dEQThlejdkcTdHQzZyaXczNTZwdXJnVm5sRWRTdw?oc=5"
+      }
+    ],
+    "products": [
+      "java"
+    ],
+    "cves": [
+      "CVE-2026-114938"
+    ],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "notice": {
+      "title": "Oracle 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72313",
+      "date": "2026-11-18"
+    }
+  },
+  {
+    "date": "2026-11-17",
+    "title": "오라클, 기업용 SW 보안 취약점 652건 패치 예고",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE93NHRWSHpWekFKS2F3RG9jVTk5SFBWUE5WTXZTWk9fTENsLTdBMmdhNGFrQ2dhLU5td3lkd3R0UWlORjRfN0xTZ0xnTkVqZld4b3hlLV9WMnZzM0XSAWBBVV95cUxQcnp0M2RPVVRpX0JRZ3BfNlh2WkJJUU5KTzFsQUNiVDk2cWlwWXlGdmF6cTl4U2h1QWZGQUcxbFB0ZDRSZGZROFRyTUpzVWUya2YwZGxneVVpYkY5N0EzMFc?oc=5",
+    "sources": [
+      {
+        "source": "더테크",
+        "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1VN0hqSnhOREVaVlF1cm5pdnZrTUVtWnhZbDFISzdoSW1xYzlGSmZnWEJMOE5uV1VSNWRlX1JDQ0RKTG1tTVFSeHJqLWVwOXB2ZVlTMk1KWDBMZ2RCVUFBQ1h4Zw?oc=5"
+      }
+    ],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-17",
+    "title": "구글 “멀티 에이전트·보안 패치 역추적 공격 확인”",
+    "source": "데이터넷",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE42ejlzVmttejBmSk9QUlllZ09aSHlrNVNrclRMVFNmSGQ2Ul9ZSGFFY0NIUFg2NlBaNEZ4czZpMndnMlF0Z2syWWZZTmprNEg2aHcwOWtUTHBtaUtzdE45ejhrOWY0eGk3VUtxQg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-11-17",
+    "title": "리눅스 커널서 11년 숨어 있던 고위험 취약점 '노이지TCP' 발견",
+    "source": "디일렉",
+    "url": "https://www.thelec.kr/news/articleView.html?idxno=65549",
+    "sources": [],
+    "products": [
+      "linux"
+    ],
+    "cves": [
+      "CVE-2026-99288"
+    ],
+    "severity": "CVSS 7.5",
+    "status": "조치 권고",
+    "fixed": [],
+    "note": "리눅스 커널의 TCP 처리에서 원격으로, 인증 없이 서버를 멈추게 할 수 있는 서비스 거부(DoS) 취약점입니다(Red Hat 등급 중요). 기사에는 고쳐진 커널 버전이 나오지 않았습니다. 쓰는 배포판의 보안 공지에서 CVE-2026-99288을 찾아 고친 커널이 나왔는지 확인하세요."
+  },
+  {
+    "date": "2026-11-15",
+    "title": "“북한 라자루스, PHP 취약점 악용해 한국 서버 30곳 공격 정황”",
+    "source": "전자신문",
+    "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5raEZNRFJtS25UTFgwNnR5N3hPWkd0SGRWX1M3MjNHd1BiUEh1WXBRZmc1dVZ6R1B1VVpqR3ZQeFBBb3NPckJXS0Z4Q2JqQQ?oc=5",
+    "sources": [
+      {
+        "source": "sisaworld.kr",
+        "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9mLVNaT0hoVTlxUnhuaWkyN0VWN3Bld3hmTXpjSWpSNWVmYzh6RFJRbENiRHpwbFBFWExZTTU0cDdYTWpha3REbnBUVjZXUWljSmVBblpVYlBGeDN1eFZwLXpia1RNS1JqbEE?oc=5"
+      },
+      {
+        "source": "뉴시스",
+        "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE1zU2lfcmZHMk9oanI0WGJybnh4RFVxMGZqWWw2cS12WDRyenFiSGJFeE0tdTFLZmx1MUoyRTEzTVZ4SnhFdVFMQWx1QlZSaU9VVzdaTHFVRGFQNzZmdzZpdVpvTXp4VjZoeE16NFpKc0RiN3U0MjBXWNIBeEFVX3lxTE1zU2lfcmZHMk9oanI0WGJybnh4RFVxMGZqWWw2cS12WDRyenFiSGJFeE0tdTFLZmx1MUoyRTEzTVZ4SnhFdVFMQWx1QlZSaU9VVzdaTHFVRGFQNzZmdzZpdVpvTXp4VjZoeE16NFpKc0RiN3U0MjBXWA?oc=5"
+      },
+      {
+        "source": "유스연합",
+        "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE8zZmlqYkRIY3Rwdk9RR3V6U3hMWDNtdXZONjVRT1dieUtLazJoSUowUjhlUlpLaE0zd1JBYkxJQkRxd09LdDRZdVhqcS14LXlybGZN?oc=5"
+      }
+    ],
+    "products": [
+      "php"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-14",
+    "title": "HTTP/2 켠 서버만 노출... 아파치 웹서버 원격 코드 실행 결함, 앤트로픽·구글이 찾아냈다",
+    "source": "보안뉴스",
+    "url": "https://www.boannews.com/news/articleView.html?idxno=147236",
+    "sources": [
+      {
+        "source": "토큰포스트",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5WYUp1SnVrSlRoSDhwZmN1X0pLZEttSW1EaGo0RHIzeThNZE84Ry00UWM0MF90b0hSRHpoWVd3bklBLXNzQnJLajIyOGItbFJkMmV0Z1psbFnSAV5BVV95cUxOVW9WLW01dnIxY3ViM1pYYl9FTlFtdjVLNUZ4OW1ZUElvVWcwTGpnQTY5MDd5NC04aGlZb3J5RVA5Y0lsRzJDUURnS2NfNVpwUXNhejVSSGstR2N0U1lR?oc=5"
+      },
+      {
+        "source": "데일리시큐",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE8wckY3SGNxUFZ1QXBJNWxSM2ZuSzc0a2tVX1h1MWxjU0lua0M0NGZIYzYzbHo2RURYaGtrU3JIRGYwcFJGS21PWFVTTTVzSW9oUGIzSXh0UzlJcU9HU2JXZ3YwaXVCbExpMURWWA?oc=5"
+      }
+    ],
+    "products": [
+      "apache-httpd"
+    ],
+    "cves": [
+      "CVE-2026-119618"
+    ],
+    "severity": "CVSS 9.8",
+    "status": "패치 나옴",
+    "fixed": [
+      "2.4.71"
+    ],
+    "note": "HTTP/2(mod_http2)를 켠 Apache HTTP Server 2.4.55~2.4.70이 해당되고, HTTP/2를 쓰지 않는 서버는 관계없습니다(보안뉴스 보도). RHEL 9에서는 mod_http2가 따로 된 패키지라 sudo dnf upgrade mod_http2로 업데이트합니다(고친 패키지: mod_http2-2.0.26-7.el9_9.1).",
+    "workaround": [
+      {
+        "t": "HTTP/2를 끕니다. 서버 설정과 모든 VirtualHost의 Protocols 지시어에서 h2와 h2c를 빼고 http/1.1만 남깁니다. Apache 공식 공지에는 임시 조치가 없고, 보도에 소개된 Wiz의 권고입니다.",
+        "code": "Protocols http/1.1"
+      },
+      {
+        "t": "설정을 검사한 뒤 다시 시작합니다.",
+        "code": "sudo apachectl -t && sudo apachectl graceful"
+      }
+    ]
+  },
+  {
+    "date": "2026-11-14",
+    "title": "윈도우 미패치 사인드롭 취약점, 시스템 권한 상승 재현",
+    "source": "토큰포스트",
+    "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE5EQVNadFc3TFBpanVpaVE3VExhSzQtQ29wOS1UeGJ5ZDVDUHNTNVlDcUFqUXIyYTRfaVNyMWRQUC1kNlFBUTQzc05CLXcxS2EtSEExTEtCQ1TSAV5BVV95cUxQOVZpanIwTVYxenVqS0FSOGhpcnV4TGhfLWt2bUY2eXhZRzd2STdJOWxQQUJnWk5rN2J6alRWU3FGQVpYeEVYQ0JnZVgzbHNIWXVoR29lWUVra2pwUFB3?oc=5",
+    "sources": [],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "notice": {
+      "title": "MS 11월 보안 위협에 따른 정기 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72299",
+      "date": "2026-11-12"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-11-12",
+    "title": "비운 메모리 다시 건드리는 결함... 구글, 올해 8번째 크롬 제로데이 긴급 패치",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9VWDJyUWswZUtqdXhVdEpNRWlKcHp4N2N0UHN0d0JWdlN1cU82ekFUakhpel9KeDlGdHR2anRWUTBVZGdPdEl1X3hQMW9zdVpvZGkxWXMwSVJ1UXJkWFQzQWx5Tl9MbDVTRjBB?oc=5",
+    "sources": [
+      {
+        "source": "유스연합",
+        "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE0tdzQyUTNnT25DekZ3MW1sQ1dGNld3Q2d1WjdZT1lGUHFZaU9SNTliZnRUakkyUGtoZHNaNWhhQ2hnanpSdDZ6Um1iNjRRVjZpdkV3?oc=5"
+      },
+      {
+        "source": "뉴스N연합",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5ZQzBqM2NPQjgzanFzY1NFWDlMaTRWY3VlQUF6b3A4c0ljbnpOOEtXaTNsQWI2Z2x6dEw0Y0k3RjQzV0JwVTJOLUYyanBDVWM?oc=5"
+      }
+    ],
+    "products": [
+      "chrome"
+    ],
+    "cves": [
+      "CVE-2026-125350"
+    ],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-12",
+    "title": "팔로알토네트웍스, 프리즈마 브라우저 보안 업데이트…157.19.4.39 이상 권고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9hdVpPZ2RsSkV2c1ZyZzNINWRvUkJSb3VuOXlWdTlXTWZfbzhIalM1Q2JKWkc3Q3BHOUozNzFGeXp2Mno0ZkhhMnFZdVUtQ1BwYVJzYWF0ZHlqdWNkYjBucXIwYWdBdGF1UnJOSA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [
+      "157.19.4.39"
+    ],
+    "auto": true
+  },
+  {
+    "date": "2026-11-12",
+    "title": "파이어폭스 160, 보안 취약점 99건 수정…WebGL 격리 우회 결함 포함",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4tT2JFa3liM29jeHBsdnRhUzd1M1hsYzhCOTY2NU90NUUxNnlMOU5HLTJvYlAwTm9MdEhYNDg0NHJ0bWlubnpFa1hlX2haZUV2YWJqR0FGZjMwTHUwLThSSWZva2tjY0wydmRuXw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-12",
+    "title": "시스코 브로드웍스 취약점, 패치 공개 약 석 달 만에 실제 공격에 악용",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE56N1haVW91VEpEOEFYR2hQLUROcERTcE5jM3QxUlNwS1BSOENDUW9HVXZqRHBaSlRsQy1yVnJRM2lYU3ZiaWNWWEpMTm0zTmNwU1I5emVsNFktcnhPQ3VpUWk3NUtITXVBcGt4Ug?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-12",
+    "title": "이반티 엔드포인트 매니저, 로그인 없이 악용 가능한 SQL 삽입 취약점 수정",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE40RzdGUTVjQjV3YW9fNzVJdTlOdTU4QWhYMUdpZE9SNzl4YjhfcVpCeU1GajcxaGpWWnRHN20xdWYyMVhQVFlWdThfNWY4V05BN2stTjhueS1UdWgxZ2xyZnRUYWpnVW9rNVpzSA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-11",
+    "title": "MS, 11월 보안 패치로 취약점 1235개 수정…아웃룩 제로데이는 이미 공격에 쓰였다",
+    "source": "이로운넷",
+    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTFAwSnZXeV9VNGpzT0kwQUM4MVdwMV9KQjN6dXNlRGN4OTlxUnYxMEhuNDhkV1JpTjM0MnFEWUZmeFlkRG5wUV9kdlBzb256azhaS25WbmlnY1pSYTdDc2ttSWdKSnhmQQ?oc=5",
+    "sources": [
+      {
+        "source": "디지털투데이",
+        "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE85U19hM01xRXhVTi0yYnY0amNwOFZaMHhtanVOcmp4cERGZUI3ZXpWaHo5MEtSekRRMEFIUGllVmtxZkJtS25pWWoyU1pOT05FRElhd2ZmZUtPUHc1ajl4cHJwT2RnNHpMS3FwcjdPcnFrR2c?oc=5"
+      }
+    ],
+    "products": [
+      "ms-office",
+      "windows"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-11",
+    "title": "애플 최신 iOS 업데이트에도 취약점 수정 불명확...가상자산 지갑 보안 우려",
+    "source": "디지털애셋",
+    "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE5IUk9EempvYXB4WHo0Q0JDVEJMenhwXzN4Zk5yeUxHNmRPZHpSbWMyRU0tZzQwUlR6bEFRRk5hbnhFT0phUm9NbVZzeU1hWnkwZXlDbENyand5c0pSTEFkSzN6YkMxWEdUc2E2NjdwSXlnQQ?oc=5",
+    "sources": [
+      {
+        "source": "블록미디어",
+        "url": "https://news.google.com/rss/articles/CBMiWEFVX3lxTE54WGxXbGxlWndKU19qRVV4bzhCYU5hQjlfQ1ZIUlJxY3BBd3FNSngyS0lwYThtVWthbHVYMWFkLXlId1lTRVdla21OUmhLTVVQZXZCWkkwX2c?oc=5"
+      }
+    ],
+    "products": [
+      "iphone",
+      "mac"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-11-09",
+    "title": "소닉월 SSL-VPN 인증 우회 취약점 실제 공격에 악용, 다중인증도 무력화",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5YcXRoNGZlSXc3RThuODZmUlIxak5TcWtkMHA1NENKYUFfRUtkb1BIaE1pQnppYndOcWVGcU5lWVgwc2tlRGg2NmJXbmk3UENwU3h6Z1NqNW5ISm4ta29zQU1DLWZPRk9YM21MQQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-09",
+    "title": "갤럭시 S26, 11월 보안 업데이트 국내 배포 시작… 보안 취약점 수정",
+    "source": "didimkorea.net",
+    "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTFAyWXBBWFkxWUhTclhKdmpWOER5ZXRZTlJVYm03bW1BWFNQTS1wQW1YdmVkTUlQYnRVT1BuOF9oRHhyNUU1Tld3U29DZGhOMGc?oc=5",
+    "sources": [
+      {
+        "source": "앱스토리",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE42N0F0UWlIdGlGYXJRNFRicjQzazN2NkhsOVUzODdlaGpuRzRZNWM3NllFdXBLeUcwVW1LcG93cEtkZjZ5NXZiWi1Pc205dFU?oc=5"
+      },
+      {
+        "source": "유스연합",
+        "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE1fX2VIQTczOWdvQUlVcGZzc3pVLTVJZHJPNTFoUkNPaFQ1NXBmb0d3Q0oySExtWmxDUk9KTEY4TTA0VmVoZUQtZnpkR093aDdWYllB?oc=5"
+      }
+    ],
+    "products": [
+      "galaxy"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-08",
+    "title": "[긴급] 오픈SSH 인증 우회 취약점 공개 9시간 만에 실제 공격…KISA도 7일 보안 업데이트 권고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5xbXpOZXlINkgySnBacnNfVFUwZWZtek0tcy1NendxQm56dlZvOGJPMm9wUFBVWUl6VXh1MWVmWk9ZRnhSeFNmVFg5TWRTMkhIclhlOXZpeGpYVGQxWTJTWG1CTUNzMlU3U0NfQg?oc=5",
+    "sources": [],
+    "products": [
+      "openssh"
+    ],
+    "cves": [],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "notice": {
+      "title": "OpenSSH 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72288",
+      "date": "2026-11-07"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-11-07",
+    "title": "큐냅 NAS 실제 해킹 피해 확인, 'Plex2Shell' 취약점 긴급 패치 권고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1ZejdoMER4TnBNRWUwUkItMUpuS2dUQWdrTkV1ZDU3OXdlRGlGSVgtMVIwYnEwTTBKZHB2SDhRZGRrY0hscjgwZWNNU1UtQklxZXltRnVyVy0xSzlxdXFnbEpWakFSY0huQ3JGag?oc=5",
+    "sources": [
+      {
+        "source": "보드나라",
+        "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE9pVnF2TURiMlhHQWdIWkVTSnZMdDhZZzVjSFduYW9PenBMZTVCWmlkZkl3Y1pBYzEyUEM0X3c0cXVhTlJuS1hEQ29jRklxSWJBQmU5YXd2VDBmRmtlVXROYkdDTQ?oc=5"
+      }
+    ],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-07",
+    "title": "마이크로소프트 '페인트' 보안 패치, 윈도우 업데이트 말고 스토어에서 받아야 한다",
+    "source": "디지털포커스",
+    "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE41QU9veUU3dURzVC1pejVuVTc0QXZHTkJTUXJHR1ZLSnRKMzI0T0hOTkx0TUFXVXpJalpWbFpNTFlNQUFSbmlDWWFSRGZvb0F5UTJfUW9tZUFvbTVVQXJGSER3YV8wWEwxSE1fWk54MWM?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "MS 11월 보안 위협에 따른 정기 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72299",
+      "date": "2026-11-12"
+    },
+    "auto": true,
+    "note": "기사에 따르면 이 패치는 Windows 업데이트가 아니라 Microsoft Store에서 그림판 앱을 업데이트해야 받을 수 있습니다."
+  },
+  {
+    "date": "2026-11-04",
+    "title": "바코드 스캐너가 해킹 통로로…물류망 보안 취약점 경고",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBpTXl4TmVwNVV2WTZKakpYVWs5b0ZmYko0Rjl6M0czb3h6WXdLcUZjWS1mVFFmellodHhVNjc1bUprTEQ1N25rV3RUWGNuaFpvX3BEa3R0WWdWVHPSAWBBVV95cUxOZktzWDkzekNGV0xGNGpWcC15c2hxNVBGM3RmRE94VVNyYjd4UkZIUmt0aXN1S1dzSXJfRTIxQV9OLUlCa0k0MUtiNVlfZ2NpRjFYRWxxMXUtemhfZGZCZUE?oc=5",
+    "sources": [
+      {
+        "source": "테크월드",
+        "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1Ha1JFTDJRdXFqdXRyTUpteHdINm5XRFRyZ016UEdkRy1EeXRiOTFEQUEwYjNxWWRqa1o4RFJFM0VSdWxJNzYwVkNoVkl6SjYzUEFXYmd2aV9VMnFSOGJfUkYxQ3U4NG5I?oc=5"
+      },
+      {
+        "source": "올포칩",
+        "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBKYlBUZWdQRGxURWRxdC0xY05VVlNnSEZadDdzR05DdXBDMDdxbXVqUWk0REkwamc4cXdOdmlVZ3BTajF6Ykp0Y19XX0ZmaC1URTk1amRUTGYzYWVUalFncA?oc=5"
+      }
+    ],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-11-03",
+    "title": "이반티 VPN, 기존 패치 적용했어도 추가 업데이트 필수…제로데이 연쇄 악용 확인",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBpYU1EanJfUTQ3ekJvRlNoNHhZczRudl9acTdOUjdZMnMtX3pxb1R5TXR5WUo0bzhBM3JfcDVUUXdTYmR6X1N2WHU4VUdINXhPZnhva2lZS1haZ0NzcHM1WjFkOGNBMHZINVczTQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-02",
+    "title": "AI가 뚫어낸 리눅스 커널... 우분투에 치명적 제로클릭 원격 실행 취약점 경보",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5xNXl0RXNqa1JOZER2WmNhVDczS25vVnQ2NDdMQUVhVmlDSjNyOHZ1QVVuM3ZielAxa1FkeHVEOWF6SVpxUTZKS1BTaHhEaVJaeWpEU1k5QUEtcG0wN280anFKcDh4cHBVMjRz?oc=5",
+    "sources": [
+      {
+        "source": "데일리시큐",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE51U0hBRVRJX292LWxyTnVwZjhwTG8wamtQanlNemZiTlNWNG5oN3RHRnMyLVFiWVZrdEVUa0xZWTNGUjEwQ2JBb2tSQmU0NVp3dVpfNThyalZicUh6RFk4cXpBNGZKNnYtWTN4dQ?oc=5"
+      },
+      {
+        "source": "브랜드뉴스",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9SMy03X05DUlVzc2lDcG8ydVlLMWF2VWV3SnU5emlCU19hVTMxd0RjSGtkaTA4WHBLcEZrWjFFR3BwUjdmUHlTd1pmVWdQZWhUN1Z6NGI3RmxPOXRVVHhhcjdTemJ5elZVV01NUQ?oc=5"
+      }
+    ],
+    "products": [
+      "linux"
+    ],
+    "cves": [
+      "CVE-2026-98432"
+    ],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-11-02",
+    "title": "PHP 취약점, 웹서버 넘어 방화벽·NAS·기업용 SW까지 영향 확대",
+    "source": "IT조선",
+    "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5DUURKSVpoczBBSkJ6MDZQOHpJVDZpZUVoOUtubFgxUnQxWTFwc3NTNXZzX0lvcHVnbDMzY2JwT2RpTWRRZV8xbkpTTkFoYWJJYktyMjVTS0Ywc0MtdVEzMHBENlpoSTh4NzNGb0F0SUXSAXRBVV95cUxNX1BKdTF5MkVpeXAwODZRTTRGTXdIbm1RYnpxV2w4dXlyMTRsYnNmZVl4X1ktNUpiVkpxQXJDcGZuakY4UXNwUmhtY0xBV3N2WUFkM1pGNHh2eThwTDBSbzd5QTJvSGE5UmJ2TFZ6Z3FrLWtHag?oc=5",
+    "sources": [
+      {
+        "source": "Naver Blog",
+        "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxPeWljcTlNVHZhV01PemdwTjdkbWdqTHl4VzZSaGJwYUg3T1c0SGVlYndoM1JBNEREQTBzVTNDVmhBTHF0Ynl5T2dCdWpudHRaLW1DejR3YTZHR21JQ0RXUW50NU1IXzZDT0thLTNOTUhZMDQwUXlOM25vWTlaSlFoN0poSTN6YWtsT045aDRB?oc=5"
+      },
+      {
+        "source": "SeattleN",
+        "url": "https://news.google.com/rss/articles/CBMiTEFVX3lxTE5TMnJ1RDkzZFRFNmo0aFlwWjhtN0JIRjJhYTRTeTJCMnhCSTZYck1qU1p4NlEweHFEcGZrUm5QN2Z5T3BOV2J5MmFENzU?oc=5"
+      }
+    ],
+    "products": [
+      "php"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-30",
+    "title": "시놀로지, 보안 업데이트 발표…중요 자료·백업 담은 NAS 보안 취약점 발견",
+    "source": "경향신문",
+    "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE1jdnNxYk1vNGs4anJiRktWUzE5dV9PdXRKeVZrQ1ZKQWd6WnJLaUp1QU1URWFGU3BBVUhqOFd0TTdSSFJKUFBnR0FTWUY3LTlrOFFQdmpUcFNpd9IBX0FVX3lxTFBxelJMZVlPMkpDMGYtell1UHRYejA0X1RQVjAzY3ZDYi1fZWcxQzFsYlRrR2FuRzFhZjY3b0lzWkNLR19jTHRNXzR1RnZ6VWhNdDJVVjdPRWU1Sm1ZSWpF?oc=5",
+    "sources": [
+      {
+        "source": "데일리바이트(DAILY BYTE)",
+        "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxOa0hlVFJqVFpYazdOSVhwY3FvVS1PV3NrSmhZMkRBeHNuNjJqeENTSG9EZW02MmNjVWdndlVvREZ0Y19XYldvRW1jV0dEX1NsaHYwbktlT3NNNWthZFF5VEYzdVZLTmYxRXpJOTFLUnR1eGM5NE5OWE0zeEtTN29sRElXczgtQQ?oc=5"
+      }
+    ],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-30",
+    "title": "[긴급] 레디스서 원격코드실행 취약점 5건 발견…KISA, 보안 업데이트 권고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE81dFhZOFd1UjVDcExjeWM0bHRrcWM5UFdqUkZnNS1WVVVwak9DTmFmTFVKbjd1NUQzRWxfSENyMWRlOXdhOGZPcXR3d0czOUNDclQ4eFRXQ1o1VzFiWjNXYmdYeTh4aUhIcjlJXw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-29",
+    "title": "구글 크롬 보안 취약점 52건 긴급 수정… 앤트로픽 클로드 활용해 심각한 취약점 발견",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9hMVRIWlkwUTgxVTNjSk5NVXBBdmg0UGpJX3BjbEFUeFN1VHNzU09aSzdGQjQ1YlhYY3ZKZ0E0cWo2MEREWVllRm03cDFZOFFQU05FMHVrbE9lSkZ3dFFUQmcwSC0yMWE0UHlLMA?oc=5",
+    "sources": [],
+    "products": [
+      "chrome"
+    ],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-29",
+    "title": "미국 CISA, ‘Node2Shell’ 취약점 실제 공격 악용 확인…서버·가상화 관리시스템 비상",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5GeDdYUV9HY1VWT0hJWlh3YTMzc3hUSGdJWW9Ob1E2dEctUDB4bGNzZkl0MVgyQ3dGOHFGalJhWlJONkxZVWo3R1B6amx1Y3JJNG00T3ZMNjNPaHk5bFBiMzJYZnJNMHJVZGNHWg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-29",
+    "title": "[주의] 워드프레스 북잇, 인증 없는 SQL 삽입 취약점…2.6.0.7 업데이트 필수",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE02SHBVbXUyRVRUYThLcEVpa1FpalM1QVpKaXFwNXBhMXVlanQzczJFLTc5RWRQMDhkeGJ6UTgtRkE5NmZtRU14OUpuSllETXlnbDdyYXdqNG1udFltSVRtNjlvM3JVNDVaYVhBdQ?oc=5",
+    "sources": [],
+    "products": [
+      "wordpress"
+    ],
+    "cves": [],
+    "severity": "CVSS 9.8",
+    "status": "패치 나옴",
+    "fixed": [
+      "2.6.0.7"
+    ],
+    "notice": {
+      "title": "WordPress 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72278",
+      "date": "2026-11-04"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-10-26",
+    "title": "웹 서버 원격 제어 가능 ‘Node.js’ 보안 취약점 발견…긴급 업데이트 권고",
+    "source": "강원도민일보",
+    "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFBkOG5FeDJiU0JueHAxMkszM1lhbkVPaEpTRUt3d09Nak56bnZWWHM2RUNaZ1A4eXFDT2owMjJiejJIWkRfZDlMT045bkRYcWotTHZWOWdKNmZtaEZTNkw3R1BUdXU5RzA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "Node.js 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72236",
+      "date": "2026-10-23"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-10-23",
+    "title": "오라클 치명적 수준 취약점 긴급 패치... “신뢰 깨진 인증서가 백엔드 노린다”",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9zbWZGMUZ2MlFKeEloTTI1aFI0U2lLQlpjSm9Va0V0OWlEZ2JxcEtsNGpOeFVGX21WMmVnRm82Ni1UeHJrYVJ0dFFrVG9WU0RQN1RiWE1NbTBJa2dxd1hXMGhuclF6djBFcHJN?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-22",
+    "title": "[PHP 파장] 금융권, PHP 취약점 긴급 보안권고... “금융사 웹 API 즉각 점검해야”",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1BNThSWjlHVmJlSGh3SURkaDA5RjdJem16aTR0SkJZME41ckpwZmtGUHVObHlsMDhMZWlKdk1DME9WcFFTUGt5QklPcm9DcWltSGVXWTZRRUdNRWVJYXRXRFRIaG5EaFZkRDBR?oc=5",
+    "sources": [
+      {
+        "source": "동아일보",
+        "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTE45QlpYQmQ1b3ZBQUVVb0lSSXRGdHpSZ05ScUxSc3IzMGJYOWs2WW9INXBYendBMWRodVRhekIzS2F0TVFZQ05wUDNsWWQ5N0RQMzRqeDVXSzRidHJ5eElEcXl2bGVGZWNlQlVVUkh6V0hzR1pvU2fSAWZBVV95cUxQQ2VqV1Z0bmhIYW1jUmJtdndmN09YU3laWmxoLTRUdWJLMVdCVV9meFNueGpCUndvUVU3UGpZX2F6U0hEVUZaNi1PbEZRaUU0YWVQeThEWDd1VFptcXJ6SlF3SXFRV2c?oc=5"
+      },
+      {
+        "source": "미주중앙일보",
+        "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE5hOEtudFBVbDFDQjJDRk9NUkpPdGdVMndEUm1qZGFtM1FkUVhlVTNMR1pLMzF2bzBSTWNIMXZ5Y2R4T0kydEV6MENNNFAzWFhBTlZ6NWcxYkdLbUs4cHZqdDB3?oc=5"
+      },
+      {
+        "source": "데일리시큐",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE14OVhmU3NBMWt1QzJiZ2l4MWZVMHRWMnhtYktOYUNCNVhWN1lEMzRYT2xhNmFpN3U4NXpOX2lvVnI0YUIwWWJtQ1RWOHZPbGNlWWgteEtmbXBISHMzVFFKbVlwYXRrMUptd1lpRg?oc=5"
+      },
+      {
+        "source": "Recorded Future",
+        "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNaVZ6UWZtT1FwbTNCdUhYdEhqSmNpSEpTZVZmXy1PVUVaeE9yX0VUM3pWSENjUkNMX2lSLXBiMHpTTUsycUhUSEJkaGtNOXlEcXJ0TWVKanBDRWs2YTJKajFZcVR2RmFpTjMzRW1XOFdBRTdtM3ZqS29BRzliYWZYeA?oc=5"
+      },
+      {
+        "source": "newscenterkorea.com",
+        "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFBIcTFFWF9ySGxOTEhISDZSdDNFQXctRTdfRzdvQ3JpWXQwYkF0UFZGbW14R3Q4Q0EyYk5mU1VQS2hsWG1lMHhiUGRvWlFqNzFmSWJnZzNDTjhleHVIelFfZjltOG5mWjE3Rm80WmNrQVJyZw?oc=5"
+      },
+      {
+        "source": "Unite.AI",
+        "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxNXzRqNnMtRWNrUVhsOUtuSS1zVm9oSzdvUF9TdmthMkhHTGxuQUUwX2xaeDNYa3Z5UVJ5cWJrS3BhNEJaRDZTWjlfSUp3ckVTQU5tQm9uM2pyRno1U1NlOWEtT2JXTlU1RUVUYnNuaDZucm9kaGhkOG5WMV96YjN6LUNMX3pIbUR5X0YxSFpPdHVWWUE?oc=5"
+      }
+    ],
+    "products": [
+      "php"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "악용 중",
+    "fixed": [],
+    "notice": {
+      "title": "PHP 보안취약점(PHP2Shell) 관련 기업 보안 대응 수칙",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72230",
+      "date": "2026-10-22"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-10-22",
+    "title": "“로그인 없이 개발 서버 뚫린다” 깃랩, CVSS 10점 치명적 결함 긴급 패치",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE0wS2Z4QVdjbm1heWh3TGhnQm91QWJiaXBnSTUtM19kdTdpbEFWSzRJeHpXN3RuMG5LT196dzFWMEJBenNjekI3VFpZUk9TQ1JENlBkZFlCb3paLWx0aDEtM0xReFBYOFY1d1dZ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-22",
+    "title": "KISA, PHP 치명적 취약점 긴급 경고…인증 없이 원격 코드 실행, 국내 워드프레스·웹사이트 업데이트 필수",
+    "source": "웰페어뉴스",
+    "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5aS3BaNW1pNk82aklpTjRoNWFrVXItLVozS2dmSkl5c2VUMDVsQU9OOW9zQ2RGRzlCeHczZnJhY2NGeVFmNk5UYlNQZUFNTTdhU0E0bWRVYVdDVFhyT2o5WXhfU0c3TlZJS0JDYnUtSQ?oc=5",
+    "sources": [],
+    "products": [
+      "wordpress",
+      "php"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "PHP 보안취약점(PHP2Shell) 관련 기업 보안 대응 수칙",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72230",
+      "date": "2026-10-22"
+    },
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-10-15",
+    "title": "팔로알토 PAN-OS 취약점 실제 악용…방화벽 루트 권한 탈취 위험",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE54TmJCMmkzclRIakJwSmtZWTBWY2I5RV9yWmFsbWNSNEU5ZU5xeTZYNWJiR25Hay1DcGVXejF0T0RIa081MTJWSkxGejZhTzcyUWtkRlptUUg0TzYta0JRUW1UN0d5cGhNc3k1eA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-14",
+    "title": "마이크로소프트, 10월 보안 업데이트 배포…보안 강화·파일 탐색기 개선",
+    "source": "케이벤치",
+    "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE82YWZ6QkoyR3c2OVBEdkZ2Y0cyYnQxbE5YVnhGUG5hZFNPM2lfSXNTejZtdGh0QWZBdkN3TUZPLWcxNG5QTGt5Qg?oc=5",
+    "sources": [
+      {
+        "source": "위키트리",
+        "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBWRTRybkFOT1BiMXZwal9vdGxqeHppcmNhcmZkMWxlcE5uYUV0WV9zWGNvT0pTVVBwbjRSZFhLZEdId0x0czAzZDNJdlJIaGNLaklyY0JR?oc=5"
+      }
+    ],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "notice": {
+      "title": "MS 10월 보안 위협에 따른 정기 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72216",
+      "date": "2026-10-15"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-10-08",
+    "title": "구글 크롬 155, 취약점 247개 한 번에 패치",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1ubkdGUzYyZFJtSHoyR2Q5ckg4cGN6NjFlRjdCUU9mV0pScDVmN2E2cWtpcEpGb3R0T29US2tyVUpQbjBvbGZ2TkJUZmk5VUNmdWcyTUZiY1RERVVGcmZudGs0TmlxdHhLZnZr?oc=5",
+    "sources": [],
+    "products": [
+      "chrome"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-08",
+    "title": "9월 패치했어도 다시 업데이트…소닉월 SMA1000 심각한 취약점 4건 수정",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1oMnNpamVuNnNQMF9DNEptZ0hIWGJhX0FMZGpqLUExWDV3YnhLME9WUzBiS0tNNkZqWEdTMUpyU1NZb3hoal80R0JLbUNNcmpkMDZHRDRLSGc1OVYtWWoxY2hWa2R1c05JOEhGNA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-04",
+    "title": "자마드 제로데이 2종 실제 공격 악용…RCE에서 루트 권한까지 장악",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5nZkJNWEU3cWZNXzhKMnpTRG1Qc2VHQUFDcXpWX0szcTFYbEJXUWVjcFBJLW9yT1B2NTFrSm1WWUttaDk0VERDd1g4Y05CLUQxdUdaNHkxREhrbnA1N2lhVGY5NkZRNDFtemlnbg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-10-03",
+    "title": "패치 나오면 AI로 무기화... 구글, 월간 취약점 공개 1만건 넘었다",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1sRHJ6bGdKTGVFUU0xWWJVYTZ2VlBIZzhoUXRHRklNWkhTMDFTaGF1eWtjRlFqRm05cjAxRlB0RXBCYzVHSl90VHp5eGZyLWluLXdsRnY1eWlDOG9SeTRhSTBBaGY0NzdSN3Jn?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-09-29",
+    "title": "애플, 아이폰·맥 긴급 보안 업데이트…표적 공격에 악용된 취약점 패치",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5tQUt5N3NkME95aEQwM2xna0xjejN4Z3Y5aThQT3RhMDdvdUNOMTJEQUV4RTN2bkc2NWZrblFiR1dkUkxaSl9xSWVXLV95SWNHaUtLZmtTMzhITDBRaUthZGRRXzNGanI4UktQMA?oc=5",
+    "sources": [
+      {
+        "source": "디지털포커스",
+        "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE9DSEpzb2FiZ3UzYXRJUDhqdl82Z19HVUNnWlgzZ3l5ZlFYeUg4YmtOb0h4SDh6MzVqQjdrbVI0N29UWXlual9sWE9vd2llbmRMVHpvbUZ4T3JrY1gxSUxfYk1RM3dYRUNnZE4ybjJhbmQ?oc=5"
+      },
+      {
+        "source": "디지털투데이",
+        "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTFBPU2tlMW1HcFRXN2lRODVLOGhNYUI3dE82S0tLU0ZweUN0RHdDbjNGRC1wVWZCOU9xaGV0TU85UWx2UDdYd1daRDZsY2JKTGdtcFQzcHJkcWhWWkxuVFczRzI4MU1tMTgtUGR1VXNnSzhqWDg?oc=5"
+      }
+    ],
+    "products": [
+      "iphone",
+      "mac"
+    ],
+    "cves": [],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [
+      "26.7.1"
+    ],
+    "auto": true
+  },
+  {
+    "date": "2026-09-27",
+    "title": "셰어포인트·마이크로틱 취약점 실제 공격…미 CISA 긴급 경고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBvbEV3RkVKMGtTRU5VQ1dYSDFQVXFIY2dNT2d5TkNUNmhPUHowekhsUVZGR0Y4aTkwSEc2V09Cc0tJLUw5cEF2Sjh6Zm44bGhQcFVva3lFQlM1TDdZWktfNHVINHhEOEVidFVsZw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-09-25",
+    "title": "워드프레스 취약점 공개 수시간 만에 공격…PHP 파일 생성 시도 포착",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4xU0RfeWJzUExuWlFwTG9hN1ozcGt2a3hXXzFURGxTUFhLZjFfZDl5a2ttb2lMZDlDOW0xRnd3NnA5QUNLcVRPMTZRT3FkOFJKRzd3ckdtc1lUR2xoMWN0akV1SEpWR0w1eWhDLQ?oc=5",
+    "sources": [],
+    "products": [
+      "wordpress"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "notice": {
+      "title": "WordPress 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72197",
+      "date": "2026-09-23"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-09-25",
+    "title": "랜섬웨어 공격에 악용된 팀시티 취약점…빌드 서버 점검 시급",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE54M2hPbWpUaEVfbTA4UUJCS0ZXaGxSTHpSSldoSjExTWJlX3NyUm9vTXRETkVoVklubXo5N0o2VVRvbkh2VlZRZUdXdk5EaUw0VUU3SFhKZzRUZkljZ1I1MERra2dLdjlIaWdEOQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-09-24",
+    "title": "F5 BIG-IP APM 제로데이 실제 공격…인증 없이 원격코드 실행",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5iMnctRnpDNXFDaFZRcmlJWlhWUGJncEZKU05xOWRBNl9hRTBwdkJJQ0tubU9TaV9laldpNi16U1JQWVhaSTk5VUs5TU82YThnazNBVHhjR3I0Zjc2YU1hVlRkVkViOUk2ejM1TQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-09-16",
+    "title": "애플, iOS 27 보안 업데이트... 악성 이미지로 아이폰 노리는 취약점 등 126건 대거 수정",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBKZGpZN2pLQkhWLU5DNlZsLTlEa1NpQlBoV3o4cEVDcnZPSW5VTC04LUVyWVNjVEVxdDc2akRua2l3cVdGY0FCLU5qLW92ZlZBdElfN25EellsbHcwbjEzeTRqVGdSX2VBXzU0?oc=5",
+    "sources": [],
+    "products": [
+      "iphone",
+      "mac"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-09-10",
+    "title": "마이크로소프트, 9월 패치서 974건 역대 최대 수정…제로데이 2건은 패치 전부터 공격당해",
+    "source": "위키트리",
+    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1KdlNBS2dfVFRITVUxcWE0U291MUM5R3p2ano1dzVpbTJDbGxUV1RReXVlNmVpeDB1NmhwQXZNRGtBUDRKVW52c0h0WWZtSGFnNXRGZEFB?oc=5",
+    "sources": [],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "notice": {
+      "title": "MS 9월 보안 위협에 따른 정기 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72180",
+      "date": "2026-09-09"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-09-06",
+    "title": "구글, 원격코드실행 가능한 크롬 제로데이 긴급 패치... 실제 공격에 이미 악용",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBOMXh4aXA4NXBuZDVURnFTZDJvUm9aU2hjT0hoeDNMS0tMV1dZakNleFp6NTc3NlJJLWxzU29udGZVSXZxdy1QekxCYjFaMmllb2VoR0FpNFpleEVBcXZPVkhKWEZZQmRDTkl3?oc=5",
+    "sources": [
+      {
+        "source": "데일리시큐",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1LVjlJYTQ0YkEyWnB1VVdwaHFnLTh0TWt3bnI2RlF6ZEJkbkZucVFGcEVvdUFXWGREX3FKY2VrWkVmYlM5dlJwc09xblo0a3hTV2xTY2NVV2g0ZjlyNk5vSGQ2VzJDZ0hZeFlqMw?oc=5"
+      },
+      {
+        "source": "위키트리",
+        "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBpMUw2ejJXMUQ1T0JWRU5iSklBT3dFOVV6bnE3aW5pcGF6c3drTGktQjZ1U3paMjFmdUZTZzcwNWtteVFmbTRoaFZUSU95bGFEcFhTc3hR?oc=5"
+      }
+    ],
+    "products": [
+      "chrome"
+    ],
+    "cves": [
+      "CVE-2026-85046"
+    ],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-30",
+    "title": "워드프레스 플러그인·테마서 치명적 취약점 5종…사이트 탈취·원격코드실행 위험",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBCc0lYYU9PT09XNDBPNElYa285MDh4M0dZV3RpU1kwSzl1UDhTNHFoWFBKZ0Vza3NVZGZxcmVZb2FCN1B2VU9SQ0VnclIyOTZ4TmJUWm4ybkd1SkVqOGlZcVRENjQ4alFVVVpfLQ?oc=5",
+    "sources": [],
+    "products": [
+      "wordpress"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-25",
+    "title": "오라클 웹로직 CVSS 10점 취약점 실제 공격…CISA 긴급 경고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1zUjVPcExPV3JlOWFZVkFaWXE5UUVxNlNiUVBGMVphRDYzZ1RlVk1PRGJxSjhpYUtYQjNiTzlqSVgzMTViZkp3YUdhN0FkeGEzMHdQbEtsVDZDeXJPdGplQXdjSWNhMHpLVVZOUg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-22",
+    "title": "시스코 크로스워크·시큐어 워크로드서 치명적 취약점 9건…즉시 업데이트 권고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5DQUNITGJWSkJFTEtxdjQ2TUF2M1ZETWJyUkQ3SFFSZ21SWE5UTS0tVV9tbEJfdlJKTl9wdFJ2OFZpYXZhX1BsRDZ0S0ZPS2c2WDI5Ukh5SnZsaWt4SXFGNGJrMk5YMktMWHZ4cg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-21",
+    "title": "시트릭스 넷스케일러 인증 우회 취약점 공개…“인터넷 노출 장비 신속 패치 필요”",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1CdGM3Qld3NHZEVkVzcUdQemtKaVBZZUUtcE03YUFwczQ0ZzNldkxPZlhSY2FqVU1VSDd2Wk4xN0pDVVl0eXRETXlhSXhtelFPRS1lWm54LXZYOUFQR2NDVVEwX3NvSGZXX2xmSA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-21",
+    "title": "워드프레스 ‘엘리멘터 프로’ 취약점 주의…로그인 없이 원격코드실행 가능",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE90Z0xpMFlwTkJ1Qk5SVmxuVkdEZGV1WTRLYjc1WnhLTm9GcnhRcmFlUWp6YUtVTTBmUFRYOHVpeE5qVkZqcXhhN0lyeGl4ekRCbWU3WVByUWdLNEl5ODg3QUJ1eF92alZrSDZIcA?oc=5",
+    "sources": [],
+    "products": [
+      "wordpress"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-20",
+    "title": "애플, 이미지 처리 결함 긴급 패치…스파이웨어 악용 우려",
+    "source": "지디넷코리아",
+    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBxSENFOHlaN1FFRmpyUG90S1RaN2l6UkJQWjhzQXNZVmMwSWxoYmdwSjRVWFpWeFVwSHhrN2FkOE14LXNYbHV0QTZoSzRhMkVhSHEtclRB?oc=5",
+    "sources": [],
+    "products": [
+      "iphone",
+      "mac"
+    ],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-19",
+    "title": "MLflow 치명적 SSRF 취약점 실제 공격…클라우드 자격증명 탈취 시도 확인",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBLeG80RDRvcXYtNGtYNUkzbHVKYkk3V0FVNUFlelM0bUJnSHlCZUw0WGFhUUZZVmd3aDJaYTVyVmNyc2ozUXJUbElUR19NQ29UQzNheUd2WlVtNUtMRDQ5aTJQS3p0amFaZnViYw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "치명적",
+    "status": "악용 중",
+    "fixed": [],
+    "notice": {
+      "title": "MLflow 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72166",
+      "date": "2026-08-21"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-08-15",
+    "title": "지오서버 제로데이 공개 직후 공격자 움직였다…수백 건 공격 탐색 포착",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9BTmtvWVduUFNUaXVZU2FpUE1uUFpyeTJsWkY0d2JqaTVnWUdFTGlZX3lmWENLVU9tcHF2c2Rsa29HUkp6ajFndTJRR3RJU2ptZEhsMkZBZU5TcHEwS09vUklDaG9jbzh2TG5IZg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-14",
+    "title": "미국 CISA, “북한 취업 사기 공작에 악용된 윈도우 제로데이 패치 시행하라”'",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBYWE5fQm5JQUdXVDNVNldDSlR5SWJaUmFHQWx6RzJWOGFSMGdEU1BDWVlWVG51M3g5TEFfNG04VnA2ejBxMXhGSFNfU0JqZVJmcjV3ZXJsNTdlVGVGemFPQk1wTGJGLTk0NnF3?oc=5",
+    "sources": [
+      {
+        "source": "데일리시큐",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBtQUVHQUltQ25XQXhIOFhwS1ZuNlZFNGlxVVhJT0t3REE3bHJzelJkalNtUnltNC1FeWZ4bno2eFVaSDFkdDNteTVXUXIycl95a3JDcE9fVGk3eUdHNzdrazlVUGNyd0pTd1pjYQ?oc=5"
+      },
+      {
+        "source": "위키트리",
+        "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBqUmZBWVYwNC1UVmtSWk9vLUpfNENwWmRKSWNCMlFUal8wcnMtNzZGNE0tOXNoa2VUVi1ZcGUyajFWN0N2bWlUSFpxYUFaTml3Z3JsaEFn?oc=5"
+      }
+    ],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "notice": {
+      "title": "MS 8월 보안 위협에 따른 정기 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72160",
+      "date": "2026-08-19"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-08-14",
+    "title": "[주의] PoC 공개 하루 만에 공격…MS 셰어포인트 인증 우회 취약점 악용 확산",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE91Z0l6dzVCeU10MzJJRnNRaENWWTh2UkY1THpCUFFma3l5bE9veGIwaExDZ01rMUppSWpFM2JTU1NmbXJMb1NCNlhnYmo4bWtlTENHNmNSV2xmX3lpdXlFanhiZzBFSUkzZFhMaQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-12",
+    "title": "해커가 원격에서 시스코 방화벽 멈춘다…CVE-2026-20349 공격 확인",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5zNUh1Q2twSTMzTHU0VS1CMkZEc0E4bnpHQkc1ZWROT2JoV3NvbnBIYzgxcmtGdERXakpWMlMyeFR4RXk4RXVGU0NpZGFqdTY5cWx0MFBCY1l6a0pnVVhobHd0VHM4cUhkM2llMg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [
+      "CVE-2026-20349"
+    ],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-02",
+    "title": "어도비, 최고 위험도 10.0 취약점 긴급 패치…원격 코드 실행 위험 차단",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE15TEprbGVfNy00OUtTd1RpcDV1MEUzM2tmdDJfYzM0SXBFdkF5MFBnc3A2eGRHQ0daTk5kbldZelhTZDJ3ZFo0VFJQYkdDd3VoZGE0ZFRLeFNrQnZCbXBhNVNDMlF4SnVSRHZkNw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "CVSS 10.0",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-08-02",
+    "title": "레일스 긴급 패치…이미지 업로드만으로 서버 장악 가능한 치명적 취약점 발견",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBMdGhWUVd6X0pVaTdVcFk3bUhRSi1ZVHdTYU8zZ3RyUlhZdlpmQjI1YjlRVEMwU0FwT0xpUVNFOHRhRVJPdFpFQ0l4eVhmRWhXZU10eWVSTFBWa0lSNjQyQmlyQ3pFYTNzOHpzOA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-30",
+    "title": "브로드컴, VMware ESXi ‘VM 이스케이프’ 취약점 패치…CVSS 최대 9.3",
+    "source": "위키트리",
+    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5Ja3ByNGlrTUtqZlRKOWJlS2ViOXpQRHA2d2hzbFlBT2tYWC16d1J4VkZRUVdDWlRNbHJEMzJ3SjB0V0N5QnhvU1BtS1ViVUtVOHhsSGdR?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "CVSS 9.3",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "VMware 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72152",
+      "date": "2026-08-06"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-07-29",
+    "title": "CISA, ‘포티OS’ 취약점 경고... “패치 우회해 시스템 장악”",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1EeG5ub2s2WWxxWTBULWdsTTdic0JTTDV6b2lBVmFCdHBfa2Y3Rkg0OElXUTBWWHl3Sm9vdGlzUk9jbXg3VXd6aWd5bzlMYU9FbUxfbE45UlVNODVraVBPN1Bodkdyam8zdTFv?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-28",
+    "title": "깃랩 사용자 긴급 패치 권고…인증 계정만으로 RCE 가능한 공격 체인 공개",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9WM3V1VGNmaEt6ZE5ncktCWHpvNXA2Y2M4MDluQkVPdU05RWpNSU01MEZkLUNpdjk1dWd3TzJiNWVEdkN6WFd6bUdxWUFBTlJWQ1BKMkdXYUd4WndjQ1ZpOHFaRXUyZjd5QmloQw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-25",
+    "title": "우분투 스냅-컨파인 취약점 발견... 일반 사용자도 루트 권한 획득 위험",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1UWmQ3dzRCYjM3MnR1YTk4Y0ZqdmFLSmRQdWR0bnViTXNiMTlxMEZjQ1FxQlhZeXBVSUR3XzJuUGoyVW5Ic0ItbGFjc1dxcWdyRjJqUmlOY1gzRG5VdWI5QXpNLXF5SFpqanY0?oc=5",
+    "sources": [],
+    "products": [
+      "linux"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "Ubuntu 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72140",
+      "date": "2026-07-27"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-07-24",
+    "title": "체크포인트, 보안관리 제품 인증 우회 취약점 발견...긴급 패치 완료",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFAzUGxLR191WnVEc25DLTc0WV8wUkVobmVIQmRYZUlWdkFjZ2Ywa1VRZWc3Zkh0eWJ1YmFXeGVoWk1XTFVIT3RHTzdVQzFyVjU2S1Z5YW9mckV2X2hEaERMdXkzRmNBNW45OVAzLQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-22",
+    "title": "오라클, 미토스 등 AI 활용해 역대 최대 보안 업데이트…334개 제품서 1,449건 패치",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBqejN0cWxLellJd0RIdHBIeWJ5eVFJRlhDb24tT09uVWYxX3Z3ZGFoSzVueExrbTNFLWxlVGhFazRhcXlVeW1SZ2hqbFF2UWtuMmZhQWhGTTEzcjhnTkI3Tl9aODl0M3ZmM05vaw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-22",
+    "title": "마이크로소프트 셰어포인트 치명적 RCE 취약점 악용 시작…PoC 공개 수시간 만에 공격 포착",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9GQ2FQSEVVcWxpLVJ4ZEZQWVVQOGZMUW0wV0Y2Qk5GeXAxLVBrQ2l1RmZDSW1mQlF2Qks0YXI5S1l6Y1lVNzVESjVMVGlnTWZDOW1vN0dLTWtleTRvWlpJZUotTUNHYUN1N3Z4eg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "치명적",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-22",
+    "title": "구글, AI 보안모델 ‘제미나이 3.5 플래시 사이버’ 공개…취약점 탐지부터 패치까지 자동화",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE81eFVmVkFlSlZ1MnQ1THZNQUFJZGxndDU5clZ0VjVWRXRxQ3RqQTcxd1owdWRoZEFTNTJTNFlyZ2tBY0lNcnB1Z284ZjV5RGJXdllTWUhXbGZnVkM5aURVVEJidWgtVUNYbWV0bw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-07-19",
+    "title": "줌 윈도 클라이언트서 계정 탈취 취약점…로그인 없이 원격 공격 가능",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBFbU5XTlFnbE1Xc1dFU21UVl9tUHU5bGlGczcwQ0JJd0tidjJKT2NxNzRjSXdaSWYzdE53c3c5YTN6bDFSb1luZGZwSUlXb0F0dnNNWGNScThYNHVkVUNfQWw5cXRXcjh4WlZsZg?oc=5",
+    "sources": [
+      {
+        "source": "Martin Cid Magazine",
+        "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQMkx3Yk12TnktcjF6N3hWS1RjNGk2WFVYSjVkUGNVNjN2b1Q5b1gyMVRYWGF0d0ZIeGoxRWVKc1R0V1QyV2c0WkFPMW1idzFaNFUycTNiV08zU0NLS3h6WEhlZDlGX0REYU5kSU5jUkx2NDJ4ZjdCUzRnM25YWVVKWGdDcXR6ZGRJWUw3OWpPbHVGWndDV3VzQVlGNA?oc=5"
+      }
+    ],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-19",
+    "title": "오픈SSL ‘할로바이트’ 취약점 공개…11바이트로 서버 메모리 고갈",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE83SHBRQXdLUjZnT0kzUllOOVRmbjBaQ0xFNkQ3dUxud2UtZVdqNFo4WEtmSjF1a2pyVWVvcXQ0OXVXTTFrTDRuZWRhUF94VER0MlA3LV8yN1FxbjhlUUtxU0dsNk5pREhmZjdYZQ?oc=5",
+    "sources": [],
+    "products": [
+      "openssl"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-18",
+    "title": "워드프레스 핵심 취약점 ‘wp2shell’ 긴급 패치…로그인 없이 서버 코드 실행",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE93MmJ1Nkw5RG41MmI0aDRCclN4RWhhelRaWEk3YS1YTEhia1l5YlU1Qkc3TnBmUGU5THduZmk4TC1vVW81Q2pXMTFrVWFLOFZKdnFUU2U3UXBwTDJJMHBmdC02c2RiRVA5Mno4cg?oc=5",
+    "sources": [],
+    "products": [
+      "wordpress"
+    ],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "WordPress 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72136",
+      "date": "2026-07-20"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-07-17",
+    "title": "F5, NGINX 치명적 취약점 긴급 패치…원격 코드 실행 가능",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5YSU1sVHd2LUhoVWJrT3V3WHdPcW9FVzJSN29PQTgyWDZoQVEyaUMyX2tOQzJqM0Y2aEwzNXBVTFNDVTk5R3hTS0tWUDdkQ3VIZmpCN2Z3NXZxMDItbjI0Ynd0Z0VmN0l6bFkxYg?oc=5",
+    "sources": [],
+    "products": [
+      "nginx"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "NGINX 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72135",
+      "date": "2026-07-20"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-07-16",
+    "title": "모질라·구글·어도비·브로드컴, 심각한 보안 취약점 긴급 패치…기업 시스템 업데이트 시급",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9fLXBqd2FWV1ZJczhlVnpYVmM3YWNfV1Q2dGhlVzBEWlB2cy1GQTJSMnpIWHBXejNSRVlRSDY5UmEwNDFsWkxXcHNVMnpORER4MDR2RHJ2TW1DS3pCU19HMVo3Mm9KMGZnekRXUQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-16",
+    "title": "합성 클릭에 뚫린 AI... 클로드 크롬 확장 프로그램, 권한 탈취 취약점 노출",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE4yWXV4NThsRDRJNTRXaE9fUWVrRzhPTmJqSWZNaWNCNG9jZW41Nm1kVlFIRkw2TnFzVTdEVU82NE43OXdzRmNRd1c5S3lvUzBWYWI1S2N3YlZQWGM4NkNQMGJ6TmZaTTRSZ1ZZ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-16",
+    "title": "CISA, 실제 공격 악용된 포티샌드박스·셰어포인트 취약점 3건 긴급 경고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE43SWJSOUxOUFo5d1lFUWFQcHdyYUFZcVVZN1hlSVpabjJmSm1FU01PamxORmZwd2pKcFI1V0ktc2FYbVNvdFN5bkdoQW5mTnlsWS1lcFU4blp3dVA3OER0dDNIaW0xNmdHQ29XYg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-14",
+    "title": "전자정부 프레임워크 취약점 990건…AI가 찾아냈다",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE93cWxTQzRCSmE1ZGZWUFcwMzJENXZzV0ZRV2Vpd3BUT0p1a1NqeDRUT05RZGpzMjQ4VEpZSnFJVHhXQmtHM0UwdTU5RTNOMm1zanlQZFVlMXJVb1HSAWBBVV95cUxPZ1VhRDlCTjZ0X2FCZ2dRdFVFaDF1bWF5U1hOcGVORGVWVzRZV0R2cFhoNm9zbUJySnk1bExqSEtGWEVUNHhlR3AwbXpuenRxa0Q4WDF0ckx0bndnTGtpVWs?oc=5",
+    "sources": [
+      {
+        "source": "매일경제",
+        "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1QUmYyVlBkc01uOTl2ZFJYRWNGalFneFdXT2NuZkJTUTQ1RmVlLWhaYlJnVXZiak9uXzhpajhQeGlzUlRscGJ3emtMSjQ4UQ?oc=5"
+      }
+    ],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-08",
+    "title": "패킷 하나로 회사 전체 인증이 멈춘다…78리서치랩, 윈도우 넷로그온 치명적 취약점 독자 분석",
+    "source": "이코노미사이언스",
+    "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE8zMGVDVGhXNU5PVTIwUTZmRWRvbVdyaG0zUWlHdGY1dUhnY1NiYVd3bXpzbmVSZ3ZsSDNOU01jSFg1bEVmaFUtZ3h5S0hBUWZtWmdza1h1NGZIa2dGWXdCakduc3VGd0xYYzJULXBQUQ?oc=5",
+    "sources": [],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "MS 7월 보안 위협에 따른 정기 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72130",
+      "date": "2026-07-15"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-07-07",
+    "title": "어도비 콜드퓨전 치명적 취약점 공개 직후 공격…CVE-2026-48282 긴급 패치 필요",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9QVS1RblFla2pOM1YwYjZkNlU1cDZWYkNSTEtORUxySlhjQmhkc0hGdVVJZ2thSEVHQ0h0RnVmUkZUV3NSV0tvd3NTUjd0SUtGMVZELUpOTGt3OXNVN1AwY05RLXYwcjA0Smt3Vw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [
+      "CVE-2026-48282"
+    ],
+    "severity": "치명적",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-07-07",
+    "title": "리눅스 KVM 16년 된 취약점 공개…가상머신 하나로 서버 전체 멈출 수 있다",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFByaHZ5WWJyYmZCcmwzcFliSmZxcHZuS1I5TjBwUW1wTENFV1FSLTRkbnh6UU1YbVEzcmEwRUd5eUs4bVY5YVRVNUtQOXZ0OXFrRTZKZmNtbXRVUEQxZ21zNm1kbnBYczBtTGxNQQ?oc=5",
+    "sources": [],
+    "products": [
+      "linux"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "Linux 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72127",
+      "date": "2026-07-08"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-07-01",
+    "title": "MS 디펜더 ‘BlueHammer’ 취약점, 랜섬웨어 공격에 악용됐다",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1Kd2c2dDluenFmRWxUb2hxVnhkVzNLUE10VlgxQnlnb2pYRG9wU3hRc2hqcHBFUWZrTi1sOGE3UFpSNmdZbjVPRlhadXdjV1hSSjd6X3BzUUk3aVZmaEE4S1RxWkZzVE5RdjYw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-06-30",
+    "title": "애플, AI 해킹 우려에 이례적 조치...보안 패치 '조기 배포'",
+    "source": "YTN",
+    "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE9Hb1FXZWJRUUhHX2RTV2NmM3NkbHlPTktzVkhoVWFwblk4YnBsbnYxWVVoa2ZtNEpjV1BpMTZKMlg3TjdLTUgzMl9XWjMxVlJnZ2xGQjhsenEwbTlBVFE?oc=5",
+    "sources": [
+      {
+        "source": "위키트리",
+        "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1Mbjh6QUJkRk9ybkVKTEdSVlVaQ000MzdqTm92UzA5Z1BnV1dIRVc5NEFSc01PZy1CTzVjdFdZM1NweHBsNV9DM3k0cHhJbnpEbXZRdUZR?oc=5"
+      }
+    ],
+    "products": [
+      "iphone",
+      "mac"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [
+      "26.5.2"
+    ],
+    "auto": true
+  },
+  {
+    "date": "2026-06-26",
+    "title": "리눅스 커널 또 뚫렸다…‘DirtyClone’ 권한 상승 취약점 공개, 루트 권한 탈취 가능",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE41YTUzUl9VWlBRT2lBU0ZwV2FpMVVaQzV0bHBWWTdVbHB5YS1uT1RCTUZiWlpWM2I0S21YTGVtMV8wVmluWUQ3VnBtRTlRM1U0YkxoMFg5X3hQS3I0bkhuZ003UDRMbm13Rzkweg?oc=5",
+    "sources": [],
+    "products": [
+      "linux"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "Linux 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72113",
+      "date": "2026-06-29"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-06-25",
+    "title": "삼성 녹스 커널 취약점 발견…갤럭시 S9부터 S25까지 영향",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBfNFJKRFc0Z2JYRFJjN19HWDY4NEVwUTY5RWZyUWhQWC1GWm45R0FITGxiRmNSd0F5bTVyVkdXR3c5LWNia1B2eWdRTVJSX096dENtU3R3UnljSjZWUVQyVnl3YW9fRjhXZl9qeA?oc=5",
+    "sources": [],
+    "products": [
+      "galaxy"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-06-19",
+    "title": "애플 A12·A13 칩셋서 수정 불가능한 BootROM 취약점 발견 “보안 신뢰체계 무력화 가능”",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9HcndSTjduZlRnZGpoc0UwMHN1NGEyczlLWjF2TVNjcEJrVVZ0SGpSQ1pjUDJSaXUwX05ZUjUxLW43T0ZISnoyR050OHVUaFQ2dGZxOXJ1MmJuN3hGZlU5ZTRpRGdIZzBSRS1n?oc=5",
+    "sources": [],
+    "products": [
+      "iphone",
+      "mac"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-06-18",
+    "title": "마이크로소프트, 로그플래닛 디펜더 제로데이 취약점 확인... “패치 개발 중”",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5NMzhpZlptUENXVUgtRl9Ga1RUNG9fLVVBYnBoWjBmcE1iMUNVNTdmSzlUNkJRQjZITmJvNHlWQzJkTV81ak1vNHVpeC1iVkw0REUzWnZVWFdPNjl3Z1FxYmFmS3d5d2oxcHhj?oc=5",
+    "sources": [
+      {
+        "source": "데일리시큐",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBCRTU2NjllNDljaVYtcnJKSGxBcmI2dk1fSThlUHV2WHN1cWVtbjJDUDZ6TFYtbzRnRV8xWExndXdTakhMVDVHd0trYmZNTHJndzUwcl85MVNWWndHYTM4eF9DeUhTMEdPbk81MA?oc=5"
+      }
+    ],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-06-14",
+    "title": "스플렁크 서버 노린 CVSS 9.8 치명적 취약점…관리자는 즉시 패치해야",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBGR3B4dXhXc3NlM0s1Uk5Bd2c4ZXVOV2dVR3BzSUlIWEFOQ2NoREdkRXVhVVJTZjVZenVUYzMzQmFtZEpZRzg0VTRUZmo1aVE4SXh6aGwxRHFCSlFDWmJFT29JZTdhakJLMXpBQg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "CVSS 9.8",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-06-11",
+    "title": "마이크로소프트, 200개 취약점 긴급 수정… 공개된 제로데이 5건·실제 공격 악용 1건 포함",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9keWdHbmNxMTF0akx4Vm4wZmw2MVZfN1BiWFktUlNuNHplT09mNFY1S0VjbDhTNmg2aXJXMkRGTkJTckZ0UElCbE5PYWU5LU9ra0VZVWM2dTFSRUJoanZLLWU4d3VLYldkNHEwcw?oc=5",
+    "sources": [],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-06-10",
+    "title": "구글 크롬 V8 제로데이 실제 공격 확인…즉시 업데이트 필요",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE55dkFoVkRjNVZSbHZBT1R3QzQ1dU9WX2g2MDhnaEFNb1Mxa1NSQktvbmRXT09QWEZFSkxSOElWMzc1WFdJcUdWdWh0UHJRNVhFMEVWRV9Hay05LUtxdjJXeHI4aWhCZGd4bzhXOQ?oc=5",
+    "sources": [],
+    "products": [
+      "chrome"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-06-10",
+    "title": "체크포인트 VPN 제로데이 악용 확인…킬린 랜섬웨어 조직 연계 정황",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9mM3FqczV0UFY5ZnVadHRTWmF0bjRBSWRSdGo5RklsTFJSeHlqTU91V2ZvUFNZaGFmYWpDSWVHdjJ5bWZUd05aaUNJbk5aUzg5NHBseTBpRWpBa3l6X2RISDZFeE1tMUFVZ3daNQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-06-08",
+    "title": "파일전송 서버 노린 서비스 중단 공격 확산…솔라윈즈 서브유 긴급 패치",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9HSzc2aDktMzYxQURPci10V3RiRnlwNGpES0NLOUl2Y0FkT01nTXhfaV9ORm44MDYtZ3NYQWd5ejEyZmRPV1Jfb21kcWxSZ25ISlVHWHpRd1plQldBRjE4MGplN0tIZnowR3ZJdA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-06-03",
+    "title": "안드로이드 124개 취약점 패치, 권한상승 취약점 실제 공격에 악용 확인",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9tY1J6bXdqVWtXSjI0UDdPOFo1YTc3MWhDaFNvQm4zLWZQYmJyekNKMi1MbjdXaVlVR1djdXlFcFJKS3d3RkZDaUxwT2hnQlhvWk1YRERUbU5VNkU2TlBwSkRqc3NjeUdJeDBjZg?oc=5",
+    "sources": [],
+    "products": [
+      "android"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "notice": {
+      "title": "안드로이드OS 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72080",
+      "date": "2026-06-05"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-06-02",
+    "title": "윈도우 넷로그온 치명적 보안취약점…긴급 패치 필요",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9PUW1COGtrblBLQ0JpSF85SkJEY0RqZ2NKWmwyMHFUM2FCWjR0VGt0MWp3WE9qWnp0QkNibldJbFUyY1hpd19kZWF0ZklEOG9yMW5hdTE1QVRWNkJPMTc3bkEwc3g3cGtwLWFGeA?oc=5",
+    "sources": [],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-06-02",
+    "title": "회의실 전화기가 침투 거점으로…HP 폴리 VoIP 전화기 취약점 패치 권고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5qUENjcnk3QnhFYi1Yb25Vc21OS0VUZFN1NTl0QjVIRDhCdmFIYVJINTFPc0FDZml2b3haVmszcVF2a0s1VGFWOE5rQUUtc2g2UXpsaEZsMGdmdWx0UUxxeGczS0RtT01KRkFoYQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-05-24",
+    "title": "미토스, 상용 소프트웨어에서 1만개 이상의 제로데이 취약점 발견",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE82NWdjRUtZVG5FTVR1Zl95NFBOMElkWXJfcmp5dGxuREJJYm1fMVIwWU1KbzNqbUJPTmVrWUUxanU5Um16MGtXWUYybkh6UjhYQ0R2LV9mbzQyZmJweEx2cjItMlBBMWgyemF3?oc=5",
+    "sources": [
+      {
+        "source": "한국정보기술진흥원",
+        "url": "https://news.google.com/rss/articles/CBMiQEFVX3lxTE9VaWhHblQwem5wenhycUpEZmx1UU01VTNKaGRRbGZVY0dtNlVfckl6dTljQTZiTlczT1NUZnprdnQ?oc=5"
+      },
+      {
+        "source": "이코노미트리뷴",
+        "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTE9QSjAtVklpSEJTV2VXeVk4OGg3THpLRnh5RDEzeEZmbDVUc09zRzBVNGZPNWlsUkpsMjQ3Q1lGVHpETHRBSkdCV2Y2bzBwWmJ3N3ppMTZTdDNsMXphcGN1RWRXbUpPVnhLWm9zQ185Y1pYZ3B1VHJJ?oc=5"
+      }
+    ],
+    "products": [],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-05-23",
+    "title": "트렌드마이크로 ‘에이펙스 원’ 제로데이 실제 악용…온프레미스 서버 긴급 패치 필요",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1STnFJaktWOXR2VnJ4LUN0eHBiZVQtZEEzOFNwZXhDaEJtSmtzTzE5YkxhSFoya01wbTU3UU5tUG9pOGQ4dU1MVGFrRzZoemRyVHdOYWh1QmhNMmFVcDBSdWZjQ1JuRVNEV0x6TQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-05-22",
+    "title": "“몇 시간 내 공격 코드 풀린다” 드루팔, 모든 버전 긴급 보안 패치 예고",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5sVHBvcE44T1U5R29ySHp0U1owZDVHejNUaGxEbG1WbDR0QjcxM2sxOG1WUjZ1c21lemt4ZkJDN0J4V2c2R1djdXpZVk9VRmFxQjVNV1FmcHFhcmplYW83blJGQlZ4c3RfbFhJ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-05-22",
+    "title": "시스코 보안 플랫폼서 최고위험 API 취약점 발견...시스코 긴급 패치",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5uX3RQM1V0QUFTbEVyTkVvZm84alY1d0NxVE1xVEVEaVlQTGF0RElSSWRXdXVqRmZHS1hDM0dwVXZ5TzVSQlQ1Mzd5ckhzdFY4X0d5cUJtMmFZdWZnSWNqNmlRWDZIbmJYLTVCOQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "고위험",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-05-22",
+    "title": "마이크로소프트 디펜더 취약점 2건 실제 공격 확인...SYSTEM 권한 탈취 우려",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE4tR0g1VmRfVzhmLS0yclR2bEg2X3IzQ3ZJSkRwWV9KcUJENlRCckJjTnF5UDRPVzVvRlNjUHZVNDd3MnFRWnUya1E1OXFMWEhYaFJIYld6NnBodzdlc3NPNklkZjZuVUJTN2hvQQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-05-21",
+    "title": "로봇 제어권 노린 치명적 취약점…유니버설 로봇 “즉시 패치” 권고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9sNTJmME8wcE9BR3RfRHB5eFJQZGIwbTZmd19MNHY4S3pwbG9sc1RjZkRCbTh5Sy1TT0RBOTg5R3JVLTEzeFZLd1VpTTVLT0Nka1JueXlDQWUzOHdKeWNqMnNueHFoVlVZMFpuVA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-05-19",
+    "title": "이반티·포티넷·SAP·n8n·VMware 긴급 패치…인증 우회·원격코드실행 위험",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBzMGRLU2pTUkFUaHdiOFdpdmNab01JN2dhQm5uUDRwV1ZMN1pEQUx4S2VNUi1ONmtWOF9nQzJGN3JhdUtteDFSNjluNUNtTm04RkZMWXR2V1RPNXlFQW41c1lNQkh5M0VnY1lsbw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "VMware 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72064",
+      "date": "2026-05-22"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-05-18",
+    "title": "윈도우 새 제로데이 취약점 ‘미니플라즈마’ 공개돼…주의",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9wR0hqUnNrOUw3aW03SU5PWEg0amozVXpMOUM2cTN5cTQ2Q0VBeVBydFh6ODRnd2JlbGpOTVlMM2JodV82Z2VDbnA5aFQ5SkI1T2dTVzlOdndneXY0ZC1HT3FDRVBQQkxTUGc5aQ?oc=5",
+    "sources": [
+      {
+        "source": "이데일리",
+        "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNSkVSa3NCMGFfSVdZVXpOZ0pMTjRPOHhpbjdicDhlV3d3RHBTaGtzT0NqRTZ6T1lQclF5bFpFQllPT1FBXzFXdzN2aFRIWnBkaGF6ZndwMkhwb3djMHN2RjNiaUxoYnJNODA1RURQWkJWV2pZcDJ4SjNtZFdHMmxZUw?oc=5"
+      }
+    ],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-05-08",
+    "title": "“코드 10줄로 뚫린다”…리눅스 취약점 ‘카피페일’에 전 세계서 대응",
+    "source": "아이티데일리",
+    "url": "https://news.google.com/rss/articles/CBMiZ0FVX3lxTFB1WmpLekdpS0RHNjUwOG9KODdYN2NBM3NUeGd0T2FxM1FpLXg1SE9XOU9XVXFJX0Exb2JsMXZRVVRXbTJUR21KaHRaVlZ2djFvaWE5eHpieVYwZzQtZWRzbWRMSEhqekE?oc=5",
+    "sources": [],
+    "products": [
+      "linux"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "Linux Kernel 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72050",
+      "date": "2026-05-14"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-05-08",
+    "title": "아파치 HTTP 서버·MINA 취약점 패치…원격 코드 실행 위험 차단",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFB5SDJrSnFpMkhzend0OFVuY2U5M0JIQjk2WUlIa201eVVkdU9HMUJRcWZrUDZCV3ozQjduNlRLTGpCMnpnUE5lazM5Uk84MktUdWpWdENZOVpRaVVNRlpWSVV0QkkyeEdkZU5LYw?oc=5",
+    "sources": [],
+    "products": [
+      "apache-httpd"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-05-06",
+    "title": "[긴급] 팔로알토 PAN-OS 제로데이 공격 확인…User-ID 인증 포털 노출 장비 긴급 점검 필요",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1KRkF1Ui1hUTBkeXV5Y2c1OEdvTF9fSVJwMExfWl9xU2JwU2NzdWlwT01Wa1BrYURIU0JScjZ5TFBneEhseE5ENE56NEF5NUJ2UHVFN1hwZDJvZEZydU56S3VINVhDT1JVLTBkMg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-05-01",
+    "title": "리눅스 커널 초고위험 취약점, 티오리 AI 솔루션 ‘진트 코드’가 찾았다",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFAyZTdkYjhQbUVsWDVrNU5fRUdrblNuOHo1dl9ZT3QyemRKLTJ5RmRsYVpiZ2JsVk1VV2d3ZmFCQXBfTWdCS29rZUZoU1U1enNlTVNTYVp1VklXenMyM2w5YzVpZm1PNk5NWktB?oc=5",
+    "sources": [
+      {
+        "source": "뉴시스",
+        "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE5yUEJ3cFhZT0tKdWZFd2s2WXdsMk1mTlZ5bkRhbUZPQWl2bDJHMDNhRmZWdzhfdzN1Z2hSd0kwem81UE1XYUdPdEpBLXB4eDZDNWc5cGpVWFRIWDZnY0ZTNHNTdUphT0ZWd25abUQxWlVNOXhaU3hlM9IBeEFVX3lxTE5yUEJ3cFhZT0tKdWZFd2s2WXdsMk1mTlZ5bkRhbUZPQWl2bDJHMDNhRmZWdzhfdzN1Z2hSd0kwem81UE1XYUdPdEpBLXB4eDZDNWc5cGpVWFRIWDZnY0ZTNHNTdUphT0ZWd25abUQxWlVNOXhaU3hlMw?oc=5"
+      },
+      {
+        "source": "지티티코리아",
+        "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE0zb19jU3lnWGtmc2JwalRJbHRHSWtOZ2ZLd2VjNjZBcE9TMW5HSkdxMG1fc3BMcWlOSUNlemdXbmRrODB5eGtEWU1YRFl1Z3lzaFMwS3Y1RUFsUmIyYk5LZGFzLWFCZXdPQWc?oc=5"
+      },
+      {
+        "source": "뉴스탭",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5sTWJENl92bDAyRFhXX014S1dTdkp1NUpGS2hzZTRiU1EzanZUdmpHRGZRNXBtOGZMenBJNXpkeHIxZFlGVEZlNkdDTVhSSGJqOUVfRHlmMGJxUUtLZENuV191NGRYbkhFc1Q3Yw?oc=5"
+      },
+      {
+        "source": "데일리시큐",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE41MmdrRlBocVEzNC1IUm5mOFloY1FoUllEMDlPNDFoSmFXcUM2TXVYOG5xZkFmVE4yeFl2YzFlamktUTlvUk14QlpUZVNGWHNSS3pLczI1b3JtbWlYaFZmWlhYdTl5OGF5eUVmeg?oc=5"
+      },
+      {
+        "source": "한국정보기술진흥원",
+        "url": "https://news.google.com/rss/articles/CBMiQEFVX3lxTFBRMjdTSXB3MWlRajJ4NUtiT1hkZjJWdWYzQl82UjFmRUxnSTZwUkVyQUZocGJlYjlDY25GS244TlI?oc=5"
+      }
+    ],
+    "products": [
+      "linux"
+    ],
+    "cves": [
+      "CVE-2026-31431"
+    ],
+    "severity": "고위험",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "Linux Kernel 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72039",
+      "date": "2026-04-30"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-04-28",
+    "title": "취약점 진단 도구 ‘Nessus’의 역습... 윈도우 에이전트에서 보안 결함 노출",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9uMlFGcXJ4NTJTWFBEWWlEZ2ZJSm0wOWFHUlpidXdYdUYzZldrQml1RV9wZXBlejJEQ1BlSHdaMjJxbG13T3p4OTZ1RVNmQ1NFSlYtZVZ0anZ5LXhIT2dnTUhxVEpPemNUTUZ3?oc=5",
+    "sources": [
+      {
+        "source": "데일리시큐",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1GWlpJTWg4UE4zX0hzemxMbTZJWHhGR0pzdTFyYW1QNjN2YXBDeGxKSURlclR0T2hpX2doVkpwZ0FjRFFfTmJkN2tUWVFyaDZnaGlEM3duVmdCdTBicy1HNkg1cmNpQjhSNUt2eA?oc=5"
+      }
+    ],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-04-24",
+    "title": "리눅스 패키지 관리 계층 ‘패키지킷’에서 취약점 발견... 12년간 아무도 몰라",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9aRUhVYmh5ajY4dzgyLUVKQjA5UzQ4Z1RzZlVYMlhENlpxOVV0TVh0MElDUXJ3NHBzdG9WNG94czRFM3dyenIyU2JmTEdoYU53YkdqV2FIZ01HZHZHNG10QUFxNmU4b3MzRmJn?oc=5",
+    "sources": [
+      {
+        "source": "데일리시큐",
+        "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1ISGJtZEJBSXktc2xYajRqSGVrSVAwckJFUVJMVl9hUXFyaGJ1ZkNibXNXUXZvNUNCTW1oV2NwZVBVSExpbHdIUjVzYmNPUm1LaW9LZWpJUFNCcm1Yb00wZFdwOUVza2p4MGhIWg?oc=5"
+      }
+    ],
+    "products": [
+      "linux"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "Linux Kernel 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72039",
+      "date": "2026-04-30"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-04-23",
+    "title": "미라이 변종, 디링크 공유기 대규모 공격...패치 없는 취약점 악용 시작",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9heW1adkg5QkxoNzk2SzRmTjZBaWFKUFp3NkgwRjRPcVRaWDNEc0o4Qlh1cXRNek5INXpqeTVBMklwd1lEdDFuZEtjR1NfZ25meUF1VUFTbEpCZWxJckRqSEtrQ1NaT25BckdsUw?oc=5",
+    "sources": [],
+    "products": [
+      "router"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-04-02",
+    "title": "크롬 또 뚫렸다…웹GPU ‘던(Dawn)’ 제로데이 악용 확인, 즉시 업데이트 필요",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9oZlptVURQYnh1R0VSQVJOOVRVNVZ1WHE1bkpqbWFaS0Z6RERwME1ESDFJdlgxNHFDYmNwWjU0WXNCdUdUUzJFQl9IRERsekpudkNQTmlXcWdlaTI1R2NqMHZKYUw2M2tEV2E2dg?oc=5",
+    "sources": [
+      {
+        "source": "글로벌이코노믹",
+        "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxORzZPZkxBa2dwa1V0ajBJenpBVzNkSWR5SU1qNDlVWk0wN2RjUHVWSUlaOHZTYjQzNHJ6WmtyakN5Z2s4cGlYUUtGSDAwY3kzZ0MyQ0doY2ZabUVmdDlfcFJpbWI5R3ZaRVk3OFNaQnNyTnJTVGttSFNGYlYyZXFqQ2hfRmxwNVc1?oc=5"
+      }
+    ],
+    "products": [
+      "chrome"
+    ],
+    "cves": [],
+    "severity": "긴급",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-04-02",
+    "title": "애플, ‘다크소드’ 공격 확산에 이례적 대응…iOS 18 보안패치 전 기기로 확대",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFAxY3NKUDNCaEhXb0gxYXFDSVNSWjBuMHJZdVRXYzkyYlNMRzcwVXNIVjNGS01hZ3U3QUw0clhGTlVZc3ZDQ19sMGE2eV9fcGdxLXJLbmhCN29XXzkwSE4yOXEtZzFzeEJwUVVtRg?oc=5",
+    "sources": [],
+    "products": [
+      "iphone",
+      "mac"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-03-30",
+    "title": "미국 CISA, 연방 기관에 F5 BIG-IP 긴급 패치·사용 중단 명령... KEV 목록 추가",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFBJX2Q2WFlRLW5VNDMtRmhDRG00NjVMMlhiTE8tTXpOaDc0bnFoWnRQWWw5NUhBMlpMdXFUQjgzUWlRX2doRXh6eVVmYVMyRl8wRHR6cjJVWXhKd2JpTGFITEttOXJwMkpPTlZ3?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-03-22",
+    "title": "오라클, 인증 없이 뚫리는 치명적 RCE 긴급 패치 배포…아이덴티티 관리자 즉시 점검 필요",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9pcjByWUNJendFbldRS18zOG5MNDRBQl9reHJfSXg0RG1RQzAwOWVLdElFSHF6Vi04aldoRGhBQno4amVNRGdoN0dCNTk3aGFDZlk0ZWZmVlRQeWIwR3A0TnpTdDZic214UU0ySg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-03-22",
+    "title": "우분투 snap에서 루트 권한 탈취 취약점 발견...즉각 패치 필요",
+    "source": "한국정보기술진흥원",
+    "url": "https://news.google.com/rss/articles/CBMiQEFVX3lxTE9UMDRBMGpfYVFUeHJ0dHUzZ0x5Q1U3UjgxOGo3N2NFeThzdzJ1UXhWRG9uY0stSGR3dUNYUnhMa2g?oc=5",
+    "sources": [
+      {
+        "source": "바이라인네트워크",
+        "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE96S3R2UDlfZVJKWGJKWlRFczZaNmlDMzltaExXRENpanVrZFZLM2ozS3FseFVmd05CcUY3TXlmT193dFdjUG9NOEI1YzV4UWc?oc=5"
+      }
+    ],
+    "products": [
+      "linux"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "Ubuntu 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72003",
+      "date": "2026-03-19"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-03-16",
+    "title": "“메일 미리보기만 해도 감염”…MS·크롬 보안 취약점 잇따라",
+    "source": "전자신문",
+    "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE5EZExUN1R1aGMxMDZlVFFranBZaDJfRl9DOXZOeE5QQnNuT2YzcTM2N3lpcmJfcDZwOWRMcm5GbVRQTnVvYXFqTnZyOEVrQQ?oc=5",
+    "sources": [
+      {
+        "source": "글로벌이코노믹",
+        "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxOWXNSZHFaLVY2Y2M2d1dIb0hsaGxPcE9pTmQwbjAyQ3NxQS1SNTlLS08teEE2YlR3ZURiSUxobjJkOWhZV3ROWk1LZjJIOTZoWG5JYlRvVC1nQWp6ZDdrVmx0R3NZMkNSX09OMUplOVMyN1RSaWZqaDRIRHUtZkdNTUlFZjNSRjg2?oc=5"
+      }
+    ],
+    "products": [
+      "chrome"
+    ],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-03-14",
+    "title": "인젝션 공격 자동 차단 믿음 깨졌다... Node.js ORM 취약점 패치 배포",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1DNVVkOHU1UWp1Sy1va1JTdUU4ek00Y29sX040Zmh5YURHSjVmb09xUmNKX3hyTHVCQ1hScGt4Ql9oNjVaYWZuRUZGWmo1Ukx6YWhCMFlUUkQtMGhsRExrMUtjdDV0VXFqbHJr?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-03-12",
+    "title": "\"10년 전 구형 아이폰도 보안 업데이트\"…애플, '코루나' 해킹 차단 총력",
+    "source": "뉴시스",
+    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9wdHQ4NXA5WWZDdExuX1Vrc1dRdmJ6OHJaV2ZGeWgxRVhaT3FLSzZyblYyazhtZUpxSHVsZ0h0SGlEV1A4aktVdFljTUktSkM3dS1yQzNXamE2d0ZZRm1td9IBeEFVX3lxTE0wZ3k3Y25fbVQ4dmM3dWlic19yMlctbWhVaGZkek1oR1J6b3RVSWd4dWtITURsOXA3UHJSOVktaGRmVUJHamhBOEx0dXVaUWd1TE92LUZCSUtqRnNESlFNUHktdURGM0c1NU1ocG0ybUpoMks2aGljMw?oc=5",
+    "sources": [],
+    "products": [
+      "iphone",
+      "mac"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "Apple 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72004",
+      "date": "2026-03-19"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-03-11",
+    "title": "마이크로소프트 3월 보안 업데이트, 제로데이 2건 포함 84개 취약점 대거 수정",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE02cWN2dXU1dkV3TzIxQVV1a2hpcnlWN09HTGFES3dCZUttaFpUeWp3Q0dFRDBkYzFqZkk5TUloMEZheTZTVjl3Z2M3R0lQU0FIZk4yYXVUbm5tTlZHRXlNdkt0TU5EcXZjb1pjcQ?oc=5",
+    "sources": [],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "MS 3월 보안 위협에 따른 정기 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71997",
+      "date": "2026-03-11"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-03-11",
+    "title": "HPE, 아루바 AOS-CX 치명적 보안취약점 패치",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1ZMW9TTDlhaXd3X25FS2NSUXF6UzRHeEYxTURNbjhSZ1l3STZUTmx5eXhQeFR0TTdKQmZWNDJKRmlvLWNwUU9TZ2J0RzFFQjdoZDY4M2JoaXZ4aXF1X3FtVGUyQlpueVJKNWNpQg?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-03-09",
+    "title": "중대한 Nginx UI 취약점, 인증 없이 서버 전체 백업 탈취…관리 인터페이스 노출 조직 비상",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5VaVpmeXpNUHhEdno2ZmYzeHN3ZjdSWTdfQVVEWFZ1V3pwVlYtamF1ZmZMVC0zbTl1MXp6YjlOTUtLdExlYlVPajZBZkdQaFhtSDRCVDJjWkk1Z0J6Y2k5c3E2Q0w3SmxiclJ4Mg?oc=5",
+    "sources": [],
+    "products": [
+      "nginx"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "NGINX 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71996",
+      "date": "2026-03-09"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-03-05",
+    "title": "자바 기반 pac4j-jwt 인증 라이브러리서 CVSS 10점 취약점 발견... “공개키만으로 우회”",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE03bURWenVOWm5rbkVHSjBzOXZCWWN6SnB5SE9BRXpmYmhDcE1ZTjBlMkhySkJiYllGemJmSEphRGFzTTZqX1N1MWx3eE5BSmdCczgxWXZQT2g5a3prZldvTWRDRWcxdk5CNmZJ?oc=5",
+    "sources": [],
+    "products": [
+      "java"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "pac4j-jwt 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71992",
+      "date": "2026-03-06"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-03-05",
+    "title": "시스코, 방화벽 관리 서버(Secure FMC) ‘최고 심각도’ 취약점 2건 패치",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBZLVE2Z2JYVGZXVVhrR3NKa2dUZkxsUmtETWVySWZfazNkNGRXUmZGMFVDQktOd1VLMS1ldjVwZUJpQ1BZWFRPRnFqc0V3alZuNk9QS3NXdnFnd1J3U01jUEFxNmpHczgwel9aeA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-03-05",
+    "title": "아이폰 해킹한 ‘코루나’의 실체...23개 취약점 엮은 5단계 공격 사슬",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFB4SGRyWEdEbXVxMHI0eG1fNlpEZkRuVzJQSjZ4U3VuWHRiczJPeXZtNEVVay1MMC01dTRKUVhiQWludV8xZHk1VFhTSXdzVDdMOGdHWDhEc1praVZ3SXMxajd1NmVGeXFFTXl3?oc=5",
+    "sources": [],
+    "products": [
+      "iphone"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "",
+    "fixed": [],
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-03-03",
+    "title": "윈도우 탐색기가 악성 서버 연결 통로로... WebDAV 취약점 주의보",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5VamV2UlFJTDI4WHRMbDhYQ2IyQ2FfTE15T0lTOGx6UlpKN3I4ODd5RmxzX1prZGVqWlMwWDNrQXBXLWRLRXZadTdxMDRNdWUwclRYTHh1eE5XNFVqaVgyVjFwSDZMTC12VW5n?oc=5",
+    "sources": [],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-02-22",
+    "title": "비욘드트러스트 원격접속 취약점 ‘랜섬웨어 등 사이버 공격에 악용’...주의",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5lU2RMYklYNkVmYjRYSTlDazYxT285M0NoWnp5b2ZnRjhOQjJVRjg0WFktUFVENlVkbEtBMERxTjVaUFRYTGxfeEdpbGFRbDlBa2c1c2JqcEcwMVF1bklqSmZpenlQQjVjWmFzeA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-02-21",
+    "title": "[AI와 보안] AI가 취약점 찾아 패치한다... 앤트로픽, ‘클로드 코드 시큐리티’ 공개",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5xVHNMSlQybjZLX2hHdlVDQThHZHV1ZUFSOVd6YjgtaHZCZVJOc0tEUDI3ZFJEQU9qN0lXeHcxR19LRlRiQTJKSlg2Yy1CczhyNEdQclJSTjU5QmVvRUpvUlViR2REdXdiRTI0?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-02-18",
+    "title": "대규모 공급망 공격에 악용됐던 노트패드++, 지금 즉시 ‘보안 업데이트’ 하세요",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1hVFk2ZzRuelBSWHpzbWVLWldYc1lBUW1fdnQtTm5zejVOOUM3TFlpUVJISkJlWXlqSjRKSmVnUVhJUUZhWWFVdXFsdFBuS3RFa28yeTc5UTNHLWl1SFRSN2dXRDRJZ0xNdEJF?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-02-12",
+    "title": "MS, 윈도우·오피스 제로데이 취약점 6건 긴급 패치",
+    "source": "시사저널e",
+    "url": "https://news.google.com/rss/articles/CBMickFVX3lxTFBfUExIMDFrXzl3MkEySmxPVVBNN0Q1X2ZhMjVIR2cyWU1oZnRJNEY5dDNqSEdqTmU1U05iS1RRUWRaMDFISHIzeHlrYVhpRGtBUy16QTUyZE40SFJnb05mN1Z1dm16Z0FCVUhBT3NMOWZMZ9IBdkFVX3lxTE5KZl9WaDY5TTAxakJxVWFUS1ZhTEdCZFZhZFFqTW5JWnpaNDJOLUNkblE3cWM2ajhpRTJaS3BLc0pTRk1IanhPTWNlOGRNYUU4bEJNbFM3RTA3Umo2UzNzLVB6X29FZTQ3NnJXNkt4dzhJUE1jOFE?oc=5",
+    "sources": [
+      {
+        "source": "한국정보기술진흥원",
+        "url": "https://news.google.com/rss/articles/CBMiQEFVX3lxTE1CNXhVa1Zyc2VKNFFqMFYyY1RHQ1Z5alJ1dVRtc2xTd1BoT2g0Y1BydGpydVYxS0VqZFpKckN3REM?oc=5"
+      }
+    ],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "MS 2월 보안 위협에 따른 정기 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71965",
+      "date": "2026-02-11"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-02-12",
+    "title": "아이폰·맥 전반 보안 위협…애플, CVE-2026-20700 임의코드 실행 제로데이 취약점 수정",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5USm1xOFpXaTdXN1VUa0ZpRXlKRXdCTzByM1NncnZOMG9RdkdQSm1IMlpWYmpNVzN2REVzOURVWmZLdVNEeEt5aHZDUHk5d19aUmF2ZEl1TmhaaTlUU3lQOFlmRC1fUUM5R0E0bw?oc=5",
+    "sources": [],
+    "products": [
+      "iphone",
+      "mac"
+    ],
+    "cves": [
+      "CVE-2026-20700"
+    ],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "Apple 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71969",
+      "date": "2026-02-13"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-02-01",
+    "title": "아이반티 EPMM ‘사전 인증 RCE’ 제로데이 취약점 악용…긴급 업데이트 배포",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBDekZDSlBYbVdmTXN0YUhGTnhNVk1Tay1LWldwTllvOVNxWTU0VUpEZFllRXpyTGVBY0YwRjkyZ1U1NWtCeTlQNENtZlh4eEVESzVGQThyblJ6eGM2NF9fV3AzYTBjUjFuZFRLeQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-01-29",
+    "title": "포티넷 FortiOS 인증 우회 취약점 발견…긴급 패치 적용 필수",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9IODdIMVR2MHhZdTB1MGlUZEtFYzhDeS1WMTNBMVNsQWJKYjdqWWlVbnF1Sk40dm9LOU91QnROOEJ0WEFteUx0TDBuM0VmSXpTbEFPOGRnb3ZMTWxaZC1PX2NhMVFiNlNUdlRlWA?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-01-21",
+    "title": "“취약점 공개·패치 적용까지 공백 이용 대규모 침해사고 발생 가능”",
+    "source": "데이터넷",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBHSm9YNl9GTzgzVG9qdWRGSjVpYWtUdXFqMDdRem5mdTZJYnl4V3I5WmxlMXJ5S0FsZjYyai1maXhMM0VaeEJMQ3J1eHFWNXJpcnRFNlJoT2hxZm1ETzNpM1U3aUhWSERSdjFjRQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "hidden": true
+  },
+  {
+    "date": "2026-01-15",
+    "title": "MS, 2026년 첫 대규모 취약점 패치… 윈도·오피스·애저 전반 영향",
+    "source": "IT조선",
+    "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTFBCekFRZnRuaTJNSWtpTkVPa2hTWUVYaTJQVXZ0RG8zYnVLT0tzTUV5ZEhHSGlpNGtVcDZLZmNHN3l3bVVlN1VtZ2RMT3FkWUFVeUw0NWt1NjVUSnh5LWFyamNpdVdUbHV2UUlzbGNldEvSAXRBVV95cUxOdXJRMFhjSDFjQVJfbGdLN3RFdjNYZkNqSlo3cFZWY2toaHRKNkxEZlB2TG5qTVR6c3NiVzN5VnVNdU9FX2gxem41TnNSakNpcF95OTQ5UXFuUDNUTUpFdms3d3NrbkVxY2ktbUNBeEFScld2ag?oc=5",
+    "sources": [],
+    "products": [
+      "windows"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "MS 1월 보안 위협에 따른 정기 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71944",
+      "date": "2026-01-14"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-01-11",
+    "title": "17년 된 파워포인트 보안취약점, 여전히 공격에 악용…CISA “즉시 조치” 경고",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE0wT1FjTDRjN2VtUkVfOXNLZ2t5QUhVTmxXcGFNaTJUMVhhVllrdnVrYURlRVdvWVNBaGs3cW0yaGlkaDZRa09HXzF2UEUzaV80Wm40enFhVjNEUzB4SXpvS0FubzV3d1daSzU4eA?oc=5",
+    "sources": [],
+    "products": [
+      "ms-office"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-01-09",
+    "title": "시스코 ISE 핵심 취약점 패치…관리자 권한 악용 시 내부 민감 정보 노출 가능",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE9iQUNuaF9QbEZPVzNsdlBSbnU1NzZrd0MzcmN1cml4X3FJMF9VdkpjYUk2VkV2dGxxME9fdFhQQUlwOFZLd1d4QWp1WHB3MlZMTHZVTHJySy1GRmtVSEZxRVlhYjRqc3hJT0ctRQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true
+  },
+  {
+    "date": "2026-01-09",
+    "title": "세계 기업 90% 쓰는 HPE 원뷰 취약점 발견... CISA ‘최고 등급 경고’ 발령",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTFB6NDBHTE9kZTBPSnJMVGREa3VWLUkzNWctT2s4dFZqUVNtMVJvZEhxUmVjNFFQOW1hZ0ttOEdEMkhObE1PX1czQkh1Uk5PLWI0a0Q4QkYxYU8wbHRBRmVqR2JUZnc0TUtXbFRN?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "notice": {
+      "title": "HPE 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=71938",
+      "date": "2026-01-13"
+    },
+    "auto": true
+  },
+  {
+    "date": "2026-01-07",
+    "title": "단종된 디링크 DSL 공유기서 치명적 취약점 악용 정황…“인증 없이 원격 장악 가능”",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE1mRmI0NGhoOGFCU1NPWTI3eHJ0MWNUc0Z4ZFRRaWJDZFJyZURMY0FFTXhwbkVEYW9NN0tjYkVRblJOT1BZTFZ4ZVgyZG5mcVFYWWhSVU0xNVprSWt6ckYzZDB3R01QRzhYSFItNA?oc=5",
+    "sources": [],
+    "products": [
+      "router"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "악용 중",
+    "fixed": [],
+    "auto": true
+  }
+]

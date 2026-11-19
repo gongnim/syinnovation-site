@@ -1,0 +1,244 @@
+{
+  "_about": "English for src/data/vuln-howto.json, key by key: steps and links follow the Korean list item by item (steps give the text only; commands come from the Korean file). Menu labels are the ones on the English support pages.",
+  "_default": {
+    "label": "Other products",
+    "who": "People and companies using the product named in the article",
+    "steps": [
+      "First check whether you use the product named in the article.",
+      "Find the fixed version in the vendor's official security notice and update. Vulnerabilities known in Korea are also posted on KISA's KrCERT security notices."
+    ],
+    "links": [
+      "KISA KrCERT security notices (Korean)"
+    ]
+  },
+  "ms-office": {
+    "label": "MS Office",
+    "who": "Windows PCs running Microsoft 365 or Office (Word, Excel, PowerPoint, Outlook)",
+    "steps": [
+      "Open an Office app (Word, for example) and go to File > Account. In classic Outlook it is File > Office Account.",
+      "Under Product Information, select Update Options > Update Now."
+    ],
+    "links": [
+      "Microsoft Support: Install Office updates",
+      "Microsoft Security Update Guide"
+    ]
+  },
+  "hancom": {
+    "label": "Hancom Office",
+    "who": "PCs running Hancom Office (Hangul, Hancell, Hanshow)",
+    "steps": [
+      "Download the patch for your version (Hancom Office 2024, for example) from the Hancom download center and install it.",
+      "Subscription (ESD), Hancom Docs and trial editions get patches through automatic updates."
+    ],
+    "links": [
+      "Hancom download center (Korean)"
+    ]
+  },
+  "windows": {
+    "label": "Windows",
+    "who": "People and companies using Windows PCs",
+    "steps": [
+      "Windows 11: Start > Settings > Windows Update > Check for Windows updates",
+      "Windows 10: Start > Settings > Update & Security > Windows Update > Check for Windows updates",
+      "If updates are listed, select Download & install, and restart the PC when asked."
+    ],
+    "links": [
+      "Microsoft Support: Install Windows updates",
+      "Microsoft Security Update Guide"
+    ]
+  },
+  "chrome": {
+    "label": "Chrome",
+    "who": "People using the Chrome browser on a computer",
+    "steps": [
+      "In Chrome, at the top right, select More (⋮) > Help > About Google Chrome.",
+      "Select Relaunch to apply the update. If there is no Relaunch button, Chrome is already up to date."
+    ],
+    "links": [
+      "Chrome Help: Update Google Chrome",
+      "Chrome Releases (security fixes)"
+    ]
+  },
+  "edge": {
+    "label": "Edge",
+    "who": "PCs using the Microsoft Edge browser",
+    "steps": [
+      "Type edge://settings/help in the address bar. It also opens from Settings and more (…) > Help and feedback > About Microsoft Edge.",
+      "If an update is available, select Download and install; if it is already downloaded, select Restart."
+    ],
+    "links": [
+      "Microsoft Support: Microsoft Edge update settings"
+    ]
+  },
+  "iphone": {
+    "label": "iPhone & iPad",
+    "who": "iPhone and iPad users",
+    "steps": [
+      "Go to Settings > General > Software Update.",
+      "If an update is available, download and install it and follow the on-screen steps."
+    ],
+    "links": [
+      "Apple Support: Update your iPhone or iPad",
+      "Apple security releases"
+    ]
+  },
+  "mac": {
+    "label": "Mac",
+    "who": "Mac users (Safari included)",
+    "steps": [
+      "Go to Apple menu > System Settings > General > Software Update.",
+      "If an update is available, install it."
+    ],
+    "links": [
+      "Apple Support: Update macOS on Mac",
+      "Apple security releases"
+    ]
+  },
+  "galaxy": {
+    "label": "Galaxy",
+    "who": "Samsung Galaxy phone and tablet users",
+    "steps": [
+      "Go to Settings > Software update > Download and install.",
+      "If an update is available, download and install it, then restart when asked. Menu names can differ by model and software version."
+    ],
+    "links": [
+      "Samsung Electronics Service: Galaxy software update (Korean)",
+      "Samsung Mobile Security updates"
+    ]
+  },
+  "android": {
+    "label": "Android",
+    "who": "Android phone and tablet users",
+    "steps": [
+      "Go to Settings > System > Software update and follow the on-screen steps.",
+      "In Settings > About phone > Android version, check the dates of the Android security update and the Google Play system update."
+    ],
+    "links": [
+      "Android Help: Check and update your Android version",
+      "Android Security Bulletins"
+    ]
+  },
+  "router": {
+    "label": "Router",
+    "who": "Home and office routers",
+    "steps": [
+      "Open the router's admin page. For ipTIME the default address is 192.168.0.1.",
+      "In the firmware upgrade menu, upgrade if newer firmware is listed. Do not switch the router off while it upgrades.",
+      "For other brands, look up the latest firmware for your model on the maker's download page."
+    ],
+    "links": [
+      "ipTIME: Firmware upgrade (Korean)",
+      "ipTIME downloads (Korean)"
+    ]
+  },
+  "nginx": {
+    "label": "nginx",
+    "who": "Servers running websites, reverse proxies or load balancers on nginx",
+    "steps": [
+      "Check the installed version",
+      "Ubuntu, Debian",
+      "RHEL, Rocky, Alma, Amazon Linux",
+      "Test the configuration and restart"
+    ],
+    "note": "Distribution packages often carry fixes under an older version number. Do not go by the version number alone: check the distribution's security notice to see whether your package has the fix.",
+    "links": [
+      "nginx security advisories"
+    ]
+  },
+  "apache-httpd": {
+    "label": "Apache httpd",
+    "who": "Servers running websites on Apache HTTP Server (httpd)",
+    "steps": [
+      "Check the installed version",
+      "Ubuntu, Debian",
+      "RHEL, Rocky, Alma"
+    ],
+    "note": "Distribution packages often carry fixes under an older version number. Do not go by the version number alone: check the distribution's security notice to see whether your package has the fix.",
+    "links": [
+      "Apache HTTP Server 2.4 vulnerabilities"
+    ]
+  },
+  "openssl": {
+    "label": "OpenSSL",
+    "who": "Servers and programs that use OpenSSL (most Linux web servers)",
+    "steps": [
+      "Check the installed version",
+      "Ubuntu, Debian",
+      "RHEL, Rocky, Alma",
+      "After updating, restart the services that use OpenSSL (web servers and others) so they load the new library."
+    ],
+    "note": "Distribution packages often carry fixes under an older version number. Check the distribution's security notice to see whether your package has the fix.",
+    "links": [
+      "OpenSSL vulnerabilities"
+    ]
+  },
+  "java": {
+    "label": "Java",
+    "who": "Servers and business software running on Java (JDK, JRE), and PCs with Java installed",
+    "steps": [
+      "Check the installed version",
+      "Ubuntu, Debian",
+      "RHEL, Rocky, Alma",
+      "Windows PC: Java Control Panel > Update tab > Update Now",
+      "Java bundled inside a product is updated by that product's vendor. Check the notices of the vendors of the software you run."
+    ],
+    "links": [
+      "Oracle security alerts (Critical Patch Updates)",
+      "Java update help"
+    ]
+  },
+  "wordpress": {
+    "label": "WordPress",
+    "who": "People and companies running WordPress websites",
+    "steps": [
+      "In the admin area, go to Dashboard > Updates and select Update Now.",
+      "Apply the plugin and theme updates on the same screen. If you use the plugin named in the article, check it first."
+    ],
+    "links": [
+      "WordPress documentation: Updating WordPress"
+    ]
+  },
+  "php": {
+    "label": "PHP",
+    "who": "Servers running PHP websites (WordPress and others)",
+    "steps": [
+      "Check the installed version",
+      "Ubuntu, Debian",
+      "RHEL, Rocky, Alma",
+      "After updating, restart the web server or PHP-FPM."
+    ],
+    "links": [
+      "PHP supported versions",
+      "PHP 8 changelog (security fixes)"
+    ]
+  },
+  "openssh": {
+    "label": "OpenSSH",
+    "who": "Linux and Unix servers that accept remote SSH logins",
+    "steps": [
+      "Check the installed version",
+      "Ubuntu, Debian",
+      "RHEL, Rocky, Alma, Amazon Linux"
+    ],
+    "note": "Distribution packages often carry fixes under an older version number. Check the distribution's security notice to see whether your package has the fix.",
+    "links": [
+      "OpenSSH security"
+    ]
+  },
+  "linux": {
+    "label": "Linux",
+    "who": "Linux servers and PCs",
+    "steps": [
+      "Check the kernel version",
+      "Ubuntu, Debian",
+      "RHEL, Rocky, Alma, Amazon Linux",
+      "A new kernel takes effect only after a reboot"
+    ],
+    "note": "Each distribution ships the fixed kernel at its own pace. Check your distribution's security notice to see whether this flaw is fixed.",
+    "links": [
+      "Ubuntu security notices",
+      "Red Hat security updates",
+      "Debian security information"
+    ]
+  }
+}

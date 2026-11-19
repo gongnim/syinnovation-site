@@ -11,37 +11,14 @@
 // Word lists live in scripts/security-news.config.json; a row with "hidden": true is kept off the site.
 import fs from 'node:fs';
 import crypto from 'node:crypto';
-import { parseRss, isoDate, merge, pickVideos, photoQuery, hangul } from './security-news-lib.mjs';
+import { isoDate, merge, pickVideos, photoQuery, hangul } from './security-news-lib.mjs';
+import { googleNews, naverNews, strip } from './news-sources.mjs';
 
 const DATA = new URL('../src/data/security-news.json', import.meta.url);
 const PICS = new URL('../public/images/security/auto/', import.meta.url);
 const cfg = JSON.parse(fs.readFileSync(new URL('./security-news.config.json', import.meta.url), 'utf8'));
 const dry = process.argv.includes('--dry');
 const env = process.env;
-
-async function googleNews({ q, lang, region }) {
-  const loc = lang === 'ko' ? 'hl=ko&gl=KR&ceid=KR:ko' : 'hl=en-US&gl=US&ceid=US:en';
-  const url = `https://news.google.com/rss/search?q=${encodeURIComponent(`(${q}) when:3d`)}&${loc}`;
-  const res = await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (security-news collector)' } });
-  if (!res.ok) throw new Error(`Google News ${region}: HTTP ${res.status}`);
-  return parseRss(await res.text()).map((i) => ({ ...i, region }));
-}
-
-const strip = (s) => s.replace(/<[^>]+>/g, '').replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
-
-async function naverNews({ q, region }) {
-  if (!env.NAVER_CLIENT_ID || !env.NAVER_CLIENT_SECRET) return [];
-  const query = q.split(' OR ').slice(0, 3).join(' '); // the API takes plain words
-  const res = await fetch(`https://openapi.naver.com/v1/search/news.json?query=${encodeURIComponent(query)}&display=100&sort=date`, {
-    headers: { 'X-Naver-Client-Id': env.NAVER_CLIENT_ID, 'X-Naver-Client-Secret': env.NAVER_CLIENT_SECRET },
-  });
-  if (!res.ok) throw new Error(`Naver: HTTP ${res.status}`);
-  const { items = [] } = await res.json();
-  return items.map((i) => {
-    const url = i.originallink || i.link;
-    return { title: strip(i.title), url, source: new URL(url).hostname.replace(/^www\./, ''), date: isoDate(i.pubDate), region };
-  });
-}
 
 async function youtubeNews({ q, lang, region }) {
   if (!env.YOUTUBE_API_KEY) return [];

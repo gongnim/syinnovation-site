@@ -1,6 +1,6 @@
 ---
 // Tabs under a page title for a section split into pages: 자료실 (문서, 영상, 용어집) by default, or 소식
-// (사내소식, 언론보도). The 자료실 list is also the header's sub-menu.
+// (사내소식, 언론보도, 취약점 소식). The 자료실 list is also the header's sub-menu.
 // items are menu items (site.ts); on English pages they show their English labels and /en/ links.
 import { libraryNav, menu, type MenuItem } from '../data/site';
 import { langOf, pagePath } from '../lib/i18n';
@@ -22,4 +22,6 @@ const on = tabs.filter((t) => path === t.href || path.startsWith(t.href + '/')).
   .rtabs a { display: grid; place-items: center; min-width: 88px; height: 42px; padding: 0 20px; border-radius: 999px; font-size: 15px; font-weight: 700; color: var(--ink-2); }
   .rtabs a:hover { color: var(--ink); }
   .rtabs a[aria-current='page'] { background: #fff; color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+  /* 소식 has three tabs: keep them inside a 320px phone */
+  @media (max-width: 359px) { .rtabs a { min-width: 0; padding: 0 14px; } }
 </style>

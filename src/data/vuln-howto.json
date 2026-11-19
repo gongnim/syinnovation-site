@@ -1,0 +1,262 @@
+{
+  "_about": "소식 > 취약점 소식의 '할 일': 제품마다 누가 해당되는지, 버전 확인과 업데이트 방법, 공식 안내 링크. match는 기사 제목에서 제품을 찾는 정규식(대소문자 무시)이고, 순서가 우선순위다(제목에 여러 제품이 나오면 앞의 것이 대표 제품). 소비자용 메뉴 경로는 links의 첫 번째 공식 지원 페이지에서 2026-11-19에 확인했다. steps의 항목은 글(문자열) 또는 { t: 설명, code: 명령 }이다. 영어는 src/data/i18n/vuln-howto.en.json. 버전 번호는 여기에 쓰지 않는다(기사나 공지가 밝힌 수정 버전은 각 행의 fixed).",
+  "_default": {
+    "label": "기타 제품",
+    "who": "기사에 나온 제품을 쓰는 사람과 회사",
+    "steps": [
+      "기사에 나온 제품을 쓰고 있는지 먼저 확인합니다.",
+      "제조사 공식 보안 공지에서 고쳐진 버전을 확인하고 업데이트합니다. 국내에 알려진 취약점은 KISA 보호나라 보안공지에도 올라옵니다."
+    ],
+    "links": [
+      { "label": "KISA 보호나라 보안공지", "url": "https://www.boho.or.kr/kr/bbs/list.do?menuNo=205020&bbsId=B0000133" }
+    ]
+  },
+  "ms-office": {
+    "match": "MS ?오피스|마이크로소프트 ?오피스|Microsoft 365|오피스 ?365|Office 365|아웃룩|Outlook|엑셀|Excel|파워포인트|PowerPoint|MS ?워드",
+    "label": "MS 오피스",
+    "who": "Microsoft 365·Office(워드, 엑셀, 파워포인트, 아웃룩)를 쓰는 Windows PC",
+    "steps": [
+      "Office 앱(예: 워드)을 열고 파일 > 계정으로 갑니다. 클래식 Outlook은 파일 > Office 계정입니다.",
+      "제품 정보에서 업데이트 옵션 > 지금 업데이트를 누릅니다."
+    ],
+    "links": [
+      { "label": "Microsoft 지원: Office 업데이트 설치", "url": "https://support.microsoft.com/ko-kr/office/office-업데이트-설치-2ab296f3-7f03-43a2-8e50-46de917611c5" },
+      { "label": "Microsoft 보안 업데이트 가이드", "url": "https://msrc.microsoft.com/update-guide" }
+    ]
+  },
+  "hancom": {
+    "match": "한컴|한글과컴퓨터|아래아한글|HWP",
+    "label": "한컴오피스",
+    "who": "한컴오피스(한글, 한셀, 한쇼)를 쓰는 PC",
+    "steps": [
+      "한컴 다운로드 센터에서 쓰고 있는 버전(예: 한컴오피스 2024)의 패치 파일을 받아 설치합니다.",
+      "기간제 ESD, 한컴독스, 체험판은 자동 업데이트로 패치가 들어옵니다."
+    ],
+    "links": [
+      { "label": "한컴 다운로드 센터", "url": "https://www.hancom.com/support/downloadCenter/download" }
+    ]
+  },
+  "windows": {
+    "match": "윈도|Windows|패치 ?화요일|Patch Tuesday|(?:MS|마이크로소프트)[, ]+\\d{1,2}월 ?(?:정기 ?)?(?:보안|패치)|(?:MS|마이크로소프트) ?정기 ?(?:보안|패치)",
+    "label": "윈도우",
+    "who": "Windows PC를 쓰는 사람과 회사",
+    "steps": [
+      "Windows 11: 시작 > 설정 > Windows 업데이트 > Windows 업데이트 확인",
+      "Windows 10: 시작 > 설정 > 업데이트 & 보안 > Windows 업데이트 > Windows 업데이트 확인",
+      "업데이트가 보이면 다운로드 & 설치를 누르고, 다시 시작하라는 안내가 나오면 PC를 다시 시작합니다."
+    ],
+    "links": [
+      { "label": "Microsoft 지원: Windows 업데이트 설치", "url": "https://support.microsoft.com/ko-kr/windows/install-windows-updates-3c5ae7fc-9fb6-9af1-1984-b5e0412c556a" },
+      { "label": "Microsoft 보안 업데이트 가이드", "url": "https://msrc.microsoft.com/update-guide" }
+    ]
+  },
+  "chrome": {
+    "match": "크롬|Chrome|크로미움|Chromium",
+    "label": "크롬",
+    "who": "PC에서 Chrome 브라우저를 쓰는 사람",
+    "steps": [
+      "Chrome 오른쪽 위 더보기(⋮) > 도움말 > Chrome 정보를 엽니다.",
+      "다시 시작을 누르면 업데이트가 적용됩니다. 다시 시작 버튼이 없으면 이미 최신 버전입니다."
+    ],
+    "links": [
+      { "label": "Chrome 고객센터: Chrome 업데이트", "url": "https://support.google.com/chrome/answer/95414?hl=ko" },
+      { "label": "Chrome Releases (보안 수정 공지)", "url": "https://chromereleases.googleblog.com/" }
+    ]
+  },
+  "edge": {
+    "match": "엣지 ?브라우저|MS ?엣지|마이크로소프트 ?엣지|Microsoft Edge|Edge 브라우저",
+    "label": "엣지",
+    "who": "Microsoft Edge 브라우저를 쓰는 PC",
+    "steps": [
+      "주소창에 edge://settings/help 를 입력합니다. 설정 및 기타(…) > 도움말 및 피드백에서도 열 수 있습니다.",
+      "업데이트를 사용할 수 있다고 나오면 다운로드 및 설치를, 이미 내려받았다면 다시 시작을 누릅니다."
+    ],
+    "links": [
+      { "label": "Microsoft 지원: Microsoft Edge 업데이트 설정", "url": "https://support.microsoft.com/ko-kr/topic/microsoft-edge-업데이트-설정-af8aaca2-1b69-4870-94fe-18822dbb7ef1" }
+    ]
+  },
+  "iphone": {
+    "match": "아이폰|iPhone|\\biOS|\\biPadOS|아이패드|iPad|애플|Apple",
+    "label": "아이폰·아이패드",
+    "who": "iPhone·iPad 사용자",
+    "steps": [
+      "설정 > 일반 > 소프트웨어 업데이트로 갑니다.",
+      "업데이트가 있으면 내려받아 설치하고 화면 안내를 따릅니다."
+    ],
+    "links": [
+      { "label": "Apple 지원: iPhone 또는 iPad 업데이트하기", "url": "https://support.apple.com/ko-kr/118575" },
+      { "label": "Apple 보안 릴리스", "url": "https://support.apple.com/ko-kr/100100" }
+    ]
+  },
+  "mac": {
+    "match": "맥OS|macOS|맥북|\\bMac\\b|사파리|Safari|애플|Apple",
+    "label": "맥",
+    "who": "Mac 사용자(Safari 포함)",
+    "steps": [
+      "Apple 메뉴 > 시스템 설정 > 일반 > 소프트웨어 업데이트로 갑니다.",
+      "업데이트가 있으면 설치합니다."
+    ],
+    "links": [
+      { "label": "Apple 지원: Mac에서 macOS 업데이트하기", "url": "https://support.apple.com/ko-kr/108382" },
+      { "label": "Apple 보안 릴리스", "url": "https://support.apple.com/ko-kr/100100" }
+    ]
+  },
+  "galaxy": {
+    "match": "갤럭시|Galaxy|삼성 ?(?:스마트폰|휴대폰|모바일)",
+    "label": "갤럭시",
+    "who": "삼성 갤럭시 스마트폰·태블릿 사용자",
+    "steps": [
+      "설정 > 소프트웨어 업데이트 > 다운로드 및 설치를 누릅니다.",
+      "업데이트가 있으면 내려받아 설치하고, 끝나면 지금 다시 시작을 누릅니다. 메뉴 이름은 모델과 소프트웨어 버전에 따라 다를 수 있습니다."
+    ],
+    "links": [
+      { "label": "삼성전자서비스: 갤럭시 소프트웨어 업데이트", "url": "https://www.samsungsvc.co.kr/solution/40407" },
+      { "label": "Samsung Mobile Security 보안 업데이트", "url": "https://security.samsungmobile.com/securityUpdate.smsb" }
+    ]
+  },
+  "android": {
+    "match": "안드로이드|Android",
+    "label": "안드로이드",
+    "who": "안드로이드 스마트폰·태블릿 사용자",
+    "steps": [
+      "설정 > 시스템 > 소프트웨어 업데이트로 가서 화면 안내를 따릅니다.",
+      "설정 > 휴대전화 정보 > Android 버전에서 Android 보안 업데이트와 Google Play 시스템 업데이트 날짜를 확인합니다."
+    ],
+    "links": [
+      { "label": "Android 고객센터: Android 버전 확인 및 업데이트", "url": "https://support.google.com/android/answer/7680439?hl=ko" },
+      { "label": "Android 보안 게시판", "url": "https://source.android.com/docs/security/bulletin" }
+    ]
+  },
+  "router": {
+    "match": "공유기|라우터|\\brouter|ipTIME|아이피타임",
+    "label": "공유기",
+    "who": "집과 사무실의 공유기",
+    "steps": [
+      "공유기 관리 화면에 접속합니다. ipTIME은 기본 주소가 192.168.0.1입니다.",
+      "펌웨어 업그레이드 메뉴에서 최신 펌웨어가 있으면 업그레이드합니다. 진행 중에는 공유기 전원을 끄지 않습니다.",
+      "다른 제조사 공유기는 제조사 자료실에서 모델명으로 최신 펌웨어를 찾습니다."
+    ],
+    "links": [
+      { "label": "ipTIME: 펌웨어 업그레이드하기", "url": "https://iptime.com/support/faq/7226" },
+      { "label": "ipTIME 다운로드 자료실", "url": "https://iptime.com/support/downloads" }
+    ]
+  },
+  "nginx": {
+    "match": "nginx|엔진엑스",
+    "label": "nginx",
+    "who": "nginx로 웹사이트, 리버스 프록시, 로드밸런서를 운영하는 서버",
+    "steps": [
+      { "t": "설치된 버전 확인", "code": "nginx -v" },
+      { "t": "Ubuntu·Debian", "code": "sudo apt update && sudo apt install --only-upgrade nginx" },
+      { "t": "RHEL·Rocky·Alma·Amazon Linux", "code": "sudo dnf upgrade nginx" },
+      { "t": "설정을 검사하고 다시 시작", "code": "sudo nginx -t && sudo systemctl restart nginx" }
+    ],
+    "note": "배포판 패키지는 고친 내용을 예전 버전 번호에 덧붙여 내놓기도 합니다. 버전 번호만 보지 말고 배포판 보안 공지에서 이 취약점이 고쳐진 패키지인지 확인하세요.",
+    "links": [
+      { "label": "nginx 보안 공지", "url": "https://nginx.org/en/security_advisories.html" }
+    ]
+  },
+  "apache-httpd": {
+    "match": "Apache HTTP|아파치 ?HTTP|httpd|mod_http2|mod_h2|아파치 ?웹 ?서버|Apache 웹 ?서버",
+    "label": "Apache httpd",
+    "who": "Apache HTTP Server(httpd)로 웹사이트를 운영하는 서버",
+    "steps": [
+      { "t": "설치된 버전 확인", "code": "apachectl -v" },
+      { "t": "Ubuntu·Debian", "code": "sudo apt update && sudo apt install --only-upgrade apache2 && sudo systemctl restart apache2" },
+      { "t": "RHEL·Rocky·Alma", "code": "sudo dnf upgrade httpd && sudo systemctl restart httpd" }
+    ],
+    "note": "배포판 패키지는 고친 내용을 예전 버전 번호에 덧붙여 내놓기도 합니다. 버전 번호만 보지 말고 배포판 보안 공지에서 이 취약점이 고쳐진 패키지인지 확인하세요.",
+    "links": [
+      { "label": "Apache HTTP Server 2.4 보안 취약점 목록", "url": "https://httpd.apache.org/security/vulnerabilities_24.html" }
+    ]
+  },
+  "openssl": {
+    "match": "OpenSSL|오픈SSL",
+    "label": "OpenSSL",
+    "who": "OpenSSL을 쓰는 서버와 프로그램(대부분의 리눅스 웹 서버)",
+    "steps": [
+      { "t": "설치된 버전 확인", "code": "openssl version" },
+      { "t": "Ubuntu·Debian", "code": "sudo apt update && sudo apt upgrade" },
+      { "t": "RHEL·Rocky·Alma", "code": "sudo dnf upgrade openssl" },
+      "업데이트한 뒤 OpenSSL을 쓰는 서비스(웹 서버 등)를 다시 시작해야 새 라이브러리가 적용됩니다."
+    ],
+    "note": "배포판 패키지는 고친 내용을 예전 버전 번호에 덧붙여 내놓기도 합니다. 배포판 보안 공지에서 이 취약점이 고쳐진 패키지인지 확인하세요.",
+    "links": [
+      { "label": "OpenSSL 취약점 목록", "url": "https://openssl-library.org/news/vulnerabilities/" }
+    ]
+  },
+  "java": {
+    "match": "자바(?!스크립트)|Java(?!Script)|OpenJDK|오픈JDK|\\bJDK|\\bJRE",
+    "label": "자바",
+    "who": "Java(JDK·JRE)로 돌아가는 서버와 업무 프로그램, Java를 설치한 PC",
+    "steps": [
+      { "t": "설치된 버전 확인", "code": "java -version" },
+      { "t": "Ubuntu·Debian", "code": "sudo apt update && sudo apt upgrade" },
+      { "t": "RHEL·Rocky·Alma", "code": "sudo dnf upgrade 'java-*'" },
+      "Windows PC: Java 제어판 > 업데이트 탭 > 지금 업데이트",
+      "제품 안에 들어 있는 Java는 그 제품 공급사의 업데이트로 바뀝니다. 쓰는 솔루션의 공급사 공지도 확인하세요."
+    ],
+    "links": [
+      { "label": "Oracle 보안 공지(Critical Patch Updates)", "url": "https://www.oracle.com/security-alerts/" },
+      { "label": "Java 업데이트 안내", "url": "https://www.java.com/ko/download/help/java_update.html" }
+    ]
+  },
+  "wordpress": {
+    "match": "워드프레스|WordPress",
+    "label": "워드프레스",
+    "who": "워드프레스로 만든 웹사이트를 운영하는 사람과 회사",
+    "steps": [
+      "관리자 화면의 알림판 > 업데이트(Dashboard > Updates)로 가서 지금 업데이트(Update Now)를 누릅니다.",
+      "같은 화면에 나오는 플러그인과 테마 업데이트도 적용합니다. 기사에 나온 플러그인을 쓰고 있다면 그 플러그인부터 확인합니다."
+    ],
+    "links": [
+      { "label": "WordPress 문서: Updating WordPress", "url": "https://wordpress.org/documentation/article/updating-wordpress/" }
+    ]
+  },
+  "php": {
+    "match": "PHP",
+    "label": "PHP",
+    "who": "PHP로 만든 웹사이트(워드프레스 등)를 운영하는 서버",
+    "steps": [
+      { "t": "설치된 버전 확인", "code": "php -v" },
+      { "t": "Ubuntu·Debian", "code": "sudo apt update && sudo apt upgrade" },
+      { "t": "RHEL·Rocky·Alma", "code": "sudo dnf upgrade 'php*'" },
+      "업데이트한 뒤 웹 서버나 PHP-FPM을 다시 시작합니다."
+    ],
+    "links": [
+      { "label": "PHP 지원 버전", "url": "https://www.php.net/supported-versions.php" },
+      { "label": "PHP 8 변경 기록(보안 수정)", "url": "https://www.php.net/ChangeLog-8.php" }
+    ]
+  },
+  "openssh": {
+    "match": "OpenSSH|오픈SSH|\\bsshd\\b",
+    "label": "OpenSSH",
+    "who": "SSH로 원격 접속을 받는 리눅스·유닉스 서버",
+    "steps": [
+      { "t": "설치된 버전 확인", "code": "ssh -V" },
+      { "t": "Ubuntu·Debian", "code": "sudo apt update && sudo apt install --only-upgrade openssh-server && sudo systemctl restart ssh" },
+      { "t": "RHEL·Rocky·Alma·Amazon Linux", "code": "sudo dnf upgrade openssh-server && sudo systemctl restart sshd" }
+    ],
+    "note": "배포판 패키지는 고친 내용을 예전 버전 번호에 덧붙여 내놓기도 합니다. 배포판 보안 공지에서 이 취약점이 고쳐진 패키지인지 확인하세요.",
+    "links": [
+      { "label": "OpenSSH 보안 공지", "url": "https://www.openssh.org/security.html" }
+    ]
+  },
+  "linux": {
+    "match": "리눅스|Linux|우분투|Ubuntu|레드햇|Red Hat|RHEL|데비안|Debian|CentOS|로키 ?리눅스",
+    "label": "리눅스",
+    "who": "리눅스 서버와 PC",
+    "steps": [
+      { "t": "커널 버전 확인", "code": "uname -r" },
+      { "t": "Ubuntu·Debian", "code": "sudo apt update && sudo apt upgrade" },
+      { "t": "RHEL·Rocky·Alma·Amazon Linux", "code": "sudo dnf upgrade --refresh" },
+      { "t": "커널이 바뀌었으면 다시 부팅해야 적용됩니다", "code": "sudo reboot" }
+    ],
+    "note": "배포판마다 고친 커널이 나오는 시점이 다릅니다. 쓰는 배포판의 보안 공지에서 이 취약점이 고쳐졌는지 확인하세요.",
+    "links": [
+      { "label": "Ubuntu 보안 공지", "url": "https://ubuntu.com/security/notices" },
+      { "label": "Red Hat 보안 업데이트", "url": "https://access.redhat.com/security/security-updates/" },
+      { "label": "Debian 보안 정보", "url": "https://www.debian.org/security/" }
+    ]
+  }
+}

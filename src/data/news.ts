@@ -114,3 +114,31 @@ export const security = (incidents as Incident[])
 /** cards per page of 언론보도 (/news/press, /news/press/page/2, …) */
 export const pressPage = 12;
 export const fmt = (d: string) => d.replaceAll('-', '.');
+
+// 취약점 소식 (/news/vulnerabilities): vulnerability news with what to do about it. Rows come from the collector
+// (scripts/collect-vuln-news.mjs, auto: true) or are written by hand (no auto: the collector only adds outlets to
+// them); hidden: true takes a row off the site and keeps its flaw from being added again. The steps under 할 일 come
+// from src/data/vuln-howto.json by product key.
+import vulnRows from './vuln-news.json';
+export interface Step { t: string; code?: string }
+export interface Vuln {
+  date: string;
+  title: string;
+  source: string;
+  url: string;
+  sources?: { source: string; url: string }[]; // other outlets that reported the same flaw
+  products: string[]; // keys of vuln-howto.json, the main product first
+  cves: string[];
+  severity?: string; // as stated: "CVSS 9.8", 치명적, 고위험, 긴급
+  status?: string; // 악용 중, 패치 나옴, 조치 권고
+  fixed?: string[]; // fixed versions named by the article or the vendor notice (never guessed)
+  workaround?: (string | Step)[]; // a temporary measure from the vendor notice or the article (hand-written rows)
+  youtube?: string; // our 보안 속보 Short about this flaw (YouTube id); shown at the top of the card (user, 2026-11-19)
+  note?: string; // a hand-written line about this flaw
+  notice?: { title: string; url: string; date?: string }; // the KISA 보호나라 보안공지 about it
+  auto?: boolean;
+  hidden?: boolean;
+}
+export const vulns = (vulnRows as Vuln[]).filter((v) => !v.hidden).sort((a, b) => b.date.localeCompare(a.date));
+/** rows per page of 취약점 소식 (/news/vulnerabilities, /news/vulnerabilities/page/2, …) */
+export const vulnPage = 20;
