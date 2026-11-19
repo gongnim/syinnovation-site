@@ -1,6 +1,36 @@
 [
   {
     "date": "2026-11-19",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "일본기업들, 이용 끝난 개인정보 쌓아뒀다 해킹에 줄줄이 유출",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTFBUWDRTZ2R4Qzl1Y1dCSWRsVW9OSHFvMUNQYVM5eHRZX1A2b2FhSXQ0WTI2YVdSTGJSWTVCTHo2YkdvODFvUVFFU3dicmFzbkprR1E3ZHBHLXpscklpbnJ4MtIBYEFVX3lxTFBUWDRTZ2R4Qzl1Y1dCSWRsVW9OSHFvMUNQYVM5eHRZX1A2b2FhSXQ0WTI2YVdSTGJSWTVCTHo2YkdvODFvUVFFU3dicmFzbkprR1E3ZHBHLXpscklpbnJ4Mg?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-19-704a3dee.jpg",
+    "credit": {
+      "name": "RDNE Stock project",
+      "url": "https://www.pexels.com/photo/black-laptop-on-the-table-7821760/",
+      "id": 7821760
+    }
+  },
+  {
+    "date": "2026-11-17",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "배재대 학습관리·학사시스템 해킹… 학번·이메일 등 개인정보 유출",
+    "source": "충남일보",
+    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5ldUxrci1UekxJOFk4VWJaSGJwYWJOc2daMzFuQW9JVVVrY20zeGQteWJubFJoMjZUT0txUkZsTHhwWWdKRjhzcXN1ZUlTZ3UzOTV1RV9mR3QwaHkwd1MyNVZnUEpYY2RWM2dLeWlPenpLMEE?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-17-bf0b9f35.jpg",
+    "credit": {
+      "name": "Sora Shimazaki",
+      "url": "https://www.pexels.com/photo/crop-cyber-spy-hacking-system-while-typing-on-laptop-5935794/",
+      "id": 5935794
+    }
+  },
+  {
+    "date": "2026-11-19",
     "region": "국내",
     "type": "개인정보 유출",
     "title": "부산대·동의대 해킹 공격에 개인정보 500여 건 유출 (2026-11-19,목/뉴스투데이/부산MBC)",
