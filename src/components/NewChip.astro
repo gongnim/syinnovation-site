@@ -1,0 +1,12 @@
+---
+// "NEW" next to a 소식 item's date. Hidden in the HTML; the browser shows it while the item is younger than its tab's
+// window (newDays in src/data/news.ts, script in src/layouts/Base.astro).
+interface Props { date: string; days: number }
+const { date, days } = Astro.props;
+---
+<span class="new-chip" data-new-date={date} data-new-days={days} hidden>NEW</span>
+
+<style>
+  .new-chip { display: inline-flex; align-items: center; height: 19px; margin-left: 8px; padding: 0 7px; border-radius: 999px; background: var(--orange); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: .04em; line-height: 1; vertical-align: 1px; }
+  .new-chip[hidden] { display: none; }
+</style>

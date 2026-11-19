@@ -114,5 +114,27 @@ const graph = [
       }, { rootMargin: '0px 0px -10% 0px' });
       els.forEach((el) => io.observe(el));
     </script>
+    <script is:inline>
+      // 소식 NEW marks (user, 2026-11-19; data from src/data/news.ts newMark/newDays): an item younger than its tab's
+      // window shows NEW; a tab, and the 소식 menu above it, gets a dot while its newest item is that young and this
+      // visitor hasn't opened the tab since (remembered in this browser only).
+      (() => {
+        const now = Date.now(), fresh = (d, n) => !!d && now - Date.parse(d + 'T00:00:00+09:00') < n * 864e5;
+        document.querySelectorAll('[data-new-date]').forEach((e) => { if (fresh(e.dataset.newDate, +e.dataset.newDays)) e.hidden = false; });
+        let seen = {};
+        try { seen = JSON.parse(localStorage.getItem('sy-news-seen') || '{}'); } catch (e) {}
+        const here = location.pathname.replace(/^\/en(?=\/|$)/, '').replace(/\/page\/\d+$/, '') || '/';
+        const tabs = document.querySelectorAll('[data-latest]');
+        tabs.forEach((a) => { if (a.dataset.seenKey === here) seen[here] = a.dataset.latest; });
+        try { localStorage.setItem('sy-news-seen', JSON.stringify(seen)); } catch (e) {}
+        tabs.forEach((a) => {
+          const k = a.dataset.seenKey, d = a.dataset.latest;
+          if (!fresh(d, +a.dataset.newDays) || (seen[k] || '') >= d) return;
+          a.classList.add('has-new');
+          a.closest('.sub')?.querySelector('.sub-top')?.classList.add('has-new');
+          a.closest('.mobile-group')?.querySelector('.mobile-head')?.classList.add('has-new');
+        });
+      })();
+    </script>
   </body>
 </html>

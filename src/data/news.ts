@@ -142,3 +142,15 @@ export interface Vuln {
 export const vulns = (vulnRows as Vuln[]).filter((v) => !v.hidden).sort((a, b) => b.date.localeCompare(a.date));
 /** rows per page of 보안뉴스 (/news/vulnerabilities, /news/vulnerabilities/page/2, …) */
 export const vulnPage = 20;
+
+// New posts get noticed (user, 2026-11-19: "업데이트 되면 New 이런 게 있으면"): an item younger than its tab's window shows
+// a NEW chip, and the 소식 menu and tab show a dot while the tab's newest item is that young and the visitor hasn't
+// opened the tab since. Ages are worked out in the browser (src/layouts/Base.astro), because the site is only rebuilt
+// when something changes and a chip baked in at build time would outlive its window.
+export const newDays: Record<string, number> = { '/news': 7, '/news/press': 3, '/news/vulnerabilities': 3 };
+const latest: Record<string, string> = { '/news': sorted[0]?.date ?? '', '/news/press': security[0]?.date ?? '', '/news/vulnerabilities': vulns[0]?.date ?? '' };
+/** data attributes for a 소식 tab link (/en links included) so the browser can mark it; {} for other links */
+export const newMark = (href: string): Record<string, string | number> => {
+  const k = href.replace(/^\/en(?=\/|$)/, '') || '/';
+  return latest[k] ? { 'data-latest': latest[k], 'data-new-days': newDays[k], 'data-seen-key': k } : {};
+};

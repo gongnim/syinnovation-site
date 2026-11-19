@@ -11,8 +11,9 @@ import { pageNumbers } from '../../../../lib/pager.js';
 import Base from '../../../../layouts/Base.astro';
 import PageTitle from '../../../../components/PageTitle.astro';
 import Icon from '../../../../components/Icon.astro';
+import NewChip from '../../../../components/NewChip.astro';
 import ResourceTabs from '../../../../components/ResourceTabs.astro';
-import { security, fmt, pressPage } from '../../../../data/news';
+import { security, fmt, pressPage, newDays } from '../../../../data/news';
 import { newsNav, menu } from '../../../../data/site';
 import { securityNewsEn, labelEn } from '../../../../data/en';
 
@@ -77,7 +78,7 @@ const picture = (n: (typeof security)[number]) =>
                   <span class="over">
                     <span class="tags"><span class="tag">{en ? labelEn(n.region) : n.region}</span><span class="tag">{n.youtube ? (en ? 'Video' : '영상') : (en ? labelEn(n.type) : n.type)}</span></span>
                     <span class="title">{en && !e ? <><span lang="ko">{n.title}</span> <small>(Korean)</small></> : title}</span>
-                    <span class="meta">{en ? labelEn(n.source) : n.source}<span class="dot" aria-hidden="true"></span>{en ? dateText(n.date, lang) : fmt(n.date)}{!n.slug && !n.youtube && <Icon name="external" size={13} label={en ? 'Open the original in a new window' : '새 창에서 원문 열기'} />}</span>
+                    <span class="meta">{en ? labelEn(n.source) : n.source}<span class="dot" aria-hidden="true"></span>{en ? dateText(n.date, lang) : fmt(n.date)}<NewChip date={n.date} days={newDays['/news/press']} />{!n.slug && !n.youtube && <Icon name="external" size={13} label={en ? 'Open the original in a new window' : '새 창에서 원문 열기'} />}</span>
                   </span>
                 </>
               );

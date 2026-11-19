@@ -2,7 +2,8 @@
 // A square 소식 card: the picture fills it, with the source, title and date laid over a dark band at the bottom.
 // External items open the original in a new tab; items without a picture get the brand-blue panel with the symbol.
 import Icon from './Icon.astro';
-import { fmt, type NewsItem } from '../data/news';
+import NewChip from './NewChip.astro';
+import { fmt, newDays, type NewsItem } from '../data/news';
 import { ownNewsEn, labelEn } from '../data/en';
 import { langOf, href, dateText } from '../lib/i18n';
 interface Props { item: NewsItem }
@@ -20,7 +21,7 @@ const pos = !n.cardImage && n.imagePos ? `object-position: ${n.imagePos}` : unde
   <div class="over">
     <span class="src">{en ? e?.source ?? labelEn(n.source) : n.source}</span>
     <h3 class="card-title">{en ? e?.title ?? <><span lang="ko">{n.title}</span> <small>(Korean)</small></> : n.title}</h3>
-    <span class="date">{en ? dateText(n.date, lang) : fmt(n.date)}{n.url && <Icon name="external" size={14} label={en ? 'Open the original in a new window' : '새 창에서 원문 열기'} />}</span>
+    <span class="date">{en ? dateText(n.date, lang) : fmt(n.date)}<NewChip date={n.date} days={newDays['/news']} />{n.url && <Icon name="external" size={14} label={en ? 'Open the original in a new window' : '새 창에서 원문 열기'} />}</span>
   </div>
 </a>
 

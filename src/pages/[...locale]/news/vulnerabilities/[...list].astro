@@ -9,8 +9,9 @@ import { pageNumbers } from '../../../../lib/pager.js';
 import Base from '../../../../layouts/Base.astro';
 import PageTitle from '../../../../components/PageTitle.astro';
 import Icon from '../../../../components/Icon.astro';
+import NewChip from '../../../../components/NewChip.astro';
 import ResourceTabs from '../../../../components/ResourceTabs.astro';
-import { vulns, fmt, vulnPage, type Step } from '../../../../data/news';
+import { vulns, fmt, vulnPage, newDays, type Step } from '../../../../data/news';
 import { newsNav, menu } from '../../../../data/site';
 import howtoKo from '../../../../data/vuln-howto.json';
 import { vulnHowtoEn, vulnNewsEn, labelEn } from '../../../../data/en';
@@ -59,7 +60,7 @@ const step = (s: string | Step) => (typeof s === 'string' ? { t: s } : s);
   <section class="vuln" id="list">
     <div class="wrap">
       <div class="head">
-        <p class="lead-s">{en ? <>Vulnerabilities reported in the Korean press, with who is affected and what to do.<br />Open <b>What to do</b> on each item for the steps.</> : <>국내 언론에 보도된 취약점과, 누가 해당되고 무엇을 하면 되는지 정리합니다.<br />항목마다 <b>할 일</b>을 열면 확인과 업데이트 방법이 나옵니다.</>}</p>
+        <p class="lead-s">{en ? <>Vulnerabilities reported in the Korean press, with who is affected and what to do.<br />Click <b>How to fix it</b> on each item for the steps.</> : <>국내 언론에 보도된 취약점과, 누가 해당되고 무엇을 하면 되는지 정리합니다.<br />항목마다 <b>해결 방법 보기</b>를 누르면 확인과 업데이트 방법이 나옵니다.</>}</p>
         <p class="fine">{en ? <>Steps follow the vendors' official support pages. For company systems, check with your IT team or supplier first.</> : <>업데이트 방법은 각 제조사의 공식 안내를 따릅니다.<br />회사 업무 시스템은 담당자나 공급사와 먼저 확인하세요.</>}</p>
       </div>
 
@@ -79,7 +80,7 @@ const step = (s: string | Step) => (typeof s === 'string' ? { t: s } : s);
                     </div>
                   )}
                   <div class="row">
-                    <span class="date">{en ? dateText(v.date, lang) : fmt(v.date)}</span>
+                    <span class="date">{en ? dateText(v.date, lang) : fmt(v.date)}<NewChip date={v.date} days={newDays['/news/vulnerabilities']} /></span>
                     <span class="chips">
                       <span class="chip prod">{how(keys[0]).label}</span>
                       {v.severity && <span class="chip sev">{sev(v.severity)}</span>}
@@ -89,7 +90,7 @@ const step = (s: string | Step) => (typeof s === 'string' ? { t: s } : s);
                   <h2 class="title"><a href={v.url} target="_blank" rel="noopener">{en && !e ? <><span lang="ko">{v.title}</span> <small>(Korean)</small></> : e?.title ?? v.title}<Icon name="external" size={14} label={en ? 'Open the article in a new window' : '새 창에서 기사 열기'} /></a></h2>
                   <p class="meta">{en ? labelEn(v.source) : v.source}{more.length > 0 && <span>{en ? ` and ${more.length} more` : ` 외 ${more.length}곳 보도`}</span>}</p>
                   <details class="todo">
-                    <summary>{en ? 'What to do' : '할 일'}<Icon name="plus" size={16} class="todo-i" /></summary>
+                    <summary><span class="todo-t">{en ? 'How to fix it' : '해결 방법 보기'}</span><span class="todo-hint"><span class="open">{en ? 'Click to open' : '눌러서 보기'}</span><span class="close">{en ? 'Close' : '접기'}</span><Icon name="plus" size={16} class="todo-i" /></span></summary>
                     <div class="body">
                       {(e?.note ?? v.note) && <p class="note">{e?.note ?? v.note}</p>}
                       {v.fixed && v.fixed.length > 0 && (
@@ -181,10 +182,15 @@ const step = (s: string | Step) => (typeof s === 'string' ? { t: s } : s);
   .meta { margin-top: 4px; font-size: 13px; color: var(--ink-3); }
 
   .todo { margin-top: 10px; border-top: 1px solid var(--line); }
-  .todo summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 0; font-size: 15px; font-weight: 700; color: var(--blue); cursor: pointer; }
+  /* the fix opens from a button-like bar that says so (user, 2026-11-19: "눌렀을 때 해결방법이 나오는 줄 몰랐어") */
+  .todo summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 12px 0 14px; padding: 12px 16px; border-radius: var(--r-md, 12px); background: var(--mist); font-size: 15px; font-weight: 800; color: var(--blue); cursor: pointer; transition: background .2s var(--ease); }
+  .todo summary:hover { background: #e3ebf8; }
   .todo summary::-webkit-details-marker { display: none; }
-  .todo summary :global(.todo-i) { flex: none; color: var(--ink-3); transition: rotate .25s var(--ease); }
-  .todo[open] summary :global(.todo-i) { rotate: 45deg; color: var(--blue); }
+  .todo-hint { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: var(--ink-2); }
+  .todo-hint .close, .todo[open] .todo-hint .open { display: none; }
+  .todo[open] .todo-hint .close { display: inline; }
+  .todo summary :global(.todo-i) { flex: none; color: var(--blue); transition: rotate .25s var(--ease); }
+  .todo[open] summary :global(.todo-i) { rotate: 45deg; }
   .todo summary:focus-visible { outline: 2px solid var(--orange); outline-offset: 2px; border-radius: var(--r-sm); }
   .body { display: grid; gap: 16px; padding-bottom: 18px; font-size: 15px; line-height: 1.65; color: var(--ink-2); }
   .note, .fixed { padding: 12px 14px; border-radius: var(--r-md); background: var(--paper-2); }

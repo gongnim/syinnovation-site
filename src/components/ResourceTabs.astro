@@ -3,6 +3,7 @@
 // (사내소식, 언론보도, 보안뉴스). The 자료실 list is also the header's sub-menu.
 // items are menu items (site.ts); on English pages they show their English labels and /en/ links.
 import { libraryNav, menu, type MenuItem } from '../data/site';
+import { newMark } from '../data/news';
 import { langOf, pagePath } from '../lib/i18n';
 const lang = langOf(Astro.url);
 const en = lang === 'en';
@@ -14,7 +15,7 @@ const tabs = menu(items, lang);
 const on = tabs.filter((t) => path === t.href || path.startsWith(t.href + '/')).sort((a, b) => b.href.length - a.href.length)[0];
 ---
 <nav class="rtabs" aria-label={label}>
-  {tabs.map((t) => <a href={t.href} aria-current={t === on ? 'page' : undefined}>{t.label}</a>)}
+  {tabs.map((t) => <a href={t.href} aria-current={t === on ? 'page' : undefined} {...newMark(t.href)}>{t.label}</a>)}
 </nav>
 
 <style>
@@ -22,6 +23,9 @@ const on = tabs.filter((t) => path === t.href || path.startsWith(t.href + '/')).
   .rtabs a { display: grid; place-items: center; min-width: 88px; height: 42px; padding: 0 20px; border-radius: 999px; font-size: 15px; font-weight: 700; color: var(--ink-2); }
   .rtabs a:hover { color: var(--ink); }
   .rtabs a[aria-current='page'] { background: #fff; color: var(--ink); box-shadow: 0 0 0 1px var(--line); }
+  /* a 소식 tab with something new the visitor hasn't opened yet (src/layouts/Base.astro sets .has-new) */
+  .rtabs a { position: relative; }
+  .rtabs a.has-new::after { content: ''; position: absolute; top: 8px; right: 10px; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
   /* 소식 has three tabs: keep them inside a 320px phone */
   @media (max-width: 359px) { .rtabs a { min-width: 0; padding: 0 14px; } }
 </style>

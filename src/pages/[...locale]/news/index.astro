@@ -8,7 +8,8 @@ import PageTitle from '../../../components/PageTitle.astro';
 import Icon from '../../../components/Icon.astro';
 import ResourceTabs from '../../../components/ResourceTabs.astro';
 import NewsCard from '../../../components/NewsCard.astro';
-import { sorted, kindLabel, fmt } from '../../../data/news';
+import NewChip from '../../../components/NewChip.astro';
+import { sorted, kindLabel, fmt, newDays } from '../../../data/news';
 import { newsNav, menu } from '../../../data/site';
 import { ownNewsEn, labelEn } from '../../../data/en';
 
@@ -33,7 +34,7 @@ const fe = en && featured ? ownNewsEn[featured.slug] : undefined; // no English 
           <div class="feat-copy">
             <span class="src">{en ? labelEn(kindLabel[featured.kind]) : kindLabel[featured.kind]} · {en ? fe?.source ?? labelEn(featured.source) : featured.source}</span>
             <h2 class="feat-title">{en ? fe?.title ?? <><span lang="ko">{featured.title}</span> <small>(Korean)</small></> : featured.title}</h2>
-            <span class="date">{en ? dateText(featured.date, lang) : fmt(featured.date)}{featured.url && <Icon name="external" size={15} label={en ? 'Open the original in a new window' : '새 창에서 원문 열기'} />}</span>
+            <span class="date">{en ? dateText(featured.date, lang) : fmt(featured.date)}<NewChip date={featured.date} days={newDays['/news']} />{featured.url && <Icon name="external" size={15} label={en ? 'Open the original in a new window' : '새 창에서 원문 열기'} />}</span>
           </div>
         </a>
       )}

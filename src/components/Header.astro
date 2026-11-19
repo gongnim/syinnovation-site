@@ -1,6 +1,7 @@
 ---
 import { nav as navAll, cta as ctaAll, menu } from '../data/site';
 import { langOf, twin, href, pagePath } from '../lib/i18n';
+import { newMark } from '../data/news';
 interface Props { tone?: 'night' | 'light' }
 const { tone = 'night' } = Astro.props;
 const lang = langOf(Astro.url);
@@ -27,7 +28,7 @@ const KEY = href('/trust-gateway', lang); // the main product turns brand orange
                 {n.label}<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6" /></svg>
               </button>
               <div class="sub-panel" id={`sub-${n.en.toLowerCase()}`}>
-                {n.children.map((c) => <a href={c.href} aria-current={path === bare(c.href) ? 'page' : undefined}>{c.label}</a>)}
+                {n.children.map((c) => <a href={c.href} aria-current={path === bare(c.href) ? 'page' : undefined} {...newMark(c.href)}>{c.label}</a>)}
               </div>
             </div>
           : <a href={n.href} class:list={{ key: n.href === KEY && isOn(n.href) }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
@@ -49,7 +50,7 @@ const KEY = href('/trust-gateway', lang); // the main product turns brand orange
     {nav.map((n) => n.children
       ? <div class="mobile-group">
           <span class="mobile-head">{n.label}</span>
-          {n.children.map((c) => <a href={c.href} class="mobile-sub" aria-current={path === bare(c.href) ? 'page' : undefined}>{c.label}</a>)}
+          {n.children.map((c) => <a href={c.href} class="mobile-sub" aria-current={path === bare(c.href) ? 'page' : undefined} {...newMark(c.href)}>{c.label}</a>)}
         </div>
       : <a href={n.href} class:list={{ key: n.href === KEY && isOn(n.href) }} aria-current={isOn(n.href) ? 'page' : undefined}>{n.label}</a>)}
     <div class="mobile-lang">{en
@@ -175,6 +176,13 @@ const KEY = href('/trust-gateway', lang); // the main product turns brand orange
     .burger { display: block; grid-column: 3; }
     .hdr-cta { height: 42px; min-width: 0; padding: 0 16px; font-size: 14px; }
   }
+  /* 소식 has something new the visitor hasn't opened yet (src/layouts/Base.astro sets .has-new) */
+  .sub-top.has-new, .sub-panel a.has-new, .mobile-head.has-new, .mobile a.mobile-sub.has-new { position: relative; }
+  .sub-top.has-new::after, .sub-panel a.has-new::after, .mobile-head.has-new::after, .mobile a.mobile-sub.has-new::after { content: ''; position: absolute; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+  .sub-top.has-new::after { top: 5px; right: 3px; }
+  .sub-panel a.has-new::after { top: 50%; right: 8px; margin-top: -3.5px; }
+  .sub-panel a.has-new { padding-right: 26px; }
+  .mobile-head.has-new::after, .mobile a.mobile-sub.has-new::after { top: 50%; right: 16px; margin-top: -3.5px; }
 </style>
 
 <script>
