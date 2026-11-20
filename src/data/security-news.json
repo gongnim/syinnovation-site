@@ -1,5 +1,35 @@
 [
   {
+    "date": "2026-11-20",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "JP모건·비자·마스터카드 협력업체 해킹…\"고객정보 일부 유출\"",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9RNlJXdDFfT3VvQzM2NGxZdE9SYW42bWRVTzBYMkNuTkdWck1CYy1wSjR6Ql8zdmhQNEEyNkM0N2I1YjU1bWU3VlJKQVdGWlA5cEpubkdvNXhEZVF6T09ESdIBYEFVX3lxTE9RNlJXdDFfT3VvQzM2NGxZdE9SYW42bWRVTzBYMkNuTkdWck1CYy1wSjR6Ql8zdmhQNEEyNkM0N2I1YjU1bWU3VlJKQVdGWlA5cEpubkdvNXhEZVF6T09ESQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-20-74e4b2e0.jpg",
+    "credit": {
+      "name": "https://kaboompics.com/",
+      "url": "https://www.pexels.com/photo/making-a-payment-with-a-debit-card-4968635/",
+      "id": 4968635
+    }
+  },
+  {
+    "date": "2026-11-19",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "일본 기업들, 탈퇴 고객 정보까지 보관…해킹에 개인정보 줄줄이 유출",
+    "source": "진일보 | 전남일보",
+    "url": "https://news.google.com/rss/articles/CBMib0FVX3lxTE5pLU0yMGl2QjNYT3ZGeXRkVU1Ba2ZHbDdLR3RwR2NXRW1FYjNVOWVGa3dCWHEwNFFPUkdSdFUwbzVSaU5Kc2MwMG15UDVkZzZKbWxzZ3JJa25nT0dBd2FoQVBMSjk1cWNHcHlqbE04TQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-19-70042017.jpg",
+    "credit": {
+      "name": "Pixabay",
+      "url": "https://www.pexels.com/photo/security-logo-60504/",
+      "id": 60504
+    }
+  },
+  {
     "date": "2026-11-19",
     "region": "해외",
     "type": "개인정보 유출",

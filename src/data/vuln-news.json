@@ -199,7 +199,12 @@
     "auto": true,
     "slug": "2026-11-15-php-vulnerability",
     "youtube": "WSe6SINQGmU",
-    "youtubeDate": "2026-11-20"
+    "youtubeDate": "2026-11-20",
+    "notice": {
+      "title": "PHP 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72318",
+      "date": "2026-11-19"
+    }
   },
   {
     "date": "2026-11-14",
