@@ -301,7 +301,17 @@
   },
   "https://www.dailysecu.com/news/articleView.html?idxno=209552": {
     "title": "Chain of hacks on university research administration systems: Hallym, Sookmyung, Hankyong and others leak personal data",
-    "summary": "On Nov 14, research administration systems at the industry-academic cooperation foundations of several universities, including Hallym, Sookmyung Women's, Hankyong National and Daegu Haany, were attacked one after another and users' personal data was leaked (according to the universities' notices and Dailysecu). Whether the same attacker or the same supplier was involved has not been confirmed.",
+    "summary": "On Nov 14, research administration systems at the industry-academic cooperation foundations of several universities, including Hallym, Sookmyung Women's, Hankyong National, Daegu Haany, Pusan National and Dong-eui, were attacked one after another and users' personal data was leaked (according to the universities' notices, Dailysecu and Busan Ilbo). Whether the same attacker or the same supplier was involved has not been confirmed.",
     "org": "University industry-academic cooperation foundations"
+  },
+  "https://www.fnnews.com/news/202611201119360576": {
+    "title": "JPMorgan, Visa and Mastercard vendor hacked: some customer names and emails exposed",
+    "summary": "An outside vendor serving JPMorgan Chase, Visa and Mastercard was hacked, exposing some customers' names, email addresses and other marketing data (according to the companies, The Financial News and Newspim). Visa and Mastercard said payment data such as card numbers was not leaked.",
+    "org": "JPMorgan Chase, Visa and Mastercard"
+  },
+  "https://m.sedaily.com/article/20116269": {
+    "title": "Savings bank staff training site hacked: staff names, banks and job titles leaked",
+    "summary": "A training management site for savings bank staff, run by KG Eduone, was hacked, and some staff names, the banks they work for and their job titles were leaked (according to the Korea Federation of Savings Banks' notice and Seoul Economic Daily). The number of people and banks affected has not been disclosed.",
+    "org": "KG Eduone"
   }
 }

@@ -2197,7 +2197,7 @@
   },
   "univ-research-systems-2026-11": {
     "overview": [
-      "Around Nov 14, the research administration systems of several universities' industry-academic cooperation foundations were attacked one after another. Hallym University, Sookmyung Women's University, Hankyong National University, Daegu Haany University and Korea Maritime and Ocean University announced that users' personal data had been leaked. Hankuk University of Foreign Studies found signs of a data leak and shut its system down, and Hannam University announced a security breach and suspended the service. Incheon National University blocked access to its system as a precaution (according to Dailysecu). Kangwon National University also announced that user information had been leaked from its integrated research management system on the same day.",
+      "Around Nov 14, the research administration systems of several universities' industry-academic cooperation foundations were attacked one after another. Hallym University, Sookmyung Women's University, Hankyong National University, Daegu Haany University and Korea Maritime and Ocean University, Pusan National University and Dong-eui University announced that users' personal data had been leaked. Hankuk University of Foreign Studies found signs of a data leak and shut its system down, and Hannam University announced a security breach and suspended the service. Incheon National University blocked access to its system as a precaution (according to Dailysecu). Kangwon National University also announced that user information had been leaked from its integrated research management system on the same day.",
       "The affected systems are research administration systems used for research fund management, accounting, budgeting and settlement. Hallym, Hannam, Hankuk University of Foreign Studies, Daegu Haany and Korea Maritime and Ocean University named the affected system as rERP. rERP is a system shared by many universities' industry-academic cooperation foundations (according to Boannews). Kangwon, Daegu Haany, Hankyong and Korea Maritime and Ocean University all gave the same first breach time, 6:22 a.m. on Nov 14 (according to Dailysecu).",
       "The leaked items differ by university but mainly include student and employee ID numbers, names, affiliation, position, sign-up date and date of birth. Hallym, Sookmyung, Daegu Haany and Korea Maritime and Ocean University said resident registration numbers and passwords were not leaked. Whether the attacks were the work of the same attacker, or came through a common supplier or maintenance environment, has not been confirmed."
     ],
@@ -2208,7 +2208,7 @@
       },
       {
         "date": "2026-11-14",
-        "event": "Kangwon, Daegu Haany, Hankyong and Korea Maritime and Ocean University each said the breach of their system happened around 6:22 a.m. (according to Dailysecu)."
+        "event": "Kangwon, Daegu Haany, Hankyong and Korea Maritime and Ocean University and Pusan National University each said the breach of their system happened around 6:22 a.m. (according to Dailysecu and Busan Ilbo)."
       },
       {
         "date": "2026-11-14",
@@ -2237,14 +2237,25 @@
       {
         "date": "2026-11-17",
         "event": "Boannews reported an analysis of the files the attacker posted. The names of 28 universities were found in the files, and the folders for 17 of them contained information taken from rERP."
+      },
+      {
+        "date": "2026-11-17",
+        "event": "Dong-eui University posted an apology on its website and let affected people check whether their data was leaked (according to Dailysecu)."
+      },
+      {
+        "date": "2026-11-19",
+        "event": "The scale of the leaks at Pusan National, Dong-eui and Korea Maritime and Ocean University was reported together (according to Busan Ilbo and Nocut News)."
       }
     ],
     "impact": [
       "Hallym University said 947 records were leaked, 83 of which included a date of birth (according to Kangwon Domin Ilbo and Dailysecu).",
-      "Sookmyung Women's University and Korea Maritime and Ocean University also announced that user data was leaked (according to Dailysecu).",
+      "Sookmyung Women's University also announced that user data was leaked (according to Dailysecu).",
       "Hankyong National University said 772 records of research fund management system users were leaked (according to Dailysecu).",
       "Daegu Haany University said 1,281 records were leaked, 30 of which included a date of birth (according to Dailysecu).",
       "Kangwon National University confirmed 27 victims whose data included a date of birth and did not disclose the total scale of the leak.",
+      "Korea Maritime and Ocean University said 1,359 records were leaked, 1,253 of which included a date of birth (according to Jaekyung Ilbo).",
+      "Pusan National University said 500 records were leaked, holding employee or student ID numbers, names, department names and sign-up dates (according to Busan Ilbo).",
+      "Dong-eui University said the information of 530 people was leaked, including employee ID numbers, names, departments, positions, titles, employment status and dates of birth (according to Dailysecu and Busan Ilbo).",
       "Hannam University and Hankuk University of Foreign Studies did not disclose the leaked items or the scale of the damage.",
       "The counts are per user record, so the same person may appear more than once and the actual number of people affected may differ (according to the Hallym and Korea Maritime and Ocean University notices).",
       "With the systems shut down, research administration work such as research fund applications, spending and settlements may be disrupted (according to Dailysecu)."
@@ -2257,6 +2268,7 @@
     "response": [
       "Hallym University shut down its web application server and deleted unauthorized files and abnormal schedulers. It removed the vulnerable web application and changed its database encryption and decryption keys. Hankuk University of Foreign Studies also deleted files related to the breach and abnormal schedulers, and urgently blocked the affected servers (according to Dailysecu).",
       "Sookmyung Women's University and Daegu Haany University physically disconnected the affected servers from the network and stopped the service. Hankyong National University deleted abnormal files, temporarily stopped running a secondary server and strengthened its authentication process. Korea Maritime and Ocean University restricted access to the system and formed an emergency response team (according to Dailysecu).",
+      "Pusan National University blocked the attacker's IP address, made the system reachable only from campus and reset the passwords of all accounts. Dong-eui University also restricted access to the system and formed an emergency response team (according to Nocut News).",
       "Hallym, Hankyong and Daegu Haany said they reported the incident to the Korea Internet & Security Agency (KISA) and the Ministry of Education. Daegu Haany, Korea Maritime and Ocean University and others asked users not to respond to calls, text messages or emails impersonating the university or its foundation. They also asked users to change their passwords on other sites where they use the same password."
     ],
     "sources": [
@@ -2284,6 +2296,135 @@
         "outlet": "Kangwon Domin Ilbo",
         "date": "2026-11-18",
         "url": "https://www.kado.net/news/articleView.html?idxno=2085530"
+      },
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-17",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209566"
+      },
+      {
+        "outlet": "Busan Ilbo",
+        "date": "2026-11-19",
+        "url": "https://www.busan.com/view/busan/view.php?code=2026111917221556908"
+      },
+      {
+        "outlet": "Jaekyung Ilbo",
+        "date": "2026-11-19",
+        "url": "https://news.jkn.co.kr/post/1106793"
+      },
+      {
+        "outlet": "Nocut News",
+        "date": "2026-11-20",
+        "url": "https://www.nocutnews.co.kr/news/6610119"
+      }
+    ]
+  },
+  "jpmorgan-visa-vendor-2026-11": {
+    "overview": [
+      "An outside vendor that provides services to JPMorgan Chase, Visa and Mastercard was hacked. Some customers' names, email addresses and other marketing data stored with the vendor were exposed (according to The Wall Street Journal and the companies). The three companies did not name the vendor.",
+      "Visa said an outside vendor that provides services in the Asia-Pacific region was attacked and that its own systems were not affected. Mastercard said limited non-payment information of some cardholders was exposed and that its payment network is operating normally (according to Newspim and Yonhap).",
+      "The ransomware group 'n0n' claimed responsibility. However, whether it was really behind the attack, and whether the data it published is genuine, has not been confirmed (according to The Financial News and CWN)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-16",
+        "event": "JPMorgan Chase had a transaction processing outage. JPMorgan said the outage was caused by a software error and is unrelated to this hack (according to CWN)."
+      },
+      {
+        "date": "2026-11-16",
+        "event": "n0n claimed it took cardholder-related records on this day (according to The Financial News)."
+      },
+      {
+        "date": "2026-11-19",
+        "event": "The Wall Street Journal reported the vendor hack (US local time). The three companies confirmed that some customer information was exposed (according to The Financial News and Newspim)."
+      }
+    ],
+    "impact": [
+      "The companies said the exposed information is marketing data such as customers' names and email addresses.",
+      "Visa and Mastercard said payment data such as card numbers was not leaked.",
+      "Data reviewed by Reuters contained about 16,000 email addresses that appear to belong to JPMorgan customers (according to The Financial News and CWN).",
+      "The same data also held 124 email addresses that appear to belong to JPMorgan employees. Reuters could not verify whether the data is genuine (according to CWN).",
+      "The number of customers affected and the exact scope of the leak have not been disclosed.",
+      "JPMorgan said the incident did not interrupt its services."
+    ],
+    "cause": [
+      "An attacker got into the systems of an outside vendor that serves the three companies and accessed marketing data stored there (according to JPMorgan and Yonhap). How the attacker got into the vendor has not been disclosed.",
+      "The ransomware group n0n claimed the attack. Security firm Recorded Future described n0n as an extortion group that shares its profits with sellers of initial access (according to Global Economic and Newspim). Whether n0n was really behind the attack has not been confirmed."
+    ],
+    "response": [
+      "JPMorgan is reportedly notifying affected customers individually and considering offering free credit monitoring (according to CWN). Mastercard said it stopped further leakage and is working with its service providers to support affected cardholders (according to Global Economic and Yonhap)."
+    ],
+    "sources": [
+      {
+        "outlet": "The Financial News",
+        "date": "2026-11-20",
+        "url": "https://www.fnnews.com/news/202611201119360576"
+      },
+      {
+        "outlet": "Newspim",
+        "date": "2026-11-20",
+        "url": "https://www.newspim.com/news/view/20261120000138"
+      },
+      {
+        "outlet": "Global Economic",
+        "date": "2026-11-20",
+        "url": "https://www.g-enews.com/article/Global-Biz/2026/11/2026112008295216899a1f309431_1"
+      },
+      {
+        "outlet": "CWN",
+        "date": "2026-11-20",
+        "url": "https://www.cwn.kr/news/articleView.html?idxno=62266"
+      }
+    ]
+  },
+  "savings-bank-edu-2026-11": {
+    "overview": [
+      "A training management site used to train savings bank staff was hacked from outside. The site is run by KG Eduone, a company that specialises in training. Some staff names, the savings banks they work for and their job titles were leaked (according to Seoul Economic Daily).",
+      "The Korea Federation of Savings Banks announced this on its website on Nov 18. The incident happened on an outside training platform, not on the savings banks' internal networks (according to Newsis and Aju Business Daily).",
+      "The federation warned that the leaked data could be used by fraudsters posing as savings bank staff to approach customers. It asked people not to trust a caller just because they give a real employee's name and bank (according to Newsis)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-18",
+        "event": "The Korea Federation of Savings Banks posted a notice on its website about the hack of the training management site and the leak of staff information (according to Aju Business Daily)."
+      },
+      {
+        "date": "2026-11-19",
+        "event": "Seoul Economic Daily and other outlets reported the incident. When the hack happened has not been disclosed."
+      }
+    ],
+    "impact": [
+      "The leaked information is staff names, the savings banks they work for and their job titles (according to Seoul Economic Daily and Newsis).",
+      "The number of people affected, the number of savings banks affected and the time of the hack have not been disclosed.",
+      "The federation is concerned about follow-on fraud such as voice phishing and smishing by people posing as staff."
+    ],
+    "cause": [
+      "An outside training management site used to train savings bank staff was hacked. The method and time of the intrusion have not been disclosed. The incident reportedly did not happen on the savings banks' own networks (according to Newsis)."
+    ],
+    "response": [
+      "The Korea Federation of Savings Banks asked customers to be careful with calls and text messages from people posing as staff. It warned in particular about contacts claiming to check for data leaks, set up financial safety measures, offer loan consultations or pay compensation. It asked people not to tap links from unknown sources or install remote-control apps (according to Newsis and Global Economy Newspaper).",
+      "The federation said savings banks never ask for account passwords, security card numbers, one-time passwords (OTP) or verification codes by phone or text message. It advised checking whether a person really works at a savings bank through the bank's official website or main phone number when in doubt."
+    ],
+    "sources": [
+      {
+        "outlet": "Seoul Economic Daily",
+        "date": "2026-11-19",
+        "url": "https://m.sedaily.com/article/20116269"
+      },
+      {
+        "outlet": "Newsis",
+        "date": "2026-11-19",
+        "url": "https://www.newsis.com/view/NISX20261119_0003874705"
+      },
+      {
+        "outlet": "Aju Business Daily",
+        "date": "2026-11-19",
+        "url": "https://www.ajunews.com/view/20261119135610981"
+      },
+      {
+        "outlet": "Global Economy Newspaper",
+        "date": "2026-11-19",
+        "url": "https://www.getnews.co.kr/news/articleView.html?idxno=887805"
       }
     ]
   }

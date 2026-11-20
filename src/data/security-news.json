@@ -1,18 +1,25 @@
 [
   {
     "date": "2026-11-20",
-    "region": "국내",
+    "region": "해외",
     "type": "개인정보 유출",
-    "title": "JP모건·비자·마스터카드 협력업체 해킹…\"고객정보 일부 유출\"",
-    "source": "연합뉴스",
-    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE9RNlJXdDFfT3VvQzM2NGxZdE9SYW42bWRVTzBYMkNuTkdWck1CYy1wSjR6Ql8zdmhQNEEyNkM0N2I1YjU1bWU3VlJKQVdGWlA5cEpubkdvNXhEZVF6T09ESdIBYEFVX3lxTE9RNlJXdDFfT3VvQzM2NGxZdE9SYW42bWRVTzBYMkNuTkdWck1CYy1wSjR6Ql8zdmhQNEEyNkM0N2I1YjU1bWU3VlJKQVdGWlA5cEpubkdvNXhEZVF6T09ESQ?oc=5",
-    "auto": true,
-    "image": "/images/security/auto/2026-11-20-74e4b2e0.jpg",
+    "title": "JP모건·비자·마스터카드 협력업체 해킹…고객 이름·이메일 등 일부 노출",
+    "source": "파이낸셜뉴스",
+    "url": "https://www.fnnews.com/news/202611201119360576",
+    "image": "/images/security/auto/2026-11-20-5386485.jpg",
     "credit": {
       "name": "https://kaboompics.com/",
-      "url": "https://www.pexels.com/photo/making-a-payment-with-a-debit-card-4968635/",
-      "id": 4968635
-    }
+      "url": "https://www.pexels.com/photo/close-up-photo-of-a-person-typing-on-laptop-5386485/",
+      "id": 5386485
+    },
+    "slug": "jpmorgan-visa-vendor-2026-11",
+    "org": "JP모건체이스·비자·마스터카드",
+    "aka": [
+      "JPMorgan Chase",
+      "JP모간체이스",
+      "n0n"
+    ],
+    "summary": "JP모건체이스, 비자, 마스터카드에 서비스를 제공하는 외부 협력업체가 해킹돼 일부 고객의 이름과 이메일 주소 등 마케팅 관련 정보가 노출됐습니다(각 사 발표, 파이낸셜뉴스·뉴스핌 보도 기준). 비자와 마스터카드는 카드 번호 같은 결제 정보는 유출되지 않았다고 밝혔습니다."
   },
   {
     "date": "2026-11-19",
@@ -27,7 +34,8 @@
       "name": "Pixabay",
       "url": "https://www.pexels.com/photo/security-logo-60504/",
       "id": 60504
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-19",
@@ -42,7 +50,8 @@
       "name": "RDNE Stock project",
       "url": "https://www.pexels.com/photo/black-laptop-on-the-table-7821760/",
       "id": 7821760
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-17",
@@ -82,17 +91,24 @@
   {
     "date": "2026-11-19",
     "region": "국내",
-    "type": "계정 탈취",
-    "title": "[단독]저축은행 또 털렸다...직원정보 유출에 피싱 경보",
+    "type": "개인정보 유출",
+    "title": "저축은행 직원 교육관리 사이트 해킹…직원 이름·소속·직위 유출",
     "source": "서울경제",
-    "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTFBYcjZEaWVtVlBQdU9XYXBMeTRobjNFS1pGX3ZpcXFzVHF3VmZMSEgwdVl1LVZQQngzUjhkN2s4cFd3UVZkdHRVVHJmTGg3cmE0blHSAVNBVV95cUxNbC14S3lsWWtQdFpxVWVuNFBLZFJYR1R1OUZQYUx5VFZTSHVRMkpzZDcyYXlETlZjV2NTdE51REtJNENvbUQ3UEpzdlVEbl9xMld5bw?oc=5",
-    "auto": true,
-    "image": "/images/security/auto/2026-11-19-fc0275e6.jpg",
+    "url": "https://m.sedaily.com/article/20116269",
+    "image": "/images/security/auto/2026-11-19-7648020.jpg",
     "credit": {
-      "name": "Calvin Seng",
-      "url": "https://www.pexels.com/photo/night-view-of-skyscrapers-in-singapore-s-financial-district-32229751/",
-      "id": 32229751
-    }
+      "name": "RDNE Stock project",
+      "url": "https://www.pexels.com/photo/id-s-on-the-table-7648020/",
+      "id": 7648020
+    },
+    "slug": "savings-bank-edu-2026-11",
+    "org": "KG에듀원",
+    "aka": [
+      "KG Eduone",
+      "저축은행 교육관리",
+      "저축은행 직원 교육"
+    ],
+    "summary": "KG에듀원이 운영하는 저축은행 교육관리 사이트가 외부 해킹 공격을 받아, 저축은행 직원의 이름과 소속 은행, 직위가 일부 유출됐습니다(저축은행중앙회 공지, 서울경제 보도 기준). 유출 인원과 피해 은행 수는 공개되지 않았습니다."
   },
   {
     "date": "2026-11-17",
@@ -131,7 +147,8 @@
       "name": "Sora Shimazaki",
       "url": "https://www.pexels.com/photo/crop-hacker-typing-on-laptop-with-information-on-screen-5935787/",
       "id": 5935787
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-16",
@@ -148,7 +165,7 @@
       "KimJEN",
       "산학협력단 연쇄 해킹"
     ],
-    "summary": "11월 14일 한림대, 숙명여대, 한경국립대, 대구한의대 등 여러 대학 산학협력단의 연구행정 시스템이 잇따라 외부 공격을 받아 이용자 개인정보가 유출됐습니다(각 대학 공지, 데일리시큐 보도 기준). 같은 공격자나 같은 공급사를 거친 공격인지는 확인되지 않았습니다.",
+    "summary": "11월 14일 한림대, 숙명여대, 한경국립대, 대구한의대, 부산대, 동의대 등 여러 대학 산학협력단의 연구행정 시스템이 잇따라 외부 공격을 받아 이용자 개인정보가 유출됐습니다(각 대학 공지, 데일리시큐·부산일보 보도 기준). 같은 공격자나 같은 공급사를 거친 공격인지는 확인되지 않았습니다.",
     "image": "/images/security/auto/2026-11-16-264c49f7.jpg",
     "credit": {
       "name": "Ludovic Delot",
