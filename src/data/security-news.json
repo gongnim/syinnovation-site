@@ -1,6 +1,24 @@
 [
   {
     "date": "2026-11-20",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "컬리, 큐레이터 1만699명 개인정보 유출",
+    "source": "전자신문",
+    "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE0tcVdQTHJDblZyRm5mMURXZ2FuN1pOSzhGaVoyamRDQXEwSWNFbTlrdklOY20xZHdyVktUMmR3MGxsQjhpRlpHUG1yMmNmQQ?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-18",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "대구경북권 대학서 해킹 피해 잇따라…영남대서도 개인정보 유출",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE8wanNvZnpieGJJZWYtcUx3eUxSMHROV0FPWWRPMFdDRC16Q25SLV9YWWhwRWFBd2U3THM1TmR2Z2RVeWJpYWlQbGxsbXdYQzFnOHR2UGhaWS1yb3VKMUpfLdIBYEFVX3lxTE8wanNvZnpieGJJZWYtcUx3eUxSMHROV0FPWWRPMFdDRC16Q25SLV9YWWhwRWFBd2U3THM1TmR2Z2RVeWJpYWlQbGxsbXdYQzFnOHR2UGhaWS1yb3VKMUpfLQ?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-20",
     "region": "해외",
     "type": "개인정보 유출",
     "title": "JP모건·비자·마스터카드 협력업체 해킹…고객 이름·이메일 등 일부 노출",

@@ -1,5 +1,51 @@
 [
   {
+    "date": "2026-11-20",
+    "title": "PHP, 세션 처리 취약점 3건 수정…특정 환경서 서버 코드 실행 위험",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5ORUhIWEZLTV9sZG11elMyc0tnMjNNWTRaUzNqN2o2VWZUMGhZSFRCNi1JQXRFNGMtRTRaU0dFS3Q1bDZrbTRHendkMng0Rm5yUEU3TmZ5eHhJTHhzTjdfekcyaG1raHlybkZMVQ?oc=5",
+    "sources": [
+      {
+        "source": "연합뉴스",
+        "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5LWTJLdjBtQ3ZxSGRRSTVLUDBHdHc5N2xMcTRENm96emNlZUpTMFhSTHFXRERDOHZ4aXo5aTVzbHlzQ0dWQUdlTS1zajZmNjZOMzgyeEpVOXNTbW_SAWBBVV95cUxORFhmbXdhSlhfa0w0NjRKa3l3Rkw2N1M3MjVVZEctbDlKNjNacWE1QXIwNWxGSEZKVVVwUnFRekpyY054RGRlNXNYOXV6Q3VoRDBYZFZxQ3c5SUlEaEJaQVY?oc=5"
+      },
+      {
+        "source": "매일일보",
+        "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1XUk1YSU5CTDBqVXBaLXVVOUZhUWdTSElZeGoxUFFsZHBuZ2FWUTFJcGNpLTF4VGs5cDB5aEY2UTdjb1EzU2pzaW5RVFhfNlRhU015X3lwSWF0YTIxM3VVdGs0czM?oc=5"
+      },
+      {
+        "source": "더팩트",
+        "url": "https://news.google.com/rss/articles/CBMiVEFVX3lxTE5jcV9ZVUdrczNVN1luYXdxcHlZT0ktQURER09JLWZ4OEk4VDNMemNFamRIczVBSE9jaDdLdnlQZFFWNHlBUHlaT2lQSHpJYkllUnJRX9IBVEFVX3lxTE5jcV9ZVUdrczNVN1luYXdxcHlZT0ktQURER09JLWZ4OEk4VDNMemNFamRIczVBSE9jaDdLdnlQZFFWNHlBUHlaT2lQSHpJYkllUnJRXw?oc=5"
+      },
+      {
+        "source": "아시아경제",
+        "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1NLWlZTVRHLUpzaVpMUk9rRDdNeGUzY01oY1pTOWktV2wybVFTTGpjNUNlR1VDa1J6M2s4dVV1NkNKUFdaZXZUa3ZlOVpJSlNlRENvelVoZWIxYXozUkI1bQ?oc=5"
+      },
+      {
+        "source": "금융소비자뉴스",
+        "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9OemV3T2tGMkxFcUhodHV2UEpjLURmMUVKd2FsbmJuNXh1SWNkUWtuNjktbGthVnJyZ3hLVWxMcnFqVW1Sd19QYXd6MFJqak56cmVBUEM4bm9GVWdvM1pMVHVUTWhjNHdZQlE?oc=5"
+      },
+      {
+        "source": "천지일보",
+        "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9nYkhneS1zekxKM2V2ei14WDdXem5pXzlQa0hMdHZxcXFQV0FLbGVpSGw4MFdTN0Fzcm1IdnVSb19lU0Y2V0xwSXhZZkVtUTZ1b2xEblE3YmxTYVdxUlF6dTJBMEJNUERsRUE?oc=5"
+      }
+    ],
+    "products": [
+      "php"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "notice": {
+      "title": "PHP 제품 보안 업데이트 권고",
+      "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72318",
+      "date": "2026-11-19"
+    },
+    "auto": true,
+    "slug": "2026-11-20-php-rce"
+  },
+  {
     "date": "2026-11-19",
     "title": "[긴급] “로그인 없이 서버에서 코드 실행”…티오리·Xint, 엔진엑스 취약점 5건 공개",
     "source": "데일리시큐",
