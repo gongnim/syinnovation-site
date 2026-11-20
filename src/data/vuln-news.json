@@ -119,7 +119,9 @@
     "auto": true,
     "name": "오라클",
     "nameEn": "Oracle",
-    "slug": "2026-11-17-oracle-vulnerability"
+    "slug": "2026-11-17-oracle-vulnerability",
+    "youtube": "A3VCZz5-48Q",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-17",
@@ -313,7 +315,9 @@
     "auto": true,
     "name": "팔로알토네트웍스 프리즈마 브라우저",
     "nameEn": "Palo Alto Networks Prisma Browser",
-    "slug": "2026-11-12-palo-alto-networks-prisma-vulnerability"
+    "slug": "2026-11-12-palo-alto-networks-prisma-vulnerability",
+    "youtube": "CmmMFRR4qLY",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-12",
@@ -345,7 +349,9 @@
     "auto": true,
     "name": "시스코 브로드웍스",
     "nameEn": "Cisco BroadWorks",
-    "slug": "2026-11-12-cisco-broadworks-vulnerability"
+    "slug": "2026-11-12-cisco-broadworks-vulnerability",
+    "youtube": "6d2HrddVugE",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-12",
