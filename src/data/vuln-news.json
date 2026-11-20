@@ -46,7 +46,9 @@
       "date": "2026-11-19"
     },
     "note": "AI 보안 플랫폼으로 찾은 원격 코드 실행 취약점 5건입니다. 별도의 리눅스 커널 취약점과 엮으면 서버의 루트 권한까지 넘어갈 수 있고, 아직 실제 피해 사례는 보고되지 않았습니다(전자신문 보도). 고쳐진 버전은 nginx 공식 보안 공지 기준입니다.",
-    "slug": "2026-11-19-nginx-rce"
+    "slug": "2026-11-19-nginx-rce",
+    "youtube": "adFvzQQ8fWo",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-18",
@@ -94,7 +96,9 @@
       "url": "https://www.boho.or.kr/kr/bbs/view.do?searchCnd=&bbsId=B0000133&searchWrd=&menuNo=205020&pageIndex=1&categoryCode=&nttId=72313",
       "date": "2026-11-18"
     },
-    "slug": "2026-11-18-java-vulnerability"
+    "slug": "2026-11-18-java-vulnerability",
+    "youtube": "qtaMx7rTcOs",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-17",
@@ -150,7 +154,9 @@
     "status": "조치 권고",
     "fixed": [],
     "note": "리눅스 커널의 TCP 처리에서 원격으로, 인증 없이 서버를 멈추게 할 수 있는 서비스 거부(DoS) 취약점입니다(Red Hat 등급 중요). 기사에는 고쳐진 커널 버전이 나오지 않았습니다. 쓰는 배포판의 보안 공지에서 CVE-2026-99288을 찾아 고친 커널이 나왔는지 확인하세요.",
-    "slug": "2026-11-17-linux-vulnerability"
+    "slug": "2026-11-17-linux-vulnerability",
+    "youtube": "AQ4rV2gY_JY",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-15",
@@ -191,7 +197,9 @@
     "status": "악용 중",
     "fixed": [],
     "auto": true,
-    "slug": "2026-11-15-php-vulnerability"
+    "slug": "2026-11-15-php-vulnerability",
+    "youtube": "WSe6SINQGmU",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-14",
@@ -230,7 +238,9 @@
         "code": "sudo apachectl -t && sudo apachectl graceful"
       }
     ],
-    "slug": "2026-11-14-apache-httpd-rce"
+    "slug": "2026-11-14-apache-httpd-rce",
+    "youtube": "tpqlpR-wy-U",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-14",
@@ -278,7 +288,9 @@
     "status": "악용 중",
     "fixed": [],
     "auto": true,
-    "slug": "2026-11-12-chrome-zero-day"
+    "slug": "2026-11-12-chrome-zero-day",
+    "youtube": "boBwcO-5ClI",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-12",
@@ -366,7 +378,9 @@
     "status": "악용 중",
     "fixed": [],
     "auto": true,
-    "slug": "2026-11-11-ms-office-zero-day"
+    "slug": "2026-11-11-ms-office-zero-day",
+    "youtube": "OGW-UG3wWlM",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-11",
@@ -405,7 +419,9 @@
     "auto": true,
     "name": "소닉월 SSL-VPN",
     "nameEn": "SonicWall SSL-VPN",
-    "slug": "2026-11-09-sonicwall-ssl-vpn-auth-bypass"
+    "slug": "2026-11-09-sonicwall-ssl-vpn-auth-bypass",
+    "youtube": "C5DEgNC9f0c",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-09",
@@ -430,7 +446,9 @@
     "status": "패치 나옴",
     "fixed": [],
     "auto": true,
-    "slug": "2026-11-09-galaxy-vulnerability"
+    "slug": "2026-11-09-galaxy-vulnerability",
+    "youtube": "hG0uMURmR4U",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-08",
@@ -451,7 +469,9 @@
       "date": "2026-11-07"
     },
     "auto": true,
-    "slug": "2026-11-08-openssh-auth-bypass"
+    "slug": "2026-11-08-openssh-auth-bypass",
+    "youtube": "4nuK5JfaFPY",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-07",
@@ -472,7 +492,9 @@
     "auto": true,
     "name": "큐냅 NAS",
     "nameEn": "QNAP NAS",
-    "slug": "2026-11-07-qnap-nas-vulnerability"
+    "slug": "2026-11-07-qnap-nas-vulnerability",
+    "youtube": "frcXbVTgqWk",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-07",
@@ -494,7 +516,9 @@
     "note": "기사에 따르면 이 패치는 Windows 업데이트가 아니라 Microsoft Store에서 그림판 앱을 업데이트해야 받을 수 있습니다.",
     "name": "마이크로소프트 그림판",
     "nameEn": "Microsoft Paint",
-    "slug": "2026-11-07-microsoft-paint-vulnerability"
+    "slug": "2026-11-07-microsoft-paint-vulnerability",
+    "youtube": "Yt6k13m7_AI",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-04",
