@@ -313,5 +313,20 @@
     "title": "Savings bank staff training site hacked: staff names, banks and job titles leaked",
     "summary": "A training management site for savings bank staff, run by KG Eduone, was hacked, and some staff names, the banks they work for and their job titles were leaked (according to the Korea Federation of Savings Banks' notice and Seoul Economic Daily). The number of people and banks affected has not been disclosed.",
     "org": "KG Eduone"
+  },
+  "https://www.etnews.com/20261120000316": {
+    "title": "Kurly: personal data of 10,699 curators leaked in outside attack",
+    "summary": "An outside attacker used stolen credentials to get into Kurly's business systems, and the personal data of 10,699 curators was leaked (according to Kurly).",
+    "org": "Kurly"
+  },
+  "http://www.chungnamilbo.co.kr/news/articleView.html?idxno=921762": {
+    "title": "Paichai University LMS and academic system hacked, student and staff data leaked",
+    "summary": "The learning management system (LMS) and linked academic system of Paichai University in Daejeon were hacked, leaking student and staff personal information such as student and staff ID numbers, names, email addresses and encrypted passwords (according to the university's notice and Chungnam Ilbo).",
+    "org": "Paichai University"
+  },
+  "https://www.dailysecu.com/news/articleView.html?idxno=209577": {
+    "title": "Yeungnam University library e-book and job sites hacked, student and staff data leaked",
+    "summary": "Yeungnam University's library e-book website and job website were hacked, leaking student and staff personal information such as student ID numbers, names and affiliations (according to the university's notice and Dailysecu).",
+    "org": "Yeungnam University"
   }
 }

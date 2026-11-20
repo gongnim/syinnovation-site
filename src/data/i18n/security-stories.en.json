@@ -2427,5 +2427,178 @@
         "url": "https://www.getnews.co.kr/news/articleView.html?idxno=887805"
       }
     ]
+  },
+  "kurly-2026-11": {
+    "overview": [
+      "An outside attacker gained unauthorized access to the business systems of Kurly, an online grocery company. On Nov 20, 2026, Kurly said the personal data of 10,699 participants in its curator program was leaked. The member numbers of 2 general customers were also leaked (according to Kurly).",
+      "Curators are affiliate marketers who introduce Kurly products on their social media channels and earn money by sharing purchase links (according to ZDNet Korea). Besides names and contact details, the leaked data includes bank account numbers and resident registration numbers or business registration numbers of some curators.",
+      "Kurly said it would give curators reward points worth 50,000 to 150,000 won each. CEO Kim Seul-ah issued an apology. The investigation into the cause and checks on whether the data has spread outside are ongoing."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-17",
+        "event": "An outside attacker got into Kurly's systems by abnormal means and stole credentials. The attacker used them to access business systems without authorization (according to Kurly)."
+      },
+      {
+        "date": "2026-11-17",
+        "event": "Kurly said it took emergency blocking measures right after it became aware of the incident. The exact time of detection has not been disclosed."
+      },
+      {
+        "date": "2026-11-18",
+        "event": "Kurly reported the breach to the relevant authorities."
+      },
+      {
+        "date": "2026-11-20",
+        "event": "Kurly announced the leak and its compensation plan, and CEO Kim Seul-ah issued an apology."
+      }
+    ],
+    "impact": [
+      "The names, IDs, phone numbers, email addresses and social media channel details of 10,699 curators were leaked (according to Kurly).",
+      "For some curators, bank account numbers and resident registration numbers or business registration numbers were also leaked. How many has not been disclosed.",
+      "For 2 general customers, only member numbers were leaked (according to Kurly).",
+      "Kurly said the names, contact details, addresses, passwords and payment details of the 2 general customers were not leaked.",
+      "Kurly explained that it does not collect general customers' resident registration numbers or bank account numbers (according to ZDNet Korea)."
+    ],
+    "cause": [
+      "Kurly explained that an outside attacker got into its systems by abnormal means and stole credentials. The attacker used them to access business systems without authorization. Further investigation confirmed the personal data leak, and access to the related documents was blocked (according to Electronic Times).",
+      "How the credentials were stolen and the name of the system that was breached have not been disclosed. How long the attacker had access has not been revealed either. The attacker's identity and the exact cause are still under investigation."
+    ],
+    "response": [
+      "Kurly said it would give each curator reward points worth at least 50,000 won and up to 150,000 won, depending on the scope of the leak. The points can be used in the Kurly app for one year without conditions (according to Segye Ilbo). Kurly said it would pay the full amount of any actual damage caused by the leak. It will give separate guidance on legal remedies.",
+      "Kurly opened an information page for curators and a dedicated customer center. It plans to notify the 2 general customers individually. In her apology, CEO Kim Seul-ah said she was sorry the company had failed to protect customers' information.",
+      "Kurly said it had set up an emergency communication structure led by the CEO and the heads of the departments involved. It said it would check whether the leaked data has spread outside and work with the authorities to delete or block it. It also plans to investigate the cause and review its overall security."
+    ],
+    "sources": [
+      {
+        "outlet": "Electronic Times",
+        "date": "2026-11-20",
+        "url": "https://www.etnews.com/20261120000316"
+      },
+      {
+        "outlet": "ZDNet Korea",
+        "date": "2026-11-20",
+        "url": "https://zdnet.co.kr/view/?no=20261120174112"
+      },
+      {
+        "outlet": "Financial News",
+        "date": "2026-11-20",
+        "url": "https://www.fnnews.com/news/202611202135010179"
+      },
+      {
+        "outlet": "Segye Ilbo",
+        "date": "2026-11-20",
+        "url": "https://www.segye.com/newsView/20261120515418"
+      }
+    ]
+  },
+  "paichai-univ-2026-11": {
+    "overview": [
+      "At Paichai University in Daejeon, the learning management system (LMS) and the academic system linked to it were hacked from outside. Some personal information of students and staff stored in the two systems was taken (according to the university's notice and Chungnam Ilbo). The university posted a notice about the leak and an apology on its website on Nov 18.",
+      "From the LMS, student and staff ID numbers, names, email addresses and affiliations were leaked. From the academic system, user IDs, encrypted passwords and dates of birth were leaked (according to Chungnam Ilbo and Dailysecu). The university said resident registration numbers, passport numbers, driver's license numbers and foreign resident registration numbers were not leaked.",
+      "The exact number of people and records affected has not yet been confirmed (according to Dailysecu). Several universities have recently suffered similar hacks, but no link to the Paichai incident has been confirmed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-16",
+        "event": "Between 9 a.m. and 11:12 p.m., personal information in the LMS and the academic system was leaked in an outside hack (according to Chungnam Ilbo and Dailysecu)."
+      },
+      {
+        "date": "2026-11-17",
+        "event": "From 9 a.m., two-factor authentication became mandatory for portal logins (according to ZDNet Korea)."
+      },
+      {
+        "date": "2026-11-18",
+        "event": "From 3 p.m., passwords of user accounts began to be reset. The same day, the university posted a notice about the leak and an apology on its website (according to ZDNet Korea and Dailysecu)."
+      },
+      {
+        "date": "2026-11-19",
+        "event": "Chungnam Ilbo, ZDNet Korea, Dailysecu and others reported the incident."
+      }
+    ],
+    "impact": [
+      "The number of people and records affected has not been disclosed.",
+      "Student and staff ID numbers, names, email addresses and affiliations were leaked from the LMS (according to Chungnam Ilbo).",
+      "User IDs, encrypted passwords and dates of birth were leaked from the academic system (according to Chungnam Ilbo).",
+      "The university said resident registration numbers, passport numbers, driver's license numbers and foreign resident registration numbers were not leaked.",
+      "Whether the encrypted passwords can be decrypted, and whether the attacker actually logged into any accounts, has not been confirmed (according to Dailysecu)."
+    ],
+    "cause": [
+      "Only the fact that personal information was leaked in an outside hack has been disclosed. When the university first detected the attack, the intrusion path and how the data was taken have not been revealed. It is also not confirmed which system the attacker entered first, or whether the link between the two systems was used in the attack (according to Dailysecu)."
+    ],
+    "response": [
+      "The university isolated the two affected systems from the external network. It made two-factor authentication mandatory for portal logins and reset the passwords of all user accounts. To avoid confusion over class attendance, teaching staff and enrolled undergraduates were asked to change their passwords themselves (according to Chungnam Ilbo and ZDNet Korea).",
+      "The university reported the incident to the Personal Information Protection Commission (PIPC) and the Korea Internet & Security Agency (KISA). It informed its privacy officer and the relevant departments and activated its internal emergency response system. It is notifying data subjects individually and plans to provide a lookup function for checking which items were leaked (according to Dailysecu and ZDNet Korea).",
+      "A university official said the university takes the matter seriously and will strengthen its personal information protection system to prevent a recurrence. It also plans security checks of websites run by its departments and new security policies (according to Chungnam Ilbo)."
+    ],
+    "sources": [
+      {
+        "outlet": "Chungnam Ilbo",
+        "date": "2026-11-19",
+        "url": "http://www.chungnamilbo.co.kr/news/articleView.html?idxno=921762"
+      },
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-19",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209626"
+      },
+      {
+        "outlet": "ZDNet Korea",
+        "date": "2026-11-19",
+        "url": "https://zdnet.co.kr/view/?no=20261119155401"
+      }
+    ]
+  },
+  "yeungnam-univ-2026-11": {
+    "overview": [
+      "At Yeungnam University in the Daegu-Gyeongbuk region, the library e-book website and the job website were hacked from outside. Personal information of students and staff held on the two sites was taken (according to the university's notice and Dailysecu). The university posted a notice about the leak and an apology on its website on Nov 17.",
+      "The leaked items differ slightly between reports. Student ID numbers, names and affiliations were reported by all, and some reports say mobile phone numbers and email addresses were also included (according to Dailysecu and Seoul Shinmun). The Financial News reported that passwords were also leaked from the e-book website.",
+      "The university found that unique identifiers such as resident registration numbers were not leaked (according to Seoul Shinmun and The Financial News). The exact number of people affected is still under investigation. Kyungil University and Daegu Haany University were also hacked around the same time, but no link to the Yeungnam incident has been confirmed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-16",
+        "event": "Between 10 a.m. and noon, the library e-book website and the job website were hacked (according to Dailysecu and The Financial News)."
+      },
+      {
+        "date": "2026-11-17",
+        "event": "At 5:32 p.m., the university posted a notice about the leak and an apology on its website (according to Dailysecu)."
+      },
+      {
+        "date": "2026-11-18",
+        "event": "Yonhap, Seoul Shinmun, The Financial News and others reported the incident along with a series of hacks at universities in the Daegu-Gyeongbuk region."
+      }
+    ],
+    "impact": [
+      "The number of people and records affected has not been disclosed. The university is removing duplicates to count the exact scale (according to The Financial News).",
+      "Student ID numbers, names and affiliations were leaked (according to Dailysecu, Seoul Shinmun and The Financial News).",
+      "Some reports say mobile phone numbers and email addresses were also leaked (according to Seoul Shinmun).",
+      "Passwords were also leaked from the e-book website (according to The Financial News).",
+      "Unique identifiers such as resident registration numbers were found not to have been leaked (according to Seoul Shinmun)."
+    ],
+    "cause": [
+      "Only the fact that the two websites were compromised by an outside hack has been disclosed. The initial intrusion path and the access the attacker gained have not been revealed. It is also not confirmed whether both sites were breached through the same vulnerability, or whether one system was used to reach the other (according to Dailysecu).",
+      "Research administration systems at many university industry-academic cooperation foundations have recently been attacked one after another. Dailysecu reported that no sign has been found linking this incident to that series or to a hacker who claimed to have obtained data from Korean universities."
+    ],
+    "response": [
+      "After confirming the incident, the university isolated and blocked the affected websites. It plans to force portal password changes and add two-factor authentication to logins (according to Dailysecu and Seoul Shinmun).",
+      "The university apologized and said it would review its personal information protection system from the ground up to prevent a recurrence. It asked members to change their passwords on other sites where they use the same password, and to report any suspected misuse right away (according to The Financial News)."
+    ],
+    "sources": [
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-17",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209577"
+      },
+      {
+        "outlet": "Seoul Shinmun",
+        "date": "2026-11-18",
+        "url": "https://www.seoul.co.kr/news/society/2026/11/18/20261118500335"
+      },
+      {
+        "outlet": "The Financial News",
+        "date": "2026-11-18",
+        "url": "https://www.fnnews.com/news/202611182312182228"
+      }
+    ]
   }
 }

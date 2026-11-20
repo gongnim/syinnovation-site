@@ -3,10 +3,22 @@
     "date": "2026-11-20",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "컬리, 큐레이터 1만699명 개인정보 유출",
+    "title": "컬리, 외부 공격으로 큐레이터 1만699명 개인정보 유출",
     "source": "전자신문",
-    "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE0tcVdQTHJDblZyRm5mMURXZ2FuN1pOSzhGaVoyamRDQXEwSWNFbTlrdklOY20xZHdyVktUMmR3MGxsQjhpRlpHUG1yMmNmQQ?oc=5",
-    "auto": true
+    "url": "https://www.etnews.com/20261120000316",
+    "slug": "kurly-2026-11",
+    "org": "컬리",
+    "aka": [
+      "Kurly",
+      "마켓컬리"
+    ],
+    "summary": "외부 공격자가 탈취한 인증정보로 컬리 업무 시스템에 들어와 큐레이터 1만699명의 개인정보가 유출됐습니다(컬리 발표 기준).",
+    "image": "/images/security/auto/2026-11-20-kurly-2026-11.jpg",
+    "credit": {
+      "name": "Merve Nazlı Meral",
+      "url": "https://www.pexels.com/photo/fresh-vegetables-in-boxes-on-market-16363772/",
+      "id": 16363772
+    }
   },
   {
     "date": "2026-11-18",
@@ -15,7 +27,8 @@
     "title": "대구경북권 대학서 해킹 피해 잇따라…영남대서도 개인정보 유출",
     "source": "연합뉴스",
     "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE8wanNvZnpieGJJZWYtcUx3eUxSMHROV0FPWWRPMFdDRC16Q25SLV9YWWhwRWFBd2U3THM1TmR2Z2RVeWJpYWlQbGxsbXdYQzFnOHR2UGhaWS1yb3VKMUpfLdIBYEFVX3lxTE8wanNvZnpieGJJZWYtcUx3eUxSMHROV0FPWWRPMFdDRC16Q25SLV9YWWhwRWFBd2U3THM1TmR2Z2RVeWJpYWlQbGxsbXdYQzFnOHR2UGhaWS1yb3VKMUpfLQ?oc=5",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-20",
@@ -72,19 +85,26 @@
     "hidden": true
   },
   {
-    "date": "2026-11-17",
+    "date": "2026-11-18",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "배재대 학습관리·학사시스템 해킹… 학번·이메일 등 개인정보 유출",
+    "title": "배재대, 학습관리·학사시스템 해킹으로 학생·교직원 개인정보 유출",
     "source": "충남일보",
-    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE5ldUxrci1UekxJOFk4VWJaSGJwYWJOc2daMzFuQW9JVVVrY20zeGQteWJubFJoMjZUT0txUkZsTHhwWWdKRjhzcXN1ZUlTZ3UzOTV1RV9mR3QwaHkwd1MyNVZnUEpYY2RWM2dLeWlPenpLMEE?oc=5",
-    "auto": true,
+    "url": "http://www.chungnamilbo.co.kr/news/articleView.html?idxno=921762",
     "image": "/images/security/auto/2026-11-17-bf0b9f35.jpg",
     "credit": {
       "name": "Sora Shimazaki",
       "url": "https://www.pexels.com/photo/crop-cyber-spy-hacking-system-while-typing-on-laptop-5935794/",
       "id": 5935794
-    }
+    },
+    "slug": "paichai-univ-2026-11",
+    "org": "배재대학교",
+    "aka": [
+      "배재대",
+      "Paichai University",
+      "Pai Chai University"
+    ],
+    "summary": "대전 배재대학교의 학습관리시스템(LMS)과 연계 학사시스템이 해킹돼 학번·사번, 이름, 이메일, 암호화된 비밀번호 등 학생·교직원 개인정보가 유출됐습니다(대학 공지, 충남일보 보도 기준)."
   },
   {
     "date": "2026-11-19",
@@ -132,10 +152,22 @@
     "date": "2026-11-17",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "영남대학교 도서관·취업 홈페이지 해킹…학생 개인정보 유출",
+    "title": "영남대, 도서관 전자책·취업 홈페이지 해킹으로 학생·교직원 개인정보 유출",
     "source": "데일리시큐",
-    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE55RXZ6LXF5MnFTczN3UW1GUmlQdDZlTEdtTTBYcTM3TldIYUZpWm5naWZoa19fTlhaR3BDUllGX0dwSWtkSVJ0bFp0dFdlMi1LM1BOdENGUzhpR0FyN2VJR2xTV1dUejdySGctZA?oc=5",
-    "auto": true
+    "url": "https://www.dailysecu.com/news/articleView.html?idxno=209577",
+    "slug": "yeungnam-univ-2026-11",
+    "org": "영남대학교",
+    "aka": [
+      "영남대",
+      "Yeungnam University"
+    ],
+    "summary": "영남대학교의 도서관 전자책 홈페이지와 취업 홈페이지가 해킹돼 학번, 이름, 소속 등 학생·교직원 개인정보가 유출됐습니다(대학 공지, 데일리시큐 보도 기준).",
+    "image": "/images/security/auto/2026-11-17-yeungnam-univ-2026-11.jpg",
+    "credit": {
+      "name": "Miff Ibra",
+      "url": "https://www.pexels.com/photo/modern-theater-seats-in-a-blue-auditorium-32731350/",
+      "id": 32731350
+    }
   },
   {
     "date": "2026-11-16",
@@ -150,7 +182,8 @@
       "name": "Federico Orlandi",
       "url": "https://www.pexels.com/photo/macbook-pro-3260626/",
       "id": 3260626
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-18",
