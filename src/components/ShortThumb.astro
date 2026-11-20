@@ -1,0 +1,32 @@
+---
+// A 보안뉴스 Short as a vertical poster button (user, 2026-11-20: the embedded players made the list "보기가 너무 어려워").
+// The poster is a frame from our own render (public/images/news/shorts/<slug>.jpg, title band readable); YouTube's own
+// thumbnail is the fallback. Clicking opens ShortPlayer, which loads YouTube only then.
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+interface Props { id: string; slug: string; title: string; en: boolean; size?: 'sm' | 'md' | 'lg'; badge?: string }
+const { id, slug, title, en, size = 'md', badge } = Astro.props;
+const own = existsSync(join(process.cwd(), 'public', 'images', 'news', 'shorts', `${slug}.jpg`));
+const src = own ? `/images/news/shorts/${slug}.jpg` : `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
+const hot = !!badge && /치명|긴급|Critical|Urgent|CVSS (9|10)/.test(badge);
+---
+<button type="button" class={`st st-${size}`} data-short={id} data-title={title} aria-label={en ? `Play video: ${title}` : `영상 재생: ${title}`}>
+  <img src={src} alt="" width="360" height="640" loading="lazy" decoding="async" />
+  {badge && <span class={`st-badge${hot ? ' hot' : ''}`}>{badge}</span>}
+  <span class="st-play" aria-hidden="true"><svg viewBox="0 0 24 24" width="100%" height="100%"><path d="M9 6.5v11l9-5.5z" fill="currentColor" /></svg></span>
+</button>
+
+<style>
+  .st { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; padding: 0; border: 0; border-radius: 12px; overflow: hidden; background: #0B1628; cursor: pointer; }
+  .st img { width: 100%; height: 100%; object-fit: cover; transition: scale .35s var(--ease); }
+  .st:hover img { scale: 1.04; }
+  .st:focus-visible { outline: 2px solid var(--orange); outline-offset: 3px; }
+  .st-play { position: absolute; left: 50%; top: 56%; width: 48px; height: 48px; padding: 9px; translate: -50% -50%; border-radius: 50%; background: rgb(8 14 26 / .62); color: #fff; box-shadow: 0 0 0 1.5px rgb(255 255 255 / .5); transition: background .2s var(--ease); }
+  .st:hover .st-play { background: var(--orange); }
+  .st-badge { position: absolute; left: 8px; bottom: 8px; padding: 2px 8px; border-radius: 6px; font-size: 12px; font-weight: 700; color: #fff; background: rgb(8 14 26 / .72); }
+  .st-badge.hot { background: #c4320a; }
+  .st-sm { border-radius: 8px; }
+  .st-sm .st-play { width: 28px; height: 28px; padding: 5px; top: 50%; }
+  .st-lg { border-radius: 16px; }
+  .st-lg .st-play { width: 64px; height: 64px; padding: 13px; }
+</style>

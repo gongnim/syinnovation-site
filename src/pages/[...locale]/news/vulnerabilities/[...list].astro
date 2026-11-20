@@ -12,6 +12,8 @@ import Icon from '../../../../components/Icon.astro';
 import NewChip from '../../../../components/NewChip.astro';
 import ResourceTabs from '../../../../components/ResourceTabs.astro';
 import VulnFix from '../../../../components/VulnFix.astro';
+import ShortThumb from '../../../../components/ShortThumb.astro';
+import ShortPlayer from '../../../../components/ShortPlayer.astro';
 import { vulns, fmt, vulnPage, newDays, vulnTitle, vulnHref, howFor, howKeys, vulnStatus, sevText } from '../../../../data/news';
 import { newsNav, menu } from '../../../../data/site';
 import { labelEn } from '../../../../data/en';
@@ -31,6 +33,9 @@ const lang = langOf(Astro.url);
 const en = lang === 'en';
 const listHref = (p: number) => href(`/news/vulnerabilities${p > 1 ? `/page/${p}` : ''}`, lang) + '#list';
 const numbers: (number | '…')[] = pageNumbers(page, pages);
+// the newest Shorts as a row of posters above the list, on the first page only (user, 2026-11-20)
+const shelf = page === 1 ? vulns.filter((v) => v.youtube).slice(0, 6) : [];
+const label = (v: (typeof vulns)[number]) => (v.products.length ? howFor(howKeys(v)[0], lang).label : (en ? v.nameEn : v.name) ?? howFor('_default', lang).label);
 
 ---
 <Base title={en ? (page > 1 ? `Security News - page ${page}` : 'Security News') : (page > 1 ? `보안뉴스 - ${page}페이지` : '보안뉴스')} description={en ? 'Software and device vulnerabilities reported in the Korean press, with who is affected and what to do: how to check your version, how to update, and the official notices.' : '국내 언론에 보도된 소프트웨어·기기 취약점과, 누가 해당되는지, 무엇을 하면 되는지. 버전 확인, 업데이트 방법, 공식 공지까지 정리합니다.'} tone="light">
@@ -43,6 +48,20 @@ const numbers: (number | '…')[] = pageNumbers(page, pages);
         <p class="fine">{en ? <>Steps follow the vendors' official support pages. For company systems, check with your IT team or supplier first.</> : <>업데이트 방법은 각 제조사의 공식 안내를 따릅니다.<br />회사 업무 시스템은 담당자나 공급사와 먼저 확인하세요.</>}</p>
       </div>
 
+      {shelf.length > 0 && (
+        <div class="shelf">
+          <h2 class="shelf-t">{en ? 'Latest Security News Shorts' : '최근 보안뉴스 쇼츠'}</h2>
+          <ul>
+            {shelf.map((v) => (
+              <li>
+                <ShortThumb id={v.youtube!} slug={v.slug} title={vulnTitle(v, lang)} en={en} badge={v.severity ? sevText(v.severity, lang) : undefined} />
+                <p class="shelf-c"><b>{label(v)}</b>{en ? dateText(v.date, lang) : fmt(v.date)}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+
       {rows.length > 0
         ? <ul class="items">
             {rows.map((v) => {
@@ -51,21 +70,19 @@ const numbers: (number | '…')[] = pageNumbers(page, pages);
               const title = vulnTitle(v, lang);
               return (
                 <li class={`item${v.youtube ? ' has-short' : ''}`}>
-                  {v.youtube && (
-                    <div class="short">
-                      <iframe src={`https://www.youtube-nocookie.com/embed/${v.youtube}`} title={en ? `Video: ${title}` : `영상: ${title}`} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                  {v.youtube && <div class="thumb"><ShortThumb id={v.youtube} slug={v.slug} title={title} en={en} size="sm" /></div>}
+                  <div class="body">
+                    <div class="row">
+                      <span class="date">{en ? dateText(v.date, lang) : fmt(v.date)}<NewChip date={v.date} days={newDays['/news/vulnerabilities']} /></span>
+                      <span class="chips">
+                        <span class="chip prod">{label(v)}</span>
+                        {v.severity && <span class="chip sev">{sevText(v.severity, lang)}</span>}
+                        {st && <span class={`chip st ${st.cls}`}>{en ? st.en : v.status}</span>}
+                      </span>
                     </div>
-                  )}
-                  <div class="row">
-                    <span class="date">{en ? dateText(v.date, lang) : fmt(v.date)}<NewChip date={v.date} days={newDays['/news/vulnerabilities']} /></span>
-                    <span class="chips">
-                      <span class="chip prod">{v.products.length ? howFor(howKeys(v)[0], lang).label : (en ? v.nameEn : v.name) ?? howFor('_default', lang).label}</span>
-                      {v.severity && <span class="chip sev">{sevText(v.severity, lang)}</span>}
-                      {st && <span class={`chip st ${st.cls}`}>{en ? st.en : v.status}</span>}
-                    </span>
+                    <h2 class="title"><a href={vulnHref(v, lang)}>{title.split(/(CVE-\d{4}-\d+)/).map((p, i) => (i % 2 ? <span class="nw">{p}</span> : p))}</a><a class="ext" href={v.url} target="_blank" rel="noopener"><Icon name="external" size={14} label={en ? 'Open the original article in a new window' : '원문 기사를 새 창에서 열기'} /></a></h2>
+                    <p class="meta">{en ? labelEn(v.source) : v.source}{more.length > 0 && <span>{en ? ` and ${more.length} more` : ` 외 ${more.length}곳 보도`}</span>}{v.youtube && <button type="button" class="watch" data-short={v.youtube} data-title={title}>{en ? 'Watch the Short' : '영상 보기'}</button>}</p>
                   </div>
-                  <h2 class="title"><a href={vulnHref(v, lang)}>{title.split(/(CVE-\d{4}-\d+)/).map((p, i) => (i % 2 ? <span class="nw">{p}</span> : p))}</a><a class="ext" href={v.url} target="_blank" rel="noopener"><Icon name="external" size={14} label={en ? 'Open the original article in a new window' : '원문 기사를 새 창에서 열기'} /></a></h2>
-                  <p class="meta">{en ? labelEn(v.source) : v.source}{more.length > 0 && <span>{en ? ` and ${more.length} more` : ` 외 ${more.length}곳 보도`}</span>}</p>
                   <details class="todo">
                     <summary><span class="todo-t">{en ? 'How to fix it' : '해결 방법 보기'}</span><span class="todo-hint"><span class="open">{en ? 'Click to open' : '눌러서 보기'}</span><span class="close">{en ? 'Close' : '접기'}</span><Icon name="plus" size={16} class="todo-i" /></span></summary>
                     <VulnFix v={v} />
@@ -90,6 +107,7 @@ const numbers: (number | '…')[] = pageNumbers(page, pages);
       )}
     </div>
   </section>
+  {rows.some((v) => v.youtube) && <ShortPlayer en={en} />}
 </Base>
 
 <style>
@@ -102,9 +120,18 @@ const numbers: (number | '…')[] = pageNumbers(page, pages);
   /* white cards with a line border, the family of the 자주 묻는 질문 cards; 할 일 opens inside the card */
   .items { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
   .item { min-width: 0; padding: 20px 22px 6px; border: 1px solid var(--line); border-radius: var(--r-lg); background: #fff; }
-  /* our Short on this flaw sits at the top of the card, vertical 9:16, then the text and 할 일 below */
-  .short { position: relative; width: min(100%, 300px); aspect-ratio: 9 / 16; margin: 0 auto 16px; border-radius: var(--r-md, 12px); overflow: hidden; background: #0B1628; }
-  .short iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  /* the newest Shorts as posters above the list: six across, a swipeable row on phones */
+  .shelf { margin-bottom: 28px; }
+  .shelf-t { margin-bottom: 12px; font-size: 18px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
+  .shelf ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 14px; }
+  .shelf-c { display: flex; justify-content: space-between; gap: 6px; margin-top: 8px; font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+  .shelf-c b { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; color: var(--ink-2); }
+  /* a card with a Short: a small poster beside the text; the fix below spans the card */
+  .item.has-short { display: grid; grid-template-columns: 64px minmax(0, 1fr); column-gap: 18px; }
+  .item.has-short .todo { grid-column: 1 / -1; }
+  .thumb { align-self: start; }
+  .watch { margin-left: 10px; padding: 0; border: 0; background: none; font: inherit; font-weight: 700; color: var(--blue); cursor: pointer; }
+  .watch:hover { text-decoration: underline; }
   .row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
   .date { font-size: 13px; font-weight: 600; color: var(--ink-3); font-variant-numeric: tabular-nums; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -142,8 +169,13 @@ const numbers: (number | '…')[] = pageNumbers(page, pages);
   .pg.off { color: var(--line); }
   .gap { min-width: 20px; text-align: center; color: var(--ink-3); }
 
+  @media (max-width: 899px) {
+    .shelf ul { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: 132px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 6px; margin-right: calc(var(--gutter) * -1); padding-right: var(--gutter); }
+    .shelf li { scroll-snap-align: start; }
+  }
   @media (max-width: 559px) {
     .item { padding: 16px 16px 4px; }
+    .item.has-short { grid-template-columns: 52px minmax(0, 1fr); column-gap: 14px; }
     .title { font-size: 16px; }
     .pager { gap: 2px; }
     .pg { min-width: 34px; height: 34px; padding: 0 4px; }

@@ -8,6 +8,8 @@ import Base from '../../../../layouts/Base.astro';
 import Icon from '../../../../components/Icon.astro';
 import VulnFix from '../../../../components/VulnFix.astro';
 import CtaBand from '../../../../components/CtaBand.astro';
+import ShortThumb from '../../../../components/ShortThumb.astro';
+import ShortPlayer from '../../../../components/ShortPlayer.astro';
 import { vulns, fmt, vulnPage, vulnTitle, vulnSummary, vulnDescription, vulnHref, vulnTerms, howFor, howKeys, stepOf, vulnStatus, sevText, type Vuln, type Step } from '../../../../data/news';
 import { glossary } from '../../../../data/glossary';
 import { glossaryEn, vulnNewsEn, labelEn } from '../../../../data/en';
@@ -58,8 +60,10 @@ const ld = [
 ---
 <Base title={title} description={description} tone="light" type="article" published={v.date} ld={ld}>
   <article class="vul">
-    <div class="wrap narrow">
+    <div class={`wrap narrow${v.youtube ? ' wide' : ''}`}>
       <nav class="crumb" aria-label={en ? 'Breadcrumb' : '위치'}><a href={href('/news', lang)}>{en ? 'News' : '소식'}</a><span aria-hidden="true">/</span><a href={href('/news/vulnerabilities', lang)}>{en ? 'Security News' : '보안뉴스'}</a></nav>
+      <div class={`cols${v.youtube ? ' has-short' : ''}`}>
+      <div class="top">
       <div class="chips">
         <span class="chip prod">{productLabel}</span>
         {v.severity && <span class="chip sev">{sevText(v.severity, lang)}</span>}
@@ -68,13 +72,16 @@ const ld = [
       <h1>{title.split(/(CVE-\d{4}-\d+)/).map((p, i) => (i % 2 ? <span class="nw">{p}</span> : p))}</h1>
       <p class="meta"><time datetime={v.date}>{day(v.date)}</time><span class="dot" aria-hidden="true"></span>{en ? `Reported by ${outlets.length} outlet${outlets.length > 1 ? 's' : ''}` : `국내 언론 ${outlets.length}곳 보도`}</p>
       <div class="lead-in">{summary.map((s) => <p>{s}</p>)}</div>
+      </div>
 
       {v.youtube && (
-        <div class="short">
-          <iframe src={`https://www.youtube-nocookie.com/embed/${v.youtube}`} title={en ? `Video: ${title}` : `영상: ${title}`} loading="lazy" allow="accelerometer; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
+        <aside class="side" aria-label={en ? 'Video' : '영상'}>
+          <ShortThumb id={v.youtube} slug={v.slug} title={title} en={en} size="lg" />
+          <p class="side-c">{en ? 'Watch it in a minute' : '1분 영상으로 보기'}</p>
+        </aside>
       )}
 
+      <div class="main">
       <section class="fix">
         <h2>{en ? 'How to fix it' : '해결 방법'}</h2>
         <VulnFix v={v} note={false} others={false} />
@@ -105,6 +112,8 @@ const ld = [
           </ul>
         </section>
       )}
+      </div>
+      </div>
 
       <nav class="back"><a href={listUrl}>{en ? 'Back to Security News' : '보안뉴스 목록'}</a></nav>
     </div>
@@ -114,6 +123,7 @@ const ld = [
     title={en ? "Is your company's work access secure?" : '우리 회사의 업무 접속은 안전할까요?'}
     lead={en ? 'Start by checking the security risks in your current work access with a free initial consultation.' : '사전 컨설팅(무료)으로 지금 업무 접속의 보안 위험부터 확인해 보세요.'}
   />
+  {v.youtube && <ShortPlayer en={en} />}
 </Base>
 
 <style>
@@ -132,8 +142,18 @@ const ld = [
   .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; font-size: 15px; color: var(--ink-3); }
   .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-3); }
   .lead-in { display: grid; gap: 10px; margin-top: 22px; padding-left: 16px; border-left: 3px solid var(--blue); font-size: 17px; line-height: 1.75; color: var(--ink); }
-  .short { position: relative; width: min(100%, 300px); aspect-ratio: 9 / 16; margin: 32px auto 0; border-radius: var(--r-md); overflow: hidden; background: #0B1628; }
-  .short iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+  /* with a Short: the text on the left and the poster on the right, staying in view while the fix scrolls by;
+     on narrow screens the poster sits under the summary (user, 2026-11-20) */
+  .vul .wrap.wide { max-width: calc(1100px + var(--gutter) * 2); }
+  .cols.has-short { display: grid; grid-template-columns: minmax(0, 1fr) 280px; grid-template-areas: 'top side' 'main side'; column-gap: 56px; }
+  .top { grid-area: top; min-width: 0; }
+  .main { grid-area: main; min-width: 0; }
+  .side { grid-area: side; position: sticky; top: calc(var(--header-h) + 32px); align-self: start; margin-top: 22px; }
+  .side-c { margin-top: 10px; font-size: 14px; font-weight: 600; text-align: center; color: var(--ink-2); }
+  @media (max-width: 899px) {
+    .cols.has-short { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'top' 'side' 'main'; }
+    .side { position: static; width: min(240px, 64%); margin: 32px auto 0; }
+  }
   section { margin-top: 44px; }
   h2 { margin-bottom: 14px; font-size: 21px; font-weight: 700; letter-spacing: -0.02em; color: var(--ink); }
   .fix { padding: 24px 24px 8px; border: 1px solid var(--line); border-radius: var(--r-lg); background: #fff; }
