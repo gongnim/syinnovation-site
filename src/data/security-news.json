@@ -1,6 +1,36 @@
 [
   {
     "date": "2026-11-20",
+    "region": "해외",
+    "type": "해킹",
+    "title": "급여·휴가 시스템 열흘 넘게 차질... EU 집행위원회, AI 해킹 도구 ‘아르텍스’ 공격 인정",
+    "source": "보안뉴스",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1ld3VJRGh6b3d1V0RjUG9nb3c5WWpuWVM3NGQ0LU9IZVRNVGZ2UVQwWWo2Z1I4djFhS0VvOFFBc0xwX3ExbTZzaXcwTlpVWFhWb0s5SVlnZHFfZUJienY2S21sdV9VRGkyWlZR?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-20-2af3c3ac.jpg",
+    "credit": {
+      "name": "Bibek ghosh",
+      "url": "https://www.pexels.com/photo/code-on-screen-14553704/",
+      "id": 14553704
+    }
+  },
+  {
+    "date": "2026-11-19",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "[안전 이슈] 개인정보 유출 땐 기관장도 책임.. 공공부문 보안징계 세진다",
+    "source": "한국재난안전뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTE5DY21MLTJuMmJTWkU2Q0dhakp0RjB5ak1VSmoxMkF5eTRtZE81Z0tSOTM4UEpZQlAzV1J4RTJEcE5HcDV6MC15cjlXWWs3cE9zTVI2WTd1S0VYS0JXR0E?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-19-d27ddd6a.jpg",
+    "credit": {
+      "name": "Brett Sayles",
+      "url": "https://www.pexels.com/photo/facade-of-a-building-3924906/",
+      "id": 3924906
+    }
+  },
+  {
+    "date": "2026-11-20",
     "region": "국내",
     "type": "개인정보 유출",
     "title": "컬리, 외부 공격으로 큐레이터 1만699명 개인정보 유출",
