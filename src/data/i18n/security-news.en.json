@@ -328,5 +328,10 @@
     "title": "Yeungnam University library e-book and job sites hacked, student and staff data leaked",
     "summary": "Yeungnam University's library e-book website and job website were hacked, leaking student and staff personal information such as student ID numbers, names and affiliations (according to the university's notice and Dailysecu).",
     "org": "Yeungnam University"
+  },
+  "https://www.boannews.com/news/articleView.html?idxno=147398": {
+    "title": "European Commission staff pay and leave systems disrupted for over 10 days by cyberattack",
+    "summary": "A cyberattack on the European Commission disrupted the systems staff use for pay, working hours, leave and medical reimbursement for more than 10 days, and the public AI hacking tool ARTEX was found to have been used in the attack (according to Politico).",
+    "org": "European Commission"
   }
 }

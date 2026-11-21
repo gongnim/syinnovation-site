@@ -2600,5 +2600,76 @@
         "url": "https://www.fnnews.com/news/202611182312182228"
       }
     ]
+  },
+  "eu-commission-2026-11": {
+    "overview": [
+      "Internal staff systems of the European Union's European Commission were hit by a cyberattack. Sysper, the HR system that handles payslips, working hours and leave, and MyPMO, the medical reimbursement system, went down. The disruption lasted more than 10 days (according to Politico).",
+      "CERT-EU, the cybersecurity team for EU institutions, found that a tool called ARTEX was used in the attack. ARTEX is an AI-based penetration testing tool that anyone can get. It finds security weaknesses in systems automatically (according to Politico).",
+      "The Commission acknowledged the attack. However, it did not say who was behind it. Whether staff personal data was taken has not yet been confirmed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-22",
+        "event": "The Commission first detected the attack (according to a Commission spokesperson, as reported by heise)."
+      },
+      {
+        "date": "2026-10-26",
+        "event": "The Commission confirmed the attack (according to a Commission spokesperson, as reported by heise)."
+      },
+      {
+        "date": "2026-11-17",
+        "event": "The Commission's translation services were also disrupted (according to Cyber Security News)."
+      },
+      {
+        "date": "2026-11-18",
+        "event": "The Sysper HR system, which had been restored, briefly went down again (according to Cyber Security News)."
+      },
+      {
+        "date": "2026-11-19",
+        "event": "Politico reported the attack and the use of ARTEX. Several other outlets followed."
+      },
+      {
+        "date": "2026-11-20",
+        "event": "Korean outlets such as Boannews reported the incident."
+      }
+    ],
+    "impact": [
+      "Some staff could not enter working hours or request leave for more than 10 days (according to Politico).",
+      "Sysper, the HR system that handles payslips, went down.",
+      "MyPMO, the medical reimbursement system, went down.",
+      "Salaries were largely paid as usual (according to Cyber Security News).",
+      "Most systems have been restored.",
+      "Whether staff personal data was leaked has not been confirmed. A Commission spokesperson said there was no evidence of a breach affecting staff as a whole (according to Neowin)."
+    ],
+    "cause": [
+      "CERT-EU found that the AI penetration testing tool ARTEX was used in the attack. However, it is not known whether the tool was used to break in or only to look for weaknesses (according to Cyber Security News).",
+      "ARTEX has been taken down from GitHub, but copies are reported to still be circulating (according to Neowin). The attacker's identity and motive have not been disclosed. The exact intrusion path is still under investigation."
+    ],
+    "response": [
+      "The Commission confirmed the attack. Spokesperson Thomas Regnier said individual systems were targeted. He said the affected parties had been informed (according to Cyber Security News).",
+      "Regnier did not name the attacker. He said he had no knowledge of any ransom demand (according to Neowin). The Commission and CERT-EU are still investigating the extent of the damage."
+    ],
+    "sources": [
+      {
+        "outlet": "Boannews",
+        "date": "2026-11-20",
+        "url": "https://www.boannews.com/news/articleView.html?idxno=147398"
+      },
+      {
+        "outlet": "Cyber Security News",
+        "date": "2026-11-19",
+        "url": "https://cybersecuritynews.com/european-commission-cyberattack/"
+      },
+      {
+        "outlet": "Neowin",
+        "date": "2026-11-20",
+        "url": "https://www.neowin.net/news/european-commission-hit-by-ai-powered-cyberattack/"
+      },
+      {
+        "outlet": "Washington Examiner",
+        "date": "2026-11-19",
+        "url": "https://www.washingtonexaminer.com/news/world/4808482/european-commission-ai-cyberattack-artex/"
+      }
+    ]
   }
 }

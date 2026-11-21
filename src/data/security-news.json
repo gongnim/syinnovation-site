@@ -3,16 +3,23 @@
     "date": "2026-11-20",
     "region": "해외",
     "type": "해킹",
-    "title": "급여·휴가 시스템 열흘 넘게 차질... EU 집행위원회, AI 해킹 도구 ‘아르텍스’ 공격 인정",
+    "title": "EU 집행위원회, 사이버 공격으로 직원 급여·휴가 시스템 열흘 넘게 차질",
     "source": "보안뉴스",
-    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1ld3VJRGh6b3d1V0RjUG9nb3c5WWpuWVM3NGQ0LU9IZVRNVGZ2UVQwWWo2Z1I4djFhS0VvOFFBc0xwX3ExbTZzaXcwTlpVWFhWb0s5SVlnZHFfZUJienY2S21sdV9VRGkyWlZR?oc=5",
-    "auto": true,
-    "image": "/images/security/auto/2026-11-20-2af3c3ac.jpg",
+    "url": "https://www.boannews.com/news/articleView.html?idxno=147398",
+    "image": "/images/security/auto/2026-11-20-eu-commission-2026-11.jpg",
     "credit": {
-      "name": "Bibek ghosh",
-      "url": "https://www.pexels.com/photo/code-on-screen-14553704/",
-      "id": 14553704
-    }
+      "name": "Carsten Ruthemann",
+      "url": "https://www.pexels.com/photo/exterior-of-a-building-at-night-15389577/",
+      "id": 15389577
+    },
+    "slug": "eu-commission-2026-11",
+    "org": "EU 집행위원회",
+    "aka": [
+      "European Commission",
+      "유럽연합 집행위원회",
+      "EU 집행위"
+    ],
+    "summary": "EU 집행위원회가 사이버 공격을 받아 직원 급여·근무시간·휴가 관리와 의료비 환급 시스템이 열흘 넘게 차질을 빚었으며, 공격에 공개 AI 해킹 도구 '아르텍스(ARTEX)'가 쓰인 것으로 확인됐습니다(폴리티코 보도 기준)."
   },
   {
     "date": "2026-11-19",
@@ -27,7 +34,8 @@
       "name": "Brett Sayles",
       "url": "https://www.pexels.com/photo/facade-of-a-building-3924906/",
       "id": 3924906
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-20",
