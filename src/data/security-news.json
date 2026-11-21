@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-21",
+    "region": "국내",
+    "type": "해킹",
+    "title": "미 FBI 범죄정보망에 외부인 침입…\"농무부도 해킹당해\"(종합)",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE4wQUVXTEE0OXFEYVRwNjdGMmRxOHdiSnJleklrQnhhYktpZ1V5WkJ0ZllqdjVkYm5lbk1MMjFnYmRXVnd6NGFjVWpfeFhkZXFmNkVvb1llc1QwNFHSAWBBVV95cUxNejNlbWJGYUd4ZlhzRWpqd09BU1Itd1Y2c0JpUWZWOW9iZXdqUFNtdGRCcHA0cVlycksxWWxyU2ZBZDlVMXFnZ0lpdE53TDBfbzNDdzNnSlk5UDk5OWljWEw?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-21-21c06c39.jpg",
+    "credit": {
+      "name": "Bibek ghosh",
+      "url": "https://www.pexels.com/photo/code-on-screen-14553704/",
+      "id": 14553704
+    }
+  },
+  {
     "date": "2026-11-20",
     "region": "해외",
     "type": "해킹",

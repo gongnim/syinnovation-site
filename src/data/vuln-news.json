@@ -1,6 +1,26 @@
 [
   {
     "date": "2026-11-21",
+    "title": "미국 국가안보국 기밀 통신망 사흘 넘게 장애…보안 패치 원인 추정",
+    "source": "브릿지경제",
+    "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5Na1RoQlB6cm5QdmxlcEIxUFlxdUdXWkpONjZWRTFJYmJiaW1iRHNzemlWbG5WVDVtY0NOa3RHNjVhVmdZYjcxRDNqcmI1eTRVSl9CY3hCV2VDZw?oc=5",
+    "sources": [
+      {
+        "source": "이데일리",
+        "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxQLWw5RU54X0Foc0FSWmlKYU1sVmQ5cmpzaXVGcTR2OUladmtFQWNRMUxNSGpCZ0JlY01EbVByYUN3dl8xNE9ZeEYza0VzaHdZWEhEUldsV09UeXNYRXdjQmZGcmZGXzdoT0VCdnNJNnh3RjBvOTJ0dlNVbENuZVRMQw?oc=5"
+      }
+    ],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "name": "미국 국가안보국 기밀",
+    "slug": "2026-11-21-vulnerability"
+  },
+  {
+    "date": "2026-11-21",
     "title": "브로드컴, VM웨어 v센터 인증 우회 취약점 긴급 패치",
     "source": "디지털데일리",
     "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBiTmxGaUVGeENlQy1fUFpkWjBJMHBvRzk2emQ5cDN1ellkQUtQdlZPOHFZbXE4TjE0T19ZOTV6Ui1rZWxWczF0WGVSMXZtUk0xRWZIcC1xOTNraVJWOVJGaDZQZjU?oc=5",
