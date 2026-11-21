@@ -1,18 +1,29 @@
 [
   {
     "date": "2026-11-21",
-    "region": "국내",
+    "region": "해외",
     "type": "해킹",
-    "title": "미 FBI 범죄정보망에 외부인 침입…\"농무부도 해킹당해\"(종합)",
+    "title": "미 FBI 국가범죄정보센터에 외부 침입 정황…농무부 농민 지원금 시스템도 공격받아",
     "source": "연합뉴스",
-    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE4wQUVXTEE0OXFEYVRwNjdGMmRxOHdiSnJleklrQnhhYktpZ1V5WkJ0ZllqdjVkYm5lbk1MMjFnYmRXVnd6NGFjVWpfeFhkZXFmNkVvb1llc1QwNFHSAWBBVV95cUxNejNlbWJGYUd4ZlhzRWpqd09BU1Itd1Y2c0JpUWZWOW9iZXdqUFNtdGRCcHA0cVlycksxWWxyU2ZBZDlVMXFnZ0lpdE53TDBfbzNDdzNnSlk5UDk5OWljWEw?oc=5",
-    "auto": true,
-    "image": "/images/security/auto/2026-11-21-21c06c39.jpg",
+    "url": "https://m.news.nate.com/view/20261121n08219",
+    "image": "/images/security/auto/2026-11-21-fbi-ncic.jpg",
     "credit": {
-      "name": "Bibek ghosh",
-      "url": "https://www.pexels.com/photo/code-on-screen-14553704/",
-      "id": 14553704
-    }
+      "name": "Brett Sayles",
+      "url": "https://www.pexels.com/photo/patch-cables-plugged-in-patch-panel-4682189/",
+      "id": 4682189
+    },
+    "slug": "fbi-2026-11",
+    "org": "미국 연방수사국(FBI)",
+    "aka": [
+      "FBI",
+      "NCIC",
+      "국가범죄정보센터",
+      "미 농무부",
+      "농무부",
+      "USDA",
+      "Department of Agriculture"
+    ],
+    "summary": "미국 연방수사국(FBI)이 수사기관들이 쓰는 국가범죄정보센터(NCIC)에 외부 침입 정황을 포착해 조사하고 있으며, 같은 주 미 농무부의 농민 지원금 지급 시스템도 사이버 공격을 받았습니다(CNN·NBC 보도 기준)."
   },
   {
     "date": "2026-11-20",

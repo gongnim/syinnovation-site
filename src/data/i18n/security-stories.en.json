@@ -2671,5 +2671,69 @@
         "url": "https://www.washingtonexaminer.com/news/world/4808482/european-commission-ai-cyberattack-artex/"
       }
     ]
+  },
+  "fbi-2026-11": {
+    "overview": [
+      "The US Federal Bureau of Investigation (FBI) is investigating signs that an outsider broke into its National Crime Information Center (NCIC). Two people briefed on the investigation said so. They suspect hackers were behind it (according to CNN).",
+      "The NCIC is a network shared by federal, state and local law enforcement agencies. Police officers use it every day to check for fugitives and warrants. It holds millions of criminal records (according to IBTimes).",
+      "In the same week, the US Department of Agriculture (USDA) was also hit by a cyberattack. A system that pays farmers was targeted (according to NBC). Whether the two incidents are linked has not been confirmed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-09",
+        "event": "The hacking group ShinyHunters went after staff personal data through an FBI jobs website. The FBI said it was investigating (according to ABC)."
+      },
+      {
+        "date": "2026-11-19",
+        "event": "The USDA told employees that one of its systems had been attacked (according to NBC)."
+      },
+      {
+        "date": "2026-11-20",
+        "event": "CNN first reported the FBI's investigation into the NCIC intrusion. NBC followed, also reporting the USDA attack."
+      },
+      {
+        "date": "2026-11-21",
+        "event": "President Trump said he had only recently learned of the FBI breach (according to AFP). Korean outlets such as Yonhap reported the incident."
+      }
+    ],
+    "impact": [
+      "Signs of an outside intrusion were found in the FBI's National Crime Information Center (NCIC) (according to CNN).",
+      "What information was accessed has not been confirmed.",
+      "The possibility that records were altered was raised. However, no actual alteration has been confirmed (according to Yonhap).",
+      "The USDA's system for paying farmers was attacked (according to NBC).",
+      "The USDA said no other systems had been attacked (according to NBC).",
+      "The USDA's position is that no personal data or other data was leaked (according to Yonhap)."
+    ],
+    "cause": [
+      "Who broke in has not been disclosed. No group has claimed responsibility yet (according to NBC). The intrusion path has not been made public either.",
+      "In the same week, the US saw a series of major outages in travel, communications and online shopping. Officials repeatedly said those outages were not linked to criminal activity. The FBI and USDA incidents, by contrast, were reported to appear malicious (according to AFP)."
+    ],
+    "response": [
+      "The FBI is investigating the signs of intrusion. As of the night the reports came out, the FBI had not commented (according to NBC).",
+      "The USDA acknowledged that a cybersecurity incident had occurred (according to Yonhap). The US Cybersecurity and Infrastructure Security Agency (CISA) referred questions to the USDA (according to NBC).",
+      "President Trump said the FBI breach was not good. He urged people to relax (according to AFP)."
+    ],
+    "sources": [
+      {
+        "outlet": "Yonhap News",
+        "date": "2026-11-21",
+        "url": "https://m.news.nate.com/view/20261121n08219"
+      },
+      {
+        "outlet": "NBC News",
+        "date": "2026-11-20",
+        "url": "https://www.nbcnews.com/politics/justice-department/fbi-investigating-potential-breach-crime-database-rcna610536"
+      },
+      {
+        "outlet": "ABC News (AFP)",
+        "date": "2026-11-22",
+        "url": "https://www.abc.net.au/news/2026-11-22/fbi-database-hacked-according-to-media-outlets/107413682"
+      },
+      {
+        "outlet": "IBTimes",
+        "date": "2026-11-21",
+        "url": "https://www.ibtimes.com/fbi-ncic-database-usda-cyberattack-reports-3810050"
+      }
+    ]
   }
 }

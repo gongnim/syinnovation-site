@@ -333,5 +333,10 @@
     "title": "European Commission staff pay and leave systems disrupted for over 10 days by cyberattack",
     "summary": "A cyberattack on the European Commission disrupted the systems staff use for pay, working hours, leave and medical reimbursement for more than 10 days, and the public AI hacking tool ARTEX was found to have been used in the attack (according to Politico).",
     "org": "European Commission"
+  },
+  "https://m.news.nate.com/view/20261121n08219": {
+    "title": "Signs of intrusion into FBI's National Crime Information Center; USDA farmer payment system also attacked",
+    "summary": "The FBI is investigating signs of an intrusion into the National Crime Information Center (NCIC) used by law enforcement agencies, and in the same week a US Department of Agriculture system that pays farmers was hit by a cyberattack (according to CNN and NBC).",
+    "org": "Federal Bureau of Investigation (FBI)"
   }
 }
