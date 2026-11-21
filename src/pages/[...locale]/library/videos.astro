@@ -20,8 +20,9 @@ const en = lang === 'en';
 // shows PAGE at first and PAGE more per 영상 더보기. From FILTER_FROM videos, category chips appear for the
 // categories holding at least CAT_MIN videos; once there are CHANNEL_FROM, a link to the YouTube channel follows.
 // 'AI 프로세스 혁신': the PI by AI service videos are not company introductions (user, 2026-11-20)
-const CATS = ['회사 소개', 'AI 프로세스 혁신', '제품 시연', '발표·세미나', '인터뷰'];
-const CATS_EN = ['About us', 'PI by AI', 'Product demos', 'Talks and seminars', 'Interviews']; // same order as CATS
+// the three education series match the YouTube playlists; they are Korean only, so their English titles end "(Korean)"
+const CATS = ['회사 소개', 'AI 프로세스 혁신', '제품 시연', '직장인 보안 수칙', '보안 사고 돌아보기', '제로트러스트 쉽게', '발표·세미나', '인터뷰'];
+const CATS_EN = ['About us', 'PI by AI', 'Product demos', 'Security at work', 'Breach breakdowns', 'Zero Trust, simply', 'Talks and seminars', 'Interviews']; // same order as CATS
 const CHANNEL = 'https://www.youtube.com/@SYINNOVATION';
 const PAGE = 6, SIDE = 3, FILTER_FROM = 20, CAT_MIN = 3, CHANNEL_FROM = 11;
 
@@ -37,6 +38,20 @@ const videos: Video[] = [
     en: { title: 'Payment fraud detection demo', youtube: '98huDt6B5Q0', poster: '/images/videos/payment-fds-en.jpg' } },
   { title: '직원 업무 접속 시연', youtube: 'tIgLZ_F0RUo', poster: '/images/videos/employee-access-ko.jpg', length: '0:59', date: '2026.11', cat: '제품 시연',
     en: { title: 'Employee work access demo', youtube: 'y5iq67GGses', poster: '/images/videos/employee-access-en.jpg' } },
+  { title: '수상한 메일과 문자: 링크와 첨부파일', youtube: 'qg85WQ7t1NM', poster: '/images/videos/edu-suspicious-mail.jpg', length: '3:41', date: '2026.11', cat: '직장인 보안 수칙', en: { title: 'Suspicious emails and texts: links and attachments (Korean)' } },
+  { title: '사무실 밖에서 일할 때: 카페·집·출장지', youtube: '3VHF3zXrIPQ', poster: '/images/videos/edu-outside-office.jpg', length: '3:37', date: '2026.11', cat: '직장인 보안 수칙', en: { title: 'Working outside the office: cafés, home and trips (Korean)' } },
+  { title: '계정과 권한: 빌려주지 않고, 제때 거두기', youtube: 'BNkScxO4RZQ', poster: '/images/videos/edu-accounts.jpg', length: '3:34', date: '2026.11', cat: '직장인 보안 수칙', en: { title: 'Accounts and access: never lend, revoke on time (Korean)' } },
+  { title: '휴대폰·노트북을 잃어버렸을 때', youtube: '_bExmuw2dY0', poster: '/images/videos/edu-lost-device.jpg', length: '3:11', date: '2026.11', cat: '직장인 보안 수칙', en: { title: 'When you lose your phone or laptop (Korean)' } },
+  { title: 'AI 도구에 회사 자료를 넣기 전에', youtube: 'w21QKeFme0Q', poster: '/images/videos/edu-ai-tools.jpg', length: '3:17', date: '2026.11', cat: '직장인 보안 수칙', en: { title: 'Before you put company data into AI tools (Korean)' } },
+  { title: '여러 대학이 함께 쓰는 연구행정 시스템 해킹', youtube: 'aCWhWhenrsc', poster: '/images/videos/case-univ-research.jpg', length: '3:45', date: '2026.11', cat: '보안 사고 돌아보기', en: { title: 'A research admin system shared by universities, hacked (Korean)' } },
+  { title: '가상자산 거래소 고객상담 위탁업체 해킹', youtube: 'DMq2U-Iy0QA', poster: '/images/videos/case-crypto-vendor.jpg', length: '3:28', date: '2026.11', cat: '보안 사고 돌아보기', en: { title: "A crypto exchange's support contractor, hacked (Korean)" } },
+  { title: '예약 시스템 협력사를 거친 항공사 고객 정보 유출', youtube: 'M6bCT15GMeA', poster: '/images/videos/case-airline-booking.jpg', length: '3:27', date: '2026.11', cat: '보안 사고 돌아보기', en: { title: 'Airline customer data leaked through a booking partner (Korean)' } },
+  { title: 'AI로 90여 곳을 해킹한 일당', youtube: '2_RjjaHp9nY', poster: '/images/videos/case-ai-hacking-ring.jpg', length: '3:45', date: '2026.11', cat: '보안 사고 돌아보기', en: { title: 'The ring that hacked some 90 organisations with AI (Korean)' } },
+  { title: '업무용 메신저 외부 접근 사고', youtube: 'SysZR8_6g4g', poster: '/images/videos/case-work-messenger.jpg', length: '3:20', date: '2026.11', cat: '보안 사고 돌아보기', en: { title: 'Outside access to a work messenger (Korean)' } },
+  { title: '일본 클라우드 서비스 랜섬웨어', youtube: 'ArOSU2f1Vjw', poster: '/images/videos/case-cloud-ransomware.jpg', length: '3:35', date: '2026.11', cat: '보안 사고 돌아보기', en: { title: 'Ransomware at a Japanese cloud service (Korean)' } },
+  { title: '제로트러스트의 세 가지 원칙', youtube: 'PUct0kevFMk', poster: '/images/videos/zt-principles.jpg', length: '4:26', date: '2026.11', cat: '제로트러스트 쉽게', en: { title: 'The three principles of Zero Trust (Korean)' } },
+  { title: '정하는 곳, 지키는 곳, 재료를 주는 곳: PDP·PEP·PIP', youtube: 'ppUAs5i_G14', poster: '/images/videos/zt-pdp-pep-pip.jpg', length: '4:14', date: '2026.11', cat: '제로트러스트 쉽게', en: { title: 'Where policy is decided, enforced and informed: PDP, PEP, PIP (Korean)' } },
+  { title: '어디쯤이고, 어디서부터: 성숙도 모델과 도입 단계', youtube: '072aMt4yJ9Y', poster: '/images/videos/zt-maturity.jpg', length: '4:34', date: '2026.11', cat: '제로트러스트 쉽게', en: { title: 'Where you stand and where to start: the Zero Trust maturity model (Korean)' } },
 ];
 // English page: the English title, note and category in place of the Korean
 if (en) for (const v of videos) { Object.assign(v, v.en); if (v.cat) v.cat = CATS_EN[CATS.indexOf(v.cat)]; }
