@@ -1,5 +1,21 @@
 [
   {
+    "date": "2026-11-21",
+    "title": "브로드컴, VM웨어 v센터 인증 우회 취약점 긴급 패치",
+    "source": "디지털데일리",
+    "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTFBiTmxGaUVGeENlQy1fUFpkWjBJMHBvRzk2emQ5cDN1ellkQUtQdlZPOHFZbXE4TjE0T19ZOTV6Ui1rZWxWczF0WGVSMXZtUk0xRWZIcC1xOTNraVJWOVJGaDZQZjU?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "긴급",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "name": "브로드컴",
+    "nameEn": "Broadcom",
+    "slug": "2026-11-21-broadcom-auth-bypass"
+  },
+  {
     "date": "2026-11-20",
     "title": "PHP, 세션 처리 취약점 3건 수정…특정 환경서 서버 코드 실행 위험",
     "source": "데일리시큐",
