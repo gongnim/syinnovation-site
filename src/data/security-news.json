@@ -1,5 +1,29 @@
 [
   {
+    "date": "2026-11-20",
+    "region": "해외",
+    "type": "해킹",
+    "title": "독일 \"사이버 위협 '위험' 수준\"…AI 해킹에 공격지수 83% 급등",
+    "source": "이데일리",
+    "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNRTlHT3V0N09iSmEzQTZ3bF9JZkNoZjdvRjhpWHlva2hScjBWNFZXYUNRRHR4b2NxcklSNXlobkhYbk9zV2hDc0RnSkVfZktIZUdRaXNrY0EyeFpONF9uTTBnLWt1MFp3bldONlB0dmRLamR3RklqTHBEMUJFS2xTYw?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-20-2ccd6eb2.jpg",
+    "credit": {
+      "name": "Bibek ghosh",
+      "url": "https://www.pexels.com/photo/code-on-screen-14553704/",
+      "id": 14553704
+    }
+  },
+  {
+    "date": "2026-11-19",
+    "region": "국내",
+    "type": "해킹",
+    "title": "AI 해킹 도구로 한국 대학 공격 정황…공통 업무시스템 보안 비상",
+    "source": "전자신문",
+    "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9VM1BBUXRCdWxxUGhGeTNKaEdJODhwLWRPZjRGcHFVUEhiUDZXcU1jU0xfTUYxd0tBcHVjLWtteFFuUUVqMzcyd2gtNzJxdw?oc=5",
+    "auto": true
+  },
+  {
     "date": "2026-11-21",
     "region": "해외",
     "type": "해킹",
