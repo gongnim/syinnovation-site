@@ -12,7 +12,8 @@
       "name": "Bibek ghosh",
       "url": "https://www.pexels.com/photo/code-on-screen-14553704/",
       "id": 14553704
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-19",
@@ -21,7 +22,8 @@
     "title": "AI 해킹 도구로 한국 대학 공격 정황…공통 업무시스템 보안 비상",
     "source": "전자신문",
     "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE9VM1BBUXRCdWxxUGhGeTNKaEdJODhwLWRPZjRGcHFVUEhiUDZXcU1jU0xfTUYxd0tBcHVjLWtteFFuUUVqMzcyd2gtNzJxdw?oc=5",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-21",
