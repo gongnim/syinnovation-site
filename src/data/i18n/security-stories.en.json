@@ -2735,5 +2735,55 @@
         "url": "https://www.ibtimes.com/fbi-ncic-database-usda-cyberattack-reports-3810050"
       }
     ]
+  },
+  "yebyeol-2026-11": {
+    "overview": [
+      "An outsider gained unauthorised access to the systems of LK Insurance Brokerage, the broker that handled group policies for Yebyeol Insurance (formerly MG Insurance). Personal data of people insured under a past group accident policy leaked as a result (according to Yebyeol Insurance).",
+      "Those affected are 66 people insured under a group accident policy taken out in July 2021 that ended in July 2022. The leaked data includes names, resident registration numbers, dates of birth, gender, mobile numbers, login IDs and employer names. The exact items differ from person to person (according to Aju Business Daily and Shinailbo).",
+      "All reports describe the contractor's systems. None says that Yebyeol Insurance's own systems were breached."
+    ],
+    "timeline": [
+      {
+        "date": "2026-10-25",
+        "event": "Unauthorised access to LK Insurance Brokerage's systems began (according to Aju Business Daily)."
+      },
+      {
+        "date": "2026-10-27",
+        "event": "The access continued until this day, the third day."
+      },
+      {
+        "date": "2026-11-22",
+        "event": "Yebyeol Insurance disclosed the leak in a notice on its website and to the press."
+      }
+    ],
+    "impact": [
+      "Personal data of 66 people insured under a past group accident policy leaked (according to Yebyeol Insurance).",
+      "The leaked items include resident registration numbers and mobile numbers.",
+      "No damage to Yebyeol Insurance's own systems has been reported."
+    ],
+    "cause": [
+      "The outsider reportedly broke into a group insurance claims service run by the contractor (according to Aju Business Daily). The attacker and the exact method have not been disclosed."
+    ],
+    "response": [
+      "LK Insurance Brokerage closed the access path used in the intrusion and fixed the security flaw. It also blocked the attacking IP addresses and overseas access, Yebyeol Insurance said (according to Aju Business Daily).",
+      "Yebyeol Insurance reported the incident to the Korea Internet & Security Agency (KISA) and the Personal Information Protection Commission. It said it notified the affected customers individually. It also said it would tighten oversight of the contractor (according to Edaily)."
+    ],
+    "sources": [
+      {
+        "outlet": "Aju Business Daily",
+        "date": "2026-11-22",
+        "url": "https://www.ajunews.com/view/20261122164931138"
+      },
+      {
+        "outlet": "Shinailbo",
+        "date": "2026-11-22",
+        "url": "https://www.shinailbo.co.kr/news/articleView.html?idxno=5086309"
+      },
+      {
+        "outlet": "Edaily",
+        "date": "2026-11-22",
+        "url": "https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01836806645648344"
+      }
+    ]
   }
 }
