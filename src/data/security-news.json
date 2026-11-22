@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-22",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "예별손보, 고객 66명 개인정보 유출",
+    "source": "서울경제",
+    "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE0taDlrNlRDc2VhSjR1VnZXbWpEaXBreFRvdkZzWUZoRzFZZ1ZwUTAzOVBybFQ0eTJHeVpIb2VGZTR4TDJMZmJ3elR1bU0zeFF1dWfSAVNBVV95cUxQdHpFUlh6MC1UNHNLQXR2cG1MNlFTMF90V25VQnN6SFVzZjVVVVUyRkF2cUVRQWF0dVE1SExZaGJyMUh5ZnNUMUg5VEo1VGdIRVVCQQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-22-83e00d36.jpg",
+    "credit": {
+      "name": "VAZHNIK",
+      "url": "https://www.pexels.com/photo/a-person-typing-7864382/",
+      "id": 7864382
+    }
+  },
+  {
     "date": "2026-11-20",
     "region": "해외",
     "type": "해킹",
