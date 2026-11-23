@@ -2,6 +2,45 @@
   {
     "date": "2026-11-23",
     "region": "국내",
+    "type": "개인정보 유출",
+    "title": "삼성증권 해킹 피해…고객 8천여 명 개인정보 유출",
+    "source": "KBS 뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1tUVUyQk1Sd0FXZXM2NGZGa0I1WnZ2Y0xqYzFCY2tMVTJ1YjNLRXUwNlZ3SU01d2tpSHpqajJINm1YNC1ETXF3alpLbjA1d2hLUDNRYmJMbUwzb1ZFUDJBOWx3UkNuUQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-23-bdfebb67.jpg",
+    "credit": {
+      "name": "Rômulo Queiroz",
+      "url": "https://www.pexels.com/photo/sound-program-on-a-screen-16594725/",
+      "id": 16594725
+    }
+  },
+  {
+    "date": "2026-11-23",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "HD현대로보틱스 홈페이지 해킹⋯가입자 개인정보 최대 10개 항목 유출",
+    "source": "아이뉴스24",
+    "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBHVE5Pc3JzcmVtZjdJNnFQd0p5amNvcXI5a1JNRFkwVWtndE1OZWcxaGVnc1NTTXMtYjNDMnNaT0FGX3I5NmlvS1V5VQ?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-21",
+    "region": "국내",
+    "type": "랜섬웨어",
+    "title": "[단독] 랜섬웨어 조직 에베레스트, 에이비엘바이오 해킹 주장…실제 유출 여부 조사해야",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE00U1ZsbDIwVDlSSU1QOHppcDNvSW5YMnplRDJ1ME5Nck1Qc0lYcmhNYzVpYnB1bXdBSHNLYk5LYnVEbWlzM0pSckRYUExEckFuVWJXLUZZcjY4WFJwbzI2U2JKdmU1TkF3OGZnRQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-21-2940183d.jpg",
+    "credit": {
+      "name": "Brett Sayles",
+      "url": "https://www.pexels.com/photo/server-racks-on-data-center-5480781/",
+      "id": 5480781
+    }
+  },
+  {
+    "date": "2026-11-23",
+    "region": "국내",
     "type": "해킹",
     "title": "증권사 해킹사고 도미노…삼성증권도 뚫렸다",
     "source": "ESG경제",
