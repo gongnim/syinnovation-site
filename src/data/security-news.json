@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-23",
+    "region": "국내",
+    "type": "해킹",
+    "title": "증권사 해킹사고 도미노…삼성증권도 뚫렸다",
+    "source": "ESG경제",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE5CM0hncWUySWxYcDlaYUdVRl9aWFc5ZTR5em9VSVpVZV9MRDJoNkJpSkY2aW92VUFHTjRCWmZRTWtoVFF5U0RRMG9jYkRiVUQyM0J1cklMb1M5NUJqNkJ5WVFfQWNVbjY1cHFEVQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-23-91f3dddc.jpg",
+    "credit": {
+      "name": "Pixabay",
+      "url": "https://www.pexels.com/photo/numbers-on-monitor-534216/",
+      "id": 534216
+    }
+  },
+  {
     "date": "2026-11-22",
     "region": "국내",
     "type": "개인정보 유출",
