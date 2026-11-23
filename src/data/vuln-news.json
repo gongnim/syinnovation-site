@@ -34,7 +34,9 @@
     "auto": true,
     "name": "브로드컴",
     "nameEn": "Broadcom",
-    "slug": "2026-11-21-broadcom-auth-bypass"
+    "slug": "2026-11-21-broadcom-auth-bypass",
+    "youtube": "J2dV99LNop4",
+    "youtubeDate": "2026-11-23"
   },
   {
     "date": "2026-11-20",
@@ -353,7 +355,9 @@
       "date": "2026-11-12"
     },
     "auto": true,
-    "slug": "2026-11-14-windows-privilege-escalation"
+    "slug": "2026-11-14-windows-privilege-escalation",
+    "youtube": "TA7NbFIE2tQ",
+    "youtubeDate": "2026-11-23"
   },
   {
     "date": "2026-11-12",
@@ -418,7 +422,9 @@
     "auto": true,
     "name": "파이어폭스",
     "nameEn": "Firefox",
-    "slug": "2026-11-12-firefox-vulnerability"
+    "slug": "2026-11-12-firefox-vulnerability",
+    "youtube": "FmhMtcGTHVU",
+    "youtubeDate": "2026-11-23"
   },
   {
     "date": "2026-11-12",
@@ -452,7 +458,9 @@
     "auto": true,
     "name": "이반티 엔드포인트 매니저",
     "nameEn": "Ivanti Endpoint Manager",
-    "slug": "2026-11-12-ivanti-endpoint-manager-sql-injection"
+    "slug": "2026-11-12-ivanti-endpoint-manager-sql-injection",
+    "youtube": "VlhrfDHVQsg",
+    "youtubeDate": "2026-11-23"
   },
   {
     "date": "2026-11-11",
