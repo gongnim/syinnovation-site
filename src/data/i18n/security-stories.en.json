@@ -2785,5 +2785,118 @@
         "url": "https://edaily.co.kr/News/Read?mediaCodeNo=257&newsId=01836806645648344"
       }
     ]
+  },
+  "hd-hyundai-robotics-2026-11": {
+    "overview": [
+      "The official website of HD Hyundai Robotics, an industrial robot maker, was accessed unlawfully from outside. The personal data of website members was leaked as a result. The company said the leak happened on Nov 19, 2026, and was confirmed the next day (according to EBN).",
+      "The leaked data covers up to 10 items, including names, user IDs, mobile phone numbers and email addresses. It also includes affiliation details such as company names, department names and job titles (according to Dailysecu). Passwords were encrypted.",
+      "The number of affected people and the intrusion route have not been disclosed. The company said it is working out exactly how the incident happened and how far the damage goes."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-19",
+        "event": "Website member data was leaked through unlawful outside access (according to the company). iNews24 reported that the company spotted signs of the unlawful access on this day."
+      },
+      {
+        "date": "2026-11-20",
+        "event": "The company confirmed that members' personal data had been leaked (according to EBN)."
+      },
+      {
+        "date": "2026-11-23",
+        "event": "The company posted a notice of the leak and an apology on its website, and media reports followed."
+      }
+    ],
+    "impact": [
+      "The leaked items are member type, name, user ID, encrypted password, company name, company landline number, department name, job title, mobile phone number and email address (according to Dailysecu).",
+      "The items actually leaked may differ from member to member.",
+      "The number of affected people has not been disclosed.",
+      "A company official said part of the leaked data had been masked (according to iNews24).",
+      "A company official said no secondary damage, such as impersonation fraud, had been reported so far (according to iNews24)."
+    ],
+    "cause": [
+      "The company said part of its members' data was leaked through unlawful outside access to its website. The initial intrusion route and the vulnerability used have not been disclosed.",
+      "There is no confirmation that the company's internal network, robot control systems or production facilities were breached (according to Dailysecu). The exact cause is under investigation."
+    ],
+    "response": [
+      "Right after detecting the abnormal access, the company blocked the IP addresses used in the attack and isolated the related server. It also tightened outside access controls and security monitoring (according to iNews24).",
+      "The company posted a notice of the leak on its website and is guiding members on how to check whether they are affected and which items were leaked (according to Pinpoint News). It advised members to change their passwords and to be wary of impersonation attempts.",
+      "The company said it would cooperate fully with the authorities' investigation. It said it would strengthen its data protection through further security checks. Whether and when it reported the incident to the authorities was not reported."
+    ],
+    "sources": [
+      {
+        "outlet": "iNews24",
+        "date": "2026-11-23",
+        "url": "https://www.inews24.com/view/2029384"
+      },
+      {
+        "outlet": "EBN",
+        "date": "2026-11-23",
+        "url": "https://www.ebn.co.kr/news/articleView.html?idxno=1732681"
+      },
+      {
+        "outlet": "Pinpoint News",
+        "date": "2026-11-23",
+        "url": "https://www.pinpointnews.co.kr/news/articleView.html?idxno=507170"
+      },
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-24",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209681"
+      }
+    ]
+  },
+  "samsung-securities-2026-11": {
+    "overview": [
+      "Signs of an outside intrusion were found in the 'Voice of Customer' (VOC) system on Samsung Securities' website. The VOC system is where customers file complaints and feedback. Samsung Securities disclosed this on Nov 23, 2026.",
+      "Some of the files customers attached when filing complaints were taken out. As a result, the personal data of 8,241 customers was leaked (according to the company). The leaked data covers up to 13 items, including names, addresses, contact numbers, bank account numbers and driver's license numbers.",
+      "The company said traces of the leak were found only in data submitted through the VOC system. It said customers who never used the VOC system are not affected. The intrusion route and cause are under investigation."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-21",
+        "event": "Samsung Securities found signs of an outside intrusion in the 'Voice of Customer' system on its website. The company blocked the IP addresses used in the intrusion and suspended the service (according to Korea Credit News)."
+      },
+      {
+        "date": "2026-11-23",
+        "event": "Samsung Securities announced that the personal data of 8,241 customers had been leaked. CEO Park Jong-moon posted an apology on the website (according to Insight Korea)."
+      }
+    ],
+    "impact": [
+      "The personal data of 8,241 customers was leaked (according to the company).",
+      "The leaked data covers up to 13 items, including names, addresses, contact numbers, bank account numbers and driver's license numbers.",
+      "The items actually leaked differ from person to person, depending on the files each customer uploaded.",
+      "The company said customers who never used the VOC system are not affected by the leak."
+    ],
+    "cause": [
+      "The company said an unauthorized outsider accessed the VOC system. Some attached files uploaded by customers, such as photos, were taken out (according to Youth Daily).",
+      "When the intrusion began and what method was used have not been disclosed. The exact cause and how the data was leaked are under investigation."
+    ],
+    "response": [
+      "Right after detecting the incident, Samsung Securities blocked the IP addresses used in the intrusion and suspended the related service. It reported the incident to the Financial Supervisory Service and the Korea Internet & Security Agency (KISA), among others. The date of the reports was not disclosed (according to Insight Korea).",
+      "The company decided to notify affected customers individually of what was leaked. It was also reported that customers can check on the website whether they are affected (according to Korea Credit News). A dedicated call center began taking damage reports.",
+      "The company said it is running a company-wide security review to check whether other systems saw similar intrusion attempts. It said it would compensate customers under the relevant laws and its internal rules if actual damage is confirmed (according to Segye Ilbo)."
+    ],
+    "sources": [
+      {
+        "outlet": "Segye Ilbo",
+        "date": "2026-11-23",
+        "url": "https://www.segye.com/newsView/20261123505165"
+      },
+      {
+        "outlet": "Korea Credit News",
+        "date": "2026-11-23",
+        "url": "https://www.creditnews.kr/news/articleView.html?idxno=32810"
+      },
+      {
+        "outlet": "Insight Korea",
+        "date": "2026-11-23",
+        "url": "https://www.insightkorea.co.kr/news/articleView.html?idxno=259506"
+      },
+      {
+        "outlet": "Youth Daily",
+        "date": "2026-11-23",
+        "url": "https://www.youthdaily.co.kr/news/article.html?no=230222"
+      }
+    ]
   }
 }

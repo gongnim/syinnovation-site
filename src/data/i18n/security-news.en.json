@@ -343,5 +343,15 @@
     "title": "Yebyeol Insurance: hack of an insurance broker contractor leaks personal data of 66 former group policy holders",
     "summary": "An outsider broke into the systems of LK Insurance Brokerage, the contractor that handled Yebyeol Insurance's group policies, and the personal data of 66 people insured under a past group accident policy leaked (according to Yebyeol Insurance).",
     "org": "Yebyeol Insurance"
+  },
+  "https://www.inews24.com/view/2029384": {
+    "title": "HD Hyundai Robotics: outside access to website leaks up to 10 items of members' personal data",
+    "summary": "Unlawful outside access to HD Hyundai Robotics' website leaked up to 10 items of members' personal data, including names, contact details, company names and job titles (according to the company).",
+    "org": "HD Hyundai Robotics"
+  },
+  "https://www.segye.com/newsView/20261123505165": {
+    "title": "Samsung Securities: intrusion into 'Voice of Customer' system leaks personal data of 8,241 customers",
+    "summary": "Signs of an outside intrusion were found in the 'Voice of Customer' system on Samsung Securities' website, and some files customers had uploaded were taken, leaking the personal data of 8,241 people (according to the company).",
+    "org": "Samsung Securities"
   }
 }

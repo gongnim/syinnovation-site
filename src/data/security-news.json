@@ -3,25 +3,43 @@
     "date": "2026-11-23",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "삼성증권 해킹 피해…고객 8천여 명 개인정보 유출",
-    "source": "KBS 뉴스",
-    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1tUVUyQk1Sd0FXZXM2NGZGa0I1WnZ2Y0xqYzFCY2tMVTJ1YjNLRXUwNlZ3SU01d2tpSHpqajJINm1YNC1ETXF3alpLbjA1d2hLUDNRYmJMbUwzb1ZFUDJBOWx3UkNuUQ?oc=5",
-    "auto": true,
-    "image": "/images/security/auto/2026-11-23-bdfebb67.jpg",
+    "title": "삼성증권 '고객의 소리' 시스템 외부 침입…고객 8,241명 개인정보 유출",
+    "source": "세계일보",
+    "url": "https://www.segye.com/newsView/20261123505165",
+    "image": "/images/security/auto/2026-11-23-samsung-securities-2026-11.jpg",
     "credit": {
-      "name": "Rômulo Queiroz",
-      "url": "https://www.pexels.com/photo/sound-program-on-a-screen-16594725/",
-      "id": 16594725
-    }
+      "name": "Luis Miguel P. Bonilla",
+      "url": "https://www.pexels.com/photo/black-headphones-and-keyboard-on-the-desk-3154311/",
+      "id": 3154311
+    },
+    "slug": "samsung-securities-2026-11",
+    "org": "삼성증권",
+    "aka": [
+      "Samsung Securities",
+      "삼성證"
+    ],
+    "summary": "삼성증권 홈페이지 '고객의 소리' 시스템에 외부 침입 흔적이 발견됐고, 고객이 올린 첨부파일 일부가 빠져나가 8,241명의 개인정보가 유출됐습니다(회사 발표 기준)."
   },
   {
     "date": "2026-11-23",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "HD현대로보틱스 홈페이지 해킹⋯가입자 개인정보 최대 10개 항목 유출",
+    "title": "HD현대로보틱스 홈페이지 외부 접근…가입자 개인정보 최대 10개 항목 유출",
     "source": "아이뉴스24",
-    "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTFBHVE5Pc3JzcmVtZjdJNnFQd0p5amNvcXI5a1JNRFkwVWtndE1OZWcxaGVnc1NTTXMtYjNDMnNaT0FGX3I5NmlvS1V5VQ?oc=5",
-    "auto": true
+    "url": "https://www.inews24.com/view/2029384",
+    "slug": "hd-hyundai-robotics-2026-11",
+    "org": "HD현대로보틱스",
+    "aka": [
+      "HD Hyundai Robotics",
+      "HD현대"
+    ],
+    "summary": "외부의 불법적인 접근으로 HD현대로보틱스 홈페이지 가입자의 이름, 연락처, 회사명, 직책 등 최대 10개 항목의 개인정보가 유출됐습니다(회사 발표 기준).",
+    "image": "/images/security/auto/2026-11-23-hd-hyundai-robotics-2026-11.jpg",
+    "credit": {
+      "name": "KJ Brix",
+      "url": "https://www.pexels.com/photo/close-up-of-modern-robotic-mechanism-16544054/",
+      "id": 16544054
+    }
   },
   {
     "date": "2026-11-21",
@@ -36,7 +54,8 @@
       "name": "Brett Sayles",
       "url": "https://www.pexels.com/photo/server-racks-on-data-center-5480781/",
       "id": 5480781
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-23",
@@ -51,7 +70,8 @@
       "name": "Pixabay",
       "url": "https://www.pexels.com/photo/numbers-on-monitor-534216/",
       "id": 534216
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-22",
