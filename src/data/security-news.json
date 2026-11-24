@@ -1,5 +1,44 @@
 [
   {
+    "date": "2026-11-24",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "하나저축은행도 ‘해킹’…고객 552명 개인정보 유출",
+    "source": "KBS 뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTFBsVDdNZEktRy1wdFdQd0VqV0tFU1Z6S0hxbGo5SlB6TWVXN0ptT1pGWmtmSHp5NGZ1ektyWUdsek9GN09uYWI3WG1qbHhPNGRKQzN6NEJXZUJOTkU?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-24-bc9af649.jpg",
+    "credit": {
+      "name": "Calvin Seng",
+      "url": "https://www.pexels.com/photo/night-view-of-skyscrapers-in-singapore-s-financial-district-32229751/",
+      "id": 32229751
+    }
+  },
+  {
+    "date": "2026-11-23",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "개인정보 유출 잇따르자…일본서 아날로그 '패스워드 수첩' 불티",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE1RT19Ka0hRMkt2ZWcxMTRXdWNZci1iNF91MzNHNV9RRVhqaE5BOFNmM29ZRXhWQ1VRS1hfUFJ0RnoyTUxnS0wtZTloU1Y4a0hhSlhORUZPd0VwblXSAWBBVV95cUxNVkRBYWVKb0JILVF6R1VmcWJZYUg3dW90LU5BY3lOSDZKQUhLdE96MlVtcUJodVhlNzJJTmVGZ1p3ZWpSTWt2QVFQVGFPcnRDWHVZOFl2dU1seU9LRzl5Q1c?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-22",
+    "region": "국내",
+    "type": "해킹",
+    "title": "[현장] 엔키화이트햇, AI 해킹에 AI로 대응…공격형 보안 시장 공략",
+    "source": "스트레이트뉴스",
+    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE1TLWp0TzVIYkpfWVIybThTdXBkaU55Wk5sUUVOUllucUloemViWXBQUTk4LXJza1Z5MHJvMGtVTUdKQnc5OGVGbmpMYlhXSFdLdFoxM3l4cUdyMUpvTV8zd010OUtNcXUtQXVOVERVdm4yOHPSAXdBVV95cUxPRG44Qzc0YVZjVkFtQnpreXdmeHB0SExWQXFxd2RkeTc4YVhMR1BndUc3Tm5DcktoV1o5d0Z0STVTVmlwb0JlTHZiQnZVTTc4aTctQnVLaHdZM2ozWnFEWG00QVhzdGdGUzZpMl82aTA4VTRjZ0RScw?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-22-aac2a734.jpg",
+    "credit": {
+      "name": "César Gaviria",
+      "url": "https://www.pexels.com/photo/html-code-on-computer-screen-in-dark-mode-36571389/",
+      "id": 36571389
+    }
+  },
+  {
     "date": "2026-11-23",
     "region": "해외",
     "type": "해킹",

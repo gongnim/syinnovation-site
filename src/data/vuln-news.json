@@ -1,5 +1,19 @@
 [
   {
+    "date": "2026-11-24",
+    "title": "'시스코 익스프레스웨이' 취약점 패치에도 뚫렸다",
+    "source": "디일렉",
+    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9aV2VkbldJRFVMZXRwY084ZkpZdS14dDVTaU5UQU1zZEtncU5CeThUaDBPQkwtajhNYjIzRXB3U2pxQjBmRndvU3IzXzBPWGZVakFIT2Z2Mm5kNkloaW03MExQWlA3dw?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "slug": "2026-11-24-vulnerability"
+  },
+  {
     "date": "2026-11-23",
     "title": "VMware vCenter 치명적 제로데이 취약점, 중국 연계 해커조직 실제 공격 악용",
     "source": "데일리시큐",
