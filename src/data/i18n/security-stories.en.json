@@ -2898,5 +2898,63 @@
         "url": "https://www.youthdaily.co.kr/news/article.html?no=230222"
       }
     ]
+  },
+  "hana-savings-bank-2026-11": {
+    "overview": [
+      "An outsider illegally broke into Hana Savings Bank's mobile web system for customer re-verification. The system is used to check and update existing customers' information again. The bank said it found the intrusion on Nov 16 (according to the bank's notice, News1 and Jaekyung Ilbo).",
+      "The personal data of 552 customers was leaked. Nineteen items were leaked, including name, resident registration number, phone number and address. The items leaked may differ from customer to customer (according to the bank's notice).",
+      "The bank is investigating whether more customers' data was leaked. The number of people affected may therefore rise (according to News1)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-16",
+        "event": "The bank found that an outsider had broken into its mobile web customer re-verification system (according to the bank's notice)."
+      },
+      {
+        "date": "2026-11-19",
+        "event": "The bank posted an apology on its website. It notified the affected customers individually by mobile phone or post (according to Jaekyung Ilbo and Hankyung)."
+      },
+      {
+        "date": "2026-11-24",
+        "event": "The bank announced the leak in a notice on its website, and the media reported the incident."
+      }
+    ],
+    "impact": [
+      "The personal data of 552 customers was leaked (according to the bank's notice).",
+      "Nineteen items were leaked, including name, English name, date of birth, resident registration number, phone number, home address, employer name, work address and email (according to Dailysecu).",
+      "The range of items leaked may differ from customer to customer.",
+      "Whether more data was leaked is still under investigation.",
+      "Concerns were raised that the data could be misused for identity theft, voice phishing, or pharming that lures people to fake websites (according to Hankyung).",
+      "Since late September, breaches have been confirmed at five savings banks: Yegaram, Welcome, DB, OK and now Hana. In total, 46,514 records were leaked (according to Hankyung)."
+    ],
+    "cause": [
+      "An outsider illegally broke into the mobile web customer re-verification system. The vulnerability used, the intrusion route and the time of the first intrusion have not been disclosed. It has also not been disclosed whether internal systems were affected (according to Dailysecu)."
+    ],
+    "response": [
+      "The bank blocked access from the outside IP addresses. It said it has taken further security measures and strengthened 24-hour monitoring. It is also preparing a relief procedure for victims (according to the bank's notice and Jaekyung Ilbo).",
+      "The bank asked customers to watch out for phishing text messages and impersonation. It also pointed them to identity-theft prevention services: the exposed-data accident prevention system, the non-face-to-face account opening block and the loan transaction block (according to Dailysecu)."
+    ],
+    "sources": [
+      {
+        "outlet": "News1",
+        "date": "2026-11-24",
+        "url": "https://www.news1.kr/finance/general-finance/6364784"
+      },
+      {
+        "outlet": "Hankyung",
+        "date": "2026-11-24",
+        "url": "https://hankyung.com/article/2026112476381"
+      },
+      {
+        "outlet": "Jaekyung Ilbo",
+        "date": "2026-11-24",
+        "url": "https://news.jkn.co.kr/post/1119983"
+      },
+      {
+        "outlet": "Dailysecu",
+        "date": "2026-11-25",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209707"
+      }
+    ]
   }
 }

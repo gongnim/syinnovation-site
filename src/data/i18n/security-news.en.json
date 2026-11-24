@@ -353,5 +353,10 @@
     "title": "Samsung Securities: intrusion into 'Voice of Customer' system leaks personal data of 8,241 customers",
     "summary": "Signs of an outside intrusion were found in the 'Voice of Customer' system on Samsung Securities' website, and some files customers had uploaded were taken, leaking the personal data of 8,241 people (according to the company).",
     "org": "Samsung Securities"
+  },
+  "https://www.news1.kr/finance/general-finance/6364784": {
+    "title": "Hana Savings Bank: personal data of 552 customers leaked in mobile web hack",
+    "summary": "An outsider broke into the mobile web system used to re-verify customer identities, and the personal data of 552 customers, including resident registration numbers, was leaked (according to the bank's notice).",
+    "org": "Hana Savings Bank"
   }
 }
