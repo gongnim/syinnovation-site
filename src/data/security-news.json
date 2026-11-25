@@ -1,5 +1,59 @@
 [
   {
+    "date": "2026-11-25",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "해외송금업체, 해킹에 20억 털렸다…정보유출 넘어 자금 탈취까지",
+    "source": "KB Think",
+    "url": "https://news.google.com/rss/articles/CBMickFVX3lxTE4wQmxQMGtWTklRQWVIU1JubVFMeWRYbXFXVWY5YWVkUjNkeDlCeGVseE81ZUxxbWNpWlNCUE41MkR0NVJIY2Qxc0VfZVZKM2NGQ3d0d3ZiSGdjVWk0X1habl9NZVYwS29SWmlGbmRycUJmUQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-25-6240c471.jpg",
+    "credit": {
+      "name": "Rafael Minguet Delgado",
+      "url": "https://www.pexels.com/photo/hacker-theme-with-code-on-laptop-screen-41223938/",
+      "id": 41223938
+    }
+  },
+  {
+    "date": "2026-11-25",
+    "region": "해외",
+    "type": "해킹",
+    "title": "미국 CIA·국가정보국 해킹 피해…정보당국 보안우려 고조(종합)",
+    "source": "연합뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE8tUG14N29EdV8tRl95UUNwRHllM1EteV9IYXFKM3phc1hmc3Y0Wlk5VFlIdlJnNkM1YWpicVV5RFQxZGVwOTNnVUowVHJ4VFVrS2lQUnFCX2NLLWVzQmZYVtIBYEFVX3lxTE8tUG14N29EdV8tRl95UUNwRHllM1EteV9IYXFKM3phc1hmc3Y0Wlk5VFlIdlJnNkM1YWpicVV5RFQxZGVwOTNnVUowVHJ4VFVrS2lQUnFCX2NLLWVzQmZYVg?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-25-0db8ca0a.jpg",
+    "credit": {
+      "name": "luis gomes",
+      "url": "https://www.pexels.com/photo/close-up-photo-of-programming-of-codes-546819/",
+      "id": 546819
+    }
+  },
+  {
+    "date": "2026-11-25",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "AI 해킹에 노출된 대학가… 에버스핀, 전국 대학 웹 보안 무상 기술검증 추진",
+    "source": "뉴스탭",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE84TG5uRHhmNzh3S2puRkZnbi1qdTVZZl9BZnV1ZEJGdVp6Q1kyLTkzeFFtbUQtTUk0LVN5alZKSi1HLWZNNWRUMEdZdU02TG5YODZqbmEtaDJrY2RORjg5MmZoZ044SjhXVG1Gag?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-25",
+    "region": "해외",
+    "type": "개인정보 유출",
+    "title": "일본, 개인정보 유출에 호신용품 불티…\"일본도 사서 강도 막자\"",
+    "source": "연합뉴스 한민족센터",
+    "url": "https://news.google.com/rss/articles/CBMidEFVX3lxTE1BR0lvVnNPSUl6MFdFV3o5a2pPQXBXb000RWc1Yl93el9KdWlDaFdvWm1HTzM1cVhtS3JpVjdvTDRIN0JfRDZNc01aVlBoNXoxMTQ0VWpmN2RFTmwwOElpN1FUOEc3TUxBYU1uRlhQeV85UmZ1?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-25-de088b36.jpg",
+    "credit": {
+      "name": "Pixabay",
+      "url": "https://www.pexels.com/photo/black-android-smartphone-on-top-of-white-book-39584/",
+      "id": 39584
+    }
+  },
+  {
     "date": "2026-11-24",
     "region": "국내",
     "type": "개인정보 유출",

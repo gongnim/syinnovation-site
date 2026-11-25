@@ -1,5 +1,20 @@
 [
   {
+    "date": "2026-11-25",
+    "title": "[이슈] 한전 해킹 뒤 ‘취약점 방치’ 제보 확인해보니…신고 건은 패치, 정부 취약점 신고제에 ‘패치 데드라인’ 도입 시급",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBDeS1UcmpQeGZRMWJpODAweUxvNWpwV3kyMklCVWlqLTg4Z3BoMmJ5dEl3cjY5Z0NjNjBXSVd4NHdsbVRZN2NTUEFsckw4UGNwUU1ibTZlMDlTYXQ0dENKTUdBd3dRZWtUSFBQQQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "name": "한전 해킹 뒤",
+    "slug": "2026-11-25-vulnerability"
+  },
+  {
     "date": "2026-11-24",
     "title": "'시스코 익스프레스웨이' 취약점 패치에도 뚫렸다",
     "source": "디일렉",
@@ -14,6 +29,27 @@
     "slug": "2026-11-24-vulnerability",
     "youtube": "SwkxkHctixs",
     "youtubeDate": "2026-11-25"
+  },
+  {
+    "date": "2026-11-23",
+    "title": "OpenJDK ‘Java4Shell’ 취약점 공격…에버스핀 보안 솔루션서 차단 확인",
+    "source": "헬로티",
+    "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTFAwMUZWNEtpMnE2emN5RVl3MDFuNUFueWVVNjhrRkxDWTFjVl9wMGlidTlQc0xDVWRkTmZuNUNFcTFVdVdIV0VTXzVwSVJLOFVyci1ja3ZSVGF2TUJwbW1v?oc=5",
+    "sources": [
+      {
+        "source": "서울Pn",
+        "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE55SXFjakV1TTYtZzg5N3hnbnN0WXQ3X3RGR3lxc2lxSFJYRlNkZnN6WEJPTGNwb19sbkpoWHh3am5mSGxKSHc5MzM4b1dMaG9JNWQ4MVJwODRyUVhMQ3d5cktR?oc=5"
+      }
+    ],
+    "products": [
+      "java"
+    ],
+    "cves": [],
+    "severity": "",
+    "status": "조치 권고",
+    "fixed": [],
+    "auto": true,
+    "slug": "2026-11-23-java-vulnerability"
   },
   {
     "date": "2026-11-23",
