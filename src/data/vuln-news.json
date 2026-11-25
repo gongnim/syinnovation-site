@@ -1,6 +1,38 @@
 [
   {
     "date": "2026-11-25",
+    "title": "구글 크롬 치명적 취약점 수정…업데이트 후 실행 버전 확인해야",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE54dUVySzhyNFRMM0lMdFdwT3NjTVA4QjNyMHNjSGxHMW1KR1cxanUzRDVzZVN1OU1kT3dSXzNHWUpMb0JMOGVxalpfWW9wUUxxMXNMb2tKbWI2dGlIZHVqS3hGeHcwcW5vYWdWbw?oc=5",
+    "sources": [],
+    "products": [
+      "chrome"
+    ],
+    "cves": [],
+    "severity": "치명적",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "slug": "2026-11-25-chrome-vulnerability"
+  },
+  {
+    "date": "2026-11-25",
+    "title": "시스코, 보안 패치 공백 메울 오픈소스 AI 방패 '시루도' 발표",
+    "source": "디일렉",
+    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE4tVDJVYjUxY2lsNVNfSjdJdDVYNnFxREtYXzg1UmU4N3pHeWtUU3h2VXgwbzI5ZXNTbzFycGI0TURKbVlWTkVlNzJDWWlBQlVWa0E4QmwySWFRdWlaWjRWa3pwOUg5UQ?oc=5",
+    "sources": [],
+    "products": [],
+    "cves": [],
+    "severity": "",
+    "status": "패치 나옴",
+    "fixed": [],
+    "auto": true,
+    "name": "시스코",
+    "nameEn": "Cisco",
+    "slug": "2026-11-25-cisco-vulnerability"
+  },
+  {
+    "date": "2026-11-25",
     "title": "[이슈] 한전 해킹 뒤 ‘취약점 방치’ 제보 확인해보니…신고 건은 패치, 정부 취약점 신고제에 ‘패치 데드라인’ 도입 시급",
     "source": "데일리시큐",
     "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBDeS1UcmpQeGZRMWJpODAweUxvNWpwV3kyMklCVWlqLTg4Z3BoMmJ5dEl3cjY5Z0NjNjBXSVd4NHdsbVRZN2NTUEFsckw4UGNwUU1ibTZlMDlTYXQ0dENKTUdBd3dRZWtUSFBQQQ?oc=5",
