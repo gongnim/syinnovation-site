@@ -2,17 +2,24 @@
   {
     "date": "2026-11-25",
     "region": "국내",
-    "type": "해킹",
-    "title": "한국투자저축은행 고객 8만6000명 정보 털렸다…저축은행 해킹 피해 최대",
+    "type": "개인정보 유출",
+    "title": "한국투자저축은행, 모바일 홈페이지 해킹으로 고객 8만6천여 명 개인정보 유출",
     "source": "파이낸셜뉴스",
-    "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE5SM0sybk5TTFN3RFo3WEZ1MTdYeW5NWDdxVFZod0ZmYkFEd25LN3Raa1VkNXFqZ3hka3BnWDFpd2xlWXVQU0JLeGZIXzUzUUVoY1ptOE85MFdtdw?oc=5",
-    "auto": true,
-    "image": "/images/security/auto/2026-11-25-69f5fbde.jpg",
+    "url": "https://www.fnnews.com/news/202611252011179061",
+    "image": "/images/security/auto/2026-11-25-korea-investment-savings-bank.jpg",
     "credit": {
-      "name": "Calvin Seng",
-      "url": "https://www.pexels.com/photo/night-view-of-skyscrapers-in-singapore-s-financial-district-32229751/",
-      "id": 32229751
-    }
+      "name": "Towfiqu barbhuiya",
+      "url": "https://www.pexels.com/photo/person-using-a-smartphone-11391948/",
+      "id": 11391948
+    },
+    "slug": "korea-investment-savings-bank-2026-11",
+    "org": "한국투자저축은행",
+    "aka": [
+      "Korea Investment Savings Bank",
+      "한투저축은행",
+      "한국투자저축銀"
+    ],
+    "summary": "한국투자저축은행 모바일 홈페이지에 비정상적인 외부 접근이 두 차례 있어, 고객 8만6611명의 이름, 생년월일, 휴대전화번호 등이 유출됐습니다(회사 공지, 파이낸셜뉴스 보도 기준)."
   },
   {
     "date": "2026-11-25",
@@ -27,22 +34,34 @@
       "name": "Rafael Minguet Delgado",
       "url": "https://www.pexels.com/photo/hacker-theme-with-code-on-laptop-screen-41223938/",
       "id": 41223938
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-25",
     "region": "해외",
     "type": "해킹",
-    "title": "미국 CIA·국가정보국 해킹 피해…정보당국 보안우려 고조(종합)",
+    "title": "미국 CIA·국가정보국 공개출처정보 분석 시스템 해킹, 비기밀 정보 일부 노출",
     "source": "연합뉴스",
-    "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE8tUG14N29EdV8tRl95UUNwRHllM1EteV9IYXFKM3phc1hmc3Y0Wlk5VFlIdlJnNkM1YWpicVV5RFQxZGVwOTNnVUowVHJ4VFVrS2lQUnFCX2NLLWVzQmZYVtIBYEFVX3lxTE8tUG14N29EdV8tRl95UUNwRHllM1EteV9IYXFKM3phc1hmc3Y0Wlk5VFlIdlJnNkM1YWpicVV5RFQxZGVwOTNnVUowVHJ4VFVrS2lQUnFCX2NLLWVzQmZYVg?oc=5",
-    "auto": true,
-    "image": "/images/security/auto/2026-11-25-0db8ca0a.jpg",
+    "url": "https://www.yna.co.kr/view/AKR20261125007451072",
+    "image": "/images/security/auto/2026-11-25-cia-odni.jpg",
     "credit": {
-      "name": "luis gomes",
-      "url": "https://www.pexels.com/photo/close-up-photo-of-programming-of-codes-546819/",
-      "id": 546819
-    }
+      "name": "Brett Sayles",
+      "url": "https://www.pexels.com/photo/patch-cables-plugged-in-patch-panel-4682187/",
+      "id": 4682187
+    },
+    "slug": "cia-odni-2026-11",
+    "org": "미국 중앙정보국(CIA)",
+    "aka": [
+      "CIA",
+      "Central Intelligence Agency",
+      "중앙정보국",
+      "국가정보국",
+      "ODNI",
+      "Office of the Director of National Intelligence",
+      "미 정보당국"
+    ],
+    "summary": "미국 CIA와 국가정보국(ODNI)이 쓰는 공개출처정보(OSINT) 분석 시스템이 해킹돼 기밀이 아닌 정보 일부가 노출됐으며, 기밀 자료와 기밀 시스템은 침해되지 않았다고 전해졌습니다(뉴욕타임스·AP 보도 기준)."
   },
   {
     "date": "2026-11-25",
@@ -51,7 +70,8 @@
     "title": "AI 해킹에 노출된 대학가… 에버스핀, 전국 대학 웹 보안 무상 기술검증 추진",
     "source": "뉴스탭",
     "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTE84TG5uRHhmNzh3S2puRkZnbi1qdTVZZl9BZnV1ZEJGdVp6Q1kyLTkzeFFtbUQtTUk0LVN5alZKSi1HLWZNNWRUMEdZdU02TG5YODZqbmEtaDJrY2RORjg5MmZoZ044SjhXVG1Gag?oc=5",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-25",
@@ -66,7 +86,8 @@
       "name": "Pixabay",
       "url": "https://www.pexels.com/photo/black-android-smartphone-on-top-of-white-book-39584/",
       "id": 39584
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-24",

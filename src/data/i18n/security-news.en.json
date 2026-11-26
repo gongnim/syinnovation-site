@@ -358,5 +358,15 @@
     "title": "Hana Savings Bank: personal data of 552 customers leaked in mobile web hack",
     "summary": "An outsider broke into the mobile web system used to re-verify customer identities, and the personal data of 552 customers, including resident registration numbers, was leaked (according to the bank's notice).",
     "org": "Hana Savings Bank"
+  },
+  "https://www.yna.co.kr/view/AKR20261125007451072": {
+    "title": "US CIA and ODNI open-source intelligence system hacked, some unclassified information exposed",
+    "summary": "An open-source intelligence (OSINT) analysis system used by the US CIA and the Office of the Director of National Intelligence (ODNI) was hacked and some unclassified information was exposed, while classified material and classified systems were reportedly not breached (according to The New York Times and AP).",
+    "org": "US Central Intelligence Agency (CIA)"
+  },
+  "https://www.fnnews.com/news/202611252011179061": {
+    "title": "Korea Investment Savings Bank: mobile website breach exposes data of about 86,000 customers",
+    "summary": "Abnormal outside access to Korea Investment Savings Bank's mobile website, on two occasions, exposed the names, dates of birth, mobile numbers and other details of 86,611 customers (according to the company's notice and The Financial News).",
+    "org": "Korea Investment Savings Bank"
   }
 }

@@ -2956,5 +2956,135 @@
         "url": "https://www.dailysecu.com/news/articleView.html?idxno=209707"
       }
     ]
+  },
+  "cia-odni-2026-11": {
+    "overview": [
+      "It became known that the US Central Intelligence Agency (CIA) and the Office of the Director of National Intelligence (ODNI) were hit by a hack. The New York Times reported this on Nov 24, 2026 (local time), citing government officials and people familiar with the matter. The Associated Press (AP) also reported, citing a source, that an unclassified CIA system had been attacked.",
+      "The system affected is reportedly an open-source intelligence (OSINT) system that collects and analyzes publicly available material. According to the reports, some information that is not classified was exposed. Classified material and classified systems were reportedly not breached.",
+      "When the two agencies discovered the breach has not been disclosed. What information was exposed and who the attacker is have not been revealed either."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-24",
+        "event": "The New York Times reported that the CIA and ODNI had recently suffered a hack that exposed some unclassified information (local time)."
+      },
+      {
+        "date": "2026-11-24",
+        "event": "AP reported, citing a source, that an unclassified CIA open-source intelligence system had been attacked and that the issue had been resolved."
+      },
+      {
+        "date": "2026-11-24",
+        "event": "An ODNI spokesperson told Reuters there had been no disruptions to critical capabilities or classified systems. The CIA did not immediately respond to a request for comment."
+      },
+      {
+        "date": "2026-11-25",
+        "event": "Korean media, including Yonhap News, reported the incident citing foreign reports."
+      }
+    ],
+    "impact": [
+      "Some unclassified information in the open-source intelligence analysis system was exposed (according to The New York Times).",
+      "Exactly what information was exposed has not been disclosed.",
+      "Classified material and classified systems were reportedly not breached (according to AP).",
+      "Information held by other federal agencies may also have been exposed, according to reports (according to The New York Times).",
+      "ODNI said there were no disruptions to critical capabilities or classified systems."
+    ],
+    "cause": [
+      "According to reports, a hacker appears to have gained unauthorized access to at least one government system. The intrusion path and method have not been disclosed. The attacker's identity and who is behind the attack have not been confirmed.",
+      "The system analyzes material such as internet and social media content, commercial satellite imagery and data from private data brokers (according to AP and Yonhap News). Most of this material is public, but combining several data sets can be used to work out sensitive information, according to reports. The exact cause has not yet been determined."
+    ],
+    "response": [
+      "The source cited by AP said the issue had been resolved. ODNI stated that there were no disruptions to critical capabilities or classified systems. The CIA did not immediately respond to a request for comment. What specific measures the two agencies took has not been disclosed.",
+      "The incident came to light amid a series of security incidents at US federal agencies. In the previous week, signs of an intrusion into the FBI's National Crime Information Center (NCIC) database were reported. However, no evidence has been made public that the two incidents are related."
+    ],
+    "sources": [
+      {
+        "outlet": "Yonhap News",
+        "date": "2026-11-25",
+        "url": "https://www.yna.co.kr/view/AKR20261125007451072"
+      },
+      {
+        "outlet": "Electronic Times",
+        "date": "2026-11-25",
+        "url": "https://www.etnews.com/20261125000358"
+      },
+      {
+        "outlet": "FOX 9",
+        "date": "2026-11-24",
+        "url": "https://www.fox9.com/news/cybersecurity-breach-cia-office-director-national-intelligence"
+      },
+      {
+        "outlet": "IBTimes UK",
+        "date": "2026-11-24",
+        "url": "https://www.ibtimes.co.uk/cia-odni-open-source-intelligence-network-breach-1834538"
+      }
+    ]
+  },
+  "korea-investment-savings-bank-2026-11": {
+    "overview": [
+      "Korea Investment Savings Bank's mobile website received abnormal access from outside. Customers' personal information was taken in the process. The bank posted a leak notice and an apology on its website (according to the company's notice and Asia Economy).",
+      "The first leak happened between the night of November 22 and the early hours of November 23 and affected 86,433 customers. On the morning of November 25, after the bank had blocked the access, the data of 178 more customers was leaked. In total, 86,611 customers are affected (according to The Financial News and Digital Daily).",
+      "The press described it as the largest personal data leak confirmed in the savings bank sector. Seven savings banks, including this one, have had confirmed breaches since September. No link between these incidents has been confirmed (according to Daily Secu)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-22",
+        "event": "From 10:42 p.m., abnormal outside access to the mobile website began (according to the company's notice and Asia Economy)."
+      },
+      {
+        "date": "2026-11-23",
+        "event": "The access continued until 3:35 a.m., and the data of 86,433 customers was leaked. The bank found it the same day during a system check and blocked the access path."
+      },
+      {
+        "date": "2026-11-24",
+        "event": "The bank posted a personal data leak notice and an apology on its website (according to Daily Secu)."
+      },
+      {
+        "date": "2026-11-25",
+        "event": "Between 9:43 and 10:02 a.m., the data of 178 more customers was leaked (according to Daily Secu and Digital Daily)."
+      },
+      {
+        "date": "2026-11-25",
+        "event": "The Financial News, Asia Economy and other outlets reported the incident."
+      }
+    ],
+    "impact": [
+      "The first leak exposed the data of 86,433 customers (according to the company's notice).",
+      "The additional leak on November 25 added 178 customers, for a total of 86,611 (according to The Financial News).",
+      "The leaked items are name, date of birth, gender, mobile phone number and connecting information (CI), five items in all.",
+      "The bank said financial transaction data such as account passwords was not leaked.",
+      "It is about twice the size of the previous largest savings bank leak, at Yegaram Savings Bank (43,246 people) (according to The Financial News).",
+      "The bank warned of follow-on harm such as voice phishing and spam text messages."
+    ],
+    "cause": [
+      "The bank said the cause was abnormal outside access to its mobile website. The attacker and the exact intrusion method have not been disclosed (according to the company's notice).",
+      "A second leak happened after the blocking measures. It has not been confirmed whether the original weakness remained open or another route was used (according to Daily Secu)."
+    ],
+    "response": [
+      "The bank blocked the IP addresses and the abnormal access path used in the attack. It suspended the related services and applied new security policies. It said it has also strengthened system monitoring (according to Asia Economy and Digital Daily).",
+      "The bank opened a damage reporting center and a dedicated email address. It said it will verify claims and then proceed with relief. It advised customers to use the exposed personal information alert system and identity theft prevention services (according to Digital Daily).",
+      "CEO Jeon Chan-woo apologized and said the bank takes the matter very seriously. He said the bank will strengthen internal controls to prevent a repeat (according to The Financial News)."
+    ],
+    "sources": [
+      {
+        "outlet": "The Financial News",
+        "date": "2026-11-25",
+        "url": "https://www.fnnews.com/news/202611252011179061"
+      },
+      {
+        "outlet": "Asia Economy",
+        "date": "2026-11-25",
+        "url": "https://view.asiae.co.kr/article/2026112519071035628"
+      },
+      {
+        "outlet": "Digital Daily",
+        "date": "2026-11-26",
+        "url": "https://www.ddaily.co.kr/page/view/2026112609381162182"
+      },
+      {
+        "outlet": "Daily Secu",
+        "date": "2026-11-26",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209748"
+      }
+    ]
   }
 }
