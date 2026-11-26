@@ -1,5 +1,30 @@
 [
   {
+    "date": "2026-11-26",
+    "region": "국내",
+    "type": "해킹",
+    "title": "콜로라도 정부 앱 해킹… “여권 꺼내세요”",
+    "source": "MBC AMERICA NEWS",
+    "url": "https://www.youtube.com/watch?v=DJKQVLmGix0",
+    "youtube": "DJKQVLmGix0",
+    "auto": true
+  },
+  {
+    "date": "2026-11-25",
+    "region": "해외",
+    "type": "해킹",
+    "title": "해킹 공포에 보험 찾는 기업들…일본 사이버 보험 시장 급성장",
+    "source": "디지털투데이",
+    "url": "https://news.google.com/rss/articles/CBMic0FVX3lxTE12aTEwbTZQelFwRVNjSDEyOVJ4Z3U4NUxvOEtoaHZjbFhnQi1xdXhSbDRyYmFpQnhIdUNaQ0NacHNNeEVpejBMM25QMG1fZURkRS1sc05aazkyem5neGNGWklReXRaaUt6LUFqOHpSTVZSVlk?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-25-6b195765.jpg",
+    "credit": {
+      "name": "Kindel Media",
+      "url": "https://www.pexels.com/photo/a-paper-beside-a-person-typing-on-a-laptop-7688374/",
+      "id": 7688374
+    }
+  },
+  {
     "date": "2026-11-25",
     "region": "국내",
     "type": "개인정보 유출",
