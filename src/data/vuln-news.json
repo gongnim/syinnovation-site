@@ -13,7 +13,9 @@
     "status": "패치 나옴",
     "fixed": [],
     "auto": true,
-    "slug": "2026-11-25-chrome-vulnerability"
+    "slug": "2026-11-25-chrome-vulnerability",
+    "youtube": "-2Cuw3Cha34",
+    "youtubeDate": "2026-11-26"
   },
   {
     "date": "2026-11-25",
@@ -81,7 +83,9 @@
     "status": "조치 권고",
     "fixed": [],
     "auto": true,
-    "slug": "2026-11-23-java-vulnerability"
+    "slug": "2026-11-23-java-vulnerability",
+    "youtube": "qtaMx7rTcOs",
+    "youtubeDate": "2026-11-20"
   },
   {
     "date": "2026-11-23",
