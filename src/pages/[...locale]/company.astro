@@ -11,7 +11,7 @@ const en = lang === 'en';
 // year counts are left out on purpose. hi: greeting lines, still to be confirmed by each person.
 // Photos: each person's original portrait re-posed into an office setting with an image model (2026-11-11);
 // the originals are kept outside the repo. up: who this person reports to inside their team
-// (임종세, 강민관 -> 공동현; 김재원 -> 박성수).
+// (임종세, 강민관 -> 공동현). 박성수 left the company and was taken off this page (2026-11-26).
 const people = [
   { n: '강형구', r: '대표이사', e: 'CEO', g: '', p: 'kang-hyungkoo',
     hi: '금융 현장에서 보안과 편리함이 늘 부딪히는 모습을 오래 지켜봤습니다. 둘 중 무엇도 포기하지 않는 보안, Trust Gateway로 증명하겠습니다.',
@@ -43,13 +43,7 @@ const people = [
     nEn: 'Minkwan Kang', rEn: 'Researcher',
     hiEn: 'The job of our lab is to stay one step ahead of attacks. I will dig into new attack techniques first and turn what I learn into technology that stops them.',
     cEn: ['Researcher, corporate R&D center', 'Security developer'] },
-  { n: '박성수', r: '전략총괄', e: 'CSO', g: '비즈니스', p: 'park-sungsoo',
-    hi: '좋은 보안은 일을 멈추게 하지 않습니다. 금융권 업무 혁신 현장에서 쌓은 경험으로, 고객의 업무에 꼭 맞는 보안을 설계하겠습니다.',
-    c: ['IBM · PwC · KPMG · AT Kearney 컨설팅', '금융권 업무혁신 · 정보기술 기획', '상담센터 · 고객관리 시스템 개발 총괄'],
-    nEn: 'Sungsoo Park', rEn: 'CSO',
-    hiEn: 'Good security does not stop work. Drawing on my experience in business innovation in the financial sector, I will design security that fits the way each customer works.',
-    cEn: ['Consulting at IBM · PwC · KPMG · AT Kearney', 'Business innovation · IT planning in the financial sector', 'Led development of contact center · customer management systems'] },
-  { n: '김재원', r: '마케팅총괄', e: 'CMO', g: '비즈니스', p: 'kim-jaewon', up: '박성수',
+  { n: '김재원', r: '마케팅총괄', e: 'CMO', g: '비즈니스', p: 'kim-jaewon',
     hi: '좋은 기술은 제대로 알려질 때 더 큰 힘을 냅니다. 어려운 보안을 누구나 이해할 수 있는 말로 전하고, Trust Gateway를 더 많은 곳에 알리겠습니다.',
     c: ['KB증권 베트남 마케팅 총괄', '온라인 마케팅 · 콘텐츠 전략', '정보기술 기획 · 고객 커뮤니케이션'],
     nEn: 'Jaewon Kim', rEn: 'CMO',
@@ -68,21 +62,21 @@ const teams = [
 const net = {
   desk: { w: 1000, h: 460,
     at: { 강형구: [500, 62], 경영지원: [170, 192], 연구개발: [500, 192], 비즈니스: [830, 192],
-      박희준: [170, 300], 공동현: [500, 292], 임종세: [418, 402], 강민관: [582, 402], 박성수: [830, 292], 김재원: [830, 402] },
+      박희준: [170, 300], 공동현: [500, 292], 임종세: [418, 402], 강민관: [582, 402], 김재원: [830, 292] },
     links: [
       ['강형구', '경영지원', 'M500 62 V128 H170 V192'], ['강형구', '연구개발', 'M500 62 V192'], ['강형구', '비즈니스', 'M500 62 V128 H830 V192'],
       ['경영지원', '박희준', 'M170 192 V300'], ['연구개발', '공동현', 'M500 192 V292'],
       ['공동현', '임종세', 'M500 292 V348 H418 V402'], ['공동현', '강민관', 'M500 292 V348 H582 V402'],
-      ['비즈니스', '박성수', 'M830 192 V292'], ['박성수', '김재원', 'M830 292 V402'],
+      ['비즈니스', '김재원', 'M830 192 V292'],
     ] },
-  mob: { w: 400, h: 790,
+  mob: { w: 400, h: 722,
     at: { 강형구: [200, 44], 경영지원: [128, 150], 연구개발: [128, 332], 비즈니스: [128, 626],
-      박희준: [252, 216], 공동현: [252, 398], 임종세: [282, 472], 강민관: [282, 544], 박성수: [252, 692], 김재원: [282, 760] },
+      박희준: [252, 216], 공동현: [252, 398], 임종세: [282, 472], 강민관: [282, 544], 김재원: [252, 692] },
     links: [
       ['강형구', '경영지원', 'M200 44 V94 H22 V150 H128'], ['강형구', '연구개발', 'M200 44 V94 H22 V332 H128'], ['강형구', '비즈니스', 'M200 44 V94 H22 V626 H128'],
       ['경영지원', '박희준', 'M128 150 V216 H252'], ['연구개발', '공동현', 'M128 332 V398 H252'],
       ['공동현', '임종세', 'M210 398 H170 V472 H282'], ['공동현', '강민관', 'M210 398 H170 V544 H282'],
-      ['비즈니스', '박성수', 'M128 626 V692 H252'], ['박성수', '김재원', 'M210 692 H170 V760 H282'],
+      ['비즈니스', '김재원', 'M128 626 V692 H252'],
     ] },
 } as const;
 type Net = keyof typeof net;
@@ -520,7 +514,7 @@ const ciKinds = [
     .txt { padding: 0 10px; }
     .hi { margin-top: 16px; }
     .career { margin-top: 20px; padding-top: 16px; }
-    .net { aspect-ratio: 400 / 790; border-radius: 20px; }
+    .net { aspect-ratio: 400 / 722; border-radius: 20px; }
     .links.desk { display: none; }
     .links.mob { display: block; }
     .hub, .node { left: var(--mx); top: var(--my); }
