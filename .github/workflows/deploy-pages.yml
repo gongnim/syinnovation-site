@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.retry.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
         with:
@@ -47,5 +47,14 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
+      # deploy-pages sometimes cannot see the artifact uploaded a second earlier ('No artifacts named "github-pages"',
+      # seen in failed runs on 11-25 and 11-26), so a failed first try waits and runs once more. The run fails only
+      # if both do.
       - id: deployment
+        uses: actions/deploy-pages@v5
+        continue-on-error: true
+      - if: steps.deployment.outcome == 'failure'
+        run: sleep 60
+      - id: retry
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v5
