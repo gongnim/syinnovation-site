@@ -3,6 +3,60 @@
     "date": "2026-11-27",
     "region": "국내",
     "type": "개인정보 유출",
+    "title": "전북은행, 해킹 공격에 고객·직원 467명 개인정보 유출",
+    "source": "매일일보",
+    "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1JMFpabHM4ZnhnS3JFR3FYQVVvVnRwRUJPcWU3eFNYbXJtZG5HQ0FpWDhnakRaZkdPeXV1YndhTzI4RVV5cFczZXdkNUtwUzF1U2RRS2RBUEhiNUNTQXpDdFQ2el8?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-27-f24178ef.jpg",
+    "credit": {
+      "name": "Pixabay",
+      "url": "https://www.pexels.com/photo/gray-auto-bill-counter-164688/",
+      "id": 164688
+    }
+  },
+  {
+    "date": "2026-11-27",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "과학기술인공제회 해킹…회원정보 21만건 유출, 국가 연구인력 표적공격 우려",
+    "source": "데일리시큐",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBzTUoyQkRnZHBIbExpajAzN25Pc0ZDME9HVGRheUtIODdjWm5SaFJzVG1xOExwcVMtNEJVWEpuQ202dEJFdmQwVmVGNktLdmgxZDVubDJIZTN4QmxjblNBTWZjd1JUYVB5MHdwdA?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-27",
+    "region": "국내",
+    "type": "해킹",
+    "title": "이나인페이, 해킹으로 25억원 피해…금감원 긴급 현장조사",
+    "source": "제민일보",
+    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE85N01sd1dIV1Z5TFRBWXdnYnJ1SEpTQWxPNVRWZm1rcVdydUVjSHJOamhpQnBPT2JsNXE0NjlJdVY3NEhWSDdkUE8xcVNHRm9INnhBcGp5WG95YjBLWGR1SlJxRXRUQQ?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-27-1019e4bb.jpg",
+    "credit": {
+      "name": "Drishan Dey",
+      "url": "https://www.pexels.com/photo/colorful-code-snippet-on-computer-screen-38440159/",
+      "id": 38440159
+    }
+  },
+  {
+    "date": "2026-11-25",
+    "region": "국내",
+    "type": "공급망 공격",
+    "title": "'해킹 위협 고도화' 반도체 첨단기술 기업 보안전담 인력 0명... 공급망 뚫리면 다 털린다",
+    "source": "공정뉴스",
+    "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9PR0hBeEVVNEgzTWxqSTB3NTYxUGRub2RpYXpBU0ZpM0VTLXBMbnZrTUQwc0lPNlNILTBHWWE5Ym9DcTZpZEtqZmlQYkdiTHYyaFNqcnNfTzJDU0dNckRMdkR2aVBjdEs2?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-25-eeedad65.jpg",
+    "credit": {
+      "name": "panumas nikhomkhai",
+      "url": "https://www.pexels.com/photo/high-speed-fiber-optic-network-connections-37564550/",
+      "id": 37564550
+    }
+  },
+  {
+    "date": "2026-11-27",
+    "region": "국내",
+    "type": "개인정보 유출",
     "title": "개인정보위, 유출사고 긴급 대응체계 가동…3개월 집중점검",
     "source": "전자신문",
     "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1aNjFsQnFhY2NjTWtlZFBpc295NFBaTHhrQm9DaWpTQWE4cEhXZGVWUW1sc1BXZ2hkd0tsbVlZdDhxYXY0YWNEQTdkRm9vQQ?oc=5",
