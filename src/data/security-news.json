@@ -3,40 +3,65 @@
     "date": "2026-11-27",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "전북은행, 해킹 공격에 고객·직원 467명 개인정보 유출",
+    "title": "전북은행, 비대면 가입 서버 해킹으로 고객·직원 467명 개인정보 유출",
     "source": "매일일보",
-    "url": "https://news.google.com/rss/articles/CBMiZEFVX3lxTE1JMFpabHM4ZnhnS3JFR3FYQVVvVnRwRUJPcWU3eFNYbXJtZG5HQ0FpWDhnakRaZkdPeXV1YndhTzI4RVV5cFczZXdkNUtwUzF1U2RRS2RBUEhiNUNTQXpDdFQ2el8?oc=5",
-    "auto": true,
-    "image": "/images/security/auto/2026-11-27-f24178ef.jpg",
+    "url": "https://www.m-i.kr/news/articleView.html?idxno=2024481",
+    "image": "/images/security/auto/2026-11-27-jbbank.jpg",
     "credit": {
-      "name": "Pixabay",
-      "url": "https://www.pexels.com/photo/gray-auto-bill-counter-164688/",
-      "id": 164688
-    }
+      "name": "panumas nikhomkhai",
+      "url": "https://www.pexels.com/photo/close-up-of-a-blue-server-rack-in-datacenter-37730211/",
+      "id": 37730211
+    },
+    "slug": "jbbank-2026-11",
+    "org": "전북은행",
+    "aka": [
+      "JB전북은행",
+      "Jeonbuk Bank"
+    ],
+    "summary": "전북은행 모바일 웹의 비대면 상품 가입 서버가 해외 IP에서 공격을 받아 고객 462명과 직원 5명의 개인정보가 유출됐습니다(전북은행 발표 기준)."
   },
   {
     "date": "2026-11-27",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "과학기술인공제회 해킹…회원정보 21만건 유출, 국가 연구인력 표적공격 우려",
+    "title": "과학기술인공제회 해킹으로 전·현 회원 정보 약 21만 건 유출",
     "source": "데일리시큐",
-    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBzTUoyQkRnZHBIbExpajAzN25Pc0ZDME9HVGRheUtIODdjWm5SaFJzVG1xOExwcVMtNEJVWEpuQ202dEJFdmQwVmVGNktLdmgxZDVubDJIZTN4QmxjblNBTWZjd1JUYVB5MHdwdA?oc=5",
-    "auto": true
+    "url": "https://www.dailysecu.com/news/articleView.html?idxno=209788",
+    "slug": "sema-2026-11",
+    "org": "과학기술인공제회",
+    "aka": [
+      "과기공",
+      "과기인공제회",
+      "SEMA"
+    ],
+    "summary": "과학기술인공제회 서버가 보안 취약점을 노린 외부 공격을 받아 현재 회원과 탈퇴 회원의 정보 약 21만 건이 유출됐습니다(공제회 발표 기준).",
+    "image": "/images/security/auto/2026-11-27-sema.jpg",
+    "credit": {
+      "name": "Ivan S",
+      "url": "https://www.pexels.com/photo/holder-with-empty-test-tubes-9628843/",
+      "id": 9628843
+    }
   },
   {
     "date": "2026-11-27",
     "region": "국내",
     "type": "해킹",
-    "title": "이나인페이, 해킹으로 25억원 피해…금감원 긴급 현장조사",
-    "source": "제민일보",
-    "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE85N01sd1dIV1Z5TFRBWXdnYnJ1SEpTQWxPNVRWZm1rcVdydUVjSHJOamhpQnBPT2JsNXE0NjlJdVY3NEhWSDdkUE8xcVNHRm9INnhBcGp5WG95YjBLWGR1SlJxRXRUQQ?oc=5",
-    "auto": true,
-    "image": "/images/security/auto/2026-11-27-1019e4bb.jpg",
+    "title": "해외송금업체 이나인페이, 해킹으로 약 25억원 탈취…금감원 현장점검",
+    "source": "매일일보",
+    "url": "https://www.m-i.kr/news/articleView.html?idxno=2024527",
+    "image": "/images/security/auto/2026-11-27-e9pay.jpg",
     "credit": {
-      "name": "Drishan Dey",
-      "url": "https://www.pexels.com/photo/colorful-code-snippet-on-computer-screen-38440159/",
-      "id": 38440159
-    }
+      "name": "Towfiqu barbhuiya",
+      "url": "https://www.pexels.com/photo/person-holding-an-empty-wallet-8515596/",
+      "id": 8515596
+    },
+    "slug": "e9pay-2026-11",
+    "org": "이나인페이",
+    "aka": [
+      "E9pay",
+      "E9페이"
+    ],
+    "summary": "소액 해외송금업체 이나인페이가 해킹 공격으로 약 25억원을 탈취당해 금융감독원이 현장점검에 나섰습니다(뉴스1·헤럴드경제 보도 기준)."
   },
   {
     "date": "2026-11-25",
@@ -51,7 +76,8 @@
       "name": "panumas nikhomkhai",
       "url": "https://www.pexels.com/photo/high-speed-fiber-optic-network-connections-37564550/",
       "id": 37564550
-    }
+    },
+    "hidden": true
   },
   {
     "date": "2026-11-27",

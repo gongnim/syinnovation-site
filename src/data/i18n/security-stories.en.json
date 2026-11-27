@@ -3305,5 +3305,181 @@
         "url": "https://www.sisajournal.com/news/articleView.html?idxno=395465"
       }
     ]
+  },
+  "e9pay-2026-11": {
+    "overview": [
+      "E9pay, a small-sum overseas remittance company, had funds stolen in hacking attacks. The loss was put at about 2.5 billion won (according to News1 and Herald Economy).",
+      "The attacks were reported to have taken place more than 90 times. The stolen money was mostly payment proceeds due to be paid out to merchants (according to Herald Economy).",
+      "The exact loss has not been confirmed. The attack method, its timing, whether customers were affected and the company's official position have not been disclosed."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-17",
+        "event": "E9pay filed a securities registration statement with the Financial Services Commission for a KOSDAQ listing (according to reports)."
+      },
+      {
+        "date": "2026-11-27",
+        "event": "The hack became public. The Financial Supervisory Service sent an on-site inspection team to E9pay."
+      }
+    ],
+    "impact": [
+      "About 2.5 billion won was reportedly stolen (according to News1 and Herald Economy).",
+      "The stolen money was mostly payment proceeds due to be paid out to merchants.",
+      "The exact loss has not been confirmed; the financial authorities are assessing it.",
+      "The planned KOSDAQ listing is expected to be delayed (according to Maeil Ilbo)."
+    ],
+    "cause": [
+      "Funds were reportedly drained over more than 90 hacking attacks. The specific method and who was behind the attacks have not been disclosed."
+    ],
+    "response": [
+      "The Financial Supervisory Service sent an on-site inspection team to establish the scale of the loss and how the incident happened (according to Herald Economy).",
+      "The financial authorities were reported to be running a security review of the whole financial sector through the end of the year."
+    ],
+    "sources": [
+      {
+        "outlet": "매일일보",
+        "date": "2026-11-27",
+        "url": "https://www.m-i.kr/news/articleView.html?idxno=2024527"
+      },
+      {
+        "outlet": "헤럴드경제",
+        "date": "2026-11-27",
+        "url": "https://biz.heraldcorp.com/article/10952260"
+      },
+      {
+        "outlet": "뉴스1",
+        "date": "2026-11-27",
+        "url": "https://www.news1.kr/finance/general-finance/6368967"
+      },
+      {
+        "outlet": "재경일보",
+        "date": "2026-11-27",
+        "url": "https://news.jkn.co.kr/post/1128270"
+      }
+    ]
+  },
+  "jbbank-2026-11": {
+    "overview": [
+      "A server behind Jeonbuk Bank's mobile-web service for opening products online was attacked. The attack came from an overseas IP address (according to the bank).",
+      "Personal data of 467 people, 462 customers and 5 employees, was leaked. The data includes account numbers, phone numbers and email addresses (according to the bank).",
+      "The bank said no critical data was included, so identifying customers is limited. Some outlets reported that an AI agent was used in the attack (according to Financial News and Supple)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-24",
+        "event": "In the afternoon, an attack from an overseas IP hit the online sign-up server. The bank blocked the IP 20 minutes after detecting the attack (according to the bank)."
+      },
+      {
+        "date": "2026-11-25",
+        "event": "Jeonbuk Bank reported the leak to the Financial Supervisory Service and the Financial Services Commission."
+      },
+      {
+        "date": "2026-11-26",
+        "event": "The leak was made public in the press."
+      },
+      {
+        "date": "2026-11-27",
+        "event": "No further leaks had been found as of this date (according to Nocut News)."
+      }
+    ],
+    "impact": [
+      "Personal data of 467 people, 462 customers and 5 employees, was leaked (according to the bank).",
+      "The data includes account numbers, phone numbers and email addresses.",
+      "The bank said no critical data was leaked.",
+      "It was reported as one of a series of recent hacks on Korean banks (according to Alpha Economy)."
+    ],
+    "cause": [
+      "The attacker is understood to have targeted the server for the mobile web's online product sign-up service. How the attacker got in and who was behind it have not been disclosed."
+    ],
+    "response": [
+      "Jeonbuk Bank blocked the IP after detecting the attack and reported it to the financial authorities. It said it would notify affected customers and prepare measures to prevent a recurrence (according to Financial News and Hankooki)."
+    ],
+    "sources": [
+      {
+        "outlet": "매일일보",
+        "date": "2026-11-27",
+        "url": "https://www.m-i.kr/news/articleView.html?idxno=2024481"
+      },
+      {
+        "outlet": "파이낸셜뉴스",
+        "date": "2026-11-27",
+        "url": "https://www.fnnews.com/news/202611271653094732"
+      },
+      {
+        "outlet": "노컷뉴스",
+        "date": "2026-11-27",
+        "url": "https://www.nocutnews.co.kr/news/6613546"
+      },
+      {
+        "outlet": "한국아이닷컴",
+        "date": "2026-11-27",
+        "url": "https://www.hankooki.com/news/articleView.html?idxno=349577"
+      }
+    ]
+  },
+  "sema-2026-11": {
+    "overview": [
+      "An outside attacker exploited a security flaw to gain unauthorised access to the Science and Technology Mutual Aid Association's server. The attacker then looked up members' personal data (according to the association's notice).",
+      "About 210,000 records were leaked. They cover both current members and members who had left (according to the association).",
+      "The leak covers 16 data fields, including resident registration numbers, passwords, workplace and job rank. Resident registration numbers and passwords were encrypted, and the association said no financial data was included."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-08",
+        "event": "At around 4:10 a.m., an outside attacker gained unauthorised access to the server (according to Electronic Times)."
+      },
+      {
+        "date": "2026-11-08",
+        "event": "At around 9:32 p.m., about 17 hours later, the association noticed the intrusion."
+      },
+      {
+        "date": "2026-11-25",
+        "event": "The association confirmed that member data had been taken."
+      },
+      {
+        "date": "2026-11-26",
+        "event": "The association posted a notice of the leak on its website."
+      },
+      {
+        "date": "2026-11-27",
+        "event": "Text messages about the leak were sent to members."
+      }
+    ],
+    "impact": [
+      "About 210,000 records of current and former members were leaked (according to the association).",
+      "The leak covers 16 data fields, including resident registration numbers, passwords, workplace and job rank.",
+      "Resident registration numbers and passwords were leaked in encrypted form.",
+      "The association said no financial data was among the leaked fields."
+    ],
+    "cause": [
+      "An outside attacker exploited a security flaw in the server to gain unauthorised access. Which flaw it was and who was behind the attack have not been disclosed.",
+      "Concerns were raised that the leaked data on researchers could be used in targeted attacks (according to Dailysecu)."
+    ],
+    "response": [
+      "The association blocked the unauthorised access, fixed the security flaw and reported the incident to the relevant agencies (according to the association's notice).",
+      "The association runs a cyber incident help line for affected members."
+    ],
+    "sources": [
+      {
+        "outlet": "데일리시큐",
+        "date": "2026-11-27",
+        "url": "https://www.dailysecu.com/news/articleView.html?idxno=209788"
+      },
+      {
+        "outlet": "전자신문",
+        "date": "2026-11-27",
+        "url": "https://www.etnews.com/20261127000113"
+      },
+      {
+        "outlet": "머니투데이방송",
+        "date": "2026-11-27",
+        "url": "https://news.mtn.co.kr/article/2026112714154880272"
+      },
+      {
+        "outlet": "서울경제",
+        "date": "2026-11-27",
+        "url": "https://m.sedaily.com/article/20119766"
+      }
+    ]
   }
 }

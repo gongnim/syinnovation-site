@@ -388,5 +388,20 @@
     "title": "Sh Suhyup Bank website lookup page hacked, data of 54 customers leaked",
     "summary": "An attacker fed real-name ID numbers they already held into the customer information lookup page on Sh Suhyup Bank's website at random, pulling out the data of 54 customers (according to Newsway and News1).",
     "org": "Sh Suhyup Bank"
+  },
+  "https://www.m-i.kr/news/articleView.html?idxno=2024527": {
+    "title": "Remittance firm E9pay loses about 2.5 billion won to hackers; regulator opens on-site inspection",
+    "summary": "Small-sum overseas remittance firm E9pay had about 2.5 billion won stolen in hacking attacks, and the Financial Supervisory Service began an on-site inspection (according to News1 and Herald Economy).",
+    "org": "E9pay"
+  },
+  "https://www.m-i.kr/news/articleView.html?idxno=2024481": {
+    "title": "Jeonbuk Bank: hack on online sign-up server exposes data of 467 customers and staff",
+    "summary": "A server behind Jeonbuk Bank's mobile-web online product sign-up service was attacked from an overseas IP, exposing personal data of 462 customers and 5 employees (according to the bank).",
+    "org": "Jeonbuk Bank"
+  },
+  "https://www.dailysecu.com/news/articleView.html?idxno=209788": {
+    "title": "Science and Technology Mutual Aid Association hacked, about 210,000 member records leaked",
+    "summary": "An attacker exploited a security flaw in the Science and Technology Mutual Aid Association's server, leaking about 210,000 records of current and former members (according to the association).",
+    "org": "Science and Technology Mutual Aid Association (SEMA)"
   }
 }
