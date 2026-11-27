@@ -1,5 +1,71 @@
 [
   {
+    "date": "2026-11-27",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "개인정보위, 유출사고 긴급 대응체계 가동…3개월 집중점검",
+    "source": "전자신문",
+    "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1aNjFsQnFhY2NjTWtlZFBpc295NFBaTHhrQm9DaWpTQWE4cEhXZGVWUW1sc1BXZ2hkd0tsbVlZdDhxYXY0YWNEQTdkRm9vQQ?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-27",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "올해 개인정보 유출 신고 폭증…월평균 100건, 지난해 2배 \"AI 해킹 위협 현실화\" - 머니투데이",
+    "source": "머니투데이",
+    "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBWRGJZdS1yd0pBQ2lmTmhyS2N6SFhhSGVZa0VXbmFrbm5mdnNMTWtzV3Nwa0tUZGpmU2g5TEdDcGtCanhxb25weG54QVVzQV9SRE95VG5CbUIyWG1BMmR5TmI2YlpaaDBBdWZ1N9IBbEFVX3lxTFBWRGJZdS1yd0pBQ2lmTmhyS2N6SFhhSGVZa0VXbmFrbm5mdnNMTWtzV3Nwa0tUZGpmU2g5TEdDcGtCanhxb25weG54QVVzQV9SRE95VG5CbUIyWG1BMmR5TmI2YlpaaDBBdWZ1Nw?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-27",
+    "region": "국내",
+    "type": "해킹",
+    "title": "국가안보실, 금융당국 긴급 소집…“해킹 2차 피해 대책 점검”",
+    "source": "한겨레",
+    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE1vaUFPMHFIQzZnZ09BYThZU0VLUkh0MGZaUHdVUmczWUVGXzBSamhVeWN0VnBNUGl2ckdla3FxdnB2cUFRdzJkWjBzaW91TnBoWC1FTVFJcU9wQW5wYWdpOWxYLW5zVnVyVjdz?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-27-05f57890.jpg",
+    "credit": {
+      "name": "luis gomes",
+      "url": "https://www.pexels.com/photo/close-up-photo-of-programming-of-codes-546819/",
+      "id": 546819
+    }
+  },
+  {
+    "date": "2026-11-26",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "올리브영, 해킹 공격에 개인정보 유출… 790명 이름·연락처 노출",
+    "source": "천지일보",
+    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1VRkxsN1lSbFFmZEI2SnFXYV9GVVd3LTlwclRCTG9WRm1yZFY2UkItZWJGTU5aSTRXVkZweXV4N194c28xRUZRSVZVbG0wLVRyajhmSEdqakd0OG5EVzVTRURqWjcxUlprcVE?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-26",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "FIFA까지 털렸다···“해킹 그룹, 다크웹에 자료 유출”",
+    "source": "경향신문",
+    "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9TdzBiNURqa3V6WjBadjlZYU1KN1hHdUdnaHc0UG9zRWI4Q2ZFVzJTVFJ2UnBYZlp5QnpvWWoxSlZTTXByVU1yYVJNeGFnVHVZSzNzUG5QTzdud9IBX0FVX3lxTE15b2h1ZWc3c2ttNEx6dmNVcWZrUVppS1RpckVTczRhVThIdlgtYk5Ubkdrb1NmYVJfQXhtRGExaU1TUXNxb3diTG01VmxpTWV3ZnFUNS01ZGlvWXBiRE1r?oc=5",
+    "auto": true
+  },
+  {
+    "date": "2026-11-26",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "수협은행도 해킹에 뚫렸다…고객 54명 정보 유출",
+    "source": "연합인포맥스",
+    "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5aemFMMFV0QmN3bUpjcTFFVWVfeV9TYUJpQmFseWRDa05qYnd1eHlpSzFfeHpLUHFWNmRqTEJYcGxpblpEa1RleVFuYXNQZEUxcDlqWWd3XzlhUU9Hb05TTDc1YVRVRzUtT3ktUGJsTDc?oc=5",
+    "auto": true,
+    "image": "/images/security/auto/2026-11-26-bfb9114e.jpg",
+    "credit": {
+      "name": "Calvin Seng",
+      "url": "https://www.pexels.com/photo/night-view-of-skyscrapers-in-singapore-s-financial-district-32229751/",
+      "id": 32229751
+    }
+  },
+  {
     "date": "2026-11-26",
     "region": "국내",
     "type": "개인정보 유출",
