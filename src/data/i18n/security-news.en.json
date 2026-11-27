@@ -368,5 +368,25 @@
     "title": "Korea Investment Savings Bank: mobile website breach exposes data of about 86,000 customers",
     "summary": "Abnormal outside access to Korea Investment Savings Bank's mobile website, on two occasions, exposed the names, dates of birth, mobile numbers and other details of 86,611 customers (according to the company's notice and The Financial News).",
     "org": "Korea Investment Savings Bank"
+  },
+  "https://www.boannews.com/news/articleView.html?idxno=147539": {
+    "title": "MMORPG Dark Eden: website vulnerability attack leaks data of members who were logged in",
+    "summary": "The website of the MMORPG Dark Eden was hit by an outside attack that exploited a vulnerability, and data of some members who were on the site during the attack was leaked (according to the operator, Softon).",
+    "org": "Softon"
+  },
+  "https://www.khan.co.kr/article/202611262310001/": {
+    "title": "FIFA confirms unauthorized access in cyberattack; hacking group claims to have posted data on the dark web",
+    "summary": "FIFA confirmed that a cyberattack led to unauthorized access to some personal and business information. A hacking group claims it stole 12.2GB and posted a list on the dark web, but it has not been confirmed that the data is FIFA's (according to Kyunghyang Shinmun, citing SRF).",
+    "org": "FIFA"
+  },
+  "https://ebn.co.kr/news/articleView.html?idxno=1733171": {
+    "title": "CJ Olive Young internal system breach exposes data of 790 staff and customers",
+    "summary": "An outsider accessed CJ Olive Young's internal business system without authorisation, exposing the member numbers and some contact details of 790 people, including employees, partner staff and customers (according to the company's notice and EBN).",
+    "org": "CJ Olive Young"
+  },
+  "https://www.newsway.co.kr/news/view?ud=2026112711332523430": {
+    "title": "Sh Suhyup Bank website lookup page hacked, data of 54 customers leaked",
+    "summary": "An attacker fed real-name ID numbers they already held into the customer information lookup page on Sh Suhyup Bank's website at random, pulling out the data of 54 customers (according to Newsway and News1).",
+    "org": "Sh Suhyup Bank"
   }
 }

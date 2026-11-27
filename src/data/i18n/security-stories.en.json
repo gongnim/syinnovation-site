@@ -3086,5 +3086,224 @@
         "url": "https://www.dailysecu.com/news/articleView.html?idxno=209748"
       }
     ]
+  },
+  "softon-2026-11": {
+    "overview": [
+      "The website of the MMORPG Dark Eden was hit by an outside hacking attack. The attacker exploited a vulnerability in the website. As a result, some members' information was leaked (according to the notice from the operator, Softon).",
+      "The attack lasted from the evening of 2026-11-21 until around midnight on 2026-11-23. Some members who were on the website during this period are affected.",
+      "The leaked information is user ID, name, email, gender, date of birth and duplicate-registration check information (DI). Some login and mobile phone verification records and the history of encrypted password changes were also included. For a small number of members, 1:1 inquiry history, secondary password and OTP change history, and password recovery questions and answers were also leaked (according to the operator's notice)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-21",
+        "event": "Around 7:30 p.m., an outside hacking attack exploiting a website vulnerability began (according to the operator's notice)."
+      },
+      {
+        "date": "2026-11-23",
+        "event": "The attack continued until around 12:05 a.m."
+      },
+      {
+        "date": "2026-11-25",
+        "event": "The operator posted a data leak notice and an apology on its website."
+      }
+    ],
+    "impact": [
+      "The number of people affected has not been disclosed, and the exact scope and the affected members are still being identified (according to the operator's notice).",
+      "Only some members who were on the website during the attack are affected.",
+      "The ID, name, email, gender, date of birth and DI of those members were leaked.",
+      "Some login and mobile phone verification records and the history of encrypted password changes were leaked.",
+      "For a small number of members, 1:1 inquiry history, secondary password and OTP change history, and password recovery questions and answers were leaked."
+    ],
+    "cause": [
+      "The attacker exploited a vulnerability in the Dark Eden website (according to the operator's notice). The type of vulnerability and who was behind the attack have not been disclosed."
+    ],
+    "response": [
+      "The operator said it immediately blocked the intrusion path and the vulnerability. It is also strengthening the website's security (according to the operator's notice).",
+      "The operator reported the incident to the Korea Internet & Security Agency (KISA) and other authorities. It said it is cooperating with the investigation and continuing to identify the scope and the affected members.",
+      "The operator apologized to members and asked them to change their passwords and password recovery questions and answers. It also warned them to watch out for emails and text messages impersonating Dark Eden."
+    ],
+    "sources": [
+      {
+        "outlet": "Boan News",
+        "date": "2026-11-25",
+        "url": "https://www.boannews.com/news/articleView.html?idxno=147539"
+      },
+      {
+        "outlet": "Dark Eden notice (Softon)",
+        "date": "2026-11-25",
+        "url": "https://www.darkeden.com/news/?idx=13303"
+      },
+      {
+        "outlet": "Cox News",
+        "date": "2026-11-27",
+        "url": "https://www.coxnews.co.kr/news/articleView.html?idxno=7005"
+      }
+    ]
+  },
+  "fifa-2026-11": {
+    "overview": [
+      "FIFA, the international governing body of football, said it was the target of a criminal cyberattack. It confirmed that there was unauthorized access to a limited set of personal and business information (according to FIFA). Swiss public broadcaster SRF first reported this on 2026-11-26.",
+      "A hacking group calling itself the Handsome Boy Hacking Club (HBHC) claimed it stole 12.2GB of FIFA's internal data. It said the data includes identity and immigration documents, information on executives, financial and governance records, and World Cup sponsorship contracts (according to Kyunghyang Shinmun, citing SRF).",
+      "However, it has not been confirmed that the material the group posted actually came from FIFA. FIFA has not disclosed the scale of the damage, when the attack took place or what specific data was taken."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-26",
+        "event": "Swiss public broadcaster SRF reported the FIFA hack. FIFA confirmed it had been hit by a cyberattack that led to unauthorized access to some information."
+      },
+      {
+        "date": "2026-11-26",
+        "event": "Reuters, citing a person familiar with the matter, reported that less than 0.1% of FIFA's data was affected (according to Kyunghyang Shinmun and SBS)."
+      }
+    ],
+    "impact": [
+      "FIFA said there was unauthorized access to a limited set of personal and business information (according to FIFA).",
+      "The hacking group claimed it stole 12.2GB, but whether the data is genuine has not been confirmed (according to Kyunghyang Shinmun, citing SRF).",
+      "Less than 0.1% of FIFA's data was reportedly affected (according to an unnamed source cited by Reuters).",
+      "Material on FIFA Forward Enterprise (FFE), a project FIFA pursued and then dropped, was reportedly not leaked (according to an unnamed source).",
+      "The number of people affected and the time of the attack have not been disclosed."
+    ],
+    "cause": [
+      "The attack reportedly did not result from a system or technology failure. The attackers are said to have reached the documents by impersonating and deceiving staff (according to TechInformed, citing the BBC). FIFA has not explained how the attack happened.",
+      "The group appears to have tried to extort FIFA and, when its demands were not met, posted a list of the files on a dark web cybercrime forum (according to Kyunghyang Shinmun, citing SRF)."
+    ],
+    "response": [
+      "FIFA said it is working closely with the relevant authorities, including law enforcement. It said it strongly condemns the unlawful obtaining and publication of information, especially personal data (according to FIFA).",
+      "FIFA described such acts as a serious invasion of privacy that could have significant consequences for the people affected. It gave no further detail on the scale of the damage or how the attack happened."
+    ],
+    "sources": [
+      {
+        "outlet": "Kyunghyang Shinmun",
+        "date": "2026-11-26",
+        "url": "https://www.khan.co.kr/article/202611262310001/"
+      },
+      {
+        "outlet": "TechInformed",
+        "date": "2026-11-26",
+        "url": "https://techinformed.com/fifa-hit-by-cyberattack/"
+      },
+      {
+        "outlet": "SBS",
+        "date": "2026-11-27",
+        "url": "https://news.sbs.co.kr/english/article.do?news_id=N1008865852"
+      }
+    ]
+  },
+  "oliveyoung-2026-11": {
+    "overview": [
+      "Someone from outside accessed CJ Olive Young's internal business system without authorisation. Personal data in some documents stored on the system was taken. The company disclosed this in a notice on its website on November 26 (according to the company's notice and EBN).",
+      "790 people were affected. They are 639 Olive Young employees, 106 partner company staff and 45 customers. More than 80% of those affected are employees (according to EBN and Alpha Economy).",
+      "The intrusion hit an internal business system, not the customer shopping service. The company said payment details such as cards, and passwords, were not leaked (according to Wikitree)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-23",
+        "event": "An outsider accessed Olive Young's internal business system without authorisation (according to the company's notice and EBN)."
+      },
+      {
+        "date": "2026-11-26",
+        "event": "Olive Young posted a notice about the data leak on its website."
+      },
+      {
+        "date": "2026-11-27",
+        "event": "Wikitree, Alpha Economy and other outlets reported the incident."
+      }
+    ],
+    "impact": [
+      "790 people were affected (according to the company's notice).",
+      "They are 639 employees, 106 partner company staff and 45 customers (according to EBN).",
+      "Member numbers were exposed for all 790 people.",
+      "For some, names, user IDs, mobile numbers, dates of birth, email addresses and access IP addresses were also exposed (according to EBN and Alpha Economy).",
+      "The company said payment details such as cards, and passwords, were not leaked."
+    ],
+    "cause": [
+      "All that is known is that an outsider accessed the internal business system without authorisation. The attacker used an account, which the company has since disabled. How that account was obtained and how the intrusion worked have not been disclosed (according to EBN and Wikitree)."
+    ],
+    "response": [
+      "Olive Young cut the affected system off from external networks to close the intrusion path. It disabled the account the attacker used. It reported the incident to the Korea Internet & Security Agency (KISA) and the Personal Information Protection Commission (according to Alpha Economy and Wikitree).",
+      "The company reportedly discarded and reissued stored access credentials. It also changed its internal login method to strengthen authentication (according to Seoul Economic Daily, as cited by Wikitree).",
+      "The company asked people to watch out for impersonation texts, emails and calls. It said it would strengthen its technical and administrative safeguards and security infrastructure to prevent a recurrence."
+    ],
+    "sources": [
+      {
+        "outlet": "EBN",
+        "date": "2026-11-26",
+        "url": "https://ebn.co.kr/news/articleView.html?idxno=1733171"
+      },
+      {
+        "outlet": "Wikitree",
+        "date": "2026-11-27",
+        "url": "https://www.wikitree.co.kr/articles/1178165"
+      },
+      {
+        "outlet": "Alpha Economy",
+        "date": "2026-11-27",
+        "url": "https://www.alphabiz.co.kr/news/articleView.html?idxno=200482"
+      }
+    ]
+  },
+  "suhyup-bank-2026-11": {
+    "overview": [
+      "Sh Suhyup Bank's website was hacked, and the data of 54 customers was leaked. The bank confirmed the leak on November 26 and reported it to the Financial Supervisory Service (according to Newsway and Insight Korea).",
+      "The attacker entered real-name ID numbers they had obtained beforehand into the website's customer information lookup and management page at random. In this way they pulled up customer records one by one (according to Newsway).",
+      "The attack ran for about 10 hours, from the evening of November 25 to the early hours of the next day. The bank noticed it only 7 hours and 50 minutes after it began (according to Newsway)."
+    ],
+    "timeline": [
+      {
+        "date": "2026-11-25",
+        "event": "At 6:40 p.m. the attack on the website's customer information lookup page began (according to Newsway)."
+      },
+      {
+        "date": "2026-11-26",
+        "event": "At 2:30 a.m. the bank became aware of the attack. The attack continued until 4:30 a.m. (according to Newsway)."
+      },
+      {
+        "date": "2026-11-26",
+        "event": "The bank confirmed that the data of 54 customers had leaked and reported it to the Financial Supervisory Service (according to Insight Korea)."
+      },
+      {
+        "date": "2026-11-27",
+        "event": "News1, Sisa Journal and other outlets reported the incident."
+      }
+    ],
+    "impact": [
+      "The data of 54 customers was leaked (according to News1 and Newsway).",
+      "Names, addresses, postcodes, home phone numbers, mobile numbers and email addresses were reported as included (according to News1 and Newsway).",
+      "Some reports say loan and credit information was also included. The leaked items differ between outlets and need confirmation (according to SR Times and Sisa Journal).",
+      "Whether more data leaked is still under investigation.",
+      "With this incident, five banks have now confirmed data leaks from hacking: Shinhan, KB Kookmin, Hana, BNK Busan and Suhyup (according to SR Times).",
+      "In October, Suhyup Bank also had a leak from the tuition payment system it runs for Pukyong National University, exposing the data of 5,108 students and staff (according to Insight Korea)."
+    ],
+    "cause": [
+      "The attacker is understood to have repeatedly entered real-name ID numbers obtained elsewhere into the website's lookup page. The page appears to have returned customer data on the number alone. Where the ID numbers came from has not been disclosed (according to Newsway).",
+      "The bank is also checking whether an unknown (zero-day) vulnerability was used. The exact intrusion path and cause are under investigation (according to SR Times)."
+    ],
+    "response": [
+      "The bank blocked the attacker's access and suspended the affected lookup service. It is monitoring for anomalies in day and night shifts (according to News1).",
+      "The incident analysis team at its cyber security control centre is analysing access logs to trace the attack path and cause. It is also checking whether similar intrusions happened in the past (according to SR Times and Sisa Journal).",
+      "The bank plans to notify affected customers individually and run a damage reporting centre. It will post an apology on its website and build a lookup service so customers can check whether their data leaked (according to Newsway and Sisa Journal)."
+    ],
+    "sources": [
+      {
+        "outlet": "Newsway",
+        "date": "2026-11-27",
+        "url": "https://www.newsway.co.kr/news/view?ud=2026112711332523430"
+      },
+      {
+        "outlet": "News1",
+        "date": "2026-11-27",
+        "url": "https://www.news1.kr/finance/general-finance/6368152"
+      },
+      {
+        "outlet": "SR Times",
+        "date": "2026-11-27",
+        "url": "http://www.srtimes.kr/news/articleView.html?idxno=218822"
+      },
+      {
+        "outlet": "Sisa Journal",
+        "date": "2026-11-27",
+        "url": "https://www.sisajournal.com/news/articleView.html?idxno=395465"
+      }
+    ]
   }
 }

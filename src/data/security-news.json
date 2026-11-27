@@ -6,7 +6,8 @@
     "title": "개인정보위, 유출사고 긴급 대응체계 가동…3개월 집중점검",
     "source": "전자신문",
     "url": "https://news.google.com/rss/articles/CBMiTkFVX3lxTE1aNjFsQnFhY2NjTWtlZFBpc295NFBaTHhrQm9DaWpTQWE4cEhXZGVWUW1sc1BXZ2hkd0tsbVlZdDhxYXY0YWNEQTdkRm9vQQ?oc=5",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-27",
@@ -15,7 +16,8 @@
     "title": "올해 개인정보 유출 신고 폭증…월평균 100건, 지난해 2배 \"AI 해킹 위협 현실화\" - 머니투데이",
     "source": "머니투데이",
     "url": "https://news.google.com/rss/articles/CBMibEFVX3lxTFBWRGJZdS1yd0pBQ2lmTmhyS2N6SFhhSGVZa0VXbmFrbm5mdnNMTWtzV3Nwa0tUZGpmU2g5TEdDcGtCanhxb25weG54QVVzQV9SRE95VG5CbUIyWG1BMmR5TmI2YlpaaDBBdWZ1N9IBbEFVX3lxTFBWRGJZdS1yd0pBQ2lmTmhyS2N6SFhhSGVZa0VXbmFrbm5mdnNMTWtzV3Nwa0tUZGpmU2g5TEdDcGtCanhxb25weG54QVVzQV9SRE95VG5CbUIyWG1BMmR5TmI2YlpaaDBBdWZ1Nw?oc=5",
-    "auto": true
+    "auto": true,
+    "hidden": true
   },
   {
     "date": "2026-11-27",
@@ -30,40 +32,76 @@
       "name": "luis gomes",
       "url": "https://www.pexels.com/photo/close-up-photo-of-programming-of-codes-546819/",
       "id": 546819
+    },
+    "hidden": true
+  },
+  {
+    "date": "2026-11-26",
+    "region": "국내",
+    "type": "개인정보 유출",
+    "title": "CJ올리브영, 사내 업무 시스템 해킹으로 임직원·고객 790명 개인정보 유출",
+    "source": "EBN",
+    "url": "https://ebn.co.kr/news/articleView.html?idxno=1733171",
+    "slug": "oliveyoung-2026-11",
+    "org": "CJ올리브영",
+    "aka": [
+      "올리브영",
+      "Olive Young",
+      "CJ Olive Young"
+    ],
+    "summary": "CJ올리브영의 사내 업무 시스템에 외부인이 무단으로 접속해, 임직원과 협력사 직원, 고객 등 790명의 회원번호와 일부 연락처 정보가 유출됐습니다(회사 공지, EBN 보도 기준).",
+    "image": "/images/security/auto/2026-11-26-08305343.jpg",
+    "credit": {
+      "name": "Pixabay",
+      "url": "https://www.pexels.com/photo/gray-wooden-computer-cubicles-inside-room-267507/",
+      "id": 267507
+    }
+  },
+  {
+    "date": "2026-11-26",
+    "region": "해외",
+    "type": "해킹",
+    "title": "FIFA, 사이버 공격으로 내부 정보 무단 접근 확인… 해킹 그룹은 다크웹에 자료 게시 주장",
+    "source": "경향신문",
+    "url": "https://www.khan.co.kr/article/202611262310001/",
+    "slug": "fifa-2026-11",
+    "org": "FIFA",
+    "aka": [
+      "국제축구연맹",
+      "피파",
+      "Handsome Boy Hacking Club",
+      "HBHC"
+    ],
+    "summary": "국제축구연맹(FIFA)이 사이버 공격으로 일부 개인정보와 업무 정보에 무단 접근이 있었다고 확인했습니다. 해킹 그룹은 12.2GB를 빼내 다크웹에 목록을 올렸다고 주장하지만, 이 자료가 FIFA 것인지는 확인되지 않았습니다(SRF 보도를 인용한 경향신문 보도 기준).",
+    "image": "/images/security/auto/2026-11-26-04d9416c.jpg",
+    "credit": {
+      "name": "Abdulvahap Demir",
+      "url": "https://www.pexels.com/photo/ball-on-football-pitch-16826134/",
+      "id": 16826134
     }
   },
   {
     "date": "2026-11-26",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "올리브영, 해킹 공격에 개인정보 유출… 790명 이름·연락처 노출",
-    "source": "천지일보",
-    "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE1VRkxsN1lSbFFmZEI2SnFXYV9GVVd3LTlwclRCTG9WRm1yZFY2UkItZWJGTU5aSTRXVkZweXV4N194c28xRUZRSVZVbG0wLVRyajhmSEdqakd0OG5EVzVTRURqWjcxUlprcVE?oc=5",
-    "auto": true
-  },
-  {
-    "date": "2026-11-26",
-    "region": "국내",
-    "type": "개인정보 유출",
-    "title": "FIFA까지 털렸다···“해킹 그룹, 다크웹에 자료 유출”",
-    "source": "경향신문",
-    "url": "https://news.google.com/rss/articles/CBMiWkFVX3lxTE9TdzBiNURqa3V6WjBadjlZYU1KN1hHdUdnaHc0UG9zRWI4Q2ZFVzJTVFJ2UnBYZlp5QnpvWWoxSlZTTXByVU1yYVJNeGFnVHVZSzNzUG5QTzdud9IBX0FVX3lxTE15b2h1ZWc3c2ttNEx6dmNVcWZrUVppS1RpckVTczRhVThIdlgtYk5Ubkdrb1NmYVJfQXhtRGExaU1TUXNxb3diTG01VmxpTWV3ZnFUNS01ZGlvWXBiRE1r?oc=5",
-    "auto": true
-  },
-  {
-    "date": "2026-11-26",
-    "region": "국내",
-    "type": "개인정보 유출",
-    "title": "수협은행도 해킹에 뚫렸다…고객 54명 정보 유출",
-    "source": "연합인포맥스",
-    "url": "https://news.google.com/rss/articles/CBMicEFVX3lxTE5aemFMMFV0QmN3bUpjcTFFVWVfeV9TYUJpQmFseWRDa05qYnd1eHlpSzFfeHpLUHFWNmRqTEJYcGxpblpEa1RleVFuYXNQZEUxcDlqWWd3XzlhUU9Hb05TTDc1YVRVRzUtT3ktUGJsTDc?oc=5",
-    "auto": true,
+    "title": "Sh수협은행, 홈페이지 고객정보 조회 화면 해킹으로 고객 54명 정보 유출",
+    "source": "뉴스웨이",
+    "url": "https://www.newsway.co.kr/news/view?ud=2026112711332523430",
     "image": "/images/security/auto/2026-11-26-bfb9114e.jpg",
     "credit": {
       "name": "Calvin Seng",
       "url": "https://www.pexels.com/photo/night-view-of-skyscrapers-in-singapore-s-financial-district-32229751/",
       "id": 32229751
-    }
+    },
+    "slug": "suhyup-bank-2026-11",
+    "org": "Sh수협은행",
+    "aka": [
+      "수협은행",
+      "Suhyup Bank",
+      "Sh Suhyup Bank",
+      "수협銀"
+    ],
+    "summary": "해커가 확보한 실명번호를 Sh수협은행 홈페이지의 고객 본인정보 조회 화면에 무작위로 넣어, 고객 54명의 정보를 빼냈습니다(뉴스웨이·뉴스1 보도 기준)."
   },
   {
     "date": "2026-11-26",
@@ -79,10 +117,24 @@
     "date": "2026-11-25",
     "region": "국내",
     "type": "개인정보 유출",
-    "title": "MMORPG ‘다크에덴’서 개인정보 유출... 홈페이지 취약점 악용 공격에 당했다",
+    "title": "MMORPG 다크에덴, 홈페이지 취약점 공격으로 접속 회원 정보 유출",
     "source": "보안뉴스",
-    "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9NUXA5X245Rl84S1FGZmNfMlBQNGQ2X3haOVNHLXNHLUFXVG9HaUtQQ0NVSHRsVDdxNVRJWk1qeVVDUVFrZ2VpRnJVb3hSNUF2WWV1RUI3dzA5d0llcjRMVGkwanJEOFRwZXUw?oc=5",
-    "auto": true
+    "url": "https://www.boannews.com/news/articleView.html?idxno=147539",
+    "slug": "softon-2026-11",
+    "org": "소프톤",
+    "aka": [
+      "다크에덴",
+      "소프톤엔터테인먼트",
+      "Dark Eden",
+      "Softon"
+    ],
+    "summary": "MMORPG '다크에덴'의 홈페이지가 취약점을 노린 외부 공격을 받아, 공격 기간에 접속해 있던 일부 회원의 정보가 유출됐습니다(운영사 소프톤 공지 기준).",
+    "image": "/images/security/auto/2026-11-25-51ebf57e.jpg",
+    "credit": {
+      "name": "Atahan Demir",
+      "url": "https://www.pexels.com/photo/rgb-backlit-mechanical-keyboard-in-gaming-setup-33888380/",
+      "id": 33888380
+    }
   },
   {
     "date": "2026-11-26",
